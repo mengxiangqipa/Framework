@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="google_colors">
+        <item>@color/lib_ptr_red</item>
+        <item>@color/lib_ptr_blue</item>
+        <item>@color/lib_ptr_yellow</item>
+        <item>@color/lib_ptr_green</item>
+    </integer-array>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lib_ptr_white">#FFFFFF</color>
+    <color name="lib_ptr_black">#000000</color>
+    <color name="lib_ptr_gray">#aaaaaa</color>
+    <color name="lib_ptr_light_blue">#6593cb</color>
+    <color name="lib_ptr_red">#FFC93437</color>
+    <color name="lib_ptr_blue">#FF375BF1</color>
+    <color name="lib_ptr_yellow">#FFF7D23E</color>
+    <color name="lib_ptr_green">#FF34A350</color>
+
+
+    <color name="lib_ptr_colorPrimary">#3F51B5</color>
+    <color name="lib_ptr_colorPrimaryDark">#303F9F</color>
+    <color name="lib_ptr_colorAccent">#333333</color>
+</resources>
