@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppFramework/AppFramework.iml" filepath="$PROJECT_DIR$/AppFramework/AppFramework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Demo-AppFramework.iml" filepath="$PROJECT_DIR$/Demo-AppFramework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GitHub-AppFramework.iml" filepath="$PROJECT_DIR$/GitHub-AppFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Libraries.iml" filepath="$PROJECT_DIR$/Libraries/Libraries.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" filepath="$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Emoji/Library-Emoji.iml" filepath="$PROJECT_DIR$/Libraries/Library-Emoji/Library-Emoji.iml" />

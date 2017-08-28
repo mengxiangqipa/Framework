@@ -23,6 +23,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url "https://jitpack.io" }//这个是自定义的maven仓库，上传自己的library需要
         mavenLocal()
         jcenter()
     }

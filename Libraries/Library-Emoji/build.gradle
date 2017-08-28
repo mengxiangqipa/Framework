@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 apply plugin: 'com.jakewharton.butterknife'//Butterknife注解插件，不使用Butterknife注解插件就删除 library时必须有
 
 android {
