@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
+//apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 
 android {
     compileSdkVersion 25
