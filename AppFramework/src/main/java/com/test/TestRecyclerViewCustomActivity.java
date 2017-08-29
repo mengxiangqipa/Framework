@@ -100,6 +100,7 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
                         case 2:
                             layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedContent);
                             dialog.dismiss();
+                            break;
                         case 3:
                             layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeaderHover);
                             dialog.dismiss();
