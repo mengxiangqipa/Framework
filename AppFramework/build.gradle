@@ -94,15 +94,12 @@ android {
 //            v2SigningEnabled true
 //        }
         release {
-            try {
-                storeFile file("AppFramework.jks")
-                storePassword "123456"
-                keyAlias "com.demo.appframework"
-                keyPassword "123456"
-                v1SigningEnabled true
-                v2SigningEnabled true
-            } catch (Exception e) {
-            }
+            storeFile file("AppFramework.jks")
+            storePassword "123456"
+            keyAlias "com.demo.appframework"
+            keyPassword "123456"
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
 //        release {
 //            try {
