@@ -17,14 +17,14 @@ android {
     }
     def date = new Date().format("yyyyMMddHHmm")
     boolean hasFlavors = flavors.size() > 0
-//    android.applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            def fileName = hasFlavors ? "${project.name}-${buildType.name}-${defaultConfig.versionName}-${defaultConfig.versionCode}" + "-${variant.flavorName}" + ".apk"
-//                    : "${project.name}-${buildType.name}-${defaultConfig.versionName}-${defaultConfig.versionCode}" + ".apk"
-////            delete(output.outputFile.parent)//删除apk文件夹
-//            output.outputFile = new File(output.outputFile.parent, fileName)
-//        }
-//    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def fileName = hasFlavors ? "${project.name}-${buildType.name}-${defaultConfig.versionName}-${defaultConfig.versionCode}" + "-${variant.flavorName}" + ".apk"
+                    : "${project.name}-${buildType.name}-${defaultConfig.versionName}-${defaultConfig.versionCode}" + ".apk"
+//            delete(output.outputFile.parent)//删除apk文件夹
+            output.outputFile = new File(output.outputFile.parent, fileName)
+        }
+    }
     //以下为渠道打包
 //    productFlavors {
 //        company {}
