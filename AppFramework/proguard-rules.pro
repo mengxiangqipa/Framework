@@ -307,6 +307,7 @@
 
 #防止这个类混淆出错 com.asiainfo.andcampus.util.TabLayoutIndicatorUtil(android.support.design.widget.TabLayout用了反射
     -keep public class  android.support.design.**{*;}
+    -keep public class com.framework2.tinker.app.**{*;}#用了反射
 
 
 
