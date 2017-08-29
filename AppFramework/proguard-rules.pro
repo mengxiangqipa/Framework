@@ -39,8 +39,8 @@
     -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
     #保护注解
-#    -keepattributes *Annotation*
-#    -keepattributes InnerClasses
+    -keepattributes *Annotation*
+    -keepattributes InnerClasses
     #保持泛型
     -keepattributes Signature
     #保留行号
@@ -48,19 +48,21 @@
     #保留反射
     -keepattributes EnclosingMethod
      # 保持哪些类不被混淆
-#2017/05/31    -keep public class * extends android.app.Fragment
-#2017/05/31    -keep public class * extends android.app.Activity
-    -keep public class * extends android.app.Service
-    -keep public class * extends android.content.BroadcastReceiver
-    -keep public class * extends android.content.ContentProvider
-#2017/05/31    -keep public class * extends android.preference.Preference
-#2017/05/31    -keep public class * extends android.support.v4.app.FragmentActivity
-#2017/05/31    -keep public class * extends android.support.multidex.MultiDexApplication
-#2017/05/31    -keep public class * extends android.app.Application
-#2017/05/31    -keep public class * extends android.app.backup.BackupAgentHelper
-#2017/05/31    -keep class android.support.** {*;}
+#2017/05/31 -keep public class * extends android.app.Fragment
+#2017/05/31
+#     -keep public class * extends android.app.Activity
+#    -keep public class * extends android.app.Service
+#    -keep public class * extends android.content.BroadcastReceiver
+#    -keep public class * extends android.content.ContentProvider
+#2017/05/31 -keep public class * extends android.preference.Preference
+#2017/05/31 -keep public class * extends android.support.v4.app.FragmentActivity
+#2017/05/31 -keep public class * extends android.support.multidex.MultiDexApplication
+#2017/05/31 -keep public class * extends android.app.Application
+#2017/05/31 -keep public class * extends android.app.backup.BackupAgentHelper
+#2017/05/31 -keep class android.support.** {*;}
     #如果有引用v4包可以添加下面这行
-#2017/05/31    -keep public class * extends android.support.v4.app.Fragment
+#2017/05/31
+#-keep public class * extends android.support.v4.app.Fragment
     #忽略警告
     -ignorewarning
 
@@ -76,79 +78,91 @@
     #-------------记录生成的日志数据，gradle build时 在本项目根目录输出-end######
 
      #保持 native 方法不被混淆
-        -keepclasseswithmembernames class * {
-            native <methods>;
-        }
+#        -keepclasseswithmembernames class * {
+#            native <methods>;
+#        }
 
         #保持自定义控件类不被混淆
-#2017/05/31        -keepclasseswithmembers class * {
-#2017/05/31            public <init>(android.content.Context, android.util.AttributeSet);
-#2017/05/31            public <init>(android.content.Context, android.util.AttributeSet, int);
-#2017/05/31        }
+#2017/05/31
+#-keepclasseswithmembers class * {
+# public <init>(android.content.Context, android.util.AttributeSet);
+#  public <init>(android.content.Context, android.util.AttributeSet, int);
+#}
 
         #保持自定义控件类不被混淆
-#2017/05/31        -keepclassmembers class * extends android.app.Activity {
-#2017/05/31           public void *(android.view.View);
-#2017/05/31        }
+#2017/05/31
+#  -keepclassmembers class * extends android.app.Activity {
+#      public void *(android.view.View);
+#      }
 
         #保持 Parcelable 不被混淆
-#2017/05/31        -keep class * implements android.os.Parcelable {
-#2017/05/31          public static final android.os.Parcelable$Creator *;
-#2017/05/31        }
+#2017/05/31
+# -keep class * implements android.os.Parcelable {
+#      public static final android.os.Parcelable$Creator *;
+#     }
 
         #保持 Serializable 不被混淆
-#2017/05/31        -keepnames class * implements java.io.Serializable
+#2017/05/31 -keepnames class * implements java.io.Serializable
 
         #保持 Serializable 不被混淆并且enum 类也不被混淆
-#2017/05/31        -keepclassmembers class * implements java.io.Serializable {
-#2017/05/31            static final long serialVersionUID;
-#2017/05/31            private static final java.io.ObjectStreamField[] serialPersistentFields;
-#2017/05/31            !static !transient <fields>;
-#2017/05/31           !private <fields>;
-#2017/05/31            !private <methods>;
-#2017/05/31            private void writeObject(java.io.ObjectOutputStream);
-#2017/05/31            private void readObject(java.io.ObjectInputStream);
-#2017/05/31            java.lang.Object writeReplace();
-#2017/05/31            java.lang.Object readResolve();
-#2017/05/31        }
+#2017/05/31
+#  -keepclassmembers class * implements java.io.Serializable {
+#        static final long serialVersionUID;
+#         private static final java.io.ObjectStreamField[] serialPersistentFields;
+#         !static !transient <fields>;
+#          !private <fields>;
+#         !private <methods>;
+#         private void writeObject(java.io.ObjectOutputStream);
+#         private void readObject(java.io.ObjectInputStream);
+#          java.lang.Object writeReplace();
+#         java.lang.Object readResolve();
+#     }
 
         #保持枚举 enum 类不被混淆 如果混淆报错，建议直接使用上面的 -keepclassmembers class * implements java.io.Serializable即可
-#2017/05/31        -keepclassmembers enum * {
-#2017/05/31          public static **[] values();
-#2017/05/31          public static ** valueOf(java.lang.String);
-#2017/05/31        }
+#2017/05/31
+#    -keepclassmembers enum * {
+#      public static **[] values();
+#       public static ** valueOf(java.lang.String);
+#     }
 
         #这个主要是在layout 中写的onclick方法android:onclick="onClick"，不进行混淆
-#2017/05/31        -keepclassmembers class * extends android.app.Activity {
-#2017/05/31           public void *(android.view.View);
-#2017/05/31        }
+#2017/05/31
+#   -keepclassmembers class * extends android.app.Activity {
+#       public void *(android.view.View);
+#     }
         #不混淆资源类
-#2017/05/31        -keepclassmembers class **.R$* {
-#2017/05/31            public static <fields>;
-#2017/05/31        }
-#2017/05/31        -keep public class * extends android.view.View {
-#2017/05/31               public <init>(android.content.Context);
-#2017/05/31               public <init>(android.content.Context, android.util.AttributeSet);
-#2017/05/31               public <init>(android.content.Context, android.util.AttributeSet, int);
-#2017/05/31               public void set*(...);
-#2017/05/31               *** get*();
-#2017/05/31           }
-#2017/05/31           -keep class **.R$* {
-#2017/05/31            *;
-#2017/05/31           }
-#2017/05/31           #---------------------------------webview------------------------------------
-#2017/05/31           -keepclassmembers class fqcn.of.javascript.interface.for.Webview {
-#2017/05/31             public *;
-#2017/05/31           }
-#2017/05/31           -keepclassmembers class * extends android.webkit.WebViewClient {
-#2017/05/31               public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
-#2017/05/31               public boolean *(android.webkit.WebView, java.lang.String);
-#2017/05/31           }
-#2017/05/31           -keepclassmembers class * extends android.webkit.WebViewClient {
-#2017/05/31               public void *(android.webkit.WebView, jav.lang.String);
-#2017/05/31            }
+#2017/05/31
+#   -keepclassmembers class **.R$* {
+#        public static <fields>;
+#      }
+#2017/05/31
+#     -keep public class * extends android.view.View {
+#            public <init>(android.content.Context);
+#           public <init>(android.content.Context, android.util.AttributeSet);
+#           public <init>(android.content.Context, android.util.AttributeSet, int);
+#           public void set*(...);
+#            *** get*();
+#       }
+#2017/05/31
+#       -keep class **.R$* {
+#        *;
+#        }
+#2017/05/31
+   #---------------------------------webview------------------------------------
+#2017/05/31
+#     -keepclassmembers class fqcn.of.javascript.interface.for.Webview {
+#        public *;
+#     }
+#2017/05/31
+#       -keepclassmembers class * extends android.webkit.WebViewClient {
+#        public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+#           public boolean *(android.webkit.WebView, java.lang.String);
+#       }
+#      -keepclassmembers class * extends android.webkit.WebViewClient {
+#            public void *(android.webkit.WebView, jav.lang.String);
+#          }
     #忽略警告/如果引用了v4或者v7包
-#2017/05/31    -dontwarn android.support.**
+#2017/05/31 -dontwarn android.support.**
 
 
 #把混淆类中的方法名也混淆了
@@ -162,7 +176,11 @@
 
 
 
+
     #如果不想混淆 keep 掉
+    #keep tencent
+    -keep class com.tencent.**{*;}
+    -dontwarn com.tencent.**
 
     -keep class com.google.android.**{*;}
     -dontwarn com.google.android.**
@@ -171,10 +189,6 @@
     -keep class com.unionpay.**{*;}
     -dontwarn com.unionpay.**
 
-     #keep P2000
-     -keep class com.basewin.** {*;}
-    -dontwarn com.basewin.**
-
      #keep gson
      -keep class com.google.gson.** {*;}
      -dontwarn com.google.gson.**
@@ -182,14 +196,6 @@
     #keep ksoap2
     -keep class org.** {*;}
     -dontwarn org.**
-
-    #keep ormlite
-     -keep class com.j256.ormlite.** {*;}
-    -dontwarn com.j256.ormlite.**
-
-    #keep wanliansdk
-     -keep class com.wanlianapp.wanliansdk.** {*;}
-    -dontwarn com.wanlianapp.wanliansdk.**
 
      #keep 友盟
      -keep class com.umeng.**{*;}
@@ -264,6 +270,10 @@
      -keep class com.tencent.**{ *;}
      -dontwarn com.tencent.**
 
+    -keep class com.tencent.mm.opensdk.** {*;}
+    -keep class com.tencent.wxop.** {*; }
+    -keep class com.tencent.mm.sdk.** {*;}
+
      #keep eventbus
     -keepclassmembers class ** {
         @org.greenrobot.eventbus.Subscribe <methods>;
@@ -287,3 +297,16 @@
       **[] $VALUES;
       public *;
     }
+
+    # greenDao混淆 3.0及以上Scan
+    -keep class org.greenrobot.dao.** {*;}
+    -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static java.lang.String TABLENAME;
+    }
+    -keep class **$Properties
+
+#防止这个类混淆出错 com.asiainfo.andcampus.util.TabLayoutIndicatorUtil(android.support.design.widget.TabLayout用了反射
+    -keep public class  android.support.design.**{*;}
+
+
+
