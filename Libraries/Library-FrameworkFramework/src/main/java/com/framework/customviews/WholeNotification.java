@@ -213,13 +213,12 @@ public class WholeNotification implements View.OnTouchListener
 
     public void show()
     {
-        autoDismiss();
         if (!isShowing)
         {
             isShowing = true;
             mWindowManager.addView(mContentView, mWindowParams);
-            autoDismiss();
         }
+        autoDismiss();
     }
 
     public void dismiss()
