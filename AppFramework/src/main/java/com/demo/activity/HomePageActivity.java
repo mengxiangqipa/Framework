@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,7 @@ import com.framework.Utils.PreferencesHelper;
 import com.framework.Utils.RequestPermissionsUtil;
 import com.framework.Utils.ToastUtil;
 import com.framework.Utils.Y;
+import com.framework.customviews.WholeNotification;
 import com.framework2.utils.PicToastUtil;
 import com.framework2.dialog.UpdateDialog;
 import com.framework2.okhttp3.Ok3Util;
@@ -292,5 +294,16 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                 ToastUtil.getInstance().showToast("未能获取定位权限，将会导致无法定位!");
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification, null);
+        final WholeNotification wholeNotification=new WholeNotification.Builder().setContext(HomePageActivity.this)
+                .setView(view)
+                .setMonitorTouch(false)
+                .build();
+        return super.onKeyDown(keyCode, event);
     }
 }
