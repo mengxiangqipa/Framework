@@ -28,7 +28,7 @@ public class WholeNotification implements View.OnTouchListener
     private static final int DIRECTION_NONE = 0;
     private static final int DIRECTION_RIGHT = 1;
 
-    private static final int DISMISS_INTERVAL = 3000;
+    private static final int DISMISS_INTERVAL = 2000;
 
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowParams;
@@ -213,6 +213,7 @@ public class WholeNotification implements View.OnTouchListener
 
     public void show()
     {
+        autoDismiss();
         if (!isShowing)
         {
             isShowing = true;
