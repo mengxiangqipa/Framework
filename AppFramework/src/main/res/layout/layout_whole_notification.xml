@@ -55,15 +55,6 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="11:20"
-            android:textColor="#8F8F8F"
-            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>

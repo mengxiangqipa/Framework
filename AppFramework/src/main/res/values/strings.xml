@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="exist">再按一次退出</string>
     <string name="app_name">AppFramework</string>
     <string name="content">AppFramework:\n&#x000A;■.修改包名\n&#x000A;■.改混淆文件\n&#x000A;■.library-module/test里面有测试使用方法\n&#x000A;■.去掉不用的library-module\n&#x000A;
    ■.剩余library-module里面的test删除\n&#x000A; </string>
