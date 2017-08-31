@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.framework.Utils.DownLoadObserver;
 import com.framework.Utils.PackageManagerUtil;
 import com.framework.Utils.PreferencesHelper;
 import com.framework.Utils.RequestPermissionsUtil;
+import com.framework.Utils.ScreenUtils;
 import com.framework.Utils.ToastUtil;
 import com.framework.Utils.Y;
 import com.framework.customviews.WholeNotification;
@@ -302,6 +304,10 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - this.exitTime > 2000L) {
                 View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification, null);
+                View v_state_bar = view.findViewById(R.id.v_state_bar);
+                ViewGroup.LayoutParams layoutParameter = v_state_bar.getLayoutParams();
+                layoutParameter.height = ScreenUtils.getInstance().getStatusBarHeightPx(this);
+                v_state_bar.setLayoutParams(layoutParameter);
                 ((TextView)view.findViewById(R.id.tv_content)).setText(this.getResources().getString(R.string.exist) + this.getResources().getString(R.string.app_name));
                 final WholeNotification wholeNotification=new WholeNotification.Builder().setContext(HomePageActivity.this)
                         .setView(view)
