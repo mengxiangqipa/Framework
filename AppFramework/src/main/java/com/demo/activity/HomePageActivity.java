@@ -304,7 +304,7 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
 
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        Y.y("再按一次:" + (System.currentTimeMillis() - this.exitTime));
+        Y.y("再按一次:");
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
         {
             if (System.currentTimeMillis() - this.exitTime > 2000L)
