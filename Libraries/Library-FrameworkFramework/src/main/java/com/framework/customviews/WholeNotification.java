@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.framework.R;
+import com.framework.Utils.Y;
 
 /**
  * 全局通知
@@ -111,6 +112,7 @@ public class WholeNotification implements View.OnTouchListener
         {
             case MotionEvent.ACTION_DOWN:
                 downX = (int) event.getRawX();
+                Y.y("onTouch:" + downX);
                 break;
             case MotionEvent.ACTION_MOVE:
                 //处于滑动状态就取消自动消失

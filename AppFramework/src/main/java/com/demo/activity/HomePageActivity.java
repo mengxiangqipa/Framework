@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -298,32 +299,40 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
         }
     }
 
-
+    private WholeNotification wholeNotification;
     private long exitTime;
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (System.currentTimeMillis() - this.exitTime > 2000L) {
+
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        Y.y("再按一次:" + (System.currentTimeMillis() - this.exitTime));
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+        {
+            if (System.currentTimeMillis() - this.exitTime > 2000L)
+            {
+                this.exitTime = System.currentTimeMillis();
                 View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification, null);
                 View v_state_bar = view.findViewById(R.id.v_state_bar);
                 ViewGroup.LayoutParams layoutParameter = v_state_bar.getLayoutParams();
                 layoutParameter.height = ScreenUtils.getInstance().getStatusBarHeightPx(this);
                 v_state_bar.setLayoutParams(layoutParameter);
-                ((TextView)view.findViewById(R.id.tv_content)).setText(this.getResources().getString(R.string.exist) + this.getResources().getString(R.string.app_name));
-                final WholeNotification wholeNotification=new WholeNotification.Builder().setContext(HomePageActivity.this)
+                ((TextView) view.findViewById(R.id.tv_content)).setText(this.getResources().getString(R.string.exist) + this.getResources().getString(R.string.app_name));
+                wholeNotification = new WholeNotification.Builder().setContext(HomePageActivity.this)
                         .setView(view)
                         .setMonitorTouch(false)
                         .build();
                 wholeNotification.show();
-                this.exitTime = System.currentTimeMillis();
-            } else {
+                return false;
+            } else
+            {
+                wholeNotification.dismiss();
                 // 返回主界面
                 /**
                  * 退出登录,清空数据
                  */
-//                Intent intent_home = new Intent(Intent.ACTION_MAIN);
-//                intent_home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent_home.addCategory(Intent.CATEGORY_HOME);
-//                startActivity(intent_home);
+                Intent intent_home = new Intent(Intent.ACTION_MAIN);
+                intent_home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent_home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent_home);
 //                finish();
 //                System.exit(0);
                 ////////////////////
@@ -331,7 +340,8 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                 android.os.Process.killProcess(pid);
             }
             return true;
-        } else {
+        } else
+        {
             return super.onKeyDown(keyCode, event);
         }
     }
