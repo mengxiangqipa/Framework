@@ -3,12 +3,12 @@ apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group='com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -29,7 +29,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile rootProject.ext.androidSupport.support_v4
 }
 
 //---------------------------------------------

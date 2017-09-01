@@ -3,7 +3,6 @@ apply plugin: 'org.greenrobot.greendao'//应用GreenDao数据库插件，不使�
 apply plugin: 'com.jakewharton.butterknife'//Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
 apply plugin: 'AndResGuard'//微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名
 
-
 android {
     dataBinding {
         enabled = true
