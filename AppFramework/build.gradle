@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'//应用GreenDao数据库插件，不使用GreenDao数据库，将其删除
-//apply plugin: 'com.neenbedankt.android-apt'//Butterknife注解插件，不使用Butterknife注解插件就删除
 apply plugin: 'com.jakewharton.butterknife'//Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
 apply plugin: 'AndResGuard'//微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名
 
@@ -155,18 +154,18 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     //ok3网络请求
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
     //GreenDao数据库插件，不使用GreenDao数据库，将其删除
-    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao:3.2.2'
     //butterknife注解
-//    compile 'com.jakewharton:butterknife:8.4.0'
-//    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
+    //    compile 'com.jakewharton:butterknife:8.4.0'
+    //    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //glide加载图片
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+//    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'com.github.bumptech.glide:okhttp3-integration:4.0.0'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
     //jsoup java抓包html
     compile 'org.jsoup:jsoup:1.10.3'
     //cardview
