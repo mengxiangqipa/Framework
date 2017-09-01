@@ -69,11 +69,17 @@
             android:clickable="true"
             android:text="清除引导标识" />
         <Button
-            android:id="@+id/btnEmoji"
+        android:id="@+id/btnEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="聊骚表情" />
+        <Button
+            android:id="@+id/btnUcrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:text="聊骚表情" />
+            android:text="图片裁剪" />
         <CalendarView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

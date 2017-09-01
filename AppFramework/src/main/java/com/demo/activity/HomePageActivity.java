@@ -191,7 +191,7 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
     }
 
 
-    @OnClick({R.id.btnRefreshTest, R.id.btnTinker, R.id.btnLogout, R.id.btnGuide, R.id.btnEmoji})
+    @OnClick({R.id.btnRefreshTest, R.id.btnTinker, R.id.btnLogout, R.id.btnGuide, R.id.btnEmoji, R.id.btnUcrop})
     public void onViewClicked(View view)
     {
         switch (view.getId())
@@ -211,6 +211,9 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                 PicToastUtil.getInstance().showPicToast(this, "下次启动可见Guide");
                 break;
             case R.id.btnEmoji:
+                startActivity(EmojiDetailActivity.class);
+                break;
+            case R.id.btnUcrop:
                 startActivity(EmojiDetailActivity.class);
                 break;
         }
