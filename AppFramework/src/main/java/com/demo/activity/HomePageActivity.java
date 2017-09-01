@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 import com.demo.adapter.ADPagerAdapter;
 import com.demo.configs.ConstantsME;
 import com.demo.configs.EventBusTag;
@@ -157,8 +158,8 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                 .connectTimeout(15000, TimeUnit.MILLISECONDS).retryOnConnectionFailure(false)).addToRequestQueueAsynchoronous(jsonRequest);
         viewPager();
         ImageView ivGlide = (ImageView) findViewById(R.id.ivGlide);
-        Glide.with(this).load("http://img.my.csdn.net/uploads/201508/05/1438760757_3588.jpg")
-                .priority(Priority.HIGH).into(ivGlide);
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)).load("http://img.my.csdn.net/uploads/201508/05/1438760757_3588.jpg")
+               .into(ivGlide);
     }
 
     @SuppressWarnings("unchecked")
