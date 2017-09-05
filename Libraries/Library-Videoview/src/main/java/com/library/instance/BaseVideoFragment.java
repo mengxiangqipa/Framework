@@ -105,14 +105,6 @@ public class BaseVideoFragment extends Fragment implements CacheListener
         baseCustomVideoViewWithUI.resetVolumAndBrightness();
     }
 
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        baseCustomVideoViewWithUI.resetVolumAndBrightness();
-        baseCustomVideoViewWithUI.stopPlayback();
-        HttpProxyCacheServerUtil.getInstance().getProxy(getActivity()).unregisterCacheListener(this);
-    }
 
     @Override
     public void onResume()
@@ -145,6 +137,15 @@ public class BaseVideoFragment extends Fragment implements CacheListener
     public void onDestroyView()
     {
         super.onDestroyView();
+        try
+        {
+            baseCustomVideoViewWithUI.resetVolumAndBrightness();
+            baseCustomVideoViewWithUI.stopPlayback();
+            HttpProxyCacheServerUtil.getInstance().getProxy(getActivity()).unregisterCacheListener(this);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         unbinder.unbind();
     }
 
