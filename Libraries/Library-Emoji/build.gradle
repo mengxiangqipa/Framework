@@ -38,8 +38,7 @@ dependencies {
     compile rootProject.ext.androidSupport.appcompat_v7
 }
 
-//---------------------------------------------
-
+//以下上传jitPack 生成注释需要 ---------------------------------------------
 // 指定编码
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
@@ -52,7 +51,7 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    failOnError  false
+    failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile
@@ -68,3 +67,4 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+//以上  上传jitPack 生成注释需要 ---------------------------------------------

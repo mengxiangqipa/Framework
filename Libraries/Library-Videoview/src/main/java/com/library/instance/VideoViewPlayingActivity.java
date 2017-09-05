@@ -1,4 +1,4 @@
-package com.library.test;
+package com.library.instance;
 
 import com.library.videoview.CustomVideoViewWithUI;
 import com.library.videoview.utils.ScreenUtils;

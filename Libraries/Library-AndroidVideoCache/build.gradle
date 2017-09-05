@@ -32,3 +32,35 @@ dependencies {
     compile 'org.slf4j:slf4j-android:1.7.25'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
 }
+
+
+//以下上传jitPack 生成注释需要 ---------------------------------------------
+// 指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+// 打包源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// 制作文档(Javadoc)
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+//以上  上传jitPack 生成注释需要 ---------------------------------------------

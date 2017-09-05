@@ -27,8 +27,7 @@ dependencies {
     compile rootProject.ext.androidSupport.support_v4
 }
 
-//---------------------------------------------
-
+//以下上传jitPack 生成注释需要 ---------------------------------------------
 // 指定编码
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
@@ -57,3 +56,4 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+//以上  上传jitPack 生成注释需要 ---------------------------------------------
