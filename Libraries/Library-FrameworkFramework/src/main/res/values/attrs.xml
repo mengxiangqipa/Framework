@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--圆形图片-->
+    <declare-styleable name="CustomRoundImageView_new">
+        <attr name="borderRadius_new" format="dimension"/>
+        <attr name="type_new">
+            <enum name="circle" value="0"/>
+            <enum name="round" value="1"/>
+        </attr>
+        <attr name="mBorderThicknessInside" format="dimension"/>
+        <attr name="mBorderInsideColor" format="color"/>
+    </declare-styleable>
+    <!--4方向抽屉-->
+    <declare-styleable name="MultiDirectionSlidingDrawer">
+        <attr name="handle" format="reference"/>
+        <attr name="content" format="reference"/>
+        <attr name="direction">
+            <enum name="rightToLeft" value="0"/>
+            <enum name="bottomToTop" value="1"/>
+            <enum name="leftToRight" value="2"/>
+            <enum name="topToBottom" value="3"/>
+        </attr>
+        <attr name="bottomOffset" format="dimension"/>
+        <attr name="topOffset" format="dimension"/>
+        <attr name="allowSingleTap" format="boolean"/>
+        <attr name="animateOnClick" format="boolean"/>
+    </declare-styleable>
+    <!-- 截图 -->
+    <declare-styleable name="CropImageView">
+        <attr name="imgSrc" format="reference"/>
+        <attr name="cropMode">
+            <enum name="ratio_fit_image" value="0"/>
+            <enum name="ratio_4_3" value="1"/>
+            <enum name="ratio_3_4" value="2"/>
+            <enum name="ratio_1_1" value="3"/>
+            <enum name="ratio_16_9" value="4"/>
+            <enum name="ratio_9_16" value="5"/>
+            <enum name="ratio_free" value="6"/>
+            <enum name="ratio_custom" value="7"/>
+        </attr>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="overlayColor" format="color"/>
+        <attr name="frameColor" format="color"/>
+        <attr name="handleColor" format="color"/>
+        <attr name="guideColor" format="color"/>
+        <attr name="guideShowMode">
+            <enum name="show_always" value="1"/>
+            <enum name="show_on_touch" value="2"/>
+            <enum name="not_show" value="3"/>
+        </attr>
+        <attr name="handleShowMode">
+            <enum name="show_always" value="1"/>
+            <enum name="show_on_touch" value="2"/>
+            <enum name="not_show" value="3"/>
+        </attr>
+        <attr name="handleSize" format="dimension"/>
+        <attr name="touchPadding" format="dimension"/>
+        <attr name="minFrameSize" format="dimension"/>
+        <attr name="frameStrokeWeight" format="dimension"/>
+        <attr name="guideStrokeWeight" format="dimension"/>
+        <attr name="cropEnabled" format="boolean"/>
+    </declare-styleable>
+    <!--任务完成进度-->
+    <declare-styleable name="TasksCompletedView">
+        <attr name="radius" format="dimension"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="ringColor" format="color"/>
+    </declare-styleable>
+    <!--文件菜单展开-->
+    <declare-styleable name="FoldingMenu">
+        <attr name="foldNumber" format="integer"/>
+    </declare-styleable>
+</resources>

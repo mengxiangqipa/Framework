@@ -1,0 +1,3 @@
+<resources>
+    <string name="preferences_provider_authority">com.framework.framework</string>
+</resources>

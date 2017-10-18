@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.demo.demo">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <application
+        android:name="com.demo.application.ShareApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_android_blue_24dp"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:screenOrientation="portrait"
+        android:theme="@style/HomepageStyle">
+
+        <activity
+            android:name="com.demo.activity.LaunchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.demo.activity.SplashActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
+        </activity>
+
+        <activity
+            android:name="com.demo.activity.EmojiDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <activity
+            android:name="com.demo.activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!--android:theme="@style/MyThemeTranslucent"-->
+        <activity
+            android:name="com.demo.activity.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <activity
+            android:name="com.demo.activity.ForgetPasswordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <activity
+            android:name="com.demo.activity.HomePageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <!--测试用，可删除-->
+        <activity
+            android:name="com.test.MainActivity"
+            android:theme="@style/MyThemeTranslucent"/>
+        <activity android:name="com.test.PullableExpandableListViewActivity"/>
+        <activity android:name="com.test.PullableGridViewActivity"/>
+        <activity android:name="com.test.PullableListViewActivity"/>
+        <activity android:name="com.test.PullableScrollViewActivity"/>
+        <activity android:name="com.test.PullableWebViewActivity"/>
+        <activity android:name="com.test.PullableImageViewActivity"/>
+        <activity android:name="com.test.PullableTextViewActivity"/>
+        <activity android:name="com.test.TestRecyclerViewClassicalActivity"/>
+        <activity android:name="com.test.TestRecyclerViewSoftClassicalActivity"/>
+        <activity android:name="com.test.TestRecyclerViewCustomActivity"/>
+        <activity
+            android:name="com.test.TestRecyclerViewAutoLoadClassicalActivity"
+            android:theme="@style/ThemeNoActionBar"/>
+        <activity
+            android:name="com.test.TestRecyclerViewAutoLoadClassicalSwipeActivity"
+            android:theme="@style/ThemeNoActionBar"/>
+        <activity
+            android:name="com.test.TestRecyclerViewDragActivity"
+            android:theme="@style/ThemeNoActionBar"/>
+        <activity
+            android:name="com.test.TestRecyclerViewSwipeActivity"
+            android:theme="@style/ThemeNoActionBar"/>
+        <activity
+            android:name="com.test.TestRecyclerViewSwipe2Activity"
+            android:theme="@style/ThemeNoActionBar"/>
+        <activity android:name="com.test.TestListviewClassicalActivity"/>
+        <activity android:name="com.test.TestListviewStoreHouseActivity"/>
+        <activity android:name="com.test.TestListviewMaterialActivity"/>
+        <activity android:name="com.test.TestListviewRentalsSunActivity"/>
+        <activity android:name="com.framework2.tinker.app.TinkerMainActivity"/>
+
+
+        <activity
+            android:name="com.demo.commonWebview.CommonFullTBSWebViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.demo.commonWebview.CommonFullWebViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity
+            android:name="com.demo.commonWebview.CommonFullWebViewToolBarActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <!-- *************************以下为QQ登录************************* -->
+        <!--QQ登录-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent1106106460"/>
+                <!-- 100380359 100381104 222222 -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!--QQ登录-->
+        <!-- *************************以上为QQ登录************************* -->
+
+        <!-- *************************以下为微信回调activity************************* -->
+        <!--微信登录回调-->
+        <activity
+            android:name="com.demo.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--微信登录回调-->
+        <!-- *************************以上为微信回调activity************************* -->
+
+
+
+        <service
+            android:name="com.framework2.tinker.service.TinkerResultService"
+            android:exported="false"/>
+        <!--service-->
+        <service android:name="com.demo.service.CheckUpdateService">
+            <intent-filter android:priority="1000">
+                <action android:name="com.demo.service.CheckUpdateService" />
+            </intent-filter>
+        </service>
+        <provider
+            android:name="com.framework.utils.multyprocessprovider.provider.base.BaseContentProvider"
+            android:authorities="@string/preferences_provider_authority"
+            android:exported="false" />
+    </application>
+
+</manifest>

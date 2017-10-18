@@ -1,0 +1,100 @@
+Index: .idea/checkstyle-idea.xml
+===================================================================
+--- .idea/checkstyle-idea.xml	(revision 3f010ee49caa6630f89ccc4b3642c9b5c291f060)
++++ .idea/checkstyle-idea.xml	(revision 3f010ee49caa6630f89ccc4b3642c9b5c291f060)
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="CheckStyle-IDEA">
+-    <option name="configuration">
+-      <map>
+-        <entry key="scan-before-checkin" value="false" />
+-      </map>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/test/java/com/framework/framework/ExampleUnitTest.java
+===================================================================
+--- app/src/test/java/com/framework/framework/ExampleUnitTest.java	(revision 3f010ee49caa6630f89ccc4b3642c9b5c291f060)
++++ app/src/test/java/com/framework/framework/ExampleUnitTest.java	(revision 3f010ee49caa6630f89ccc4b3642c9b5c291f060)
+@@ -1,15 +0,0 @@
+-package com.framework.framework;
+-
+-import org.junit.Test;
+-
+-import static org.junit.Assert.*;
+-
+-/**
+- * To work on unit tests, switch the Test Artifact in the Build Variants view.
+- */
+-public class ExampleUnitTest {
+-    @Test
+-    public void addition_isCorrect() throws Exception {
+-        assertEquals(4, 2 + 2);
+-    }
+-}
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 3f010ee49caa6630f89ccc4b3642c9b5c291f060)
++++ .idea/misc.xml	(revision )
+@@ -3,37 +3,10 @@
+   <component name="EclipseCodeFormatter">
+     <option name="defaultSettings" value="true" />
+     <option name="formatter" value="ECLIPSE" />
+-    <option name="id" value="1476414264752" />
++    <option name="id" value="1472268282475" />
+     <option name="name" value="default" />
+     <option name="pathToConfigFileJava" value="D:/资料/Common_Format.xml" />
+     <option name="selectedJavaProfile" value="Common_Format" />
+-  </component>
+-  <component name="EntryPointsManager">
+-    <entry_points version="2.0" />
+-  </component>
+-  <component name="NullableNotNullManager">
+-    <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
+-    <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
+-    <option name="myNullables">
+-      <value>
+-        <list size="4">
+-          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
+-          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
+-          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />
+-          <item index="3" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />
+-        </list>
+-      </value>
+-    </option>
+-    <option name="myNotNulls">
+-      <value>
+-        <list size="4">
+-          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
+-          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
+-          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
+-          <item index="3" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />
+-        </list>
+-      </value>
+-    </option>
+   </component>
+   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+     <OptionsSetting value="true" id="Add" />
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 3f010ee49caa6630f89ccc4b3642c9b5c291f060)
++++ build.gradle	(revision )
+@@ -5,7 +5,7 @@
+         jcenter()
+     }
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:2.2.1'
++        classpath 'com.android.tools.build:gradle:2.2.2'
+         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'//GreenDao数据库插件，不使用GreenDao数据库，将其删除
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files

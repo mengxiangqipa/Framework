@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AppFramework" />
+            <option value="$PROJECT_DIR$/Libraries" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Adapter" />
+            <option value="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache" />
+            <option value="$PROJECT_DIR$/Libraries/Library-CameraFilter" />
+            <option value="$PROJECT_DIR$/Libraries/Library-CropPicture" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Emoji" />
+            <option value="$PROJECT_DIR$/Libraries/Library-EventBus" />
+            <option value="$PROJECT_DIR$/Libraries/Library-FrameworkFramework" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Loadingview" />
+            <option value="$PROJECT_DIR$/Libraries/Library-MPAndroidChart" />
+            <option value="$PROJECT_DIR$/Libraries/Library-PercentLayout" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Pulltorefresh" />
+            <option value="$PROJECT_DIR$/Libraries/Library-SlideFinish" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Videoview" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

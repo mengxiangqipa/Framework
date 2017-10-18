@@ -1,0 +1,25 @@
+ext {
+
+    compileSdkVersion = 25        //android-compileSdkVersion
+    buildToolsVersion = "25.0.3"  //android-buildToolsVersion
+
+    minSdkVersion = 14            //android-defaultConfig-minSdkVersion
+    targetSdkVersion = 25         //android-defaultConfig-targetSdkVersion
+
+    supportLibraryVersion = '25.3.1'
+
+    version = '1.5'
+
+    androidSupport = [
+            recyclerView: "com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            appcompat_v7: "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            support_v4: "com.android.support:support-v4:${supportLibraryVersion}",
+            design  : "com.android.support:design:${supportLibraryVersion}",
+            cardview_v7  : "com.android.support:cardview-v7:${supportLibraryVersion}"
+    ]
+
+    view = [
+            aaaaaa: "com.xxxxxx:aaaaaa:${version}",
+    ]
+
+}

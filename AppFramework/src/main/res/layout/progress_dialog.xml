@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:background="@drawable/shape_progress_dialog">
+
+        <com.framework2.customLoading.LoadingDialog
+            android:id="@+id/customLoadingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/loadingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/customLoadingView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="加载中.."
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <com.library.percent.PercentLinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textSize="27sp" />
+        <!--android:text="@string/content"-->
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tvTitle"
+            android:background="@drawable/ic_android_blue_24dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            app:layout_widthPercent="100%"
+            app:layout_heightPercent="20%sh"
+            android:layout_width="0dp"
+            android:layout_height="0dp">
+
+        </android.support.v4.view.ViewPager>
+
+        <ImageView
+            android:id="@+id/ivGlide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_android_blue_24dp" />
+
+        <Button
+            android:id="@+id/btnRefreshTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="刷新测试" />
+        <Button
+            android:id="@+id/btnTinker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="Tinker测试" />
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="退出登录" />
+        <Button
+            android:id="@+id/btnGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="清除引导标识" />
+        <Button
+        android:id="@+id/btnEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="聊骚表情" />
+        <Button
+            android:id="@+id/btnUcrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="图片裁剪" />
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:firstDayOfWeek="5"
+            android:showWeekNumber="true"
+            android:shownWeekCount="7">
+
+        </CalendarView>
+    </com.library.percent.PercentLinearLayout>
+</ScrollView>
+

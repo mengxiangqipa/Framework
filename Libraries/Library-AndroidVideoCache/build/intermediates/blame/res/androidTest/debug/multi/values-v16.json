@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "D:\\AS_gitHub_jitPack\\GitHub-AppFramework\\Libraries\\Library-AndroidVideoCache\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v16\\values-v16.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 65,
+                    "endOffset": 116
+                },
+                "from": {
+                    "file": "C:\\Users\\andong\\.android\\build-cache\\cc3e1fca0b0f1d90d39094c28c5a5e3b991090a9\\output\\res\\values-v16\\values-v16.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 65,
+                        "endOffset": 116
+                    }
+                }
+            }
+        ]
+    }
+]

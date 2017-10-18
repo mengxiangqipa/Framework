@@ -1,0 +1,6 @@
+<resources>
+    <style name="WholeNotificationAnim">
+        <item name="android:windowEnterAnimation">@anim/whole_notification_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/whole_notification_anim_out</item>
+    </style>
+</resources>
