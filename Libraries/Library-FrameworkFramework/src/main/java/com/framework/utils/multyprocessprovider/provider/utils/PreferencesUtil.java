@@ -4,8 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.asiainfo.demo_messagequeue.application.IpuApplication;
-import com.asiainfo.demo_messagequeue.multyprocessprovider.provider.exception.WrongTypeException;
+import com.framework.application.FrameApplication;
+import com.framework.utils.multyprocessprovider.provider.PreferenceItem;
+import com.framework.utils.multyprocessprovider.provider.exception.WrongTypeException;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class PreferencesUtil
             {
                 if (preferencesUtil == null)
                 {
-                    preferencesUtil = new PreferencesUtil(IpuApplication.getApplication().getApplicationContext(), moduleName);
+                    preferencesUtil = new PreferencesUtil(FrameApplication.getInstance().getApplicationContext(), moduleName);
                 }
             }
         }
