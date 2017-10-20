@@ -190,10 +190,15 @@
                 <action android:name="com.demo.service.CheckUpdateService" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="CONTENTPROVIDER_KEY"
+            android:value="${applicationId}.preferences" />
         <provider
-            android:name="com.framework.utils.multyprocessprovider.provider.base.BaseContentProvider"
-            android:authorities="@string/preferences_provider_authority"
+            android:name="com.framework.utils.multyprocessprovider.provider.PreferencesProvider"
+            android:authorities="${applicationId}.preferences"
             android:exported="false" />
+        <!--android:authorities="@string/preferences_provider_authority"-->
     </application>
 
 </manifest>

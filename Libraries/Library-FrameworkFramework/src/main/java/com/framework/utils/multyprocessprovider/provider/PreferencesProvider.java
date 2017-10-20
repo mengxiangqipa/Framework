@@ -1,14 +1,16 @@
 package com.framework.utils.multyprocessprovider.provider;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
 import com.framework.BuildConfig;
-import com.framework.R;
 import com.framework.utils.multyprocessprovider.provider.base.BaseContentProvider;
 import com.framework.utils.multyprocessprovider.provider.preferences.PreferencesColumns;
 
@@ -32,10 +34,25 @@ public class PreferencesProvider extends BaseContentProvider
 
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
+    public static String getHostProviderAuthorities(Context appContext) throws IllegalArgumentException
+    {
+        ApplicationInfo applicationInfo = null;
+        try {
+            applicationInfo = appContext.getPackageManager().getApplicationInfo(appContext.getPackageName(), PackageManager.GET_META_DATA);
+            if(applicationInfo == null){
+                throw new IllegalArgumentException(" get application info = null, has no meta data! ");
+            }
+            return applicationInfo.metaData.getString("CONTENTPROVIDER_KEY");
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new IllegalArgumentException(" get application info error! ", e);
+        }
+    }
     @Override
     public boolean onCreate() {
         super.onCreate();
-        String authority = getContext().getString(R.string.preferences_provider_authority);
+//        String authority = getContext().getString(R.string.preferences_provider_authority);
+        String authority = getHostProviderAuthorities(getContext());
+        Log.e("IpuSDKTest", "authority:" + authority);
         if (LIBRARY_DEFAULT_AUTHORITY.equals(authority)) {
             throw new IllegalStateException("Please don't use the library's default authority for your app. \n " +
                     "Multiple apps with the same authority will fail to install on the same device.\n " +
