@@ -26,6 +26,8 @@ import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
 import com.demo.entity.UpdateInfo;
 import com.demo.service.CheckUpdateService;
+import com.framework.customviews.WholeNotification;
+import com.framework.security.SecurityManagerUtil;
 import com.framework.utils.DownLoadManagerUtils;
 import com.framework.utils.DownLoadObserver;
 import com.framework.utils.PackageManagerUtil;
@@ -34,12 +36,12 @@ import com.framework.utils.RequestPermissionsUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
-import com.framework.customviews.WholeNotification;
-import com.framework2.utils.PicToastUtil;
+import com.framework.utils.multyprocessprovider.provider.PreferencesUtil;
 import com.framework2.dialog.UpdateDialog;
 import com.framework2.okhttp3.Ok3Util;
 import com.framework2.okhttp3.StringRequest;
 import com.framework2.tinker.app.TinkerMainActivity;
+import com.framework2.utils.PicToastUtil;
 import com.library.adapter_recyclerview.ADPagerAdapter;
 import com.test.MainActivity;
 
@@ -119,7 +121,10 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
-
+        PreferencesUtil.getInstance().putString("test", "testvalue");
+        ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString("test"));
+        SecurityManagerUtil.getInstance().put(this,"sec","我是加密");
+        ToastUtil.getInstance().showToast("我是跨进程数据操作--加密：" +  SecurityManagerUtil.getInstance().get(this,"sec"));
         serviceIntent = new Intent(this, CheckUpdateService.class);
         startService(serviceIntent);
         //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this, progressHandler, false);//检查版本更新
