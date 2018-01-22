@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
-group='com.github.mengxiangqipa'//替换成你的Github的用户名
+group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -37,15 +37,13 @@ dependencies {
     compile rootProject.ext.androidSupport.appcompat_v7
 }
 
-
-
 //生成jar包--自定义
 task makeJar2(type: org.gradle.api.tasks.bundling.Jar) {
     delete 'build/libs'
 
     baseName 'mySDK'
 
-    from('build/intermediates/classes/release/','build/intermediates/bundles/default/assets')
+    from('build/intermediates/classes/release/', 'build/intermediates/bundles/default/assets')
     //千万注意，这里 的into空着就行，不然在你的jar包中会多一层目录
     into('')
     //不想要的文件统统exclude,//include ,exclude参数来设置过滤
@@ -63,7 +61,6 @@ task makeJar2(type: org.gradle.api.tasks.bundling.Jar) {
 makeJar2.dependsOn(build)
 //在终端执行生成JAR包
 // gradlew makeJar2
-
 
 //Copy类型--class.jar
 task makeJar(type: Copy) {
@@ -86,8 +83,6 @@ makeJar.dependsOn(build)
 //在终端执行生成JAR包
 // gradlew makeJar
 
-
-
 //以下上传jitPack 生成注释需要 ---------------------------------------------
 // 指定编码
 tasks.withType(JavaCompile) {
@@ -107,7 +102,7 @@ task javadoc(type: Javadoc) {
     classpath += configurations.compile
 }
 
-// 制作文档(Javadoc)
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
