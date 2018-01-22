@@ -37,7 +37,7 @@ dependencies {
     compile rootProject.ext.androidSupport.appcompat_v7
 }
 
-//生成jar包--自定义
+//生成jar包--自定义(会排出引用jar的class)
 task makeJar2(type: org.gradle.api.tasks.bundling.Jar) {
     delete 'build/libs'
 
@@ -65,12 +65,12 @@ makeJar2.dependsOn(build)
 //Copy类型--class.jar
 task makeJar(type: Copy) {
     //删除存在的
-    delete 'build/libs'
+    delete 'build/outputs/jar'
     //设置拷贝的文件
 //    from('build/intermediates/bundles/releaase/')
     from('build/intermediates/bundles/default/')
     //打进jar包后的文件目录
-    into('build/libs/')
+    into('build/outputs/jar/')
     //将classes.jar放入build/libs/目录下
     //include ,exclude参数来设置过滤
     //（我们只关心classes.jar这个文件）
