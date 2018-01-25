@@ -10,22 +10,16 @@ import android.content.Context;
  *         className ProcessUtil
  *         created at  2017/9/11  9:23
  */
-public class ProcessUtil
-{
+public class ProcessUtil {
     private static volatile ProcessUtil singleton;
 
-    private ProcessUtil()
-    {
+    private ProcessUtil() {
     }
 
-    public static ProcessUtil getInstance()
-    {
-        if (singleton == null)
-        {
-            synchronized (ProcessUtil.class)
-            {
-                if (singleton == null)
-                {
+    public static ProcessUtil getInstance() {
+        if (singleton == null) {
+            synchronized (ProcessUtil.class) {
+                if (singleton == null) {
                     singleton = new ProcessUtil();
                 }
             }
@@ -39,18 +33,20 @@ public class ProcessUtil
      * @param context context
      * @return String
      */
-    public String getCurrentProcessName(Context context)
-    {
+    public String getCurrentProcessName(Context context) {
         int pid = android.os.Process.myPid();
-        ActivityManager mActivityManager = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager
-                .getRunningAppProcesses())
-        {
-            if (appProcess.pid == pid)
-            {
-                return appProcess.processName;
-            }
+        try {
+            ActivityManager mActivityManager = (ActivityManager) context
+                    .getSystemService(Context.ACTIVITY_SERVICE);
+            if (mActivityManager == null)
+                for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager
+                        .getRunningAppProcesses()) {
+                    if (appProcess.pid == pid) {
+                        return appProcess.processName;
+                    }
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

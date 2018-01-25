@@ -38,11 +38,11 @@ public class AssetsUtil {
             InputStreamReader inputReader = new InputStreamReader(context
                     .getResources().getAssets().open(fileName));
             BufferedReader bufReader = new BufferedReader(inputReader);
+            StringBuilder stringBuilder=new StringBuilder();
             String line ;
-            String Result = "";
             while ((line = bufReader.readLine()) != null)
-                Result += line;
-            return Result;
+                stringBuilder.append(line);
+            return stringBuilder.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }

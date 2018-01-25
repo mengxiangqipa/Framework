@@ -69,7 +69,6 @@ public class KeyBoardUtil
                             InputMethodManager.HIDE_NOT_ALWAYS);
                 } catch (Exception e)
                 {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

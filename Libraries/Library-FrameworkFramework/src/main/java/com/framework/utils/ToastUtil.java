@@ -64,7 +64,7 @@ public class ToastUtil
 
 	}
     public void showToast(@StringRes final int resId){
-        showToast(resId);
+        showToast(resId,false);
     }
 	public void showToast(@StringRes final int resId, final boolean toastLong)
 	{

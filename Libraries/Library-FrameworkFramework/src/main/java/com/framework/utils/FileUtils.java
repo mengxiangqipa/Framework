@@ -617,7 +617,7 @@ public class FileUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return FormetFileSize(blockSize, sizeType);
+        return formetFileSize(blockSize, sizeType);
     }
 
     /**
@@ -626,7 +626,7 @@ public class FileUtils {
      * @param filePath 文件路径
      * @return 计算好的带B、KB、MB、GB的字符串
      */
-    public String getAutoFileOrFilesSize(String filePath) {
+    public String getFileOrFilesSizeUnit(String filePath) {
         File file = new File(filePath);
         long blockSize = 0;
         try {
@@ -638,7 +638,7 @@ public class FileUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return FormetFileSize(blockSize);
+        return formetFileSizeUnit(blockSize);
     }
 
     /**
@@ -677,7 +677,7 @@ public class FileUtils {
      *
      * @return
      */
-    private String FormetFileSize(long fileLong) {
+    private String formetFileSizeUnit(long fileLong) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
         String wrongSize = "0B";
@@ -701,7 +701,7 @@ public class FileUtils {
      *
      * @param sizeType （SIZETYPE_B、SIZETYPE_KB ==）
      */
-    private double FormetFileSize(long fileLong, int sizeType) {
+    private double formetFileSize(long fileLong, int sizeType) {
         DecimalFormat df = new DecimalFormat("#.00");
         double fileSizeLong = 0;
         switch (sizeType) {
