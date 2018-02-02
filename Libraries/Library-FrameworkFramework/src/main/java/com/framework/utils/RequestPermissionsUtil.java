@@ -231,14 +231,24 @@ public class RequestPermissionsUtil {
         return false;
     }
 
-    /**忽略电池优化
+    /**打开setting-忽略电池优化
      * @param context context
      */
-    public void ignoreBatteryOptimization(Context context) {
+    public void openIgnoreBatteryOptimization(Context context) {
         if (context != null) {
             Intent intent2 = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
             context.startActivity(intent2);
         }
     }
-
+    /**打开setting-忽略电池优化
+     * @param context context
+     */
+    public void requestIgnoreBatteryOptimization(Context context) {
+        if (context != null) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
+            context.startActivity(intent);
+        }
+    }
 }
