@@ -230,4 +230,15 @@ public class RequestPermissionsUtil {
         }
         return false;
     }
+
+    /**忽略电池优化
+     * @param context context
+     */
+    public void ignoreBatteryOptimization(Context context) {
+        if (context != null) {
+            Intent intent2 = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+            context.startActivity(intent2);
+        }
+    }
+
 }
