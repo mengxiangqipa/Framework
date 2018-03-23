@@ -113,3 +113,9 @@ artifacts {
     archives javadocJar
 }
 //以上  上传jitPack 生成注释需要 ---------------------------------------------}
+
+
+task aar {//AS3.0之后需要产生aar，直接在Teraminal里面输入 gradlew aar
+    //也可以在AS--Build下选择Make Module xxx
+}
+aar.dependsOn(build)
