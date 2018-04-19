@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppFramework/AppFramework.iml" filepath="$PROJECT_DIR$/AppFramework/AppFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Framework.iml" filepath="$PROJECT_DIR$/Framework.iml" />
-      <module fileurl="file://D:\AS_jitPack_github\Framework\GitHub-AppFramework.iml" filepath="D:\AS_jitPack_github\Framework\GitHub-AppFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Libraries.iml" filepath="$PROJECT_DIR$/Libraries/Libraries.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" filepath="$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" />
