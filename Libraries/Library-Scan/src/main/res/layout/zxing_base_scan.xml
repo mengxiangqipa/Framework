@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="3dp"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtResult"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#eb6261"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="扫描"
+        android:textColor="@android:color/white"
+
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <SurfaceView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <zxing.view.ViewfinderView
+            android:id="@+id/viewfinder_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"/>
+        <Button
+            android:id="@+id/btn"
+            android:layout_gravity="bottom"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="放大" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!--<color name="result_view">#b0000000</color>-->
+    <!--<color name="viewfinder_mask">#60000000</color>-->
+    <!--<color name="possible_result_points">#c0ffff00</color>-->
+
+
+    <!--<color name="result_view">#D7D7D7</color>-->
+    <!--<color name="viewfinder_mask">#99231815</color>-->
+    <!--<color name="possible_result_points">#c0ffff00</color>-->
+    <!--<color name="txt">#c0ffff00</color>-->
+
+    <color name="result_view">#D7D7D7</color>
+    <color name="viewfinder_mask">#99231815</color>
+    <color name="viewfinder_corner">#3290e8</color>
+    <color name="possible_result_points">#3290e8</color>
+    <color name="txt">#FFFFFFFF</color>
+</resources>
