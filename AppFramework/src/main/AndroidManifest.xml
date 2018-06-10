@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.testactivity.ScanActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
             android:name="com.demo.activity.SplashActivity"
             android:configChanges="orientation|screenSize|screenLayout"
             android:screenOrientation="portrait"

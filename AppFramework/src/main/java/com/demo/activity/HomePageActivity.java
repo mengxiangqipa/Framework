@@ -44,6 +44,7 @@ import com.framework2.tinker.app.TinkerMainActivity;
 import com.framework2.utils.PicToastUtil;
 import com.library.adapter_recyclerview.ADPagerAdapter;
 import com.test.MainActivity;
+import com.testactivity.ScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -202,7 +203,8 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
         switch (view.getId())
         {
             case R.id.btnRefreshTest:
-                startActivity(MainActivity.class);
+//                startActivity(MainActivity.class);
+                startActivity(ScanActivity.class);
                 break;
             case R.id.btnTinker:
                 startActivity(TinkerMainActivity.class);
