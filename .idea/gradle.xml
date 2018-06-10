@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/Libraries/Library-Adapter" />
             <option value="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache" />
             <option value="$PROJECT_DIR$/Libraries/Library-CameraFilter" />
+            <option value="$PROJECT_DIR$/Libraries/Library-ClipPicView" />
             <option value="$PROJECT_DIR$/Libraries/Library-CropPicture" />
             <option value="$PROJECT_DIR$/Libraries/Library-Emoji" />
             <option value="$PROJECT_DIR$/Libraries/Library-EventBus" />
