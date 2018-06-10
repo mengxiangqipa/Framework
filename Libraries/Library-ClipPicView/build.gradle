@@ -31,9 +31,6 @@ dependencies {
     //appcompat-v7
     compile rootProject.ext.androidSupport.appcompat_v7
     testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
 }
 
