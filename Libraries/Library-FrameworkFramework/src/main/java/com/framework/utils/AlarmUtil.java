@@ -7,8 +7,8 @@ import android.content.Intent;
 
 /**
  * @author YobertJomi
- *         className AlarmUtil
- *         created at  2017/8/4  10:43
+ * className AlarmUtil
+ * created at  2017/8/4  10:43
  */
 public class AlarmUtil {
     private static volatile AlarmUtil instance;
@@ -45,7 +45,8 @@ public class AlarmUtil {
      * @param requestCode      alarm 的tag
      * @param wakeUpTimeMillis 开始触发时间毫秒
      */
-    public void setAlarmTaskRepeatActivity(Context context, Intent intent, int requestCode, long wakeUpTimeMillis, long intervalMillis) {
+    public void setAlarmTaskRepeatActivity(Context context, Intent intent, int requestCode, long wakeUpTimeMillis,
+                                           long intervalMillis) {
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         // Schedule the alarm!
@@ -75,7 +76,8 @@ public class AlarmUtil {
      * @param requestCode      alarm 的tag
      * @param wakeUpTimeMillis 开始触发时间毫秒
      */
-    public void setAlarmTaskRepeatService(Context context, Intent intent, int requestCode, long wakeUpTimeMillis, long intervalMillis) {
+    public void setAlarmTaskRepeatService(Context context, Intent intent, int requestCode, long wakeUpTimeMillis,
+                                          long intervalMillis) {
         PendingIntent pendingIntent = PendingIntent.getService(
                 context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         // Schedule the alarm!

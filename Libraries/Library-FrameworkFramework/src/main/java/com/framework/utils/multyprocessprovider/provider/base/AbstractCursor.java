@@ -6,8 +6,7 @@ import android.database.CursorWrapper;
 import java.util.Date;
 import java.util.HashMap;
 
-public abstract class AbstractCursor extends CursorWrapper
-{
+public abstract class AbstractCursor extends CursorWrapper {
     private final HashMap<String, Integer> mColumnIndexes;
 
     public AbstractCursor(Cursor cursor) {

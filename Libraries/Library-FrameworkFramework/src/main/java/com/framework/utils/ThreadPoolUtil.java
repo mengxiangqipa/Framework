@@ -8,9 +8,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
 /**
- *     @author YobertJomi
- *     className ThreadPoolUtil
- *     created at  2017/6/13  12:55
+ * @author YobertJomi
+ * className ThreadPoolUtil
+ * created at  2017/6/13  12:55
  */
 public class ThreadPoolUtil {
     /**
@@ -92,6 +92,7 @@ public class ThreadPoolUtil {
         }
         return singleTaskExecutor;
     }
+
     public static ExecutorService getInstance2SingleTaskExecutor() {
         if (null == singleTaskExecutor2) {
             synchronized (ThreadPoolUtil.class) {
@@ -102,6 +103,7 @@ public class ThreadPoolUtil {
         }
         return singleTaskExecutor2;
     }
+
     public static ExecutorService getInstance3SingleTaskExecutor() {
         if (null == singleTaskExecutor3) {
             synchronized (ThreadPoolUtil.class) {
@@ -112,6 +114,7 @@ public class ThreadPoolUtil {
         }
         return singleTaskExecutor3;
     }
+
     /**
      * 每次执行限定个数个任务的线程池（不传默认为3个）
      * 限制最大线程数的线程池 nThreads
@@ -299,7 +302,6 @@ public class ThreadPoolUtil {
         } else {
             return false;
         }
-
     }
 
     /**

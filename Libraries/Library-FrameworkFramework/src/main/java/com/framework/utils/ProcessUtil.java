@@ -7,8 +7,8 @@ import android.content.Context;
  * 进程util
  *
  * @author YobertJomi
- *         className ProcessUtil
- *         created at  2017/9/11  9:23
+ * className ProcessUtil
+ * created at  2017/9/11  9:23
  */
 public class ProcessUtil {
     private static volatile ProcessUtil singleton;

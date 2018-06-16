@@ -82,11 +82,13 @@ public class HttpUrlSource implements Source {
             this.sourceInfo = new SourceInfo(sourceInfo.url, length, mime);
             this.sourceInfoStorage.put(sourceInfo.url, sourceInfo);
         } catch (IOException e) {
-            throw new ProxyCacheException("Error opening connection for " + sourceInfo.url + " with offset " + offset, e);
+            throw new ProxyCacheException("Error opening connection for " + sourceInfo.url + " with offset " +
+                    offset, e);
         }
     }
 
-    private long readSourceAvailableBytes(HttpURLConnection connection, long offset, int responseCode) throws IOException {
+    private long readSourceAvailableBytes(HttpURLConnection connection, long offset, int responseCode) throws
+            IOException {
         long contentLength = getContentLength(connection);
         return responseCode == HTTP_OK ? contentLength
                 : responseCode == HTTP_PARTIAL ? contentLength + offset : sourceInfo.length;
@@ -104,13 +106,16 @@ public class HttpUrlSource implements Source {
                 connection.disconnect();
             } catch (NullPointerException | IllegalArgumentException e) {
                 String message = "Wait... but why? WTF!? " +
-                        "Really shouldn't happen any more after fixing https://github.com/danikula/AndroidVideoCache/issues/43. " +
-                        "If you read it on your device log, please, notify me danikula@gmail.com or create issue here " +
+                        "Really shouldn't happen any more after fixing https://github" +
+                        ".com/danikula/AndroidVideoCache/issues/43. " +
+                        "If you read it on your device log, please, notify me danikula@gmail.com or create issue here" +
+                        " " +
                         "https://github.com/danikula/AndroidVideoCache/issues.";
                 throw new RuntimeException(message, e);
             } catch (ArrayIndexOutOfBoundsException e) {
                 LOG.error("Error closing connection correctly. Should happen only on Android L. " +
-                        "If anybody know how to fix it, please visit https://github.com/danikula/AndroidVideoCache/issues/88. " +
+                        "If anybody know how to fix it, please visit https://github" +
+                        ".com/danikula/AndroidVideoCache/issues/88. " +
                         "Until good solution is not know, just ignore this issue :(", e);
             }
         }

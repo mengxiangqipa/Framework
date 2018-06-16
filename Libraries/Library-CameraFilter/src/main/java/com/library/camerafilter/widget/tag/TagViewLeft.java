@@ -1,6 +1,5 @@
 package com.library.camerafilter.widget.tag;
 
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,15 +9,12 @@ import android.widget.TextView;
 
 import com.libray.camerafilter.R;
 
-public class TagViewLeft extends TagView
-{
-    public TagViewLeft(Context paramContext)
-    {
+public class TagViewLeft extends TagView {
+    public TagViewLeft(Context paramContext) {
         this(paramContext, null);
     }
 
-    public TagViewLeft(Context paramContext, AttributeSet paramAttributeSet)
-    {
+    public TagViewLeft(Context paramContext, AttributeSet paramAttributeSet) {
         super(paramContext, paramAttributeSet);
         LayoutInflater.from(paramContext).inflate(R.layout.camerasdk_view_tag_left, this);
         this.textview = ((TextView) findViewById(R.id.text));

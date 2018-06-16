@@ -15,20 +15,19 @@
  */
 package com.library.pulltorefresh.material;
 
-import java.util.ArrayList;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.Paint.Style;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -43,6 +42,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 
 import com.library.pulltorefresh.storehouse.LocalDisplay;
+
+import java.util.ArrayList;
 
 /**
  * Fancy progress indicator for Material theme.

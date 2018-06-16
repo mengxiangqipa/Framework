@@ -13,11 +13,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * @author YobertJomi
- *         className AesUtils
- *         created at  2017/6/14  16:29
- *         ① AesUtils.getInstance().generateKey();
- *         ② AesUtils.getInstance().encrypt
- *         ③ AesUtils.getInstance().decrypt
+ * className AesUtils
+ * created at  2017/6/14  16:29
+ * ① AesUtils.getInstance().generateKey();
+ * ② AesUtils.getInstance().encrypt
+ * ③ AesUtils.getInstance().decrypt
  */
 public class AesUtils {
 
@@ -41,22 +41,6 @@ public class AesUtils {
         return singleton;
     }
 
-    /**
-     * 生成随机数，可以当做动态的密钥 加密和解密的密钥必须一致，不然将不能解密
-     */
-    public String generateKey() {
-        try {
-            SecureRandom localSecureRandom = SecureRandom.getInstance(SHA1PRNG);
-            byte[] bytes_key = new byte[20];
-            localSecureRandom.nextBytes(bytes_key);
-            String str_key = toHex(bytes_key);
-            return str_key;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     // 对密钥进行处理
     private static byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator kgen = KeyGenerator.getInstance(AES);
@@ -78,6 +62,22 @@ public class AesUtils {
         SecretKey skey = kgen.generateKey();
         byte[] raw = skey.getEncoded();
         return raw;
+    }
+
+    /**
+     * 生成随机数，可以当做动态的密钥 加密和解密的密钥必须一致，不然将不能解密
+     */
+    public String generateKey() {
+        try {
+            SecureRandom localSecureRandom = SecureRandom.getInstance(SHA1PRNG);
+            byte[] bytes_key = new byte[20];
+            localSecureRandom.nextBytes(bytes_key);
+            String str_key = toHex(bytes_key);
+            return str_key;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

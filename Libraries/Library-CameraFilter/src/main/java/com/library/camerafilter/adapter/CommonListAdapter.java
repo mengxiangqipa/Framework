@@ -10,22 +10,19 @@ import com.muzhi.camerasdk.library.utils.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CommonListAdapter<T> extends BaseAdapter
-{
+public abstract class CommonListAdapter<T> extends BaseAdapter {
     protected Context mContext;
     protected List<T> mList;
     protected int mLayoutId;
 
     protected OnItemCallBackClickListener onItemClick = null;
 
-    public CommonListAdapter(Context context)
-    {
+    public CommonListAdapter(Context context) {
         this.mContext = context;
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         if (mList != null)
             return mList.size();
         else
@@ -33,20 +30,17 @@ public abstract class CommonListAdapter<T> extends BaseAdapter
     }
 
     @Override
-    public T getItem(int position)
-    {
+    public T getItem(int position) {
         return mList.get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder = getViewHolder(position, convertView, parent);
         getCommonView(viewHolder, getItem(position));
         return viewHolder.getConvertView();
@@ -54,68 +48,54 @@ public abstract class CommonListAdapter<T> extends BaseAdapter
 
     public abstract void getCommonView(ViewHolder helper, T item);
 
-    private ViewHolder getViewHolder(int position, View convertView, ViewGroup parent)
-    {
+    private ViewHolder getViewHolder(int position, View convertView, ViewGroup parent) {
         return ViewHolder.get(mContext, convertView, parent, mLayoutId, position);
-
     }
 
-    public List<T> getList()
-    {
+    public List<T> getList() {
         return mList;
     }
 
-    public void setList(List<T> list)
-    {
+    public void setList(T[] list) {
+        ArrayList<T> arrayList = new ArrayList<T>(list.length);
+        for (T t : list) {
+            arrayList.add(t);
+        }
+        setList(arrayList);
+    }
+
+    public void setList(List<T> list) {
         this.mList = list;
         notifyDataSetChanged();
     }
 
-    public void setList(T[] list)
-    {
-        ArrayList<T> arrayList = new ArrayList<T>(list.length);
-        for (T t : list)
-        {
-            arrayList.add(t);
-        }
-        setList(arrayList);
-    }
-
-    public void addToFirst(List<T> list)
-    {
+    public void addToFirst(List<T> list) {
 
         ArrayList<T> arrayList = new ArrayList<T>(list.size());
-        for (T t : list)
-        {
+        for (T t : list) {
             arrayList.add(t);
         }
         setList(arrayList);
     }
 
-    public void addToLast(List<T> list)
-    {
-        if (list != null && list.size() > 0)
-        {
+    public void addToLast(List<T> list) {
+        if (list != null && list.size() > 0) {
             this.mList.addAll(list);
         }
         this.notifyDataSetChanged();
     }
 
-
     /**
      * 回调
      */
-    public void OnItemClickListener(OnItemCallBackClickListener mClickListener)
-    {
+    public void OnItemClickListener(OnItemCallBackClickListener mClickListener) {
         this.onItemClick = mClickListener;
     }
 
     /**
      * 按钮事件接口
      */
-    public interface OnItemCallBackClickListener
-    {
+    public interface OnItemCallBackClickListener {
         public void onItemClick(int position);
     }
-
 }

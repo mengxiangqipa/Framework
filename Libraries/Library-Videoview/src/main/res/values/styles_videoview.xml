@@ -8,6 +8,7 @@
             @android:drawable/progress_indeterminate_horizontal
         </item>
     </style>
+
     <style name="seekbarVideoLibrary" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:maxHeight">5dp</item>
         <item name="android:minHeight">5dp</item>

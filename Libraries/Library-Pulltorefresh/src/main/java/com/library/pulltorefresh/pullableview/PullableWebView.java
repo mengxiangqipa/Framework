@@ -5,61 +5,51 @@ import android.util.AttributeSet;
 import android.webkit.WebView;
 import android.widget.ListView;
 
-public class PullableWebView extends WebView implements Pullable
-{
+public class PullableWebView extends WebView implements Pullable {
 
-	public PullableWebView(Context context)
-	{
-		super(context);
-		setOverScrollMode();
-	}
+    private boolean canPullUp = true;
 
-	public PullableWebView(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		setOverScrollMode();
-	}
+    public PullableWebView(Context context) {
+        super(context);
+        setOverScrollMode();
+    }
 
-	public PullableWebView(Context context, AttributeSet attrs, int defStyle)
-	{
-		super(context, attrs, defStyle);
-		setOverScrollMode();
-	}
+    public PullableWebView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setOverScrollMode();
+    }
 
-	private void setOverScrollMode()
-	{
-		this.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-	}
+    public PullableWebView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        setOverScrollMode();
+    }
 
-	@Override
-	public boolean canPullDown()
-	{
-		return getScrollY() == 0;
-	}
+    private void setOverScrollMode() {
+        this.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+    }
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public boolean canPullUp()
-	{
-		try
-		{
-			return canPullUp && getScrollY() >= Math.floor(getContentHeight() * getScale() - getMeasuredHeight());
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		return false;
-	}
+    @Override
+    public boolean canPullDown() {
+        return getScrollY() == 0;
+    }
 
-	private boolean canPullUp = true;
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean canPullUp() {
+        try {
+            return canPullUp && getScrollY() >= Math.floor(getContentHeight() * getScale() - getMeasuredHeight());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-	/**
-	 * 手动设置是否能上拉
-	 *
-	 * @param canPullUp canPullUp
-	 */
-	public void setCanPullUp(boolean canPullUp)
-	{
-		this.canPullUp = canPullUp;
-	}
+    /**
+     * 手动设置是否能上拉
+     *
+     * @param canPullUp canPullUp
+     */
+    public void setCanPullUp(boolean canPullUp) {
+        this.canPullUp = canPullUp;
+    }
 }

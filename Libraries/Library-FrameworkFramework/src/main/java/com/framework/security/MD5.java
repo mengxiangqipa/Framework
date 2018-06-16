@@ -3,9 +3,9 @@ package com.framework.security;
 import java.security.MessageDigest;
 
 /**
- *     @author Yangjie
- *     className MD5
- *     created at  2017/3/13  11:46
+ * @author Yangjie
+ * className MD5
+ * created at  2017/3/13  11:46
  */
 public class MD5 {
     public final static String md5(String s) {

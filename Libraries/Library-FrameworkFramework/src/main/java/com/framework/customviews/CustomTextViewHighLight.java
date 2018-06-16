@@ -10,11 +10,10 @@ import android.util.AttributeSet;
 
 /**
  * @author YobertJomi
- *         className CustomTextViewHighLight
- *         created at  2017/9/12  10:30
+ * className CustomTextViewHighLight
+ * created at  2017/9/12  10:30
  */
-public class CustomTextViewHighLight extends android.support.v7.widget.AppCompatTextView
-{
+public class CustomTextViewHighLight extends android.support.v7.widget.AppCompatTextView {
     private LinearGradient mLinearGradient;
     private Matrix mGradientMatrix;
     private Paint mPaint;
@@ -23,22 +22,17 @@ public class CustomTextViewHighLight extends android.support.v7.widget.AppCompat
 
     private boolean mAnimating = true;
 
-    public CustomTextViewHighLight(Context context, AttributeSet attrs)
-    {
+    public CustomTextViewHighLight(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-
     //初始颜色
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (mViewWidth == 0)
-        {
+        if (mViewWidth == 0) {
             mViewWidth = getMeasuredWidth();
-            if (mViewWidth > 0)
-            {
+            if (mViewWidth > 0) {
                 mPaint = getPaint();
                 mLinearGradient = new LinearGradient(-mViewWidth, 0, 0, 0,
                         new int[]{0x33ffffff, 0xffffffff, 0x33ffffff},
@@ -50,14 +44,11 @@ public class CustomTextViewHighLight extends android.support.v7.widget.AppCompat
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mAnimating && mGradientMatrix != null)
-        {
+        if (mAnimating && mGradientMatrix != null) {
             mTranslate += mViewWidth / 10;
-            if (mTranslate > 2 * mViewWidth)
-            {
+            if (mTranslate > 2 * mViewWidth) {
                 mTranslate = -mViewWidth;
             }
             mGradientMatrix.setTranslate(mTranslate, 0);

@@ -14,5 +14,4 @@ public class EmptyHeadersInjector implements HeaderInjector {
     public Map<String, String> addHeaders(String url) {
         return new HashMap<>();
     }
-
 }

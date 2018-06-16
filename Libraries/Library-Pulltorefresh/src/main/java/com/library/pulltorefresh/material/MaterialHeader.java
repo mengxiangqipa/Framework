@@ -12,7 +12,7 @@ import android.view.animation.Transformation;
 
 import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
 
-public class MaterialHeader extends View{
+public class MaterialHeader extends View {
 
     private MaterialProgressDrawable mDrawable;
     private float mScale = 1f;
@@ -85,33 +85,38 @@ public class MaterialHeader extends View{
         mDrawable.draw(canvas);
         canvas.restoreToCount(saveCount);
     }
-    public void changeStateInit(){
+
+    public void changeStateInit() {
         mScale = 1f;
         mDrawable.stop();
     }
-    public void changeStateMovingToRefresh(float progress){
+
+    public void changeStateMovingToRefresh(float progress) {
         float percent = progress;
-            mDrawable.setAlpha((int) (255 * percent));
-            mDrawable.showArrow(true);
+        mDrawable.setAlpha((int) (255 * percent));
+        mDrawable.showArrow(true);
 
-            float strokeStart = ((percent) * .8f);
-            mDrawable.setStartEndTrim(0f, Math.min(0.8f, strokeStart));
-            mDrawable.setArrowScale(Math.min(1f, percent));
+        float strokeStart = ((percent) * .8f);
+        mDrawable.setStartEndTrim(0f, Math.min(0.8f, strokeStart));
+        mDrawable.setArrowScale(Math.min(1f, percent));
 
-            // magic
-            float rotation = (-0.25f + .4f * percent + percent * 2) * .5f;
-            mDrawable.setProgressRotation(rotation);
-            invalidate();
+        // magic
+        float rotation = (-0.25f + .4f * percent + percent * 2) * .5f;
+        mDrawable.setProgressRotation(rotation);
+        invalidate();
     }
-    public void changeStateMovingToOnLoad(){
+
+    public void changeStateMovingToOnLoad() {
         mDrawable.setAlpha(255);
         mDrawable.start();
     }
-    public void changeStateReleaseToRefresh(){
+
+    public void changeStateReleaseToRefresh() {
         mDrawable.setAlpha(255);
         mDrawable.start();
     }
-    public void changeStateOnRefreshing(){
+
+    public void changeStateOnRefreshing() {
         mDrawable.setAlpha(255);
         mDrawable.start();
     }

@@ -44,18 +44,19 @@ public class LocalDisplay {
     public static void setPadding(final View view, float left, float top, float right, float bottom) {
         view.setPadding(designedDP2px(left), dp2px(top), designedDP2px(right), dp2px(bottom));
     }
+
     @SuppressWarnings("deprecation")
-    public static int getScreenWidthPixels(Context context){
+    public static int getScreenWidthPixels(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         return width;
     }
+
     @SuppressWarnings("deprecation")
-    public static int getScreenHeightPixels(Context context){
+    public static int getScreenHeightPixels(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int height = wm.getDefaultDisplay().getHeight();
         return height;
     }
-
 }
 

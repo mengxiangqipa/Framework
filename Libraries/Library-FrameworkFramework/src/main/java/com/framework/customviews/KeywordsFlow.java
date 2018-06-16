@@ -26,11 +26,10 @@ import java.util.Vector;
  * 云标签
  *
  * @author YobertJomi
- *         className KeywordsFlow
- *         created at  2017/9/12  15:31
+ * className KeywordsFlow
+ * created at  2017/9/12  15:31
  */
-public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
-{
+public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener {
 
     public static final int IDX_X = 0;
     public static final int IDX_Y = 1;
@@ -64,12 +63,12 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
     public static final int MAX = 10;
     public static final int TEXT_SIZE_MAX = 25;
     public static final int TEXT_SIZE_MIN = 15;
-    private OnClickListener itemClickListener;
     private static Interpolator interpolator;
     private static AlphaAnimation animAlpha2Opaque;
     private static AlphaAnimation animAlpha2Transparent;
     private static ScaleAnimation animScaleLarge2Normal, animScaleNormal2Large, animScaleZero2Normal,
             animScaleNormal2Zero;
+    private OnClickListener itemClickListener;
     /**
      * 存储显示的关键字。
      */
@@ -96,29 +95,25 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
      */
     private long animDuration;
 
-    public KeywordsFlow(Context context)
-    {
+    public KeywordsFlow(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
         init();
     }
 
-    public KeywordsFlow(Context context, AttributeSet attrs)
-    {
+    public KeywordsFlow(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
         init();
     }
 
-    public KeywordsFlow(Context context, AttributeSet attrs, int defStyle)
-    {
+    public KeywordsFlow(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         // TODO Auto-generated constructor stub
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         lastStartAnimationTime = 0l;
         animDuration = ANIM_DURATION;
         random = new Random();
@@ -133,21 +128,17 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
         animScaleNormal2Zero = new ScaleAnimation(1, 0, 1, 0);
     }
 
-    public long getDuration()
-    {
+    public long getDuration() {
         return animDuration;
     }
 
-    public void setDuration(long duration)
-    {
+    public void setDuration(long duration) {
         animDuration = duration;
     }
 
-    public boolean feedKeyword(String keyword)
-    {
+    public boolean feedKeyword(String keyword) {
         boolean result = false;
-        if (vecKeywords.size() < MAX)
-        {
+        if (vecKeywords.size() < MAX) {
             result = vecKeywords.add(keyword);
         }
         return result;
@@ -161,17 +152,13 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
      * 1.时间上不允许，受lastStartAnimationTime的制约；<br/>
      * 2.未获取到width和height的值。<br/>
      */
-    public boolean go2Show(int animType)
-    {
-        if (System.currentTimeMillis() - lastStartAnimationTime > animDuration)
-        {
+    public boolean go2Show(int animType) {
+        if (System.currentTimeMillis() - lastStartAnimationTime > animDuration) {
             enableShow = true;
-            if (animType == ANIMATION_IN)
-            {
+            if (animType == ANIMATION_IN) {
                 txtAnimInType = OUTSIDE_TO_LOCATION;
                 txtAnimOutType = LOCATION_TO_CENTER;
-            } else if (animType == ANIMATION_OUT)
-            {
+            } else if (animType == ANIMATION_OUT) {
                 txtAnimInType = CENTER_TO_LOCATION;
                 txtAnimOutType = LOCATION_TO_OUTSIDE;
             }
@@ -182,14 +169,11 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
         return false;
     }
 
-    private void disapper()
-    {
+    private void disapper() {
         int size = getChildCount();
-        for (int i = size - 1; i >= 0; i--)
-        {
+        for (int i = size - 1; i >= 0; i--) {
             final TextView txt = (TextView) getChildAt(i);
-            if (txt.getVisibility() == View.GONE)
-            {
+            if (txt.getVisibility() == View.GONE) {
                 removeView(txt);
                 continue;
             }
@@ -200,18 +184,14 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
             int[] xy = new int[]{layParams.leftMargin, layParams.topMargin, txt.getWidth()};
             AnimationSet animSet = getAnimationSet(xy, (width >> 1), (height >> 1), txtAnimOutType);
             txt.startAnimation(animSet);
-            animSet.setAnimationListener(new AnimationListener()
-            {
-                public void onAnimationStart(Animation animation)
-                {
+            animSet.setAnimationListener(new AnimationListener() {
+                public void onAnimationStart(Animation animation) {
                 }
 
-                public void onAnimationRepeat(Animation animation)
-                {
+                public void onAnimationRepeat(Animation animation) {
                 }
 
-                public void onAnimationEnd(Animation animation)
-                {
+                public void onAnimationEnd(Animation animation) {
                     txt.setOnClickListener(null);
                     txt.setClickable(false);
                     txt.setVisibility(View.GONE);
@@ -220,10 +200,8 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
         }
     }
 
-    private boolean show()
-    {
-        if (width > 0 && height > 0 && vecKeywords != null && vecKeywords.size() > 0 && enableShow)
-        {
+    private boolean show() {
+        if (width > 0 && height > 0 && vecKeywords != null && vecKeywords.size() > 0 && enableShow) {
             enableShow = false;
             lastStartAnimationTime = System.currentTimeMillis();
             int xCenter = width >> 1, yCenter = height >> 1;
@@ -233,8 +211,7 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
             // " height=" + height + "  xItem=" + xItem   
             // + " yItem=" + yItem + "---------------------------");   
             LinkedList<Integer> listX = new LinkedList<Integer>(), listY = new LinkedList<Integer>();
-            for (int i = 0; i < size; i++)
-            {
+            for (int i = 0; i < size; i++) {
                 // 准备随机候选数，分别对应x/y轴位置   
                 listX.add(i * xItem);
                 listY.add(i * yItem + (yItem >> 2));
@@ -242,8 +219,7 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
             // TextView[] txtArr = new TextView[size];   
             LinkedList<TextView> listTxtTop = new LinkedList<TextView>();
             LinkedList<TextView> listTxtBottom = new LinkedList<TextView>();
-            for (int i = 0; i < size; i++)
-            {
+            for (int i = 0; i < size; i++) {
                 String keyword = vecKeywords.get(i);
                 // 随机颜色   
                 int ranColor = 0xff000000 | random.nextInt(0x0077ffff);
@@ -264,23 +240,19 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
                 int strWidth = (int) Math.ceil(paint.measureText(keyword));
                 xy[IDX_TXT_LENGTH] = strWidth;
                 // 第一次修正:修正x坐标   
-                if (xy[IDX_X] + strWidth > width - (xItem >> 1))
-                {
+                if (xy[IDX_X] + strWidth > width - (xItem >> 1)) {
                     int baseX = width - strWidth;
                     // 减少文本右边缘一样的概率   
                     xy[IDX_X] = baseX - xItem + random.nextInt(xItem >> 1);
-                } else if (xy[IDX_X] == 0)
-                {
+                } else if (xy[IDX_X] == 0) {
                     // 减少文本左边缘一样的概率   
                     xy[IDX_X] = Math.max(random.nextInt(xItem), xItem / 3);
                 }
                 xy[IDX_DIS_Y] = Math.abs(xy[IDX_Y] - yCenter);
                 txt.setTag(xy);
-                if (xy[IDX_Y] > yCenter)
-                {
+                if (xy[IDX_Y] > yCenter) {
                     listTxtBottom.add(txt);
-                } else
-                {
+                } else {
                     listTxtTop.add(txt);
                 }
             }
@@ -294,12 +266,10 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
     /**
      * 修正TextView的Y坐标将将其添加到容器上。
      */
-    private void attach2Screen(LinkedList<TextView> listTxt, int xCenter, int yCenter, int yItem)
-    {
+    private void attach2Screen(LinkedList<TextView> listTxt, int xCenter, int yCenter, int yItem) {
         int size = listTxt.size();
         sortXYList(listTxt, size);
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             TextView txt = listTxt.get(i);
             int[] iXY = (int[]) txt.getTag();
             // Log.d("ANDROID_LAB", "fix[  " + txt.getText() + "  ] x:" +   
@@ -311,24 +281,19 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
             // 对于可以一路下降到中心点的，则该值也是其应调整的大小<br/>   
             int yMove = Math.abs(yDistance);
             inner:
-            for (int k = i - 1; k >= 0; k--)
-            {
+            for (int k = i - 1; k >= 0; k--) {
                 int[] kXY = (int[]) listTxt.get(k).getTag();
                 int startX = kXY[IDX_X];
                 int endX = startX + kXY[IDX_TXT_LENGTH];
                 // y轴以中心点为分隔线，在同一侧   
-                if (yDistance * (kXY[IDX_Y] - yCenter) > 0)
-                {
+                if (yDistance * (kXY[IDX_Y] - yCenter) > 0) {
                     // Log.d("ANDROID_LAB", "compare:" +   
                     // listTxt.get(k).getText());   
-                    if (isXMixed(startX, endX, iXY[IDX_X], iXY[IDX_X] + iXY[IDX_TXT_LENGTH]))
-                    {
+                    if (isXMixed(startX, endX, iXY[IDX_X], iXY[IDX_X] + iXY[IDX_TXT_LENGTH])) {
                         int tmpMove = Math.abs(iXY[IDX_Y] - kXY[IDX_Y]);
-                        if (tmpMove > yItem)
-                        {
+                        if (tmpMove > yItem) {
                             yMove = tmpMove;
-                        } else if (yMove > 0)
-                        {
+                        } else if (yMove > 0) {
                             // 取消默认值。   
                             yMove = 0;
                         }
@@ -338,8 +303,7 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
                 }
             }
             // Log.d("ANDROID_LAB", txt.getText() + " yMove=" + yMove);   
-            if (yMove > yItem)
-            {
+            if (yMove > yItem) {
                 int maxMove = yMove - yItem;
                 int randomMove = random.nextInt(maxMove);
                 int realMove = Math.max(randomMove, maxMove >> 1) * yDistance / Math.abs(yDistance);
@@ -360,32 +324,27 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
         }
     }
 
-    public AnimationSet getAnimationSet(int[] xy, int xCenter, int yCenter, int type)
-    {
+    public AnimationSet getAnimationSet(int[] xy, int xCenter, int yCenter, int type) {
         AnimationSet animSet = new AnimationSet(true);
         animSet.setInterpolator(interpolator);
-        if (type == OUTSIDE_TO_LOCATION)
-        {
+        if (type == OUTSIDE_TO_LOCATION) {
             animSet.addAnimation(animAlpha2Opaque);
             animSet.addAnimation(animScaleLarge2Normal);
             TranslateAnimation translate = new TranslateAnimation(
                     (xy[IDX_X] + (xy[IDX_TXT_LENGTH] >> 1) - xCenter) << 1, 0, (xy[IDX_Y] - yCenter) << 1, 0);
             animSet.addAnimation(translate);
-        } else if (type == LOCATION_TO_OUTSIDE)
-        {
+        } else if (type == LOCATION_TO_OUTSIDE) {
             animSet.addAnimation(animAlpha2Transparent);
             animSet.addAnimation(animScaleNormal2Large);
             TranslateAnimation translate = new TranslateAnimation(0,
                     (xy[IDX_X] + (xy[IDX_TXT_LENGTH] >> 1) - xCenter) << 1, 0, (xy[IDX_Y] - yCenter) << 1);
             animSet.addAnimation(translate);
-        } else if (type == LOCATION_TO_CENTER)
-        {
+        } else if (type == LOCATION_TO_CENTER) {
             animSet.addAnimation(animAlpha2Transparent);
             animSet.addAnimation(animScaleNormal2Zero);
             TranslateAnimation translate = new TranslateAnimation(0, (-xy[IDX_X] + xCenter), 0, (-xy[IDX_Y] + yCenter));
             animSet.addAnimation(translate);
-        } else if (type == CENTER_TO_LOCATION)
-        {
+        } else if (type == CENTER_TO_LOCATION) {
             animSet.addAnimation(animAlpha2Opaque);
             animSet.addAnimation(animScaleZero2Normal);
             TranslateAnimation translate = new TranslateAnimation((-xy[IDX_X] + xCenter), 0, (-xy[IDX_Y] + yCenter), 0);
@@ -401,14 +360,10 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
      * @param endIdx 起始位置。
      *               待排序的数组。
      */
-    private void sortXYList(LinkedList<TextView> listTxt, int endIdx)
-    {
-        for (int i = 0; i < endIdx; i++)
-        {
-            for (int k = i + 1; k < endIdx; k++)
-            {
-                if (((int[]) listTxt.get(k).getTag())[IDX_DIS_Y] < ((int[]) listTxt.get(i).getTag())[IDX_DIS_Y])
-                {
+    private void sortXYList(LinkedList<TextView> listTxt, int endIdx) {
+        for (int i = 0; i < endIdx; i++) {
+            for (int k = i + 1; k < endIdx; k++) {
+                if (((int[]) listTxt.get(k).getTag())[IDX_DIS_Y] < ((int[]) listTxt.get(i).getTag())[IDX_DIS_Y]) {
                     TextView iTmp = listTxt.get(i);
                     TextView kTmp = listTxt.get(k);
                     listTxt.set(i, kTmp);
@@ -421,65 +376,53 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
     /**
      * A线段与B线段所代表的直线在X轴映射上是否有交集。
      */
-    private boolean isXMixed(int startA, int endA, int startB, int endB)
-    {
+    private boolean isXMixed(int startA, int endA, int startB, int endB) {
         boolean result = false;
-        if (startB >= startA && startB <= endA)
-        {
+        if (startB >= startA && startB <= endA) {
             result = true;
-        } else if (endB >= startA && endB <= endA)
-        {
+        } else if (endB >= startA && endB <= endA) {
             result = true;
-        } else if (startA >= startB && startA <= endB)
-        {
+        } else if (startA >= startB && startA <= endB) {
             result = true;
-        } else if (endA >= startB && endA <= endB)
-        {
+        } else if (endA >= startB && endA <= endB) {
             result = true;
         }
         return result;
     }
 
-    private int[] randomXY(Random ran, LinkedList<Integer> listX, LinkedList<Integer> listY, int xItem)
-    {
+    private int[] randomXY(Random ran, LinkedList<Integer> listX, LinkedList<Integer> listY, int xItem) {
         int[] arr = new int[4];
         arr[IDX_X] = listX.remove(ran.nextInt(listX.size()));
         arr[IDX_Y] = listY.remove(ran.nextInt(listY.size()));
         return arr;
     }
 
-    public void onGlobalLayout()
-    {
+    public void onGlobalLayout() {
         int tmpW = getWidth();
         int tmpH = getHeight();
-        if (width != tmpW || height != tmpH)
-        {
+        if (width != tmpW || height != tmpH) {
             width = tmpW;
             height = tmpH;
             show();
         }
     }
 
-    public Vector<String> getKeywords()
-    {
+    public Vector<String> getKeywords() {
         return vecKeywords;
     }
 
-    public void rubKeywords()
-    {
+    public void rubKeywords() {
         vecKeywords.clear();
     }
 
     /**
      * 直接清除所有的TextView。在清除之前不会显示动画。
      */
-    public void rubAllViews()
-    {
+    public void rubAllViews() {
         removeAllViews();
     }
 
-    public void setOnItemClickListener(OnClickListener listener)
-    {
+    public void setOnItemClickListener(OnClickListener listener) {
         itemClickListener = listener;
     }
 
@@ -490,5 +433,4 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener
     // canvas.drawCircle((width >> 1) - 2, (height >> 1) - 2, 4, p);   
     // p.setColor(Color.RED);   
     // }  
-
 }

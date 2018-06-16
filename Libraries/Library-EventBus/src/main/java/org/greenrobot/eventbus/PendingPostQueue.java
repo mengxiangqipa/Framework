@@ -52,5 +52,4 @@ final class PendingPostQueue {
         }
         return poll();
     }
-
 }

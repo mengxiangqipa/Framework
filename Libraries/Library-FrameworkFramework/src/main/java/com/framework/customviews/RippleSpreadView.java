@@ -88,8 +88,8 @@ public class RippleSpreadView extends View {
      */
     public void reset() {
         try {
-            int len=startWidthList.size();
-            for(int i=0;i<len;i++){
+            int len = startWidthList.size();
+            for (int i = 0; i < len; i++) {
                 startWidthList.remove(i);
                 alphaList.remove(i);
             }
@@ -98,23 +98,25 @@ public class RippleSpreadView extends View {
         } catch (Exception e) {
         }
     }
+
     /**
      * 执行动画
      */
     public void start() {
         isStarting = true;
     }
+
     /**
      * 停止动画
      */
     public void stop() {
         isStarting = false;
     }
+
     /**
      * 判断是都在不在执行
      */
     public boolean isStarting() {
         return isStarting;
     }
-
 }

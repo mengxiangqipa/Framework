@@ -8,8 +8,8 @@ import com.framework.configs.Configs;
 
 /**
  * @author Yobert Jomi
- *         className PreferenceHelper
- *         created at  2016/10/15  16:34
+ * className PreferenceHelper
+ * created at  2016/10/15  16:34
  */
 public class PreferencesHelper {
     private static volatile SharedPreferences mSharedPreferences;
@@ -25,7 +25,8 @@ public class PreferencesHelper {
             synchronized (PreferencesHelper.class) {
                 if (mPreferencesHelper == null) {
                     mPreferencesHelper = new PreferencesHelper();
-                    mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+                    mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                            .SHAREPREFERENCES_NAME, mode);
                 }
             }
         }
@@ -35,7 +36,8 @@ public class PreferencesHelper {
     public void putInfo(String name, String data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putString(name, data);
         e.apply();
@@ -44,7 +46,8 @@ public class PreferencesHelper {
     public void putInfo(String name, int data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putInt(name, data);
         e.apply();
@@ -53,7 +56,8 @@ public class PreferencesHelper {
     public void putInfo(String name, boolean data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putBoolean(name, data);
         e.apply();
@@ -62,7 +66,8 @@ public class PreferencesHelper {
     public int getIntData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getInt(name, 0);
     }
@@ -70,7 +75,8 @@ public class PreferencesHelper {
     public String getStringData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getString(name, "");
     }
@@ -78,7 +84,8 @@ public class PreferencesHelper {
     public boolean getBooleanData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getBoolean(name, false);
     }
@@ -86,7 +93,8 @@ public class PreferencesHelper {
     public void putInfo(String name, long data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putLong(name, data);
         e.apply();
@@ -95,7 +103,8 @@ public class PreferencesHelper {
     public long getLongData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getLong(name, 0);
     }
@@ -103,7 +112,8 @@ public class PreferencesHelper {
     public void remove(String key) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs.SHAREPREFERENCES_NAME, mode);
+            mSharedPreferences = FrameApplication.frameApplication.getSharedPreferences(Configs
+                    .SHAREPREFERENCES_NAME, mode);
         }
         try {
             mSharedPreferences.edit().remove(key).apply();

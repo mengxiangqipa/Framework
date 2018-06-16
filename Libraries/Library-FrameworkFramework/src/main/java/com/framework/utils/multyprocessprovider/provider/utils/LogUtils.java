@@ -1,6 +1,5 @@
 package com.framework.utils.multyprocessprovider.provider.utils;
 
-
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,13 +11,11 @@ import java.io.FileOutputStream;
 
 public class LogUtils {
 
-    private static boolean DEBUG = BuildConfig.DEBUG;
-    private static String DEFAULT_LOG_TAG = "mengdd";
-
     private final static boolean LOG_TO_FILE = false;
     private final static String LOG_FILE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/mengdd_debug_log.txt";
-
+    private static boolean DEBUG = BuildConfig.DEBUG;
+    private static String DEFAULT_LOG_TAG = "mengdd";
     private static File LOG_FILE;
 
     public static void footPrint() {

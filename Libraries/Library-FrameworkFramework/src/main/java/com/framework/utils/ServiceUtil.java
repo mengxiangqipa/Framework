@@ -10,8 +10,8 @@ import java.util.List;
  * 距离
  *
  * @author YobertJomi
- *         className DistanceUtil
- *         created at  2017/8/4  11:29
+ * className DistanceUtil
+ * created at  2017/8/4  11:29
  */
 public class ServiceUtil {
     private static volatile ServiceUtil singleton;
@@ -77,7 +77,8 @@ public class ServiceUtil {
                 return false;
             }
             for (ActivityManager.RunningServiceInfo runningServiceInfo : serviceTasks) {
-//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid + "   " + runningServiceInfo.clientPackage);
+//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid + "   " +
+// runningServiceInfo.clientPackage);
                 if (processName.equals(runningServiceInfo.process)) {
                     return true;
                 }
@@ -106,7 +107,8 @@ public class ServiceUtil {
                 return null;
             }
             for (ActivityManager.RunningServiceInfo runningServiceInfo : serviceTasks) {
-//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid + "   " + runningServiceInfo.clientPackage);
+//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid + "   " +
+// runningServiceInfo.clientPackage);
                 if (processName.equals(runningServiceInfo.process)) {
 //                    runningServiceInfo.
                     return runningServiceInfo.service;

@@ -9,8 +9,8 @@ import java.util.Set;
  * 消息轮询队列
  */
 public class MessageQueueUtil {
-    private static volatile MessageQueueUtil messageQueueUtil;
     private static final String TAG = "MessageQueueUtil";
+    private static volatile MessageQueueUtil messageQueueUtil;
     LinkedList<RunnableTAG> taskLinkedList;
     // 任务不能重复
     private Set<String> taskIdSet;
@@ -35,6 +35,7 @@ public class MessageQueueUtil {
         }
         return messageQueueUtil;
     }
+
     /**
      * 添加任务
      *
@@ -137,20 +138,21 @@ public class MessageQueueUtil {
         }
         return null;
     }
-   class RunnableTAG implements Runnable{
-       String Tag;
 
-       public RunnableTAG(String Tag) {
-           this.Tag = Tag;
-       }
+    class RunnableTAG implements Runnable {
+        String Tag;
 
-       public String getTag() {
-           return Tag;
-       }
+        public RunnableTAG(String Tag) {
+            this.Tag = Tag;
+        }
 
-       @Override
-       public void run() {
+        public String getTag() {
+            return Tag;
+        }
 
-       }
-   }
+        @Override
+        public void run() {
+
+        }
+    }
 }

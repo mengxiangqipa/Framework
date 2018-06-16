@@ -5,12 +5,10 @@ import android.provider.BaseColumns;
 
 import com.framework.utils.multyprocessprovider.provider.PreferencesProvider;
 
-
 /**
  * Columns for the {@code preferences} table.
  */
-public class PreferencesColumns implements BaseColumns
-{
+public class PreferencesColumns implements BaseColumns {
     public static final String TABLE_NAME = "preferences";
     public static final Uri CONTENT_URI = Uri.parse(PreferencesProvider.CONTENT_URI_BASE + "/" + TABLE_NAME);
 
@@ -24,7 +22,6 @@ public class PreferencesColumns implements BaseColumns
     public static final String KEY = "key";
 
     public static final String VALUE = "value";
-
 
     public static final String DEFAULT_ORDER = TABLE_NAME + "." + _ID;
 
@@ -46,5 +43,4 @@ public class PreferencesColumns implements BaseColumns
         }
         return false;
     }
-
 }

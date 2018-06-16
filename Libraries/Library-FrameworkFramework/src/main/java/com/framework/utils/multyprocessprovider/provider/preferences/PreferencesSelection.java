@@ -10,11 +10,9 @@ import com.framework.utils.multyprocessprovider.provider.base.AbstractSelection;
 /**
  * Selection for the {@code preferences} table.
  */
-public class PreferencesSelection extends AbstractSelection<PreferencesSelection>
-{
+public class PreferencesSelection extends AbstractSelection<PreferencesSelection> {
     @Override
-    protected Uri baseUri()
-    {
+    protected Uri baseUri() {
         return PreferencesColumns.CONTENT_URI;
     }
 
@@ -22,11 +20,11 @@ public class PreferencesSelection extends AbstractSelection<PreferencesSelection
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
-     * @param projection      A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @param projection      A list of which columns to return. Passing null will return all columns, which is
+     *                        inefficient.
      * @return A {@code PreferencesCursor} object, which is positioned before the first entry, or null.
      */
-    public PreferencesCursor query(ContentResolver contentResolver, String[] projection)
-    {
+    public PreferencesCursor query(ContentResolver contentResolver, String[] projection) {
         Cursor cursor = contentResolver.query(uri(), projection, sel(), args(), order());
         if (cursor == null) return null;
         return new PreferencesCursor(cursor);
@@ -38,8 +36,7 @@ public class PreferencesSelection extends AbstractSelection<PreferencesSelection
      * @param contentResolver the content resolver to query.
      * @return A {@code PreferencesCursor} object, which is positioned before the first entry, or null.
      */
-    public PreferencesCursor query(ContentResolver contentResolver)
-    {
+    public PreferencesCursor query(ContentResolver contentResolver) {
         return query(contentResolver, null);
     }
 
@@ -50,8 +47,7 @@ public class PreferencesSelection extends AbstractSelection<PreferencesSelection
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PreferencesCursor} object, which is positioned before the first entry, or null.
      */
-    public PreferencesCursor query(Context context, String[] projection)
-    {
+    public PreferencesCursor query(Context context, String[] projection) {
         Cursor cursor = context.getContentResolver().query(uri(), projection, sel(), args(), order());
         if (cursor == null) return null;
         return new PreferencesCursor(cursor);
@@ -63,206 +59,171 @@ public class PreferencesSelection extends AbstractSelection<PreferencesSelection
      * @param context the context to use for getting the content resolver.
      * @return A {@code PreferencesCursor} object, which is positioned before the first entry, or null.
      */
-    public PreferencesCursor query(Context context)
-    {
+    public PreferencesCursor query(Context context) {
         return query(context, null);
     }
 
-
-    public PreferencesSelection id(long... value)
-    {
+    public PreferencesSelection id(long... value) {
         addEquals("preferences." + PreferencesColumns._ID, toObjectArray(value));
         return this;
     }
 
-    public PreferencesSelection idNot(long... value)
-    {
+    public PreferencesSelection idNot(long... value) {
         addNotEquals("preferences." + PreferencesColumns._ID, toObjectArray(value));
         return this;
     }
 
-    public PreferencesSelection orderById(boolean desc)
-    {
+    public PreferencesSelection orderById(boolean desc) {
         orderBy("preferences." + PreferencesColumns._ID, desc);
         return this;
     }
 
-    public PreferencesSelection orderById()
-    {
+    public PreferencesSelection orderById() {
         return orderById(false);
     }
 
-    public PreferencesSelection module(String... value)
-    {
+    public PreferencesSelection module(String... value) {
         addEquals(PreferencesColumns.MODULE, value);
         return this;
     }
 
-    public PreferencesSelection moduleNot(String... value)
-    {
+    public PreferencesSelection moduleNot(String... value) {
         addNotEquals(PreferencesColumns.MODULE, value);
         return this;
     }
 
-    public PreferencesSelection moduleLike(String... value)
-    {
+    public PreferencesSelection moduleLike(String... value) {
         addLike(PreferencesColumns.MODULE, value);
         return this;
     }
 
-    public PreferencesSelection moduleContains(String... value)
-    {
+    public PreferencesSelection moduleContains(String... value) {
         addContains(PreferencesColumns.MODULE, value);
         return this;
     }
 
-    public PreferencesSelection moduleStartsWith(String... value)
-    {
+    public PreferencesSelection moduleStartsWith(String... value) {
         addStartsWith(PreferencesColumns.MODULE, value);
         return this;
     }
 
-    public PreferencesSelection moduleEndsWith(String... value)
-    {
+    public PreferencesSelection moduleEndsWith(String... value) {
         addEndsWith(PreferencesColumns.MODULE, value);
         return this;
     }
 
-    public PreferencesSelection orderByModule(boolean desc)
-    {
+    public PreferencesSelection orderByModule(boolean desc) {
         orderBy(PreferencesColumns.MODULE, desc);
         return this;
     }
 
-    public PreferencesSelection orderByModule()
-    {
+    public PreferencesSelection orderByModule() {
         orderBy(PreferencesColumns.MODULE, false);
         return this;
     }
 
-    public PreferencesSelection key(String... value)
-    {
+    public PreferencesSelection key(String... value) {
         addEquals(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection keyNot(String... value)
-    {
+    public PreferencesSelection keyNot(String... value) {
         addNotEquals(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection keyLike(String... value)
-    {
+    public PreferencesSelection keyLike(String... value) {
         addLike(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection keyContains(String... value)
-    {
+    public PreferencesSelection keyContains(String... value) {
         addContains(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection keyStartsWith(String... value)
-    {
+    public PreferencesSelection keyStartsWith(String... value) {
         addStartsWith(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection keyEndsWith(String... value)
-    {
+    public PreferencesSelection keyEndsWith(String... value) {
         addEndsWith(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection orderByKey(boolean desc)
-    {
+    public PreferencesSelection orderByKey(boolean desc) {
         orderBy(PreferencesColumns.KEY, desc);
         return this;
     }
 
-    public PreferencesSelection orderByKey()
-    {
+    public PreferencesSelection orderByKey() {
         orderBy(PreferencesColumns.KEY, false);
         return this;
     }
 
-    public PreferencesSelection value(String... value)
-    {
+    public PreferencesSelection value(String... value) {
         addEquals(PreferencesColumns.VALUE, value);
         return this;
     }
 
-    public PreferencesSelection valueNot(String... value)
-    {
+    public PreferencesSelection valueNot(String... value) {
         addNotEquals(PreferencesColumns.VALUE, value);
         return this;
     }
 
-    public PreferencesSelection valueLike(String... value)
-    {
+    public PreferencesSelection valueLike(String... value) {
         addLike(PreferencesColumns.VALUE, value);
         return this;
     }
 
-    public PreferencesSelection valueContains(String... value)
-    {
+    public PreferencesSelection valueContains(String... value) {
         addContains(PreferencesColumns.VALUE, value);
         return this;
     }
 
-    public PreferencesSelection valueStartsWith(String... value)
-    {
+    public PreferencesSelection valueStartsWith(String... value) {
         addStartsWith(PreferencesColumns.VALUE, value);
         return this;
     }
 
-    public PreferencesSelection valueEndsWith(String... value)
-    {
+    public PreferencesSelection valueEndsWith(String... value) {
         addEndsWith(PreferencesColumns.VALUE, value);
         return this;
     }
 
-    public PreferencesSelection orderByValue(boolean desc)
-    {
+    public PreferencesSelection orderByValue(boolean desc) {
         orderBy(PreferencesColumns.VALUE, desc);
         return this;
     }
 
-    public PreferencesSelection orderByValue()
-    {
+    public PreferencesSelection orderByValue() {
         orderBy(PreferencesColumns.VALUE, false);
         return this;
     }
 
     //以下自己添加
-    public PreferencesSelection lessThan(Object value)
-    {
+    public PreferencesSelection lessThan(Object value) {
         addLessThan(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection greaterThan(Object value)
-    {
+    public PreferencesSelection greaterThan(Object value) {
         addGreaterThan(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection greaterThanOrEquals(Object value)
-    {
+    public PreferencesSelection greaterThanOrEquals(Object value) {
         addGreaterThanOrEquals(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection lessThanOrEquals(Object value)
-    {
+    public PreferencesSelection lessThanOrEquals(Object value) {
         addLessThanOrEquals(PreferencesColumns.KEY, value);
         return this;
     }
 
-    public PreferencesSelection addRaw_(String raw, Object... args)
-    {
+    public PreferencesSelection addRaw_(String raw, Object... args) {
         addRaw(raw, args);
         return this;
     }

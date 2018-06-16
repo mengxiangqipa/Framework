@@ -25,8 +25,7 @@ import com.framework.utils.AndroidAdjustResizeBugFix;
  * android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
  * <p/>
  */
-public class InputMethodLayout extends RelativeLayout
-{
+public class InputMethodLayout extends RelativeLayout {
     /**
      * 隐藏状态
      **/
@@ -37,63 +36,10 @@ public class InputMethodLayout extends RelativeLayout
     public static final byte KEYBOARD_STATE_SHOW = -3;
     private OnKeyboardStateChangeListener onKeyboardStateChangeListener;// 键盘状态监听
     private EditText editText;
-
-    public InputMethodLayout(Context context, AttributeSet attrs, int defStyle)
-    {
-        super(context, attrs, defStyle);
-    }
-
-    public InputMethodLayout(Context context, AttributeSet attrs)
-    {
-        super(context, attrs);
-    }
-
-    public InputMethodLayout(Context context)
-    {
-        super(context);
-    }
-
-    private void initAndroidAdjustResizeBugFix()
-    {
-        //解决全屏时获取软键盘是否弹出问题
-        AndroidAdjustResizeBugFix.assistActivity((Activity) getContext());
-    }
-
-    @Override
-    public void onWindowSystemUiVisibilityChanged(int visible)
-    {
-        super.onWindowSystemUiVisibilityChanged(visible);
-        if (visible > 0)
-        {
-            initAndroidAdjustResizeBugFix();
-        }
-    }
-
-    /**
-     * 设置软键盘状态监听
-     *
-     * @param onKeyboardStateChangeListener onKeyboardStateChangeListener
-     */
-    public void setOnKeyboardStateChangeListener(OnKeyboardStateChangeListener onKeyboardStateChangeListener)
-    {
-        this.onKeyboardStateChangeListener = onKeyboardStateChangeListener;
-    }
-
-    public InputMethodLayout setEditText(EditText editText)
-    {
-        if (null != editText)
-        {
-            this.editText = editText;
-            this.editText.getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListener);
-        }
-        return this;
-    }
-
-    private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener()
-    {
+    private ViewTreeObserver.OnGlobalLayoutListener mOnGlobalLayoutListener = new ViewTreeObserver
+            .OnGlobalLayoutListener() {
         @Override
-        public void onGlobalLayout()
-        {
+        public void onGlobalLayout() {
             Rect r = new Rect();
             //获取当前界面可视部分
             ((Activity) getContext()).getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
@@ -105,15 +51,54 @@ public class InputMethodLayout extends RelativeLayout
         }
     };
 
+    public InputMethodLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    public InputMethodLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public InputMethodLayout(Context context) {
+        super(context);
+    }
+
+    private void initAndroidAdjustResizeBugFix() {
+        //解决全屏时获取软键盘是否弹出问题
+        AndroidAdjustResizeBugFix.assistActivity((Activity) getContext());
+    }
+
     @Override
-    protected void onDetachedFromWindow()
-    {
+    public void onWindowSystemUiVisibilityChanged(int visible) {
+        super.onWindowSystemUiVisibilityChanged(visible);
+        if (visible > 0) {
+            initAndroidAdjustResizeBugFix();
+        }
+    }
+
+    /**
+     * 设置软键盘状态监听
+     *
+     * @param onKeyboardStateChangeListener onKeyboardStateChangeListener
+     */
+    public void setOnKeyboardStateChangeListener(OnKeyboardStateChangeListener onKeyboardStateChangeListener) {
+        this.onKeyboardStateChangeListener = onKeyboardStateChangeListener;
+    }
+
+    public InputMethodLayout setEditText(EditText editText) {
+        if (null != editText) {
+            this.editText = editText;
+            this.editText.getViewTreeObserver().addOnGlobalLayoutListener(mOnGlobalLayoutListener);
+        }
+        return this;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
         if (null != editText)
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN)
-            {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
                 editText.getViewTreeObserver().removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
-            } else
-            {
+            } else {
                 editText.getViewTreeObserver().removeOnGlobalLayoutListener(mOnGlobalLayoutListener);
             }
         super.onDetachedFromWindow();
@@ -124,10 +109,8 @@ public class InputMethodLayout extends RelativeLayout
      *
      * @param state // 状态
      */
-    public InputMethodLayout keyboardSateChange(int state)
-    {
-        if (onKeyboardStateChangeListener != null)
-        {
+    public InputMethodLayout keyboardSateChange(int state) {
+        if (onKeyboardStateChangeListener != null) {
             onKeyboardStateChangeListener.onKeyBoardStateChange(state);
         }
         return this;
@@ -136,8 +119,7 @@ public class InputMethodLayout extends RelativeLayout
     /**
      * 软键盘状态切换监听
      */
-    public interface OnKeyboardStateChangeListener
-    {
+    public interface OnKeyboardStateChangeListener {
         void onKeyBoardStateChange(int state);
     }
 }

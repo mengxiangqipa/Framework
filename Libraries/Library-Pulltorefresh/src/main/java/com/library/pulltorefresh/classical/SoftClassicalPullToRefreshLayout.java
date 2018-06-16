@@ -1,10 +1,5 @@
 package com.library.pulltorefresh.classical;
 
-import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
-import com.library.pulltorefresh.IndicatorDelegate;
-import com.library.pulltorefresh.R;
-import com.library.pulltorefresh.storehouse.LocalDisplay;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -16,15 +11,21 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
+import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
+import com.library.pulltorefresh.IndicatorDelegate;
+import com.library.pulltorefresh.R;
+import com.library.pulltorefresh.storehouse.LocalDisplay;
+
 /**
  * 头部可悬停,其他的跟ClassicalPullToRefreshLayout一样
  *
  * @author Yangjie
- *         className SoftClassicalPullToRefreshLayout
- *         created at  2017/1/9  15:36
+ * className SoftClassicalPullToRefreshLayout
+ * created at  2017/1/9  15:36
  * @see SoftClassicalPullToRefreshLayout
  */
-public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshLayout implements BaseAbstractPullToRefreshLayout.OnClickEmptyViewListener {
+public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshLayout implements
+        BaseAbstractPullToRefreshLayout.OnClickEmptyViewListener {
     // 下拉箭头的转180°动画
     private Animation rotateAnimation;
     // 均匀旋转动画
@@ -117,7 +118,8 @@ public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshL
     private void initView(Context context) {
         Log.i("yy", "initView");
         // 初始化下拉布局
-        refreshView = LayoutInflater.from(getContext()).inflate(R.layout.allview_refresh_head_soft_classical, null, false);
+        refreshView = LayoutInflater.from(getContext()).inflate(R.layout.allview_refresh_head_soft_classical, null,
+                false);
         pullDownView = refreshView.findViewById(R.id.pulldown_icon);
         refreshStateTextView = (TextView) refreshView.findViewById(R.id.tv_state);
         refreshContentTextView = (TextView) refreshView.findViewById(R.id.tv_content);
@@ -158,7 +160,6 @@ public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshL
     protected View initLoadMoreView() {
         return loadmoreView;
     }
-
 
     /**
      * 各种改变状态的，动画等

@@ -6,8 +6,8 @@ import java.util.Collection;
  * 判断List是否为空
  *
  * @author Yangjie
- *         className CollectionUtil
- *         created at  2017/3/17  13:01
+ * className CollectionUtil
+ * created at  2017/3/17  13:01
  */
 public class CollectionUtil {
     private static volatile CollectionUtil singleton;

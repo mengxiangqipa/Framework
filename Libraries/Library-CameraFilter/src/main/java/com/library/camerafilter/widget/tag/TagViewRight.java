@@ -9,15 +9,12 @@ import android.widget.TextView;
 
 import com.libray.camerafilter.R;
 
-public class TagViewRight extends TagView
-{
-    public TagViewRight(Context paramContext)
-    {
+public class TagViewRight extends TagView {
+    public TagViewRight(Context paramContext) {
         this(paramContext, null);
     }
 
-    public TagViewRight(Context paramContext, AttributeSet paramAttributeSet)
-    {
+    public TagViewRight(Context paramContext, AttributeSet paramAttributeSet) {
         super(paramContext, paramAttributeSet);
         LayoutInflater.from(paramContext).inflate(R.layout.camerasdk_view_tag_right, this);
         this.textview = ((TextView) findViewById(R.id.text));

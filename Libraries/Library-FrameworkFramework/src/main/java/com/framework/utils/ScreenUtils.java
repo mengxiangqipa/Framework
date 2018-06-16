@@ -14,8 +14,8 @@ import android.view.WindowManager;
 
 /**
  * @author Yangjie
- *         className ScreenUtils
- *         created at  2016/10/5  10:49
+ * className ScreenUtils
+ * created at  2016/10/5  10:49
  */
 public class ScreenUtils {
     private static volatile ScreenUtils instance;
@@ -68,7 +68,8 @@ public class ScreenUtils {
     }
 
     public int dp2px(Context context, int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
+                .getDisplayMetrics());
     }
 
     /**
@@ -145,7 +146,6 @@ public class ScreenUtils {
         bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
         view.destroyDrawingCache();
         return bp;
-
     }
 
     /**
@@ -170,7 +170,6 @@ public class ScreenUtils {
                 - statusBarHeight);
         view.destroyDrawingCache();
         return bp;
-
     }
 
     /**
@@ -222,7 +221,8 @@ public class ScreenUtils {
     /**
      * 设置状态栏颜色
      */
-    public void setStatusBarTintColor(Activity activity, int colorResource, boolean StatusBarTintEnabled, boolean NavigationBarTintEnabled) {
+    public void setStatusBarTintColor(Activity activity, int colorResource, boolean StatusBarTintEnabled, boolean
+            NavigationBarTintEnabled) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(StatusBarTintEnabled);
         tintManager.setNavigationBarTintEnabled(NavigationBarTintEnabled);
@@ -233,7 +233,7 @@ public class ScreenUtils {
     /**
      * 设置状态栏alpha
      */
-    public void setStatusBarTintAlpha(Activity activity,float alpha) {
+    public void setStatusBarTintAlpha(Activity activity, float alpha) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setTintAlpha(alpha);// 通知栏所需颜色
@@ -243,7 +243,7 @@ public class ScreenUtils {
      * 设置状态栏颜色
      */
     public void setStatusBarTintDrawable(Activity activity,
-                                                int drawableRes) {
+                                         int drawableRes) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);

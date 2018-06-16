@@ -25,9 +25,9 @@ import static com.danikula.videocache.Preconditions.checkNotNull;
  */
 public class ProxyCacheUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger("ProxyCacheUtils");
     static final int DEFAULT_BUFFER_SIZE = 8 * 1024;
     static final int MAX_ARRAY_PREVIEW = 16;
+    private static final Logger LOG = LoggerFactory.getLogger("ProxyCacheUtils");
 
     static String getSupposablyMime(String url) {
         MimeTypeMap mimes = MimeTypeMap.getSingleton();

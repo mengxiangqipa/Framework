@@ -8,12 +8,10 @@ import android.support.annotation.Nullable;
 
 import com.framework.utils.multyprocessprovider.provider.base.AbstractContentValues;
 
-
 /**
  * Content values wrapper for the {@code preferences} table.
  */
-public class PreferencesContentValues extends AbstractContentValues
-{
+public class PreferencesContentValues extends AbstractContentValues {
     @Override
     public Uri uri() {
         return PreferencesColumns.CONTENT_URI;
@@ -27,7 +25,8 @@ public class PreferencesContentValues extends AbstractContentValues
      * @return count of updated rows.
      */
     public int update(ContentResolver contentResolver, @Nullable PreferencesSelection where) {
-        return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
+        return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null :
+                where.args());
     }
 
     /**
@@ -38,7 +37,8 @@ public class PreferencesContentValues extends AbstractContentValues
      * @return count of updated rows.
      */
     public int update(Context context, @Nullable PreferencesSelection where) {
-        return context.getContentResolver().update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
+        return context.getContentResolver().update(uri(), values(), where == null ? null : where.sel(), where == null
+                ? null : where.args());
     }
 
     public PreferencesContentValues putModule(@Nullable String value) {
@@ -56,7 +56,6 @@ public class PreferencesContentValues extends AbstractContentValues
         mContentValues.put(PreferencesColumns.KEY, value);
         return this;
     }
-
 
     public PreferencesContentValues putValue(@Nullable String value) {
         mContentValues.put(PreferencesColumns.VALUE, value);

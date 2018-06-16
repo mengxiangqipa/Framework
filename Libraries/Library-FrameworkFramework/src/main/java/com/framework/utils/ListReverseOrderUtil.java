@@ -7,8 +7,8 @@ import java.util.List;
  * List 倒序输出
  *
  * @author Yangjie
- *         className ListReverseOrderUtil
- *         created at  2017/3/17  13:01
+ * className ListReverseOrderUtil
+ * created at  2017/3/17  13:01
  */
 public class ListReverseOrderUtil {
     private static volatile ListReverseOrderUtil singleton;
@@ -35,7 +35,7 @@ public class ListReverseOrderUtil {
             List list1 = new ArrayList();
             int lenth = list.size();
             for (int i = 0; i < lenth; i++) {
-                list1.add(list.get(lenth - 1-i));
+                list1.add(list.get(lenth - 1 - i));
             }
             return list1;
         }

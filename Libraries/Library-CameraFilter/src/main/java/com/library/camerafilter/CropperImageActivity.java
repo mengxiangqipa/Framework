@@ -25,48 +25,31 @@ import java.util.ArrayList;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-
 //裁剪界面
-public class CropperImageActivity extends BaseActivity
-{
+public class CropperImageActivity extends BaseActivity {
 
-
+    public static ImageView cropimage;// 显示图片控件
+    public Bitmap itbmp; // 需要传递的Bitmap
+    float n; // 根据宽度缩放图像的系数
     private CameraSdkParameterInfo mCameraSdkParameterInfo = new CameraSdkParameterInfo();
     private ArrayList<String> imageList;
     private int position;        //需要裁剪的图片下标
-
     private String imagePath;    // 要裁剪图片的URL
     private ImageView crop_img; // 放缩按钮
     private TextView crop_select; // 选取按钮
     private ProgressBar bar;// 等待框
-
-    private int flag = 0;// 图像大小的标志变量 0是大图 1表示图像全部显示
-    public Bitmap itbmp; // 需要传递的Bitmap
-
-    float n; // 根据宽度缩放图像的系数
-
-    public static ImageView cropimage;// 显示图片控件
-    private PhotoViewAttacher mAttacher; //控制图像属性
-    private Bitmap bitmap;//从相片和图库中获取的原始Bitmap
-
-    private float minimumScale; //图像最小放缩比例 图像高度与屏幕高度一致
-
     // Handle机制
-    protected Handler mHandler = new Handler()
-    {
+    protected Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg)
-        {
-            if (msg.what == 0x111)
-            {
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x111) {
                 bar.setVisibility(View.GONE);
 
                 //String path=ImageUtils.saveAsBitmap(CropperImageActivity.this, itbmp, Constants.folderName);
                 //itbmp.recycle();
                 Constants.bitmap = itbmp;
 
-                if (mCameraSdkParameterInfo.isFilter_image())
-                {
+                if (mCameraSdkParameterInfo.isFilter_image()) {
                     Bundle b = new Bundle();
                     /*ArrayList<String> list=new ArrayList<String>();
                     list.add(path);
@@ -76,8 +59,7 @@ public class CropperImageActivity extends BaseActivity
                     Intent intent = new Intent(mContext, FilterImageActivity.class);
                     intent.putExtras(b);
                     startActivity(intent);
-                } else
-                {
+                } else {
                     String path = PhotoUtils.saveAsBitmap(CropperImageActivity.this, itbmp);
                     PhotoPickActivity.instance.getForResultComplate(path);
                 }
@@ -86,10 +68,13 @@ public class CropperImageActivity extends BaseActivity
             }
         }
     };
+    private int flag = 0;// 图像大小的标志变量 0是大图 1表示图像全部显示
+    private PhotoViewAttacher mAttacher; //控制图像属性
+    private Bitmap bitmap;//从相片和图库中获取的原始Bitmap
+    private float minimumScale; //图像最小放缩比例 图像高度与屏幕高度一致
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_activity_crop_image);
@@ -100,14 +85,13 @@ public class CropperImageActivity extends BaseActivity
         crop_select.setVisibility(View.VISIBLE);
 
         Bundle b = getIntent().getExtras();
-        try
-        {
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER);
+        try {
+            mCameraSdkParameterInfo = (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo
+                    .EXTRA_PARAMETER);
             imageList = mCameraSdkParameterInfo.getImage_list();
             position = mCameraSdkParameterInfo.getPosition();
             imagePath = mCameraSdkParameterInfo.getImage_list().get(position);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
 
         // 第一步 找控件
@@ -137,30 +121,23 @@ public class CropperImageActivity extends BaseActivity
         initEvent();
     }
 
-    private void initEvent()
-    {
-        crop_img.setOnClickListener(new OnClickListener()
-        {
+    private void initEvent() {
+        crop_img.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 // 图片全屏按钮 图片不可放缩
                 show();
             }
         });
-        crop_select.setOnClickListener(new OnClickListener()
-        {
+        crop_select.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 bar.setVisibility(View.VISIBLE);
                 // 启动线程来执行任务
-                new Thread()
-                {
-                    public void run()
-                    {
+                new Thread() {
+                    public void run() {
                         getViewBitmap();
                         Message m = new Message();
                         m.what = 0x111;
@@ -171,24 +148,19 @@ public class CropperImageActivity extends BaseActivity
         });
     }
 
-
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
     }
 
-    private void show()
-    {
-        if (flag == 0)
-        {
+    private void show() {
+        if (flag == 0) {
             crop_img.setImageResource(R.drawable.crop_img_sma);
             flag = 1;
             mAttacher.setScaleType(ScaleType.FIT_CENTER);
             mAttacher.setZoomable(false);
             // 再次点击 恢复之前可以放缩状态
-        } else if (flag == 1)
-        {
+        } else if (flag == 1) {
             crop_img.setImageResource(R.drawable.crop_img_big);
             flag = 0;
             //cropimage.setImageBitmap(bitmap);
@@ -198,9 +170,7 @@ public class CropperImageActivity extends BaseActivity
         }
     }
 
-
-    private void getViewBitmap()
-    {
+    private void getViewBitmap() {
         cropimage.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(cropimage.getDrawingCache());
         // 清缓存
@@ -213,5 +183,4 @@ public class CropperImageActivity extends BaseActivity
         itbmp = Bitmap.createBitmap(bitmap, 0, 0, w, w);
         bitmap = ThumbnailUtils.extractThumbnail(bitmap, 640, 640);// 缩放图片到指定的宽高到640px
     }
-
 }

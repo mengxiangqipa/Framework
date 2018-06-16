@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 
 import com.framework.utils.multyprocessprovider.provider.base.AbstractCursor;
 
-
 /**
  * Cursor wrapper for the {@code preferences} table.
  */
@@ -21,7 +20,8 @@ public class PreferencesCursor extends AbstractCursor implements PreferencesMode
     public long getId() {
         Long res = getLongOrNull(PreferencesColumns._ID);
         if (res == null)
-            throw new NullPointerException("The value of '_id' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of '_id' in the database was null, which is not allowed " +
+                    "according to the model definition");
         return res;
     }
 
@@ -43,7 +43,8 @@ public class PreferencesCursor extends AbstractCursor implements PreferencesMode
     public String getKey() {
         String res = getStringOrNull(PreferencesColumns.KEY);
         if (res == null)
-            throw new NullPointerException("The value of 'key' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'key' in the database was null, which is not allowed " +
+                    "according to the model definition");
         return res;
     }
 

@@ -16,7 +16,7 @@ public class FolderInfo {
         try {
             FolderInfo other = (FolderInfo) o;
             return this.path.equalsIgnoreCase(other.path);
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             e.printStackTrace();
         }
         return super.equals(o);

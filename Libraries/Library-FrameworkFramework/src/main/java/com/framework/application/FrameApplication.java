@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 
 //public class FrameApplication extends Application {//主module未使用Tinker时继承Application 并修改FrameApplication--onCreate()
-public class FrameApplication{
+public class FrameApplication {
 
     public static Application frameApplication;
     public static Handler mHandler;

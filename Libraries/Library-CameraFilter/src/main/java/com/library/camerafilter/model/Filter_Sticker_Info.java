@@ -4,147 +4,140 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
-public class Filter_Sticker_Info implements Serializable{
+public class Filter_Sticker_Info implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
-	
-	
-	private int id=0;					//贴纸id
-	private int fid=0;					//父类id
-	private String name="";				//贴纸名称
-	private String image="";			//贴纸图片	
-	private String sample_url = "";     //范例图片Url
-	private String describe="";			//描述	
-	private int count = 0;				//有多少人使用
-	private float price;				//价格
-	private String createtime;			//添加时间
-	
-	
-	
-	//扩展属性
-	private String local_path="";		//贴纸本地路径
-	private boolean isLib=false;		//为true则打开贴纸库
-	private int drawableId; 			//本地资源ID
-	private Bitmap bitmap;				//图像
-	
-	public Filter_Sticker_Info() {
-		
-	}
-	
-	public Filter_Sticker_Info(int drawableId) {
-		this.drawableId = drawableId;
-	}
-	
-	public Filter_Sticker_Info(int drawableId,boolean lib) {
-		this.drawableId = drawableId;
-		this.isLib=lib;
-	}
+    private int id = 0;                    //贴纸id
+    private int fid = 0;                    //父类id
+    private String name = "";                //贴纸名称
+    private String image = "";            //贴纸图片
+    private String sample_url = "";     //范例图片Url
+    private String describe = "";            //描述
+    private int count = 0;                //有多少人使用
+    private float price;                //价格
+    private String createtime;            //添加时间
 
-	
-	
-	public int getId() {
-		return id;
-	}
+    //扩展属性
+    private String local_path = "";        //贴纸本地路径
+    private boolean isLib = false;        //为true则打开贴纸库
+    private int drawableId;            //本地资源ID
+    private Bitmap bitmap;                //图像
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Filter_Sticker_Info() {
 
-	public int getFid() {
-		return fid;
-	}
+    }
 
-	public void setFid(int fid) {
-		this.fid = fid;
-	}
+    public Filter_Sticker_Info(int drawableId) {
+        this.drawableId = drawableId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Filter_Sticker_Info(int drawableId, boolean lib) {
+        this.drawableId = drawableId;
+        this.isLib = lib;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    public int getFid() {
+        return fid;
+    }
 
-	public String getSample_url() {
-		return sample_url;
-	}
+    public void setFid(int fid) {
+        this.fid = fid;
+    }
 
-	public void setSample_url(String sample_url) {
-		this.sample_url = sample_url;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescribe() {
-		return describe;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public int getCount() {
-		return count;
-	}
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public String getSample_url() {
+        return sample_url;
+    }
 
-	public float getPrice() {
-		return price;
-	}
+    public void setSample_url(String sample_url) {
+        this.sample_url = sample_url;
+    }
 
-	public void setPrice(float price) {
-		this.price = price;
-	}
+    public String getDescribe() {
+        return describe;
+    }
 
-	public String getCreatetime() {
-		return createtime;
-	}
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
 
-	public void setCreatetime(String createtime) {
-		this.createtime = createtime;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public String getLocal_path() {
-		return local_path;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public void setLocal_path(String local_path) {
-		this.local_path = local_path;
-	}
+    public float getPrice() {
+        return price;
+    }
 
-	public boolean isLib() {
-		return isLib;
-	}
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
-	public void setLib(boolean isLib) {
-		this.isLib = isLib;
-	}
+    public String getCreatetime() {
+        return createtime;
+    }
 
-	public int getDrawableId() {
-		return drawableId;
-	}
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
 
-	public void setDrawableId(int drawableId) {
-		this.drawableId = drawableId;
-	}
+    public String getLocal_path() {
+        return local_path;
+    }
 
-	public Bitmap getBitmap() {
-		return bitmap;
-	}
+    public void setLocal_path(String local_path) {
+        this.local_path = local_path;
+    }
 
-	public void setBitmap(Bitmap bitmap) {
-		this.bitmap = bitmap;
-	}
-	
+    public boolean isLib() {
+        return isLib;
+    }
+
+    public void setLib(boolean isLib) {
+        this.isLib = isLib;
+    }
+
+    public int getDrawableId() {
+        return drawableId;
+    }
+
+    public void setDrawableId(int drawableId) {
+        this.drawableId = drawableId;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 }

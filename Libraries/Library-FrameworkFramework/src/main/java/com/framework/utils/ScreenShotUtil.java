@@ -32,7 +32,24 @@ import static android.graphics.PixelFormat.getPixelFormatInfo;
  * Created by  作者：Administrator on 2016/5/12 0012 11:14.
  */
 public class ScreenShotUtil {
-  private  static  volatile ScreenShotUtil instance;
+    static DataInputStream dStream = null;
+    static byte[] piex = null;
+    static int[] colors = null;
+    static int screenWidth;
+    static int screenHeight;
+    static File fbFile;
+    private static volatile ScreenShotUtil instance;
+    private WindowManager mWindowManager1 = null;
+    private MediaProjectionManager mMediaProjectionManager1 = null;
+    private MediaProjection mMediaProjection = null;
+    private VirtualDisplay mVirtualDisplay = null;
+    private int windowWidth = 0;
+    private int windowHeight = 0;
+    private ImageReader mImageReader = null;
+    private DisplayMetrics metrics = null;
+    private int mScreenDensity = 0;
+    private int mResultCode = 0;
+    private Intent mResultData = null;
 
     public static ScreenShotUtil getInstance() {
         if (instance == null) {
@@ -66,7 +83,7 @@ public class ScreenShotUtil {
 
                         new String[]{"/system/bin/su", "-c",
 
-                                "chmod 777 /dev/graphics/fb0" });
+                                "chmod 777 /dev/graphics/fb0"});
             } catch (IOException e) {
                 e.printStackTrace();
                 Y.y("runtime:" + e.getMessage());
@@ -75,7 +92,6 @@ public class ScreenShotUtil {
             Thread.sleep(5000);
             file = new File("/dev/graphics/fb0");
             test(context, file, filePath, fileName);
-
         } catch (IOException e) {
             e.printStackTrace();
             Y.y("ScreenShotUtil_IOException:" + e.getMessage());
@@ -87,13 +103,6 @@ public class ScreenShotUtil {
         Y.y("ScreenShotUtil:" + "3");
         return true;
     }
-
-    static DataInputStream dStream = null;
-    static byte[] piex = null;
-    static int[] colors = null;
-    static int screenWidth;
-    static int screenHeight;
-    static File fbFile;
 
     public Bitmap getScreenShotBitmap() {
         FileInputStream buf = null;
@@ -116,7 +125,6 @@ public class ScreenShotUtil {
 //            Utils.showToast("位图为空："+(yy==null));
             // 得到屏幕bitmap
             return yy;
-
         } catch (FileNotFoundException e) {
             Y.y("FileNotFoundException error " + e.getMessage());
         } catch (IOException e) {
@@ -219,16 +227,6 @@ public class ScreenShotUtil {
         }
     }
 
-    private WindowManager mWindowManager1 = null;
-    private MediaProjectionManager mMediaProjectionManager1 = null;
-    private MediaProjection mMediaProjection = null;
-    private VirtualDisplay mVirtualDisplay = null;
-    private int windowWidth = 0;
-    private int windowHeight = 0;
-    private ImageReader mImageReader = null;
-    private DisplayMetrics metrics = null;
-    private int mScreenDensity = 0;
-
     private void createVirtualEnvironment(Context mContext) {
         mMediaProjectionManager1 = (MediaProjectionManager) mContext.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         mWindowManager1 = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
@@ -240,49 +238,48 @@ public class ScreenShotUtil {
         mImageReader = ImageReader.newInstance(windowWidth, windowHeight, 0x1, 2); //ImageFormat.RGB_565
         Y.y("prepared the virtual environment");
     }
-    private void startVirtual(Context mContext){
-        Y.y("startVirtual"+1);
+
+    private void startVirtual(Context mContext) {
+        Y.y("startVirtual" + 1);
         if (mMediaProjection != null) {
-            Y.y("startVirtual"+2);
+            Y.y("startVirtual" + 2);
             virtualDisplay();
         } else {
-            Y.y("startVirtual"+3);
+            Y.y("startVirtual" + 3);
             setUpMediaProjection(mContext);
             virtualDisplay();
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setUpMediaProjection(Context mContext){
-        Y.y("setUpMediaProjection"+1);
-        mResultData = ((Activity)mContext).getIntent();
-        Y.y("setUpMediaProjection"+2);
+    private void setUpMediaProjection(Context mContext) {
+        Y.y("setUpMediaProjection" + 1);
+        mResultData = ((Activity) mContext).getIntent();
+        Y.y("setUpMediaProjection" + 2);
 //        mResultCode = ((Activity)mContext).getResult();
 //        Y.y("setUpMediaProjection"+3);
 //        mMediaProjectionManager1 = mContext.getMediaProjectionManager();
-        Y.y("setUpMediaProjection"+4);
+        Y.y("setUpMediaProjection" + 4);
         mMediaProjection = mMediaProjectionManager1.getMediaProjection(mResultCode, mResultData);
-        Y.y("setUpMediaProjection"+5);
+        Y.y("setUpMediaProjection" + 5);
     }
-    private int mResultCode = 0;
-    private Intent mResultData = null;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void virtualDisplay() {
-        Y.y("virtualDisplay:"+1);
-        if(mResultData==null){
-            Y.y("virtualDisplay:"+2);
+        Y.y("virtualDisplay:" + 1);
+        if (mResultData == null) {
+            Y.y("virtualDisplay:" + 2);
             mResultData = mMediaProjectionManager1.createScreenCaptureIntent();
         }
         if (null == mMediaProjection) {
-            Y.y("virtualDisplay:"+3);
+            Y.y("virtualDisplay:" + 3);
             mMediaProjection = mMediaProjectionManager1.getMediaProjection(mResultCode, mResultData);
         }
-        Y.y("windowWidth:"+windowWidth);
-        Y.y("windowHeight:"+windowHeight);
-        Y.y("mScreenDensity:"+mScreenDensity);
-        Y.y("mImageReader.getSurface()==null:"+(mImageReader.getSurface()==null));
-        Y.y("mMediaProjection==null:"+(mMediaProjection==null));
+        Y.y("windowWidth:" + windowWidth);
+        Y.y("windowHeight:" + windowHeight);
+        Y.y("mScreenDensity:" + mScreenDensity);
+        Y.y("mImageReader.getSurface()==null:" + (mImageReader.getSurface() == null));
+        Y.y("mMediaProjection==null:" + (mMediaProjection == null));
         mVirtualDisplay = mMediaProjection.createVirtualDisplay("screen-mirror1",
                 windowWidth, windowHeight, mScreenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 mImageReader.getSurface(), null, null);
@@ -302,16 +299,16 @@ public class ScreenShotUtil {
         }
         Image image = null;
         try {
-            image=mImageReader.acquireLatestImage();
+            image = mImageReader.acquireLatestImage();
         } catch (Exception e1) {
             try {
-                image=mImageReader.acquireLatestImage();
+                image = mImageReader.acquireLatestImage();
             } catch (Exception e2) {
                 e1.printStackTrace();
             }
         }
-        if(null!=image){
-            Y.y("startCaptureAndSave" + "4"+"image==null:"+(image==null));
+        if (null != image) {
+            Y.y("startCaptureAndSave" + "4" + "image==null:" + (image == null));
             int width = image.getWidth();
             int height = image.getHeight();
             Y.y("startCaptureAndSave" + "5");
@@ -353,7 +350,6 @@ public class ScreenShotUtil {
                         Y.y("screen image saved");
                     }
                     Y.y("startCaptureAndSave" + "11");
-
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Y.y("startCaptureAndSave_FileNotFoundException" + e.getMessage());
@@ -363,6 +359,5 @@ public class ScreenShotUtil {
                 }
             }
         }
-
     }
 }

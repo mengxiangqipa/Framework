@@ -1,7 +1,6 @@
 package com.framework.utils.multyprocessprovider.provider.exception;
 
-public class ItemNotFoundException extends Exception
-{
+public class ItemNotFoundException extends Exception {
     public ItemNotFoundException() {
     }
 
@@ -16,5 +15,4 @@ public class ItemNotFoundException extends Exception
     public ItemNotFoundException(Throwable cause) {
         super(cause);
     }
-
 }

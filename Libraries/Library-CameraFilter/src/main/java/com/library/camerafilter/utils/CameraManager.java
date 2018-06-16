@@ -67,7 +67,4 @@ public class CameraManager {
     public void removeActivity(Activity act) {
         cameras.remove(act);
     }
-
-
-
 }

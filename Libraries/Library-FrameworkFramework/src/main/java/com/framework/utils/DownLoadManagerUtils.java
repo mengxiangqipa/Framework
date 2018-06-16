@@ -14,8 +14,7 @@ import java.io.File;
  * @author Administrator 下载器工具类
  */
 @SuppressLint("InlinedApi")
-public class DownLoadManagerUtils
-{
+public class DownLoadManagerUtils {
     public static final String DownLoad_ID = "downloadId";
     public static final String DownLoad_FileName = "downLoad_fileName";
     public static final String SDAvailable = "SDAvailable";
@@ -28,14 +27,10 @@ public class DownLoadManagerUtils
     public String tempPath = Environment.DIRECTORY_DOWNLOADS;
     private DownloadManager downloadManager;
 
-    public static DownLoadManagerUtils getInstance()
-    {
-        if (null == newInstance)
-        {
-            synchronized (DownLoadManagerUtils.class)
-            {
-                if (null == newInstance)
-                {
+    public static DownLoadManagerUtils getInstance() {
+        if (null == newInstance) {
+            synchronized (DownLoadManagerUtils.class) {
+                if (null == newInstance) {
                     newInstance = new DownLoadManagerUtils();
                 }
             }
@@ -43,12 +38,9 @@ public class DownLoadManagerUtils
         return newInstance;
     }
 
-    private DownloadManager getDownloadManager(Context context)
-    {
-        if (null == downloadManager)
-        {
-            synchronized (DownLoadManagerUtils.class)
-            {
+    private DownloadManager getDownloadManager(Context context) {
+        if (null == downloadManager) {
+            synchronized (DownLoadManagerUtils.class) {
                 downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             }
         }
@@ -58,8 +50,7 @@ public class DownLoadManagerUtils
     /**
      * @param ids 移除正在下载的
      */
-    public void removeTask(Context context, long... ids)
-    {
+    public void removeTask(Context context, long... ids) {
         getDownloadManager(context).remove(ids);
     }
 
@@ -77,19 +68,20 @@ public class DownLoadManagerUtils
      *
      * <pre/>
      */
-    public int requestDownLoad(Context mContext, String url, String fileName, String notifyTitle, String appName)
-    {
-        return requestDownLoad(mContext, url, 0, true, true, 1, Environment.DIRECTORY_DOWNLOADS, "", fileName, notifyTitle, appName);
+    public int requestDownLoad(Context mContext, String url, String fileName, String notifyTitle, String appName) {
+        return requestDownLoad(mContext, url, 0, true, true, 1, Environment.DIRECTORY_DOWNLOADS, "", fileName,
+                notifyTitle, appName);
     }
 
-    public int requestDownLoad(Context mContext, String downLoadDir, String url, String fileName, String notifyTitle, String appName)
-    {
+    public int requestDownLoad(Context mContext, String downLoadDir, String url, String fileName, String notifyTitle,
+                               String appName) {
         return requestDownLoad(mContext, url, 0, true, true, 1, "", downLoadDir, fileName, notifyTitle, appName);
     }
 
-    public int requestDownLoad(Context mContext, String url, boolean hideNotification, String fileName, String notifyTitle, String appName)
-    {
-        return requestDownLoad(mContext, url, hideNotification ? 0 : 1, true, true, 0, Environment.DIRECTORY_DOWNLOADS, "", fileName, notifyTitle, appName);
+    public int requestDownLoad(Context mContext, String url, boolean hideNotification, String fileName, String
+            notifyTitle, String appName) {
+        return requestDownLoad(mContext, url, hideNotification ? 0 : 1, true, true, 0, Environment
+                .DIRECTORY_DOWNLOADS, "", fileName, notifyTitle, appName);
     }
 
     /**
@@ -113,16 +105,15 @@ public class DownLoadManagerUtils
      *
      *                                       <pre/>
      */
-    public int requestDownLoad(Context mContext, String url, int netWorkType, boolean setVisibleInDownloadsUi, boolean setAllowedOverRoaming,
-                               int notificationVisibility, String destinationInExternalPublicDir, String destinationInExternalFilesDir, String fileName, String notifyTitle,
-                               String appName)
-    {
-        try
-        {
+    public int requestDownLoad(Context mContext, String url, int netWorkType, boolean setVisibleInDownloadsUi,
+                               boolean setAllowedOverRoaming,
+                               int notificationVisibility, String destinationInExternalPublicDir, String
+                                       destinationInExternalFilesDir, String fileName, String notifyTitle,
+                               String appName) {
+        try {
             long filterById = PreferencesHelper.getInstance().getLongData(fileName);
             int queryDownloadStatus = queryDownloadStatus(mContext, filterById, fileName);
-            switch (queryDownloadStatus)
-            {
+            switch (queryDownloadStatus) {
                 //-1
                 case DOWNLOAD_STATE_UNKNOW:
                     PreferencesHelper.getInstance().putInfo(DownLoad_State, 0L);
@@ -157,43 +148,38 @@ public class DownLoadManagerUtils
             }
             DownloadManager.Request requestDownLoad = new DownloadManager.Request(Uri.parse(url));
             // 设置下载路径
-            tempPath = getPath(mContext, requestDownLoad, destinationInExternalFilesDir, destinationInExternalPublicDir, fileName);
+            tempPath = getPath(mContext, requestDownLoad, destinationInExternalFilesDir,
+                    destinationInExternalPublicDir, fileName);
             Y.y("可以创建新下载或者下载成功tempPath:" + tempPath);
             long state = PreferencesHelper.getInstance().getLongData(DownLoad_State);
             Y.y("可以创建新下载或者下载成功:" + state);
-            if (DOWNLOAD_STATE_SHOULD_BEGEIN == state || state == DownloadManager.STATUS_SUCCESSFUL)
-            {//可以创建新下载或者下载成功
+            if (DOWNLOAD_STATE_SHOULD_BEGEIN == state || state == DownloadManager.STATUS_SUCCESSFUL) {//可以创建新下载或者下载成功
                 Y.y("可以创建新下载或者下载成功");
                 // 创建下载请求
                 // 设置允许使用的网络类型
-                if (netWorkType == 0)
-                {
-                    requestDownLoad.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-                } else if (netWorkType == 1)
-                {
+                if (netWorkType == 0) {
+                    requestDownLoad.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager
+                            .Request.NETWORK_WIFI);
+                } else if (netWorkType == 1) {
                     requestDownLoad.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-                } else if (netWorkType == 2)
-                {
+                } else if (netWorkType == 2) {
                     requestDownLoad.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE);
-                } else
-                {
-                    requestDownLoad.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+                } else {
+                    requestDownLoad.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager
+                            .Request.NETWORK_WIFI);
                 }
                 // 禁止发出通知，既后台下载
-                if (notificationVisibility == 0)
-                {
+                if (notificationVisibility == 0) {
                     requestDownLoad.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
-                } else if (notificationVisibility == 1)
-                {
+                } else if (notificationVisibility == 1) {
                     requestDownLoad.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-                } else if (notificationVisibility == 2)
-                {
-                    requestDownLoad.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                } else if (notificationVisibility == 3)
-                {
-                    requestDownLoad.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
-                } else
-                {
+                } else if (notificationVisibility == 2) {
+                    requestDownLoad.setNotificationVisibility(DownloadManager.Request
+                            .VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                } else if (notificationVisibility == 3) {
+                    requestDownLoad.setNotificationVisibility(DownloadManager.Request
+                            .VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION);
+                } else {
                     requestDownLoad.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
                 }
                 // 是否显示下载界面
@@ -202,8 +188,7 @@ public class DownLoadManagerUtils
                 // 判断漫游
                 requestDownLoad.setAllowedOverRoaming(setAllowedOverRoaming);
                 requestDownLoad.setTitle(TextUtils.isEmpty(notifyTitle) ? "" : notifyTitle);
-                if (hasInstallableApk(mContext, !TextUtils.isEmpty(destinationInExternalFilesDir), tempPath, appName))
-                {
+                if (hasInstallableApk(mContext, !TextUtils.isEmpty(destinationInExternalFilesDir), tempPath, appName)) {
                     return 100;
                 }
                 // 将下载请求放入队列
@@ -212,14 +197,12 @@ public class DownLoadManagerUtils
                 PreferencesHelper.getInstance().putInfo(DownLoad_FileName, fileName);
                 PreferencesHelper.getInstance().putInfo(fileName, id);
                 return DOWNLOAD_STATE_SHOULD_BEGEIN;
-            } else if (state == DownloadManager.STATUS_PAUSED)
-            {//下载暂停了 ,然后恢复下载
+            } else if (state == DownloadManager.STATUS_PAUSED) {//下载暂停了 ,然后恢复下载
                 getDownloadManager(mContext).remove(filterById);//先删除任务，再重新下载
                 requestDownLoad(mContext, url, fileName, notifyTitle, appName);
                 return DOWNLOAD_STATE_RESUME;
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Y.y("e" + e.getMessage());
         }
         return DOWNLOAD_STATE_UNKNOW;
@@ -230,25 +213,21 @@ public class DownLoadManagerUtils
      * @param fileName   在sharepreference里面存的fileName键
      * @return 查询下载状态
      */
-    public int queryDownloadStatus(Context context, long filterById, String fileName)
-    {
-        try
-        {
+    public int queryDownloadStatus(Context context, long filterById, String fileName) {
+        try {
             Y.y("queryDownloadStatus开始查询");
             DownloadManager.Query query = new DownloadManager.Query();
             query.setFilterById(filterById);
             Cursor c = getDownloadManager(context).query(query);
             int status = 0;
             //			String path = null;
-            if (c.moveToFirst())
-            {
+            if (c.moveToFirst()) {
                 status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
                 //				path = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                 c.close();
                 Y.y("queryDownloadStatus-de");
             }
-            switch (status)
-            {
+            switch (status) {
                 case DownloadManager.STATUS_PAUSED:
 //				Log.i("yy", "queryDownloadStatus-STATUS_PAUSED");
                     Y.y("queryDownloadStatus-STATUS_PAUSED");
@@ -271,42 +250,34 @@ public class DownLoadManagerUtils
 //				Log.i("yy", "queryDownloadStatus-STATUS_FAILED");
                     Y.y("queryDownloadStatus-STATUS_FAILED");
                     // 清除已下载的内容，重新下载
-                    if (null == fileName || "".equals(fileName))
-                    {
+                    if (null == fileName || "".equals(fileName)) {
                         PreferencesHelper.getInstance().putInfo(DownLoad_ID, 0L);
                     }
                     PreferencesHelper.getInstance().putInfo(DownLoad_State, 0L);
                     return DownloadManager.STATUS_FAILED;
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Y.y("queryDownloadStatus-Exception:" + e.getMessage());
         }
         return -1;
     }
 
-    public int queryDownloadStatus(Context context, long filterById)
-    {
+    public int queryDownloadStatus(Context context, long filterById) {
         return queryDownloadStatus(context, filterById, null);
     }
 
-    private void installAPK(Context context, String path)
-    {
-        try
-        {
-            if (PreferencesHelper.getInstance().getBooleanData(SDAvailable))
-            {
+    private void installAPK(Context context, String path) {
+        try {
+            if (PreferencesHelper.getInstance().getBooleanData(SDAvailable)) {
                 PackageManagerUtil.getInstance().installApk(context, path);// SD卡可用
-            } else
-            {
-                File file = new File(Environment.getExternalStoragePublicDirectory("Download"), DownloadManager.COLUMN_TITLE);
-                if (file.exists())
-                {
+            } else {
+                File file = new File(Environment.getExternalStoragePublicDirectory("Download"), DownloadManager
+                        .COLUMN_TITLE);
+                if (file.exists()) {
                     PackageManagerUtil.getInstance().installApk(context, file.getPath());
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Y.y("error:" + e.getMessage());
         }
     }
@@ -319,56 +290,50 @@ public class DownLoadManagerUtils
      * @param tempPath 文件路径
      * @return 是否存在可以安装的apk, 返回true会自动安装
      */
-    public boolean hasInstallableApk(Context mContext, boolean innerDir, String tempPath, String apkName)
-    {
+    public boolean hasInstallableApk(Context mContext, boolean innerDir, String tempPath, String apkName) {
         Y.y("hasInstallableApk：" + tempPath);
-        try
-        {
-            if (innerDir)
-            {
+        try {
+            if (innerDir) {
                 tempPath = mContext.getExternalFilesDir(tempPath).getAbsolutePath();
-            } else if (TextUtils.equals(tempPath, Environment.DIRECTORY_DOWNLOADS))
-            {
+            } else if (TextUtils.equals(tempPath, Environment.DIRECTORY_DOWNLOADS)) {
                 tempPath = Environment.getExternalStorageDirectory().getPath() + File.separator + tempPath;
             }
             Y.y("hasInstallableApk：" + tempPath);
             File f = new File(tempPath);
-            if (f.exists())
-            {
+            if (f.exists()) {
                 File[] files = f.listFiles();
-                if (null != files)
-                {
-                    for (File file : files)
-                    {
+                if (null != files) {
+                    for (File file : files) {
                         //文件包含了apk
-                        try
-                        {
-                            Y.y("hasInstallableApk：" + "file.isFile():" + file.isFile() + "  file.exists():" + file.exists() + "   getPackageName:" + mContext.getPackageName() + "  otherPackageName:" + PackageManagerUtil.getInstance().getOtherApkPkgName(mContext, File.separator + File.separator + file.getPath()));
-                            if (file != null && file.isFile() && file.exists() && !TextUtils.isEmpty(mContext.getPackageName())
+                        try {
+                            Y.y("hasInstallableApk：" + "file.isFile():" + file.isFile() + "  file.exists():" + file
+                                    .exists() + "   getPackageName:" + mContext.getPackageName() + "  " +
+                                    "otherPackageName:" + PackageManagerUtil.getInstance().getOtherApkPkgName
+                                    (mContext, File.separator + File.separator + file.getPath()));
+                            if (file != null && file.isFile() && file.exists() && !TextUtils.isEmpty(mContext
+                                    .getPackageName())
                                     && TextUtils.equals(
-                                    PackageManagerUtil.getInstance().getOtherApkPkgName(mContext, File.separator + File.separator + file.getPath()),
-                                    mContext.getPackageName()))
-                            {
-                                if (PackageManagerUtil.getInstance().isApkCanInstall(mContext, File.separator + File.separator + file.getPath()))
-                                {
+                                    PackageManagerUtil.getInstance().getOtherApkPkgName(mContext, File.separator +
+                                            File.separator + file.getPath()),
+                                    mContext.getPackageName())) {
+                                if (PackageManagerUtil.getInstance().isApkCanInstall(mContext, File.separator + File
+                                        .separator + file.getPath())) {
                                     if (PackageManagerUtil.getInstance().getOtherApkVersionCode(mContext,
-                                            File.separator + File.separator + file.getPath()) >= PackageManagerUtil.getInstance()
-                                            .getCurrentApkVersionCode(mContext))
-                                    {
+                                            File.separator + File.separator + file.getPath()) >= PackageManagerUtil
+                                            .getInstance()
+                                            .getCurrentApkVersionCode(mContext)) {
                                         installAPK(mContext, File.separator + File.separator + file.getPath());
                                         return true;
                                     }
                                 }
                             }
-                        } catch (Exception e)
-                        {
+                        } catch (Exception e) {
                             Y.y("error:" + e.getMessage());
                         }
                     }
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Y.y("hasInstallableApk：" + "没有可用apk包");
@@ -385,46 +350,36 @@ public class DownLoadManagerUtils
      * @param fileName                       文件名
      * @return 返回下载路劲
      */
-    private String getPath(Context mContext, DownloadManager.Request requestDownLoad, String destinationInExternalFilesDir,
-                           String destinationInExternalPublicDir, String fileName)
-    {
+    private String getPath(Context mContext, DownloadManager.Request requestDownLoad, String
+            destinationInExternalFilesDir,
+                           String destinationInExternalPublicDir, String fileName) {
         String tempPath = null;
-        try
-        {
-            if (PackageManagerUtil.getInstance().isSDcardExist())
-            {
+        try {
+            if (PackageManagerUtil.getInstance().isSDcardExist()) {
                 PreferencesHelper.getInstance().putInfo(SDAvailable, true);
-                if (!TextUtils.isEmpty(destinationInExternalFilesDir))
-                {
+                if (!TextUtils.isEmpty(destinationInExternalFilesDir)) {
                     // 完全定义的路径存在
                     requestDownLoad.setDestinationInExternalFilesDir(mContext, destinationInExternalFilesDir, fileName);
                     tempPath = destinationInExternalFilesDir;
-                } else if (!TextUtils.isEmpty(destinationInExternalPublicDir))
-                {
+                } else if (!TextUtils.isEmpty(destinationInExternalPublicDir)) {
                     // 非完全定义的路径不存在,则设置系统路径
                     requestDownLoad.setDestinationInExternalPublicDir(destinationInExternalPublicDir, fileName);
                     tempPath = destinationInExternalPublicDir;
                 }
-            } else
-            {
+            } else {
                 PreferencesHelper.getInstance().putInfo(SDAvailable, false);
-                try
-                {
+                try {
                     requestDownLoad.setDestinationInExternalPublicDir(destinationInExternalPublicDir, fileName);
                     tempPath = destinationInExternalPublicDir;
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     Y.y("error:" + e.getMessage());
                 }
             }
-        } catch (Exception e)
-        {
-            try
-            {
+        } catch (Exception e) {
+            try {
                 requestDownLoad.setDestinationInExternalPublicDir(destinationInExternalPublicDir, fileName);
                 tempPath = destinationInExternalPublicDir;
-            } catch (Exception e2)
-            {
+            } catch (Exception e2) {
                 Y.y("error:" + e.getMessage());
             }
         }

@@ -19,29 +19,24 @@ import java.util.List;
  * @author jazzy
  */
 
-public class SmallThumbAdapter extends CommonListAdapter<ImageInfo>
-{
+public class SmallThumbAdapter extends CommonListAdapter<ImageInfo> {
 
-    public SmallThumbAdapter(Context context, List<String> sData)
-    {
+    public SmallThumbAdapter(Context context, List<String> sData) {
         super(context);
         this.mContext = context;
         this.mLayoutId = R.layout.camerasdk_list_item_image_thumb;
         this.mList = new ArrayList<ImageInfo>();
-        for (String path : sData)
-        {
+        for (String path : sData) {
             ImageInfo info = new ImageInfo();
             info.path = path;
             this.mList.add(info);
         }
     }
 
-    public void setSelected(int position)
-    {
+    public void setSelected(int position) {
         ImageInfo item = mList.get(position);
         boolean flag = false;
-        for (ImageInfo info : mList)
-        {
+        for (ImageInfo info : mList) {
             flag = info.path.equals(item.path);
             info.selected = flag;
         }
@@ -49,8 +44,7 @@ public class SmallThumbAdapter extends CommonListAdapter<ImageInfo>
     }
 
     @Override
-    public void getCommonView(ViewHolder helper, ImageInfo info)
-    {
+    public void getCommonView(ViewHolder helper, ImageInfo info) {
         // TODO Auto-generated method stub
 
         ImageView img = (ImageView) helper.getView(R.id.iv_image);
@@ -66,16 +60,12 @@ public class SmallThumbAdapter extends CommonListAdapter<ImageInfo>
                 .centerCrop()
                 .into(img);
 
-        if (info.selected)
-        {
+        if (info.selected) {
             img_mask.setVisibility(View.VISIBLE);
-        } else
-        {
+        } else {
             img_mask.setVisibility(View.GONE);
         }
-
     }
-
 }
 
 

@@ -94,7 +94,8 @@ public class HttpProxyCacheServer {
      * If file for this url is fully cached (it means method {@link #isCached(String)} returns {@code true})
      * then file:// uri to cached file will be returned.
      * <p>
-     * Calling this method has same effect as calling {@link #getProxyUrl(String, boolean)} with 2nd parameter set to {@code true}.
+     * Calling this method has same effect as calling {@link #getProxyUrl(String, boolean)} with 2nd parameter set to
+     * {@code true}.
      *
      * @param url a url to file that should be cached.
      * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file otherwise.
@@ -107,11 +108,13 @@ public class HttpProxyCacheServer {
      * Returns url that wrap original url and should be used for client (MediaPlayer, ExoPlayer, etc).
      * <p>
      * If parameter {@code allowCachedFileUri} is {@code true} and file for this url is fully cached
-     * (it means method {@link #isCached(String)} returns {@code true}) then file:// uri to cached file will be returned.
+     * (it means method {@link #isCached(String)} returns {@code true}) then file:// uri to cached file will be
+     * returned.
      *
      * @param url                a url to file that should be cached.
      * @param allowCachedFileUri {@code true} if allow to return file:// uri if url is fully cached
-     * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file otherwise (if {@code allowCachedFileUri} is {@code true}).
+     * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file otherwise (if {@code
+     * allowCachedFileUri} is {@code true}).
      */
     public String getProxyUrl(String url, boolean allowCachedFileUri) {
         if (allowCachedFileUri && isCached(url)) {
@@ -183,6 +186,7 @@ public class HttpProxyCacheServer {
 
     /**
      * 检查是否能ping通，设备网络使用代理不能ping通
+     *
      * @return boolean
      */
     private boolean isAlive() {
@@ -298,7 +302,8 @@ public class HttpProxyCacheServer {
                 socket.shutdownOutput();
             }
         } catch (IOException e) {
-            LOG.warn("Failed to close socket on proxy side: {}. It seems client have already closed connection.", e.getMessage());
+            LOG.warn("Failed to close socket on proxy side: {}. It seems client have already closed connection.", e
+                    .getMessage());
         }
     }
 
@@ -314,35 +319,6 @@ public class HttpProxyCacheServer {
 
     private void onError(Throwable e) {
         LOG.error("HttpProxyCacheServer error", e);
-    }
-
-    private final class WaitRequestsRunnable implements Runnable {
-
-        private final CountDownLatch startSignal;
-
-        public WaitRequestsRunnable(CountDownLatch startSignal) {
-            this.startSignal = startSignal;
-        }
-
-        @Override
-        public void run() {
-            startSignal.countDown();
-            waitForRequest();
-        }
-    }
-
-    private final class SocketProcessorRunnable implements Runnable {
-
-        private final Socket socket;
-
-        public SocketProcessorRunnable(Socket socket) {
-            this.socket = socket;
-        }
-
-        @Override
-        public void run() {
-            processSocket(socket);
-        }
     }
 
     /**
@@ -458,6 +434,34 @@ public class HttpProxyCacheServer {
         private Config buildConfig() {
             return new Config(cacheRoot, fileNameGenerator, diskUsage, sourceInfoStorage, headerInjector);
         }
+    }
 
+    private final class WaitRequestsRunnable implements Runnable {
+
+        private final CountDownLatch startSignal;
+
+        public WaitRequestsRunnable(CountDownLatch startSignal) {
+            this.startSignal = startSignal;
+        }
+
+        @Override
+        public void run() {
+            startSignal.countDown();
+            waitForRequest();
+        }
+    }
+
+    private final class SocketProcessorRunnable implements Runnable {
+
+        private final Socket socket;
+
+        public SocketProcessorRunnable(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            processSocket(socket);
+        }
     }
 }

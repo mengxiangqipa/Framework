@@ -12,11 +12,10 @@ import android.view.View;
 import com.framework.R;
 
 /**
- * @author naiyu(http://snailws.com)
+ * @author naiyu(http : / / snailws.com)
  * @version 1.0
  */
-public class TasksCompletedView extends View
-{
+public class TasksCompletedView extends View {
 
     // 画实心圆的画笔
     private Paint mCirclePaint;
@@ -47,16 +46,14 @@ public class TasksCompletedView extends View
     // 当前进度
     private int mProgress;
 
-    public TasksCompletedView(Context context, AttributeSet attrs)
-    {
+    public TasksCompletedView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // 获取自定义的属性
         initAttrs(context, attrs);
         initVariable();
     }
 
-    private void initAttrs(Context context, AttributeSet attrs)
-    {
+    private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typeArray = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.TasksCompletedView, 0, 0);
         mRadius = typeArray.getDimension(R.styleable.TasksCompletedView_radius, 80);
@@ -67,8 +64,7 @@ public class TasksCompletedView extends View
         mRingRadius = mRadius + mStrokeWidth / 2;
     }
 
-    private void initVariable()
-    {
+    private void initVariable() {
         mCirclePaint = new Paint();
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setColor(mCircleColor);
@@ -88,20 +84,17 @@ public class TasksCompletedView extends View
 
         FontMetrics fm = mTextPaint.getFontMetrics();
         mTxtHeight = (int) Math.ceil(fm.descent - fm.ascent);
-
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
 
         mXCenter = getWidth() / 2;
         mYCenter = getHeight() / 2;
 
         canvas.drawCircle(mXCenter, mYCenter, mRadius, mCirclePaint);
 
-        if (mProgress > 0)
-        {
+        if (mProgress > 0) {
             RectF oval = new RectF();
             oval.left = (mXCenter - mRingRadius);
             oval.top = (mYCenter - mRingRadius);
@@ -115,11 +108,9 @@ public class TasksCompletedView extends View
         }
     }
 
-    public void setProgress(int progress)
-    {
+    public void setProgress(int progress) {
         mProgress = progress;
 //		invalidate();
         postInvalidate();
     }
-
 }

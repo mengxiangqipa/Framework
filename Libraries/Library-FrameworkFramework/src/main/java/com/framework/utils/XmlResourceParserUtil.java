@@ -13,26 +13,20 @@ import java.util.List;
  * XmlResourceParser 解析工具
  *
  * @author YobertJomi
- *         className XmlResourceParserUtil
- *         created at  2017/8/17  18:05
+ * className XmlResourceParserUtil
+ * created at  2017/8/17  18:05
  */
-public class XmlResourceParserUtil
-{
+public class XmlResourceParserUtil {
 
     private static volatile XmlResourceParserUtil singleton;
 
-    private XmlResourceParserUtil()
-    {
+    private XmlResourceParserUtil() {
     }
 
-    public static XmlResourceParserUtil getInstance()
-    {
-        if (singleton == null)
-        {
-            synchronized (XmlResourceParserUtil.class)
-            {
-                if (singleton == null)
-                {
+    public static XmlResourceParserUtil getInstance() {
+        if (singleton == null) {
+            synchronized (XmlResourceParserUtil.class) {
+                if (singleton == null) {
                     singleton = new XmlResourceParserUtil();
                 }
             }
@@ -43,67 +37,51 @@ public class XmlResourceParserUtil
     /**
      * 释放静态对象
      */
-    public void releaseInstance()
-    {
+    public void releaseInstance() {
         if (singleton != null)
             singleton = null;
     }
 
-    public List<IpInfo> parseXML(Context context)
-    {
+    public List<IpInfo> parseXML(Context context) {
         List<IpInfo> list = new ArrayList<IpInfo>();
         if (context == null)
             return null;
         IpInfo ipInfo = null;
         IpInfo ipInfoChild = null;
         XmlResourceParser xmlResourceParser = context.getResources().getXml(R.xml.ipconfig);
-        try
-        {
-            while (xmlResourceParser.getEventType() != XmlResourceParser.END_DOCUMENT)
-            {
-                if (xmlResourceParser.getEventType() == XmlResourceParser.START_TAG)
-                {
+        try {
+            while (xmlResourceParser.getEventType() != XmlResourceParser.END_DOCUMENT) {
+                if (xmlResourceParser.getEventType() == XmlResourceParser.START_TAG) {
                     String tagName = xmlResourceParser.getName();
-                    if (tagName.equals("city"))
-                    {
+                    if (tagName.equals("city")) {
                         String cityName = xmlResourceParser.getAttributeValue(0);
                         ipInfo = new IpInfo();
                         ipInfo.setCity(cityName);
-                    } else if (tagName.equals("shop"))
-                    {
+                    } else if (tagName.equals("shop")) {
                         String shop = xmlResourceParser.getAttributeValue(0);
                         ipInfoChild = new IpInfo();
                         ipInfoChild.setShop(shop);
-                    } else if (tagName.equals("ip"))
-                    {
+                    } else if (tagName.equals("ip")) {
                         String ip = xmlResourceParser.getAttributeValue(0);
-                        if (null != ipInfoChild && null != ipInfo)
-                        {
+                        if (null != ipInfoChild && null != ipInfo) {
                             ipInfoChild.setIp(ip);
                             ipInfoChild.setCity(ipInfo.getCity());
                             ipInfo.getArrayList().add(ipInfoChild);
                         }
                     }
-
-                } else if (xmlResourceParser.getEventType() == XmlResourceParser.END_TAG)
-                {
+                } else if (xmlResourceParser.getEventType() == XmlResourceParser.END_TAG) {
                     String tagName = xmlResourceParser.getName();
-                    if (tagName.equals("city"))
-                    {
-                        if (ipInfo != null)
-                        {
+                    if (tagName.equals("city")) {
+                        if (ipInfo != null) {
                             list.add(ipInfo);
                         }
                     }
-
                 }
                 xmlResourceParser.next();
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-
 }

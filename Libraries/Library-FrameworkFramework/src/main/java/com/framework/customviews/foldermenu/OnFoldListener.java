@@ -21,8 +21,7 @@ package com.framework.customviews.foldermenu;
  * a folded state from a completely unfolded state), or ends folding (enters a
  * completely unfolded state from a folded state).
  */
-public interface OnFoldListener
-{
+public interface OnFoldListener {
     void onStartFold(float foldFactor);
 
     void onFoldingState(float foldFactor, float foldDrawHeight);

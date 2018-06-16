@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 /**
  * 可设置RecyclerView不可滚动（纵向）
  *
- * @author Yangjie
- *         className CustomGridLayoutManager
- *         created at  2017/3/21  12:15
+ * @author YobertJomi
+ * className CustomGridLayoutManager
+ * created at  2017/3/21  12:15
  */
 
 public class CustomGridLayoutManager extends GridLayoutManager {
@@ -26,7 +26,6 @@ public class CustomGridLayoutManager extends GridLayoutManager {
     public CustomGridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
         super(context, spanCount, orientation, reverseLayout);
     }
-
 
     public void setScrollEnabled(boolean flag) {
         this.isScrollEnabled = flag;

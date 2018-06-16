@@ -112,7 +112,8 @@ public class FileCache implements Cache {
     }
 
     /**
-     * Returns file to be used fo caching. It may as original file passed in constructor as some temp file for not completed cache.
+     * Returns file to be used fo caching. It may as original file passed in constructor as some temp file for not
+     * completed cache.
      *
      * @return file for caching.
      */
@@ -123,5 +124,4 @@ public class FileCache implements Cache {
     private boolean isTempFile(File file) {
         return file.getName().endsWith(TEMP_POSTFIX);
     }
-
 }

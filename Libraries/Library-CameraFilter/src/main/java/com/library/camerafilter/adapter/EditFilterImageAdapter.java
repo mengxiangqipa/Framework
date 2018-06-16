@@ -17,77 +17,75 @@ import java.util.List;
 
 /**
  * 特效
- * @author Administrator
  *
+ * @author Administrator
  */
 public class EditFilterImageAdapter extends BaseAdapter {
 
-	private LayoutInflater mInflater;
-	private List<Filter_Effect_Info> mData;
-	private Context mContext;
-	private int selectItem = 0;
+    private LayoutInflater mInflater;
+    private List<Filter_Effect_Info> mData;
+    private Context mContext;
+    private int selectItem = 0;
 
-	public EditFilterImageAdapter(Context context, List<Filter_Effect_Info> mData) {
-		this.mContext = context;
-		this.mInflater = LayoutInflater.from(mContext);
-		this.mData = mData;
-	}
+    public EditFilterImageAdapter(Context context, List<Filter_Effect_Info> mData) {
+        this.mContext = context;
+        this.mInflater = LayoutInflater.from(mContext);
+        this.mData = mData;
+    }
 
-	@Override
-	public int getCount() {
-		return mData.size();
-	}
+    @Override
+    public int getCount() {
+        return mData.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return position;
-	}
+    @Override
+    public Object getItem(int position) {
+        return position;
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		
-			ViewHolder holder = new ViewHolder();
-			if(convertView == null){
-				convertView = mInflater.inflate(R.layout.camerasdk_item_effect, null);
-				holder.img = (ImageView) convertView.findViewById(R.id.effect_img);
-				holder.title = (TextView) convertView.findViewById(R.id.title);
-				holder.item_back = (LinearLayout)convertView.findViewById(R.id.item_back);
-				convertView.setTag(holder);
-			}
-			else{
-				holder = (ViewHolder) convertView.getTag();
-			}
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-			Filter_Effect_Info mEffect = mData.get(position);
-			
-			holder.img.setImageResource(mEffect.getIconId());
-			holder.title.setText(mEffect.getName());
+        ViewHolder holder = new ViewHolder();
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.camerasdk_item_effect, null);
+            holder.img = (ImageView) convertView.findViewById(R.id.effect_img);
+            holder.title = (TextView) convertView.findViewById(R.id.title);
+            holder.item_back = (LinearLayout) convertView.findViewById(R.id.item_back);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
 
-			if (position == selectItem) {
-				holder.item_back.setBackgroundColor(Color.YELLOW);
-			} 
-			else {
-				holder.item_back.setBackgroundColor(0xfff1f1f1);
-			}
+        Filter_Effect_Info mEffect = mData.get(position);
 
-			return convertView;
-	}
+        holder.img.setImageResource(mEffect.getIconId());
+        holder.title.setText(mEffect.getName());
 
-	public void setSelectItem(int selectItem) {
-		this.selectItem = selectItem;
-		this.notifyDataSetChanged();
-	}
+        if (position == selectItem) {
+            holder.item_back.setBackgroundColor(Color.YELLOW);
+        } else {
+            holder.item_back.setBackgroundColor(0xfff1f1f1);
+        }
 
-	public final class ViewHolder {
-		public LinearLayout item_back;
-		public ImageView img; // 图像
-		public TextView title;// 标题
-	}
+        return convertView;
+    }
+
+    public void setSelectItem(int selectItem) {
+        this.selectItem = selectItem;
+        this.notifyDataSetChanged();
+    }
+
+    public final class ViewHolder {
+        public LinearLayout item_back;
+        public ImageView img; // 图像
+        public TextView title;// 标题
+    }
 }
 
 

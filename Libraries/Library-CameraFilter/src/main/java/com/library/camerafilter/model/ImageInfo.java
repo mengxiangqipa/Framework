@@ -8,11 +8,12 @@ public class ImageInfo {
     public String name;
     public long time;
 
-    public boolean selected=false;
-    
-    public ImageInfo(){}
-    
-    public ImageInfo(String path, String name, long time){
+    public boolean selected = false;
+
+    public ImageInfo() {
+    }
+
+    public ImageInfo(String path, String name, long time) {
         this.path = path;
         this.name = name;
         this.time = time;
@@ -23,7 +24,7 @@ public class ImageInfo {
         try {
             ImageInfo other = (ImageInfo) o;
             return this.path.equalsIgnoreCase(other.path);
-        }catch (ClassCastException e){
+        } catch (ClassCastException e) {
             e.printStackTrace();
         }
         return super.equals(o);

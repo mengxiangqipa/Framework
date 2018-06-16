@@ -53,7 +53,8 @@ class DatabaseSourceInfoStorage extends SQLiteOpenHelper implements SourceInfoSt
         checkNotNull(url);
         Cursor cursor = null;
         try {
-            cursor = getReadableDatabase().query(TABLE, ALL_COLUMNS, COLUMN_URL + "=?", new String[]{url}, null, null, null);
+            cursor = getReadableDatabase().query(TABLE, ALL_COLUMNS, COLUMN_URL + "=?", new String[]{url}, null,
+                    null, null);
             return cursor == null || !cursor.moveToFirst() ? null : convert(cursor);
         } finally {
             if (cursor != null) {

@@ -9,8 +9,8 @@ import java.util.Comparator;
  * 对象排序工具类
  *
  * @author Yangjie
- *         className ComparatorUtil
- *         created at  2017/4/26  10:06
+ * className ComparatorUtil
+ * created at  2017/4/26  10:06
  */
 public class ComparatorUtil {
     private static volatile ComparatorUtil singleton;
@@ -27,6 +27,55 @@ public class ComparatorUtil {
             }
         }
         return singleton;
+    }
+
+    /**
+     * 字符串属性排序方法
+     *
+     * @param list     集合
+     * @param attrName 属性名
+     * @return ArrayList<Object>
+     */
+    public ArrayList<Object> sortByStringAttr(ArrayList<Object> list, String attrName, SortType sortType) {
+        Collections.sort(list, new ComparatorString(attrName, sortType));
+        return list;
+    }
+
+    public ArrayList<Object> sortByStringAttr(ArrayList<Object> list, String attrName) {
+
+        return sortByStringAttr(list, attrName, SortType.DESC);
+    }
+
+    public ArrayList<Object> sortByIntAttr(ArrayList<Object> list, String attrName) {
+        return sortByIntAttr(list, attrName, SortType.DESC);
+    }
+
+    /**
+     * 整型属性排序方法
+     *
+     * @param list     集合
+     * @param attrName 属性名
+     * @return ArrayList
+     */
+    public ArrayList<Object> sortByIntAttr(ArrayList<Object> list, String attrName, SortType sortType) {
+        Collections.sort(list, new ComparatorInt(attrName, sortType));
+        return list;
+    }
+
+    /**
+     * double属性排序方法
+     *
+     * @param list     集合
+     * @param attrName 属性名
+     * @return ArrayList
+     */
+    public ArrayList<Object> sortByDoubleAttr(ArrayList<Object> list, String attrName, SortType sortType) {
+        Collections.sort(list, new ComparatorDouble(attrName, sortType));
+        return list;
+    }
+
+    public ArrayList<Object> sortByDoubleAttr(ArrayList<Object> list, String attrName) {
+        return sortByDoubleAttr(list, attrName, SortType.DESC);
     }
 
     public enum SortType {
@@ -194,54 +243,5 @@ public class ComparatorUtil {
             }
             return -1;
         }
-    }
-
-    /**
-     * 字符串属性排序方法
-     *
-     * @param list     集合
-     * @param attrName 属性名
-     * @return ArrayList<Object>
-     */
-    public ArrayList<Object> sortByStringAttr(ArrayList<Object> list, String attrName, SortType sortType) {
-        Collections.sort(list, new ComparatorString(attrName, sortType));
-        return list;
-    }
-
-    public ArrayList<Object> sortByStringAttr(ArrayList<Object> list, String attrName) {
-
-        return sortByStringAttr(list, attrName, SortType.DESC);
-    }
-
-    public ArrayList<Object> sortByIntAttr(ArrayList<Object> list, String attrName) {
-        return sortByIntAttr(list, attrName, SortType.DESC);
-    }
-
-    /**
-     * 整型属性排序方法
-     *
-     * @param list     集合
-     * @param attrName 属性名
-     * @return ArrayList
-     */
-    public ArrayList<Object> sortByIntAttr(ArrayList<Object> list, String attrName, SortType sortType) {
-        Collections.sort(list, new ComparatorInt(attrName, sortType));
-        return list;
-    }
-
-    /**
-     * double属性排序方法
-     *
-     * @param list     集合
-     * @param attrName 属性名
-     * @return ArrayList
-     */
-    public ArrayList<Object> sortByDoubleAttr(ArrayList<Object> list, String attrName, SortType sortType) {
-        Collections.sort(list, new ComparatorDouble(attrName, sortType));
-        return list;
-    }
-
-    public ArrayList<Object> sortByDoubleAttr(ArrayList<Object> list, String attrName) {
-        return sortByDoubleAttr(list, attrName, SortType.DESC);
     }
 }

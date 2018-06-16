@@ -6,8 +6,8 @@ import android.os.StrictMode;
  * StrictMode使用工具
  *
  * @author Yangjie
- *         className StrictModeUtil
- *         created at  2017/5/26  10:46
+ * className StrictModeUtil
+ * created at  2017/5/26  10:46
  */
 public class StrictModeUtil {
 

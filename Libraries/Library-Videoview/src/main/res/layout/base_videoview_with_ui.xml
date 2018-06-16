@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/viewBox"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants">
+             android:id="@+id/viewBox"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:descendantFocusability="beforeDescendants">
 
     <com.library.videoview.CustomFullScreenVideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:id="@+id/videoControllerLayout"
@@ -32,7 +32,7 @@
                 android:id="@+id/videoPauseImg"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@mipmap/icon_video_playing" />
+                android:src="@mipmap/icon_video_playing"/>
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingBottom="15dp"
-                android:paddingTop="15dp" />
+                android:paddingTop="15dp"/>
 
             <TextView
                 android:id="@+id/videoCurTime"
@@ -59,7 +59,7 @@
                 android:gravity="center_vertical|right"
                 android:text="00:00"
                 android:textColor="#FFF"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:text="/"
                 android:textColor="#FFF"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
 
             <TextView
                 android:id="@+id/videoTotalTime"
@@ -76,7 +76,7 @@
                 android:gravity="center_vertical|left"
                 android:text="00:00"
                 android:textColor="#FFF"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:src="@mipmap/icon_enter_fullscreen" />
+                android:src="@mipmap/icon_enter_fullscreen"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -99,7 +99,7 @@
         style="@android:style/Widget.Holo.ProgressBar.Small"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"/>
 
     <ImageView
         android:id="@+id/videoPlayImg"
@@ -107,7 +107,7 @@
         android:layout_height="140dp"
         android:layout_gravity="center"
         android:padding="50dp"
-        android:src="@mipmap/video_box_play" />
+        android:src="@mipmap/video_box_play"/>
 
     <LinearLayout
         android:id="@+id/touch_view"
@@ -126,7 +126,7 @@
         <ImageView
             android:id="@+id/iv_touchStatusImg"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"/>
 
         <TextView
             android:id="@+id/tv_touch_time"
@@ -135,13 +135,13 @@
             android:layout_marginBottom="10dp"
             android:text="00:00/00:00"
             android:textColor="@android:color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <ProgressBar
             android:id="@+id/touchStatusProgressBar"
             style="@style/progressVideoLibrary"
             android:layout_width="match_parent"
-            android:layout_height="4dp" />
+            android:layout_height="4dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -164,7 +164,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/selector_video_back" />
+                android:src="@drawable/selector_video_back"/>
 
             <com.library.videoview.CustomFocusTextView
                 android:id="@+id/titleView"
@@ -179,7 +179,7 @@
                 android:singleLine="true"
                 android:text="afafaf"
                 android:textColor="@android:color/white"
-                android:textSize="16dp" />
+                android:textSize="16dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -191,7 +191,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/titleViewTime"
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:textColor="@android:color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"/>
         </LinearLayout>
     </FrameLayout>
 
@@ -216,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/errorText"
-            android:src="@mipmap/video_box_play" />
+            android:src="@mipmap/video_box_play"/>
 
         <TextView
             android:id="@+id/errorText"
@@ -226,6 +226,6 @@
             android:paddingTop="20dp"
             android:text="播放出错啦"
             android:textColor="@android:color/white"
-            android:textSize="14dp" />
+            android:textSize="14dp"/>
     </RelativeLayout>
 </FrameLayout>

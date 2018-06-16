@@ -32,11 +32,12 @@ import java.util.TimeZone;
  * 系统工具，内存（已用，总体），硬盘（已用，总体），手机号等，版本号等
  *
  * @author YobertJomi
- *         className SystemInfoUtil
- *         created at  2018/1/24  16:44
+ * className SystemInfoUtil
+ * created at  2018/1/24  16:44
  */
 public class SystemInfoUtil {
     private static volatile SystemInfoUtil singleton;
+    private String platform = "Android";
 
     public static SystemInfoUtil getInstance() {
         if (singleton == null) {
@@ -49,7 +50,16 @@ public class SystemInfoUtil {
         return singleton;
     }
 
-    private String platform = "Android";
+    public static String getIMSI(Context context) {
+        if (null == context)
+            return "context 为空";
+        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
+                .PERMISSION_GRANTED) {
+            return "无权限";
+        }
+        return manager.getSubscriberId();
+    }
 
     public JSONObject getAllOSparams(Context context) {
         JSONObject jsonObject = new JSONObject();
@@ -116,17 +126,6 @@ public class SystemInfoUtil {
             return "无权限";
         }
         return manager.getSimSerialNumber();
-    }
-
-    public static String getIMSI(Context context) {
-        if (null == context)
-            return "context 为空";
-        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
-                .PERMISSION_GRANTED) {
-            return "无权限";
-        }
-        return manager.getSubscriberId();
     }
 
     public String getOSVersion() {

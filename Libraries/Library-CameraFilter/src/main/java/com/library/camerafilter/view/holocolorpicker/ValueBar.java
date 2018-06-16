@@ -33,8 +33,7 @@ import android.view.View;
 
 import com.libray.camerafilter.R;
 
-public class ValueBar extends View
-{
+public class ValueBar extends View {
 
     /*
      * Constants used to save/restore the instance state.
@@ -156,41 +155,30 @@ public class ValueBar extends View
      */
     private int oldChangedListenerValue;
 
-    public interface OnValueChangedListener
-    {
-        public void onValueChanged(int value);
-    }
-
-    public void setOnValueChangedListener(OnValueChangedListener listener)
-    {
-        this.onValueChangedListener = listener;
-    }
-
-    public OnValueChangedListener getOnValueChangedListener()
-    {
-        return this.onValueChangedListener;
-    }
-
-    public ValueBar(Context context)
-    {
+    public ValueBar(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public ValueBar(Context context, AttributeSet attrs)
-    {
+    public ValueBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public ValueBar(Context context, AttributeSet attrs, int defStyle)
-    {
+    public ValueBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
 
-    private void init(AttributeSet attrs, int defStyle)
-    {
+    public OnValueChangedListener getOnValueChangedListener() {
+        return this.onValueChangedListener;
+    }
+
+    public void setOnValueChangedListener(OnValueChangedListener listener) {
+        this.onValueChangedListener = listener;
+    }
+
+    private void init(AttributeSet attrs, int defStyle) {
         final TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.ColorBars, defStyle, 0);
         final Resources b = getContext().getResources();
@@ -229,57 +217,47 @@ public class ValueBar extends View
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int intrinsicSize = mPreferredBarLength
                 + (mBarPointerHaloRadius * 2);
 
         // Variable orientation
         int measureSpec;
-        if (mOrientation == ORIENTATION_HORIZONTAL)
-        {
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
             measureSpec = widthMeasureSpec;
-        } else
-        {
+        } else {
             measureSpec = heightMeasureSpec;
         }
         int lengthMode = MeasureSpec.getMode(measureSpec);
         int lengthSize = MeasureSpec.getSize(measureSpec);
 
         int length;
-        if (lengthMode == MeasureSpec.EXACTLY)
-        {
+        if (lengthMode == MeasureSpec.EXACTLY) {
             length = lengthSize;
-        } else if (lengthMode == MeasureSpec.AT_MOST)
-        {
+        } else if (lengthMode == MeasureSpec.AT_MOST) {
             length = Math.min(intrinsicSize, lengthSize);
-        } else
-        {
+        } else {
             length = intrinsicSize;
         }
 
         int barPointerHaloRadiusx2 = mBarPointerHaloRadius * 2;
         mBarLength = length - barPointerHaloRadiusx2;
-        if (mOrientation == ORIENTATION_VERTICAL)
-        {
+        if (mOrientation == ORIENTATION_VERTICAL) {
             setMeasuredDimension(barPointerHaloRadiusx2,
                     (mBarLength + barPointerHaloRadiusx2));
-        } else
-        {
+        } else {
             setMeasuredDimension((mBarLength + barPointerHaloRadiusx2),
                     barPointerHaloRadiusx2);
         }
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         // Fill the rectangle instance based on orientation
         int x1, y1;
-        if (mOrientation == ORIENTATION_HORIZONTAL)
-        {
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
             x1 = (mBarLength + mBarPointerHaloRadius);
             y1 = mBarThickness;
             mBarLength = w - (mBarPointerHaloRadius * 2);
@@ -287,8 +265,7 @@ public class ValueBar extends View
                     (mBarPointerHaloRadius - (mBarThickness / 2)),
                     (mBarLength + (mBarPointerHaloRadius)),
                     (mBarPointerHaloRadius + (mBarThickness / 2)));
-        } else
-        {
+        } else {
             x1 = mBarThickness;
             y1 = (mBarLength + mBarPointerHaloRadius);
             mBarLength = h - (mBarPointerHaloRadius * 2);
@@ -299,14 +276,12 @@ public class ValueBar extends View
         }
 
         // Update variables that depend of mBarLength.
-        if (!isInEditMode())
-        {
+        if (!isInEditMode()) {
             shader = new LinearGradient(mBarPointerHaloRadius, 0,
                     x1, y1,
                     new int[]{Color.HSVToColor(0xFF, mHSVColor), Color.BLACK},
                     null, Shader.TileMode.CLAMP);
-        } else
-        {
+        } else {
             shader = new LinearGradient(mBarPointerHaloRadius, 0,
                     x1, y1,
                     new int[]{0xff81ff00, Color.BLACK}, null,
@@ -321,31 +296,26 @@ public class ValueBar extends View
         float[] hsvColor = new float[3];
         Color.colorToHSV(mColor, hsvColor);
 
-        if (!isInEditMode())
-        {
+        if (!isInEditMode()) {
             mBarPointerPosition = Math
                     .round((mBarLength - (mSatToPosFactor * hsvColor[2]))
                             + mBarPointerHaloRadius);
-        } else
-        {
+        } else {
             mBarPointerPosition = mBarPointerHaloRadius;
         }
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         // Draw the bar.
         canvas.drawRect(mBarRect, mBarPaint);
 
         // Calculate the center of the pointer.
         int cX, cY;
-        if (mOrientation == ORIENTATION_HORIZONTAL)
-        {
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
             cX = mBarPointerPosition;
             cY = mBarPointerHaloRadius;
-        } else
-        {
+        } else {
             cX = mBarPointerHaloRadius;
             cY = mBarPointerPosition;
         }
@@ -356,31 +326,24 @@ public class ValueBar extends View
         canvas.drawCircle(cX, cY, mBarPointerRadius, mBarPointerPaint);
     }
 
-    ;
-
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         getParent().requestDisallowInterceptTouchEvent(true);
 
         // Convert coordinates to our internal coordinate system
         float dimen;
-        if (mOrientation == ORIENTATION_HORIZONTAL)
-        {
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
             dimen = event.getX();
-        } else
-        {
+        } else {
             dimen = event.getY();
         }
 
-        switch (event.getAction())
-        {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mIsMovingPointer = true;
                 // Check whether the user pressed on (or near) the pointer
                 if (dimen >= (mBarPointerHaloRadius)
-                        && dimen <= (mBarPointerHaloRadius + mBarLength))
-                {
+                        && dimen <= (mBarPointerHaloRadius + mBarLength)) {
                     mBarPointerPosition = Math.round(dimen);
                     calculateColor(Math.round(dimen));
                     mBarPointerPaint.setColor(mColor);
@@ -388,47 +351,39 @@ public class ValueBar extends View
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (mIsMovingPointer)
-                {
+                if (mIsMovingPointer) {
                     // Move the the pointer on the bar.
                     if (dimen >= mBarPointerHaloRadius
-                            && dimen <= (mBarPointerHaloRadius + mBarLength))
-                    {
+                            && dimen <= (mBarPointerHaloRadius + mBarLength)) {
                         mBarPointerPosition = Math.round(dimen);
                         calculateColor(Math.round(dimen));
                         mBarPointerPaint.setColor(mColor);
-                        if (mPicker != null)
-                        {
+                        if (mPicker != null) {
                             mPicker.setNewCenterColor(mColor);
                             mPicker.changeOpacityBarColor(mColor);
                         }
                         invalidate();
-                    } else if (dimen < mBarPointerHaloRadius)
-                    {
+                    } else if (dimen < mBarPointerHaloRadius) {
                         mBarPointerPosition = mBarPointerHaloRadius;
                         mColor = Color.HSVToColor(mHSVColor);
                         mBarPointerPaint.setColor(mColor);
-                        if (mPicker != null)
-                        {
+                        if (mPicker != null) {
                             mPicker.setNewCenterColor(mColor);
                             mPicker.changeOpacityBarColor(mColor);
                         }
                         invalidate();
-                    } else if (dimen > (mBarPointerHaloRadius + mBarLength))
-                    {
+                    } else if (dimen > (mBarPointerHaloRadius + mBarLength)) {
                         mBarPointerPosition = mBarPointerHaloRadius + mBarLength;
                         mColor = Color.BLACK;
                         mBarPointerPaint.setColor(mColor);
-                        if (mPicker != null)
-                        {
+                        if (mPicker != null) {
                             mPicker.setNewCenterColor(mColor);
                             mPicker.changeOpacityBarColor(mColor);
                         }
                         invalidate();
                     }
                 }
-                if (onValueChangedListener != null && oldChangedListenerValue != mColor)
-                {
+                if (onValueChangedListener != null && oldChangedListenerValue != mColor) {
                     onValueChangedListener.onValueChanged(mColor);
                     oldChangedListenerValue = mColor;
                 }
@@ -440,56 +395,20 @@ public class ValueBar extends View
         return true;
     }
 
-    /**
-     * Set the bar color. <br>
-     * <br>
-     * Its discouraged to use this method.
-     *
-     * @param color
-     */
-    public void setColor(int color)
-    {
-        int x1, y1;
-        if (mOrientation == ORIENTATION_HORIZONTAL)
-        {
-            x1 = (mBarLength + mBarPointerHaloRadius);
-            y1 = mBarThickness;
-        } else
-        {
-            x1 = mBarThickness;
-            y1 = (mBarLength + mBarPointerHaloRadius);
-        }
-
-        Color.colorToHSV(color, mHSVColor);
-        shader = new LinearGradient(mBarPointerHaloRadius, 0,
-                x1, y1, new int[]{
-                color, Color.BLACK}, null, Shader.TileMode.CLAMP);
-        mBarPaint.setShader(shader);
-        calculateColor(mBarPointerPosition);
-        mBarPointerPaint.setColor(mColor);
-        if (mPicker != null)
-        {
-            mPicker.setNewCenterColor(mColor);
-            if (mPicker.hasOpacityBar())
-                mPicker.changeOpacityBarColor(mColor);
-        }
-        invalidate();
-    }
+    ;
 
     /**
      * Set the pointer on the bar. With the opacity value.
      *
      * @param value float between 0 and 1
      */
-    public void setValue(float value)
-    {
+    public void setValue(float value) {
         mBarPointerPosition = Math
                 .round((mBarLength - (mSatToPosFactor * value))
                         + mBarPointerHaloRadius);
         calculateColor(mBarPointerPosition);
         mBarPointerPaint.setColor(mColor);
-        if (mPicker != null)
-        {
+        if (mPicker != null) {
             mPicker.setNewCenterColor(mColor);
             mPicker.changeOpacityBarColor(mColor);
         }
@@ -501,14 +420,11 @@ public class ValueBar extends View
      *
      * @param coord Coordinate of the pointer.
      */
-    private void calculateColor(int coord)
-    {
+    private void calculateColor(int coord) {
         coord = coord - mBarPointerHaloRadius;
-        if (coord < 0)
-        {
+        if (coord < 0) {
             coord = 0;
-        } else if (coord > mBarLength)
-        {
+        } else if (coord > mBarLength) {
             coord = mBarLength;
         }
         mColor = Color.HSVToColor(new float[]{mHSVColor[0],
@@ -521,9 +437,40 @@ public class ValueBar extends View
      *
      * @return The ARGB value of the currently selected color.
      */
-    public int getColor()
-    {
+    public int getColor() {
         return mColor;
+    }
+
+    /**
+     * Set the bar color. <br>
+     * <br>
+     * Its discouraged to use this method.
+     *
+     * @param color
+     */
+    public void setColor(int color) {
+        int x1, y1;
+        if (mOrientation == ORIENTATION_HORIZONTAL) {
+            x1 = (mBarLength + mBarPointerHaloRadius);
+            y1 = mBarThickness;
+        } else {
+            x1 = mBarThickness;
+            y1 = (mBarLength + mBarPointerHaloRadius);
+        }
+
+        Color.colorToHSV(color, mHSVColor);
+        shader = new LinearGradient(mBarPointerHaloRadius, 0,
+                x1, y1, new int[]{
+                color, Color.BLACK}, null, Shader.TileMode.CLAMP);
+        mBarPaint.setShader(shader);
+        calculateColor(mBarPointerPosition);
+        mBarPointerPaint.setColor(mColor);
+        if (mPicker != null) {
+            mPicker.setNewCenterColor(mColor);
+            if (mPicker.hasOpacityBar())
+                mPicker.changeOpacityBarColor(mColor);
+        }
+        invalidate();
     }
 
     /**
@@ -535,14 +482,12 @@ public class ValueBar extends View
      * @param picker
      * @see ColorPicker#addSVBar(SVBar)
      */
-    public void setColorPicker(ColorPicker picker)
-    {
+    public void setColorPicker(ColorPicker picker) {
         mPicker = picker;
     }
 
     @Override
-    protected Parcelable onSaveInstanceState()
-    {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         Bundle state = new Bundle();
@@ -557,8 +502,7 @@ public class ValueBar extends View
     }
 
     @Override
-    protected void onRestoreInstanceState(Parcelable state)
-    {
+    protected void onRestoreInstanceState(Parcelable state) {
         Bundle savedState = (Bundle) state;
 
         Parcelable superState = savedState.getParcelable(STATE_PARENT);
@@ -566,5 +510,9 @@ public class ValueBar extends View
 
         setColor(Color.HSVToColor(savedState.getFloatArray(STATE_COLOR)));
         setValue(savedState.getFloat(STATE_VALUE));
+    }
+
+    public interface OnValueChangedListener {
+        public void onValueChanged(int value);
     }
 }

@@ -2,8 +2,8 @@ package com.library.slidefinish.model;
 
 /**
  * @author Yangjie
- *         className SlidrListenerAdapter
- *         created at  2017/5/26  15:49
+ * className SlidrListenerAdapter
+ * created at  2017/5/26  15:49
  */
 public class SlidrListenerAdapter implements SlidrListener {
     @Override

@@ -1,8 +1,6 @@
 package com.framework.security;
 
-
 import java.io.UnsupportedEncodingException;
-
 
 public class Base64Util {
     private static final int trimLength = 32;

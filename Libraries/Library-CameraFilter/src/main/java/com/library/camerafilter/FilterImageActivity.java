@@ -33,28 +33,20 @@ import com.muzhi.camerasdk.library.views.HorizontalListView;
 
 import java.util.ArrayList;
 
-public class FilterImageActivity extends BaseActivity
-{
+public class FilterImageActivity extends BaseActivity {
 
+    public static Filter_Sticker_Info mSticker = null; // 从贴纸库过来的贴纸
     private CameraSdkParameterInfo mCameraSdkParameterInfo = new CameraSdkParameterInfo();
-
     private HorizontalListView effect_listview, sticker_listview, images_listview;
-
     private TextView tab_effect, tab_sticker, txt_cropper, btn_done, txt_enhance, txt_graffiti;
     private RelativeLayout loading_layout;// 等待框
     private SeekBar mSeekBar;
-
-
     private SmallThumbAdapter iAdapter;
     private Filter_Effect_Adapter eAdapter;
     private Filter_Sticker_Adapter sAdapter;
-
     private ArrayList<Filter_Effect_Info> effect_list = new ArrayList<Filter_Effect_Info>(); //特效
     private ArrayList<Filter_Sticker_Info> stickerList = new ArrayList<Filter_Sticker_Info>();
     private ArrayList<String> imageList;
-
-    public static Filter_Sticker_Info mSticker = null; // 从贴纸库过来的贴纸
-
     private FragmentViewPagerAdapter fAdapter;
     private CustomViewPager mViewPager;
     private ArrayList<Fragment> fragments;
@@ -62,40 +54,34 @@ public class FilterImageActivity extends BaseActivity
     private int current = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_filter_image);
         showLeftIcon();
 
-        try
-        {
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) getIntent().getSerializableExtra(CameraSdkParameterInfo.EXTRA_PARAMETER);
+        try {
+            mCameraSdkParameterInfo = (CameraSdkParameterInfo) getIntent().getSerializableExtra
+                    (CameraSdkParameterInfo.EXTRA_PARAMETER);
             imageList = mCameraSdkParameterInfo.getImage_list();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
 
         initView();
 
         TextView tv_title = (TextView) findViewById(R.id.camerasdk_actionbar_title);
-        if (mCameraSdkParameterInfo.isSingle_mode())
-        {
+        if (mCameraSdkParameterInfo.isSingle_mode()) {
             setActionBarTitle("编辑图片");
-        } else
-        {
+        } else {
             tv_title.setVisibility(View.GONE);
             findViewById(R.id.images_layout).setVisibility(View.VISIBLE);
         }
 
         initEvent();
         initData();
-
     }
 
-    private void initView()
-    {
+    private void initView() {
 
         mViewPager = (CustomViewPager) findViewById(R.id.viewpager);
         mViewPager.setPagingEnabled(false);
@@ -114,41 +100,33 @@ public class FilterImageActivity extends BaseActivity
         sticker_listview = (HorizontalListView) findViewById(R.id.sticker_listview);
         images_listview = (HorizontalListView) findViewById(R.id.images_listview);
         loading_layout = (RelativeLayout) findViewById(R.id.loading);
-
     }
 
-    private void initEvent()
-    {
-        tab_effect.setOnClickListener(new OnClickListener()
-        {
+    private void initEvent() {
+        tab_effect.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 effect_listview.setVisibility(View.VISIBLE);
                 sticker_listview.setVisibility(View.INVISIBLE);
                 tab_effect.setTextColor(getResources().getColor(R.color.camerasdk_txt_selected));
                 tab_sticker.setTextColor(getResources().getColor(R.color.camerasdk_txt_normal));
             }
         });
-        tab_sticker.setOnClickListener(new OnClickListener()
-        {
+        tab_sticker.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 effect_listview.setVisibility(View.INVISIBLE);
                 sticker_listview.setVisibility(View.VISIBLE);
                 tab_effect.setTextColor(getResources().getColor(R.color.camerasdk_txt_normal));
                 tab_sticker.setTextColor(getResources().getColor(R.color.camerasdk_txt_selected));
             }
         });
-        txt_cropper.setOnClickListener(new OnClickListener()
-        {
+        txt_cropper.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 // TODO 裁剪图片
                 Constants.bitmap = ((EfectFragment) fragments.get(current)).getCurrentBitMap();
                 Intent intent = new Intent();
@@ -156,22 +134,18 @@ public class FilterImageActivity extends BaseActivity
                 startActivityForResult(intent, Constants.RequestCode_Croper);
             }
         });
-        btn_done.setOnClickListener(new OnClickListener()
-        {
+        btn_done.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 // TODO 贴纸Tab
                 complate();
             }
         });
-        txt_enhance.setOnClickListener(new OnClickListener()
-        {
+        txt_enhance.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View arg0)
-            {
+            public void onClick(View arg0) {
                 // TODO 图片增强
                 Constants.bitmap = ((EfectFragment) fragments.get(current)).getCurrentBitMap();
                 Intent intent = new Intent();
@@ -179,12 +153,10 @@ public class FilterImageActivity extends BaseActivity
                 startActivityForResult(intent, Constants.RequestCode_Croper);
             }
         });
-        txt_graffiti.setOnClickListener(new OnClickListener()
-        {
+        txt_graffiti.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View arg0)
-            {
+            public void onClick(View arg0) {
                 // TODO 涂鸦
                 Constants.bitmap = ((EfectFragment) fragments.get(current)).getCurrentBitMap();
                 Intent intent = new Intent();
@@ -196,20 +168,16 @@ public class FilterImageActivity extends BaseActivity
             }
         });
 
-        effect_listview.setOnItemClickListener(new OnItemClickListener()
-        {
+        effect_listview.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-            {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 eAdapter.setSelectItem(arg2);
 
                 final int tmpint = arg2;
                 final int tmpitem = arg1.getWidth();
-                new Handler().postDelayed(new Runnable()
-                {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         effect_listview.scrollTo(tmpitem * (tmpint - 1) - tmpitem / 4);
                     }
                 }, 200);
@@ -219,24 +187,19 @@ public class FilterImageActivity extends BaseActivity
             }
         });
 
-        sticker_listview.setOnItemClickListener(new OnItemClickListener()
-        {
+        sticker_listview.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-            {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
                 String path = stickerList.get(arg2).getLocal_path();
                 int drawableId = stickerList.get(arg2).getDrawableId();
                 ((EfectFragment) fragments.get(current)).addSticker(drawableId, path);
-
             }
         });
-        images_listview.setOnItemClickListener(new OnItemClickListener()
-        {
+        images_listview.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mViewPager.setCurrentItem(position, false);
                 fragments.get(position).onResume();
                 fragments.get(current).onPause();
@@ -245,33 +208,26 @@ public class FilterImageActivity extends BaseActivity
                 iAdapter.setSelected(position);
                 final int tmpint = position;
                 final int tmpitem = view.getWidth();
-                new Handler().postDelayed(new Runnable()
-                {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         images_listview.scrollTo(tmpitem * (tmpint - 1) - tmpitem / 4);
                     }
                 }, 200);
-
             }
         });
-        mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
-        {
+        mSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
+            public void onStartTrackingTouch(SeekBar seekBar) {
             }
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO Auto-generated method stub
                 /*if (mFilterAdjuster != null) {
                     mFilterAdjuster.adjust(progress);
@@ -279,21 +235,17 @@ public class FilterImageActivity extends BaseActivity
                 //effect_main.requestRender();
             }
         });
-
     }
 
-    private void initData()
-    {
+    private void initData() {
 
         boolean flag = false;
-        if (mCameraSdkParameterInfo.isSingle_mode() && mCameraSdkParameterInfo.isCroper_image())
-        {
+        if (mCameraSdkParameterInfo.isSingle_mode() && mCameraSdkParameterInfo.isCroper_image()) {
             flag = true;
         }
 
         fragments = new ArrayList<Fragment>();
-        for (int i = 0; i < imageList.size(); i++)
-        {
+        for (int i = 0; i < imageList.size(); i++) {
             EfectFragment ef1 = EfectFragment.newInstance(imageList.get(i), flag);
             fragments.add(ef1);
         }
@@ -314,51 +266,37 @@ public class FilterImageActivity extends BaseActivity
         iAdapter.setSelected(0);
         effect_listview.setAdapter(eAdapter);
         sticker_listview.setAdapter(sAdapter);
-
     }
 
-
-    private void complate()
-    {
+    private void complate() {
 
         loading_layout.setVisibility(View.VISIBLE);
         complate_runnable(3 * 1000);
-
     }
 
-    private void complate_runnable(long delayMillis)
-    {
-        Runnable runnable = new Runnable()
-        {
+    private void complate_runnable(long delayMillis) {
+        Runnable runnable = new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
 
                 ArrayList<String> list = new ArrayList<String>();
-                if (mCameraSdkParameterInfo.getRet_type() == 0)
-                {
+                if (mCameraSdkParameterInfo.getRet_type() == 0) {
                     //返回一个路径
-                    for (int i = 0; i < imageList.size(); i++)
-                    {
+                    for (int i = 0; i < imageList.size(); i++) {
                         Fragment mFragment = fragments.get(i);
-                        if (mFragment.isAdded())
-                        {
+                        if (mFragment.isAdded()) {
                             String path = ((EfectFragment) fragments.get(i)).getFilterImage();
                             list.add(path);
-                        } else
-                        {
+                        } else {
                             list.add(imageList.get(i));
                         }
                     }
-                } else
-                {
+                } else {
                     //保存bitmap
                     CameraSdkParameterInfo.bitmap_list.clear();
-                    for (int i = 0; i < imageList.size(); i++)
-                    {
+                    for (int i = 0; i < imageList.size(); i++) {
                         Fragment mFragment = fragments.get(i);
-                        if (mFragment.isAdded())
-                        {
+                        if (mFragment.isAdded()) {
                             Bitmap bitmap = ((EfectFragment) fragments.get(i)).getFilterBitmap();
                             CameraSdkParameterInfo.bitmap_list.add(bitmap);
                         }
@@ -366,8 +304,7 @@ public class FilterImageActivity extends BaseActivity
                 }
 
                 //如果是网络图片则直接返回
-                if (mCameraSdkParameterInfo.is_net_path)
-                {
+                if (mCameraSdkParameterInfo.is_net_path) {
 
                     Bundle b = new Bundle();
                     b.putSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER, mCameraSdkParameterInfo);
@@ -376,38 +313,28 @@ public class FilterImageActivity extends BaseActivity
                     intent.putExtras(b);
                     setResult(RESULT_OK, intent);
                     finish();
-                } else
-                {
+                } else {
                     PhotoPickActivity.instance.getFilterComplate(list);
                 }
 
-
                 finish();
-
             }
         };
         Handler handler = new Handler();
         handler.postDelayed(runnable, delayMillis);
     }
 
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (resultCode == Constants.RequestCode_Croper)
-        {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Constants.RequestCode_Croper) {
             //截图返回
             ((EfectFragment) fragments.get(current)).setBitMap();
-        } else if (resultCode == Constants.RequestCode_Sticker)
-        {
-            if (data != null)
-            {
+        } else if (resultCode == Constants.RequestCode_Sticker) {
+            if (data != null) {
                 Filter_Sticker_Info info = (Filter_Sticker_Info) data.getSerializableExtra("info");
                 ((EfectFragment) fragments.get(current)).addSticker(0, info.getImage());
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 }

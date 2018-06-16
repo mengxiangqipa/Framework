@@ -2,11 +2,13 @@ package com.framework.utils;
 
 /**
  * 距离
- *     @author YobertJomi
- *     className DistanceUtil
- *     created at  2017/8/4  11:29
+ *
+ * @author YobertJomi
+ * className DistanceUtil
+ * created at  2017/8/4  11:29
  */
 public class DistanceUtil {
+    private static final double EARTH_RADIUS = 6378137.0;
     private static volatile DistanceUtil singleton;
 
     private DistanceUtil() {
@@ -22,13 +24,13 @@ public class DistanceUtil {
         }
         return singleton;
     }
-    private static final double EARTH_RADIUS = 6378137.0;
+
     /**
      * 计算距离
      * <p>
      * 网 返回单位米；
      */
-    public  double distanceByLngLat(double lng1,double lat1, double lng2, double lat2) {
+    public double distanceByLngLat(double lng1, double lat1, double lng2, double lat2) {
         double radLat1 = lat1 * Math.PI / 180;
         double radLat2 = lat2 * Math.PI / 180;
         double a = radLat1 - radLat2;
@@ -48,7 +50,7 @@ public class DistanceUtil {
      *
      * @return 返回单位米；
      */
-    public  double getDistance(double longitude1,double latitude1, double longitude2, double latitude2) {
+    public double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
         try {
             if (null == String.valueOf(longitude1)
                     || "".equals(String.valueOf(longitude1)))

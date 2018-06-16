@@ -15,15 +15,14 @@ import android.widget.RelativeLayout;
  */
 public class ClipImageLayout extends RelativeLayout {
 
+    android.view.ViewGroup.LayoutParams lp;
     private ClipZoomImageView mZoomImageView;
     private ClipImageBorderView mClipImageView;
     private ClipCircleBorderView mClipCircleView;
-
     /**
      * 这里测试，直接写死了大小，真正使用过程中，可以提取为自定义属性
      */
     private int mHorizontalPadding = 0;
-    android.view.ViewGroup.LayoutParams lp;
 
     public ClipImageLayout(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -23,10 +23,10 @@ public class SubscriberMethodInfo {
     final Class<?> eventType;
     final int priority;
     final boolean sticky;
-    String tag=null;
+    String tag = null;
 
     public SubscriberMethodInfo(String methodName, Class<?> eventType, ThreadMode threadMode,
-                                int priority, boolean sticky,String tag) {
+                                int priority, boolean sticky, String tag) {
         this.methodName = methodName;
         this.threadMode = threadMode;
         this.eventType = eventType;
@@ -36,11 +36,10 @@ public class SubscriberMethodInfo {
     }
 
     public SubscriberMethodInfo(String methodName, Class<?> eventType) {
-        this(methodName, eventType, ThreadMode.POSTING, 0, false,"EventBus");
+        this(methodName, eventType, ThreadMode.POSTING, 0, false, "EventBus");
     }
 
     public SubscriberMethodInfo(String methodName, Class<?> eventType, ThreadMode threadMode) {
-        this(methodName, eventType, threadMode, 0, false,"EventBus");
+        this(methodName, eventType, threadMode, 0, false, "EventBus");
     }
-
 }

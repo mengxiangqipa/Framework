@@ -12,12 +12,11 @@ import android.widget.ScrollView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 /**
  * @author Yobert Jomi
- *         className OverScrollView
- *         created at  2016/8/3  11:10
- *         更多详解见博客http://blog.csdn.net/zhongkejingwang/article/details/38868463
+ * className OverScrollView
+ * created at  2016/8/3  11:10
+ * 更多详解见博客http://blog.csdn.net/zhongkejingwang/article/details/38868463
  */
 public class OverScrollView extends ScrollView {
     public static final String TAG = "PullToRefreshLayout";
@@ -65,7 +64,6 @@ public class OverScrollView extends ScrollView {
             // 刷新布局,会自动调用onLayout
             requestLayout();
         }
-
     };
     // 第一次执行布局
     private boolean isLayout = false;
@@ -267,11 +265,19 @@ public class OverScrollView extends ScrollView {
                 || pullableView.getHeight() < getHeight() + getScrollY());
     }
 
+    public void setCanPullDown(boolean canPullDownFromUserSet) {
+        this.canPullDownFromUserSet = canPullDownFromUserSet;
+    }
+
     /**
      * 判断是否滚动到底部
      */
     private boolean isCanPullUp() {
         return (pullableView.getHeight() <= getHeight() + getScrollY());
+    }
+
+    public void setCanPullUp(boolean canPullUpFromUserSet) {
+        this.canPullUpFromUserSet = canPullUpFromUserSet;
     }
 
     private boolean isOnTop() {
@@ -341,7 +347,6 @@ public class OverScrollView extends ScrollView {
          * 底部
          */
         void footerScroll();
-
     }
 
     /**
@@ -364,14 +369,6 @@ public class OverScrollView extends ScrollView {
          * 滚动松开
          */
         void scrollLoosen();
-    }
-
-    public void setCanPullUp(boolean canPullUpFromUserSet) {
-        this.canPullUpFromUserSet = canPullUpFromUserSet;
-    }
-
-    public void setCanPullDown(boolean canPullDownFromUserSet) {
-        this.canPullDownFromUserSet = canPullDownFromUserSet;
     }
 
     class MyTimer {
@@ -411,7 +408,6 @@ public class OverScrollView extends ScrollView {
             public void run() {
                 handler.obtainMessage().sendToTarget();
             }
-
         }
     }
 }

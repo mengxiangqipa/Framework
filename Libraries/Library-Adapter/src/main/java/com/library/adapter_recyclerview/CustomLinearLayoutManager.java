@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 /**
  * 可设置RecyclerView不可滚动（纵向）
  *
- * @author Yangjie
- *         className CustomLinearLayoutManager
- *         created at  2017/3/21  12:15
+ * @author YobertJomi
+ * className CustomLinearLayoutManager
+ * created at  2017/3/21  12:15
  */
 
 public class CustomLinearLayoutManager extends LinearLayoutManager {

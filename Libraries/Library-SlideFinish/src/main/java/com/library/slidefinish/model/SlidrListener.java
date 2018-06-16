@@ -5,8 +5,8 @@ package com.library.slidefinish.model;
  * and slide progress
  *
  * @author Yangjie
- *         className SlidrListener
- *         created at  2017/5/26  15:49
+ * className SlidrListener
+ * created at  2017/5/26  15:49
  */
 public interface SlidrListener {
 
@@ -26,5 +26,4 @@ public interface SlidrListener {
     void onSlideOpened();
 
     void onSlideClosed();
-
 }

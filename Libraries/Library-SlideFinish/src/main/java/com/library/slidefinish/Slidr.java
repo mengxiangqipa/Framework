@@ -17,8 +17,8 @@ import com.library.slidefinish.widget.SliderPanel;
  * causes {@link Activity#finish()} to be called.
  *
  * @author Yangjie
- *         className Slidr
- *         created at  2017/5/26  15:49
+ * className Slidr
+ * created at  2017/5/26  15:49
  */
 public class Slidr {
 
@@ -184,5 +184,4 @@ public class Slidr {
         // Return the lock interface
         return slidrInterface;
     }
-
 }

@@ -16,29 +16,34 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public abstract class BaseContentProvider extends ContentProvider
-{
+public abstract class BaseContentProvider extends ContentProvider {
     public static final String QUERY_NOTIFY = "QUERY_NOTIFY";
     public static final String QUERY_GROUP_BY = "QUERY_GROUP_BY";
     public static final String QUERY_HAVING = "QUERY_HAVING";
     public static final String QUERY_LIMIT = "QUERY_LIMIT";
+    protected SQLiteOpenHelper mSqLiteOpenHelper;
 
-    public static class QueryParams {
-        public String table;
-        public String tablesWithJoins;
-        public String idColumn;
-        public String selection;
-        public String orderBy;
+    public static Uri notify(Uri uri, boolean notify) {
+        return uri.buildUpon().appendQueryParameter(QUERY_NOTIFY, String.valueOf(notify)).build();
     }
 
+    public static Uri groupBy(Uri uri, String groupBy) {
+        return uri.buildUpon().appendQueryParameter(QUERY_GROUP_BY, groupBy).build();
+    }
+
+    public static Uri having(Uri uri, String having) {
+        return uri.buildUpon().appendQueryParameter(QUERY_HAVING, having).build();
+    }
+
+    public static Uri limit(Uri uri, String limit) {
+        return uri.buildUpon().appendQueryParameter(QUERY_LIMIT, limit).build();
+    }
 
     protected abstract QueryParams getQueryParams(Uri uri, String selection, String[] projection);
 
     protected abstract boolean hasDebug();
 
     protected abstract SQLiteOpenHelper createSqLiteOpenHelper();
-
-    protected SQLiteOpenHelper mSqLiteOpenHelper;
 
     @Override
     public boolean onCreate() {
@@ -62,7 +67,6 @@ public abstract class BaseContentProvider extends ContentProvider
         mSqLiteOpenHelper = createSqLiteOpenHelper();
         return false;
     }
-
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -105,7 +109,8 @@ public abstract class BaseContentProvider extends ContentProvider
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         QueryParams queryParams = getQueryParams(uri, selection, null);
-        int res = mSqLiteOpenHelper.getWritableDatabase().update(queryParams.table, values, queryParams.selection, selectionArgs);
+        int res = mSqLiteOpenHelper.getWritableDatabase().update(queryParams.table, values, queryParams.selection,
+                selectionArgs);
         String notify;
         if (res != 0 && ((notify = uri.getQueryParameter(QUERY_NOTIFY)) == null || "true".equals(notify))) {
             getContext().getContentResolver().notifyChange(uri, null);
@@ -116,7 +121,8 @@ public abstract class BaseContentProvider extends ContentProvider
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         QueryParams queryParams = getQueryParams(uri, selection, null);
-        int res = mSqLiteOpenHelper.getWritableDatabase().delete(queryParams.table, queryParams.selection, selectionArgs);
+        int res = mSqLiteOpenHelper.getWritableDatabase().delete(queryParams.table, queryParams.selection,
+                selectionArgs);
         String notify;
         if (res != 0 && ((notify = uri.getQueryParameter(QUERY_NOTIFY)) == null || "true".equals(notify))) {
             getContext().getContentResolver().notifyChange(uri, null);
@@ -131,7 +137,8 @@ public abstract class BaseContentProvider extends ContentProvider
         String limit = uri.getQueryParameter(QUERY_LIMIT);
         QueryParams queryParams = getQueryParams(uri, selection, projection);
         projection = ensureIdIsFullyQualified(projection, queryParams.table, queryParams.idColumn);
-        Cursor res = mSqLiteOpenHelper.getReadableDatabase().query(queryParams.tablesWithJoins, projection, queryParams.selection, selectionArgs, groupBy,
+        Cursor res = mSqLiteOpenHelper.getReadableDatabase().query(queryParams.tablesWithJoins, projection,
+                queryParams.selection, selectionArgs, groupBy,
                 having, sortOrder == null ? queryParams.orderBy : sortOrder, limit);
         res.setNotificationUri(getContext().getContentResolver(), uri);
         return res;
@@ -151,8 +158,8 @@ public abstract class BaseContentProvider extends ContentProvider
     }
 
     @Override
-    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws OperationApplicationException
-    {
+    public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations) throws
+            OperationApplicationException {
         HashSet<Uri> urisToNotify = new HashSet<Uri>(operations.size());
         for (ContentProviderOperation operation : operations) {
             urisToNotify.add(operation.getUri());
@@ -180,20 +187,11 @@ public abstract class BaseContentProvider extends ContentProvider
         }
     }
 
-
-    public static Uri notify(Uri uri, boolean notify) {
-        return uri.buildUpon().appendQueryParameter(QUERY_NOTIFY, String.valueOf(notify)).build();
-    }
-
-    public static Uri groupBy(Uri uri, String groupBy) {
-        return uri.buildUpon().appendQueryParameter(QUERY_GROUP_BY, groupBy).build();
-    }
-
-    public static Uri having(Uri uri, String having) {
-        return uri.buildUpon().appendQueryParameter(QUERY_HAVING, having).build();
-    }
-
-    public static Uri limit(Uri uri, String limit) {
-        return uri.buildUpon().appendQueryParameter(QUERY_LIMIT, limit).build();
+    public static class QueryParams {
+        public String table;
+        public String tablesWithJoins;
+        public String idColumn;
+        public String selection;
+        public String orderBy;
     }
 }

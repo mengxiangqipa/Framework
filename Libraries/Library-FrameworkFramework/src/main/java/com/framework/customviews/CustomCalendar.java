@@ -30,8 +30,7 @@ import java.util.Map;
  */
 @SuppressWarnings("deprecation")
 public class CustomCalendar extends ViewFlipper implements
-        GestureDetector.OnGestureListener
-{
+        GestureDetector.OnGestureListener {
     public static final int COLOR_BG_WEEK_TITLE = Color.parseColor("#ffeeeeee"); // 星期标题背景颜色
     public static final int COLOR_TX_WEEK_TITLE = Color.parseColor("#ffcc3333"); // 星期标题文字颜色
     public static final int COLOR_TX_THIS_MONTH_DAY = Color
@@ -72,21 +71,37 @@ public class CustomCalendar extends ViewFlipper implements
     // res
     // id)
     private Map<String, Integer> dayBgColorMap = new HashMap<String, Integer>(); // 储存某个日子的背景色
+    private boolean isNext = true, isPrevious = true;
 
-    public CustomCalendar(Context context, AttributeSet attrs)
-    {
+    public CustomCalendar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomCalendar(Context context)
-    {
+    public CustomCalendar(Context context) {
         super(context);
         init();
     }
 
-    private void init()
-    {
+    // 2或4
+    private static String addZero(int i, int count) {
+        if (count == 2) {
+            if (i < 10) {
+                return "0" + i;
+            }
+        } else if (count == 4) {
+            if (i < 10) {
+                return "000" + i;
+            } else if (i < 100 && i > 10) {
+                return "00" + i;
+            } else if (i < 1000 && i > 100) {
+                return "0" + i;
+            }
+        }
+        return "" + i;
+    }
+
+    private void init() {
         setBackgroundColor(COLOR_BG_CALENDAR);
         // 实例化收拾监听器
         gd = new GestureDetector(this);
@@ -127,8 +142,7 @@ public class CustomCalendar extends ViewFlipper implements
         setCalendarDate();
     }
 
-    private void drawFrame(LinearLayout oneCalendar)
-    {
+    private void drawFrame(LinearLayout oneCalendar) {
 
         // 添加周末线性布局
         LinearLayout title = new LinearLayout(getContext());
@@ -143,8 +157,7 @@ public class CustomCalendar extends ViewFlipper implements
         oneCalendar.addView(title);
 
         // 添加周末TextView
-        for (int i = 0; i < COLS_TOTAL; i++)
-        {
+        for (int i = 0; i < COLS_TOTAL; i++) {
             TextView view = new TextView(getContext());
             view.setGravity(Gravity.CENTER);
             view.setText(weekday[i]);
@@ -160,51 +173,42 @@ public class CustomCalendar extends ViewFlipper implements
         oneCalendar.addView(content);
 
         // 添加日期TextView
-        for (int i = 0; i < ROWS_TOTAL; i++)
-        {
+        for (int i = 0; i < ROWS_TOTAL; i++) {
             LinearLayout row = new LinearLayout(getContext());
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setLayoutParams(new LinearLayout.LayoutParams(
                     LayoutParams.MATCH_PARENT, 0, 1));
             content.addView(row);
             // 绘制日历上的列
-            for (int j = 0; j < COLS_TOTAL; j++)
-            {
+            for (int j = 0; j < COLS_TOTAL; j++) {
                 RelativeLayout col = new RelativeLayout(getContext());
                 col.setLayoutParams(new LinearLayout.LayoutParams(0,
                         LayoutParams.MATCH_PARENT, 1));
                 col.setBackgroundResource(R.drawable.calendar_day_bg);
                 row.addView(col);
                 // 给每一个日子加上监听
-                col.setOnClickListener(new OnClickListener()
-                {
+                col.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
                         ViewGroup parent = (ViewGroup) v.getParent();
                         int row = 0, col = 0;
 
                         // 获取列坐标
-                        for (int i = 0; i < parent.getChildCount(); i++)
-                        {
-                            if (v.equals(parent.getChildAt(i)))
-                            {
+                        for (int i = 0; i < parent.getChildCount(); i++) {
+                            if (v.equals(parent.getChildAt(i))) {
                                 col = i;
                                 break;
                             }
                         }
                         // 获取行坐标
                         ViewGroup pparent = (ViewGroup) parent.getParent();
-                        for (int i = 0; i < pparent.getChildCount(); i++)
-                        {
-                            if (parent.equals(pparent.getChildAt(i)))
-                            {
+                        for (int i = 0; i < pparent.getChildCount(); i++) {
+                            if (parent.equals(pparent.getChildAt(i))) {
                                 row = i;
                                 break;
                             }
                         }
-                        if (onCalendarClickListener != null)
-                        {
+                        if (onCalendarClickListener != null) {
                             onCalendarClickListener.onCalendarClick(row, col,
                                     dates[row][col]);
                         }
@@ -217,8 +221,7 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 填充日历(包含日期、标记、背景等)
      */
-    private void setCalendarDate()
-    {
+    private void setCalendarDate() {
         // 根据日历的日子获取这一天是星期几
         int weekday = calendarday.getDay();
         // 每个月第一天
@@ -232,23 +235,18 @@ public class CustomCalendar extends ViewFlipper implements
         int lastMonthDay = 1;
 
         // 填充每一个空格
-        for (int i = 0; i < ROWS_TOTAL; i++)
-        {
-            for (int j = 0; j < COLS_TOTAL; j++)
-            {
+        for (int i = 0; i < ROWS_TOTAL; i++) {
+            for (int j = 0; j < COLS_TOTAL; j++) {
                 // 这个月第一天不是礼拜天,则需要绘制上个月的剩余几天
-                if (i == 0 && j == 0 && weekday != 0)
-                {
+                if (i == 0 && j == 0 && weekday != 0) {
                     int year = 0;
                     int month = 0;
                     int lastMonthDays = 0;
                     // 如果这个月是1月，上一个月就是去年的12月
-                    if (calendarday.getMonth() == 0)
-                    {
+                    if (calendarday.getMonth() == 0) {
                         year = calendarday.getYear() - 1;
                         month = Calendar.DECEMBER;
-                    } else
-                    {
+                    } else {
                         year = calendarday.getYear();
                         month = calendarday.getMonth() - 1;
                     }
@@ -257,17 +255,14 @@ public class CustomCalendar extends ViewFlipper implements
                     // 第一个格子展示的是几号
                     int firstShowDay = lastMonthDays - weekday + 1;
                     // 上月
-                    for (int k = 0; k < weekday; k++)
-                    {
+                    for (int k = 0; k < weekday; k++) {
                         lastMonthDay = firstShowDay + k;
                         RelativeLayout group = getDateView(0, k);
                         group.setGravity(Gravity.CENTER);
                         TextView view = null;
-                        if (group.getChildCount() > 0)
-                        {
+                        if (group.getChildCount() > 0) {
                             view = (TextView) group.getChildAt(0);
-                        } else
-                        {
+                        } else {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                     -1, -1);
                             view = new TextView(getContext());
@@ -279,12 +274,10 @@ public class CustomCalendar extends ViewFlipper implements
                         view.setTextColor(COLOR_TX_OTHER_MONTH_DAY);
                         dates[0][k] = format(new Date(year, month, lastMonthDay));
                         // 设置日期背景色
-                        if (dayBgColorMap.get(dates[0][k]) != null)
-                        {
+                        if (dayBgColorMap.get(dates[0][k]) != null) {
                             // view.setBackgroundResource(dayBgColorMap
                             // .get(dates[i][j]));
-                        } else
-                        {
+                        } else {
                             view.setBackgroundColor(Color.TRANSPARENT);
                         }
                         // 设置标记
@@ -292,16 +285,13 @@ public class CustomCalendar extends ViewFlipper implements
                     }
                     j = weekday - 1;
                     // 这个月第一天是礼拜天，不用绘制上个月的日期，直接绘制这个月的日期
-                } else
-                {
+                } else {
                     RelativeLayout group = getDateView(i, j);
                     group.setGravity(Gravity.CENTER);
                     TextView view = null;
-                    if (group.getChildCount() > 0)
-                    {
+                    if (group.getChildCount() > 0) {
                         view = (TextView) group.getChildAt(0);
-                    } else
-                    {
+                    } else {
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                 -1, -1);
                         view = new TextView(getContext());
@@ -311,28 +301,24 @@ public class CustomCalendar extends ViewFlipper implements
                     }
 
                     // 本月
-                    if (day <= lastDay)
-                    {
+                    if (day <= lastDay) {
                         dates[i][j] = format(new Date(calendarday.getYear(),
                                 calendarday.getMonth(), day));
                         view.setText(Integer.toString(day));
                         // 当天
                         if (thisday.getDate() == day
                                 && thisday.getMonth() == calendarday.getMonth()
-                                && thisday.getYear() == calendarday.getYear())
-                        {
+                                && thisday.getYear() == calendarday.getYear()) {
                             view.setText("今天");
                             view.setTextColor(COLOR_TX_WEEK_TITLE);
                             view.setBackgroundColor(Color.TRANSPARENT);
-                        } else
-                        {
+                        } else {
                             view.setTextColor(COLOR_TX_THIS_MONTH_DAY);
                             view.setBackgroundColor(Color.TRANSPARENT);
                         }
                         // 上面首先设置了一下默认的"当天"背景色，当有特殊需求时，才给当日填充背景色
                         // 设置日期背景色
-                        if (dayBgColorMap.get(dates[i][j]) != null)
-                        {
+                        if (dayBgColorMap.get(dates[i][j]) != null) {
                             view.setTextColor(Color.WHITE);
                             view.setBackgroundResource(dayBgColorMap
                                     .get(dates[i][j]));
@@ -341,15 +327,12 @@ public class CustomCalendar extends ViewFlipper implements
                         setMarker(group, i, j);
                         day++;
                         // 下个月
-                    } else
-                    {
-                        if (calendarday.getMonth() == Calendar.DECEMBER)
-                        {
+                    } else {
+                        if (calendarday.getMonth() == Calendar.DECEMBER) {
                             dates[i][j] = format(new Date(
                                     calendarday.getYear() + 1,
                                     Calendar.JANUARY, nextMonthDay));
-                        } else
-                        {
+                        } else {
                             dates[i][j] = format(new Date(
                                     calendarday.getYear(),
                                     calendarday.getMonth() + 1, nextMonthDay));
@@ -357,12 +340,10 @@ public class CustomCalendar extends ViewFlipper implements
                         view.setText(Integer.toString(nextMonthDay));
                         view.setTextColor(COLOR_TX_OTHER_MONTH_DAY);
                         // 设置日期背景色
-                        if (dayBgColorMap.get(dates[i][j]) != null)
-                        {
+                        if (dayBgColorMap.get(dates[i][j]) != null) {
                             // view.setBackgroundResource(dayBgColorMap
                             // .get(dates[i][j]));
-                        } else
-                        {
+                        } else {
                             view.setBackgroundColor(Color.TRANSPARENT);
                         }
                         // 设置标记
@@ -375,29 +356,12 @@ public class CustomCalendar extends ViewFlipper implements
     }
 
     /**
-     * onClick接口回调
-     */
-    public interface OnCalendarClickListener
-    {
-        void onCalendarClick(int row, int col, String dateFormat);
-    }
-
-    /**
-     * ondateChange接口回调
-     */
-    public interface OnCalendarDateChangedListener
-    {
-        void onCalendarDateChanged(int year, int month);
-    }
-
-    /**
      * 根据具体的某年某月，展示一个日历
      *
      * @param year
      * @param month
      */
-    public void showCalendar(int year, int month)
-    {
+    public void showCalendar(int year, int month) {
         calendarYear = year;
         calendarMonth = month - 1;
         calendarday = new Date(calendarYear - 1900, calendarMonth, 1);
@@ -406,10 +370,8 @@ public class CustomCalendar extends ViewFlipper implements
 
     /**
      * 根据当前月，展示一个日历
-     *
      */
-    public void showCalendar()
-    {
+    public void showCalendar() {
         Date now = new Date();
         calendarYear = now.getYear() + 1900;
         calendarMonth = now.getMonth();
@@ -420,26 +382,21 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 下一月日历
      */
-    public synchronized void nextMonth()
-    {
+    public synchronized void nextMonth() {
         // 改变日历上下顺序
-        if (currentCalendar == firstCalendar)
-        {
+        if (currentCalendar == firstCalendar) {
             currentCalendar = secondCalendar;
-        } else
-        {
+        } else {
             currentCalendar = firstCalendar;
         }
         // 设置动画
         setInAnimation(push_left_in);
         setOutAnimation(push_left_out);
         // 改变日历日期
-        if (calendarMonth == Calendar.DECEMBER)
-        {
+        if (calendarMonth == Calendar.DECEMBER) {
             calendarYear++;
             calendarMonth = Calendar.JANUARY;
-        } else
-        {
+        } else {
             calendarMonth++;
         }
         calendarday = new Date(calendarYear - 1900, calendarMonth, 1);
@@ -448,8 +405,7 @@ public class CustomCalendar extends ViewFlipper implements
         // 下翻到下一月
         showNext();
         // 回调
-        if (onCalendarDateChangedListener != null)
-        {
+        if (onCalendarDateChangedListener != null) {
             onCalendarDateChangedListener.onCalendarDateChanged(calendarYear,
                     calendarMonth + 1);
         }
@@ -458,30 +414,24 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 上一月日历
      */
-    public synchronized void lastMonth()
-    {
-        if (currentCalendar == firstCalendar)
-        {
+    public synchronized void lastMonth() {
+        if (currentCalendar == firstCalendar) {
             currentCalendar = secondCalendar;
-        } else
-        {
+        } else {
             currentCalendar = firstCalendar;
         }
         setInAnimation(push_right_in);
         setOutAnimation(push_right_out);
-        if (calendarMonth == Calendar.JANUARY)
-        {
+        if (calendarMonth == Calendar.JANUARY) {
             calendarYear--;
             calendarMonth = Calendar.DECEMBER;
-        } else
-        {
+        } else {
             calendarMonth--;
         }
         calendarday = new Date(calendarYear - 1900, calendarMonth, 1);
         setCalendarDate();
         showPrevious();
-        if (onCalendarDateChangedListener != null)
-        {
+        if (onCalendarDateChangedListener != null) {
             onCalendarDateChangedListener.onCalendarDateChanged(calendarYear,
                     calendarMonth + 1);
         }
@@ -490,16 +440,14 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 获取日历当前年份
      */
-    public int getCalendarYear()
-    {
+    public int getCalendarYear() {
         return calendarday.getYear() + 1900;
     }
 
     /**
      * 获取日历当前月份
      */
-    public int getCalendarMonth()
-    {
+    public int getCalendarMonth() {
         return calendarday.getMonth() + 1;
     }
 
@@ -509,8 +457,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date 日期
      * @param id   bitmap res id
      */
-    public void addMark(Date date, int id)
-    {
+    public void addMark(Date date, int id) {
         addMark(format(date), id);
     }
 
@@ -520,8 +467,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date 日期
      * @param id   bitmap res id
      */
-    void addMark(String date, int id)
-    {
+    void addMark(String date, int id) {
         marksMap.put(date, id);
         setCalendarDate();
     }
@@ -532,10 +478,8 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date 日期
      * @param id   bitmap res id
      */
-    public void addMarks(Date[] date, int id)
-    {
-        for (int i = 0; i < date.length; i++)
-        {
+    public void addMarks(Date[] date, int id) {
+        for (int i = 0; i < date.length; i++) {
             marksMap.put(format(date[i]), id);
         }
         setCalendarDate();
@@ -547,10 +491,8 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date 日期
      * @param id   bitmap res id
      */
-    public void addMarks(List<String> date, int id)
-    {
-        for (int i = 0; i < date.size(); i++)
-        {
+    public void addMarks(List<String> date, int id) {
+        for (int i = 0; i < date.size(); i++) {
             marksMap.put(date.get(i), id);
         }
         setCalendarDate();
@@ -559,16 +501,14 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 移除日历上的标记
      */
-    public void removeMark(Date date)
-    {
+    public void removeMark(Date date) {
         removeMark(format(date));
     }
 
     /**
      * 移除日历上的标记
      */
-    public void removeMark(String date)
-    {
+    public void removeMark(String date) {
         marksMap.remove(date);
         setCalendarDate();
     }
@@ -576,8 +516,7 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 移除日历上的所有标记
      */
-    public void removeAllMarks()
-    {
+    public void removeAllMarks() {
         marksMap.clear();
         setCalendarDate();
     }
@@ -588,8 +527,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date
      * @param color
      */
-    public void setCalendarDayBgColor(Date date, int color)
-    {
+    public void setCalendarDayBgColor(Date date, int color) {
         setCalendarDayBgColor(format(date), color);
     }
 
@@ -599,8 +537,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date
      * @param color
      */
-    public void setCalendarDayBgColor(String date, int color)
-    {
+    public void setCalendarDayBgColor(String date, int color) {
         dayBgColorMap.put(date, color);
         setCalendarDate();
     }
@@ -611,10 +548,8 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date
      * @param color
      */
-    public void setCalendarDaysBgColor(List<String> date, int color)
-    {
-        for (int i = 0; i < date.size(); i++)
-        {
+    public void setCalendarDaysBgColor(List<String> date, int color) {
+        for (int i = 0; i < date.size(); i++) {
             dayBgColorMap.put(date.get(i), color);
         }
         setCalendarDate();
@@ -626,10 +561,8 @@ public class CustomCalendar extends ViewFlipper implements
      * @param date
      * @param color
      */
-    public void setCalendarDayBgColor(String[] date, int color)
-    {
-        for (int i = 0; i < date.length; i++)
-        {
+    public void setCalendarDayBgColor(String[] date, int color) {
+        for (int i = 0; i < date.length; i++) {
             dayBgColorMap.put(date[i], color);
         }
         setCalendarDate();
@@ -640,8 +573,7 @@ public class CustomCalendar extends ViewFlipper implements
      *
      * @param date
      */
-    public void removeCalendarDayBgColor(Date date)
-    {
+    public void removeCalendarDayBgColor(Date date) {
         removeCalendarDayBgColor(format(date));
     }
 
@@ -650,18 +582,15 @@ public class CustomCalendar extends ViewFlipper implements
      *
      * @param date
      */
-    public void removeCalendarDayBgColor(String date)
-    {
+    public void removeCalendarDayBgColor(String date) {
         dayBgColorMap.remove(date);
         setCalendarDate();
     }
 
     /**
      * 移除日历具体某个日期的背景色
-     *
      */
-    public void removeAllBgColor()
-    {
+    public void removeAllBgColor() {
         dayBgColorMap.clear();
         setCalendarDate();
     }
@@ -673,8 +602,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param col
      * @return
      */
-    public String getDate(int row, int col)
-    {
+    public String getDate(int row, int col) {
         return dates[row][col];
     }
 
@@ -683,16 +611,14 @@ public class CustomCalendar extends ViewFlipper implements
      *
      * @return
      */
-    public boolean hasMarked(String date)
-    {
+    public boolean hasMarked(String date) {
         return marksMap.get(date) == null ? false : true;
     }
 
     /**
      * 清除所有标记以及背景
      */
-    public void clearAll()
-    {
+    public void clearAll() {
         marksMap.clear();
         dayBgColorMap.clear();
     }
@@ -703,13 +629,10 @@ public class CustomCalendar extends ViewFlipper implements
      *
      **********************************************/
     // 设置标记
-    private void setMarker(RelativeLayout group, int i, int j)
-    {
+    private void setMarker(RelativeLayout group, int i, int j) {
         int childCount = group.getChildCount();
-        if (marksMap.get(dates[i][j]) != null)
-        {
-            if (childCount < 2)
-            {
+        if (marksMap.get(dates[i][j]) != null) {
+            if (childCount < 2) {
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                         (int) (tb * 0.7), (int) (tb * 0.7));
                 params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -721,14 +644,11 @@ public class CustomCalendar extends ViewFlipper implements
                 markView.setBackgroundResource(R.drawable.calendar_bg_tag);
                 group.addView(markView);
             }
-        } else
-        {
-            if (childCount > 1)
-            {
+        } else {
+            if (childCount > 1) {
                 group.removeView(group.getChildAt(1));
             }
         }
-
     }
 
     /**
@@ -738,8 +658,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param month
      * @return
      */
-    private int getDateNum(int year, int month)
-    {
+    private int getDateNum(int year, int month) {
         Calendar time = Calendar.getInstance();
         time.clear();
         time.set(Calendar.YEAR, year + 1900);
@@ -754,8 +673,7 @@ public class CustomCalendar extends ViewFlipper implements
      * @param col
      * @return
      */
-    private RelativeLayout getDateView(int row, int col)
-    {
+    private RelativeLayout getDateView(int row, int col) {
         return (RelativeLayout) ((LinearLayout) ((LinearLayout) currentCalendar
                 .getChildAt(1)).getChildAt(row)).getChildAt(col);
     }
@@ -763,35 +681,9 @@ public class CustomCalendar extends ViewFlipper implements
     /**
      * 将Date转化成字符串->2013-3-3
      */
-    private String format(Date d)
-    {
+    private String format(Date d) {
         return addZero(d.getYear() + 1900, 4) + "-"
                 + addZero(d.getMonth() + 1, 2) + "-" + addZero(d.getDate(), 2);
-    }
-
-    // 2或4
-    private static String addZero(int i, int count)
-    {
-        if (count == 2)
-        {
-            if (i < 10)
-            {
-                return "0" + i;
-            }
-        } else if (count == 4)
-        {
-            if (i < 10)
-            {
-                return "000" + i;
-            } else if (i < 100 && i > 10)
-            {
-                return "00" + i;
-            } else if (i < 1000 && i > 100)
-            {
-                return "0" + i;
-            }
-        }
-        return "" + i;
     }
 
     /***********************************************
@@ -799,57 +691,46 @@ public class CustomCalendar extends ViewFlipper implements
      * Override methods
      *
      **********************************************/
-    public boolean dispatchTouchEvent(MotionEvent ev)
-    {
-        if (gd != null)
-        {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (gd != null) {
             if (gd.onTouchEvent(ev))
                 return true;
         }
         return super.dispatchTouchEvent(ev);
     }
 
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         return this.gd.onTouchEvent(event);
     }
 
-    public boolean onDown(MotionEvent e)
-    {
+    public boolean onDown(MotionEvent e) {
         return false;
     }
 
-    public void onShowPress(MotionEvent e)
-    {
+    public void onShowPress(MotionEvent e) {
     }
 
-    public boolean onSingleTapUp(MotionEvent e)
-    {
+    public boolean onSingleTapUp(MotionEvent e) {
         return false;
     }
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-                            float distanceY)
-    {
+                            float distanceY) {
         return false;
     }
 
-    public void onLongPress(MotionEvent e)
-    {
+    public void onLongPress(MotionEvent e) {
     }
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                           float velocityY)
-    {
+                           float velocityY) {
         // 向左/上滑动
-        if (e1.getX() - e2.getX() > 20 && isNext)
-        {
+        if (e1.getX() - e2.getX() > 20 && isNext) {
             nextMonth();
         }
         // 向右/下滑动
-        else if (e1.getX() - e2.getX() < -20 && isPrevious)
-        {
+        else if (e1.getX() - e2.getX() < -20 && isPrevious) {
             lastMonth();
         }
         return false;
@@ -861,57 +742,59 @@ public class CustomCalendar extends ViewFlipper implements
      *
      **********************************************/
 
-    public OnCalendarClickListener getOnCalendarClickListener()
-    {
+    public OnCalendarClickListener getOnCalendarClickListener() {
         return onCalendarClickListener;
     }
 
     public void setOnCalendarClickListener(
-            OnCalendarClickListener onCalendarClickListener)
-    {
+            OnCalendarClickListener onCalendarClickListener) {
         this.onCalendarClickListener = onCalendarClickListener;
     }
 
-    public OnCalendarDateChangedListener getOnCalendarDateChangedListener()
-    {
+    public OnCalendarDateChangedListener getOnCalendarDateChangedListener() {
         return onCalendarDateChangedListener;
     }
 
     public void setOnCalendarDateChangedListener(
-            OnCalendarDateChangedListener onCalendarDateChangedListener)
-    {
+            OnCalendarDateChangedListener onCalendarDateChangedListener) {
         this.onCalendarDateChangedListener = onCalendarDateChangedListener;
     }
 
-    public Date getThisday()
-    {
+    public Date getThisday() {
         return thisday;
     }
 
-    public void setThisday(Date thisday)
-    {
+    public void setThisday(Date thisday) {
         this.thisday = thisday;
     }
 
-    public Map<String, Integer> getDayBgColorMap()
-    {
+    public Map<String, Integer> getDayBgColorMap() {
         return dayBgColorMap;
     }
 
-    public void setDayBgColorMap(Map<String, Integer> dayBgColorMap)
-    {
+    public void setDayBgColorMap(Map<String, Integer> dayBgColorMap) {
         this.dayBgColorMap = dayBgColorMap;
     }
 
-    private boolean isNext = true, isPrevious = true;
-
-    public void setHasNextMonth(boolean isNext)
-    {
+    public void setHasNextMonth(boolean isNext) {
         this.isNext = isNext;
     }
 
-    public void setHasPreviousMonth(boolean isPrevious)
-    {
+    public void setHasPreviousMonth(boolean isPrevious) {
         this.isPrevious = isPrevious;
+    }
+
+    /**
+     * onClick接口回调
+     */
+    public interface OnCalendarClickListener {
+        void onCalendarClick(int row, int col, String dateFormat);
+    }
+
+    /**
+     * ondateChange接口回调
+     */
+    public interface OnCalendarDateChangedListener {
+        void onCalendarDateChanged(int year, int month);
     }
 }

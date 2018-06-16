@@ -24,24 +24,26 @@ import java.lang.annotation.Target;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
-public @interface Subscribe
-{
-	ThreadMode threadMode() default ThreadMode.POSTING;
+@Target({ElementType.METHOD})
+public @interface Subscribe {
+    ThreadMode threadMode() default ThreadMode.POSTING;
 
-	/**
-	 * If true, delivers the most recent sticky event (posted with
-	 * {@link EventBus#postSticky(Object,String)}) to this subscriber (if event available).
-	 */
-	boolean sticky() default false;
+    /**
+     * If true, delivers the most recent sticky event (posted with
+     * {@link EventBus#postSticky(Object, String)}) to this subscriber (if event available).
+     */
+    boolean sticky() default false;
 
-	/** Subscriber priority to influence the order of event delivery.
-	 * Within the same delivery thread ({@link ThreadMode}), higher priority subscribers will receive events before
-	 * others with a lower priority. The default priority is 0. Note: the priority does *NOT* affect the order of
-	 * delivery among subscribers with different {@link ThreadMode}s! */
-	int priority() default 0;
+    /**
+     * Subscriber priority to influence the order of event delivery.
+     * Within the same delivery thread ({@link ThreadMode}), higher priority subscribers will receive events before
+     * others with a lower priority. The default priority is 0. Note: the priority does *NOT* affect the order of
+     * delivery among subscribers with different {@link ThreadMode}s!
+     */
+    int priority() default 0;
 
-	/**我更改添加tag
-	 * */
-	String tag() default "EventBus";
+    /**
+     * 我更改添加tag
+     */
+    String tag() default "EventBus";
 }

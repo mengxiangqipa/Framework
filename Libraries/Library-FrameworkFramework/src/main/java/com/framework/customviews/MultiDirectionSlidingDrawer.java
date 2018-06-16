@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * Modifications by: Alessandro Crugnola
  */
 
@@ -37,14 +37,13 @@ import android.view.accessibility.AccessibilityEvent;
 
 import com.framework.R;
 
-public class MultiDirectionSlidingDrawer extends ViewGroup
-{
+public class MultiDirectionSlidingDrawer extends ViewGroup {
 
     public static final int ORIENTATION_RTL = 0;
     public static final int ORIENTATION_BTT = 1;
     public static final int ORIENTATION_LTR = 2;
     public static final int ORIENTATION_TTB = 3;
-
+    public static final String LOG_TAG = "Sliding";
     private static final int TAP_THRESHOLD = 6;
     private static final float MAXIMUM_TAP_VELOCITY = 100.0f;
     private static final float MAXIMUM_MINOR_VELOCITY = 150.0f;
@@ -53,23 +52,21 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     private static final int VELOCITY_UNITS = 1000;
     private static final int MSG_ANIMATE = 1000;
     private static final int ANIMATION_FRAME_DURATION = 1000 / 60;
-
     private static final int EXPANDED_FULL_OPEN = -10001;
     private static final int COLLAPSED_FULL_CLOSED = -10002;
-
     private final int mHandleId;
     private final int mContentId;
-
-    private View mHandle;
-    private View mContent;
-
     private final Rect mFrame = new Rect();
     private final Rect mInvalidate = new Rect();
+    private final Handler mHandler = new SlidingHandler();
+    private final int mTapThreshold;
+    private final int mMaximumTapVelocity;
+    private final int mVelocityUnits;
+    private View mHandle;
+    private View mContent;
     private boolean mTracking;
     private boolean mLocked;
-
     private VelocityTracker mVelocityTracker;
-
     private boolean mInvert;
     private boolean mVertical;
     private boolean mExpanded;
@@ -77,12 +74,9 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     private int mTopOffset;
     private int mHandleHeight;
     private int mHandleWidth;
-
     private OnDrawerOpenListener mOnDrawerOpenListener;
     private OnDrawerCloseListener mOnDrawerCloseListener;
     private OnDrawerScrollListener mOnDrawerScrollListener;
-
-    private final Handler mHandler = new SlidingHandler();
     private float mAnimatedAcceleration;
     private float mAnimatedVelocity;
     private float mAnimationPosition;
@@ -92,54 +86,9 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     private boolean mAnimating;
     private boolean mAllowSingleTap;
     private boolean mAnimateOnClick;
-
-    private final int mTapThreshold;
-    private final int mMaximumTapVelocity;
     private int mMaximumMinorVelocity;
     private int mMaximumMajorVelocity;
     private int mMaximumAcceleration;
-    private final int mVelocityUnits;
-
-    /**
-     * Callback invoked when the drawer is opened.
-     */
-    public interface OnDrawerOpenListener
-    {
-
-        /**
-         * Invoked when the drawer becomes fully open.
-         */
-         void onDrawerOpened();
-    }
-
-    /**
-     * Callback invoked when the drawer is closed.
-     */
-    public interface OnDrawerCloseListener
-    {
-
-        /**
-         * Invoked when the drawer becomes fully closed.
-         */
-        void onDrawerClosed();
-    }
-
-    /**
-     * Callback invoked when the drawer is scrolled.
-     */
-    public interface OnDrawerScrollListener
-    {
-
-        /**
-         * Invoked when the user starts dragging/flinging the drawer's handle.
-         */
-        void onScrollStarted();
-
-        /**
-         * Invoked when the user stops dragging/flinging the drawer's handle.
-         */
-        void onScrollEnded();
-    }
 
     /**
      * Creates a new SlidingDrawer from a specified set of attributes defined in
@@ -148,8 +97,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @param context The application's environment.
      * @param attrs   The attributes defined in XML.
      */
-    public MultiDirectionSlidingDrawer(Context context, AttributeSet attrs)
-    {
+    public MultiDirectionSlidingDrawer(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
@@ -162,8 +110,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @param defStyle The style to apply to this widget.
      */
     public MultiDirectionSlidingDrawer(Context context, AttributeSet attrs,
-                                       int defStyle)
-    {
+                                       int defStyle) {
         super(context, attrs, defStyle);
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.MultiDirectionSlidingDrawer, defStyle, 0);
@@ -184,8 +131,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
 
         int handleId = a.getResourceId(
                 R.styleable.MultiDirectionSlidingDrawer_handle, 0);
-        if (handleId == 0)
-        {
+        if (handleId == 0) {
             throw new IllegalArgumentException(
                     "The handle attribute is required and must refer "
                             + "to a valid child.");
@@ -193,15 +139,13 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
 
         int contentId = a.getResourceId(
                 R.styleable.MultiDirectionSlidingDrawer_content, 0);
-        if (contentId == 0)
-        {
+        if (contentId == 0) {
             throw new IllegalArgumentException(
                     "The content attribute is required and must refer "
                             + "to a valid child.");
         }
 
-        if (handleId == contentId)
-        {
+        if (handleId == contentId) {
             throw new IllegalArgumentException(
                     "The content and handle attributes must refer "
                             + "to different children.");
@@ -217,8 +161,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         mMaximumAcceleration = (int) (MAXIMUM_ACCELERATION * density + 0.5f);
         mVelocityUnits = (int) (VELOCITY_UNITS * density + 0.5f);
 
-        if (mInvert)
-        {
+        if (mInvert) {
             mMaximumAcceleration = -mMaximumAcceleration;
             mMaximumMajorVelocity = -mMaximumMajorVelocity;
             mMaximumMinorVelocity = -mMaximumMinorVelocity;
@@ -229,12 +172,10 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     }
 
     @Override
-    protected void onFinishInflate()
-    {
+    protected void onFinishInflate() {
         super.onFinishInflate();
         mHandle = findViewById(mHandleId);
-        if (mHandle == null)
-        {
+        if (mHandle == null) {
             throw new IllegalArgumentException(
                     "The handle attribute is must refer to an"
                             + " existing child.");
@@ -242,8 +183,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         mHandle.setOnClickListener(new DrawerToggler());
 
         mContent = findViewById(mContentId);
-        if (mContent == null)
-        {
+        if (mContent == null) {
             throw new IllegalArgumentException(
                     "The content attribute is must refer to an"
                             + " existing child.");
@@ -252,8 +192,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
 
@@ -261,8 +200,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
 
         if (widthSpecMode == MeasureSpec.UNSPECIFIED
-                || heightSpecMode == MeasureSpec.UNSPECIFIED)
-        {
+                || heightSpecMode == MeasureSpec.UNSPECIFIED) {
             throw new RuntimeException(
                     "SlidingDrawer cannot have UNSPECIFIED dimensions");
         }
@@ -270,15 +208,13 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         final View handle = mHandle;
         measureChild(handle, widthMeasureSpec, heightMeasureSpec);
 
-        if (mVertical)
-        {
+        if (mVertical) {
             int height = heightSpecSize - handle.getMeasuredHeight()
                     - mTopOffset;
             mContent.measure(MeasureSpec.makeMeasureSpec(widthSpecSize,
                     MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height,
                     MeasureSpec.EXACTLY));
-        } else
-        {
+        } else {
             int width = widthSpecSize - handle.getMeasuredWidth() - mTopOffset;
             mContent.measure(MeasureSpec.makeMeasureSpec(width,
                     MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(
@@ -289,47 +225,37 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas)
-    {
+    protected void dispatchDraw(Canvas canvas) {
         final long drawingTime = getDrawingTime();
         final View handle = mHandle;
         final boolean isVertical = mVertical;
 
         drawChild(canvas, handle, drawingTime);
 
-        if (mTracking || mAnimating)
-        {
+        if (mTracking || mAnimating) {
             final Bitmap cache = mContent.getDrawingCache();
-            if (cache != null)
-            {
-                if (isVertical)
-                {
-                    if (mInvert)
-                    {
+            if (cache != null) {
+                if (isVertical) {
+                    if (mInvert) {
                         canvas.drawBitmap(cache, 0, handle.getTop()
                                         - (getBottom() - getTop()) + mHandleHeight,
                                 null);
-                    } else
-                    {
+                    } else {
                         canvas.drawBitmap(cache, 0, handle.getBottom(), null);
                     }
-                } else
-                {
+                } else {
                     canvas.drawBitmap(cache,
                             mInvert ? handle.getLeft() - cache.getWidth()
                                     : handle.getRight(), 0, null);
                 }
-            } else
-            {
+            } else {
                 canvas.save();
-                if (mInvert)
-                {
+                if (mInvert) {
                     canvas.translate(isVertical ? 0 : handle.getLeft()
                                     - mTopOffset - mContent.getMeasuredWidth(),
                             isVertical ? handle.getTop() - mTopOffset
                                     - mContent.getMeasuredHeight() : 0);
-                } else
-                {
+                } else {
                     canvas.translate(isVertical ? 0 : handle.getLeft()
                             - mTopOffset, isVertical ? handle.getTop()
                             - mTopOffset : 0);
@@ -338,19 +264,14 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                 canvas.restore();
             }
             invalidate();
-        } else if (mExpanded)
-        {
+        } else if (mExpanded) {
             drawChild(canvas, mContent, drawingTime);
         }
     }
 
-    public static final String LOG_TAG = "Sliding";
-
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
-    {
-        if (mTracking)
-        {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (mTracking) {
             return;
         }
 
@@ -369,36 +290,30 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
 
         final View content = mContent;
 
-        if (mVertical)
-        {
+        if (mVertical) {
             handleLeft = (width - handleWidth) / 2;
-            if (mInvert)
-            {
+            if (mInvert) {
                 Log.d(LOG_TAG, "content.layout(1)");
                 handleTop = mExpanded ? height - mBottomOffset - handleHeight
                         : mTopOffset;
                 content.layout(0, mTopOffset, content.getMeasuredWidth(),
                         mTopOffset + content.getMeasuredHeight());
-            } else
-            {
+            } else {
                 handleTop = mExpanded ? mTopOffset : height - handleHeight
                         + mBottomOffset;
                 content.layout(0, mTopOffset + handleHeight,
                         content.getMeasuredWidth(), mTopOffset + handleHeight
                                 + content.getMeasuredHeight());
             }
-        } else
-        {
+        } else {
             handleTop = (height - handleHeight) / 2;
-            if (mInvert)
-            {
+            if (mInvert) {
                 handleLeft = mExpanded ? width - mBottomOffset - handleWidth
                         : mTopOffset;
                 content.layout(mTopOffset, 0,
                         mTopOffset + content.getMeasuredWidth(),
                         content.getMeasuredHeight());
-            } else
-            {
+            } else {
                 handleLeft = mExpanded ? mTopOffset : width - handleWidth
                         + mBottomOffset;
                 content.layout(mTopOffset + handleWidth, 0, mTopOffset
@@ -414,10 +329,8 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent event)
-    {
-        if (mLocked)
-        {
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (mLocked) {
             return false;
         }
 
@@ -430,13 +343,11 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         final View handle = mHandle;
 
         handle.getHitRect(frame);
-        if (!mTracking && !frame.contains((int) x, (int) y))
-        {
+        if (!mTracking && !frame.contains((int) x, (int) y)) {
             return false;
         }
 
-        if (action == MotionEvent.ACTION_DOWN)
-        {
+        if (action == MotionEvent.ACTION_DOWN) {
             mTracking = true;
 
             handle.setPressed(true);
@@ -444,18 +355,15 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
             prepareContent();
 
             // Must be called after prepareContent()
-            if (mOnDrawerScrollListener != null)
-            {
+            if (mOnDrawerScrollListener != null) {
                 mOnDrawerScrollListener.onScrollStarted();
             }
 
-            if (mVertical)
-            {
+            if (mVertical) {
                 final int top = mHandle.getTop();
                 mTouchDelta = (int) y - top;
                 prepareTracking(top);
-            } else
-            {
+            } else {
                 final int left = mHandle.getLeft();
                 mTouchDelta = (int) x - left;
                 prepareTracking(left);
@@ -467,26 +375,21 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        if (mLocked)
-        {
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mLocked) {
             return true;
         }
 
-        if (mTracking)
-        {
+        if (mTracking) {
             mVelocityTracker.addMovement(event);
             final int action = event.getAction();
-            switch (action)
-            {
+            switch (action) {
                 case MotionEvent.ACTION_MOVE:
                     moveHandle((int) (mVertical ? event.getY() : event.getX())
                             - mTouchDelta);
                     break;
                 case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                {
+                case MotionEvent.ACTION_CANCEL: {
                     final VelocityTracker velocityTracker = mVelocityTracker;
                     velocityTracker.computeCurrentVelocity(mVelocityUnits);
 
@@ -495,37 +398,30 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                     boolean negative;
 
                     final boolean vertical = mVertical;
-                    if (vertical)
-                    {
+                    if (vertical) {
                         negative = yVelocity < 0;
-                        if (xVelocity < 0)
-                        {
+                        if (xVelocity < 0) {
                             xVelocity = -xVelocity;
                         }
                         // fix by Maciej Ciemięga.
                         if ((!mInvert && xVelocity > mMaximumMinorVelocity)
-                                || (mInvert && xVelocity < mMaximumMinorVelocity))
-                        {
+                                || (mInvert && xVelocity < mMaximumMinorVelocity)) {
                             xVelocity = mMaximumMinorVelocity;
                         }
-                    } else
-                    {
+                    } else {
                         negative = xVelocity < 0;
-                        if (yVelocity < 0)
-                        {
+                        if (yVelocity < 0) {
                             yVelocity = -yVelocity;
                         }
                         // fix by Maciej Ciemięga.
                         if ((!mInvert && yVelocity > mMaximumMinorVelocity)
-                                || (mInvert && yVelocity < mMaximumMinorVelocity))
-                        {
+                                || (mInvert && yVelocity < mMaximumMinorVelocity)) {
                             yVelocity = mMaximumMinorVelocity;
                         }
                     }
 
                     float velocity = (float) Math.hypot(xVelocity, yVelocity);
-                    if (negative)
-                    {
+                    if (negative) {
                         velocity = -velocity;
                     }
 
@@ -534,15 +430,13 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                     final int handleBottom = mHandle.getBottom();
                     final int handleRight = mHandle.getRight();
 
-                    if (Math.abs(velocity) < mMaximumTapVelocity)
-                    {
+                    if (Math.abs(velocity) < mMaximumTapVelocity) {
                         boolean c1;
                         boolean c2;
                         boolean c3;
                         boolean c4;
 
-                        if (mInvert)
-                        {
+                        if (mInvert) {
                             c1 = (mExpanded && (getBottom() - handleBottom) < mTapThreshold
                                     + mBottomOffset);
                             c2 = (!mExpanded && handleTop < mTopOffset
@@ -551,8 +445,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                                     + mBottomOffset);
                             c4 = (!mExpanded && handleLeft > mTopOffset
                                     + mHandleWidth + mTapThreshold);
-                        } else
-                        {
+                        } else {
                             c1 = (mExpanded && handleTop < mTapThreshold
                                     + mTopOffset);
                             c2 = (!mExpanded && handleTop > mBottomOffset
@@ -568,32 +461,25 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                         Log.d(LOG_TAG, "ACTION_UP: " + "c1: " + c1 + ", c2: " + c2
                                 + ", c3: " + c3 + ", c4: " + c4);
 
-                        if (vertical ? c1 || c2 : c3 || c4)
-                        {
+                        if (vertical ? c1 || c2 : c3 || c4) {
 
-                            if (mAllowSingleTap)
-                            {
+                            if (mAllowSingleTap) {
                                 playSoundEffect(SoundEffectConstants.CLICK);
 
-                                if (mExpanded)
-                                {
+                                if (mExpanded) {
                                     animateClose(vertical ? handleTop : handleLeft);
-                                } else
-                                {
+                                } else {
                                     animateOpen(vertical ? handleTop : handleLeft);
                                 }
-                            } else
-                            {
+                            } else {
                                 performFling(vertical ? handleTop : handleLeft,
                                         velocity, false);
                             }
-                        } else
-                        {
+                        } else {
                             performFling(vertical ? handleTop : handleLeft,
                                     velocity, false);
                         }
-                    } else
-                    {
+                    } else {
                         performFling(vertical ? handleTop : handleLeft, velocity,
                                 false);
                     }
@@ -605,20 +491,17 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         return mTracking || mAnimating || super.onTouchEvent(event);
     }
 
-    private void animateClose(int position)
-    {
+    private void animateClose(int position) {
         prepareTracking(position);
         performFling(position, mMaximumAcceleration, true);
     }
 
-    private void animateOpen(int position)
-    {
+    private void animateOpen(int position) {
         prepareTracking(position);
         performFling(position, -mMaximumAcceleration, true);
     }
 
-    private void performFling(int position, float velocity, boolean always)
-    {
+    private void performFling(int position, float velocity, boolean always) {
         mAnimationPosition = position;
         mAnimatedVelocity = velocity;
 
@@ -626,8 +509,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         boolean c2;
         boolean c3;
 
-        if (mExpanded)
-        {
+        if (mExpanded) {
             int bottom = mVertical ? getBottom() : getRight();
             int handleHeight = mVertical ? mHandleHeight : mHandleWidth;
 
@@ -642,46 +524,35 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                     : velocity > -mMaximumMajorVelocity;
             Log.d(LOG_TAG, "EXPANDED. c1: " + c1 + ", c2: " + c2 + ", c3: "
                     + c3);
-            if (always || (c1 || (c2 && c3)))
-            {
+            if (always || (c1 || (c2 && c3))) {
                 // We are expanded, So animate to CLOSE!
                 mAnimatedAcceleration = mMaximumAcceleration;
-                if (mInvert)
-                {
-                    if (velocity > 0)
-                    {
+                if (mInvert) {
+                    if (velocity > 0) {
                         mAnimatedVelocity = 0;
                     }
-                } else
-                {
-                    if (velocity < 0)
-                    {
+                } else {
+                    if (velocity < 0) {
                         mAnimatedVelocity = 0;
                     }
                 }
-            } else
-            {
+            } else {
                 // We are expanded, but they didn't move sufficiently to cause
                 // us to retract. Animate back to the expanded position. so
                 // animate BACK to expanded!
                 mAnimatedAcceleration = -mMaximumAcceleration;
 
-                if (mInvert)
-                {
-                    if (velocity < 0)
-                    {
+                if (mInvert) {
+                    if (velocity < 0) {
                         mAnimatedVelocity = 0;
                     }
-                } else
-                {
-                    if (velocity > 0)
-                    {
+                } else {
+                    if (velocity > 0) {
                         mAnimatedVelocity = 0;
                     }
                 }
             }
-        } else
-        {
+        } else {
 
             // WE'RE COLLAPSED
 
@@ -698,37 +569,27 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
             Log.d(LOG_TAG, "COLLAPSED. always: " + always + ", c1: " + c1
                     + ", c2: " + c2 + ", c3: " + c3);
 
-            if (!always && (c1 || (c2 && c3)))
-            {
+            if (!always && (c1 || (c2 && c3))) {
                 mAnimatedAcceleration = mMaximumAcceleration;
 
-                if (mInvert)
-                {
-                    if (velocity > 0)
-                    {
+                if (mInvert) {
+                    if (velocity > 0) {
                         mAnimatedVelocity = 0;
                     }
-                } else
-                {
-                    if (velocity < 0)
-                    {
+                } else {
+                    if (velocity < 0) {
                         mAnimatedVelocity = 0;
                     }
                 }
-            } else
-            {
+            } else {
                 mAnimatedAcceleration = -mMaximumAcceleration;
 
-                if (mInvert)
-                {
-                    if (velocity < 0)
-                    {
+                if (mInvert) {
+                    if (velocity < 0) {
                         mAnimatedVelocity = 0;
                     }
-                } else
-                {
-                    if (velocity > 0)
-                    {
+                } else {
+                    if (velocity > 0) {
                         mAnimatedVelocity = 0;
                     }
                 }
@@ -745,14 +606,12 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         stopTracking();
     }
 
-    private void prepareTracking(int position)
-    {
+    private void prepareTracking(int position) {
         mTracking = true;
         mVelocityTracker = VelocityTracker.obtain();
         boolean opening = !mExpanded;
 
-        if (opening)
-        {
+        if (opening) {
             mAnimatedAcceleration = mMaximumAcceleration;
             mAnimatedVelocity = mMaximumMajorVelocity;
             if (mInvert)
@@ -768,10 +627,8 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
             mAnimationLastTime = now;
             mCurrentAnimationTime = now + ANIMATION_FRAME_DURATION;
             mAnimating = true;
-        } else
-        {
-            if (mAnimating)
-            {
+        } else {
+            if (mAnimating) {
                 mAnimating = false;
                 mHandler.removeMessages(MSG_ANIMATE);
             }
@@ -779,41 +636,32 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         }
     }
 
-    private void moveHandle(int position)
-    {
+    private void moveHandle(int position) {
         final View handle = mHandle;
 
-        if (mVertical)
-        {
-            if (position == EXPANDED_FULL_OPEN)
-            {
+        if (mVertical) {
+            if (position == EXPANDED_FULL_OPEN) {
                 if (mInvert)
                     handle.offsetTopAndBottom(mBottomOffset + getBottom()
                             - getTop() - mHandleHeight);
                 else
                     handle.offsetTopAndBottom(mTopOffset - handle.getTop());
                 invalidate();
-            } else if (position == COLLAPSED_FULL_CLOSED)
-            {
-                if (mInvert)
-                {
+            } else if (position == COLLAPSED_FULL_CLOSED) {
+                if (mInvert) {
                     handle.offsetTopAndBottom(mTopOffset - handle.getTop());
-                } else
-                {
+                } else {
                     handle.offsetTopAndBottom(mBottomOffset + getBottom()
                             - getTop() - mHandleHeight - handle.getTop());
                 }
                 invalidate();
-            } else
-            {
+            } else {
                 final int top = handle.getTop();
                 int deltaY = position - top;
-                if (position < mTopOffset)
-                {
+                if (position < mTopOffset) {
                     deltaY = mTopOffset - top;
                 } else if (deltaY > mBottomOffset + getBottom() - getTop()
-                        - mHandleHeight - top)
-                {
+                        - mHandleHeight - top) {
                     deltaY = mBottomOffset + getBottom() - getTop()
                             - mHandleHeight - top;
                 }
@@ -833,34 +681,28 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
 
                 invalidate(region);
             }
-        } else
-        {
-            if (position == EXPANDED_FULL_OPEN)
-            {
+        } else {
+            if (position == EXPANDED_FULL_OPEN) {
                 if (mInvert)
                     handle.offsetLeftAndRight(mBottomOffset + getRight()
                             - getLeft() - mHandleWidth);
                 else
                     handle.offsetLeftAndRight(mTopOffset - handle.getLeft());
                 invalidate();
-            } else if (position == COLLAPSED_FULL_CLOSED)
-            {
+            } else if (position == COLLAPSED_FULL_CLOSED) {
                 if (mInvert)
                     handle.offsetLeftAndRight(mTopOffset - handle.getLeft());
                 else
                     handle.offsetLeftAndRight(mBottomOffset + getRight()
                             - getLeft() - mHandleWidth - handle.getLeft());
                 invalidate();
-            } else
-            {
+            } else {
                 final int left = handle.getLeft();
                 int deltaX = position - left;
-                if (position < mTopOffset)
-                {
+                if (position < mTopOffset) {
                     deltaX = mTopOffset - left;
                 } else if (deltaX > mBottomOffset + getRight() - getLeft()
-                        - mHandleWidth - left)
-                {
+                        - mHandleWidth - left) {
                     deltaX = mBottomOffset + getRight() - getLeft()
                             - mHandleWidth - left;
                 }
@@ -882,21 +724,17 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         }
     }
 
-    private void prepareContent()
-    {
-        if (mAnimating)
-        {
+    private void prepareContent() {
+        if (mAnimating) {
             return;
         }
 
         // Something changed in the content, we need to honor the layout request
         // before creating the cached bitmap
         final View content = mContent;
-        if (content.isLayoutRequested())
-        {
+        if (content.isLayoutRequested()) {
 
-            if (mVertical)
-            {
+            if (mVertical) {
                 final int handleHeight = mHandleHeight;
                 int height = getBottom() - getTop() - handleHeight - mTopOffset;
                 content.measure(MeasureSpec.makeMeasureSpec(getRight()
@@ -915,9 +753,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
                             content.getMeasuredWidth(),
                             mTopOffset + handleHeight
                                     + content.getMeasuredHeight());
-
-            } else
-            {
+            } else {
 
                 final int handleWidth = mHandle.getWidth();
                 int width = getRight() - getLeft() - handleWidth - mTopOffset;
@@ -943,61 +779,48 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         content.setVisibility(View.GONE);
     }
 
-    private void stopTracking()
-    {
+    private void stopTracking() {
         mHandle.setPressed(false);
         mTracking = false;
 
-        if (mOnDrawerScrollListener != null)
-        {
+        if (mOnDrawerScrollListener != null) {
             mOnDrawerScrollListener.onScrollEnded();
         }
 
-        if (mVelocityTracker != null)
-        {
+        if (mVelocityTracker != null) {
             mVelocityTracker.recycle();
             mVelocityTracker = null;
         }
     }
 
-    private void doAnimation()
-    {
-        if (mAnimating)
-        {
+    private void doAnimation() {
+        if (mAnimating) {
             incrementAnimation();
 
-            if (mInvert)
-            {
-                if (mAnimationPosition < mTopOffset)
-                {
+            if (mInvert) {
+                if (mAnimationPosition < mTopOffset) {
                     mAnimating = false;
                     closeDrawer();
                 } else if (mAnimationPosition >= mTopOffset
-                        + (mVertical ? getHeight() : getWidth()) - 1)
-                {
+                        + (mVertical ? getHeight() : getWidth()) - 1) {
                     mAnimating = false;
                     openDrawer();
-                } else
-                {
+                } else {
                     moveHandle((int) mAnimationPosition);
                     mCurrentAnimationTime += ANIMATION_FRAME_DURATION;
                     mHandler.sendMessageAtTime(
                             mHandler.obtainMessage(MSG_ANIMATE),
                             mCurrentAnimationTime);
                 }
-            } else
-            {
+            } else {
                 if (mAnimationPosition >= mBottomOffset
-                        + (mVertical ? getHeight() : getWidth()) - 1)
-                {
+                        + (mVertical ? getHeight() : getWidth()) - 1) {
                     mAnimating = false;
                     closeDrawer();
-                } else if (mAnimationPosition < mTopOffset)
-                {
+                } else if (mAnimationPosition < mTopOffset) {
                     mAnimating = false;
                     openDrawer();
-                } else
-                {
+                } else {
                     moveHandle((int) mAnimationPosition);
                     mCurrentAnimationTime += ANIMATION_FRAME_DURATION;
                     mHandler.sendMessageAtTime(
@@ -1008,8 +831,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
         }
     }
 
-    private void incrementAnimation()
-    {
+    private void incrementAnimation() {
         long now = SystemClock.uptimeMillis();
         float t = (now - mAnimationLastTime) / 1000.0f; // ms -> s
         final float position = mAnimationPosition;
@@ -1029,13 +851,10 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @see #animateOpen()
      * @see #animateToggle()
      */
-    public void toggle()
-    {
-        if (!mExpanded)
-        {
+    public void toggle() {
+        if (!mExpanded) {
             openDrawer();
-        } else
-        {
+        } else {
             closeDrawer();
         }
         invalidate();
@@ -1051,13 +870,10 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @see #animateOpen()
      * @see #toggle()
      */
-    public void animateToggle()
-    {
-        if (!mExpanded)
-        {
+    public void animateToggle() {
+        if (!mExpanded) {
             animateOpen();
-        } else
-        {
+        } else {
             animateClose();
         }
     }
@@ -1069,8 +885,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @see #close()
      * @see #animateOpen()
      */
-    public void open()
-    {
+    public void open() {
         openDrawer();
         invalidate();
         requestLayout();
@@ -1085,8 +900,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @see #open()
      * @see #animateClose()
      */
-    public void close()
-    {
+    public void close() {
         closeDrawer();
         invalidate();
         requestLayout();
@@ -1101,18 +915,15 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @see #animateToggle()
      * @see #toggle()
      */
-    public void animateClose()
-    {
+    public void animateClose() {
         prepareContent();
         final OnDrawerScrollListener scrollListener = mOnDrawerScrollListener;
-        if (scrollListener != null)
-        {
+        if (scrollListener != null) {
             scrollListener.onScrollStarted();
         }
         animateClose(mVertical ? mHandle.getTop() : mHandle.getLeft());
 
-        if (scrollListener != null)
-        {
+        if (scrollListener != null) {
             scrollListener.onScrollEnded();
         }
     }
@@ -1126,56 +937,47 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @see #animateToggle()
      * @see #toggle()
      */
-    public void animateOpen()
-    {
+    public void animateOpen() {
         prepareContent();
         final OnDrawerScrollListener scrollListener = mOnDrawerScrollListener;
-        if (scrollListener != null)
-        {
+        if (scrollListener != null) {
             scrollListener.onScrollStarted();
         }
         animateOpen(mVertical ? mHandle.getTop() : mHandle.getLeft());
 
         sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
 
-        if (scrollListener != null)
-        {
+        if (scrollListener != null) {
             scrollListener.onScrollEnded();
         }
     }
 
-    private void closeDrawer()
-    {
+    private void closeDrawer() {
         moveHandle(COLLAPSED_FULL_CLOSED);
         mContent.setVisibility(View.GONE);
         mContent.destroyDrawingCache();
 
-        if (!mExpanded)
-        {
+        if (!mExpanded) {
             return;
         }
 
         mExpanded = false;
-        if (mOnDrawerCloseListener != null)
-        {
+        if (mOnDrawerCloseListener != null) {
             mOnDrawerCloseListener.onDrawerClosed();
         }
     }
 
-    private void openDrawer()
-    {
+    private void openDrawer() {
         moveHandle(EXPANDED_FULL_OPEN);
         mContent.setVisibility(View.VISIBLE);
 
-        if (mExpanded)
-        {
+        if (mExpanded) {
             return;
         }
 
         mExpanded = true;
 
-        if (mOnDrawerOpenListener != null)
-        {
+        if (mOnDrawerOpenListener != null) {
             mOnDrawerOpenListener.onDrawerOpened();
         }
     }
@@ -1187,8 +989,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @param onDrawerOpenListener The listener to be notified when the drawer is opened.
      */
     public void setOnDrawerOpenListener(
-            OnDrawerOpenListener onDrawerOpenListener)
-    {
+            OnDrawerOpenListener onDrawerOpenListener) {
         mOnDrawerOpenListener = onDrawerOpenListener;
     }
 
@@ -1199,8 +1000,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @param onDrawerCloseListener The listener to be notified when the drawer is closed.
      */
     public void setOnDrawerCloseListener(
-            OnDrawerCloseListener onDrawerCloseListener)
-    {
+            OnDrawerCloseListener onDrawerCloseListener) {
         mOnDrawerCloseListener = onDrawerCloseListener;
     }
 
@@ -1212,8 +1012,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @param onDrawerScrollListener The listener to be notified when scrolling starts or stops.
      */
     public void setOnDrawerScrollListener(
-            OnDrawerScrollListener onDrawerScrollListener)
-    {
+            OnDrawerScrollListener onDrawerScrollListener) {
         mOnDrawerScrollListener = onDrawerScrollListener;
     }
 
@@ -1223,8 +1022,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @return The View reprenseting the handle of the drawer, identified by the
      * "handle" id in XML.
      */
-    public View getHandle()
-    {
+    public View getHandle() {
         return mHandle;
     }
 
@@ -1234,8 +1032,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      * @return The View reprenseting the content of the drawer, identified by
      * the "content" id in XML.
      */
-    public View getContent()
-    {
+    public View getContent() {
         return mContent;
     }
 
@@ -1244,8 +1041,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      *
      * @see #lock()
      */
-    public void unlock()
-    {
+    public void unlock() {
         mLocked = false;
     }
 
@@ -1254,8 +1050,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      *
      * @see #unlock()
      */
-    public void lock()
-    {
+    public void lock() {
         mLocked = true;
     }
 
@@ -1264,8 +1059,7 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      *
      * @return True if the drawer is opened, false otherwise.
      */
-    public boolean isOpened()
-    {
+    public boolean isOpened() {
         return mExpanded;
     }
 
@@ -1274,41 +1068,70 @@ public class MultiDirectionSlidingDrawer extends ViewGroup
      *
      * @return True if the drawer is scroller or flinging, false otherwise.
      */
-    public boolean isMoving()
-    {
+    public boolean isMoving() {
         return mTracking || mAnimating;
     }
 
-    private class DrawerToggler implements OnClickListener
-    {
+    /**
+     * Callback invoked when the drawer is opened.
+     */
+    public interface OnDrawerOpenListener {
 
-        public void onClick(View v)
-        {
-            if (mLocked)
-            {
+        /**
+         * Invoked when the drawer becomes fully open.
+         */
+        void onDrawerOpened();
+    }
+
+    /**
+     * Callback invoked when the drawer is closed.
+     */
+    public interface OnDrawerCloseListener {
+
+        /**
+         * Invoked when the drawer becomes fully closed.
+         */
+        void onDrawerClosed();
+    }
+
+    /**
+     * Callback invoked when the drawer is scrolled.
+     */
+    public interface OnDrawerScrollListener {
+
+        /**
+         * Invoked when the user starts dragging/flinging the drawer's handle.
+         */
+        void onScrollStarted();
+
+        /**
+         * Invoked when the user stops dragging/flinging the drawer's handle.
+         */
+        void onScrollEnded();
+    }
+
+    private class DrawerToggler implements OnClickListener {
+
+        public void onClick(View v) {
+            if (mLocked) {
                 return;
             }
             // mAllowSingleTap isn't relevant here; you're *always*
             // allowed to open/close the drawer by clicking with the
             // trackball.
 
-            if (mAnimateOnClick)
-            {
+            if (mAnimateOnClick) {
                 animateToggle();
-            } else
-            {
+            } else {
                 toggle();
             }
         }
     }
 
-    private class SlidingHandler extends Handler
-    {
+    private class SlidingHandler extends Handler {
 
-        public void handleMessage(Message m)
-        {
-            switch (m.what)
-            {
+        public void handleMessage(Message m) {
+            switch (m.what) {
                 case MSG_ANIMATE:
                     doAnimation();
                     break;

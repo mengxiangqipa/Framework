@@ -72,20 +72,22 @@ public class ErrorDialogConfig {
         this.tagForLoggingExceptions = tagForLoggingExceptions;
     }
 
-    public void setEventBus(EventBus eventBus) {
-        this.eventBus = eventBus;
+    public String getTag() {
+        return tag;
     }
 
     public void setTag(String tag) {
         this.tag = tag;
     }
 
-    public String getTag() {
-        return tag;
+    /**
+     * eventBus!=null ? eventBus: EventBus.getDefault()
+     */
+    EventBus getEventBus() {
+        return eventBus != null ? eventBus : EventBus.getDefault();
     }
 
-    /** eventBus!=null ? eventBus: EventBus.getDefault() */
-    EventBus getEventBus() {
-        return eventBus!=null ? eventBus: EventBus.getDefault();
+    public void setEventBus(EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 }

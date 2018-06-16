@@ -23,11 +23,10 @@ import butterknife.Unbinder;
 
 /**
  * @author YobertJomi
- *         className BaseVideoFragment
- *         created at  2017/9/5  10:32
+ * className BaseVideoFragment
+ * created at  2017/9/5  10:32
  */
-public class BaseVideoFragment extends Fragment implements CacheListener
-{
+public class BaseVideoFragment extends Fragment implements CacheListener {
 
     @BindView(R2.id.videoView)
     BaseCustomVideoViewWithUI baseCustomVideoViewWithUI;
@@ -36,29 +35,23 @@ public class BaseVideoFragment extends Fragment implements CacheListener
 
     private Unbinder unbinder;
 
-
     private boolean hasInit;
 
-
-    public static BaseVideoFragment build(String url)
-    {
+    public static BaseVideoFragment build(String url) {
         return new Builder().url(url).build();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
     }
 
     public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState)
-    {
-        View  view = inflater.inflate(R.layout.fragment_videoview_library, container, false);
+                             ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_videoview_library, container, false);
         unbinder = ButterKnife.bind(this, view);
-        if (!hasInit)
-        {
+        if (!hasInit) {
             hasInit = true;
             HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
             proxy.registerCacheListener(this, getArguments().getString("url"));
@@ -69,37 +62,30 @@ public class BaseVideoFragment extends Fragment implements CacheListener
         return view;
     }
 
-    private void initEvent()
-    {
+    private void initEvent() {
 
     }
 
-
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         baseCustomVideoViewWithUI.resetVolumAndBrightness();
     }
 
-
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         baseCustomVideoViewWithUI.resumeVolumAndBrightness();
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
+    public void onConfigurationChanged(Configuration newConfig) {
         int currentPosition = baseCustomVideoViewWithUI.getVideoView().getCurrentPosition();
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-        {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             baseCustomVideoViewWithUI.setFullScreen();
-        } else
-        {
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtils.getInstance().getStatusBarHeightPx(VideoViewPlayingActivity.this));
+        } else {
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+// .MATCH_PARENT, ScreenUtils.getInstance().getStatusBarHeightPx(VideoViewPlayingActivity.this));
 //            titleTemp.setLayoutParams(layoutParams);
             baseCustomVideoViewWithUI.setNormalScreen();
         }
@@ -107,58 +93,45 @@ public class BaseVideoFragment extends Fragment implements CacheListener
         super.onConfigurationChanged(newConfig);
     }
 
-
-    public void onBackPressed_()
-    {
-        try
-        {
+    public void onBackPressed_() {
+        try {
             baseCustomVideoViewWithUI.onBackClicked();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
     }
 
     @Override
-    public void onDestroyView()
-    {
+    public void onDestroyView() {
         super.onDestroyView();
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
-        try
-        {
+        try {
             baseCustomVideoViewWithUI.resetVolumAndBrightness();
             baseCustomVideoViewWithUI.stopPlayback();
             HttpProxyCacheServerUtil.getInstance().getProxy(context).unregisterCacheListener(this);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         unbinder.unbind();
     }
 
-
     @Override
-    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable)
-    {
+    public void onCacheAvailable(File cacheFile, String url, int percentsAvailable) {
         baseCustomVideoViewWithUI.setSecondaryProgress(percentsAvailable);
     }
 
-    public static class Builder
-    {
+    public static class Builder {
         private String url;
 
-        public Builder url(String url)
-        {
+        public Builder url(String url) {
             this.url = url;
             return this;
         }
 
-        public BaseVideoFragment build()
-        {
+        public BaseVideoFragment build() {
             BaseVideoFragment videoFragment = new BaseVideoFragment();
             Bundle bundle = new Bundle();
             bundle.putString("url", TextUtils.isEmpty(url) ? "" : url);

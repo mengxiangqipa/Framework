@@ -60,7 +60,8 @@
 //        tv_count.setText(String.valueOf("已售:" + list.get(position % list.size()).getAlreadySaleCount() + "台"));
 //        tv_phone_name.setText(String.valueOf(list.get(position % list.size()).getPhoneName()));
 //        decimalFormat.applyPattern("0.00");
-//        tv_total_sale.setText(String.valueOf(decimalFormat.format(list.get(position % list.size()).getLastTotalSale()) + "元"));
+//        tv_total_sale.setText(String.valueOf(decimalFormat.format(list.get(position % list.size()).getLastTotalSale
+// ()) + "元"));
 //        tv_store_count.setText(String.valueOf(list.get(position % list.size()).getStoreCount() + "台"));
 //        tv_shop_name_left.setText(String.valueOf("京东售价"));
 //        tv_shop_name_right.setText(String.valueOf("本店售价"));

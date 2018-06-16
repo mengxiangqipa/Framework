@@ -25,8 +25,7 @@ import com.libray.camerafilter.R;
  *
  * @author Administrator
  */
-public class CropImageView extends android.support.v7.widget.AppCompatImageView
-{
+public class CropImageView extends android.support.v7.widget.AppCompatImageView {
 
     // Constants ///////////////////////////////////////////////////////////////////////////////////
 
@@ -82,18 +81,15 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
     // Constructor /////////////////////////////////////////////////////////////////////////////////
 
-    public CropImageView(Context context)
-    {
+    public CropImageView(Context context) {
         this(context, null);
     }
 
-    public CropImageView(Context context, AttributeSet attrs)
-    {
+    public CropImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CropImageView(Context context, AttributeSet attrs, int defStyle)
-    {
+    public CropImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         TRANSPARENT = getResources().getColor(android.R.color.transparent);
 
@@ -123,8 +119,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
     // Lifecycle methods ///////////////////////////////////////////////////////////////////////////
 
     @Override
-    public Parcelable onSaveInstanceState()
-    {
+    public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState ss = new SavedState(superState);
         ss.image = this.mBitmap;
@@ -150,8 +145,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state)
-    {
+    public void onRestoreInstanceState(Parcelable state) {
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
         this.mCropMode = ss.mode;
@@ -176,8 +170,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         final int viewWidth = MeasureSpec.getSize(widthMeasureSpec);
@@ -187,8 +180,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
-    {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         mViewWidth = r - l - getPaddingLeft() - getPaddingRight();
         mViewHeight = b - t - getPaddingTop() - getPaddingBottom();
@@ -196,12 +188,10 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     @Override
-    public void onDraw(Canvas canvas)
-    {
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (mIsInitialized)
-        {
+        if (mIsInitialized) {
             setMatrix();
             Matrix localMatrix1 = new Matrix();
             localMatrix1.postConcat(this.mMatrix);
@@ -215,19 +205,15 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
     // Handle styleable ////////////////////////////////////////////////////////////////////////////
 
-    private void handleStyleable(Context context, AttributeSet attrs, int defStyle, float mDensity)
-    {
+    private void handleStyleable(Context context, AttributeSet attrs, int defStyle, float mDensity) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropImageView, defStyle, 0);
         Drawable drawable;
         mCropMode = CropMode.RATIO_1_1;
-        try
-        {
+        try {
             drawable = ta.getDrawable(R.styleable.CropImageView_imgSrc);
             if (drawable != null) setImageBitmap(((BitmapDrawable) drawable).getBitmap());
-            for (CropMode mode : CropMode.values())
-            {
-                if (ta.getInt(R.styleable.CropImageView_cropMode, 3) == mode.getId())
-                {
+            for (CropMode mode : CropMode.values()) {
+                if (ta.getInt(R.styleable.CropImageView_cropMode, 3) == mode.getId()) {
                     mCropMode = mode;
                     break;
                 }
@@ -238,44 +224,41 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
             mFrameColor = ta.getColor(R.styleable.CropImageView_frameColor, WHITE);
             mHandleColor = ta.getColor(R.styleable.CropImageView_handleColor, WHITE);
             mGuideColor = ta.getColor(R.styleable.CropImageView_guideColor, TRANSLUCENT_WHITE);
-            for (ShowMode mode : ShowMode.values())
-            {
-                if (ta.getInt(R.styleable.CropImageView_guideShowMode, 1) == mode.getId())
-                {
+            for (ShowMode mode : ShowMode.values()) {
+                if (ta.getInt(R.styleable.CropImageView_guideShowMode, 1) == mode.getId()) {
                     mGuideShowMode = mode;
                     break;
                 }
             }
 
-            for (ShowMode mode : ShowMode.values())
-            {
-                if (ta.getInt(R.styleable.CropImageView_handleShowMode, 1) == mode.getId())
-                {
+            for (ShowMode mode : ShowMode.values()) {
+                if (ta.getInt(R.styleable.CropImageView_handleShowMode, 1) == mode.getId()) {
                     mHandleShowMode = mode;
                     break;
                 }
             }
             setGuideShowMode(mGuideShowMode);
             setHandleShowMode(mHandleShowMode);
-            mHandleSize = ta.getDimensionPixelSize(R.styleable.CropImageView_handleSize, (int) (HANDLE_SIZE_IN_DP * mDensity));
+            mHandleSize = ta.getDimensionPixelSize(R.styleable.CropImageView_handleSize, (int) (HANDLE_SIZE_IN_DP *
+                    mDensity));
             mTouchPadding = ta.getDimensionPixelSize(R.styleable.CropImageView_touchPadding, 0);
-            mMinFrameSize = ta.getDimensionPixelSize(R.styleable.CropImageView_minFrameSize, (int) (MIN_FRAME_SIZE_IN_DP * mDensity));
-            mFrameStrokeWeight = ta.getDimensionPixelSize(R.styleable.CropImageView_frameStrokeWeight, (int) (FRAME_STROKE_WEIGHT_IN_DP * mDensity));
-            mGuideStrokeWeight = ta.getDimensionPixelSize(R.styleable.CropImageView_guideStrokeWeight, (int) (GUIDE_STROKE_WEIGHT_IN_DP * mDensity));
+            mMinFrameSize = ta.getDimensionPixelSize(R.styleable.CropImageView_minFrameSize, (int)
+                    (MIN_FRAME_SIZE_IN_DP * mDensity));
+            mFrameStrokeWeight = ta.getDimensionPixelSize(R.styleable.CropImageView_frameStrokeWeight, (int)
+                    (FRAME_STROKE_WEIGHT_IN_DP * mDensity));
+            mGuideStrokeWeight = ta.getDimensionPixelSize(R.styleable.CropImageView_guideStrokeWeight, (int)
+                    (GUIDE_STROKE_WEIGHT_IN_DP * mDensity));
             mIsCropEnabled = ta.getBoolean(R.styleable.CropImageView_cropEnabled, true);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally
-        {
+        } finally {
             ta.recycle();
         }
     }
 
     // Drawing method //////////////////////////////////////////////////////////////////////////////
 
-    private void drawEditFrame(Canvas canvas)
-    {
+    private void drawEditFrame(Canvas canvas) {
         if (!mIsCropEnabled) return;
         mPaintTransparent.setFilterBitmap(true);
         mPaintTransparent.setColor(mOverlayColor);
@@ -294,8 +277,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
         canvas.drawRect(mFrameRect.left, mFrameRect.top, mFrameRect.right, mFrameRect.bottom, mPaintFrame);
 
-        if (mShowGuide)
-        {
+        if (mShowGuide) {
             mPaintFrame.setColor(mGuideColor);
             mPaintFrame.setStrokeWidth(mGuideStrokeWeight);
             float h1 = mFrameRect.left + (mFrameRect.right - mFrameRect.left) / 3.0f;
@@ -309,8 +291,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
             canvas.drawLine(mFrameRect.left, v2, mFrameRect.right, v2, mPaintFrame);
         }
 
-        if (mShowHandle)
-        {
+        if (mShowHandle) {
             mPaintFrame.setStyle(Paint.Style.FILL);
             mPaintFrame.setColor(mHandleColor);
             canvas.drawCircle(mFrameRect.left, mFrameRect.top, mHandleSize, mPaintFrame);
@@ -320,8 +301,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private void setMatrix()
-    {
+    private void setMatrix() {
         mMatrix.reset();
         mMatrix.setTranslate(mCenter.x - mImgWidth * 0.5f, mCenter.y - mImgHeight * 0.5f);
         mMatrix.postScale(mScale, mScale, mCenter.x, mCenter.y);
@@ -330,8 +310,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
     // Initializer /////////////////////////////////////////////////////////////////////////////////
 
-    private void initLayout(int viewW, int viewH)
-    {
+    private void initLayout(int viewW, int viewH) {
         float imgW = mBitmap.getWidth();
         float imgH = mBitmap.getHeight();
         mImgWidth = imgW;
@@ -341,11 +320,9 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         float viewRatio = w / h;
         float imgRatio = imgW / imgH;
         float scale = 1.0f;
-        if (imgRatio >= viewRatio)
-        {
+        if (imgRatio >= viewRatio) {
             scale = w / imgW;
-        } else if (imgRatio < viewRatio)
-        {
+        } else if (imgRatio < viewRatio) {
             scale = h / imgH;
         }
         setCenter(new PointF(getPaddingLeft() + w * 0.5f, getPaddingTop() + h * 0.5f));
@@ -355,8 +332,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         mIsInitialized = true;
     }
 
-    private void initCropFrame()
-    {
+    private void initCropFrame() {
         setMatrix();
         float[] arrayOfFloat = new float[8];
         arrayOfFloat[0] = 0.0f;
@@ -382,19 +358,16 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
     // Touch Event /////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         if (!mIsInitialized) return false;
         if (!mIsCropEnabled) return false;
-        switch (event.getAction())
-        {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 onDown(event);
                 return true;
             case MotionEvent.ACTION_MOVE:
                 onMove(event);
-                if (mTouchArea != TouchArea.OUT_OF_BOUNDS)
-                {
+                if (mTouchArea != TouchArea.OUT_OF_BOUNDS) {
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
                 return true;
@@ -410,21 +383,17 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         return false;
     }
 
-
-    private void onDown(MotionEvent e)
-    {
+    private void onDown(MotionEvent e) {
         invalidate();
         mLastX = e.getX();
         mLastY = e.getY();
         checkTouchArea(e.getX(), e.getY());
     }
 
-    private void onMove(MotionEvent e)
-    {
+    private void onMove(MotionEvent e) {
         float diffX = e.getX() - mLastX;
         float diffY = e.getY() - mLastY;
-        switch (mTouchArea)
-        {
+        switch (mTouchArea) {
             case CENTER:
                 moveFrame(diffX, diffY);
                 break;
@@ -448,54 +417,46 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         mLastY = e.getY();
     }
 
-    private void onUp(MotionEvent e)
-    {
+    private void onUp(MotionEvent e) {
         if (mGuideShowMode == ShowMode.SHOW_ON_TOUCH) mShowGuide = false;
         if (mHandleShowMode == ShowMode.SHOW_ON_TOUCH) mShowHandle = false;
         mTouchArea = TouchArea.OUT_OF_BOUNDS;
         invalidate();
     }
 
-    private void onCancel()
-    {
+    private void onCancel() {
         mTouchArea = TouchArea.OUT_OF_BOUNDS;
         invalidate();
     }
 
     // Hit test ////////////////////////////////////////////////////////////////////////////////////
 
-    private void checkTouchArea(float x, float y)
-    {
-        if (isInsideCornerLeftTop(x, y))
-        {
+    private void checkTouchArea(float x, float y) {
+        if (isInsideCornerLeftTop(x, y)) {
             mTouchArea = TouchArea.LEFT_TOP;
             if (mHandleShowMode == ShowMode.SHOW_ON_TOUCH) mShowHandle = true;
             if (mGuideShowMode == ShowMode.SHOW_ON_TOUCH) mShowGuide = true;
             return;
         }
-        if (isInsideCornerRightTop(x, y))
-        {
+        if (isInsideCornerRightTop(x, y)) {
             mTouchArea = TouchArea.RIGHT_TOP;
             if (mHandleShowMode == ShowMode.SHOW_ON_TOUCH) mShowHandle = true;
             if (mGuideShowMode == ShowMode.SHOW_ON_TOUCH) mShowGuide = true;
             return;
         }
-        if (isInsideCornerLeftBottom(x, y))
-        {
+        if (isInsideCornerLeftBottom(x, y)) {
             mTouchArea = TouchArea.LEFT_BOTTOM;
             if (mHandleShowMode == ShowMode.SHOW_ON_TOUCH) mShowHandle = true;
             if (mGuideShowMode == ShowMode.SHOW_ON_TOUCH) mShowGuide = true;
             return;
         }
-        if (isInsideCornerRightBottom(x, y))
-        {
+        if (isInsideCornerRightBottom(x, y)) {
             mTouchArea = TouchArea.RIGHT_BOTTOM;
             if (mHandleShowMode == ShowMode.SHOW_ON_TOUCH) mShowHandle = true;
             if (mGuideShowMode == ShowMode.SHOW_ON_TOUCH) mShowGuide = true;
             return;
         }
-        if (isInsideFrame(x, y))
-        {
+        if (isInsideFrame(x, y)) {
             if (mGuideShowMode == ShowMode.SHOW_ON_TOUCH) mShowGuide = true;
             mTouchArea = TouchArea.CENTER;
             return;
@@ -503,12 +464,9 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         mTouchArea = TouchArea.OUT_OF_BOUNDS;
     }
 
-    private boolean isInsideFrame(float x, float y)
-    {
-        if (mFrameRect.left <= x && mFrameRect.right >= x)
-        {
-            if (mFrameRect.top <= y && mFrameRect.bottom >= y)
-            {
+    private boolean isInsideFrame(float x, float y) {
+        if (mFrameRect.left <= x && mFrameRect.right >= x) {
+            if (mFrameRect.top <= y && mFrameRect.bottom >= y) {
                 mTouchArea = TouchArea.CENTER;
                 return true;
             }
@@ -516,32 +474,28 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         return false;
     }
 
-    private boolean isInsideCornerLeftTop(float x, float y)
-    {
+    private boolean isInsideCornerLeftTop(float x, float y) {
         float dx = x - mFrameRect.left;
         float dy = y - mFrameRect.top;
         float d = dx * dx + dy * dy;
         return sq(mHandleSize + mTouchPadding) >= d;
     }
 
-    private boolean isInsideCornerRightTop(float x, float y)
-    {
+    private boolean isInsideCornerRightTop(float x, float y) {
         float dx = x - mFrameRect.right;
         float dy = y - mFrameRect.top;
         float d = dx * dx + dy * dy;
         return sq(mHandleSize + mTouchPadding) >= d;
     }
 
-    private boolean isInsideCornerLeftBottom(float x, float y)
-    {
+    private boolean isInsideCornerLeftBottom(float x, float y) {
         float dx = x - mFrameRect.left;
         float dy = y - mFrameRect.bottom;
         float d = dx * dx + dy * dy;
         return sq(mHandleSize + mTouchPadding) >= d;
     }
 
-    private boolean isInsideCornerRightBottom(float x, float y)
-    {
+    private boolean isInsideCornerRightBottom(float x, float y) {
         float dx = x - mFrameRect.right;
         float dy = y - mFrameRect.bottom;
         float d = dx * dx + dy * dy;
@@ -550,8 +504,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
     // Adjust frame ////////////////////////////////////////////////////////////////////////////////
 
-    private void moveFrame(float x, float y)
-    {
+    private void moveFrame(float x, float y) {
         mFrameRect.left += x;
         mFrameRect.right += x;
         mFrameRect.top += y;
@@ -559,53 +512,44 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         checkMoveBounds();
     }
 
-    private void moveHandleLT(float diffX, float diffY)
-    {
-        if (mCropMode == CropMode.RATIO_FREE)
-        {
+    private void moveHandleLT(float diffX, float diffY) {
+        if (mCropMode == CropMode.RATIO_FREE) {
             mFrameRect.left += diffX;
             mFrameRect.top += diffY;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.left -= offsetX;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.top -= offsetY;
             }
             checkScaleBounds();
-        } else
-        {
+        } else {
             float dx = diffX;
             float dy = diffX * getRatioY() / getRatioX();
             mFrameRect.left += dx;
             mFrameRect.top += dy;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.left -= offsetX;
                 float offsetY = offsetX * getRatioY() / getRatioX();
                 mFrameRect.top -= offsetY;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.top -= offsetY;
                 float offsetX = offsetY * getRatioX() / getRatioY();
                 mFrameRect.left -= offsetX;
             }
             float ox, oy;
-            if (!isInsideHorizontal(mFrameRect.left))
-            {
+            if (!isInsideHorizontal(mFrameRect.left)) {
                 ox = mImageRect.left - mFrameRect.left;
                 mFrameRect.left += ox;
                 oy = ox * getRatioY() / getRatioX();
                 mFrameRect.top += oy;
             }
-            if (!isInsideVertical(mFrameRect.top))
-            {
+            if (!isInsideVertical(mFrameRect.top)) {
                 oy = mImageRect.top - mFrameRect.top;
                 mFrameRect.top += oy;
                 ox = oy * getRatioX() / getRatioY();
@@ -614,53 +558,44 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private void moveHandleRT(float diffX, float diffY)
-    {
-        if (mCropMode == CropMode.RATIO_FREE)
-        {
+    private void moveHandleRT(float diffX, float diffY) {
+        if (mCropMode == CropMode.RATIO_FREE) {
             mFrameRect.right += diffX;
             mFrameRect.top += diffY;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.right += offsetX;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.top -= offsetY;
             }
             checkScaleBounds();
-        } else
-        {
+        } else {
             float dx = diffX;
             float dy = diffX * getRatioY() / getRatioX();
             mFrameRect.right += dx;
             mFrameRect.top -= dy;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.right += offsetX;
                 float offsetY = offsetX * getRatioY() / getRatioX();
                 mFrameRect.top -= offsetY;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.top -= offsetY;
                 float offsetX = offsetY * getRatioX() / getRatioY();
                 mFrameRect.right += offsetX;
             }
             float ox, oy;
-            if (!isInsideHorizontal(mFrameRect.right))
-            {
+            if (!isInsideHorizontal(mFrameRect.right)) {
                 ox = mFrameRect.right - mImageRect.right;
                 mFrameRect.right -= ox;
                 oy = ox * getRatioY() / getRatioX();
                 mFrameRect.top += oy;
             }
-            if (!isInsideVertical(mFrameRect.top))
-            {
+            if (!isInsideVertical(mFrameRect.top)) {
                 oy = mImageRect.top - mFrameRect.top;
                 mFrameRect.top += oy;
                 ox = oy * getRatioX() / getRatioY();
@@ -669,53 +604,44 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private void moveHandleLB(float diffX, float diffY)
-    {
-        if (mCropMode == CropMode.RATIO_FREE)
-        {
+    private void moveHandleLB(float diffX, float diffY) {
+        if (mCropMode == CropMode.RATIO_FREE) {
             mFrameRect.left += diffX;
             mFrameRect.bottom += diffY;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.left -= offsetX;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.bottom += offsetY;
             }
             checkScaleBounds();
-        } else
-        {
+        } else {
             float dx = diffX;
             float dy = diffX * getRatioY() / getRatioX();
             mFrameRect.left += dx;
             mFrameRect.bottom -= dy;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.left -= offsetX;
                 float offsetY = offsetX * getRatioY() / getRatioX();
                 mFrameRect.bottom += offsetY;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.bottom += offsetY;
                 float offsetX = offsetY * getRatioX() / getRatioY();
                 mFrameRect.left -= offsetX;
             }
             float ox, oy;
-            if (!isInsideHorizontal(mFrameRect.left))
-            {
+            if (!isInsideHorizontal(mFrameRect.left)) {
                 ox = mImageRect.left - mFrameRect.left;
                 mFrameRect.left += ox;
                 oy = ox * getRatioY() / getRatioX();
                 mFrameRect.bottom -= oy;
             }
-            if (!isInsideVertical(mFrameRect.bottom))
-            {
+            if (!isInsideVertical(mFrameRect.bottom)) {
                 oy = mFrameRect.bottom - mImageRect.bottom;
                 mFrameRect.bottom -= oy;
                 ox = oy * getRatioX() / getRatioY();
@@ -724,53 +650,44 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private void moveHandleRB(float diffX, float diffY)
-    {
-        if (mCropMode == CropMode.RATIO_FREE)
-        {
+    private void moveHandleRB(float diffX, float diffY) {
+        if (mCropMode == CropMode.RATIO_FREE) {
             mFrameRect.right += diffX;
             mFrameRect.bottom += diffY;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.right += offsetX;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.bottom += offsetY;
             }
             checkScaleBounds();
-        } else
-        {
+        } else {
             float dx = diffX;
             float dy = diffX * getRatioY() / getRatioX();
             mFrameRect.right += dx;
             mFrameRect.bottom += dy;
-            if (isWidthTooSmall())
-            {
+            if (isWidthTooSmall()) {
                 float offsetX = mMinFrameSize - getFrameW();
                 mFrameRect.right += offsetX;
                 float offsetY = offsetX * getRatioY() / getRatioX();
                 mFrameRect.bottom += offsetY;
             }
-            if (isHeightTooSmall())
-            {
+            if (isHeightTooSmall()) {
                 float offsetY = mMinFrameSize - getFrameH();
                 mFrameRect.bottom += offsetY;
                 float offsetX = offsetY * getRatioX() / getRatioY();
                 mFrameRect.right += offsetX;
             }
             float ox, oy;
-            if (!isInsideHorizontal(mFrameRect.right))
-            {
+            if (!isInsideHorizontal(mFrameRect.right)) {
                 ox = mFrameRect.right - mImageRect.right;
                 mFrameRect.right -= ox;
                 oy = ox * getRatioY() / getRatioX();
                 mFrameRect.bottom -= oy;
             }
-            if (!isInsideVertical(mFrameRect.bottom))
-            {
+            if (!isInsideVertical(mFrameRect.bottom)) {
                 oy = mFrameRect.bottom - mImageRect.bottom;
                 mFrameRect.bottom -= oy;
                 ox = oy * getRatioX() / getRatioY();
@@ -781,83 +698,68 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
     // Frame position correction ///////////////////////////////////////////////////////////////////
 
-    private void checkScaleBounds()
-    {
+    private void checkScaleBounds() {
         float lDiff = mFrameRect.left - mImageRect.left;
         float rDiff = mFrameRect.right - mImageRect.right;
         float tDiff = mFrameRect.top - mImageRect.top;
         float bDiff = mFrameRect.bottom - mImageRect.bottom;
 
-        if (lDiff < 0)
-        {
+        if (lDiff < 0) {
             mFrameRect.left -= lDiff;
         }
-        if (rDiff > 0)
-        {
+        if (rDiff > 0) {
             mFrameRect.right -= rDiff;
         }
-        if (tDiff < 0)
-        {
+        if (tDiff < 0) {
             mFrameRect.top -= tDiff;
         }
-        if (bDiff > 0)
-        {
+        if (bDiff > 0) {
             mFrameRect.bottom -= bDiff;
         }
     }
 
-    private void checkMoveBounds()
-    {
+    private void checkMoveBounds() {
         float diff = mFrameRect.left - mImageRect.left;
-        if (diff < 0)
-        {
+        if (diff < 0) {
             mFrameRect.left -= diff;
             mFrameRect.right -= diff;
         }
         diff = mFrameRect.right - mImageRect.right;
-        if (diff > 0)
-        {
+        if (diff > 0) {
             mFrameRect.left -= diff;
             mFrameRect.right -= diff;
         }
         diff = mFrameRect.top - mImageRect.top;
-        if (diff < 0)
-        {
+        if (diff < 0) {
             mFrameRect.top -= diff;
             mFrameRect.bottom -= diff;
         }
         diff = mFrameRect.bottom - mImageRect.bottom;
-        if (diff > 0)
-        {
+        if (diff > 0) {
             mFrameRect.top -= diff;
             mFrameRect.bottom -= diff;
         }
     }
 
-    private boolean isInsideHorizontal(float x)
-    {
+    private boolean isInsideHorizontal(float x) {
         return mImageRect.left <= x && mImageRect.right >= x;
     }
 
-    private boolean isInsideVertical(float y)
-    {
+    private boolean isInsideVertical(float y) {
         return mImageRect.top <= y && mImageRect.bottom >= y;
     }
 
-    private boolean isWidthTooSmall()
-    {
+    private boolean isWidthTooSmall() {
         return getFrameW() < mMinFrameSize;
     }
 
-    private boolean isHeightTooSmall()
-    {
+    private boolean isHeightTooSmall() {
         return getFrameH() < mMinFrameSize;
     }
 
     // Frame aspect ratio correction ///////////////////////////////////////////////////////////////
 
-    private void adjustRatio()
-    {
+    private void adjustRatio() {
         if (mImageRect == null) return;
         float imgW = mImageRect.right - mImageRect.left;
         float imgH = mImageRect.bottom - mImageRect.top;
@@ -866,16 +768,14 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         float imgRatio = imgW / imgH;
         float frameRatio = frameW / frameH;
         float l = mImageRect.left, t = mImageRect.top, r = mImageRect.right, b = mImageRect.bottom;
-        if (frameRatio >= imgRatio)
-        {
+        if (frameRatio >= imgRatio) {
             l = mImageRect.left;
             r = mImageRect.right;
             float hy = (mImageRect.top + mImageRect.bottom) * 0.5f;
             float hh = (imgW / frameRatio) * 0.5f;
             t = hy - hh;
             b = hy + hh;
-        } else if (frameRatio < imgRatio)
-        {
+        } else if (frameRatio < imgRatio) {
             t = mImageRect.top;
             b = mImageRect.bottom;
             float hx = (mImageRect.left + mImageRect.right) * 0.5f;
@@ -889,10 +789,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         invalidate();
     }
 
-    private float getRatioX(float w)
-    {
-        switch (mCropMode)
-        {
+    private float getRatioX(float w) {
+        switch (mCropMode) {
             case RATIO_FIT_IMAGE:
                 return mImgWidth;
             case RATIO_FREE:
@@ -914,10 +812,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private float getRatioY(float h)
-    {
-        switch (mCropMode)
-        {
+    private float getRatioY(float h) {
+        switch (mCropMode) {
             case RATIO_FIT_IMAGE:
                 return mImgHeight;
             case RATIO_FREE:
@@ -939,10 +835,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private float getRatioX()
-    {
-        switch (mCropMode)
-        {
+    private float getRatioX() {
+        switch (mCropMode) {
             case RATIO_FIT_IMAGE:
                 return mImgWidth;
             case RATIO_4_3:
@@ -962,10 +856,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
-    private float getRatioY()
-    {
-        switch (mCropMode)
-        {
+    private float getRatioY() {
+        switch (mCropMode) {
             case RATIO_FIT_IMAGE:
                 return mImgHeight;
             case RATIO_4_3:
@@ -987,16 +879,14 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
 
     // Utility methods /////////////////////////////////////////////////////////////////////////////
 
-    private float getDensity()
-    {
+    private float getDensity() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
                 .getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.density;
     }
 
-    private float sq(float value)
-    {
+    private float sq(float value) {
         return value * value;
     }
 
@@ -1007,8 +897,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @return src bitmap
      */
-    public Bitmap getImageBitmap()
-    {
+    public Bitmap getImageBitmap() {
         return mBitmap;
     }
 
@@ -1018,17 +907,14 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      * @param bitmap src image bitmap
      */
     @Override
-    public void setImageBitmap(Bitmap bitmap)
-    {
+    public void setImageBitmap(Bitmap bitmap) {
         if (bitmap == null) return;
         mIsInitialized = false;
-        if (this.mBitmap != null && this.mBitmap != bitmap)
-        {
+        if (this.mBitmap != null && this.mBitmap != bitmap) {
             this.mBitmap = null;
         }
         this.mBitmap = bitmap;
-        if (mBitmap != null)
-        {
+        if (mBitmap != null) {
             mImgWidth = mBitmap.getWidth();
             mImgHeight = mBitmap.getHeight();
             initLayout(mViewWidth, mViewHeight);
@@ -1041,10 +927,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      * @param resId source image resource id
      */
     @Override
-    public void setImageResource(int resId)
-    {
-        if (resId != 0)
-        {
+    public void setImageResource(int resId) {
+        if (resId != 0) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
             setImageBitmap(bitmap);
         }
@@ -1055,11 +939,9 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @return cropped image bitmap
      */
-    public Bitmap getCroppedBitmap()
-    {
+    public Bitmap getCroppedBitmap() {
         int x = 0, y = 0, w = 0, h = 0;
-        if (mBitmap != null)
-        {
+        if (mBitmap != null) {
             int l = (int) (mFrameRect.left / mScale);
             int t = (int) (mFrameRect.top / mScale);
             int r = (int) (mFrameRect.right / mScale);
@@ -1077,13 +959,10 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param mode crop mode
      */
-    public void setCropMode(CropMode mode)
-    {
-        if (mode == CropMode.RATIO_CUSTOM)
-        {
+    public void setCropMode(CropMode mode) {
+        if (mode == CropMode.RATIO_CUSTOM) {
             setCustomRatio(1, 1);
-        } else
-        {
+        } else {
             mCropMode = mode;
             adjustRatio();
         }
@@ -1095,8 +974,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      * @param ratioX aspect ratio X
      * @param ratioY aspect ratio Y
      */
-    public void setCustomRatio(int ratioX, int ratioY)
-    {
+    public void setCustomRatio(int ratioX, int ratioY) {
         if (ratioX == 0 || ratioY == 0) return;
         mCropMode = CropMode.RATIO_CUSTOM;
         mCustomRatio = new PointF(ratioX, ratioY);
@@ -1108,8 +986,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param overlayColor color resId or color int(ex. 0xFFFFFFFF)
      */
-    public void setOverlayColor(int overlayColor)
-    {
+    public void setOverlayColor(int overlayColor) {
         this.mOverlayColor = overlayColor;
         invalidate();
     }
@@ -1119,8 +996,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param frameColor color resId or color int(ex. 0xFFFFFFFF)
      */
-    public void setFrameColor(int frameColor)
-    {
+    public void setFrameColor(int frameColor) {
         this.mFrameColor = frameColor;
         invalidate();
     }
@@ -1130,8 +1006,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param handleColor color resId or color int(ex. 0xFFFFFFFF)
      */
-    public void setHandleColor(int handleColor)
-    {
+    public void setHandleColor(int handleColor) {
         this.mHandleColor = handleColor;
         invalidate();
     }
@@ -1141,8 +1016,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param guideColor color resId or color int(ex. 0xFFFFFFFF)
      */
-    public void setGuideColor(int guideColor)
-    {
+    public void setGuideColor(int guideColor) {
         this.mGuideColor = guideColor;
         invalidate();
     }
@@ -1152,8 +1026,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param bgColor color resId or color int(ex. 0xFFFFFFFF)
      */
-    public void setBackgroundColor(int bgColor)
-    {
+    public void setBackgroundColor(int bgColor) {
         this.mBackgroundColor = bgColor;
         super.setBackgroundColor(this.mBackgroundColor);
         invalidate();
@@ -1164,8 +1037,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param minDp crop frame minimum size in density-independent pixels
      */
-    public void setMinFrameSizeInDp(int minDp)
-    {
+    public void setMinFrameSizeInDp(int minDp) {
         mMinFrameSize = minDp * getDensity();
     }
 
@@ -1174,8 +1046,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param handleDp handle radius in density-independent pixels
      */
-    public void setHandleSizeInDp(int handleDp)
-    {
+    public void setHandleSizeInDp(int handleDp) {
         mHandleSize = (int) (handleDp * getDensity());
     }
 
@@ -1186,8 +1057,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param paddingDp crop frame handle touch padding(touch area) in density-independent pixels
      */
-    public void setTouchPaddingInDp(int paddingDp)
-    {
+    public void setTouchPaddingInDp(int paddingDp) {
         mTouchPadding = (int) (paddingDp * getDensity());
     }
 
@@ -1197,11 +1067,9 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param mode guideline show mode
      */
-    public void setGuideShowMode(ShowMode mode)
-    {
+    public void setGuideShowMode(ShowMode mode) {
         mGuideShowMode = mode;
-        switch (mode)
-        {
+        switch (mode) {
             case SHOW_ALWAYS:
                 mShowGuide = true;
                 break;
@@ -1219,11 +1087,9 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param mode handle show mode
      */
-    public void setHandleShowMode(ShowMode mode)
-    {
+    public void setHandleShowMode(ShowMode mode) {
         mHandleShowMode = mode;
-        switch (mode)
-        {
+        switch (mode) {
             case SHOW_ALWAYS:
                 mShowHandle = true;
                 break;
@@ -1240,8 +1106,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param weightDp frame stroke weight in density-independent pixels.
      */
-    public void setFrameStrokeWeightInDp(int weightDp)
-    {
+    public void setFrameStrokeWeightInDp(int weightDp) {
         mFrameStrokeWeight = weightDp * getDensity();
         invalidate();
     }
@@ -1251,8 +1116,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param weightDp guideline stroke weight in density-independent pixels.
      */
-    public void setGuideStrokeWeightInDp(int weightDp)
-    {
+    public void setGuideStrokeWeightInDp(int weightDp) {
         mGuideStrokeWeight = weightDp * getDensity();
         invalidate();
     }
@@ -1262,75 +1126,63 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
      *
      * @param enabled should show crop frame?
      */
-    public void setCropEnabled(boolean enabled)
-    {
+    public void setCropEnabled(boolean enabled) {
         mIsCropEnabled = enabled;
         invalidate();
     }
 
-    private void setScale(float mScale)
-    {
+    private void setScale(float mScale) {
         this.mScale = mScale;
     }
 
-    private void setCenter(PointF mCenter)
-    {
+    private void setCenter(PointF mCenter) {
         this.mCenter = mCenter;
     }
 
-    private float getFrameW()
-    {
+    private float getFrameW() {
         return (mFrameRect.right - mFrameRect.left);
     }
 
-    private float getFrameH()
-    {
+    private float getFrameH() {
         return (mFrameRect.bottom - mFrameRect.top);
     }
 
     // Enum ////////////////////////////////////////////////////////////////////////////////////////
 
-    private enum TouchArea
-    {
+    private enum TouchArea {
         OUT_OF_BOUNDS, CENTER, LEFT_TOP, RIGHT_TOP, LEFT_BOTTOM, RIGHT_BOTTOM;
     }
 
-    public enum CropMode
-    {
-        RATIO_FIT_IMAGE(0), RATIO_4_3(1), RATIO_3_4(2), RATIO_1_1(3), RATIO_16_9(4), RATIO_9_16(5), RATIO_FREE(6), RATIO_CUSTOM(7);
+    public enum CropMode {
+        RATIO_FIT_IMAGE(0), RATIO_4_3(1), RATIO_3_4(2), RATIO_1_1(3), RATIO_16_9(4), RATIO_9_16(5), RATIO_FREE(6),
+        RATIO_CUSTOM(7);
         private final int ID;
 
-        CropMode(final int id)
-        {
+        CropMode(final int id) {
             this.ID = id;
         }
 
-        public int getId()
-        {
+        public int getId() {
             return ID;
         }
     }
 
-    public enum ShowMode
-    {
+    public enum ShowMode {
         SHOW_ALWAYS(1), SHOW_ON_TOUCH(2), NOT_SHOW(3);
         private final int ID;
 
-        ShowMode(final int id)
-        {
+        ShowMode(final int id) {
             this.ID = id;
         }
 
-        public int getId()
-        {
+        public int getId() {
             return ID;
         }
     }
 
     // Save/Restore support ////////////////////////////////////////////////////////////////////////
 
-    public static class SavedState extends BaseSavedState
-    {
+    public static class SavedState extends BaseSavedState {
         Bitmap image;
         CropMode mode;
         int backgroundColor;
@@ -1351,13 +1203,11 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         int handleColor;
         int guideColor;
 
-        SavedState(Parcelable superState)
-        {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 
-        private SavedState(Parcel in)
-        {
+        private SavedState(Parcel in) {
             super(in);
             image = in.readParcelable(Bitmap.class.getClassLoader());
             mode = (CropMode) in.readSerializable();
@@ -1381,8 +1231,7 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView
         }
 
         @Override
-        public void writeToParcel(Parcel out, int flag)
-        {
+        public void writeToParcel(Parcel out, int flag) {
             super.writeToParcel(out, flag);
             out.writeParcelable(image, flag);
             out.writeSerializable(mode);

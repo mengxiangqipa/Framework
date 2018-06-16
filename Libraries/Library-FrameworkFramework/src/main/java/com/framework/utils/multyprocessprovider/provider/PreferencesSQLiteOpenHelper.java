@@ -12,17 +12,8 @@ import android.util.Log;
 import com.framework.BuildConfig;
 import com.framework.utils.multyprocessprovider.provider.preferences.PreferencesColumns;
 
-
-public class PreferencesSQLiteOpenHelper extends SQLiteOpenHelper
-{
-    private static final String TAG = PreferencesSQLiteOpenHelper.class.getSimpleName();
-
+public class PreferencesSQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String DATABASE_FILE_NAME = "preferencesProvider.db";
-    private static final int DATABASE_VERSION = 1;
-    private static PreferencesSQLiteOpenHelper sInstance;
-    private final Context mContext;
-    private final PreferencesSQLiteOpenHelperCallbacks mOpenHelperCallbacks;
-
     // @formatter:off
     public static final String SQL_CREATE_TABLE_PREFERENCES = "CREATE TABLE IF NOT EXISTS "
             + PreferencesColumns.TABLE_NAME + " ( "
@@ -32,8 +23,26 @@ public class PreferencesSQLiteOpenHelper extends SQLiteOpenHelper
             + PreferencesColumns.VALUE + " TEXT "
             + ", CONSTRAINT unique_name UNIQUE (module, key) ON CONFLICT REPLACE"
             + " );";
+    private static final String TAG = PreferencesSQLiteOpenHelper.class.getSimpleName();
+    private static final int DATABASE_VERSION = 1;
+    private static PreferencesSQLiteOpenHelper sInstance;
+    private final Context mContext;
+    private final PreferencesSQLiteOpenHelperCallbacks mOpenHelperCallbacks;
 
     // @formatter:on
+
+    private PreferencesSQLiteOpenHelper(Context context) {
+        super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
+        mContext = context;
+        mOpenHelperCallbacks = new PreferencesSQLiteOpenHelperCallbacks();
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private PreferencesSQLiteOpenHelper(Context context, DatabaseErrorHandler errorHandler) {
+        super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION, errorHandler);
+        mContext = context;
+        mOpenHelperCallbacks = new PreferencesSQLiteOpenHelperCallbacks();
+    }
 
     public static PreferencesSQLiteOpenHelper getInstance(Context context) {
         // Use the application context, which will ensure that you
@@ -52,20 +61,12 @@ public class PreferencesSQLiteOpenHelper extends SQLiteOpenHelper
         return newInstancePostHoneycomb(context);
     }
 
-
     /*
      * Pre Honeycomb.
      */
     private static PreferencesSQLiteOpenHelper newInstancePreHoneycomb(Context context) {
         return new PreferencesSQLiteOpenHelper(context);
     }
-
-    private PreferencesSQLiteOpenHelper(Context context) {
-        super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
-        mContext = context;
-        mOpenHelperCallbacks = new PreferencesSQLiteOpenHelperCallbacks();
-    }
-
 
     /*
      * Post Honeycomb.
@@ -74,14 +75,6 @@ public class PreferencesSQLiteOpenHelper extends SQLiteOpenHelper
     private static PreferencesSQLiteOpenHelper newInstancePostHoneycomb(Context context) {
         return new PreferencesSQLiteOpenHelper(context, new DefaultDatabaseErrorHandler());
     }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private PreferencesSQLiteOpenHelper(Context context, DatabaseErrorHandler errorHandler) {
-        super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION, errorHandler);
-        mContext = context;
-        mOpenHelperCallbacks = new PreferencesSQLiteOpenHelperCallbacks();
-    }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

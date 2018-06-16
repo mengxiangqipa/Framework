@@ -6,9 +6,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- *     @author YobertJomi
- *     className AssetsUtil
- *     created at  2017/8/4  11:29
+ * @author YobertJomi
+ * className AssetsUtil
+ * created at  2017/8/4  11:29
  */
 public class AssetsUtil {
     private static volatile AssetsUtil singleton;
@@ -38,8 +38,8 @@ public class AssetsUtil {
             InputStreamReader inputReader = new InputStreamReader(context
                     .getResources().getAssets().open(fileName));
             BufferedReader bufReader = new BufferedReader(inputReader);
-            StringBuilder stringBuilder=new StringBuilder();
-            String line ;
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
             while ((line = bufReader.readLine()) != null)
                 stringBuilder.append(line);
             return stringBuilder.toString();

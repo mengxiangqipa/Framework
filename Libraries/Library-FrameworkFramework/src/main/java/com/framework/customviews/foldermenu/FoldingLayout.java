@@ -43,44 +43,36 @@ import android.view.ViewConfiguration;
  * content inside a 1 pixel transparent border. This will cause an anti-aliasing
  * like effect and smoothen out the edges.
  */
-public class FoldingLayout extends BaseFoldingLayout
-{
+public class FoldingLayout extends BaseFoldingLayout {
 
     private final String FOLDING_VIEW_EXCEPTION_MESSAGE = "Folding Layout can only 1 child at "
             + "most";
-
-    private GestureDetector mScrollGestureDetector;
-
     FoldingLayout that = null;
-
+    private GestureDetector mScrollGestureDetector;
     private int mTranslation = 0;
     private int mParentPositionY = -1;
     private int mTouchSlop = -1;
     private boolean mDidNotStartScroll = true;
 
-    public FoldingLayout(Context context)
-    {
+    public FoldingLayout(Context context) {
         super(context);
         init(context, null);
         that = this;
     }
 
-    public FoldingLayout(Context context, AttributeSet attrs)
-    {
+    public FoldingLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
         that = this;
     }
 
-    public FoldingLayout(Context context, AttributeSet attrs, int defStyle)
-    {
+    public FoldingLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
         that = this;
     }
 
-    public void init(Context context, AttributeSet attrs)
-    {
+    public void init(Context context, AttributeSet attrs) {
         mScrollGestureDetector = new GestureDetector(context,
                 new ScrollGestureDetector());
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
@@ -90,8 +82,7 @@ public class FoldingLayout extends BaseFoldingLayout
 
     @Override
     protected boolean addViewInLayout(View child, int index,
-                                      LayoutParams params, boolean preventRequestLayout)
-    {
+                                      LayoutParams params, boolean preventRequestLayout) {
         throwCustomException(getChildCount());
         boolean returnValue = super.addViewInLayout(child, index, params,
                 preventRequestLayout);
@@ -99,33 +90,34 @@ public class FoldingLayout extends BaseFoldingLayout
     }
 
     /**
+     * Throws an exception if the number of views added to this layout exceeds
+     * one.
+     */
+    private void throwCustomException(int numOfChildViews) {
+        if (numOfChildViews == 1) {
+            throw new NumberOfFoldingLayoutChildrenException(
+                    FOLDING_VIEW_EXCEPTION_MESSAGE);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent me) {
+        return mScrollGestureDetector.onTouchEvent(me);
+    }
+
+    /**
      * The custom exception to be thrown so as to limit the number of views in
      * this layout to at most one.
      */
     private class NumberOfFoldingLayoutChildrenException extends
-            RuntimeException
-    {
+            RuntimeException {
         /**
          *
          */
         private static final long serialVersionUID = 1L;
 
-        public NumberOfFoldingLayoutChildrenException(String message)
-        {
+        public NumberOfFoldingLayoutChildrenException(String message) {
             super(message);
-        }
-    }
-
-    /**
-     * Throws an exception if the number of views added to this layout exceeds
-     * one.
-     */
-    private void throwCustomException(int numOfChildViews)
-    {
-        if (numOfChildViews == 1)
-        {
-            throw new NumberOfFoldingLayoutChildrenException(
-                    FOLDING_VIEW_EXCEPTION_MESSAGE);
         }
     }
 
@@ -133,11 +125,9 @@ public class FoldingLayout extends BaseFoldingLayout
      * This class uses user touch events to fold and unfold the folding view.
      */
     private class ScrollGestureDetector extends
-            GestureDetector.SimpleOnGestureListener
-    {
+            GestureDetector.SimpleOnGestureListener {
         @Override
-        public boolean onDown(MotionEvent e)
-        {
+        public boolean onDown(MotionEvent e) {
             mDidNotStartScroll = true;
             return true;
         }
@@ -156,63 +146,52 @@ public class FoldingLayout extends BaseFoldingLayout
          */
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
-                                float distanceX, float distanceY)
-        {
+                                float distanceX, float distanceY) {
             int touchSlop = 0;
             float factor;
-            if (mOrientation == Orientation.VERTICAL)
-            {
+            if (mOrientation == Orientation.VERTICAL) {
                 factor = Math.abs((float) (mTranslation)
                         / (float) (that.getHeight()));
 
                 if (e2.getY() - mParentPositionY <= that.getHeight()
-                        && e2.getY() - mParentPositionY >= 0)
-                {
+                        && e2.getY() - mParentPositionY >= 0) {
                     if ((e2.getY() - mParentPositionY) > that.getHeight()
-                            * getAnchorFactor())
-                    {
+                            * getAnchorFactor()) {
                         mTranslation -= (int) distanceY;
                         touchSlop = distanceY < 0 ? -mTouchSlop : mTouchSlop;
-                    } else
-                    {
+                    } else {
                         mTranslation += (int) distanceY;
                         touchSlop = distanceY < 0 ? mTouchSlop : -mTouchSlop;
                     }
                     mTranslation = mDidNotStartScroll ? mTranslation
                             + touchSlop : mTranslation;
 
-                    if (mTranslation < -that.getHeight())
-                    {
+                    if (mTranslation < -that.getHeight()) {
                         mTranslation = -that.getHeight();
                     }
                 }
-            } else
-            {
+            } else {
                 factor = Math.abs(((float) mTranslation)
                         / ((float) that.getWidth()));
 
-                if (e2.getRawX() > that.getWidth() * getAnchorFactor())
-                {
+                if (e2.getRawX() > that.getWidth() * getAnchorFactor()) {
                     mTranslation -= (int) distanceX;
                     touchSlop = distanceX < 0 ? -mTouchSlop : mTouchSlop;
-                } else
-                {
+                } else {
                     mTranslation += (int) distanceX;
                     touchSlop = distanceX < 0 ? mTouchSlop : -mTouchSlop;
                 }
                 mTranslation = mDidNotStartScroll ? mTranslation + touchSlop
                         : mTranslation;
 
-                if (mTranslation < -that.getWidth())
-                {
+                if (mTranslation < -that.getWidth()) {
                     mTranslation = -that.getWidth();
                 }
             }
 
             mDidNotStartScroll = false;
 
-            if (mTranslation > 0)
-            {
+            if (mTranslation > 0) {
                 mTranslation = 0;
             }
 
@@ -221,11 +200,4 @@ public class FoldingLayout extends BaseFoldingLayout
             return true;
         }
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent me)
-    {
-        return mScrollGestureDetector.onTouchEvent(me);
-    }
-
 }

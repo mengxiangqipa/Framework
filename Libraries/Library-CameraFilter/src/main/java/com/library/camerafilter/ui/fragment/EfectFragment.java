@@ -30,22 +30,31 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+public class EfectFragment extends Fragment {
 
-public class EfectFragment extends Fragment
-{
-
+    //public Bitmap sourceBitmap;	//当前的图片
+    public static ArrayList<HSuperImageView> sticklist; // 保存贴纸图片的集合
+    protected final int GETSTICKER_SUCC = 0;
+    protected final int DOWNLOADSTICKER_SUCC = 1;
     private Context mContext;
     private View mView;
     private String mPath;
     private boolean mFlag = false; //true是正方形截图过来的
     private GPUImageView effect_main; // 需要修改的图像
-    //public Bitmap sourceBitmap;	//当前的图片
-    public static ArrayList<HSuperImageView> sticklist; // 保存贴纸图片的集合
+    protected Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DOWNLOADSTICKER_SUCC:
+                    showSticker(Constants.bitmap, (HSuperImageView) msg.obj);
+                    break;
+            }
+        }
+    };
     private int sticknum = -1;// 贴纸添加的序号
 
-
-    public static EfectFragment newInstance(String path, boolean flag)
-    {
+    public static EfectFragment newInstance(String path, boolean flag) {
         EfectFragment f = new EfectFragment();
         Bundle b = new Bundle();
         b.putString("path", path);
@@ -55,16 +64,14 @@ public class EfectFragment extends Fragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPath = getArguments().getString("path");
         mFlag = getArguments().getBoolean("flag");
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         mView = inflater.inflate(R.layout.camerasdk_item_viewpage, container, false);
         effect_main = (GPUImageView) mView.findViewById(R.id.effect_main);
@@ -74,41 +81,30 @@ public class EfectFragment extends Fragment
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
+    public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
 
-
         initEvent();
 
-        if (mFlag)
-        {
+        if (mFlag) {
             setSourceBitmap(Constants.bitmap);
-        } else
-        {
+        } else {
 
-            if (mPath.startsWith("http://"))
-            {
+            if (mPath.startsWith("http://")) {
                 loadUrlImage();
-            } else
-            {
+            } else {
                 effect_main.setImage(mPath);
             }
-
         }
     }
 
     //加载网络图片
-    private void loadUrlImage()
-    {
-        new Thread()
-        {
-            public void run()
-            {
-                try
-                {
+    private void loadUrlImage() {
+        new Thread() {
+            public void run() {
+                try {
                     URL imageURl = new URL(mPath);
                     URLConnection con = imageURl.openConnection();
                     con.connect();
@@ -116,52 +112,43 @@ public class EfectFragment extends Fragment
                     final Bitmap bitmap = BitmapFactory.decodeStream(in);
                     in.close();
 
-
-                    getActivity().runOnUiThread(new Runnable()
-                    {
+                    getActivity().runOnUiThread(new Runnable() {
 
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             // TODO Auto-generated method stub
                             setSourceBitmap(bitmap);
                         }
-
                     });
-
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         }.start();
 
-    	/*FileUtils.doGetBitmap("http://img5.duitang.com/uploads/item/201511/28/20151128102233_cRxvN.jpeg", new Callback<Bitmap>() {
+    	/*FileUtils.doGetBitmap("http://img5.duitang.com/uploads/item/201511/28/20151128102233_cRxvN.jpeg", new
+    	Callback<Bitmap>() {
 
 			@Override
 			public void onSuccess(Bitmap obj) {
 				// TODO Auto-generated method stub
 				setSourceBitmap(obj);
 			}
-			
+
 			@Override
 			public void onError(String error) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});*/
     }
 
-    private void initEvent()
-    {
+    private void initEvent() {
 
-        effect_main.setOnClickListener(new OnClickListener()
-        {
+        effect_main.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 //点击屏幕背景   将所有贴纸的外框全部去掉贴
                 hideStickEditMode();
             }
@@ -171,8 +158,7 @@ public class EfectFragment extends Fragment
     /**
      * 改变图片(截图)
      */
-    public void setBitMap()
-    {
+    public void setBitMap() {
         setSourceBitmap(Constants.bitmap);
     }
 
@@ -181,79 +167,61 @@ public class EfectFragment extends Fragment
      *
      * @return
      */
-    public Bitmap getCurrentBitMap()
-    {
+    public Bitmap getCurrentBitMap() {
         return effect_main.getCurrentBitMap();
     }
 
     //加特效
-    public void addEffect(GPUImageFilter filter)
-    {
+    public void addEffect(GPUImageFilter filter) {
         effect_main.setFilter(filter);
         effect_main.requestRender();
     }
 
     //加贴纸
-    public void addSticker(int drawableId, final String path)
-    {
+    public void addSticker(int drawableId, final String path) {
         sticknum++;
         HSuperImageView imageView = new HSuperImageView(getActivity(), sticknum);
 
-        if (drawableId > 0)
-        {
+        if (drawableId > 0) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), drawableId);
             showSticker(bmp, imageView);
-        } else
-        {
+        } else {
             downLoad(drawableId, path, imageView);
         }
 
         sticklist.add(imageView);
         effect_main.addView(imageView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
     }
 
-
-    private void showSticker(Bitmap bmp, HSuperImageView imageView)
-    {
-        if (bmp != null)
-        {
+    private void showSticker(Bitmap bmp, HSuperImageView imageView) {
+        if (bmp != null) {
             imageView.init(bmp);// 设置控件图片
             eventStickerImage(imageView);
             //将所有贴纸的外框全部去掉贴
             hideStickEditMode();
             imageView.setStickEditMode(true);
-        } else
-        {
+        } else {
             Toast.makeText(getActivity(), "加载贴纸失败", Toast.LENGTH_SHORT).show();
         }
     }
 
-
     //监听贴纸的事件
-    private void eventStickerImage(HSuperImageView imageView)
-    {
+    private void eventStickerImage(HSuperImageView imageView) {
 
-        imageView.setOnStickerListener(new OnStickerListener()
-        {
+        imageView.setOnStickerListener(new OnStickerListener() {
             @Override
-            public void onStickerModeChanged(int position, int flag, HSuperImageView view)
-            {
+            public void onStickerModeChanged(int position, int flag, HSuperImageView view) {
                 // TODO Auto-generated method stub
-                if (flag == 1)
-                {
+                if (flag == 1) {
                     //删除
-                    try
-                    {
+                    try {
 						/*effect_main.removeView(sticklist.get(position));
 						sticklist.remove(position);*/
                         effect_main.removeView(view);
                         sticklist.remove(view);
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                     }
-                } else if (flag == 2)
-                {
+                } else if (flag == 2) {
                     //点击
                     hideStickEditMode();
                     view.setStickEditMode(true);
@@ -266,25 +234,20 @@ public class EfectFragment extends Fragment
     }
 
     //将所有的贴纸修改成不可编辑的模式(外框全部去掉贴)
-    private void hideStickEditMode()
-    {
-        for (int i = 0; i < sticklist.size(); i++)
-        {
+    private void hideStickEditMode() {
+        for (int i = 0; i < sticklist.size(); i++) {
             sticklist.get(i).setStickEditMode(false);
             sticklist.get(i).invalidate();
         }
     }
 
-
     //获取最终的图片的路径
-    public String getFilterImage()
-    {
+    public String getFilterImage() {
 
         effect_main.setDrawingCacheEnabled(true);
         Bitmap editbmp = Bitmap.createBitmap(effect_main.getDrawingCache());
 
-        try
-        {
+        try {
             Bitmap fBitmap = effect_main.capture();
             Bitmap bitmap = Bitmap.createBitmap(fBitmap.getWidth(), fBitmap.getHeight(), Config.ARGB_8888);
             Canvas cv = new Canvas(bitmap);
@@ -295,22 +258,18 @@ public class EfectFragment extends Fragment
             String path = PhotoUtils.saveAsBitmap(mContext, bitmap);
             bitmap.recycle();
             return path;
-
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             return "";
         }
     }
 
     //获取最终的图片的Bitmap
-    public Bitmap getFilterBitmap()
-    {
+    public Bitmap getFilterBitmap() {
 
         effect_main.setDrawingCacheEnabled(true);
         Bitmap editbmp = Bitmap.createBitmap(effect_main.getDrawingCache());
 
-        try
-        {
+        try {
             Bitmap fBitmap = effect_main.capture();
             Bitmap bitmap = Bitmap.createBitmap(fBitmap.getWidth(), fBitmap.getHeight(), Config.ARGB_8888);
             Canvas cv = new Canvas(bitmap);
@@ -321,25 +280,16 @@ public class EfectFragment extends Fragment
             editbmp.recycle();
 
             return bitmap;
-
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    protected final int GETSTICKER_SUCC = 0;
-    protected final int DOWNLOADSTICKER_SUCC = 1;
-
     //下载图片
-    private void downLoad(final int drawableId, final String path, final HSuperImageView imageView)
-    {
-        new Thread()
-        {
-            public void run()
-            {
-                try
-                {
+    private void downLoad(final int drawableId, final String path, final HSuperImageView imageView) {
+        new Thread() {
+            public void run() {
+                try {
                     URL url = new URL(path);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setDoInput(true);
@@ -347,9 +297,7 @@ public class EfectFragment extends Fragment
                     InputStream is = conn.getInputStream();
                     Constants.bitmap = BitmapFactory.decodeStream(is);
                     is.close();
-
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                 }
 
                 Message msg = new Message();
@@ -361,24 +309,7 @@ public class EfectFragment extends Fragment
         }.start();
     }
 
-    protected Handler handler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg)
-        {
-            super.handleMessage(msg);
-            switch (msg.what)
-            {
-                case DOWNLOADSTICKER_SUCC:
-                    showSticker(Constants.bitmap, (HSuperImageView) msg.obj);
-                    break;
-            }
-        }
-    };
-
-
-    private void setSourceBitmap(Bitmap sourceBitmap)
-    {
+    private void setSourceBitmap(Bitmap sourceBitmap) {
         float width = sourceBitmap.getWidth();
         float height = sourceBitmap.getHeight();
         float ratio = width / height;
@@ -386,5 +317,4 @@ public class EfectFragment extends Fragment
         effect_main.setRatio(ratio);
         effect_main.setImage(sourceBitmap);
     }
-
 }

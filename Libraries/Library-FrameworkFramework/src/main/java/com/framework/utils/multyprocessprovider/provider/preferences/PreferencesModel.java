@@ -8,8 +8,7 @@ import com.framework.utils.multyprocessprovider.provider.base.BaseModel;
 /**
  * Data model for the {@code preferences} table.
  */
-public interface PreferencesModel extends BaseModel
-{
+public interface PreferencesModel extends BaseModel {
 
     /**
      * Get the {@code module} value.

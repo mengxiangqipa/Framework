@@ -222,7 +222,6 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return (T) this;
     }
 
-
     protected Object[] toObjectArray(int... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -258,7 +257,6 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     protected Object[] toObjectArray(Boolean value) {
         return new Object[]{value};
     }
-
 
     /**
      * Returns the selection produced by this object.

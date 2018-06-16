@@ -1,30 +1,26 @@
 package com.library.adapter_recyclerview;
 
-import java.util.ArrayList;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class GuideFragmentPagerAdapter extends FragmentPagerAdapter
-{
-	private ArrayList<Fragment> listFragments;
+import java.util.ArrayList;
 
-	public GuideFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> listFragments)
-	{
-		super(fm);
-		this.listFragments = listFragments;
-	}
+public class GuideFragmentPagerAdapter extends FragmentPagerAdapter {
+    private ArrayList<Fragment> listFragments;
 
-	@Override
-	public Fragment getItem(int position)
-	{
-		return null == listFragments ? null : listFragments.get(position);
-	}
+    public GuideFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> listFragments) {
+        super(fm);
+        this.listFragments = listFragments;
+    }
 
-	@Override
-	public int getCount()
-	{
-		return null == listFragments ? 0 : listFragments.size();
-	}
+    @Override
+    public Fragment getItem(int position) {
+        return null == listFragments ? null : listFragments.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return null == listFragments ? 0 : listFragments.size();
+    }
 }

@@ -29,12 +29,10 @@ import com.muzhi.camerasdk.library.scrawl.DrawingBoardView;
 import com.muzhi.camerasdk.library.scrawl.ScrawlTools;
 import com.muzhi.camerasdk.library.utils.MResource;
 
-
 /**
  * 涂鸦
  */
-public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeListener
-{
+public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeListener {
 
     private TextView btn_done;
     private DrawingBoardView drawView;
@@ -55,8 +53,7 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
     private PopupWindow mpopupWindow;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_activity_graffiti);
@@ -66,11 +63,9 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
         sourceMap = Constants.bitmap;
 
         findViews();
-
     }
 
-    private void findViews()
-    {
+    private void findViews() {
         btn_done = (TextView) findViewById(R.id.camerasdk_title_txv_right_text);
         btn_done.setVisibility(View.VISIBLE);
         btn_done.setText("确定");
@@ -100,91 +95,70 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
         initEvent();
     }
 
-
-    private void initEvent()
-    {
+    private void initEvent() {
 
         seekbar_brush.setOnSeekBarChangeListener(this);
         seekbar_eraser.setOnSeekBarChangeListener(this);
 
-
-        btn_done.setOnClickListener(new OnClickListener()
-        {
+        btn_done.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 done();
             }
         });
-        btn_brush.setOnClickListener(new OnClickListener()
-        {
+        btn_brush.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 initBrush();
                 brush_layout.setVisibility(View.VISIBLE);
                 seekbar_eraser.setVisibility(View.GONE);
             }
         });
-        btn_eraser.setOnClickListener(new OnClickListener()
-        {
+        btn_eraser.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 initEraser();
                 brush_layout.setVisibility(View.GONE);
                 seekbar_eraser.setVisibility(View.VISIBLE);
             }
         });
-        brush_view_color.setOnClickListener(new OnClickListener()
-        {
+        brush_view_color.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 // TODO 颜色选择器
                 showPopupColor(v);
             }
         });
     }
 
-
     //拖动值监听
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch)
-    {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
         int type = 0;
         int vid = seekBar.getId();
-        if (vid == seekBar1)
-        {
+        if (vid == seekBar1) {
             //画笔
             brush_progress = 10 - progress;
             initBrush();
-        } else if (vid == seekBar2)
-        {
+        } else if (vid == seekBar2) {
             //橡皮擦
             eraser_progress = 10 - progress;
             initEraser();
         }
-
-
     }
 
-    public void onStartTrackingTouch(SeekBar seekBar)
-    {
+    public void onStartTrackingTouch(SeekBar seekBar) {
     }
 
     //SeekBar 停止拖动
-    public void onStopTrackingTouch(SeekBar seekBar)
-    {
+    public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
-
     //定义画笔
-    private void initBrush()
-    {
+    private void initBrush() {
         Options option = new Options();
         option.inSampleSize = brush_progress;
         Bitmap paintBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.camerasdk_brush, option);
@@ -192,21 +166,17 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
     }
 
     //定义橡皮擦
-    private void initEraser()
-    {
+    private void initEraser() {
         Options option = new Options();
         option.inSampleSize = eraser_progress;
         Bitmap paintBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.camerasdk_eraser, option);
         casualWaterUtil.creatDrawPainter(DrawAttribute.DrawStatus.PEN_ERASER, paintBitmap, 0xffadb8bd);
-
     }
-
 
     /**
      * 创建颜色选择器弹出框
      */
-    private void showPopupColor(View v)
-    {
+    private void showPopupColor(View v) {
 
         View view = getLayoutInflater().inflate(R.layout.camerasdk_popup_colorpick, null);
 
@@ -219,19 +189,16 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
         picker.addSVBar(svBar);
         picker.addOpacityBar(opacityBar);
 
-        picker.setOnColorChangedListener(new OnColorChangedListener()
-        {
+        picker.setOnColorChangedListener(new OnColorChangedListener() {
 
             @Override
-            public void onColorChanged(int color)
-            {
+            public void onColorChanged(int color) {
                 // TODO Auto-generated method stub
                 getPickColor(color);
             }
         });
 
-        if (mpopupWindow == null)
-        {
+        if (mpopupWindow == null) {
             mpopupWindow = new PopupWindow(mContext);
             mpopupWindow.setWidth(LayoutParams.WRAP_CONTENT);
             mpopupWindow.setHeight(LayoutParams.WRAP_CONTENT);
@@ -239,10 +206,8 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
             mpopupWindow.setOutsideTouchable(true);
         }
 
-        view.setOnClickListener(new OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        view.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 mpopupWindow.dismiss();
             }
         });
@@ -252,21 +217,16 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
         mpopupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
     }
 
-
-    private void getPickColor(int color)
-    {
+    private void getPickColor(int color) {
         brush_color = color;
         initBrush();
         brush_view_color.setBackgroundColor(color);
     }
 
-    private void done()
-    {
+    private void done() {
 
         Constants.bitmap = casualWaterUtil.getBitmap();
         setResult(Constants.RequestCode_Croper);
         finish();
     }
-
-
 }

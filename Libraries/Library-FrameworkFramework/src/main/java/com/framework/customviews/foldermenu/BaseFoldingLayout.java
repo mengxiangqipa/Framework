@@ -54,102 +54,74 @@ import com.framework.R;
  * content inside a 1 pixel transparent border. This will cause an anti-aliasing
  * like effect and smoothen out the edges.
  */
-public class BaseFoldingLayout extends ViewGroup
-{
+public class BaseFoldingLayout extends ViewGroup {
 
-	/*
+    /*
      * A bug was introduced in Android 4.3 that ignores changes to the Canvas
-	 * state between multiple calls to super.dispatchDraw() when running with
-	 * hardware acceleration. To account for this bug, a slightly different
-	 * approach was taken to fold a static image whereby a bitmap of the
-	 * original contents is captured and drawn in segments onto the canvas.
-	 * However, this method does not permit the folding of a TextureView hosting
-	 * a live camera feed which continuously updates. Furthermore, the sepia
-	 * effect was removed from the bitmap variation of the demo to simplify the
-	 * logic when running with this workaround."
-	 */
-
-    public static enum Orientation
-    {
-        VERTICAL, HORIZONTAL
-    }
+     * state between multiple calls to super.dispatchDraw() when running with
+     * hardware acceleration. To account for this bug, a slightly different
+     * approach was taken to fold a static image whereby a bitmap of the
+     * original contents is captured and drawn in segments onto the canvas.
+     * However, this method does not permit the folding of a TextureView hosting
+     * a live camera feed which continuously updates. Furthermore, the sepia
+     * effect was removed from the bitmap variation of the demo to simplify the
+     * logic when running with this workaround."
+     */
 
     private final String FOLDING_VIEW_EXCEPTION_MESSAGE = "Folding Layout can only 1 child at "
             + "most";
-
     private final float SHADING_ALPHA = 0.8f;
     private final float SHADING_FACTOR = 0.5f;
     private final int DEPTH_CONSTANT = 1500;
     private final int NUM_OF_POLY_POINTS = 8;
-
-    private Rect[] mFoldRectArray;
-
-    private Matrix[] mMatrix;
-
     protected Orientation mOrientation = Orientation.VERTICAL;
-
     protected float mAnchorFactor = 0;
+    private Rect[] mFoldRectArray;
+    private Matrix[] mMatrix;
     private float mFoldFactor = 0;
-
     private int mNumberOfFolds = 2;
-
     private boolean mIsHorizontal = true;
-
     private int mOriginalWidth = 0;
     private int mOriginalHeight = 0;
-
     private float mFoldMaxWidth = 0;
     private float mFoldMaxHeight = 0;
     private float mFoldDrawWidth = 0;
     private float mFoldDrawHeight = 0;
-
     private boolean mIsFoldPrepared = false;
     private boolean mShouldDraw = true;
-
     private Paint mSolidShadow;
     private Paint mGradientShadow;
     private LinearGradient mShadowLinearGradient;
     private Matrix mShadowGradientMatrix;
-
     private float[] mSrc;
     private float[] mDst;
-
     private OnFoldListener mFoldListener;
-
     private float mPreviousFoldFactor = 0;
-
     private Bitmap mFullBitmap;
     private Rect mDstRect;
-
-    public BaseFoldingLayout(Context context)
-    {
+    public BaseFoldingLayout(Context context) {
         super(context);
     }
 
-    public BaseFoldingLayout(Context context, AttributeSet attrs)
-    {
+    public BaseFoldingLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public BaseFoldingLayout(Context context, AttributeSet attrs, int defStyle)
-    {
+    public BaseFoldingLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
 
-    public void init(Context context, AttributeSet attrs)
-    {
+    public void init(Context context, AttributeSet attrs) {
         // now style everything!
         TypedArray ta = context.obtainStyledAttributes(attrs,
                 R.styleable.FoldingMenu);
         int mFoldNumber = ta.getInt(R.styleable.FoldingMenu_foldNumber,
                 mNumberOfFolds);
-        if (mFoldNumber > 0 && mFoldNumber < 7)
-        {
+        if (mFoldNumber > 0 && mFoldNumber < 7) {
             mNumberOfFolds = mFoldNumber;
-        } else
-        {
+        } else {
             mNumberOfFolds = 2;
         }
         ta.recycle();
@@ -157,8 +129,7 @@ public class BaseFoldingLayout extends ViewGroup
 
     @Override
     protected boolean addViewInLayout(View child, int index,
-                                      LayoutParams params, boolean preventRequestLayout)
-    {
+                                      LayoutParams params, boolean preventRequestLayout) {
         throwCustomException(getChildCount());
         boolean returnValue = super.addViewInLayout(child, index, params,
                 preventRequestLayout);
@@ -166,62 +137,64 @@ public class BaseFoldingLayout extends ViewGroup
     }
 
     @Override
-    public void addView(View child, int index, LayoutParams params)
-    {
+    public void addView(View child, int index, LayoutParams params) {
         throwCustomException(getChildCount());
         super.addView(child, index, params);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         View child = getChildAt(0);
         measureChild(child, widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
-    {
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
         View child = getChildAt(0);
         child.layout(0, 0, child.getMeasuredWidth(), child.getMeasuredHeight());
         updateFold();
     }
 
     /**
-     * The custom exception to be thrown so as to limit the number of views in
-     * this layout to at most one.
-     */
-    private class NumberOfFoldingLayoutChildrenException extends
-            RuntimeException
-    {
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1L;
-
-        public NumberOfFoldingLayoutChildrenException(String message)
-        {
-            super(message);
-        }
-    }
-
-    /**
      * Throws an exception if the number of views added to this layout exceeds
      * one.
      */
-    private void throwCustomException(int numOfChildViews)
-    {
-        if (numOfChildViews == 1)
-        {
+    private void throwCustomException(int numOfChildViews) {
+        if (numOfChildViews == 1) {
             throw new NumberOfFoldingLayoutChildrenException(
                     FOLDING_VIEW_EXCEPTION_MESSAGE);
         }
     }
 
-    public void setFoldListener(OnFoldListener foldListener)
-    {
+    public void setFoldListener(OnFoldListener foldListener) {
         mFoldListener = foldListener;
+    }
+
+    public float getAnchorFactor() {
+        return mAnchorFactor;
+    }
+
+    public void setAnchorFactor(float anchorFactor) {
+        if (anchorFactor != mAnchorFactor) {
+            mAnchorFactor = anchorFactor;
+            updateFold();
+        }
+    }
+
+    public Orientation getOrientation() {
+        return mOrientation;
+    }
+
+    public void setOrientation(Orientation orientation) {
+        if (orientation != mOrientation) {
+            mOrientation = orientation;
+            updateFold();
+        }
+    }
+
+    public float getFoldFactor() {
+        return mFoldFactor;
     }
 
     /**
@@ -229,66 +202,26 @@ public class BaseFoldingLayout extends ViewGroup
      * corresponding matrices and values to account for the new fold factor.
      * Once that is complete, it redraws itself with the new fold.
      */
-    public void setFoldFactor(float foldFactor)
-    {
-        if (foldFactor != mFoldFactor)
-        {
+    public void setFoldFactor(float foldFactor) {
+        if (foldFactor != mFoldFactor) {
             mFoldFactor = foldFactor;
             calculateMatrices();
             invalidate();
         }
     }
 
-
-    public void setOrientation(Orientation orientation)
-    {
-        if (orientation != mOrientation)
-        {
-            mOrientation = orientation;
-            updateFold();
-        }
+    public int getNumberOfFolds() {
+        return mNumberOfFolds;
     }
 
-    public void setAnchorFactor(float anchorFactor)
-    {
-        if (anchorFactor != mAnchorFactor)
-        {
-            mAnchorFactor = anchorFactor;
-            updateFold();
-        }
-    }
-
-    public void setNumberOfFolds(int numberOfFolds)
-    {
-        if (numberOfFolds != mNumberOfFolds)
-        {
+    public void setNumberOfFolds(int numberOfFolds) {
+        if (numberOfFolds != mNumberOfFolds) {
             mNumberOfFolds = numberOfFolds;
             updateFold();
         }
     }
 
-    public float getAnchorFactor()
-    {
-        return mAnchorFactor;
-    }
-
-    public Orientation getOrientation()
-    {
-        return mOrientation;
-    }
-
-    public float getFoldFactor()
-    {
-        return mFoldFactor;
-    }
-
-    public int getNumberOfFolds()
-    {
-        return mNumberOfFolds;
-    }
-
-    private void updateFold()
-    {
+    private void updateFold() {
         prepareFold(mOrientation, mAnchorFactor, mNumberOfFolds);
         calculateMatrices();
         invalidate();
@@ -305,8 +238,7 @@ public class BaseFoldingLayout extends ViewGroup
      * default.
      */
     private void prepareFold(Orientation orientation, float anchorFactor,
-                             int numberOfFolds)
-    {
+                             int numberOfFolds) {
 
         mSrc = new float[NUM_OF_POLY_POINTS];
         mDst = new float[NUM_OF_POLY_POINTS];
@@ -324,12 +256,10 @@ public class BaseFoldingLayout extends ViewGroup
         mOrientation = orientation;
         mIsHorizontal = (orientation == Orientation.HORIZONTAL);
 
-        if (mIsHorizontal)
-        {
+        if (mIsHorizontal) {
             mShadowLinearGradient = new LinearGradient(0, 0, SHADING_FACTOR, 0,
                     Color.BLACK, Color.TRANSPARENT, TileMode.CLAMP);
-        } else
-        {
+        } else {
             mShadowLinearGradient = new LinearGradient(0, 0, 0, SHADING_FACTOR,
                     Color.BLACK, Color.TRANSPARENT, TileMode.CLAMP);
         }
@@ -347,16 +277,14 @@ public class BaseFoldingLayout extends ViewGroup
         mFoldRectArray = new Rect[mNumberOfFolds];
         mMatrix = new Matrix[mNumberOfFolds];
 
-        for (int x = 0; x < mNumberOfFolds; x++)
-        {
+        for (int x = 0; x < mNumberOfFolds; x++) {
             mMatrix[x] = new Matrix();
         }
 
         int h = mOriginalHeight;
         int w = mOriginalWidth;
 
-        if ((Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2) && h != 0 && w != 0)
-        {
+        if ((Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2) && h != 0 && w != 0) {
             mFullBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(mFullBitmap);
             getChildAt(0).draw(canvas);
@@ -366,33 +294,28 @@ public class BaseFoldingLayout extends ViewGroup
                 / ((float) mNumberOfFolds) : ((float) h)
                 / ((float) mNumberOfFolds));
 
-		/*
-		 * Loops through the number of folds and segments the full layout into a
-		 * number of smaller equal components. If the number of folds is odd,
-		 * then one of the components will be smaller than all the rest. Note
-		 * that deltap below handles the calculation for an odd number of folds.
-		 */
-        for (int x = 0; x < mNumberOfFolds; x++)
-        {
-            if (mIsHorizontal)
-            {
+        /*
+         * Loops through the number of folds and segments the full layout into a
+         * number of smaller equal components. If the number of folds is odd,
+         * then one of the components will be smaller than all the rest. Note
+         * that deltap below handles the calculation for an odd number of folds.
+         */
+        for (int x = 0; x < mNumberOfFolds; x++) {
+            if (mIsHorizontal) {
                 int deltap = (x + 1) * delta > w ? w - x * delta : delta;
                 mFoldRectArray[x] = new Rect(x * delta, 0, x * delta + deltap,
                         h);
-            } else
-            {
+            } else {
                 int deltap = (x + 1) * delta > h ? h - x * delta : delta;
                 mFoldRectArray[x] = new Rect(0, x * delta, w, x * delta
                         + deltap);
             }
         }
 
-        if (mIsHorizontal)
-        {
+        if (mIsHorizontal) {
             mFoldMaxHeight = h;
             mFoldMaxWidth = delta;
-        } else
-        {
+        } else {
             mFoldMaxHeight = delta;
             mFoldMaxWidth = w;
         }
@@ -404,13 +327,11 @@ public class BaseFoldingLayout extends ViewGroup
      * Calculates the transformation matrices used to draw each of the separate
      * folding segments from this view.
      */
-    private void calculateMatrices()
-    {
+    private void calculateMatrices() {
 
         mShouldDraw = true;
 
-        if (!mIsFoldPrepared)
-        {
+        if (!mIsFoldPrepared) {
             return;
         }
 
@@ -418,8 +339,7 @@ public class BaseFoldingLayout extends ViewGroup
          * If the fold factor is 1 than the folding view should not be seen and
          * the canvas can be left completely empty.
          */
-        if (mFoldFactor == 1)
-        {
+        if (mFoldFactor == 1) {
             mShouldDraw = false;
             return;
         }
@@ -437,17 +357,14 @@ public class BaseFoldingLayout extends ViewGroup
 //		}
 
         if (mFoldFactor > 0.9f && mFoldFactor > mPreviousFoldFactor
-                && mFoldListener != null)
-        {
+                && mFoldListener != null) {
 
             mFoldListener.onEndFold(mFoldFactor);
         } else if (mFoldFactor < 0.1f && mFoldFactor < mPreviousFoldFactor
-                && mFoldListener != null)
-        {
+                && mFoldListener != null) {
 
             mFoldListener.onStartFold(mFoldFactor);
-        } else if (mFoldListener != null)
-        {
+        } else if (mFoldListener != null) {
 
             mFoldListener.onFoldingState(mFoldFactor, mFoldDrawHeight);
         }
@@ -462,12 +379,11 @@ public class BaseFoldingLayout extends ViewGroup
 
         mPreviousFoldFactor = mFoldFactor;
 
-		/*
-		 * Reset all the transformation matrices back to identity before
-		 * computing the new transformation
-		 */
-        for (int x = 0; x < mNumberOfFolds; x++)
-        {
+        /*
+         * Reset all the transformation matrices back to identity before
+         * computing the new transformation
+         */
+        for (int x = 0; x < mNumberOfFolds; x++) {
             mMatrix[x].reset();
         }
 
@@ -479,11 +395,11 @@ public class BaseFoldingLayout extends ViewGroup
         float translatedDistancePerFold = Math.round(translatedDistance
                 / mNumberOfFolds);
 
-		/*
-		 * For an odd number of folds, the rounding error may cause the
-		 * translatedDistancePerFold to be grater than the max fold width or
-		 * height.
-		 */
+        /*
+         * For an odd number of folds, the rounding error may cause the
+         * translatedDistancePerFold to be grater than the max fold width or
+         * height.
+         */
         mFoldDrawWidth = mFoldMaxWidth < translatedDistancePerFold ? translatedDistancePerFold
                 : mFoldMaxWidth;
         mFoldDrawHeight = mFoldMaxHeight < translatedDistancePerFold ? translatedDistancePerFold
@@ -492,30 +408,28 @@ public class BaseFoldingLayout extends ViewGroup
         float translatedDistanceFoldSquared = translatedDistancePerFold
                 * translatedDistancePerFold;
 
-		/*
-		 * Calculate the depth of the fold into the screen using pythagorean
-		 * theorem.
-		 */
+        /*
+         * Calculate the depth of the fold into the screen using pythagorean
+         * theorem.
+         */
         float depth = mIsHorizontal ? (float) Math
                 .sqrt((double) (mFoldDrawWidth * mFoldDrawWidth - translatedDistanceFoldSquared))
                 : (float) Math
                 .sqrt((double) (mFoldDrawHeight * mFoldDrawHeight - translatedDistanceFoldSquared));
 
-		/*
-		 * The size of some object is always inversely proportional to the
-		 * distance it is away from the viewpoint. The constant can be varied to
-		 * to affect the amount of perspective.
-		 */
+        /*
+         * The size of some object is always inversely proportional to the
+         * distance it is away from the viewpoint. The constant can be varied to
+         * to affect the amount of perspective.
+         */
         float scaleFactor = DEPTH_CONSTANT / (DEPTH_CONSTANT + depth);
 
         float scaledWidth, scaledHeight, bottomScaledPoint, topScaledPoint, rightScaledPoint, leftScaledPoint;
 
-        if (mIsHorizontal)
-        {
+        if (mIsHorizontal) {
             scaledWidth = mFoldDrawWidth * cTranslationFactor;
             scaledHeight = mFoldDrawHeight * scaleFactor;
-        } else
-        {
+        } else {
             scaledWidth = mFoldDrawWidth * scaleFactor;
             scaledHeight = mFoldDrawHeight * cTranslationFactor;
         }
@@ -529,7 +443,7 @@ public class BaseFoldingLayout extends ViewGroup
         float anchorPoint = mIsHorizontal ? mAnchorFactor * mOriginalWidth
                 : mAnchorFactor * mOriginalHeight;
 
-		/* The fold along which the anchor point is located. */
+        /* The fold along which the anchor point is located. */
         float midFold = mIsHorizontal ? (anchorPoint / mFoldDrawWidth)
                 : anchorPoint / mFoldDrawHeight;
 
@@ -542,17 +456,15 @@ public class BaseFoldingLayout extends ViewGroup
         mSrc[6] = mFoldDrawWidth;
         mSrc[7] = mFoldDrawHeight;
 
-		/*
-		 * Computes the transformation matrix for each fold using the values
-		 * calculated above.
-		 */
-        for (int x = 0; x < mNumberOfFolds; x++)
-        {
+        /*
+         * Computes the transformation matrix for each fold using the values
+         * calculated above.
+         */
+        for (int x = 0; x < mNumberOfFolds; x++) {
 
             boolean isEven = (x % 2 == 0);
 
-            if (mIsHorizontal)
-            {
+            if (mIsHorizontal) {
                 mDst[0] = (anchorPoint > x * mFoldDrawWidth) ? anchorPoint
                         + (x - midFold) * scaledWidth : anchorPoint
                         - (midFold - x) * scaledWidth;
@@ -565,9 +477,7 @@ public class BaseFoldingLayout extends ViewGroup
                 mDst[5] = isEven ? topScaledPoint : 0;
                 mDst[6] = mDst[4];
                 mDst[7] = isEven ? bottomScaledPoint : mFoldDrawHeight;
-
-            } else
-            {
+            } else {
                 mDst[0] = isEven ? 0 : leftScaledPoint;
                 mDst[1] = (anchorPoint > x * mFoldDrawHeight) ? anchorPoint
                         + (x - midFold) * scaledHeight : anchorPoint
@@ -582,60 +492,53 @@ public class BaseFoldingLayout extends ViewGroup
                 mDst[7] = mDst[3];
             }
 
-			/*
-			 * Pixel fractions are present for odd number of folds which need to
-			 * be rounded off here.
-			 */
-            for (int y = 0; y < 8; y++)
-            {
+            /*
+             * Pixel fractions are present for odd number of folds which need to
+             * be rounded off here.
+             */
+            for (int y = 0; y < 8; y++) {
                 mDst[y] = Math.round(mDst[y]);
             }
 
-			/*
-			 * If it so happens that any of the folds have reached a point where
-			 * the width or height of that fold is 0, then nothing needs to be
-			 * drawn onto the canvas because the view is essentially completely
-			 * folded.
-			 */
-            if (mIsHorizontal)
-            {
-                if (mDst[4] <= mDst[0] || mDst[6] <= mDst[2])
-                {
+            /*
+             * If it so happens that any of the folds have reached a point where
+             * the width or height of that fold is 0, then nothing needs to be
+             * drawn onto the canvas because the view is essentially completely
+             * folded.
+             */
+            if (mIsHorizontal) {
+                if (mDst[4] <= mDst[0] || mDst[6] <= mDst[2]) {
                     mShouldDraw = false;
                     return;
                 }
-            } else
-            {
-                if (mDst[3] <= mDst[1] || mDst[7] <= mDst[5])
-                {
+            } else {
+                if (mDst[3] <= mDst[1] || mDst[7] <= mDst[5]) {
                     mShouldDraw = false;
                     return;
                 }
             }
 
-			/* Sets the shadow and bitmap transformation matrices. */
+            /* Sets the shadow and bitmap transformation matrices. */
             mMatrix[x].setPolyToPoly(mSrc, 0, mDst, 0, NUM_OF_POLY_POINTS / 2);
         }
-		/*
-		 * The shadows on the folds are split into two parts: Solid shadows and
-		 * gradients. Every other fold has a solid shadow which overlays the
-		 * whole fold. Similarly, the folds in between these alternating folds
-		 * also have an overlaying shadow. However, it is a gradient that takes
-		 * up part of the fold as opposed to a solid shadow overlaying the whole
-		 * fold.
-		 */
+        /*
+         * The shadows on the folds are split into two parts: Solid shadows and
+         * gradients. Every other fold has a solid shadow which overlays the
+         * whole fold. Similarly, the folds in between these alternating folds
+         * also have an overlaying shadow. However, it is a gradient that takes
+         * up part of the fold as opposed to a solid shadow overlaying the whole
+         * fold.
+         */
 
-		/* Solid shadow paint object. */
+        /* Solid shadow paint object. */
         int alpha = (int) (mFoldFactor * 255 * SHADING_ALPHA);
 
         mSolidShadow.setColor(Color.argb(alpha, 0, 0, 0));
 
-        if (mIsHorizontal)
-        {
+        if (mIsHorizontal) {
             mShadowGradientMatrix.setScale(mFoldDrawWidth, 1);
             mShadowLinearGradient.setLocalMatrix(mShadowGradientMatrix);
-        } else
-        {
+        } else {
             mShadowGradientMatrix.setScale(1, mFoldDrawHeight);
             mShadowLinearGradient.setLocalMatrix(mShadowGradientMatrix);
         }
@@ -644,83 +547,71 @@ public class BaseFoldingLayout extends ViewGroup
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas)
-    {
+    protected void dispatchDraw(Canvas canvas) {
         /**
          * If prepareFold has not been called or if preparation has not
          * completed yet, then no custom drawing will take place so only need to
          * invoke super's onDraw and return.
          */
-        if (!mIsFoldPrepared || mFoldFactor == 0)
-        {
+        if (!mIsFoldPrepared || mFoldFactor == 0) {
             super.dispatchDraw(canvas);
             return;
         }
 
-        if (!mShouldDraw)
-        {
+        if (!mShouldDraw) {
             return;
         }
 
         Rect src;
-		/*
-		 * Draws the bitmaps and shadows on the canvas with the appropriate
-		 * transformations.
-		 */
-        for (int x = 0; x < mNumberOfFolds; x++)
-        {
+        /*
+         * Draws the bitmaps and shadows on the canvas with the appropriate
+         * transformations.
+         */
+        for (int x = 0; x < mNumberOfFolds; x++) {
 
             src = mFoldRectArray[x];
-			/* The canvas is saved and restored for every individual fold */
+            /* The canvas is saved and restored for every individual fold */
             canvas.save();
 
-			/*
-			 * Concatenates the canvas with the transformation matrix for the
-			 * the segment of the view corresponding to the actual image being
-			 * displayed.
-			 */
+            /*
+             * Concatenates the canvas with the transformation matrix for the
+             * the segment of the view corresponding to the actual image being
+             * displayed.
+             */
             canvas.concat(mMatrix[x]);
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2)
-            {
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 mDstRect.set(0, 0, src.width(), src.height());
                 canvas.drawBitmap(mFullBitmap, src, mDstRect, null);
-            } else
-            {
-				/*
-				 * The same transformation matrix is used for both the shadow
-				 * and the image segment. The canvas is clipped to account for
-				 * the size of each fold and is translated so they are drawn in
-				 * the right place. The shadow is then drawn on top of the
-				 * different folds using the sametransformation matrix.
-				 */
+            } else {
+                /*
+                 * The same transformation matrix is used for both the shadow
+                 * and the image segment. The canvas is clipped to account for
+                 * the size of each fold and is translated so they are drawn in
+                 * the right place. The shadow is then drawn on top of the
+                 * different folds using the sametransformation matrix.
+                 */
                 canvas.clipRect(0, 0, src.right - src.left, src.bottom
                         - src.top);
 
-                if (mIsHorizontal)
-                {
+                if (mIsHorizontal) {
                     canvas.translate(-src.left, 0);
-                } else
-                {
+                } else {
                     canvas.translate(0, -src.top);
                 }
 
                 super.dispatchDraw(canvas);
 
-                if (mIsHorizontal)
-                {
+                if (mIsHorizontal) {
                     canvas.translate(src.left, 0);
-                } else
-                {
+                } else {
                     canvas.translate(0, src.top);
                 }
             }
-			/* Draws the shadows corresponding to this specific fold. */
-            if (x % 2 == 0)
-            {
+            /* Draws the shadows corresponding to this specific fold. */
+            if (x % 2 == 0) {
                 canvas.drawRect(0, 0, mFoldDrawWidth, mFoldDrawHeight,
                         mSolidShadow);
-            } else
-            {
+            } else {
                 canvas.drawRect(0, 0, mFoldDrawWidth, mFoldDrawHeight,
                         mGradientShadow);
             }
@@ -729,4 +620,23 @@ public class BaseFoldingLayout extends ViewGroup
         }
     }
 
+    public static enum Orientation {
+        VERTICAL, HORIZONTAL
+    }
+
+    /**
+     * The custom exception to be thrown so as to limit the number of views in
+     * this layout to at most one.
+     */
+    private class NumberOfFoldingLayoutChildrenException extends
+            RuntimeException {
+        /**
+         *
+         */
+        private static final long serialVersionUID = 1L;
+
+        public NumberOfFoldingLayoutChildrenException(String message) {
+            super(message);
+        }
+    }
 }

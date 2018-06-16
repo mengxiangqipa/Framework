@@ -10,10 +10,19 @@ import java.util.List;
 
 /**
  * @author YobertJomi
- *         className NetworkAvailableUtils
- *         created at  2017/8/4  11:21
+ * className NetworkAvailableUtils
+ * created at  2017/8/4  11:21
  */
 public class NetworkUtil {
+    //没有网络连接
+    public static final int NETWORN_NONE = 0;
+    //wifi连接
+    public static final int NETWORN_WIFI = 1;
+    //手机网络数据连接类型
+    public static final int NETWORN_2G = 2;
+    public static final int NETWORN_3G = 3;
+    public static final int NETWORN_4G = 4;
+    public static final int NETWORN_MOBILE = 5;
     private static volatile NetworkUtil singleton;
 
     public static NetworkUtil getInstance() {
@@ -47,7 +56,6 @@ public class NetworkUtil {
         }
         return false;
     }
-
 
     /**
      * 判断GPS是否打开
@@ -101,18 +109,9 @@ public class NetworkUtil {
         return false;
     }
 
-    //没有网络连接
-    public static final int NETWORN_NONE = 0;
-    //wifi连接
-    public static final int NETWORN_WIFI = 1;
-    //手机网络数据连接类型
-    public static final int NETWORN_2G = 2;
-    public static final int NETWORN_3G = 3;
-    public static final int NETWORN_4G = 4;
-    public static final int NETWORN_MOBILE = 5;
-
     /**
      * 获取当前网络连接类型
+     *
      * @param context context
      * @return int
      */
@@ -171,7 +170,8 @@ public class NetworkUtil {
                             return NETWORN_4G;
                         default:
                             //中国移动 联通 电信 三种3G制式
-                            if (strSubTypeName.equalsIgnoreCase("TD-SCDMA") || strSubTypeName.equalsIgnoreCase("WCDMA") || strSubTypeName.equalsIgnoreCase("CDMA2000")) {
+                            if (strSubTypeName.equalsIgnoreCase("TD-SCDMA") || strSubTypeName.equalsIgnoreCase
+                                    ("WCDMA") || strSubTypeName.equalsIgnoreCase("CDMA2000")) {
                                 return NETWORN_3G;
                             } else {
                                 return NETWORN_MOBILE;

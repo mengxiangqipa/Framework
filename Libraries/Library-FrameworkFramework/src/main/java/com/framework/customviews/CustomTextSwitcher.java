@@ -16,15 +16,13 @@ import android.widget.ViewSwitcher;
 
 import com.framework.R;
 
-
 /**
  * @author Yobert Jomi
- *         className AutoTextView
- *         created at  2016/7/22  15:55
+ * className AutoTextView
+ * created at  2016/7/22  15:55
  */
 public class CustomTextSwitcher extends TextSwitcher implements
-        ViewSwitcher.ViewFactory
-{
+        ViewSwitcher.ViewFactory {
 
     private float mHeight = 14;
     private Context mContext;
@@ -35,15 +33,14 @@ public class CustomTextSwitcher extends TextSwitcher implements
     //mInDown,mOutDown分离构成向下翻页的进出动画
     private Rotate3dAnimation mInDown;
     private Rotate3dAnimation mOutDown;
+    private View customView;
 
-    public CustomTextSwitcher(Context context)
-    {
+    public CustomTextSwitcher(Context context) {
         this(context, null);
         // TODO Auto-generated constructor stub
     }
 
-    public CustomTextSwitcher(Context context, AttributeSet attrs)
-    {
+    public CustomTextSwitcher(Context context, AttributeSet attrs) {
         super(context, attrs);
 //        TypedValue typedValue = new TypedValue();
 //        context.getTheme().resolveAttribute(android.R.attr.textAppearanceLarge, typedValue, true);
@@ -61,8 +58,7 @@ public class CustomTextSwitcher extends TextSwitcher implements
         init();
     }
 
-    private void init()
-    {
+    private void init() {
         // TODO Auto-generated method stub
         setFactory(this);
         mInUp = createAnim(-90, 0, true, true);
@@ -76,8 +72,7 @@ public class CustomTextSwitcher extends TextSwitcher implements
         setOutAnimation(mOutUp);
     }
 
-    private Rotate3dAnimation createAnim(float start, float end, boolean turnIn, boolean turnUp)
-    {
+    private Rotate3dAnimation createAnim(float start, float end, boolean turnIn, boolean turnUp) {
         final Rotate3dAnimation rotation = new Rotate3dAnimation(start, end, turnIn, turnUp);
         rotation.setDuration(800);
         rotation.setFillAfter(false);
@@ -93,10 +88,8 @@ public class CustomTextSwitcher extends TextSwitcher implements
      *     </pre>
      */
     @Override
-    public View makeView()
-    {
-        if (customView != null)
-        {
+    public View makeView() {
+        if (customView != null) {
             return customView;
         }
         LayoutParams parmas = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -110,10 +103,7 @@ public class CustomTextSwitcher extends TextSwitcher implements
         return t;
     }
 
-    private View customView;
-
-    public void makeViewCustom(View customView)
-    {
+    public void makeViewCustom(View customView) {
         this.customView = customView;
         makeView();
     }
@@ -125,14 +115,11 @@ public class CustomTextSwitcher extends TextSwitcher implements
      *     lastModified 2016/7/22  16:00
      *     </pre>
      */
-    public void previous()
-    {
-        if (getInAnimation() != mInDown)
-        {
+    public void previous() {
+        if (getInAnimation() != mInDown) {
             setInAnimation(mInDown);
         }
-        if (getOutAnimation() != mOutDown)
-        {
+        if (getOutAnimation() != mOutDown) {
             setOutAnimation(mOutDown);
         }
     }
@@ -144,30 +131,25 @@ public class CustomTextSwitcher extends TextSwitcher implements
      *     lastModified 2016/7/22  16:00
      *     </pre>
      */
-    public void next()
-    {
-        if (getInAnimation() != mInUp)
-        {
+    public void next() {
+        if (getInAnimation() != mInUp) {
             setInAnimation(mInUp);
         }
-        if (getOutAnimation() != mOutUp)
-        {
+        if (getOutAnimation() != mOutUp) {
             setOutAnimation(mOutUp);
         }
     }
 
-    class Rotate3dAnimation extends Animation
-    {
+    class Rotate3dAnimation extends Animation {
         private final float mFromDegrees;
         private final float mToDegrees;
-        private float mCenterX;
-        private float mCenterY;
         private final boolean mTurnIn;
         private final boolean mTurnUp;
+        private float mCenterX;
+        private float mCenterY;
         private Camera mCamera;
 
-        public Rotate3dAnimation(float fromDegrees, float toDegrees, boolean turnIn, boolean turnUp)
-        {
+        public Rotate3dAnimation(float fromDegrees, float toDegrees, boolean turnIn, boolean turnUp) {
             mFromDegrees = fromDegrees;
             mToDegrees = toDegrees;
             mTurnIn = turnIn;
@@ -175,8 +157,7 @@ public class CustomTextSwitcher extends TextSwitcher implements
         }
 
         @Override
-        public void initialize(int width, int height, int parentWidth, int parentHeight)
-        {
+        public void initialize(int width, int height, int parentWidth, int parentHeight) {
             super.initialize(width, height, parentWidth, parentHeight);
             mCamera = new Camera();
             mCenterY = getHeight() / 2;
@@ -184,8 +165,7 @@ public class CustomTextSwitcher extends TextSwitcher implements
         }
 
         @Override
-        protected void applyTransformation(float interpolatedTime, Transformation t)
-        {
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
             final float fromDegrees = mFromDegrees;
             float degrees = fromDegrees + ((mToDegrees - fromDegrees) * interpolatedTime);
 
@@ -197,11 +177,9 @@ public class CustomTextSwitcher extends TextSwitcher implements
             final Matrix matrix = t.getMatrix();
 
             camera.save();
-            if (mTurnIn)
-            {
+            if (mTurnIn) {
                 camera.translate(0.0f, derection * mCenterY * (interpolatedTime - 1.0f), 0.0f);
-            } else
-            {
+            } else {
                 camera.translate(0.0f, derection * mCenterY * (interpolatedTime), 0.0f);
             }
             camera.rotateX(degrees);

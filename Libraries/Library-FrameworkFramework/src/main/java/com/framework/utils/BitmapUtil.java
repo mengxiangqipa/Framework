@@ -29,8 +29,8 @@ import java.net.URL;
 
 /**
  * @author YobertJomi
- *         className BitmapUtil
- *         created at  2017/8/4  11:29
+ * className BitmapUtil
+ * created at  2017/8/4  11:29
  */
 public class BitmapUtil {
     private static volatile BitmapUtil singleton;
@@ -324,6 +324,7 @@ public class BitmapUtil {
         // }
         savePicAfterShotScreen(getScreenShot(activity), filePath, fileName);
     }
+
     /**
      * Android 读取Assets中图片 String path = "file:///android_asset/文件名";
      *
@@ -331,7 +332,7 @@ public class BitmapUtil {
      * @return Bitmap
      */
     public Bitmap getBitmapFromAssetsFile(Context context,
-                                                 String filePath) {
+                                          String filePath) {
         Bitmap image = null;
         AssetManager am = context.getResources().getAssets();
         try {
@@ -343,6 +344,7 @@ public class BitmapUtil {
         }
         return image;
     }
+
     /**
      * 从一个bitmap获取它转成的base64code
      *
@@ -361,6 +363,7 @@ public class BitmapUtil {
             return "";
         }
     }
+
     /**
      * 获取网落图片资源
      *
@@ -378,7 +381,7 @@ public class BitmapUtil {
      * @return
      */
     public Bitmap getBitmapFromNetwork(String url, int bitmapWidth,
-                                              int bitmapHeight) {
+                                       int bitmapHeight) {
         Y.y("getHttpBitmap1");
         URL myFileURL = null;
         Bitmap bitmap = null;
@@ -438,6 +441,7 @@ public class BitmapUtil {
         Y.y("bitmap==null:" + (null == bitmap));
         return bitmap;
     }
+
     /**
      * 获取网落图片资源
      *
@@ -445,7 +449,7 @@ public class BitmapUtil {
      * @return
      */
     public File getBitmapFromNetwork(String url, String path,
-                                            String fileName) {
+                                     String fileName) {
         return getBitmapFromNetwork(url, path, fileName, 0, 0);
     }
 
@@ -460,7 +464,7 @@ public class BitmapUtil {
      * @return
      */
     public File getBitmapFromNetwork(String url, String path,
-                                            String fileName, int bitmapWidth, int bitmapHeight) {
+                                     String fileName, int bitmapWidth, int bitmapHeight) {
         Y.y("getHttpBitmap1");
         URL myFileURL = null;
         Bitmap bitmap = null;
@@ -547,7 +551,7 @@ public class BitmapUtil {
      * 添加文字到图片，类似水印文字。
      */
     public Bitmap getBitmapWatermark(Context mContext, int gResId,
-                                            String text, String text2) {
+                                     String text, String text2) {
         Resources resources = mContext.getResources();
         Bitmap bitmap = BitmapFactory.decodeResource(resources, gResId);
         return getBitmapWatermark(mContext, bitmap, text, text2);
@@ -562,9 +566,8 @@ public class BitmapUtil {
      * @return
      */
     public Bitmap getBitmapWatermark(Context mContext, Bitmap bitmap,
-                                            String text, String text2) {
+                                     String text, String text2) {
         return getBitmapWatermark(mContext, bitmap, text, text2, 18);
-
     }
 
     /**
@@ -577,7 +580,7 @@ public class BitmapUtil {
      * @return
      */
     public Bitmap getBitmapWatermark(Context mContext, Bitmap bitmap,
-                                            String text, String text2, int textSize) {
+                                     String text, String text2, int textSize) {
         if (null == bitmap) {
             return null;
         }

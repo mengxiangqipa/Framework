@@ -9,8 +9,8 @@ import java.util.Locale;
  * DateAndTimeUtil
  *
  * @author YobertJomi
- *         className DateAndTimeUtil
- *         created at  2017/8/4  11:29
+ * className DateAndTimeUtil
+ * created at  2017/8/4  11:29
  */
 public class DateAndTimeUtil {
     private static volatile DateAndTimeUtil singleton;
@@ -27,6 +27,30 @@ public class DateAndTimeUtil {
             }
         }
         return singleton;
+    }
+
+    /**
+     * @param timeMillis 毫秒数
+     * @return 30:32
+     */
+    public static String getTimeFilmFormat(String timeMillis) {
+        try {
+            Y.y("String_timeMillis:" + timeMillis);
+            float timeMillis2 = Float.parseFloat(timeMillis);
+            Y.y("timeMillis2:" + timeMillis2);
+            if (timeMillis2 <= 0) {
+                return "0:00";
+            }
+            int seconds = (int) ((timeMillis2 / 1000) / 60);
+            int minute = (int) ((timeMillis2 / 1000) % 60);
+            String secondsT = (seconds >= 10) ? String.valueOf(minute) : "0"
+                    + String.valueOf(seconds);
+            String minuteT = (minute >= 10) ? String.valueOf(minute) : "0"
+                    + String.valueOf(minute);
+            return secondsT + ":" + minuteT;
+        } catch (Exception e) {
+            return "0:00";
+        }
     }
 
     /**
@@ -98,31 +122,5 @@ public class DateAndTimeUtil {
         String minuteT = (minute >= 10) ? String.valueOf(minute) : "0"
                 + String.valueOf(minute);
         return secondsT + ":" + minuteT;
-
-    }
-
-    /**
-     * @param timeMillis 毫秒数
-     * @return 30:32
-     */
-    public static String getTimeFilmFormat(String timeMillis) {
-        try {
-            Y.y("String_timeMillis:" + timeMillis);
-            float timeMillis2 = Float.parseFloat(timeMillis);
-            Y.y("timeMillis2:" + timeMillis2);
-            if (timeMillis2 <= 0) {
-                return "0:00";
-            }
-            int seconds = (int) ((timeMillis2 / 1000) / 60);
-            int minute = (int) ((timeMillis2 / 1000) % 60);
-            String secondsT = (seconds >= 10) ? String.valueOf(minute) : "0"
-                    + String.valueOf(seconds);
-            String minuteT = (minute >= 10) ? String.valueOf(minute) : "0"
-                    + String.valueOf(minute);
-            return secondsT + ":" + minuteT;
-        } catch (Exception e) {
-            return "0:00";
-        }
-
     }
 }

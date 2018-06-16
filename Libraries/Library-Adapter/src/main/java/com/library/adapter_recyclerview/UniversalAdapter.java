@@ -14,7 +14,6 @@ import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,19 +24,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * recyclerView的adapter
  *
- * @author Yangjie
- *         className UniversalRecyclerViewAdapter
- *         created at  2016/12/26  12:38
+ * @author YobertJomi
+ * className UniversalRecyclerViewAdapter
+ * created at  2016/12/26  12:38
  */
 @SuppressWarnings("unused")
 public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
     private final int layoutId;
-    private List<D> list;
     /**
      * 普通类型
      */
@@ -50,6 +47,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
      * footer类型
      */
     private final int VIEW_TYPE_FOODER = 2000000;
+    private List<D> list;
     private SparseArrayCompat<View> headersSparseArray = new SparseArrayCompat<>();
     private SparseArrayCompat<View> footerSparseArray = new SparseArrayCompat<>();
     private int initHeaderKey = 0;
@@ -249,7 +247,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
      */
     public void addFooterViewAfterSetAdapter(@NonNull View footer) {
         addFooterView(footer);
-        notifyItemInserted((footerSparseArray.size() <= 0 ? 0 : footerSparseArray.size() - 1) + (list == null ? 0 : list.size()) + headersSparseArray.size());
+        notifyItemInserted((footerSparseArray.size() <= 0 ? 0 : footerSparseArray.size() - 1) + (list == null ? 0 :
+                list.size()) + headersSparseArray.size());
     }
 
     /**
@@ -262,8 +261,10 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         if (index >= 0) {
             headersSparseArray.removeAt(index);
             notifyItemRemoved(index);
-            //notifyItemRangeChanged刷新会触发onCreateViewHolder，headerView，footerView是用sparseArray存储，在onCreateViewHolder只能取出一次，
-            // 而LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false)每次都是新view，所以不能调用刷新header，footer
+            //notifyItemRangeChanged刷新会触发onCreateViewHolder，headerView，footerView是用sparseArray存储，在onCreateViewHolder
+            // 只能取出一次，
+            // 而LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false)
+            // 每次都是新view，所以不能调用刷新header，footer
             //况且header,footer不需要刷新
         }
     }
@@ -447,7 +448,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
                     if (getItemViewType(position) >= VIEW_TYPE_HEADER) {
                         return gridLayoutManager.getSpanCount();
                     } else {
-                        return resetSpanSizeLookup(position,gridLayoutManager.getSpanCount(), getItemViewType(position));
+                        return resetSpanSizeLookup(position, gridLayoutManager.getSpanCount(), getItemViewType
+                                (position));
                     }
                 }
             });
@@ -455,7 +457,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public int resetSpanSizeLookup(int realPosition,int spanCount, int getItemViewType) {
+    public int resetSpanSizeLookup(int realPosition, int spanCount, int getItemViewType) {
         return 1;
     }
 
@@ -582,7 +584,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             return this;
         }
 
-        public UniversalViewHolder setOnClickListener(@IdRes int viewId, @NonNull View.OnClickListener onClickListener) {
+        public UniversalViewHolder setOnClickListener(@IdRes int viewId, @NonNull View.OnClickListener
+                onClickListener) {
             View view = getView(viewId);
             if (null != view)
                 view.setOnClickListener(onClickListener);
@@ -594,7 +597,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             return this;
         }
 
-        public UniversalViewHolder setOnTouchListener(@IdRes int viewId, @NonNull View.OnTouchListener onTouchListener) {
+        public UniversalViewHolder setOnTouchListener(@IdRes int viewId, @NonNull View.OnTouchListener
+                onTouchListener) {
             View view = getView(viewId);
             if (null != view)
                 view.setOnTouchListener(onTouchListener);
@@ -602,5 +606,4 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         }
         //在这里添加其他方法
     }
-
 }

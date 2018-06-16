@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.library.pulltorefresh">
+          package="com.library.pulltorefresh">
 
     <application
         android:allowBackup="true"

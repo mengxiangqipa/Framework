@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
  * 正则匹配util
  *
  * @author Yangjie
- *         className RegularUtil
- *         created at  2017/4/12  10:42
+ * className RegularUtil
+ * created at  2017/4/12  10:42
  */
 public class RegularUtil {
 
@@ -40,7 +40,8 @@ public class RegularUtil {
         if (TextUtils.isEmpty(email)) {
             return false;
         }
-        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
+        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\" +
+                ".]*[a-zA-Z]$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(email);
         return m.matches();
@@ -170,6 +171,7 @@ public class RegularUtil {
 
     /**
      * 验证强密码
+     *
      * @param pwd pwd
      */
     public int isPwdStrong(String pwd) {
@@ -181,7 +183,8 @@ public class RegularUtil {
                     .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
             // 强：字母+数字+特殊字符
             Pattern p3 = Pattern
-                    .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*]+$)(?![\\d!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
+                    .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*]+$)" +
+                            "(?![\\d!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
             Matcher m1 = p1.matcher(pwd);
             Matcher m2 = p2.matcher(pwd);
             Matcher m3 = p3.matcher(pwd);

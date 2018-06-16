@@ -7,21 +7,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 //import android.support.v4.app.FragmentStatePagerAdapter;
 
-
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-	
-	String[] titles;// = new String[]{"hot", "trending" ,"fresh"};
+
+    String[] titles;// = new String[]{"hot", "trending" ,"fresh"};
     private ArrayList<Fragment> fragmentsList;
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.fragmentsList=new ArrayList<Fragment>();
+        this.fragmentsList = new ArrayList<Fragment>();
     }
 
     public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments, String[] titles) {
         super(fm);
         this.fragmentsList = fragments;
-        this.titles=titles;
+        this.titles = titles;
     }
 
     @Override
@@ -37,21 +36,20 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         return super.getItemPosition(object);
-    	//return PagerAdapter.POSITION_NONE;
+        //return PagerAdapter.POSITION_NONE;
     }
 
     @Override
-	public CharSequence getPageTitle(int position) {
-		// TODO Auto-generated method stub
-		return titles[position];
-	}
-    
-    public void add(Fragment fragment) {
-    	fragmentsList.add(fragment);
-	}
+    public CharSequence getPageTitle(int position) {
+        // TODO Auto-generated method stub
+        return titles[position];
+    }
 
-	public void addAll(ArrayList<Fragment> fragments) {
-		this.fragmentsList.addAll(getCount(), fragments);
-		
-	}
+    public void add(Fragment fragment) {
+        fragmentsList.add(fragment);
+    }
+
+    public void addAll(ArrayList<Fragment> fragments) {
+        this.fragmentsList.addAll(getCount(), fragments);
+    }
 }

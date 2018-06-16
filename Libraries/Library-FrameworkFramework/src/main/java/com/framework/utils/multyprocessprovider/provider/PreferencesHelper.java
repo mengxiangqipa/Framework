@@ -24,7 +24,12 @@ public class PreferencesHelper {
     public PreferencesHelper(Context context) {
         this.context = context.getApplicationContext();
         this.contentResolver = this.context.getContentResolver();
+    }
 
+    private static void closeQuietly(Cursor cursor) {
+        if (cursor != null) {
+            cursor.close();
+        }
     }
 
     public void insert(@NonNull final String moduleName, @NonNull final String key, @Nullable Object value) {
@@ -71,11 +76,4 @@ public class PreferencesHelper {
         closeQuietly(cursor);
         return list;
     }
-
-    private static void closeQuietly(Cursor cursor) {
-        if (cursor != null) {
-            cursor.close();
-        }
-    }
-
 }

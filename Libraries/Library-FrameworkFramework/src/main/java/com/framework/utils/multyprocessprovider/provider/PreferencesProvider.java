@@ -16,8 +16,7 @@ import com.framework.utils.multyprocessprovider.provider.preferences.Preferences
 
 import java.util.Arrays;
 
-public class PreferencesProvider extends BaseContentProvider
-{
+public class PreferencesProvider extends BaseContentProvider {
     private static final String TAG = PreferencesProvider.class.getSimpleName();
 
     private static final boolean DEBUG = BuildConfig.DEBUG;
@@ -25,21 +24,17 @@ public class PreferencesProvider extends BaseContentProvider
     private static final String TYPE_CURSOR_ITEM = "vnd.android.cursor.item/";
     private static final String TYPE_CURSOR_DIR = "vnd.android.cursor.dir/";
     private static final String LIBRARY_DEFAULT_AUTHORITY = "com.demo.demo";
-
-    public static String CONTENT_URI_BASE;
-
     private static final int URI_TYPE_PREFERENCES = 0;
     private static final int URI_TYPE_PREFERENCES_ID = 1;
-
-
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+    public static String CONTENT_URI_BASE;
 
-    public static String getHostProviderAuthorities(Context appContext) throws IllegalArgumentException
-    {
+    public static String getHostProviderAuthorities(Context appContext) throws IllegalArgumentException {
         ApplicationInfo applicationInfo = null;
         try {
-            applicationInfo = appContext.getPackageManager().getApplicationInfo(appContext.getPackageName(), PackageManager.GET_META_DATA);
-            if(applicationInfo == null){
+            applicationInfo = appContext.getPackageManager().getApplicationInfo(appContext.getPackageName(),
+                    PackageManager.GET_META_DATA);
+            if (applicationInfo == null) {
                 throw new IllegalArgumentException(" get application info = null, has no meta data! ");
             }
             return applicationInfo.metaData.getString("CONTENTPROVIDER_KEY");
@@ -47,6 +42,13 @@ public class PreferencesProvider extends BaseContentProvider
             throw new IllegalArgumentException(" get application info error! ", e);
         }
     }
+
+    private static void setAuthority(String authority) {
+        URI_MATCHER.addURI(authority, PreferencesColumns.TABLE_NAME, URI_TYPE_PREFERENCES);
+        URI_MATCHER.addURI(authority, PreferencesColumns.TABLE_NAME + "/#", URI_TYPE_PREFERENCES_ID);
+        CONTENT_URI_BASE = "content://" + authority;
+    }
+
     @Override
     public boolean onCreate() {
         super.onCreate();
@@ -58,19 +60,13 @@ public class PreferencesProvider extends BaseContentProvider
                     "Multiple apps with the same authority will fail to install on the same device.\n " +
                     "Please add the line: \n " +
                     "==================================================================================================\n " +
-                    " resValue \"string\", \"preferences_provider_authority\", \"${applicationId}.preferencesprovider\" \n " +
+                    " resValue \"string\", \"preferences_provider_authority\", \"${applicationId}" +
+                    ".preferencesprovider\" \n " +
                     "==================================================================================================\n " +
                     "in your build.gradle file");
         }
         setAuthority(authority);
         return true;
-    }
-
-    private static void setAuthority(String authority) {
-        URI_MATCHER.addURI(authority, PreferencesColumns.TABLE_NAME, URI_TYPE_PREFERENCES);
-        URI_MATCHER.addURI(authority, PreferencesColumns.TABLE_NAME + "/#", URI_TYPE_PREFERENCES_ID);
-        CONTENT_URI_BASE = "content://" + authority;
-
     }
 
     @Override
@@ -91,7 +87,6 @@ public class PreferencesProvider extends BaseContentProvider
                 return TYPE_CURSOR_DIR + PreferencesColumns.TABLE_NAME;
             case URI_TYPE_PREFERENCES_ID:
                 return TYPE_CURSOR_ITEM + PreferencesColumns.TABLE_NAME;
-
         }
         return null;
     }
@@ -111,22 +106,26 @@ public class PreferencesProvider extends BaseContentProvider
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         if (DEBUG)
-            Log.d(TAG, "update uri=" + uri + " values=" + values + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
+            Log.d(TAG, "update uri=" + uri + " values=" + values + " selection=" + selection + " selectionArgs=" +
+                    Arrays.toString(selectionArgs));
         return super.update(uri, values, selection, selectionArgs);
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         if (DEBUG)
-            Log.d(TAG, "delete uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
+            Log.d(TAG, "delete uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString
+                    (selectionArgs));
         return super.delete(uri, selection, selectionArgs);
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         if (DEBUG)
-            Log.d(TAG, "query uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs) + " sortOrder=" + sortOrder
-                    + " groupBy=" + uri.getQueryParameter(QUERY_GROUP_BY) + " having=" + uri.getQueryParameter(QUERY_HAVING) + " limit=" + uri.getQueryParameter(QUERY_LIMIT));
+            Log.d(TAG, "query uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString
+                    (selectionArgs) + " sortOrder=" + sortOrder
+                    + " groupBy=" + uri.getQueryParameter(QUERY_GROUP_BY) + " having=" + uri.getQueryParameter
+                    (QUERY_HAVING) + " limit=" + uri.getQueryParameter(QUERY_LIMIT));
         return super.query(uri, projection, selection, selectionArgs, sortOrder);
     }
 

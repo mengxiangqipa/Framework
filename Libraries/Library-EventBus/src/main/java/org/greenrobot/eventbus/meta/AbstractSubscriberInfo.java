@@ -15,78 +15,69 @@
  */
 package org.greenrobot.eventbus.meta;
 
-import java.lang.reflect.Method;
+import android.annotation.TargetApi;
 
 import org.greenrobot.eventbus.EventBusException;
 import org.greenrobot.eventbus.SubscriberMethod;
 import org.greenrobot.eventbus.ThreadMode;
 
-import android.annotation.TargetApi;
+import java.lang.reflect.Method;
 
-/** Base class for generated subscriber meta info classes created by annotation processing. */
-public abstract class AbstractSubscriberInfo implements SubscriberInfo
-{
-	private final Class subscriberClass;
-	private final Class<? extends SubscriberInfo> superSubscriberInfoClass;
-	private final boolean shouldCheckSuperclass;
+/**
+ * Base class for generated subscriber meta info classes created by annotation processing.
+ */
+public abstract class AbstractSubscriberInfo implements SubscriberInfo {
+    private final Class subscriberClass;
+    private final Class<? extends SubscriberInfo> superSubscriberInfoClass;
+    private final boolean shouldCheckSuperclass;
 
-	protected AbstractSubscriberInfo(Class subscriberClass, Class<? extends SubscriberInfo> superSubscriberInfoClass, boolean shouldCheckSuperclass)
-	{
-		this.subscriberClass = subscriberClass;
-		this.superSubscriberInfoClass = superSubscriberInfoClass;
-		this.shouldCheckSuperclass = shouldCheckSuperclass;
-	}
+    protected AbstractSubscriberInfo(Class subscriberClass, Class<? extends SubscriberInfo> superSubscriberInfoClass,
+                                     boolean shouldCheckSuperclass) {
+        this.subscriberClass = subscriberClass;
+        this.superSubscriberInfoClass = superSubscriberInfoClass;
+        this.shouldCheckSuperclass = shouldCheckSuperclass;
+    }
 
-	@Override
-	public Class getSubscriberClass()
-	{
-		return subscriberClass;
-	}
+    @Override
+    public Class getSubscriberClass() {
+        return subscriberClass;
+    }
 
-	@Override
-	@TargetApi(19)
-	public SubscriberInfo getSuperSubscriberInfo()
-	{
-		if (superSubscriberInfoClass == null)
-		{
-			return null;
-		}
-		try
-		{
-			return superSubscriberInfoClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
+    @Override
+    @TargetApi(19)
+    public SubscriberInfo getSuperSubscriberInfo() {
+        if (superSubscriberInfoClass == null) {
+            return null;
+        }
+        try {
+            return superSubscriberInfoClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	@Override
-	public boolean shouldCheckSuperclass()
-	{
-		return shouldCheckSuperclass;
-	}
+    @Override
+    public boolean shouldCheckSuperclass() {
+        return shouldCheckSuperclass;
+    }
 
-	protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, String tag)
-	{
-		return createSubscriberMethod(methodName, eventType, ThreadMode.POSTING, 0, false, tag);
-	}
+    protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, String tag) {
+        return createSubscriberMethod(methodName, eventType, ThreadMode.POSTING, 0, false, tag);
+    }
 
-	protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, ThreadMode threadMode, String tag)
-	{
-		return createSubscriberMethod(methodName, eventType, threadMode, 0, false, tag);
-	}
+    protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, ThreadMode threadMode,
+                                                      String tag) {
+        return createSubscriberMethod(methodName, eventType, threadMode, 0, false, tag);
+    }
 
-	@SuppressWarnings("unchecked")
-	protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, ThreadMode threadMode, int priority, boolean sticky, String tag)
-	{//我修改
-		try
-		{
-			Method method = subscriberClass.getDeclaredMethod(methodName, eventType);
-			return new SubscriberMethod(method, eventType, threadMode, priority, sticky, tag);
-		} catch (NoSuchMethodException e)
-		{
-			throw new EventBusException("Could not find subscriber method in " + subscriberClass + ". Maybe a missing ProGuard rule?", e);
-		}
-	}
-
+    @SuppressWarnings("unchecked")
+    protected SubscriberMethod createSubscriberMethod(String methodName, Class<?> eventType, ThreadMode threadMode,
+                                                      int priority, boolean sticky, String tag) {//我修改
+        try {
+            Method method = subscriberClass.getDeclaredMethod(methodName, eventType);
+            return new SubscriberMethod(method, eventType, threadMode, priority, sticky, tag);
+        } catch (NoSuchMethodException e) {
+            throw new EventBusException("Could not find subscriber method in " + subscriberClass + ". Maybe a missing ProGuard rule?", e);
+        }
+    }
 }

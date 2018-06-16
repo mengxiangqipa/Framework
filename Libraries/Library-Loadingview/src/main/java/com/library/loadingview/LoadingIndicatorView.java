@@ -1,7 +1,5 @@
 package com.library.loadingview;
 
-import com.library.loadingview.indicators.BallPulseIndicator;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,474 +16,397 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
-public class LoadingIndicatorView extends View
-{
+import com.library.loadingview.indicators.BallPulseIndicator;
 
-	private static final String TAG = "LoadingIndicatorView";
+public class LoadingIndicatorView extends View {
 
-	private static final int MIN_SHOW_TIME = 500; // ms
-	private static final int MIN_DELAY = 500; // ms
+    private static final String TAG = "LoadingIndicatorView";
 
-	private long mStartTime = -1;
+    private static final int MIN_SHOW_TIME = 500; // ms
+    private static final int MIN_DELAY = 500; // ms
+    int mMinWidth;
+    int mMaxWidth;
+    int mMinHeight;
+    int mMaxHeight;
+    private long mStartTime = -1;
+    private boolean mPostedHide = false;
+    private boolean mPostedShow = false;
+    private boolean mDismissed = false;
+    private Indicator mIndicator;
+    private int mIndicatorColor;
+    private boolean mShouldStartAnimationDrawable;
+    private final Runnable mDelayedHide = new Runnable() {
 
-	private boolean mPostedHide = false;
+        @Override
+        public void run() {
+            mPostedHide = false;
+            mStartTime = -1;
+            setVisibility(View.GONE);
+        }
+    };
+    private final Runnable mDelayedShow = new Runnable() {
 
-	private boolean mPostedShow = false;
+        @Override
+        public void run() {
+            mPostedShow = false;
+            if (!mDismissed) {
+                mStartTime = System.currentTimeMillis();
+                setVisibility(View.VISIBLE);
+            }
+        }
+    };
 
-	private boolean mDismissed = false;
+    public LoadingIndicatorView(Context context) {
+        super(context);
+        init(context, null, 0, 0);
+    }
 
-	private final Runnable mDelayedHide = new Runnable()
-	{
+    public LoadingIndicatorView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs, 0, R.style.LoadingIndicatorView);
+    }
 
-		@Override
-		public void run()
-		{
-			mPostedHide = false;
-			mStartTime = -1;
-			setVisibility(View.GONE);
-		}
-	};
+    public LoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs, defStyleAttr, R.style.LoadingIndicatorView);
+    }
 
-	private final Runnable mDelayedShow = new Runnable()
-	{
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public LoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs, defStyleAttr, R.style.LoadingIndicatorView);
+    }
 
-		@Override
-		public void run()
-		{
-			mPostedShow = false;
-			if (!mDismissed)
-			{
-				mStartTime = System.currentTimeMillis();
-				setVisibility(View.VISIBLE);
-			}
-		}
-	};
+    @SuppressWarnings("deprecation")
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        mMinWidth = 24;
+        mMaxWidth = 48;
+        mMinHeight = 24;
+        mMaxHeight = 48;
 
-	int mMinWidth;
-	int mMaxWidth;
-	int mMinHeight;
-	int mMaxHeight;
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingIndicatorView, defStyleAttr,
+                defStyleRes);
 
-	private Indicator mIndicator;
-	private int mIndicatorColor;
+        mMinWidth = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minWidth, mMinWidth);
+        mMaxWidth = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxWidth, mMaxWidth);
+        mMinHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minHeight, mMinHeight);
+        mMaxHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxHeight, mMaxHeight);
+        String indicatorName = a.getString(R.styleable.LoadingIndicatorView_indicatorName);
+        mIndicatorColor = a.getColor(R.styleable.LoadingIndicatorView_indicatorColor, getResources().getColor(R.color
+                .colorAccent));
+        setIndicator(indicatorName);
+        if (mIndicator == null) {
+            setIndicator(BallPulseIndicator.class);
+        }
+        a.recycle();
+    }
 
-	private boolean mShouldStartAnimationDrawable;
+    public Indicator getIndicator() {
+        return mIndicator;
+    }
 
-	public LoadingIndicatorView(Context context)
-	{
-		super(context);
-		init(context, null, 0, 0);
-	}
+    public void setIndicator(@NonNull Class cls) {
+        Indicator indicator = null;
+        try {
+            indicator = (Indicator) cls.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setIndicator(indicator);
+    }
 
-	public LoadingIndicatorView(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-		init(context, attrs, 0, R.style.LoadingIndicatorView);
-	}
+    public void setIndicator(Indicator d) {
+        if (mIndicator != d) {
+            if (mIndicator != null) {
+                mIndicator.setCallback(null);
+                unscheduleDrawable(mIndicator);
+            }
 
-	public LoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr)
-	{
-		super(context, attrs, defStyleAttr);
-		init(context, attrs, defStyleAttr, R.style.LoadingIndicatorView);
-	}
+            mIndicator = d;
+            //need to set indicator color again if you didn't specified when you update the indicator .
+            setIndicatorColor(mIndicatorColor);
+            if (d != null) {
+                d.setCallback(this);
+            }
+            postInvalidate();
+        }
+    }
 
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public LoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-	{
-		super(context, attrs, defStyleAttr, defStyleRes);
-		init(context, attrs, defStyleAttr, R.style.LoadingIndicatorView);
-	}
+    /**
+     * setIndicatorColor(0xFF00FF00)
+     * or
+     * setIndicatorColor(Color.BLUE)
+     * or
+     * setIndicatorColor(Color.parseColor("#FF4081"))
+     * or
+     * setIndicatorColor(0xFF00FF00)
+     * or
+     * setIndicatorColor(getResources().getColor(android.R.color.black))
+     *
+     * @param color color
+     */
+    public void setIndicatorColor(@ColorInt int color) {
+        this.mIndicatorColor = color;
+        mIndicator.setColor(color);
+    }
 
-	@SuppressWarnings("deprecation")
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
-	{
-		mMinWidth = 24;
-		mMaxWidth = 48;
-		mMinHeight = 24;
-		mMaxHeight = 48;
+    /**
+     * You should pay attention to pass this parameter with two way:
+     * for example:
+     * 1. Only class Name,like "SimpleIndicator".(This way would use default package name with
+     * "com.wang.avi.indicators")
+     * 2. Class name with full package,like "com.my.android.indicators.SimpleIndicator".
+     *
+     * @param indicatorName the class must be extend Indicator .
+     */
+    public void setIndicator(String indicatorName) {
+        if (TextUtils.isEmpty(indicatorName)) {
+            return;
+        }
+        StringBuilder drawableClassName = new StringBuilder();
+        if (!indicatorName.contains(".")) {
+            String defaultPackageName = getClass().getPackage().getName();
+            drawableClassName.append(defaultPackageName).append(".indicators").append(".");
+        }
+        drawableClassName.append(indicatorName);
+        try {
+            Class<?> drawableClass = Class.forName(drawableClassName.toString());
+            Indicator indicator = (Indicator) drawableClass.newInstance();
+            setIndicator(indicator);
+        } catch (ClassNotFoundException e) {
+            Log.e(TAG, "Didn't find your class , check the name again !");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingIndicatorView, defStyleAttr, defStyleRes);
+    public void smoothToShow() {
+        startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+        setVisibility(VISIBLE);
+    }
 
-		mMinWidth = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minWidth, mMinWidth);
-		mMaxWidth = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxWidth, mMaxWidth);
-		mMinHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minHeight, mMinHeight);
-		mMaxHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxHeight, mMaxHeight);
-		String indicatorName = a.getString(R.styleable.LoadingIndicatorView_indicatorName);
-		mIndicatorColor = a.getColor(R.styleable.LoadingIndicatorView_indicatorColor, getResources().getColor(R.color.colorAccent));
-		setIndicator(indicatorName);
-		if (mIndicator == null)
-		{
-			setIndicator(BallPulseIndicator.class);
-		}
-		a.recycle();
-	}
+    public void smoothToHide() {
+        startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+        setVisibility(GONE);
+    }
 
-	public Indicator getIndicator()
-	{
-		return mIndicator;
-	}
+    public void hide() {
+        mDismissed = true;
+        removeCallbacks(mDelayedShow);
+        long diff = System.currentTimeMillis() - mStartTime;
+        if (diff >= MIN_SHOW_TIME || mStartTime == -1) {
+            // The progress spinner has been shown long enough
+            // OR was not shown yet. If it wasn't shown yet,
+            // it will just never be shown.
+            setVisibility(View.GONE);
+        } else {
+            // The progress spinner is shown, but not long enough,
+            // so put a delayed message in to hide it when its been
+            // shown long enough.
+            if (!mPostedHide) {
+                postDelayed(mDelayedHide, MIN_SHOW_TIME - diff);
+                mPostedHide = true;
+            }
+        }
+    }
 
-	public void setIndicator(Indicator d)
-	{
-		if (mIndicator != d)
-		{
-			if (mIndicator != null)
-			{
-				mIndicator.setCallback(null);
-				unscheduleDrawable(mIndicator);
-			}
+    public void show() {
+        // Reset the start time.
+        mStartTime = -1;
+        mDismissed = false;
+        removeCallbacks(mDelayedHide);
+        if (!mPostedShow) {
+            postDelayed(mDelayedShow, MIN_DELAY);
+            mPostedShow = true;
+        }
+    }
 
-			mIndicator = d;
-			//need to set indicator color again if you didn't specified when you update the indicator .
-			setIndicatorColor(mIndicatorColor);
-			if (d != null)
-			{
-				d.setCallback(this);
-			}
-			postInvalidate();
-		}
-	}
+    @Override
+    protected boolean verifyDrawable(@NonNull Drawable who) {
+        return who == mIndicator || super.verifyDrawable(who);
+    }
 
-	/**
-	 * setIndicatorColor(0xFF00FF00)
-	 * or
-	 * setIndicatorColor(Color.BLUE)
-	 * or
-	 * setIndicatorColor(Color.parseColor("#FF4081"))
-	 * or
-	 * setIndicatorColor(0xFF00FF00)
-	 * or
-	 * setIndicatorColor(getResources().getColor(android.R.color.black))
-	 *
-	 * @param color color
-	 */
-	public void setIndicatorColor(@ColorInt int color)
-	{
-		this.mIndicatorColor = color;
-		mIndicator.setColor(color);
-	}
+    private void startAnimation() {
+        if (getVisibility() != VISIBLE) {
+            return;
+        }
 
-	/**
-	 * You should pay attention to pass this parameter with two way:
-	 * for example:
-	 * 1. Only class Name,like "SimpleIndicator".(This way would use default package name with
-	 * "com.wang.avi.indicators")
-	 * 2. Class name with full package,like "com.my.android.indicators.SimpleIndicator".
-	 *
-	 * @param indicatorName the class must be extend Indicator .
-	 */
-	public void setIndicator(String indicatorName)
-	{
-		if (TextUtils.isEmpty(indicatorName))
-		{
-			return;
-		}
-		StringBuilder drawableClassName = new StringBuilder();
-		if (!indicatorName.contains("."))
-		{
-			String defaultPackageName = getClass().getPackage().getName();
-			drawableClassName.append(defaultPackageName).append(".indicators").append(".");
-		}
-		drawableClassName.append(indicatorName);
-		try
-		{
-			Class<?> drawableClass = Class.forName(drawableClassName.toString());
-			Indicator indicator = (Indicator) drawableClass.newInstance();
-			setIndicator(indicator);
-		} catch (ClassNotFoundException e)
-		{
-			Log.e(TAG, "Didn't find your class , check the name again !");
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+        if (mIndicator != null) {
+            mShouldStartAnimationDrawable = true;
+        }
+        postInvalidate();
+    }
 
-	public void smoothToShow()
-	{
-		startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
-		setVisibility(VISIBLE);
-	}
+    private void stopAnimation() {
+        if (mIndicator != null) {
+            mIndicator.stop();
+            mShouldStartAnimationDrawable = false;
+        }
+        postInvalidate();
+    }
 
-	public void smoothToHide()
-	{
-		startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
-		setVisibility(GONE);
-	}
+    @Override
+    public void setVisibility(int v) {
+        if (getVisibility() != v) {
+            super.setVisibility(v);
+            if (v == GONE || v == INVISIBLE) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        }
+    }
 
-	public void hide()
-	{
-		mDismissed = true;
-		removeCallbacks(mDelayedShow);
-		long diff = System.currentTimeMillis() - mStartTime;
-		if (diff >= MIN_SHOW_TIME || mStartTime == -1)
-		{
-			// The progress spinner has been shown long enough
-			// OR was not shown yet. If it wasn't shown yet,
-			// it will just never be shown.
-			setVisibility(View.GONE);
-		} else
-		{
-			// The progress spinner is shown, but not long enough,
-			// so put a delayed message in to hide it when its been
-			// shown long enough.
-			if (!mPostedHide)
-			{
-				postDelayed(mDelayedHide, MIN_SHOW_TIME - diff);
-				mPostedHide = true;
-			}
-		}
-	}
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == GONE || visibility == INVISIBLE) {
+            stopAnimation();
+        } else {
+            startAnimation();
+        }
+    }
 
-	public void show()
-	{
-		// Reset the start time.
-		mStartTime = -1;
-		mDismissed = false;
-		removeCallbacks(mDelayedHide);
-		if (!mPostedShow)
-		{
-			postDelayed(mDelayedShow, MIN_DELAY);
-			mPostedShow = true;
-		}
-	}
+    @Override
+    public void invalidateDrawable(@NonNull Drawable dr) {
+        if (verifyDrawable(dr)) {
+            final Rect dirty = dr.getBounds();
+            final int scrollX = getScrollX() + getPaddingLeft();
+            final int scrollY = getScrollY() + getPaddingTop();
 
-	@Override
-	protected boolean verifyDrawable(@NonNull Drawable who)
-	{
-		return who == mIndicator || super.verifyDrawable(who);
-	}
+            invalidate(dirty.left + scrollX, dirty.top + scrollY, dirty.right + scrollX, dirty.bottom + scrollY);
+        } else {
+            super.invalidateDrawable(dr);
+        }
+    }
 
-	private void startAnimation()
-	{
-		if (getVisibility() != VISIBLE)
-		{
-			return;
-		}
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        updateDrawableBounds(w, h);
+    }
 
-		if (mIndicator != null)
-		{
-			mShouldStartAnimationDrawable = true;
-		}
-		postInvalidate();
-	}
+    private void updateDrawableBounds(int w, int h) {
+        // onDraw will translate the canvas so we draw starting at 0,0.
+        // Subtract out padding for the purposes of the calculations below.
+        w -= getPaddingRight() + getPaddingLeft();
+        h -= getPaddingTop() + getPaddingBottom();
 
-	private void stopAnimation()
-	{
-		if (mIndicator != null)
-		{
-			mIndicator.stop();
-			mShouldStartAnimationDrawable = false;
-		}
-		postInvalidate();
-	}
+        int right = w;
+        int bottom = h;
+        int top = 0;
+        int left = 0;
 
-	@Override
-	public void setVisibility(int v)
-	{
-		if (getVisibility() != v)
-		{
-			super.setVisibility(v);
-			if (v == GONE || v == INVISIBLE)
-			{
-				stopAnimation();
-			} else
-			{
-				startAnimation();
-			}
-		}
-	}
+        if (mIndicator != null) {
+            // Maintain aspect ratio. Certain kinds of animated drawables
+            // get very confused otherwise.
+            final int intrinsicWidth = mIndicator.getIntrinsicWidth();
+            final int intrinsicHeight = mIndicator.getIntrinsicHeight();
+            final float intrinsicAspect = (float) intrinsicWidth / intrinsicHeight;
+            final float boundAspect = (float) w / h;
+            if (intrinsicAspect != boundAspect) {
+                if (boundAspect > intrinsicAspect) {
+                    // New width is larger. Make it smaller to match height.
+                    final int width = (int) (h * intrinsicAspect);
+                    left = (w - width) / 2;
+                    right = left + width;
+                } else {
+                    // New height is larger. Make it smaller to match width.
+                    final int height = (int) (w * (1 / intrinsicAspect));
+                    top = (h - height) / 2;
+                    bottom = top + height;
+                }
+            }
+            mIndicator.setBounds(left, top, right, bottom);
+        }
+    }
 
-	@Override
-	protected void onVisibilityChanged(@NonNull View changedView, int visibility)
-	{
-		super.onVisibilityChanged(changedView, visibility);
-		if (visibility == GONE || visibility == INVISIBLE)
-		{
-			stopAnimation();
-		} else
-		{
-			startAnimation();
-		}
-	}
+    @Override
+    protected synchronized void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        drawTrack(canvas);
+    }
 
-	@Override
-	public void invalidateDrawable(@NonNull Drawable dr)
-	{
-		if (verifyDrawable(dr))
-		{
-			final Rect dirty = dr.getBounds();
-			final int scrollX = getScrollX() + getPaddingLeft();
-			final int scrollY = getScrollY() + getPaddingTop();
+    void drawTrack(@NonNull Canvas canvas) {
+        final Drawable d = mIndicator;
+        if (d != null) {
+            // Translate canvas so a indeterminate circular progress bar with padding
+            // rotates properly in its animation
+            final int saveCount = canvas.save();
 
-			invalidate(dirty.left + scrollX, dirty.top + scrollY, dirty.right + scrollX, dirty.bottom + scrollY);
-		} else
-		{
-			super.invalidateDrawable(dr);
-		}
-	}
+            canvas.translate(getPaddingLeft(), getPaddingTop());
 
-	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh)
-	{
-		updateDrawableBounds(w, h);
-	}
+            d.draw(canvas);
+            canvas.restoreToCount(saveCount);
 
-	private void updateDrawableBounds(int w, int h)
-	{
-		// onDraw will translate the canvas so we draw starting at 0,0.
-		// Subtract out padding for the purposes of the calculations below.
-		w -= getPaddingRight() + getPaddingLeft();
-		h -= getPaddingTop() + getPaddingBottom();
+            if (mShouldStartAnimationDrawable && d instanceof Animatable) {
+                ((Animatable) d).start();
+                mShouldStartAnimationDrawable = false;
+            }
+        }
+    }
 
-		int right = w;
-		int bottom = h;
-		int top = 0;
-		int left = 0;
+    @Override
+    protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int dw = 0;
+        int dh = 0;
 
-		if (mIndicator != null)
-		{
-			// Maintain aspect ratio. Certain kinds of animated drawables
-			// get very confused otherwise.
-			final int intrinsicWidth = mIndicator.getIntrinsicWidth();
-			final int intrinsicHeight = mIndicator.getIntrinsicHeight();
-			final float intrinsicAspect = (float) intrinsicWidth / intrinsicHeight;
-			final float boundAspect = (float) w / h;
-			if (intrinsicAspect != boundAspect)
-			{
-				if (boundAspect > intrinsicAspect)
-				{
-					// New width is larger. Make it smaller to match height.
-					final int width = (int) (h * intrinsicAspect);
-					left = (w - width) / 2;
-					right = left + width;
-				} else
-				{
-					// New height is larger. Make it smaller to match width.
-					final int height = (int) (w * (1 / intrinsicAspect));
-					top = (h - height) / 2;
-					bottom = top + height;
-				}
-			}
-			mIndicator.setBounds(left, top, right, bottom);
-		}
-	}
+        final Drawable d = mIndicator;
+        if (d != null) {
+            dw = Math.max(mMinWidth, Math.min(mMaxWidth, d.getIntrinsicWidth()));
+            dh = Math.max(mMinHeight, Math.min(mMaxHeight, d.getIntrinsicHeight()));
+        }
 
-	@Override
-	protected synchronized void onDraw(Canvas canvas)
-	{
-		super.onDraw(canvas);
-		drawTrack(canvas);
-	}
+        updateDrawableState();
 
-	void drawTrack(@NonNull Canvas canvas)
-	{
-		final Drawable d = mIndicator;
-		if (d != null)
-		{
-			// Translate canvas so a indeterminate circular progress bar with padding
-			// rotates properly in its animation
-			final int saveCount = canvas.save();
+        dw += getPaddingLeft() + getPaddingRight();
+        dh += getPaddingTop() + getPaddingBottom();
 
-			canvas.translate(getPaddingLeft(), getPaddingTop());
+        final int measuredWidth = resolveSizeAndState(dw, widthMeasureSpec, 0);
+        final int measuredHeight = resolveSizeAndState(dh, heightMeasureSpec, 0);
+        setMeasuredDimension(measuredWidth, measuredHeight);
+    }
 
-			d.draw(canvas);
-			canvas.restoreToCount(saveCount);
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+        updateDrawableState();
+    }
 
-			if (mShouldStartAnimationDrawable && d instanceof Animatable)
-			{
-				((Animatable) d).start();
-				mShouldStartAnimationDrawable = false;
-			}
-		}
-	}
+    private void updateDrawableState() {
+        final int[] state = getDrawableState();
+        if (mIndicator != null && mIndicator.isStateful()) {
+            mIndicator.setState(state);
+        }
+    }
 
-	@Override
-	protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-	{
-		int dw = 0;
-		int dh = 0;
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void drawableHotspotChanged(float x, float y) {
+        super.drawableHotspotChanged(x, y);
 
-		final Drawable d = mIndicator;
-		if (d != null)
-		{
-			dw = Math.max(mMinWidth, Math.min(mMaxWidth, d.getIntrinsicWidth()));
-			dh = Math.max(mMinHeight, Math.min(mMaxHeight, d.getIntrinsicHeight()));
-		}
+        if (mIndicator != null) {
+            mIndicator.setHotspot(x, y);
+        }
+    }
 
-		updateDrawableState();
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        startAnimation();
+        removeCallbacks();
+    }
 
-		dw += getPaddingLeft() + getPaddingRight();
-		dh += getPaddingTop() + getPaddingBottom();
+    @Override
+    protected void onDetachedFromWindow() {
+        stopAnimation();
+        // This should come after stopAnimation(), otherwise an invalidate message remains in the
+        // queue, which can prevent the entire view hierarchy from being GC'ed during a rotation
+        super.onDetachedFromWindow();
+        removeCallbacks();
+    }
 
-		final int measuredWidth = resolveSizeAndState(dw, widthMeasureSpec, 0);
-		final int measuredHeight = resolveSizeAndState(dh, heightMeasureSpec, 0);
-		setMeasuredDimension(measuredWidth, measuredHeight);
-	}
-
-	@Override
-	protected void drawableStateChanged()
-	{
-		super.drawableStateChanged();
-		updateDrawableState();
-	}
-
-	private void updateDrawableState()
-	{
-		final int[] state = getDrawableState();
-		if (mIndicator != null && mIndicator.isStateful())
-		{
-			mIndicator.setState(state);
-		}
-	}
-
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	@Override
-	public void drawableHotspotChanged(float x, float y)
-	{
-		super.drawableHotspotChanged(x, y);
-
-		if (mIndicator != null)
-		{
-			mIndicator.setHotspot(x, y);
-		}
-	}
-
-	@Override
-	protected void onAttachedToWindow()
-	{
-		super.onAttachedToWindow();
-		startAnimation();
-		removeCallbacks();
-	}
-
-	@Override
-	protected void onDetachedFromWindow()
-	{
-		stopAnimation();
-		// This should come after stopAnimation(), otherwise an invalidate message remains in the
-		// queue, which can prevent the entire view hierarchy from being GC'ed during a rotation
-		super.onDetachedFromWindow();
-		removeCallbacks();
-	}
-
-	private void removeCallbacks()
-	{
-		removeCallbacks(mDelayedHide);
-		removeCallbacks(mDelayedShow);
-	}
-
-	public void setIndicator(@NonNull Class cls)
-	{
-		Indicator indicator = null;
-		try
-		{
-			indicator = (Indicator) cls.newInstance();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		setIndicator(indicator);
-	}
-
+    private void removeCallbacks() {
+        removeCallbacks(mDelayedHide);
+        removeCallbacks(mDelayedShow);
+    }
 }

@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author YobertJomi
- *         className CommonPagerAdapter
- *         created at  2017/7/17  16:46
+ * className CommonPagerAdapter
+ * created at  2017/7/17  16:46
  */
 
 public class CommonPagerAdapter extends FragmentPagerAdapter {
@@ -27,12 +27,12 @@ public class CommonPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return null!=fragmentList&&fragmentList.size()>position?fragmentList.get(position):null;
+        return null != fragmentList && fragmentList.size() > position ? fragmentList.get(position) : null;
     }
 
     @Override
     public int getCount() {
-        return null!=fragmentList&&fragmentList.size()>0?fragmentList.size():0;
+        return null != fragmentList && fragmentList.size() > 0 ? fragmentList.size() : 0;
     }
 
     @Override

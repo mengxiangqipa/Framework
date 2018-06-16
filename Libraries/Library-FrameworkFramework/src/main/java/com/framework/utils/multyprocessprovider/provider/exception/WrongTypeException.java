@@ -1,7 +1,6 @@
 package com.framework.utils.multyprocessprovider.provider.exception;
 
-public class WrongTypeException extends RuntimeException
-{
+public class WrongTypeException extends RuntimeException {
     public WrongTypeException() {
     }
 

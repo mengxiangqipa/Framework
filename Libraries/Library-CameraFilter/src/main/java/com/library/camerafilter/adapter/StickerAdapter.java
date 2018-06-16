@@ -8,23 +8,19 @@ import com.libray.camerafilter.R;
 import com.muzhi.camerasdk.library.utils.ViewHolder;
 import com.squareup.picasso.Picasso;
 
-
 /**
  * 贴纸库Adapter
  */
-public class StickerAdapter extends CommonListAdapter<Filter_Sticker_Info>
-{
+public class StickerAdapter extends CommonListAdapter<Filter_Sticker_Info> {
 
-    public StickerAdapter(Context context)
-    {
+    public StickerAdapter(Context context) {
         super(context);
         this.mContext = mContext;
         this.mLayoutId = R.layout.camerasdk_list_item_sticker;
     }
 
     @Override
-    public void getCommonView(ViewHolder helper, Filter_Sticker_Info item)
-    {
+    public void getCommonView(ViewHolder helper, Filter_Sticker_Info item) {
         // TODO Auto-generated method stub
 
         ImageView image = (ImageView) helper.getView(R.id.iv_sticker);
@@ -36,7 +32,6 @@ public class StickerAdapter extends CommonListAdapter<Filter_Sticker_Info>
                 .resize(120, 120)
                 .centerCrop()
                 .into(image);
-
     }
 }
 

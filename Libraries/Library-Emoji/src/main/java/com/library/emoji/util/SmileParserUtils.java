@@ -28,26 +28,93 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SmileParserUtils
-{
+public class SmileParserUtils {
 
-    private static volatile SmileParserUtils singleton;
-
-    public static SmileParserUtils getInstance()
-    {
-        if (singleton == null)
-        {
-            synchronized (SmileParserUtils.class)
-            {
-                if (singleton == null)
-                {
-                    singleton = new SmileParserUtils();
-                }
-            }
-        }
-        return singleton;
-    }
-
+    /**
+     * 表情资源文件
+     */
+    public static final int[] resDrawable1 = new int[]{
+            R.drawable.bb_01, R.drawable.bb_02, R.drawable.bb_03, R.drawable.bb_04,
+            R.drawable.bb_05, R.drawable.bb_06, R.drawable.bb_07, R.drawable.bb_08,
+            R.drawable.bb_09, R.drawable.bb_10, R.drawable.bb_11, R.drawable.bb_12,
+            R.drawable.bb_13, R.drawable.bb_14, R.drawable.bb_15, R.drawable.bb_16,
+            R.drawable.bb_17, R.drawable.bb_18, R.drawable.bb_19, R.drawable.bb_20,
+            R.drawable.bb_21, R.drawable.bb_22, R.drawable.bb_23, R.drawable.bb_24,
+            R.drawable.bb_25, R.drawable.bb_26, R.drawable.bb_27, R.drawable.bb_28,
+            R.drawable.bb_29, R.drawable.bb_30, R.drawable.bb_31, R.drawable.bb_32,
+            R.drawable.bb_33, R.drawable.bb_34, R.drawable.bb_35, R.drawable.bb_36,
+            R.drawable.bb_37, R.drawable.bb_38, R.drawable.bb_39, R.drawable.bb_40,
+            R.drawable.bb_41, R.drawable.bb_42, R.drawable.bb_43, R.drawable.bb_44,
+            R.drawable.bb_45, R.drawable.bb_46, R.drawable.bb_47, R.drawable.bb_48,
+            R.drawable.bb_49, R.drawable.bb_50, R.drawable.bb_51, R.drawable.bb_52,
+            R.drawable.bb_53, R.drawable.bb_54, R.drawable.bb_55, R.drawable.bb_56,
+            R.drawable.bb_57, R.drawable.bb_58, R.drawable.bb_59, R.drawable.bb_60,
+            R.drawable.bb_61, R.drawable.bb_62, R.drawable.bb_63, R.drawable.bb_64,
+            R.drawable.bb_65, R.drawable.bb_66, R.drawable.bb_67, R.drawable.bb_68,
+            R.drawable.bb_69, R.drawable.bb_70, R.drawable.bb_71, R.drawable.bb_72,
+            R.drawable.bb_73, R.drawable.bb_74, R.drawable.bb_75, R.drawable.bb_76,
+            R.drawable.bb_77, R.drawable.bb_78, R.drawable.bb_79, R.drawable.bb_80
+    };
+    public static final int[] resDrawable2 = new int[]{
+            R.drawable.e00d, R.drawable.e00e, R.drawable.e00f, R.drawable.e010,
+            R.drawable.e10b, R.drawable.e011, R.drawable.e11a, R.drawable.e11b,
+            R.drawable.e11c, R.drawable.e14c, R.drawable.e022, R.drawable.e22e,
+            R.drawable.e22f, R.drawable.e023, R.drawable.e32e, R.drawable.e40a,
+            R.drawable.e40b, R.drawable.e40c, R.drawable.e40d, R.drawable.e40e,
+            R.drawable.e40f, R.drawable.e41d, R.drawable.e41e, R.drawable.e41f,
+            R.drawable.e056, R.drawable.e057, R.drawable.e058, R.drawable.e059,
+            R.drawable.e105, R.drawable.e106, R.drawable.e107, R.drawable.e108,
+            R.drawable.e111, R.drawable.e327, R.drawable.e328, R.drawable.e329,
+            R.drawable.e330, R.drawable.e331, R.drawable.e332, R.drawable.e333,
+            R.drawable.e334, R.drawable.e335, R.drawable.e336, R.drawable.e337,
+            R.drawable.e401, R.drawable.e402, R.drawable.e403, R.drawable.e404,
+            R.drawable.e405, R.drawable.e406, R.drawable.e407, R.drawable.e408,
+            R.drawable.e409, R.drawable.e410, R.drawable.e411, R.drawable.e412,
+            R.drawable.e413, R.drawable.e414, R.drawable.e415, R.drawable.e416,
+            R.drawable.e417, R.drawable.e418, R.drawable.e420, R.drawable.e421,
+            R.drawable.e422, R.drawable.e423, R.drawable.e424, R.drawable.e425,
+            R.drawable.e426, R.drawable.e427, R.drawable.e428, R.drawable.e537
+    };
+    public static final int[] resDrawable3 = new int[]{
+            R.drawable.emoji_1f3a4, R.drawable.emoji_1f3b5, R.drawable.emoji_1f3b8, R.drawable.emoji_1f3c0,
+            R.drawable.emoji_1f3c6, R.drawable.emoji_1f4a3, R.drawable.emoji_1f4a4, R.drawable.emoji_1f4b0,
+            R.drawable.emoji_1f6b2, R.drawable.emoji_1f37a, R.drawable.emoji_1f40d, R.drawable.emoji_1f41b,
+            R.drawable.emoji_1f42d, R.drawable.emoji_1f42e, R.drawable.emoji_1f42f, R.drawable.emoji_1f45c,
+            R.drawable.emoji_1f47c, R.drawable.emoji_1f48d, R.drawable.emoji_1f49d, R.drawable.emoji_1f52b,
+            R.drawable.emoji_1f302, R.drawable.emoji_1f319, R.drawable.emoji_1f339, R.drawable.emoji_1f382,
+            R.drawable.emoji_1f384, R.drawable.emoji_1f419, R.drawable.emoji_1f420, R.drawable.emoji_1f427,
+            R.drawable.emoji_1f428, R.drawable.emoji_1f433, R.drawable.emoji_1f435, R.drawable.emoji_1f436,
+            R.drawable.emoji_1f438, R.drawable.emoji_1f444, R.drawable.emoji_1f451, R.drawable.emoji_1f459,
+            R.drawable.emoji_1f466, R.drawable.emoji_1f467, R.drawable.emoji_1f468, R.drawable.emoji_1f469,
+            R.drawable.emoji_1f484, R.drawable.emoji_1f525, R.drawable.emoji_1f680, R.drawable.emoji_1f684,
+            R.drawable.emoji_2b50, R.drawable.emoji_26a1, R.drawable.emoji_26bd, R.drawable.emoji_2600,
+            R.drawable.emoji_2601, R.drawable.emoji_2614, R.drawable.emoji_2615, R.drawable.emoji_2708,
+            R.drawable.emoji_2744, R.drawable.emoji_unknow
+    };
+    public static final int[] resDrawable4 = new int[]{
+            R.drawable.f000, R.drawable.f001, R.drawable.f002, R.drawable.f003, R.drawable.f004,
+            R.drawable.f005, R.drawable.f006, R.drawable.f007, R.drawable.f008, R.drawable.f009,
+            R.drawable.f010, R.drawable.f011, R.drawable.f012, R.drawable.f013, R.drawable.f014,
+            R.drawable.f015, R.drawable.f016, R.drawable.f017, R.drawable.f018, R.drawable.f019,
+            R.drawable.f020, R.drawable.f021, R.drawable.f022, R.drawable.f023, R.drawable.f024,
+            R.drawable.f025, R.drawable.f026, R.drawable.f027, R.drawable.f028, R.drawable.f029,
+            R.drawable.f030, R.drawable.f031, R.drawable.f032, R.drawable.f033, R.drawable.f034,
+            R.drawable.f035, R.drawable.f036, R.drawable.f038, R.drawable.f038, R.drawable.f039,
+            R.drawable.f040, R.drawable.f041, R.drawable.f042, R.drawable.f043, R.drawable.f044,
+            R.drawable.f045, R.drawable.f046, R.drawable.f047, R.drawable.f048, R.drawable.f049,
+            R.drawable.f050, R.drawable.f051, R.drawable.f052, R.drawable.f053, R.drawable.f054,
+            R.drawable.f055, R.drawable.f056, R.drawable.f057, R.drawable.f058, R.drawable.f059,
+            R.drawable.f060, R.drawable.f061, R.drawable.f062, R.drawable.f063, R.drawable.f064,
+            R.drawable.f065, R.drawable.f066, R.drawable.f067, R.drawable.f068, R.drawable.f069,
+            R.drawable.f070, R.drawable.f071, R.drawable.f072, R.drawable.f073, R.drawable.f074,
+            R.drawable.f075, R.drawable.f076, R.drawable.f077, R.drawable.f078, R.drawable.f079,
+            R.drawable.f080, R.drawable.f081, R.drawable.f082, R.drawable.f083, R.drawable.f084,
+            R.drawable.f085, R.drawable.f086, R.drawable.f087, R.drawable.f088, R.drawable.f089,
+            R.drawable.f090, R.drawable.f091, R.drawable.f092, R.drawable.f093, R.drawable.f094,
+            R.drawable.f095, R.drawable.f096, R.drawable.f097, R.drawable.f098, R.drawable.f099,
+            R.drawable.f100, R.drawable.f101, R.drawable.f102, R.drawable.f103, R.drawable.f104,
+            R.drawable.f105, R.drawable.f106
+    };
     private static final String bb_1 = "[:bb1]";
     private static final String bb_2 = "[:bb2]";
     private static final String bb_3 = "[:bb3]";
@@ -128,7 +195,18 @@ public class SmileParserUtils
     private static final String bb_78 = "[:bb78]";
     private static final String bb_79 = "[:bb79]";
     private static final String bb_80 = "[:bb80]";
-
+    /**
+     * 表情string
+     */
+    public static final String[] mood1 = new String[]{
+            bb_1, bb_2, bb_3, bb_4, bb_5, bb_6, bb_7, bb_8, bb_9, bb_10,
+            bb_11, bb_12, bb_13, bb_14, bb_15, bb_16, bb_17, bb_18, bb_19, bb_20,
+            bb_21, bb_22, bb_23, bb_24, bb_25, bb_26, bb_27, bb_28, bb_29, bb_30,
+            bb_31, bb_32, bb_33, bb_34, bb_35, bb_36, bb_37, bb_38, bb_39, bb_40,
+            bb_41, bb_42, bb_43, bb_44, bb_45, bb_46, bb_47, bb_48, bb_49, bb_50,
+            bb_51, bb_52, bb_53, bb_54, bb_55, bb_56, bb_57, bb_58, bb_59, bb_60,
+            bb_61, bb_62, bb_63, bb_64, bb_65, bb_66, bb_67, bb_68, bb_69, bb_70,
+            bb_71, bb_72, bb_73, bb_74, bb_75, bb_76, bb_77, bb_78, bb_79, bb_80};
     private static final String e00d = "[:e00d]";
     private static final String e00e = "[:e00e]";
     private static final String e00f = "[:e00f]";
@@ -201,8 +279,13 @@ public class SmileParserUtils
     private static final String e427 = "[:e427]";
     private static final String e428 = "[:e428]";
     private static final String e537 = "[:e537]";
-
-
+    public static final String[] mood2 = new String[]{
+            e00d, e00e, e00f, e010, e10b, e011, e11a, e11b, e11c, e14c, e022, e22e, e22f, e023,
+            e32e, e40a, e40b, e40c, e40d, e40e, e40f, e41d, e41e, e41f, e056, e057, e058, e059,
+            e105, e106, e107, e108, e111, e327, e328, e329, e330, e331, e332, e333, e334, e335,
+            e336, e337, e401, e402, e403, e404, e405, e406, e407, e408, e409, e410, e411, e412,
+            e413, e414, e415, e416, e417, e418, e420, e421, e422, e423, e424, e425, e426, e427,
+            e428, e537};
     private static final String emoji_1f3a4 = "[:emoji_1f3a4]";
     private static final String emoji_1f3b5 = "[:emoji_1f3b5]";
     private static final String emoji_1f3c0 = "[:emoji_1f3c0]";
@@ -254,7 +337,16 @@ public class SmileParserUtils
     private static final String emoji_2708 = "[:emoji_2708]";
     private static final String emoji_2744 = "[:emoji_2744]";
     private static final String emoji_unknow = "[:emoji_unknow]";
-
+    public static final String[] mood3 = new String[]{
+            emoji_1f3a4, emoji_1f3b5, emoji_1f3c0, emoji_1f3c6, emoji_1f4a3, emoji_1f4a4,
+            emoji_1f4b0, emoji_1f6b2, emoji_1f37a, emoji_1f40d, emoji_1f41b, emoji_1f42d,
+            emoji_1f42e, emoji_1f42f, emoji_1f45c, emoji_1f47c, emoji_1f48d, emoji_1f49d,
+            emoji_1f52b, emoji_1f302, emoji_1f319, emoji_1f339, emoji_1f382, emoji_1f384,
+            emoji_1f427, emoji_1f428, emoji_1f433, emoji_1f435, emoji_1f436, emoji_1f438,
+            emoji_1f444, emoji_1f451, emoji_1f459, emoji_1f466, emoji_1f467, emoji_1f468,
+            emoji_1f469, emoji_1f484, emoji_1f525, emoji_1f680, emoji_1f684, emoji_2b50,
+            emoji_26a1, emoji_26bd, emoji_2600, emoji_2601, emoji_2614, emoji_2615,
+            emoji_2708, emoji_2744, emoji_unknow};
     private static final String f000 = "[:f000]";
     private static final String f001 = "[:f001]";
     private static final String f002 = "[:f002]";
@@ -357,44 +449,12 @@ public class SmileParserUtils
     private static final String f099 = "[:f099]";
     private static final String f100 = "[:f100]";
     private static final String f101 = "[:f101]";
+    // ////////////////
     private static final String f102 = "[:f102]";
     private static final String f103 = "[:f103]";
     private static final String f104 = "[:f104]";
     private static final String f105 = "[:f105]";
     private static final String f106 = "[:f106]";
-    // ////////////////
-    /**
-     * 表情string
-     */
-    public static final String[] mood1 = new String[]{
-            bb_1, bb_2, bb_3, bb_4, bb_5, bb_6, bb_7, bb_8, bb_9, bb_10,
-            bb_11, bb_12, bb_13, bb_14, bb_15, bb_16, bb_17, bb_18, bb_19, bb_20,
-            bb_21, bb_22, bb_23, bb_24, bb_25, bb_26, bb_27, bb_28, bb_29, bb_30,
-            bb_31, bb_32, bb_33, bb_34, bb_35, bb_36, bb_37, bb_38, bb_39, bb_40,
-            bb_41, bb_42, bb_43, bb_44, bb_45, bb_46, bb_47, bb_48, bb_49, bb_50,
-            bb_51, bb_52, bb_53, bb_54, bb_55, bb_56, bb_57, bb_58, bb_59, bb_60,
-            bb_61, bb_62, bb_63, bb_64, bb_65, bb_66, bb_67, bb_68, bb_69, bb_70,
-            bb_71, bb_72, bb_73, bb_74, bb_75, bb_76, bb_77, bb_78, bb_79, bb_80};
-
-    public static final String[] mood2 = new String[]{
-            e00d, e00e, e00f, e010, e10b, e011, e11a, e11b, e11c, e14c, e022, e22e, e22f, e023,
-            e32e, e40a, e40b, e40c, e40d, e40e, e40f, e41d, e41e, e41f, e056, e057, e058, e059,
-            e105, e106, e107, e108, e111, e327, e328, e329, e330, e331, e332, e333, e334, e335,
-            e336, e337, e401, e402, e403, e404, e405, e406, e407, e408, e409, e410, e411, e412,
-            e413, e414, e415, e416, e417, e418, e420, e421, e422, e423, e424, e425, e426, e427,
-            e428, e537};
-
-    public static final String[] mood3 = new String[]{
-            emoji_1f3a4, emoji_1f3b5, emoji_1f3c0, emoji_1f3c6, emoji_1f4a3, emoji_1f4a4,
-            emoji_1f4b0, emoji_1f6b2, emoji_1f37a, emoji_1f40d, emoji_1f41b, emoji_1f42d,
-            emoji_1f42e, emoji_1f42f, emoji_1f45c, emoji_1f47c, emoji_1f48d, emoji_1f49d,
-            emoji_1f52b, emoji_1f302, emoji_1f319, emoji_1f339, emoji_1f382, emoji_1f384,
-            emoji_1f427, emoji_1f428, emoji_1f433, emoji_1f435, emoji_1f436, emoji_1f438,
-            emoji_1f444, emoji_1f451, emoji_1f459, emoji_1f466, emoji_1f467, emoji_1f468,
-            emoji_1f469, emoji_1f484, emoji_1f525, emoji_1f680, emoji_1f684, emoji_2b50,
-            emoji_26a1, emoji_26bd, emoji_2600, emoji_2601, emoji_2614, emoji_2615,
-            emoji_2708, emoji_2744, emoji_unknow};
-
     public static final String[] mood4 = new String[]{
             f000, f001, f002, f003, f004, f005, f006, f007, f008, f009, f010,
             f011, f012, f013, f014, f015, f016, f017, f018, f019, f020,
@@ -407,123 +467,42 @@ public class SmileParserUtils
             f081, f082, f083, f084, f085, f086, f087, f088, f089, f090,
             f091, f092, f093, f094, f095, f096, f097, f098, f099, f100,
             f101, f102, f103, f104, f105, f106};
-    /**
-     * 表情资源文件
-     */
-    public static final int[] resDrawable1 = new int[]{
-            R.drawable.bb_01, R.drawable.bb_02, R.drawable.bb_03, R.drawable.bb_04,
-            R.drawable.bb_05, R.drawable.bb_06, R.drawable.bb_07, R.drawable.bb_08,
-            R.drawable.bb_09, R.drawable.bb_10, R.drawable.bb_11, R.drawable.bb_12,
-            R.drawable.bb_13, R.drawable.bb_14, R.drawable.bb_15, R.drawable.bb_16,
-            R.drawable.bb_17, R.drawable.bb_18, R.drawable.bb_19, R.drawable.bb_20,
-            R.drawable.bb_21, R.drawable.bb_22, R.drawable.bb_23, R.drawable.bb_24,
-            R.drawable.bb_25, R.drawable.bb_26, R.drawable.bb_27, R.drawable.bb_28,
-            R.drawable.bb_29, R.drawable.bb_30, R.drawable.bb_31, R.drawable.bb_32,
-            R.drawable.bb_33, R.drawable.bb_34, R.drawable.bb_35, R.drawable.bb_36,
-            R.drawable.bb_37, R.drawable.bb_38, R.drawable.bb_39, R.drawable.bb_40,
-            R.drawable.bb_41, R.drawable.bb_42, R.drawable.bb_43, R.drawable.bb_44,
-            R.drawable.bb_45, R.drawable.bb_46, R.drawable.bb_47, R.drawable.bb_48,
-            R.drawable.bb_49, R.drawable.bb_50, R.drawable.bb_51, R.drawable.bb_52,
-            R.drawable.bb_53, R.drawable.bb_54, R.drawable.bb_55, R.drawable.bb_56,
-            R.drawable.bb_57, R.drawable.bb_58, R.drawable.bb_59, R.drawable.bb_60,
-            R.drawable.bb_61, R.drawable.bb_62, R.drawable.bb_63, R.drawable.bb_64,
-            R.drawable.bb_65, R.drawable.bb_66, R.drawable.bb_67, R.drawable.bb_68,
-            R.drawable.bb_69, R.drawable.bb_70, R.drawable.bb_71, R.drawable.bb_72,
-            R.drawable.bb_73, R.drawable.bb_74, R.drawable.bb_75, R.drawable.bb_76,
-            R.drawable.bb_77, R.drawable.bb_78, R.drawable.bb_79, R.drawable.bb_80
-    };
-    public static final int[] resDrawable2 = new int[]{
-            R.drawable.e00d, R.drawable.e00e, R.drawable.e00f, R.drawable.e010,
-            R.drawable.e10b, R.drawable.e011, R.drawable.e11a, R.drawable.e11b,
-            R.drawable.e11c, R.drawable.e14c, R.drawable.e022, R.drawable.e22e,
-            R.drawable.e22f, R.drawable.e023, R.drawable.e32e, R.drawable.e40a,
-            R.drawable.e40b, R.drawable.e40c, R.drawable.e40d, R.drawable.e40e,
-            R.drawable.e40f, R.drawable.e41d, R.drawable.e41e, R.drawable.e41f,
-            R.drawable.e056, R.drawable.e057, R.drawable.e058, R.drawable.e059,
-            R.drawable.e105, R.drawable.e106, R.drawable.e107, R.drawable.e108,
-            R.drawable.e111, R.drawable.e327, R.drawable.e328, R.drawable.e329,
-            R.drawable.e330, R.drawable.e331, R.drawable.e332, R.drawable.e333,
-            R.drawable.e334, R.drawable.e335, R.drawable.e336, R.drawable.e337,
-            R.drawable.e401, R.drawable.e402, R.drawable.e403, R.drawable.e404,
-            R.drawable.e405, R.drawable.e406, R.drawable.e407, R.drawable.e408,
-            R.drawable.e409, R.drawable.e410, R.drawable.e411, R.drawable.e412,
-            R.drawable.e413, R.drawable.e414, R.drawable.e415, R.drawable.e416,
-            R.drawable.e417, R.drawable.e418, R.drawable.e420, R.drawable.e421,
-            R.drawable.e422, R.drawable.e423, R.drawable.e424, R.drawable.e425,
-            R.drawable.e426, R.drawable.e427, R.drawable.e428, R.drawable.e537
-    };
-    public static final int[] resDrawable3 = new int[]{
-            R.drawable.emoji_1f3a4, R.drawable.emoji_1f3b5, R.drawable.emoji_1f3b8, R.drawable.emoji_1f3c0,
-            R.drawable.emoji_1f3c6, R.drawable.emoji_1f4a3, R.drawable.emoji_1f4a4, R.drawable.emoji_1f4b0,
-            R.drawable.emoji_1f6b2, R.drawable.emoji_1f37a, R.drawable.emoji_1f40d, R.drawable.emoji_1f41b,
-            R.drawable.emoji_1f42d, R.drawable.emoji_1f42e, R.drawable.emoji_1f42f, R.drawable.emoji_1f45c,
-            R.drawable.emoji_1f47c, R.drawable.emoji_1f48d, R.drawable.emoji_1f49d, R.drawable.emoji_1f52b,
-            R.drawable.emoji_1f302, R.drawable.emoji_1f319, R.drawable.emoji_1f339, R.drawable.emoji_1f382,
-            R.drawable.emoji_1f384, R.drawable.emoji_1f419, R.drawable.emoji_1f420, R.drawable.emoji_1f427,
-            R.drawable.emoji_1f428, R.drawable.emoji_1f433, R.drawable.emoji_1f435, R.drawable.emoji_1f436,
-            R.drawable.emoji_1f438, R.drawable.emoji_1f444, R.drawable.emoji_1f451, R.drawable.emoji_1f459,
-            R.drawable.emoji_1f466, R.drawable.emoji_1f467, R.drawable.emoji_1f468, R.drawable.emoji_1f469,
-            R.drawable.emoji_1f484, R.drawable.emoji_1f525, R.drawable.emoji_1f680, R.drawable.emoji_1f684,
-            R.drawable.emoji_2b50, R.drawable.emoji_26a1, R.drawable.emoji_26bd, R.drawable.emoji_2600,
-            R.drawable.emoji_2601, R.drawable.emoji_2614, R.drawable.emoji_2615, R.drawable.emoji_2708,
-            R.drawable.emoji_2744, R.drawable.emoji_unknow
-    };
-
-    public static final int[] resDrawable4 = new int[]{
-            R.drawable.f000, R.drawable.f001, R.drawable.f002, R.drawable.f003, R.drawable.f004,
-            R.drawable.f005, R.drawable.f006, R.drawable.f007, R.drawable.f008, R.drawable.f009,
-            R.drawable.f010, R.drawable.f011, R.drawable.f012, R.drawable.f013, R.drawable.f014,
-            R.drawable.f015, R.drawable.f016, R.drawable.f017, R.drawable.f018, R.drawable.f019,
-            R.drawable.f020, R.drawable.f021, R.drawable.f022, R.drawable.f023, R.drawable.f024,
-            R.drawable.f025, R.drawable.f026, R.drawable.f027, R.drawable.f028, R.drawable.f029,
-            R.drawable.f030, R.drawable.f031, R.drawable.f032, R.drawable.f033, R.drawable.f034,
-            R.drawable.f035, R.drawable.f036, R.drawable.f038, R.drawable.f038, R.drawable.f039,
-            R.drawable.f040, R.drawable.f041, R.drawable.f042, R.drawable.f043, R.drawable.f044,
-            R.drawable.f045, R.drawable.f046, R.drawable.f047, R.drawable.f048, R.drawable.f049,
-            R.drawable.f050, R.drawable.f051, R.drawable.f052, R.drawable.f053, R.drawable.f054,
-            R.drawable.f055, R.drawable.f056, R.drawable.f057, R.drawable.f058, R.drawable.f059,
-            R.drawable.f060, R.drawable.f061, R.drawable.f062, R.drawable.f063, R.drawable.f064,
-            R.drawable.f065, R.drawable.f066, R.drawable.f067, R.drawable.f068, R.drawable.f069,
-            R.drawable.f070, R.drawable.f071, R.drawable.f072, R.drawable.f073, R.drawable.f074,
-            R.drawable.f075, R.drawable.f076, R.drawable.f077, R.drawable.f078, R.drawable.f079,
-            R.drawable.f080, R.drawable.f081, R.drawable.f082, R.drawable.f083, R.drawable.f084,
-            R.drawable.f085, R.drawable.f086, R.drawable.f087, R.drawable.f088, R.drawable.f089,
-            R.drawable.f090, R.drawable.f091, R.drawable.f092, R.drawable.f093, R.drawable.f094,
-            R.drawable.f095, R.drawable.f096, R.drawable.f097, R.drawable.f098, R.drawable.f099,
-            R.drawable.f100, R.drawable.f101, R.drawable.f102, R.drawable.f103, R.drawable.f104,
-            R.drawable.f105, R.drawable.f106
-    };
     private static final Factory spannableFactory = Factory.getInstance();
-
     private static final Map<Pattern, Integer> mapEmotions = new HashMap<Pattern, Integer>();
+    private static volatile SmileParserUtils singleton;
 
-    static
-    {
+    static {
         int len1 = mood1.length;
-        for (int i = 0; i < len1; i++)
-        {
+        for (int i = 0; i < len1; i++) {
             addPattern(mapEmotions, mood1[i], resDrawable1[i]);
         }
         int len2 = mood2.length;
-        for (int i = 0; i < len2; i++)
-        {
+        for (int i = 0; i < len2; i++) {
             addPattern(mapEmotions, mood2[i], resDrawable2[i]);
         }
         int len3 = mood3.length;
-        for (int i = 0; i < len3; i++)
-        {
+        for (int i = 0; i < len3; i++) {
             addPattern(mapEmotions, mood3[i], resDrawable3[i]);
         }
         int len4 = mood4.length;
-        for (int i = 0; i < len4; i++)
-        {
+        for (int i = 0; i < len4; i++) {
             addPattern(mapEmotions, mood4[i], resDrawable4[i]);
         }
     }
 
+    public static SmileParserUtils getInstance() {
+        if (singleton == null) {
+            synchronized (SmileParserUtils.class) {
+                if (singleton == null) {
+                    singleton = new SmileParserUtils();
+                }
+            }
+        }
+        return singleton;
+    }
+
     private static void addPattern(Map<Pattern, Integer> map, String smile,
-                                   int resource)
-    {
+                                   int resource) {
         map.put(Pattern.compile(Pattern.quote(smile)), resource);
     }
 
@@ -539,28 +518,23 @@ public class SmileParserUtils
      * <pre/>
      */
     public boolean addSmiles(Context context, Spannable spannable,
-                             int outPutX, int outPutY)
-    {
+                             int outPutX, int outPutY) {
         boolean hasChanges = false;
 
-        for (Entry<Pattern, Integer> entry : mapEmotions.entrySet())
-        {
+        for (Entry<Pattern, Integer> entry : mapEmotions.entrySet()) {
             Matcher matcher = entry.getKey().matcher(spannable);
-            while (matcher.find())
-            {
+            while (matcher.find()) {
                 boolean set = true;
                 for (ImageSpan span : spannable.getSpans(matcher.start(),
                         matcher.end(), ImageSpan.class))
                     if (spannable.getSpanStart(span) >= matcher.start()
                             && spannable.getSpanEnd(span) <= matcher.end())
                         spannable.removeSpan(span);
-                    else
-                    {
+                    else {
                         set = false;
                         break;
                     }
-                if (set)
-                {
+                if (set) {
                     hasChanges = true;
                     final int outputX_new = dip2px(context, outPutX);
                     final int outputY_new = dip2px(context, outPutY);
@@ -591,27 +565,21 @@ public class SmileParserUtils
      * <pre>
      */
     public Spannable getSmiledText(Context context, CharSequence text,
-                                   int outPutX, int outPutY)
-    {
-        try
-        {
+                                   int outPutX, int outPutY) {
+        try {
             Spannable spannable = spannableFactory.newSpannable(text);
             addSmiles(context, spannable, outPutX, outPutY);
             return spannable;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public boolean containsKey(String key)
-    {
+    public boolean containsKey(String key) {
         boolean b = false;
-        for (Entry<Pattern, Integer> entry : mapEmotions.entrySet())
-        {
+        for (Entry<Pattern, Integer> entry : mapEmotions.entrySet()) {
             Matcher matcher = entry.getKey().matcher(key);
-            if (matcher.find())
-            {
+            if (matcher.find()) {
                 b = true;
                 break;
             }
@@ -624,8 +592,7 @@ public class SmileParserUtils
      *
      * @return px值
      */
-    private int dip2px(Context context, float dpValue)
-    {
+    private int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }

@@ -1,45 +1,41 @@
 package com.library.pulltorefresh.pullableview;
 
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class PullableTextView extends TextView implements Pullable
-{
+public class PullableTextView extends TextView implements Pullable {
 
-	public PullableTextView(Context context)
-	{
-		super(context);
-	}
+    boolean canPullUp = true;
 
-	public PullableTextView(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
-	}
+    public PullableTextView(Context context) {
+        super(context);
+    }
 
-	public PullableTextView(Context context, AttributeSet attrs, int defStyle)
-	{
-		super(context, attrs, defStyle);
-	}
+    public PullableTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	@Override
-	public boolean canPullDown() {
-		return true;
-	}
+    public PullableTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
-	@Override
-	public boolean canPullUp() {
-		return canPullUp;
-	}
-	boolean canPullUp = true;
+    @Override
+    public boolean canPullDown() {
+        return true;
+    }
 
-	/**
-	 * 手动设置是否能上拉
-	 *
-	 * @param canPullUp canPullUp
-	 */
-	public void setCanPullUp(boolean canPullUp) {
-		this.canPullUp = canPullUp;
-	}
+    @Override
+    public boolean canPullUp() {
+        return canPullUp;
+    }
+
+    /**
+     * 手动设置是否能上拉
+     *
+     * @param canPullUp canPullUp
+     */
+    public void setCanPullUp(boolean canPullUp) {
+        this.canPullUp = canPullUp;
+    }
 }

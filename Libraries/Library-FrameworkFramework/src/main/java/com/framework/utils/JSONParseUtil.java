@@ -8,9 +8,9 @@ import org.json.JSONObject;
 
 /**
  * @author Yangjie
- *         className JsonParseUtils
- *         created at  2016/9/3  12:00
- *         json解析类
+ * className JsonParseUtils
+ * created at  2016/9/3  12:00
+ * json解析类
  */
 public class JSONParseUtil {
     private static volatile JSONParseUtil instance;

@@ -19,32 +19,41 @@ import com.framework.utils.Y;
  * 全局通知
  *
  * @author YobertJomi
- *         className WholeNotification
- *         created at  2017/8/30  17:15
+ * className WholeNotification
+ * created at  2017/8/30  17:15
  */
-public class WholeNotification implements View.OnTouchListener
-{
+public class WholeNotification implements View.OnTouchListener {
 
     private static final int DIRECTION_LEFT = -1;
     private static final int DIRECTION_NONE = 0;
     private static final int DIRECTION_RIGHT = 1;
 
     private static final int DISMISS_INTERVAL = 2000;
-
+    private static final int HIDE_WINDOW = 0;
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowParams;
     private View mContentView;
     private Context mContext;
     private int mScreenWidth = 0;
     private int mStatusBarHeight = 0;
-
     private boolean isShowing = false;
     private ValueAnimator restoreAnimator = null;
     private ValueAnimator dismissAnimator = null;
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case HIDE_WINDOW:
+                    dismiss();
+                    break;
+            }
+            return false;
+        }
+    });
+    private int downX = 0;
+    private int direction = DIRECTION_NONE;
 
-
-    public WholeNotification(Builder builder)
-    {
+    public WholeNotification(Builder builder) {
         mContext = builder.getContext();
 
         mStatusBarHeight = getStatusBarHeight();
@@ -68,48 +77,22 @@ public class WholeNotification implements View.OnTouchListener
         setView(builder);
     }
 
-
-    private static final int HIDE_WINDOW = 0;
-
-    private Handler mHandler = new Handler(new Handler.Callback()
-    {
-        @Override
-        public boolean handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
-                case HIDE_WINDOW:
-                    dismiss();
-                    break;
-            }
-            return false;
-        }
-    });
-
     /***
      * 设置内容视图
      *
      */
-    private void setView(Builder builder)
-    {
+    private void setView(Builder builder) {
         mContentView = builder.getView();
         if (builder.isMonitorTouch())
             mContentView.setOnTouchListener(this);
     }
 
-
-    private int downX = 0;
-    private int direction = DIRECTION_NONE;
-
     @Override
-    public boolean onTouch(View v, MotionEvent event)
-    {
-        if (isAnimatorRunning())
-        {
+    public boolean onTouch(View v, MotionEvent event) {
+        if (isAnimatorRunning()) {
             return false;
         }
-        switch (event.getAction())
-        {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 downX = (int) event.getRawX();
                 Y.y("onTouch:" + downX);
@@ -119,21 +102,17 @@ public class WholeNotification implements View.OnTouchListener
                 mHandler.removeMessages(HIDE_WINDOW);
                 int moveX = (int) event.getRawX() - downX;
                 //判断滑动方向
-                if (moveX > 0)
-                {
+                if (moveX > 0) {
                     direction = DIRECTION_RIGHT;
-                } else
-                {
+                } else {
                     direction = DIRECTION_LEFT;
                 }
                 updateWindowLocation(moveX, mWindowParams.y);
                 break;
             case MotionEvent.ACTION_UP:
-                if (Math.abs(mWindowParams.x) > mScreenWidth / 2)
-                {
+                if (Math.abs(mWindowParams.x) > mScreenWidth / 2) {
                     startDismissAnimator(direction);
-                } else
-                {
+                } else {
                     startRestoreAnimator();
                 }
                 break;
@@ -141,25 +120,20 @@ public class WholeNotification implements View.OnTouchListener
         return true;
     }
 
-    private void startRestoreAnimator()
-    {
+    private void startRestoreAnimator() {
         restoreAnimator = new ValueAnimator().ofInt(mWindowParams.x, 0);
         restoreAnimator.setDuration(300);
         restoreAnimator.setEvaluator(new IntEvaluator());
 
-        restoreAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-        {
+        restoreAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation)
-            {
+            public void onAnimationUpdate(ValueAnimator animation) {
                 updateWindowLocation((Integer) animation.getAnimatedValue(), -mStatusBarHeight);
             }
         });
-        restoreAnimator.addListener(new AnimatorListenerAdapter()
-        {
+        restoreAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation)
-            {
+            public void onAnimationEnd(Animator animation) {
                 restoreAnimator = null;
                 autoDismiss();
             }
@@ -167,30 +141,24 @@ public class WholeNotification implements View.OnTouchListener
         restoreAnimator.start();
     }
 
-    private void startDismissAnimator(int direction)
-    {
+    private void startDismissAnimator(int direction) {
         if (direction == DIRECTION_LEFT)
             dismissAnimator = new ValueAnimator().ofInt(mWindowParams.x, -mScreenWidth);
-        else
-        {
+        else {
             dismissAnimator = new ValueAnimator().ofInt(mWindowParams.x, mScreenWidth);
         }
         dismissAnimator.setDuration(300);
         dismissAnimator.setEvaluator(new IntEvaluator());
 
-        dismissAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
-        {
+        dismissAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation)
-            {
+            public void onAnimationUpdate(ValueAnimator animation) {
                 updateWindowLocation((Integer) animation.getAnimatedValue(), -mStatusBarHeight);
             }
         });
-        dismissAnimator.addListener(new AnimatorListenerAdapter()
-        {
+        dismissAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation)
-            {
+            public void onAnimationEnd(Animator animation) {
                 restoreAnimator = null;
                 dismiss();
             }
@@ -198,35 +166,29 @@ public class WholeNotification implements View.OnTouchListener
         dismissAnimator.start();
     }
 
-    private boolean isAnimatorRunning()
-    {
-        return (restoreAnimator != null && restoreAnimator.isRunning()) || (dismissAnimator != null && dismissAnimator.isRunning());
+    private boolean isAnimatorRunning() {
+        return (restoreAnimator != null && restoreAnimator.isRunning()) || (dismissAnimator != null &&
+                dismissAnimator.isRunning());
     }
 
-    public void updateWindowLocation(int x, int y)
-    {
-        if (isShowing)
-        {
+    public void updateWindowLocation(int x, int y) {
+        if (isShowing) {
             mWindowParams.x = x;
             mWindowParams.y = y;
             mWindowManager.updateViewLayout(mContentView, mWindowParams);
         }
     }
 
-    public void show()
-    {
-        if (!isShowing)
-        {
+    public void show() {
+        if (!isShowing) {
             isShowing = true;
             mWindowManager.addView(mContentView, mWindowParams);
         }
         autoDismiss();
     }
 
-    public void dismiss()
-    {
-        if (isShowing)
-        {
+    public void dismiss() {
+        if (isShowing) {
             resetState();
             mWindowManager.removeView(mContentView);
         }
@@ -235,8 +197,7 @@ public class WholeNotification implements View.OnTouchListener
     /**
      * 重置状态
      */
-    private void resetState()
-    {
+    private void resetState() {
         isShowing = false;
         mWindowParams.x = 0;
         mWindowParams.y = -mStatusBarHeight;
@@ -245,8 +206,7 @@ public class WholeNotification implements View.OnTouchListener
     /**
      * 自动隐藏通知
      */
-    private void autoDismiss()
-    {
+    private void autoDismiss() {
         mHandler.removeMessages(HIDE_WINDOW);
         mHandler.sendEmptyMessageDelayed(HIDE_WINDOW, DISMISS_INTERVAL);
     }
@@ -254,66 +214,52 @@ public class WholeNotification implements View.OnTouchListener
     /**
      * 获取状态栏的高度
      */
-    public int getStatusBarHeight()
-    {
+    public int getStatusBarHeight() {
         int height = 0;
         int resId = mContext.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0)
-        {
+        if (resId > 0) {
             height = mContext.getResources().getDimensionPixelSize(resId);
         }
         return height;
     }
 
-
-    public static class Builder
-    {
+    public static class Builder {
         private Context context;
         private boolean monitorTouch = true;
         private View view;
 
-        public Context getContext()
-        {
+        public Context getContext() {
             return context;
         }
 
-        public boolean isMonitorTouch()
-        {
-            return monitorTouch;
-        }
-
-        public Builder setMonitorTouch(boolean monitorTouch)
-        {
-            this.monitorTouch = monitorTouch;
-            return this;
-        }
-
-        public View getView()
-        {
-            return view;
-        }
-
-        public Builder setContext(Context context)
-        {
+        public Builder setContext(Context context) {
             this.context = context;
             return this;
         }
 
-        public Builder setView(View view)
-        {
+        public boolean isMonitorTouch() {
+            return monitorTouch;
+        }
+
+        public Builder setMonitorTouch(boolean monitorTouch) {
+            this.monitorTouch = monitorTouch;
+            return this;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public Builder setView(View view) {
             this.view = view;
             return this;
         }
 
-
-        public WholeNotification build()
-        {
+        public WholeNotification build() {
             if (null == context)
                 throw new IllegalArgumentException("the context is required.");
 
             return new WholeNotification(this);
         }
-
     }
-
 }

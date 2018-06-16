@@ -52,8 +52,10 @@ class Files {
             if (!modified) {
                 modify(file);
                 if (file.lastModified() < now) {
-                    // NOTE: apparently this is a known issue (see: http://stackoverflow.com/questions/6633748/file-lastmodified-is-never-what-was-set-with-file-setlastmodified)
-                    LOG.warn("Last modified date {} is not set for file {}", new Date(file.lastModified()), file.getAbsolutePath());
+                    // NOTE: apparently this is a known issue (see: http://stackoverflow
+                    // .com/questions/6633748/file-lastmodified-is-never-what-was-set-with-file-setlastmodified)
+                    LOG.warn("Last modified date {} is not set for file {}", new Date(file.lastModified()), file
+                            .getAbsolutePath());
                 }
             }
         }
@@ -91,5 +93,4 @@ class Files {
             return (first < second) ? -1 : ((first == second) ? 0 : 1);
         }
     }
-
 }

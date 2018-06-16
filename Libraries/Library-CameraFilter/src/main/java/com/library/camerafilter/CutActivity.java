@@ -15,9 +15,7 @@ import com.library.camerafilter.view.CropImageView;
 import com.libray.camerafilter.R;
 import com.muzhi.camerasdk.library.utils.PhotoUtils;
 
-
-public class CutActivity extends BaseActivity
-{
+public class CutActivity extends BaseActivity {
 
     private CropImageView mCropView;
     private TextView btn_done;
@@ -27,8 +25,7 @@ public class CutActivity extends BaseActivity
     private Bitmap sourceMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_activity_cut);
@@ -38,11 +35,9 @@ public class CutActivity extends BaseActivity
 
         sourceMap = Constants.bitmap;
         mCropView.setImageBitmap(sourceMap);
-
     }
 
-    private void findViews()
-    {
+    private void findViews() {
         mCropView = (CropImageView) findViewById(R.id.cropImageView);
         btn_done = (TextView) findViewById(R.id.camerasdk_title_txv_right_text);
         btn_done.setVisibility(View.VISIBLE);
@@ -54,59 +49,46 @@ public class CutActivity extends BaseActivity
         initEvent();
     }
 
-    private void initEvent()
-    {
-        findViewById(R.id.button1_1).setOnClickListener(new OnClickListener()
-        {
+    private void initEvent() {
+        findViewById(R.id.button1_1).setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mCropView.setCropMode(CropImageView.CropMode.RATIO_1_1);
             }
         });
-        findViewById(R.id.button3_4).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.button3_4).setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mCropView.setCropMode(CropImageView.CropMode.RATIO_3_4);
             }
         });
-        findViewById(R.id.button4_3).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.button4_3).setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mCropView.setCropMode(CropImageView.CropMode.RATIO_4_3);
             }
         });
-        findViewById(R.id.button9_16).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.button9_16).setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mCropView.setCropMode(CropImageView.CropMode.RATIO_9_16);
             }
         });
-        findViewById(R.id.button16_9).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.button16_9).setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mCropView.setCropMode(CropImageView.CropMode.RATIO_16_9);
             }
         });
-        btn_done.setOnClickListener(new OnClickListener()
-        {
+        btn_done.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 done();
             }
         });
@@ -120,69 +102,52 @@ public class CutActivity extends BaseActivity
 
         //*******************************************************************************
 
-        layout_tab.setOnCheckedChangeListener(new OnCheckedChangeListener()
-        {
+        layout_tab.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup arg0, int arg1)
-            {
-                if (arg1 == R.id.button_crop)
-                {
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                if (arg1 == R.id.button_crop) {
                     layout_crop.setVisibility(View.VISIBLE);
                     layout_rotation.setVisibility(View.GONE);
-                } else
-                {
+                } else {
                     layout_crop.setVisibility(View.GONE);
                     layout_rotation.setVisibility(View.VISIBLE);
                 }
             }
         });
 
-        findViewById(R.id.ratation_left).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.ratation_left).setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 sourceMap = PhotoUtils.rotateImage(sourceMap, -90);
                 mCropView.setImageBitmap(sourceMap);
             }
         });
-        findViewById(R.id.ratation_right).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.ratation_right).setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 sourceMap = PhotoUtils.rotateImage(sourceMap, 90);
                 mCropView.setImageBitmap(sourceMap);
             }
         });
-        findViewById(R.id.ratation_vertical).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.ratation_vertical).setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 sourceMap = PhotoUtils.reverseImage(sourceMap, -1, 1);
                 mCropView.setImageBitmap(sourceMap);
             }
         });
-        findViewById(R.id.ratation_updown).setOnClickListener(new OnClickListener()
-        {
+        findViewById(R.id.ratation_updown).setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 sourceMap = PhotoUtils.reverseImage(sourceMap, 1, -1);
                 mCropView.setImageBitmap(sourceMap);
             }
         });
-
-
     }
 
-    private void done()
-    {
+    private void done() {
         Constants.bitmap = mCropView.getCroppedBitmap();
         setResult(Constants.RequestCode_Croper);
         finish();
     }
-
-
 }

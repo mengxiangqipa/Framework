@@ -10,14 +10,14 @@ import java.util.List;
 
 /**
  * @author Yobert Jomi
- *         className ActivityTaskUtil
- *         created at  2016/10/15  17:22
- *         存储管理activity实例
+ * className ActivityTaskUtil
+ * created at  2016/10/15  17:22
+ * 存储管理activity实例
  */
 public class ActivityTaskUtil {
+    private static volatile ActivityTaskUtil singleton;
     // 存储已打开的Activity集合
     private List<Activity> list = new ArrayList<>();
-    private static volatile ActivityTaskUtil singleton;
 
     private ActivityTaskUtil() {
     }
@@ -50,7 +50,7 @@ public class ActivityTaskUtil {
     }
 
     public int getActivitySize() {
-        return list==null?0:list.size();
+        return list == null ? 0 : list.size();
     }
 
     /**
@@ -66,12 +66,14 @@ public class ActivityTaskUtil {
     public void removeActivity(Activity activity) {
         list.remove(activity);
     }
+
     /**
      * Activity关闭时，删除Activity列表中的Activity对象
      */
     public List<Activity> getActivityList() {
-       return list;
+        return list;
     }
+
     public void exit() {
         for (Activity activity : list) {
             if (!activity.isFinishing())

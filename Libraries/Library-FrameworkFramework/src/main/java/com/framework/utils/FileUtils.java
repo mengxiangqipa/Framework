@@ -40,6 +40,10 @@ import java.util.List;
  */
 public class FileUtils {
 
+    public static final int SIZETYPE_B = 1;// 获取文件大小单位为B的double值
+    public static final int SIZETYPE_KB = 2;// 获取文件大小单位为KB的double值
+    public static final int SIZETYPE_MB = 3;// 获取文件大小单位为MB的double值
+    public static final int SIZETYPE_GB = 4;// 获取文件大小单位为GB的double值
     private static volatile FileUtils singleton;
 
     private FileUtils() {
@@ -197,7 +201,6 @@ public class FileUtils {
                 fis.close();
                 arrayOutputStream.close();
                 content = new String(arrayOutputStream.toByteArray());
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -240,7 +243,6 @@ public class FileUtils {
                 fis.close();
                 arrayOutputStream.close();
                 content = new String(arrayOutputStream.toByteArray());
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -283,7 +285,6 @@ public class FileUtils {
                 is.close();
                 arrayOutputStream.close();
                 content = new String(arrayOutputStream.toByteArray());
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -569,7 +570,6 @@ public class FileUtils {
             while ((len = fis.read(buffer)) != -1) {
                 fos.write(buffer, 0, len);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -588,15 +588,9 @@ public class FileUtils {
                     e.printStackTrace();
                 }
             }
-
         }
         return true;
     }
-
-    public static final int SIZETYPE_B = 1;// 获取文件大小单位为B的double值
-    public static final int SIZETYPE_KB = 2;// 获取文件大小单位为KB的double值
-    public static final int SIZETYPE_MB = 3;// 获取文件大小单位为MB的double值
-    public static final int SIZETYPE_GB = 4;// 获取文件大小单位为GB的double值
 
     /**
      * 获取文件指定文件的指定单位的大小

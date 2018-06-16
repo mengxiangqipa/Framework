@@ -2,8 +2,8 @@ package com.library.slidefinish.model;
 
 /**
  * @author Yangjie
- *         className SlidrPosition
- *         created at  2017/5/26  15:47
+ * className SlidrPosition
+ * created at  2017/5/26  15:47
  */
 public enum SlidrPosition {
     LEFT,

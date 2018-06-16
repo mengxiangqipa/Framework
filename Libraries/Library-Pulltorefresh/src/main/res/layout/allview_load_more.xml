@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loadmore_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/lib_ptr_gray">
+                android:id="@+id/loadmore_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/lib_ptr_gray">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
-                android:background="@drawable/allview_pullup_icon_big" />
+                android:background="@drawable/allview_pullup_icon_big"/>
 
             <ImageView
                 android:id="@+id/loading_icon"
@@ -32,7 +32,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:background="@drawable/allview_loading"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                         android:gravity="center"
                         android:text="让更新来的更猛烈些吧"
                         android:textColor="#ffffffff"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
 
                     <TextView
                         android:id="@+id/tv_loadstate"
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/pullup_to_load"
                         android:textColor="#ffffffff"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

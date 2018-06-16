@@ -4,14 +4,13 @@ import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 
-
 /**
  * * This class contains the configuration information for all the options available in
  * this library
  *
  * @author Yangjie
- *         className SlidrConfig
- *         created at  2017/5/26  15:48
+ * className SlidrConfig
+ * created at  2017/5/26  15:48
  */
 public class SlidrConfig {
 
@@ -72,6 +71,10 @@ public class SlidrConfig {
         return scrimColor;
     }
 
+    public void setScrimColor(int scrimColor) {
+        this.scrimColor = scrimColor;
+    }
+
     /**
      * Get teh start alpha value for when the activity is not swiped at all
      *
@@ -81,6 +84,10 @@ public class SlidrConfig {
         return scrimStartAlpha;
     }
 
+    public void setScrimStartAlpha(float scrimStartAlpha) {
+        this.scrimStartAlpha = scrimStartAlpha;
+    }
+
     /**
      * Get the end alpha value for when the user almost swipes the activity off the screen
      *
@@ -88,6 +95,10 @@ public class SlidrConfig {
      */
     public float getScrimEndAlpha() {
         return scrimEndAlpha;
+    }
+
+    public void setScrimEndAlpha(float scrimEndAlpha) {
+        this.scrimEndAlpha = scrimEndAlpha;
     }
 
     /**
@@ -110,6 +121,10 @@ public class SlidrConfig {
         return touchSize;
     }
 
+    public void setTouchSize(float touchSize) {
+        this.touchSize = touchSize;
+    }
+
     /**
      * Get the velocity threshold at which the slide action is completed regardless of offset
      * distance of the drag
@@ -118,6 +133,10 @@ public class SlidrConfig {
      */
     public float getVelocityThreshold() {
         return velocityThreshold;
+    }
+
+    public void setVelocityThreshold(float velocityThreshold) {
+        this.velocityThreshold = velocityThreshold;
     }
 
     /**
@@ -130,6 +149,10 @@ public class SlidrConfig {
         return distanceThreshold;
     }
 
+    public void setDistanceThreshold(float distanceThreshold) {
+        this.distanceThreshold = distanceThreshold;
+    }
+
     /**
      * Get the touch sensitivity set in the {@link android.support.v4.widget.ViewDragHelper} when
      * creating it.
@@ -138,6 +161,10 @@ public class SlidrConfig {
      */
     public float getSensitivity() {
         return sensitivity;
+    }
+
+    public void setSensitivity(float sensitivity) {
+        this.sensitivity = sensitivity;
     }
 
     /**
@@ -190,34 +217,6 @@ public class SlidrConfig {
 
     public void setColorSecondary(int colorSecondary) {
         this.colorSecondary = colorSecondary;
-    }
-
-    public void setTouchSize(float touchSize) {
-        this.touchSize = touchSize;
-    }
-
-    public void setSensitivity(float sensitivity) {
-        this.sensitivity = sensitivity;
-    }
-
-    public void setScrimColor(int scrimColor) {
-        this.scrimColor = scrimColor;
-    }
-
-    public void setScrimStartAlpha(float scrimStartAlpha) {
-        this.scrimStartAlpha = scrimStartAlpha;
-    }
-
-    public void setScrimEndAlpha(float scrimEndAlpha) {
-        this.scrimEndAlpha = scrimEndAlpha;
-    }
-
-    public void setVelocityThreshold(float velocityThreshold) {
-        this.velocityThreshold = velocityThreshold;
-    }
-
-    public void setDistanceThreshold(float distanceThreshold) {
-        this.distanceThreshold = distanceThreshold;
     }
 
     /**
@@ -300,7 +299,5 @@ public class SlidrConfig {
         public SlidrConfig build() {
             return config;
         }
-
     }
-
 }

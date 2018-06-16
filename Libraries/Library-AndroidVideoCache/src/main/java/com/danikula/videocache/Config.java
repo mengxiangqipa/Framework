@@ -20,7 +20,8 @@ class Config {
     public final SourceInfoStorage sourceInfoStorage;
     public final HeaderInjector headerInjector;
 
-    Config(File cacheRoot, FileNameGenerator fileNameGenerator, DiskUsage diskUsage, SourceInfoStorage sourceInfoStorage, HeaderInjector headerInjector) {
+    Config(File cacheRoot, FileNameGenerator fileNameGenerator, DiskUsage diskUsage, SourceInfoStorage
+            sourceInfoStorage, HeaderInjector headerInjector) {
         this.cacheRoot = cacheRoot;
         this.fileNameGenerator = fileNameGenerator;
         this.diskUsage = diskUsage;
@@ -32,5 +33,4 @@ class Config {
         String name = fileNameGenerator.generate(url);
         return new File(cacheRoot, name);
     }
-
 }

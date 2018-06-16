@@ -24,10 +24,10 @@ final class HttpProxyCacheServerClients {
 
     private final AtomicInteger clientsCount = new AtomicInteger(0);
     private final String url;
-    private volatile HttpProxyCache proxyCache;
     private final List<CacheListener> listeners = new CopyOnWriteArrayList<>();
     private final CacheListener uiCacheListener;
     private final Config config;
+    private volatile HttpProxyCache proxyCache;
 
     public HttpProxyCacheServerClients(String url, Config config) {
         this.url = checkNotNull(url);

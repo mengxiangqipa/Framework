@@ -6,10 +6,9 @@ import android.util.Log;
 
 import com.framework.BuildConfig;
 
-
 /**
  * Implement your custom database creation or upgrade code here.
- *
+ * <p>
  * This file will not be overwritten if you re-run the content provider generator.
  */
 public class PreferencesSQLiteOpenHelperCallbacks {

@@ -27,11 +27,10 @@ import java.util.Random;
  * 向上滑动的浮动动画
  *
  * @author YobertJomi
- *         created at  2017/8/15  15:36
- *         使用：flowLikeLayout.addLikeView(true,0);
+ * created at  2017/8/15  15:36
+ * 使用：flowLikeLayout.addLikeView(true,0);
  */
-public class FlowLikeLayout extends RelativeLayout
-{
+public class FlowLikeLayout extends RelativeLayout {
     private boolean ignorInnerView = true;//忽略FlowLikeLayout内部的子view的高度
     private List<Drawable> mLikeDrawables; // 图片的集合
     private LayoutParams mLayoutParams; // 用于设置动画对象的位置参数
@@ -45,24 +44,20 @@ public class FlowLikeLayout extends RelativeLayout
 
     private int mChildViewHeight; // 在 XML 布局文件中添加的子View的总高度
 
-    public FlowLikeLayout(Context context)
-    {
+    public FlowLikeLayout(Context context) {
         this(context, null);
     }
 
-    public FlowLikeLayout(Context context, AttributeSet attrs)
-    {
+    public FlowLikeLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public FlowLikeLayout(Context context, AttributeSet attrs, int defStyleAttr)
-    {
+    public FlowLikeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initParams();//FlowLikeView
     }
 
-    private void initParams()
-    {
+    private void initParams() {
         mLikeDrawables = new ArrayList<>();
         mLikeDrawables.add(generateDrawable(R.drawable.heart0));
         mLikeDrawables.add(generateDrawable(R.drawable.heart1));
@@ -86,21 +81,16 @@ public class FlowLikeLayout extends RelativeLayout
         mRandom = new Random();
     }
 
-    private Drawable generateDrawable(int resID)
-    {
+    private Drawable generateDrawable(int resID) {
         return ContextCompat.getDrawable(getContext(), resID);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (!ignorInnerView)
-        {
-            if (mChildViewHeight <= 0)
-            {
-                for (int i = 0, size = getChildCount(); i < size; i++)
-                {
+        if (!ignorInnerView) {
+            if (mChildViewHeight <= 0) {
+                for (int i = 0, size = getChildCount(); i < size; i++) {
                     View childView = getChildAt(i);
                     measureChild(childView, widthMeasureSpec, heightMeasureSpec);
                     mChildViewHeight += childView.getMeasuredHeight();
@@ -108,47 +98,40 @@ public class FlowLikeLayout extends RelativeLayout
                 // 设置底部间距
                 mLayoutParams.bottomMargin = mChildViewHeight;
             }
-        } else
-        {
+        } else {
             mLayoutParams.bottomMargin = 0;
         }
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
         mViewWidth = getWidth();
         mViewHeight = getHeight();
     }
 
-    public void setIgnorInnerView(boolean ignorInnerView)
-    {
+    public void setIgnorInnerView(boolean ignorInnerView) {
         this.ignorInnerView = ignorInnerView;
     }
 
     /**
      * 动态添加 FlowView
      */
-    public void addLikeView()
-    {
+    public void addLikeView() {
         addLikeView(0);
     }
 
     /**
      * 动态添加 FlowView
      */
-    public void addLikeView(int leftMargin)
-    {
+    public void addLikeView(int leftMargin) {
         ImageView likeView = new ImageView(getContext());
         likeView.setImageDrawable(mLikeDrawables.get(mRandom.nextInt(mLikeDrawables.size())));
-        if (ignorInnerView)
-        {
+        if (ignorInnerView) {
             mLayoutParams.bottomMargin = 0;
         }
-        if (leftMargin > 0 && leftMargin < ScreenUtils.getInstance().getScreenWidthPx(getContext()))
-        {
+        if (leftMargin > 0 && leftMargin < ScreenUtils.getInstance().getScreenWidthPx(getContext())) {
             mLayoutParams.leftMargin = leftMargin;
             mLayoutParams.addRule(CENTER_HORIZONTAL, 0);
         }
@@ -158,8 +141,7 @@ public class FlowLikeLayout extends RelativeLayout
         startAnimation(likeView);
     }
 
-    private void startAnimation(View target)
-    {
+    private void startAnimation(View target) {
         // 设置进入动画
         AnimatorSet enterAnimator = generateEnterAnimation(target);
         // 设置路径动画
@@ -178,8 +160,7 @@ public class FlowLikeLayout extends RelativeLayout
      *
      * @return 动画集合
      */
-    private AnimatorSet generateEnterAnimation(View target)
-    {
+    private AnimatorSet generateEnterAnimation(View target) {
         ObjectAnimator alpha = ObjectAnimator.ofFloat(target, "alpha", 0.2f, 1f);
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(target, "scaleX", 0.5f, 1f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(target, "scaleY", 0.5f, 1f);
@@ -195,8 +176,7 @@ public class FlowLikeLayout extends RelativeLayout
      *
      * @return 动画集合
      */
-    private ValueAnimator generateCurveAnimation(View target)
-    {
+    private ValueAnimator generateCurveAnimation(View target) {
         CurveEvaluator evaluator = new CurveEvaluator(generateCTRLPointF(1), generateCTRLPointF(2));
         ValueAnimator valueAnimator = ValueAnimator.ofObject(evaluator,
                 new PointF((mViewWidth - mPicWidth) / 2, mViewHeight - mChildViewHeight - mPicHeight),
@@ -214,8 +194,7 @@ public class FlowLikeLayout extends RelativeLayout
      * @param value 设置控制点 y 轴上取值区域
      * @return 控制点的 x y 坐标
      */
-    private PointF generateCTRLPointF(int value)
-    {
+    private PointF generateCTRLPointF(int value) {
         PointF pointF = new PointF();
         pointF.x = mViewWidth / 2 - mRandom.nextInt(100);
         pointF.y = mRandom.nextInt(mViewHeight / value);
@@ -223,26 +202,22 @@ public class FlowLikeLayout extends RelativeLayout
         return pointF;
     }
 
-
     /**
      * 自定义估值算法, 计算对象当前运动的具体位置 Point
      */
-    private class CurveEvaluator implements TypeEvaluator<PointF>
-    {
+    private class CurveEvaluator implements TypeEvaluator<PointF> {
 
         // 由于这里使用的是三阶的贝塞儿曲线, 所以我们要定义两个控制点
         private PointF ctrlPointF1;
         private PointF ctrlPointF2;
 
-        public CurveEvaluator(PointF ctrlPointF1, PointF ctrlPointF2)
-        {
+        public CurveEvaluator(PointF ctrlPointF1, PointF ctrlPointF2) {
             this.ctrlPointF1 = ctrlPointF1;
             this.ctrlPointF2 = ctrlPointF2;
         }
 
         @Override
-        public PointF evaluate(float fraction, PointF startValue, PointF endValue)
-        {
+        public PointF evaluate(float fraction, PointF startValue, PointF endValue) {
 
             // 这里运用了三阶贝塞儿曲线的公式, 请自行上网查阅
             float leftTime = 1.0f - fraction;
@@ -271,18 +246,15 @@ public class FlowLikeLayout extends RelativeLayout
     /**
      * 动画曲线路径更新监听器, 用于动态更新动画作用对象的位置
      */
-    private class CurveUpdateLister implements ValueAnimator.AnimatorUpdateListener
-    {
+    private class CurveUpdateLister implements ValueAnimator.AnimatorUpdateListener {
         private View target;
 
-        public CurveUpdateLister(View target)
-        {
+        public CurveUpdateLister(View target) {
             this.target = target;
         }
 
         @Override
-        public void onAnimationUpdate(ValueAnimator animation)
-        {
+        public void onAnimationUpdate(ValueAnimator animation) {
             // 获取当前动画运行的状态值, 使得动画作用对象沿着曲线(涉及贝塞儿曲线)运动
             PointF pointF = (PointF) animation.getAnimatedValue();
             ViewCompat.setX(target, pointF.x);
@@ -295,18 +267,15 @@ public class FlowLikeLayout extends RelativeLayout
     /**
      * 动画结束监听器,用于释放无用的资源
      */
-    private class AnimationEndListener extends AnimatorListenerAdapter
-    {
+    private class AnimationEndListener extends AnimatorListenerAdapter {
         private View target;
 
-        public AnimationEndListener(View target)
-        {
+        public AnimationEndListener(View target) {
             this.target = target;
         }
 
         @Override
-        public void onAnimationEnd(Animator animation)
-        {
+        public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
 
             removeView(target);

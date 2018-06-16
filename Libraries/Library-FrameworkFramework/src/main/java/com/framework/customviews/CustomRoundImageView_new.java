@@ -20,12 +20,11 @@ import android.util.TypedValue;
 
 import com.framework.R;
 
-
 /**
  * date 2015-7-27
  *
  * @author Administrator
- *         http://blog.csdn.net/lmj623565791/article/details/41967509
+ * http://blog.csdn.net/lmj623565791/article/details/41967509
  */
 public class CustomRoundImageView_new extends AppCompatImageView {
     public static final int TYPE_CIRCLE = 0;
@@ -123,7 +122,6 @@ public class CustomRoundImageView_new extends AppCompatImageView {
             mRadius = mWidth / 2;
             setMeasuredDimension(mWidth, mWidth);
         }
-
     }
 
     /**
@@ -143,14 +141,12 @@ public class CustomRoundImageView_new extends AppCompatImageView {
             // 拿到bitmap宽或高的小值
             int bSize = Math.min(bmp.getWidth(), bmp.getHeight());
             scale = mWidth * 1.0f / bSize;
-
         } else if (type == TYPE_ROUND) {
             if (!(bmp.getWidth() == getWidth() && bmp.getHeight() == getHeight())) {
                 // 如果图片的宽或者高与view的宽高不匹配，计算出需要缩放的比例；缩放后的图片的宽高，一定要大于我们view的宽高；所以我们这里取大值；
                 scale = Math.max(getWidth() * 1.0f / bmp.getWidth(),
                         getHeight() * 1.0f / bmp.getHeight());
             }
-
         }
         // shader的变换矩阵，我们这里主要用于放大或者缩小
         mMatrix.setScale(scale, scale);
@@ -211,7 +207,10 @@ public class CustomRoundImageView_new extends AppCompatImageView {
 //                com.my.utils.Y.y("bit.getHeight()"+bit.getHeight());
 //                com.my.utils.Y.y("getMeasuredWidth:"+getMeasuredWidth());
 //                com.my.utils.Y.y("getMeasuredHeight:"+getMeasuredHeight());
-                return Bitmap.createBitmap(bit, (bit.getWidth() - bit.getHeight())>0? Math.abs(bit.getWidth() - bit.getHeight()) / 2:0,(bit.getWidth() - bit.getHeight())<0? Math.abs(bit.getWidth() - bit.getHeight()) / 2:0, Math.min(bit.getWidth(),bit.getHeight()), Math.min(bit.getWidth(), bit.getHeight()));
+                return Bitmap.createBitmap(bit, (bit.getWidth() - bit.getHeight()) > 0 ? Math.abs(bit.getWidth() -
+                        bit.getHeight()) / 2 : 0, (bit.getWidth() - bit.getHeight()) < 0 ? Math.abs(bit.getWidth() -
+                        bit.getHeight()) / 2 : 0, Math.min(bit.getWidth(), bit.getHeight()), Math.min(bit.getWidth(),
+                        bit.getHeight()));
             }
 //            com.my.utils.Y.y("drawableToBitamp2");
             return bd.getBitmap();
@@ -251,7 +250,6 @@ public class CustomRoundImageView_new extends AppCompatImageView {
         } else {
             super.onRestoreInstanceState(state);
         }
-
     }
 
     public void setBorderRadius(int borderRadius) {
@@ -270,12 +268,10 @@ public class CustomRoundImageView_new extends AppCompatImageView {
             }
             requestLayout();
         }
-
     }
 
     public int dp2px(int dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dpVal, getResources().getDisplayMetrics());
     }
-
 }

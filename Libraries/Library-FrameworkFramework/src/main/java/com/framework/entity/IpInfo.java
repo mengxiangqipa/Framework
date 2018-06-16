@@ -5,28 +5,14 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**IP配置的相关信息
- *     @author Yangjie
- *     className IpInfo
- *     created at  2016/11/11  15:11
+/**
+ * IP配置的相关信息
+ *
+ * @author Yangjie
+ * className IpInfo
+ * created at  2016/11/11  15:11
  */
-public class IpInfo implements Parcelable
-{
-	private String city;
-	private String ip;
-	private String shop;//店名
-	private ArrayList<IpInfo> arrayList = new ArrayList<IpInfo>();
-
-    public IpInfo() {
-    }
-
-    protected IpInfo(Parcel in) {
-        city = in.readString();
-        ip = in.readString();
-        shop = in.readString();
-        arrayList = in.createTypedArrayList(IpInfo.CREATOR);
-    }
-
+public class IpInfo implements Parcelable {
     public static final Creator<IpInfo> CREATOR = new Creator<IpInfo>() {
         @Override
         public IpInfo createFromParcel(Parcel in) {
@@ -38,6 +24,20 @@ public class IpInfo implements Parcelable
             return new IpInfo[size];
         }
     };
+    private String city;
+    private String ip;
+    private String shop;//店名
+    private ArrayList<IpInfo> arrayList = new ArrayList<IpInfo>();
+
+    public IpInfo() {
+    }
+
+    protected IpInfo(Parcel in) {
+        city = in.readString();
+        ip = in.readString();
+        shop = in.readString();
+        arrayList = in.createTypedArrayList(IpInfo.CREATOR);
+    }
 
     public String getCity() {
         return city;

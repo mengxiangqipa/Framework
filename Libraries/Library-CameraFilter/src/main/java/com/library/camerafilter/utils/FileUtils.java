@@ -28,36 +28,29 @@ import java.util.Locale;
  */
 public class FileUtils {
 
-    public static File createTmpFile(Context context){
+    public static File createTmpFile(Context context) {
 
         String state = Environment.getExternalStorageState();
-        if(state.equals(Environment.MEDIA_MOUNTED)){
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
             // 已挂载
             File pic = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
-            String fileName = "multi_image_"+timeStamp+"";
-            File tmpFile = new File(pic, fileName+".jpg");
+            String fileName = "multi_image_" + timeStamp + "";
+            File tmpFile = new File(pic, fileName + ".jpg");
             return tmpFile;
-        }else{
+        } else {
             File cacheDir = context.getCacheDir();
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
-            String fileName = "multi_image_"+timeStamp+"";
-            File tmpFile = new File(cacheDir, fileName+".jpg");
+            String fileName = "multi_image_" + timeStamp + "";
+            File tmpFile = new File(cacheDir, fileName + ".jpg");
             return tmpFile;
         }
     }
-    
-    
-    
-    public interface Callback<T> {
-      	public void onSuccess(T obj);
-    	public void onError(String error);
-    }
-    
+
     public static void doGetBitmap(final String url, final Callback<Bitmap> callBack) {
-    	
-    	new Thread() {  
-            public void run() { 
+
+        new Thread() {
+            public void run() {
             	/*byte b[] = null;
 				try {
 					String _data = getImageData(url);//我这里的测试图片传入的是base64内容格式的.
@@ -68,59 +61,50 @@ public class FileUtils {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				 final Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length); 
-				 if (bitmap == null) {  
-                     callBack.onError("获取图片失败");  
-                 } 
-				 else {  
-                     callBack.onSuccess(bitmap); 
+				 final Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+				 if (bitmap == null) {
+                     callBack.onError("获取图片失败");
+                 }
+				 else {
+                     callBack.onSuccess(bitmap);
                  }*/
-            	
-            	try{
-            		URL imageURl=new URL(url);
-            	    URLConnection con=imageURl.openConnection();
-            	    con.connect();
-            	    InputStream in=con.getInputStream();
-            	    Bitmap bitmap=BitmapFactory.decodeStream(in);
-            	    //in.close();
-            	    if (bitmap == null) {  
-                        callBack.onError("获取图片失败");  
-                    } 
-   				 	else {  
-                        callBack.onSuccess(bitmap); 
-                    }
-            	}
-            	catch (Exception e) {
-					e.printStackTrace();
-				}
-            	
-            	
-            }
-    	}.start();
-    	
-    	
-    }
-		
-    	
-    //获取网络中的图片内容
-   	private static String getImageData(String url) throws ClientProtocolException, IOException {
-   		HttpClient client = new DefaultHttpClient();
-   		HttpGet httpget = new HttpGet(url);
-   		HttpResponse httpResponse = client.execute(httpget);
-   		int status = httpResponse.getStatusLine().getStatusCode();
-   		if (status == HttpStatus.SC_OK) {
-   			Log.d("getImageData", "status:" + status);
-   			String strResult = EntityUtils.toString(httpResponse.getEntity());
-   			return strResult;
-   		}
-   		return null;
-   	}
-    
-    
-    
-    
-    
-    
-    
 
+                try {
+                    URL imageURl = new URL(url);
+                    URLConnection con = imageURl.openConnection();
+                    con.connect();
+                    InputStream in = con.getInputStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(in);
+                    //in.close();
+                    if (bitmap == null) {
+                        callBack.onError("获取图片失败");
+                    } else {
+                        callBack.onSuccess(bitmap);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    //获取网络中的图片内容
+    private static String getImageData(String url) throws ClientProtocolException, IOException {
+        HttpClient client = new DefaultHttpClient();
+        HttpGet httpget = new HttpGet(url);
+        HttpResponse httpResponse = client.execute(httpget);
+        int status = httpResponse.getStatusLine().getStatusCode();
+        if (status == HttpStatus.SC_OK) {
+            Log.d("getImageData", "status:" + status);
+            String strResult = EntityUtils.toString(httpResponse.getEntity());
+            return strResult;
+        }
+        return null;
+    }
+
+    public interface Callback<T> {
+        public void onSuccess(T obj);
+
+        public void onError(String error);
+    }
 }

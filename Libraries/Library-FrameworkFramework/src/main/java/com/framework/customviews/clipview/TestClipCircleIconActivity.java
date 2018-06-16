@@ -59,7 +59,6 @@ public class TestClipCircleIconActivity extends AppCompatActivity {
             }
         }
 
-
         Y.y("剪切头像：7");
         Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
         Y.y("剪切头像：8");

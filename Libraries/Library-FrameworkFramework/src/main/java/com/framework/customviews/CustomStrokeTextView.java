@@ -20,8 +20,7 @@ import com.framework.R;
  * @author Administrator
  * </pre>
  */
-public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTextView
-{
+public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTextView {
     /**
      * 镂空宽度
      */
@@ -36,16 +35,14 @@ public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTex
      */
     private TextView borderTextView = null;// /用于描边的TextView
 
-    public CustomStrokeTextView(Context context)
-    {
+    public CustomStrokeTextView(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
         borderTextView = new TextView(context);
         initData(mStrokeWidth, mColor);
     }
 
-    public CustomStrokeTextView(Context context, AttributeSet attrs)
-    {
+    public CustomStrokeTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
         borderTextView = new TextView(context, attrs);
@@ -53,16 +50,14 @@ public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTex
     }
 
     public CustomStrokeTextView(Context context, AttributeSet attrs,
-                                int defStyle)
-    {
+                                int defStyle) {
         super(context, attrs, defStyle);
         // TODO Auto-generated constructor stub
         borderTextView = new TextView(context, attrs, defStyle);
         initData(mStrokeWidth, mColor);
     }
 
-    private void initData(float strokeWidth, int color)
-    {
+    private void initData(float strokeWidth, int color) {
         // TODO Auto-generated method stub
         mColor = color;
         mStrokeWidth = strokeWidth;
@@ -79,10 +74,8 @@ public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTex
      * @param strokeWidth
      * </pre>
      */
-    public void setBorderStrokeWidth(float strokeWidth)
-    {
-        if (null != borderTextView)
-        {
+    public void setBorderStrokeWidth(float strokeWidth) {
+        if (null != borderTextView) {
             initData(strokeWidth, mColor);
         }
     }
@@ -93,10 +86,8 @@ public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTex
      * @param colorId
      * </pre>
      */
-    public void setBorderColor(int colorId)
-    {
-        if (null != borderTextView)
-        {
+    public void setBorderColor(int colorId) {
+        if (null != borderTextView) {
             initData(mStrokeWidth, colorId);
         }
     }
@@ -106,62 +97,50 @@ public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTex
      * 对外提供设置边界颜色 #00000000
      * </pre>
      */
-    public void setBorderColor(String color)
-    {
-        try
-        {
-            if (null != borderTextView)
-            {
+    public void setBorderColor(String color) {
+        try {
+            if (null != borderTextView) {
                 int color_ = Color.parseColor(color);
                 initData(mStrokeWidth, color_);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
 
     @Override
-    public void setLayoutParams(ViewGroup.LayoutParams params)
-    {
+    public void setLayoutParams(ViewGroup.LayoutParams params) {
         // MLog.i("setLayoutParams");
         super.setLayoutParams(params);
         borderTextView.setLayoutParams(params);
     }
 
     @Override
-    public void setText(CharSequence text, BufferType type)
-    {
-        try
-        {
+    public void setText(CharSequence text, BufferType type) {
+        try {
             borderTextView.setText(text, type);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
         super.setText(text, type);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         borderTextView.measure(widthMeasureSpec, heightMeasureSpec);
     }
 
     protected void onLayout(boolean changed, int left, int top, int right,
-                            int bottom)
-    {
+                            int bottom) {
         // MLog.i("onLayout");
         super.onLayout(changed, left, top, right, bottom);
         borderTextView.layout(left, top, right, bottom);
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         // MLog.i("onDraw");
         borderTextView.draw(canvas);
         super.onDraw(canvas);
     }
-
 }

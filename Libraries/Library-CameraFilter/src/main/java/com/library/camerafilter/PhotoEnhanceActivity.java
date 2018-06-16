@@ -18,9 +18,7 @@ import com.libray.camerafilter.R;
 import com.muzhi.camerasdk.library.utils.MResource;
 import com.muzhi.camerasdk.library.utils.PhotoEnhance;
 
-
-public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChangeListener
-{
+public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChangeListener {
 
     private ImageView mCropView;
     private TextView btn_done;
@@ -35,10 +33,8 @@ public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChang
 
     private PhotoEnhance mPhotoEnhance = null;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -51,7 +47,6 @@ public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChang
         btn_done = (TextView) findViewById(R.id.camerasdk_title_txv_right_text);
         btn_done.setVisibility(View.VISIBLE);
         btn_done.setText("确定");
-
 
         seekbar_brightness = (SeekBar) findViewById(R.id.seekBar1);
         seekbar_contrast = (SeekBar) findViewById(R.id.seekBar2);
@@ -72,33 +67,26 @@ public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChang
         initEvent();
     }
 
-
-    private void initEvent()
-    {
+    private void initEvent() {
         seekbar_brightness.setOnSeekBarChangeListener(this);
         seekbar_contrast.setOnSeekBarChangeListener(this);
         seekbar_saturation.setOnSeekBarChangeListener(this);
 
         mPhotoEnhance = new PhotoEnhance(sourceMap);
 
-        layout_tab.setOnCheckedChangeListener(new OnCheckedChangeListener()
-        {
+        layout_tab.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(RadioGroup arg0, int arg1)
-            {
-                if (arg1 == button_brightnessId)
-                {
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                if (arg1 == button_brightnessId) {
                     seekbar_brightness.setVisibility(View.VISIBLE);
                     seekbar_contrast.setVisibility(View.GONE);
                     seekbar_saturation.setVisibility(View.GONE);
-                } else if (arg1 == button_contrastId)
-                {
+                } else if (arg1 == button_contrastId) {
                     seekbar_brightness.setVisibility(View.GONE);
                     seekbar_contrast.setVisibility(View.VISIBLE);
                     seekbar_saturation.setVisibility(View.GONE);
-                } else if (arg1 == button_saturationId)
-                {
+                } else if (arg1 == button_saturationId) {
                     seekbar_brightness.setVisibility(View.GONE);
                     seekbar_contrast.setVisibility(View.GONE);
                     seekbar_saturation.setVisibility(View.VISIBLE);
@@ -106,35 +94,29 @@ public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChang
             }
         });
 
-        btn_done.setOnClickListener(new OnClickListener()
-        {
+        btn_done.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 done();
             }
         });
     }
 
     //拖动值监听
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch)
-    {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
         int type = 0;
         int vid = seekBar.getId();
 
-        if (vid == R.id.seekBar1)
-        {
+        if (vid == R.id.seekBar1) {
             //亮度
             mPhotoEnhance.setBrightness(progress);
             type = mPhotoEnhance.Enhance_Brightness;
-        } else if (vid == R.id.seekBar2)
-        {
+        } else if (vid == R.id.seekBar2) {
             //对比度
             mPhotoEnhance.setContrast(progress);
             type = mPhotoEnhance.Enhance_Contrast;
-        } else if (vid == R.id.seekBar3)
-        {
+        } else if (vid == R.id.seekBar3) {
             //饱和度
             mPhotoEnhance.setContrast(progress);
             type = mPhotoEnhance.Enhance_Contrast;
@@ -142,20 +124,16 @@ public class PhotoEnhanceActivity extends BaseActivity implements OnSeekBarChang
 
         sourceMap = mPhotoEnhance.handleImage(type);
         mCropView.setImageBitmap(sourceMap);
-
     }
 
-    public void onStartTrackingTouch(SeekBar seekBar)
-    {
+    public void onStartTrackingTouch(SeekBar seekBar) {
     }
 
     //SeekBar 停止拖动
-    public void onStopTrackingTouch(SeekBar seekBar)
-    {
+    public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
-    private void done()
-    {
+    private void done() {
 
         Constants.bitmap = sourceMap;
         setResult(Constants.RequestCode_Croper);

@@ -9,21 +9,17 @@ import com.muzhi.camerasdk.library.filter.util.ImageFilterTools.FilterType;
 
 import java.util.ArrayList;
 
-
 /**
  * 特效文件
  */
-public class FilterUtils
-{
-
+public class FilterUtils {
 
     /**
      * 获取特效列表
      *
      * @return
      */
-    public static ArrayList<Filter_Effect_Info> getEffectList()
-    {
+    public static ArrayList<Filter_Effect_Info> getEffectList() {
 
         ArrayList<Filter_Effect_Info> effect_list = new ArrayList<Filter_Effect_Info>();
 
@@ -47,17 +43,14 @@ public class FilterUtils
         effect_list.add(new Filter_Effect_Info("新潮", R.drawable.camerasdk_filter_xproii, FilterType.I_XPROII));
 
         return effect_list;
-
     }
-
 
     /**
      * 获取所有贴纸
      *
      * @return
      */
-    public static ArrayList<Filter_Sticker_Info> getStickerList()
-    {
+    public static ArrayList<Filter_Sticker_Info> getStickerList() {
 
         ArrayList<Filter_Sticker_Info> stickerList = new ArrayList<Filter_Sticker_Info>();
 
@@ -83,22 +76,20 @@ public class FilterUtils
         stickerList.add(new Filter_Sticker_Info(R.drawable.sticker_20));
         //stickerList.add(new Filter_Sticker_Info(R.drawable.camerasdk_stickers,true));
         return stickerList;
-
     }
-
 
     /**
      * 获取所有贴纸
      *
      * @return
      */
-    public static void initSticker(Context mContext)
-    {
+    public static void initSticker(Context mContext) {
 
 		
 		/*String fileName="sticker/sticker.txt";
     	try{
-    		 InputStreamReader inputReader = new InputStreamReader(mContext.getAssets().open(fileName),Charset.defaultCharset()); 
+    		 InputStreamReader inputReader = new InputStreamReader(mContext.getAssets().open(fileName),Charset
+    		 .defaultCharset());
     		 BufferedReader bufReader = new BufferedReader(inputReader);
              String line="";
              String Result="";
@@ -116,7 +107,6 @@ public class FilterUtils
     		 e.printStackTrace(); 
     	} */
 
-
     }
     
 	/*private static void getEmotionsTask() {
@@ -130,7 +120,8 @@ public class FilterUtils
     			inputStream = assetManager.open(fileName);
     			Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
     			if(bitmap!=null){
-    				Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, CommonUtils.dip2px(20), CommonUtils.dip2px(20), true);
+    				Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, CommonUtils.dip2px(20), CommonUtils.dip2px
+    				(20), true);
     				if(bitmap != scaledBitmap){
     					bitmap.recycle();
     					bitmap = scaledBitmap;
@@ -144,6 +135,4 @@ public class FilterUtils
             }
     	}    	
     }*/
-
-
 }

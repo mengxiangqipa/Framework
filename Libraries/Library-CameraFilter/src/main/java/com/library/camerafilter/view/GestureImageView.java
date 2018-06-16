@@ -12,54 +12,43 @@ import android.view.ViewConfiguration;
 /**
  * 支持手势的ImageView
  */
-public class GestureImageView extends android.support.v7.widget.AppCompatImageView
-{
+public class GestureImageView extends android.support.v7.widget.AppCompatImageView {
 
     private static final String TAG = "GestureImageView";
-
-    public GestureImageView(Context context)
-    {
-        super(context);
-        init(context);
-    }
-
-    public GestureImageView(Context context, AttributeSet attrs)
-    {
-        super(context, attrs);
-        init(context);
-    }
-
-    public GestureImageView(Context context, AttributeSet attrs, int defStyleAttr)
-    {
-        super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    private ScaleGestureDetector mScaleGesture;
-    private Matrix mImageMatrix;
-    private GestureDetectorCompat mGestureDetector;
-
     // 最大缩放比例
     private static final float MAX_SCALE_FACTOR = 3.0f;
     // 最小缩放比例
     private static final float MIN_SCALE_FACTOR = 0.3f;
+    private ScaleGestureDetector mScaleGesture;
+    private Matrix mImageMatrix;
+    private GestureDetectorCompat mGestureDetector;
     // 系统常量，系统认为手指是否移动的最小距离
     private int mTouchSlop;
-
     private float mCurrentFactor = 1.0f;
-
     private float mFirstPointerX, mFirstPointerY;
     private float mSecondPointerX, mSecondPointerY;
-
     private int mCenterX, mCenterY;
+
+    public GestureImageView(Context context) {
+        super(context);
+        init(context);
+    }
+    public GestureImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    public GestureImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context);
+    }
 
     /**
      * 初始化
      *
      * @param context
      */
-    private void init(final Context context)
-    {
+    private void init(final Context context) {
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
@@ -67,11 +56,9 @@ public class GestureImageView extends android.support.v7.widget.AppCompatImageVi
 
         mImageMatrix = new Matrix();
 
-        mScaleGesture = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener()
-        {
+        mScaleGesture = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
             @Override
-            public boolean onScale(ScaleGestureDetector detector)
-            {
+            public boolean onScale(ScaleGestureDetector detector) {
                 float factor = detector.getScaleFactor();
                 mImageMatrix.postScale(factor, factor, mCenterX, mCenterY);
                 setImageMatrix(mImageMatrix);
@@ -79,39 +66,32 @@ public class GestureImageView extends android.support.v7.widget.AppCompatImageVi
             }
         });
 
-        mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener()
-        {
+        mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onDoubleTap(MotionEvent e)
-            {
+            public boolean onDoubleTap(MotionEvent e) {
                 mImageMatrix.postScale(1.f, 1.f, mCenterX, mCenterY);
                 setImageMatrix(mImageMatrix);
                 return true;
             }
 
             @Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
-            {
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
                 //mImageMatrix.setTranslate(0, 0);
                 //setImageMatrix(mImageMatrix);
                 return true;
             }
 
             @Override
-            public boolean onDown(MotionEvent e)
-            {
+            public boolean onDown(MotionEvent e) {
                 return true;
             }
         });
-
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (w != oldw || h != oldh)
-        {
+        if (w != oldw || h != oldh) {
             int cx = (w - getDrawable().getIntrinsicWidth()) / 2;
             int cy = (h - getDrawable().getIntrinsicHeight()) / 2;
             mImageMatrix.setTranslate(cx, cy);
@@ -123,8 +103,7 @@ public class GestureImageView extends android.support.v7.widget.AppCompatImageVi
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
 
         boolean retValue = mScaleGesture.onTouchEvent(event);
 
@@ -132,5 +111,4 @@ public class GestureImageView extends android.support.v7.widget.AppCompatImageVi
 
         return retValue || super.onTouchEvent(event);
     }
-
 }

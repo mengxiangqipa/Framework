@@ -23,16 +23,16 @@ import java.util.Set;
 
 /**
  * @author Yangjie
- *         className RequestPermissionsUtil Android6.0请求权限工具类
- *         created at  2016/9/26  10:18
+ * className RequestPermissionsUtil Android6.0请求权限工具类
+ * created at  2016/9/26  10:18
  */
 public class RequestPermissionsUtil {
-    private static volatile RequestPermissionsUtil instance;
     public static int PERMISSION_LOCATION = 1;
     public static int PERMISSION_CAMERA = 2;
     public static int PERMISSION_READ_EXTERNAL_STORAGE = 3;
     public static int PERMISSION_WRITE_EXTERNAL_STORAGE = 4;
     public static int PERMISSION_WRITE_READ_EXTERNAL_STORAGE = 5;
+    private static volatile RequestPermissionsUtil instance;
 
     public static RequestPermissionsUtil getInstance() {
         if (null == instance) {
@@ -231,7 +231,9 @@ public class RequestPermissionsUtil {
         return false;
     }
 
-    /**打开setting-忽略电池优化
+    /**
+     * 打开setting-忽略电池优化
+     *
      * @param context context
      */
     public void openIgnoreBatteryOptimization(Context context) {
@@ -240,7 +242,10 @@ public class RequestPermissionsUtil {
             context.startActivity(intent2);
         }
     }
-    /**打开setting-忽略电池优化
+
+    /**
+     * 打开setting-忽略电池优化
+     *
      * @param context context
      */
     public void requestIgnoreBatteryOptimization(Context context) {

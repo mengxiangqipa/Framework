@@ -1,6 +1,5 @@
 package com.library.camerafilter;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,8 +31,7 @@ import uk.co.senab.photoview.PhotoView;
  *
  * @author zengxiaofeng
  */
-public class PreviewActivity extends BaseActivity
-{
+public class PreviewActivity extends BaseActivity {
 
     private ImageView image_show;
     private TextView button_delete;
@@ -45,13 +43,11 @@ public class PreviewActivity extends BaseActivity
     private String title;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camerasdk_activity_preview);
         showLeftIcon();
         title = getString(R.string.camerasdk_preview_image);
-
 
         button_delete = (TextView) findViewById(R.id.camerasdk_title_txv_right_text);
         button_delete.setVisibility(View.VISIBLE);
@@ -61,16 +57,14 @@ public class PreviewActivity extends BaseActivity
 
         ImagePagerAdapter sAdapter;
         Bundle b = getIntent().getExtras();
-        if (b != null)
-        {
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER);
+        if (b != null) {
+            mCameraSdkParameterInfo = (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo
+                    .EXTRA_PARAMETER);
             resultList = mCameraSdkParameterInfo.getImage_list();
             position = mCameraSdkParameterInfo.getPosition();
-            if (resultList != null && resultList.size() > 1)
-            {
+            if (resultList != null && resultList.size() > 1) {
                 setActionBarTitle(title + "(" + (position + 1) + "/" + resultList.size() + ")");
-            } else
-            {
+            } else {
                 setActionBarTitle(title);
             }
             sAdapter = new ImagePagerAdapter(this, resultList);
@@ -78,20 +72,15 @@ public class PreviewActivity extends BaseActivity
             mViewPager.setCurrentItem(position);
             initEvent();
         }
-
     }
 
-
     @SuppressWarnings("deprecation")
-    private void initEvent()
-    {
+    private void initEvent() {
 
-        button_delete.setOnClickListener(new OnClickListener()
-        {
+        button_delete.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View arg0)
-            {
+            public void onClick(View arg0) {
                 delete();
             }
         });
@@ -103,12 +92,10 @@ public class PreviewActivity extends BaseActivity
 				finish();
 			}
 		});*/
-        mViewPager.setOnPageChangeListener(new OnPageChangeListener()
-        {
+        mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
-            public void onPageSelected(int arg0)
-            {
+            public void onPageSelected(int arg0) {
                 // TODO Auto-generated method stub
                 position = arg0;
                 mViewPager.setCurrentItem(arg0);
@@ -116,73 +103,58 @@ public class PreviewActivity extends BaseActivity
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2)
-            {
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
                 // TODO Auto-generated method stub
 
             }
 
             @Override
-            public void onPageScrollStateChanged(int arg0)
-            {
+            public void onPageScrollStateChanged(int arg0) {
                 // TODO Auto-generated method stub
 
             }
         });
     }
 
-    public void delete()
-    {
+    public void delete() {
         Intent intent = new Intent();
         intent.putExtra("position", position);
         setResult(RESULT_OK, intent);
         finish();
     }
 
-
     //*************************************** Adapter  *************************************************//
 
-
-    class ImagePagerAdapter extends PagerAdapter
-    {
+    class ImagePagerAdapter extends PagerAdapter {
 
         private Context mContext;
         private List<String> imageList;
         private List<View> viewList = new ArrayList<View>();// 将要分页显示的View装入数组中
 
-        public ImagePagerAdapter(Context context, List<String> images)
-        {
+        public ImagePagerAdapter(Context context, List<String> images) {
             mContext = context;
             imageList = images;
 
             LayoutInflater lf = LayoutInflater.from(mContext);
-            for (int i = 0; i < images.size(); i++)
-            {
+            for (int i = 0; i < images.size(); i++) {
                 viewList.add(lf.inflate(R.layout.camerasdk_list_item_preview_image, null));
             }
-
-
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return imageList.size();
         }
 
         @Override
-        public View instantiateItem(ViewGroup container, int position)
-        {
+        public View instantiateItem(ViewGroup container, int position) {
 
             View view = viewList.get(position);
-            try
-            {
-                if (view.getParent() == null)
-                {
+            try {
+                if (view.getParent() == null) {
                     ((ViewPager) container).addView(view, 0);
                 }
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             PhotoView photoView = (PhotoView) view.findViewById(R.id.image);
@@ -203,49 +175,39 @@ public class PreviewActivity extends BaseActivity
         }
 
         @Override
-        public int getItemPosition(Object object)
-        {
+        public int getItemPosition(Object object) {
 
             return super.getItemPosition(object);
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object)
-        {
+        public void destroyItem(ViewGroup container, int position, Object object) {
             //container.removeView((View) object);
             //container.removeView(viewList.get(position));
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object)
-        {
+        public boolean isViewFromObject(View view, Object object) {
             return view == object;
         }
-
     }
 
-    public class CropSquareTransformation implements Transformation
-    {
+    public class CropSquareTransformation implements Transformation {
         @Override
-        public Bitmap transform(Bitmap source)
-        {
+        public Bitmap transform(Bitmap source) {
             int size = Math.min(source.getWidth(), source.getHeight());
             int x = (source.getWidth() - size) / 2;
             int y = (source.getHeight() - size) / 2;
             Bitmap result = Bitmap.createBitmap(source, x, y, size, size);
-            if (result != source)
-            {
+            if (result != source) {
                 source.recycle();
             }
             return result;
         }
 
         @Override
-        public String key()
-        {
+        public String key() {
             return "square()";
         }
     }
-
-
 }

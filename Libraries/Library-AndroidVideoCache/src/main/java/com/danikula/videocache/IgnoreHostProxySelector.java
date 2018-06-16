@@ -13,7 +13,8 @@ import static com.danikula.videocache.Preconditions.checkNotNull;
 /**
  * {@link ProxySelector} that ignore system default proxies for concrete host.
  * <p>
- * It is important to <a href="https://github.com/danikula/AndroidVideoCache/issues/28">ignore system proxy</a> for localhost connection.
+ * It is important to <a href="https://github.com/danikula/AndroidVideoCache/issues/28">ignore system proxy</a> for
+ * localhost connection.
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */
@@ -33,7 +34,8 @@ class IgnoreHostProxySelector extends ProxySelector {
 
     static void install(String hostToIgnore, int portToIgnore) {
         ProxySelector defaultProxySelector = ProxySelector.getDefault();
-        ProxySelector ignoreHostProxySelector = new IgnoreHostProxySelector(defaultProxySelector, hostToIgnore, portToIgnore);
+        ProxySelector ignoreHostProxySelector = new IgnoreHostProxySelector(defaultProxySelector, hostToIgnore,
+                portToIgnore);
         ProxySelector.setDefault(ignoreHostProxySelector);
     }
 

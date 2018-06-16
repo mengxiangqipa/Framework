@@ -1,15 +1,15 @@
 package com.framework.utils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.math.BigDecimal;
-
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.TrafficStats;
 import android.util.Log;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.math.BigDecimal;
 
 /**
  * 网络流量监听
@@ -27,29 +27,7 @@ import android.util.Log;
  * getTotalTxPackets()//发送的总数据包数，包含Mobile和WiFi等 static long getUidRxBytes(int
  * uid)//获取某个网络UID的接受字节数 static long getUidTxBytes(int uid) //获取某个网络UID的发送字节数
  */
-public class TrafficStatsUtil
-{
-    private static volatile TrafficStatsUtil instance;
-
-    public TrafficStatsUtil()
-    {
-    }
-
-    public static TrafficStatsUtil getInstance()
-    {
-        if (null == instance)
-        {
-            synchronized (TrafficStatsUtil.class)
-            {
-                if (null == instance)
-                {
-                    instance = new TrafficStatsUtil();
-                }
-            }
-        }
-        return instance;
-    }
-
+public class TrafficStatsUtil {
     /**
      * 不支持状态【标识变量】
      */
@@ -62,28 +40,39 @@ public class TrafficStatsUtil
      * 当前应用的uid
      */
     static int UUID;
+    private static volatile TrafficStatsUtil instance;
     /**
      * 上一次记录网络字节流
      */
     private long preRxBytes = 0;
+    public TrafficStatsUtil() {
+    }
+
+    public static TrafficStatsUtil getInstance() {
+        if (null == instance) {
+            synchronized (TrafficStatsUtil.class) {
+                if (null == instance) {
+                    instance = new TrafficStatsUtil();
+                }
+            }
+        }
+        return instance;
+    }
 
     /**
      * 获取总流量
      *
      * @return
      */
-    public long getTrafficInfo()
-    {
+    public long getTrafficInfo() {
         long recTraffic = UNSUPPORT;// 下载流量
         long sendTraffic = UNSUPPORT;// 上传流量
         recTraffic = getRecTraffic();
         sendTraffic = getSendTraffic();
 
-        if (recTraffic == UNSUPPORT || sendTraffic == UNSUPPORT)
-        {
+        if (recTraffic == UNSUPPORT || sendTraffic == UNSUPPORT) {
             return UNSUPPORT;
-        } else
-        {
+        } else {
             return recTraffic + sendTraffic;
         }
     }
@@ -93,36 +82,28 @@ public class TrafficStatsUtil
      *
      * @return
      */
-    private long getSendTraffic()
-    {
+    private long getSendTraffic() {
         long sendTraffic = UNSUPPORT;
         sendTraffic = TrafficStats.getUidTxBytes(UUID);
-        if (sendTraffic == UNSUPPORT)
-        {
+        if (sendTraffic == UNSUPPORT) {
             return UNSUPPORT;
         }
         RandomAccessFile rafSend = null;
         String sndPath = "/proc/uid_stat/" + UUID + "/tcp_snd";
-        try
-        {
+        try {
             rafSend = new RandomAccessFile(sndPath, "r");
             sendTraffic = Long.parseLong(rafSend.readLine());
-        } catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             Log.e(TAG, "FileNotFoundException: " + e.getMessage());
             sendTraffic = UNSUPPORT;
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             Log.e(TAG, "IOException: " + e.getMessage());
             e.printStackTrace();
-        } finally
-        {
-            try
-            {
+        } finally {
+            try {
                 if (rafSend != null)
                     rafSend.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 Log.w(TAG,
                         "Close RandomAccessFile exception: " + e.getMessage());
             }
@@ -135,38 +116,30 @@ public class TrafficStatsUtil
      *
      * @return
      */
-    private long getRecTraffic()
-    {
+    private long getRecTraffic() {
         long recTraffic = UNSUPPORT;
         recTraffic = TrafficStats.getUidRxBytes(UUID);
-        if (recTraffic == UNSUPPORT)
-        {
+        if (recTraffic == UNSUPPORT) {
             return UNSUPPORT;
         }
         Log.i(TAG, recTraffic + " ---1");
         // 访问数据文件
         RandomAccessFile rafRec = null;
         String rcvPath = "/proc/uid_stat/" + UUID + "/tcp_rcv";
-        try
-        {
+        try {
             rafRec = new RandomAccessFile(rcvPath, "r");
             recTraffic = Long.parseLong(rafRec.readLine()); // 读取流量统计
-        } catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             Log.e(TAG, "FileNotFoundException: " + e.getMessage());
             recTraffic = UNSUPPORT;
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             Log.e(TAG, "IOException: " + e.getMessage());
             e.printStackTrace();
-        } finally
-        {
-            try
-            {
+        } finally {
+            try {
                 if (rafRec != null)
                     rafRec.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
                 Log.w(TAG,
                         "Close RandomAccessFile exception: " + e.getMessage());
             }
@@ -180,8 +153,7 @@ public class TrafficStatsUtil
      *
      * @return
      */
-    public long getTotalRxBytes()
-    {
+    public long getTotalRxBytes() {
         return TrafficStats.getTotalRxBytes();
     }
 
@@ -190,19 +162,17 @@ public class TrafficStatsUtil
      *
      * @return
      */
-    public long getTotalTxBytes()
-    {
+    public long getTotalTxBytes() {
         return TrafficStats.getTotalTxBytes();
     }
 
     /**
      * 获取当前网速
-     *  preRxBytes 上一次的网络字节数
+     * preRxBytes 上一次的网络字节数
      *
      * @return 跟上一次的网络流量差异
      */
-    public double getNetSpeed()
-    {
+    public double getNetSpeed() {
         long curRxBytes = getTotalRxBytes();
         if (preRxBytes == 0)
             preRxBytes = curRxBytes;
@@ -220,17 +190,14 @@ public class TrafficStatsUtil
      *
      * @return
      */
-    public int getUid(Context context)
-    {
-        try
-        {
+    public int getUid(Context context) {
+        try {
             PackageManager pm = context.getPackageManager();
             // 修改
             ApplicationInfo ai = pm.getApplicationInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA);
             return ai.uid;
-        } catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return -1;
