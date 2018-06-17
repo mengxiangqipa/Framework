@@ -15,7 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
+import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
+import com.demo.entity.UpdateInfo;
 import com.framework.utils.KeyBoardUtil;
 import com.framework.utils.PreferencesHelper;
 import com.framework.utils.RegularUtil;
@@ -28,6 +30,9 @@ import com.framework2.utils.CustomLoadingDialogUtils;
 import com.framework2.utils.PicToastUtil;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 注册
@@ -45,6 +50,11 @@ public class RegisterActivity extends BaseActivity {
     private boolean registerSuccess;
     private String verifyKey;
 
+    //eventBus通知新消息
+    @Subscribe(threadMode = ThreadMode.MAIN, tag = "我是tag")
+    public void eventBusUpdate(UpdateInfo info){
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
