@@ -185,10 +185,6 @@
         <!-- *************************以上为微信回调activity************************* -->
 
 
-
-        <service
-            android:name="com.framework2.tinker.service.TinkerResultService"
-            android:exported="false"/>
         <!--service-->
         <service android:name="com.demo.service.CheckUpdateService">
             <intent-filter android:priority="1000">

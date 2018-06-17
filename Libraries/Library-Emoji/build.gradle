@@ -32,8 +32,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':Libraries:Library-Adapter')
     //butterknife注解
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //appcompat-v7
     compile rootProject.ext.androidSupport.appcompat_v7
 }

@@ -1,12 +1,12 @@
 ext {
 
-    compileSdkVersion = 25        //android-compileSdkVersion
-    buildToolsVersion = "25.0.3"  //android-buildToolsVersion
+    compileSdkVersion = 27        //android-compileSdkVersion
+    buildToolsVersion = "27.0.3"  //android-buildToolsVersion
 
     minSdkVersion = 14            //android-defaultConfig-minSdkVersion
-    targetSdkVersion = 25         //android-defaultConfig-targetSdkVersion
+    targetSdkVersion = 22         //android-defaultConfig-targetSdkVersion
 
-    supportLibraryVersion = '25.3.1'
+    supportLibraryVersion = '27.1.1'
 
     version = '1.5'
 

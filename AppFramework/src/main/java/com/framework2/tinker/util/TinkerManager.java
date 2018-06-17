@@ -16,11 +16,11 @@
 
 package com.framework2.tinker.util;
 
-import com.framework2.tinker.crash.TinkerUncaughtExceptionHandler;
+import com.framework2.tinker.crash.SampleUncaughtExceptionHandler;
 import com.framework2.tinker.reporter.SampleLoadReporter;
 import com.framework2.tinker.reporter.SamplePatchListener;
 import com.framework2.tinker.reporter.SamplePatchReporter;
-import com.framework2.tinker.service.TinkerResultService;
+import com.framework2.tinker.service.SampleResultService;
 import com.tencent.tinker.lib.listener.PatchListener;
 import com.tencent.tinker.lib.patch.AbstractPatch;
 import com.tencent.tinker.lib.patch.UpgradePatch;
@@ -31,15 +31,14 @@ import com.tencent.tinker.lib.util.TinkerLog;
 import com.tencent.tinker.lib.util.UpgradePatchRetry;
 import com.tencent.tinker.loader.app.ApplicationLike;
 
-
 /**
  * Created by zhangshaowen on 16/7/3.
  */
 public class TinkerManager {
     private static final String TAG = "Tinker.TinkerManager";
 
-    private static ApplicationLike                applicationLike;
-    private static TinkerUncaughtExceptionHandler uncaughtExceptionHandler;
+    private static ApplicationLike applicationLike;
+    private static SampleUncaughtExceptionHandler uncaughtExceptionHandler;
     private static boolean isInstalled = false;
 
     public static void setTinkerApplicationLike(ApplicationLike appLike) {
@@ -52,7 +51,7 @@ public class TinkerManager {
 
     public static void initFastCrashProtect() {
         if (uncaughtExceptionHandler == null) {
-            uncaughtExceptionHandler = new TinkerUncaughtExceptionHandler();
+            uncaughtExceptionHandler = new SampleUncaughtExceptionHandler();
             Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
         }
     }
@@ -60,7 +59,6 @@ public class TinkerManager {
     public static void setUpgradeRetryEnable(boolean enable) {
         UpgradePatchRetry.getInstance(applicationLike.getApplication()).setRetryEnable(enable);
     }
-
 
     /**
      * all use default class, simply Tinker install method
@@ -72,7 +70,6 @@ public class TinkerManager {
         }
         TinkerInstaller.install(appLike);
         isInstalled = true;
-
     }
 
     /**
@@ -96,8 +93,8 @@ public class TinkerManager {
         AbstractPatch upgradePatchProcessor = new UpgradePatch();
 
         TinkerInstaller.install(appLike,
-            loadReporter, patchReporter, patchListener,
-            TinkerResultService.class, upgradePatchProcessor);
+                loadReporter, patchReporter, patchListener,
+                SampleResultService.class, upgradePatchProcessor);
 
         isInstalled = true;
     }

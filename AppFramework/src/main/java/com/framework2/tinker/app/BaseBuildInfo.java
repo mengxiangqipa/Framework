@@ -16,7 +16,6 @@
 
 package com.framework2.tinker.app;
 
-
 import com.demo.demo.BuildConfig;
 
 /**

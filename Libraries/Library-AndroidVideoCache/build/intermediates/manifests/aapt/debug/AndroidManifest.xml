@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.danikula.videocache"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="21"
     android:versionName="2.7.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="25" />
+        android:targetSdkVersion="22" />
 
     <application />
 
