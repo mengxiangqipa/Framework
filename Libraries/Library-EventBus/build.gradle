@@ -24,7 +24,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     //appcompat-v7
-    compile rootProject.ext.androidSupport.appcompat_v7
+    api rootProject.ext.androidSupport.appcompat_v7
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

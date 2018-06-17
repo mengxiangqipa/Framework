@@ -24,12 +24,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //    compile 'com.android.support:appcompat-v7:27.1.1'
-    //appcompat-v7
-    compile rootProject.ext.androidSupport.appcompat_v7
     testCompile 'junit:junit:4.12'
-    compile project(':Libraries:Library-FrameworkFramework')
+    //appcompat-v7
+    api rootProject.ext.androidSupport.appcompat_v7
+    api project(':Libraries:Library-FrameworkFramework')
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

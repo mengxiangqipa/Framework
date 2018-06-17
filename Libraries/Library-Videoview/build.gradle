@@ -22,14 +22,14 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
     //butterknife注解
-    compile 'com.jakewharton:butterknife:8.4.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //appcompat-v7
-    compile rootProject.ext.androidSupport.appcompat_v7
-    compile project(':Libraries:Library-AndroidVideoCache')
+    api rootProject.ext.androidSupport.appcompat_v7
+    api project(':Libraries:Library-AndroidVideoCache')
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------
