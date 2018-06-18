@@ -27,7 +27,7 @@ public class FrameApplication {
 //        mHandler = new Handler();
 //    }
 
-    public void onCreate(@NonNull Application application) {
+    public static void onCreate(@NonNull Application application) {
         frameApplication = application;
         mHandler = new Handler();
     }

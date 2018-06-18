@@ -27,12 +27,13 @@ import java.util.Set;
  * created at  2016/9/26  10:18
  */
 public class RequestPermissionsUtil {
+    private static volatile RequestPermissionsUtil instance;
     public static int PERMISSION_LOCATION = 1;
     public static int PERMISSION_CAMERA = 2;
     public static int PERMISSION_READ_EXTERNAL_STORAGE = 3;
     public static int PERMISSION_WRITE_EXTERNAL_STORAGE = 4;
     public static int PERMISSION_WRITE_READ_EXTERNAL_STORAGE = 5;
-    private static volatile RequestPermissionsUtil instance;
+    public static int PERMISSION_CALL_PHONE = 6;
 
     public static RequestPermissionsUtil getInstance() {
         if (null == instance) {
