@@ -6,7 +6,7 @@ import com.framework.utils.PreferencesHelper;
 /**
  * 重置sharePreference的一些常量
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className ResetConstantUtil
  *         created at  2017/4/21  16:10
  */

@@ -37,7 +37,7 @@ import java.util.Vector;
 /**
  * 扫描页/销售
  *
- * @author Yangjie
+ * @author YobertJomi
  * className ScanActivity
  * created at  2017/3/16  14:44
  */

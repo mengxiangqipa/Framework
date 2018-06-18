@@ -16,7 +16,7 @@ import com.library.slidefinish.widget.SliderPanel;
  * that lets the user slide (or swipe) the activity away as a form of back or up action. The action
  * causes {@link Activity#finish()} to be called.
  *
- * @author Yangjie
+ * @author YobertJomi
  * className Slidr
  * created at  2017/5/26  15:49
  */

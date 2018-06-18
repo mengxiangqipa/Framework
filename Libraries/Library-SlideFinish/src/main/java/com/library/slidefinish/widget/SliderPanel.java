@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import com.library.slidefinish.model.SlidrConfig;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className SliderPanel
  * created at  2017/5/26  15:48
  */

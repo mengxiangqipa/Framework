@@ -3,7 +3,7 @@ package com.demo.configs;
 /**
  * 常量
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className EventBusTag
  *         created at  2017/3/16  14:32
  */

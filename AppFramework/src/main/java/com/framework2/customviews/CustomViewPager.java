@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 
 /**
  * 自定义一个viewPager，解决在上下拉刷新控件里面滑动冲突
- *     @author Yangjie
+ *     @author YobertJomi
  *     className CustomViewPager
  *     created at  2017/1/19  16:29
  */

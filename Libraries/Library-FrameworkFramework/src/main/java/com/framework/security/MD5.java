@@ -3,7 +3,7 @@ package com.framework.security;
 import java.security.MessageDigest;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className MD5
  * created at  2017/3/13  11:46
  */

@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className LineSpinFadeLoaderIndicator
  * created at  2017/1/12  12:25
  */

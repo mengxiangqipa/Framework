@@ -7,7 +7,7 @@ import com.demo.activity.HomePageActivity;
 
 /**
  * dataBinding的事件监听
- *     @author Yangjie
+ *     @author YobertJomi
  *     className MyHandlers
  *     created at  2016/12/28  14:29
  */

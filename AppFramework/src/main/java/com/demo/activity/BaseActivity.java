@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * activity的base类
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className BaseActivity
  *         created at  2017/3/15  13:44
  */

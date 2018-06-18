@@ -37,7 +37,7 @@ import org.greenrobot.eventbus.ThreadMode;
 /**
  * 注册
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className RegisterActivity
  *         created at  2017/3/15  11:30
  */

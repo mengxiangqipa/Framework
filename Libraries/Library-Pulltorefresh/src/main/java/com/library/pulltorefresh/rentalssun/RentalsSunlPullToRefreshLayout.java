@@ -14,7 +14,7 @@ import com.library.pulltorefresh.R;
 import com.library.pulltorefresh.storehouse.LocalDisplay;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className RentalsSunlPullToRefreshLayout
  * created at  2016/9/21  10:23
  */

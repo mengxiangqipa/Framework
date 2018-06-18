@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className RequestPermissionsUtil Android6.0请求权限工具类
  * created at  2016/9/26  10:18
  */

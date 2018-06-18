@@ -1,6 +1,6 @@
 package com.framework2.glide;
 /**
- *     @author Yangjie
+ *     @author YobertJomi
  *     className GlideUtil
  *     created at  2017/2/22  15:29
  */

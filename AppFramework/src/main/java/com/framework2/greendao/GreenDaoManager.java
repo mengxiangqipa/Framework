@@ -18,7 +18,7 @@ import com.framework.utils.Y;
 /**
  * 数据库管理类
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className GreenDaoManager
  *         created at  2016/11/28  11:08
  */

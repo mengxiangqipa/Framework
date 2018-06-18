@@ -8,7 +8,7 @@ import android.support.annotation.FloatRange;
  * * This class contains the configuration information for all the options available in
  * this library
  *
- * @author Yangjie
+ * @author YobertJomi
  * className SlidrConfig
  * created at  2017/5/26  15:48
  */

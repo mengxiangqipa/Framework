@@ -18,7 +18,7 @@ import com.library.pulltorefresh.storehouse.LocalDisplay;
 /**
  * 通用的上下拉刷新容器
  *
- * @author Yangjie
+ * @author YobertJomi
  * className ClassicalPullToRefreshLayout
  * created at  2017/1/9  15:36
  */

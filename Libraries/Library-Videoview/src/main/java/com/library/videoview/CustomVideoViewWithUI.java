@@ -45,7 +45,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className CustomVideoViewWithControl
  * created at  2016/9/30  17:13
  * csdn博客:http://blog.csdn.net/yissan

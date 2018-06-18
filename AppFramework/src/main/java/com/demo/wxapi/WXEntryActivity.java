@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus;
 
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  *         className WXEntryActivity
  *         created at  2017/4/13  17:15
  */

@@ -13,7 +13,7 @@ import com.library.loadingview.Indicator;
 import java.util.ArrayList;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className SquareSpinIndicator
  * created at  2017/1/12  12:25
  */

@@ -8,7 +8,7 @@ import java.util.Comparator;
 /**
  * 对象排序工具类
  *
- * @author Yangjie
+ * @author YobertJomi
  * className ComparatorUtil
  * created at  2017/4/26  10:06
  */

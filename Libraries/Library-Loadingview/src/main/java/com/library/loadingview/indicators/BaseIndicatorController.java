@@ -8,7 +8,7 @@ import android.view.View;
 import java.util.List;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className BaseIndicatorController
  * created at  2017/1/12  12:21
  */

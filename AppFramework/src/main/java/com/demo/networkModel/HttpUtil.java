@@ -24,7 +24,7 @@ import okhttp3.OkHttpClient;
 /**
  * HttpUtil
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className GohomePopupWindowUtil
  *         created at  2017/3/17  13:01
  */

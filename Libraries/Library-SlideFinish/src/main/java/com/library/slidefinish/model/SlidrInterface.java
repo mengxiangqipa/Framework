@@ -1,7 +1,7 @@
 package com.library.slidefinish.model;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className SlidrInterface
  * created at  2017/5/26  15:48
  */

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className PullableRecyclerView
  * created at  2016/12/28  11:21
  */

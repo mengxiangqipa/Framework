@@ -6,7 +6,7 @@ import android.view.animation.LinearInterpolator;
 import java.util.ArrayList;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className BallZigZagDeflectIndicator
  * created at  2017/1/12  12:20
  */

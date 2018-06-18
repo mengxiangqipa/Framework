@@ -5,7 +5,7 @@ import android.view.View;
 /**
  * 单次点击，间隔200ms
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className BaseOnClickListener
  *         created at  2017/3/20  14:53
  */

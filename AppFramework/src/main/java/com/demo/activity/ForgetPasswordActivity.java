@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * 忘记密码
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className ForgetPasswordActivity
  *         created at  2017/4/5  11:10
  */

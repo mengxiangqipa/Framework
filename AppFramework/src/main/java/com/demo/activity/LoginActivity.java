@@ -58,7 +58,7 @@ import butterknife.ButterKnife;
 /**
  * 登录注册
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className LoginActivity
  *         created at  2017/3/13  16:24
  */

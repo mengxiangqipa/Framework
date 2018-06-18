@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * 判断List是否为空
  *
- * @author Yangjie
+ * @author YobertJomi
  * className CollectionUtil
  * created at  2017/3/17  13:01
  */

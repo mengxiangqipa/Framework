@@ -18,7 +18,7 @@ import com.library.pulltorefresh.storehouse.LocalDisplay;
 /**
  * 头部可悬停,其他的跟ClassicalPullToRefreshLayout一样
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className CustomPullToRefreshLayout
  *         created at  2017/1/9  15:36
  * @see CustomPullToRefreshLayout

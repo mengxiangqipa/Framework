@@ -2,7 +2,7 @@ package com.ndktest;
 
 /**
  * NDKtest
- *     @author Yangjie
+ *     @author YobertJomi
  *     className NdkJniTest
  *     created at  2017/2/17  10:11
  */

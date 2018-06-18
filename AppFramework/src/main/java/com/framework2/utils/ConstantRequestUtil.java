@@ -3,7 +3,7 @@ package com.framework2.utils;
 /**
  * 用于请求一些常量
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className ConstantRequestUtil
  *         created at  2017/4/18  11:02
  */

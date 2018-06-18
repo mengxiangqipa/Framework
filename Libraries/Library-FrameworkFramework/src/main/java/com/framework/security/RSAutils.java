@@ -26,7 +26,7 @@ import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className RSAutils
  * created at  2017/3/13  12:04
  */

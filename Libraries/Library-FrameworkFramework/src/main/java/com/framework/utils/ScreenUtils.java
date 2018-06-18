@@ -13,7 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className ScreenUtils
  * created at  2016/10/5  10:49
  */

@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.VideoView;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className CustomFullScreenVideoView
  * created at  2016/9/30  16:58
  * 自定义可以全屏播放的VideoView

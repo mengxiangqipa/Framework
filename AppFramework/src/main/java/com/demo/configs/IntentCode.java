@@ -1,7 +1,7 @@
 package com.demo.configs;
 
 /**
- *     @author Yangjie
+ *     @author YobertJomi
  *     className IntentCode
  *     created at  2017/3/21  10:14
  */

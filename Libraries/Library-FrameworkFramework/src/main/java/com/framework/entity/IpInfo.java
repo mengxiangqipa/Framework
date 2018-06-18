@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * IP配置的相关信息
  *
- * @author Yangjie
+ * @author YobertJomi
  * className IpInfo
  * created at  2016/11/11  15:11
  */

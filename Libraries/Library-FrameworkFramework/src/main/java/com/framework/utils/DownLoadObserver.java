@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className DownLoadObserver
  * created at  2016/9/26  16:13
  * 在下载之后调用

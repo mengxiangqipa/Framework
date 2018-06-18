@@ -7,7 +7,7 @@ import android.view.View;
 /**
  * 自定义3D轮播的viewPager--PageTransformer
  *
- * @author Yangjie
+ * @author YobertJomi
  * className CustomPageTransformer
  * created at  2017/3/26  11:31
  */

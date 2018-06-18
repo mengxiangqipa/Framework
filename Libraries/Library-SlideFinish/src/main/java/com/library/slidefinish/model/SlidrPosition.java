@@ -1,7 +1,7 @@
 package com.library.slidefinish.model;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className SlidrPosition
  * created at  2017/5/26  15:47
  */

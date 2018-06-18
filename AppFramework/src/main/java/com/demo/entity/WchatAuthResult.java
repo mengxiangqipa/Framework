@@ -4,7 +4,7 @@ package com.demo.entity;
 /**
  * wchat 授权返回
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className WchatAuthResult
  *         created at  2017/4/25  16:26
  */

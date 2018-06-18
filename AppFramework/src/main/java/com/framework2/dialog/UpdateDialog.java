@@ -32,7 +32,7 @@ import com.framework.utils.ScreenUtils;
 /**
  * 自定义的dialog
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className UpdateDialog
  *         created at  2017/3/17  10:06
  */

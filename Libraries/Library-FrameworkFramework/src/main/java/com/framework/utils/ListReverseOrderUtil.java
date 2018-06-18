@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * List 倒序输出
  *
- * @author Yangjie
+ * @author YobertJomi
  * className ListReverseOrderUtil
  * created at  2017/3/17  13:01
  */

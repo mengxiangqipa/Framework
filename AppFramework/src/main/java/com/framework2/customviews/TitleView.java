@@ -20,7 +20,7 @@ import com.framework2.baseEvent.BaseOnClickListener;
 /**
  * 自定义头部view
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className TitleView
  *         created at  2017/3/15  14:29
  */

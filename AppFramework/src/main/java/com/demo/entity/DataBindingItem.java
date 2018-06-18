@@ -5,7 +5,7 @@ import android.databinding.ObservableField;
 
 /**
  * dataBinding 的item项
- *     @author Yangjie
+ *     @author YobertJomi
  *     className DataBindingItem
  *     created at  2016/12/21  10:17
  */

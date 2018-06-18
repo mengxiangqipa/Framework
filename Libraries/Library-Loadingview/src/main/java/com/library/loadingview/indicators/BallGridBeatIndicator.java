@@ -9,7 +9,7 @@ import com.library.loadingview.Indicator;
 import java.util.ArrayList;
 
 /**
- * @author Yangjie
+ * @author YobertJomi
  * className BallGridBeatIndicator
  * created at  2017/1/12  12:09
  */

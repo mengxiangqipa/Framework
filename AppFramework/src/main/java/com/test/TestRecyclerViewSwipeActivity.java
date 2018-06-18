@@ -53,7 +53,7 @@ import android.widget.TextView;
 
 /**
  * 这种滑动删除是item项自定义view滑动 未使用itemTouchHelper类
- *     @author Yangjie
+ *     @author YobertJomi
  *     className TestRecyclerViewSwipeActivity
  *     created at  2017/2/9  17:24
  */

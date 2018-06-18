@@ -24,7 +24,7 @@ import java.util.TimerTask;
 /**
  * service
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className CheckUpdateService
  *         created at  2017/4/6  13:38
  */

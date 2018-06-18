@@ -4,7 +4,7 @@ package com.library.slidefinish.model;
  * * This listener interface is for receiving events from the sliding panel such as state changes
  * and slide progress
  *
- * @author Yangjie
+ * @author YobertJomi
  * className SlidrListener
  * created at  2017/5/26  15:49
  */

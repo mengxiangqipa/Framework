@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * greenDao数据库升级-----
  *
- * @author Yangjie
+ * @author YobertJomi
  *         className MigrationHelper
  *         created at  2017/3/31  11:42
  */

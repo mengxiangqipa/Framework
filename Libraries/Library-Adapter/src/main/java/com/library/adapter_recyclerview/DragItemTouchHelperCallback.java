@@ -171,7 +171,7 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
     /**
      * recyclerView滑动删除及dismiss的方法接口
      *
-     * @author Yangjie
+     * @author YobertJomi
      * className ItemTouchMoveDismissHelper
      * created at  2017/2/7  16:02
      */
@@ -184,7 +184,7 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
     /**
      * recyclerView拖拽的方法接口
      *
-     * @author Yangjie
+     * @author YobertJomi
      * className ItemTouchDragHelper
      * created at  2017/2/7  16:02
      */
