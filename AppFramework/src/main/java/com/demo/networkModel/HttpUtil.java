@@ -6,9 +6,9 @@ import android.text.TextUtils;
 import com.demo.configs.InterfaceConfig;
 import com.framework.utils.JSONParseUtil;
 import com.framework.utils.Y;
-import com.framework2.okhttp3.UICallback;
-import com.framework2.okhttp3.Ok3Util;
-import com.framework2.okhttp3.StringRequest;
+import com.framework2.okhttp3_bak.UICallback;
+import com.framework2.okhttp3_bak.Ok3Util;
+import com.framework2.okhttp3_bak.StringRequest;
 
 import org.json.JSONArray;
 

@@ -38,12 +38,11 @@ import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
 import com.framework.utils.multyprocessprovider.provider.PreferencesUtil;
 import com.framework2.dialog.UpdateDialog;
-import com.framework2.okhttp3.Ok3Util;
-import com.framework2.okhttp3.StringRequest;
+import com.framework2.okhttp3_bak.Ok3Util;
+import com.framework2.okhttp3_bak.StringRequest;
 import com.framework2.tinker.app.TinkerMainActivity;
 import com.framework2.utils.PicToastUtil;
 import com.library.adapter_recyclerview.ADPagerAdapter;
-import com.test.MainActivity;
 import com.testactivity.ScanActivity;
 
 import org.greenrobot.eventbus.EventBus;

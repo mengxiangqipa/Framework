@@ -155,8 +155,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //    compile 'com.android.support:appcompat-v7:27.1.1'
     //    compile 'com.android.support:appcompat-v7:25.3.1'
-    //ok3网络请求
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+//    //ok3网络请求
+//    compile 'com.squareup.okhttp3:okhttp:3.10.0'
     //GreenDao数据库插件，不使用GreenDao数据库，将其删除
     compile 'org.greenrobot:greendao:3.2.2'
     //butterknife注解
@@ -184,6 +184,7 @@ dependencies {
     compile project(':Libraries:Library-Videoview')
     //百分比
     compile project(':Libraries:Library-PercentLayout')
+    compile project(':Libraries:Library-Network')
     /** tinker    */
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
@@ -191,7 +192,6 @@ dependencies {
     compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
     //支持multidex
     api 'com.android.support:multidex:1.0.3'
-
     /** tinker    */
     compile files('libs/open_sdk_r5788_lite.jar')
     //微信授权登录
