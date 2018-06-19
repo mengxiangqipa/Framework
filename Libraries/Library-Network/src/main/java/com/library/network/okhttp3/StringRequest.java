@@ -69,7 +69,8 @@ public class StringRequest {
     }
 
     public static class Builder {
-        String baseUrl;
+        public String baseUrl;
+        public String params;
         Request.Builder requstBuilder = new Request.Builder();
 
         public Builder addHeader(String name, String value) {
@@ -108,6 +109,7 @@ public class StringRequest {
 
         public Builder get(JSONObject jsonObject) {
             if (null != jsonObject) {
+                this.params = jsonObject.toString();
                 JSONArray names = jsonObject.names();
                 if (names != null && names.length() > 0) {
                     int lenth = names.length();
@@ -142,7 +144,10 @@ public class StringRequest {
 
         public Builder put_x_www(String json) {
             if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), json);
+                this.params = json;
+                RequestBody body = RequestBody.create(
+                        MediaType.parse("application/x-www-form-urlencoded"),
+                        json);
                 requstBuilder.put(body);
             }
             return this;
@@ -150,7 +155,10 @@ public class StringRequest {
 
         public Builder postString_json(String json) {
             if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+                this.params = json;
+                RequestBody body = RequestBody.create(
+                        MediaType.parse("application/json; charset=utf-8"),
+                        json);
                 requstBuilder.post(body);
             }
             return this;
@@ -158,10 +166,26 @@ public class StringRequest {
 
         public Builder postString_x_www(String json) {
             if (!TextUtils.isEmpty(json)) {
+                this.params = json;
                 RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), json);
                 requstBuilder.post(body);
             }
             return this;
+        }
+
+        /**
+         * 文件上传时使用
+         */
+        public Builder postRequestBody(RequestBody requestBody, String json) {
+            if (null != requestBody) {
+                this.params = json;
+                requstBuilder.post(requestBody);
+            }
+            return this;
+        }
+
+        public Builder postRequestBody(RequestBody requestBody) {
+            return postRequestBody(requestBody, null);
         }
 
         public Builder postFormBody(FormBody formBody) {
