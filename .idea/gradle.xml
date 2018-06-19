@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/Libraries/Library-Scan" />
             <option value="$PROJECT_DIR$/Libraries/Library-SlideFinish" />
             <option value="$PROJECT_DIR$/Libraries/Library-Videoview" />
+            <option value="$PROJECT_DIR$/Library-Network" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

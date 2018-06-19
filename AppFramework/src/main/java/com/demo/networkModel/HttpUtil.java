@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.demo.configs.InterfaceConfig;
 import com.framework.utils.JSONParseUtil;
 import com.framework.utils.Y;
-import com.framework2.okhttp3.HandlerCallback;
+import com.framework2.okhttp3.UICallback;
 import com.framework2.okhttp3.Ok3Util;
 import com.framework2.okhttp3.StringRequest;
 
@@ -76,7 +76,7 @@ public class HttpUtil {
         map.put("mobile", phone);
         map.put("password", pwd);
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         Y.y("JSONRequestonResponse:" + result);
@@ -115,7 +115,7 @@ public class HttpUtil {
     public void requestLogout(String _interface, final OnRequestResult<String> resultListener) {
 
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(null)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         if (null != resultListener) {
@@ -147,7 +147,7 @@ public class HttpUtil {
         map.put("codeType", codeType + "");
         map.put("mobile", phone);
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         Y.y("JSONRequestonResponse:" + result);
@@ -182,7 +182,7 @@ public class HttpUtil {
         map.put("mobileValidVoucher", captchaKey);
         map.put("mobileVerifyCode", captcha);
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         Y.y("JSONRequestonResponse:" + result);
@@ -217,7 +217,7 @@ public class HttpUtil {
         map.put("newPassword", pwd_new);
         map.put("reNewPassword", pwd_new_again);
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         if (null != resultListener) {
@@ -252,7 +252,7 @@ public class HttpUtil {
         map.put("smsValidVoucher", captchaKey);
         map.put("codeContent", captcha);
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         if (null != resultListener) {
@@ -283,7 +283,7 @@ public class HttpUtil {
         HashMap<String, String> map = new HashMap<>();
         map.put("nickName", nick);
         StringRequest jsonRequest = StringRequest.getBuilder(false).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         if (null != resultListener) {
@@ -317,7 +317,7 @@ public class HttpUtil {
         map.put("nickname", nick);
         map.put("headPicUrl", imgUrl);
         StringRequest jsonRequest = StringRequest.getBuilder(true).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         if (null != resultListener) {
@@ -357,7 +357,7 @@ public class HttpUtil {
         map.put("password", password);
         map.put("openId", openId);
         StringRequest jsonRequest = StringRequest.getBuilder(true).url(InterfaceConfig.BASE_SERVER_URL + _interface).post(map)
-                .build(new HandlerCallback() {
+                .build(new UICallback() {
                     @Override
                     public void onResponseMainThread(Call call, String result) throws IOException {
                         if (null != resultListener) {
@@ -391,7 +391,7 @@ public class HttpUtil {
     public void requestVersionUpdate(String checkUpdateUrl, final OnRequestResult<String> resultListener) {
         try {
             final StringRequest jsonRequest = StringRequest.getBuilder(false).url(checkUpdateUrl).get()
-                    .build(new HandlerCallback() {
+                    .build(new UICallback() {
                         @Override
                         public void onResponseMainThread(Call call, String result) throws IOException {
                             if (null != resultListener) {

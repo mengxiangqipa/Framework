@@ -3,12 +3,12 @@ package com.framework.security;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.framework.configs.FrameConstant;
+import com.framework.configs.FrameworkConstant;
 import com.framework.utils.multyprocessprovider.provider.PreferencesUtil;
 
 /**
  * @author YobertJomi
- * className SessionManagerUtil
+ * className SecurityManagerUtil
  * created at  2017/10/17  10:38
  */
 public class SecurityManagerUtil {
@@ -29,13 +29,17 @@ public class SecurityManagerUtil {
     }
 
     public final String get(Context context, String keyInSharedPreferences) {
+        if (null == context || TextUtils.isEmpty(keyInSharedPreferences))
+            return null;
         return decode(context, PreferencesUtil.getInstance().getString(keyInSharedPreferences));
     }
 
     public final void put(Context context, String keyInSharedPreferences, String value) {
+        if (null == context || TextUtils.isEmpty(keyInSharedPreferences))
+            return;
         if (!TextUtils.isEmpty(value)) {
-            if (TextUtils.isEmpty(PreferencesUtil.getInstance().getString(FrameConstant.AES_KEY))) {
-                PreferencesUtil.getInstance().putString(FrameConstant.AES_KEY, Base64Coder.encodeString(AesUtils
+            if (TextUtils.isEmpty(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY))) {
+                PreferencesUtil.getInstance().putString(FrameworkConstant.AES_KEY, Base64Coder.encodeString(AesUtils
                         .getInstance().generateKey()));
             }
             if (value.length() > 128) {
@@ -48,21 +52,24 @@ public class SecurityManagerUtil {
                     sb.append(Base64Coder.encodeString(cookiesWithRSA));
                 }
                 PreferencesUtil.getInstance().putString(keyInSharedPreferences, AesUtils.getInstance().encrypt
-                        (Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameConstant.AES_KEY)), sb
-                                .toString()));
+                        (Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY))
+                                , sb
+                                        .toString()));
             } else {
                 String cookiesWithRSA = RSAmethodInRaw.rsaEncrypt(context, value);
                 PreferencesUtil.getInstance().putString(keyInSharedPreferences, AesUtils.getInstance().encrypt
-                        (Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameConstant.AES_KEY)),
+                        (Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY)),
                                 Base64Coder.encodeString(cookiesWithRSA)));
             }
         }
     }
 
     private final String decode(Context context, String str) {
+        if (null == context || TextUtils.isEmpty(str))
+            return null;
         if (!TextUtils.isEmpty(str)) {
             String tm = AesUtils.getInstance().decrypt(Base64Coder.decodeString(PreferencesUtil.getInstance()
-                    .getString(FrameConstant.AES_KEY)), str);
+                    .getString(FrameworkConstant.AES_KEY)), str);
             if (!TextUtils.isEmpty(tm)) {
                 String cookie[] = tm.split(",,,,");
                 StringBuilder sb = new StringBuilder();

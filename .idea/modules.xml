@@ -16,6 +16,7 @@
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-FrameworkFramework/Library-FrameworkFramework.iml" filepath="$PROJECT_DIR$/Libraries/Library-FrameworkFramework/Library-FrameworkFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Loadingview/Library-Loadingview.iml" filepath="$PROJECT_DIR$/Libraries/Library-Loadingview/Library-Loadingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-MPAndroidChart/Library-MPAndroidChart.iml" filepath="$PROJECT_DIR$/Libraries/Library-MPAndroidChart/Library-MPAndroidChart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library-Network/Library-Network.iml" filepath="$PROJECT_DIR$/Library-Network/Library-Network.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-PercentLayout/Library-PercentLayout.iml" filepath="$PROJECT_DIR$/Libraries/Library-PercentLayout/Library-PercentLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" filepath="$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" filepath="$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" />

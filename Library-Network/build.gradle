@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
+group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //ok3网络请求
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    //引用FrameworkFramework
+    implementation project(':Libraries:Library-FrameworkFramework')
+}
