@@ -1,77 +1,125 @@
-package com.library.network.okhttp3;
+package com.library.network.okhttp3.request;
 
 import android.text.TextUtils;
+
+import com.library.network.okhttp3.callback.HttpCallback;
+import com.library.network.okhttp3.callback.ICallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Map;
 
-import okhttp3.Callback;
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
- * 封装ok3的string请求
+ * StringRequest
  *
- * @author Yobert Jomi
+ * @author YobertJomi
  * className StringRequest
- * created at  2016/10/17  16:02
+ * created at  2018/6/19  14:49
  */
-
-public class StringRequest {
-    public static volatile StringRequest.Builder builder;
+@SuppressWarnings("unused")
+public final class StringRequest extends HttpCallback {
+    private static StringRequest.Builder builder;
+    private ICallback callback;
     private Request request;
-    private Callback callBack;
+    private String baseUrl;
+    private String params;
+    private boolean callBackOnUiThread;
+    private boolean isReturnBody;
 
-    public static StringRequest.Builder getBuilder(boolean forceBuild) {
-        if (forceBuild)
-            builder = null;
-        if (builder == null) {
-            synchronized (StringRequest.class) {
-                if (builder == null) {
-                    builder = new StringRequest.Builder();
-                }
-            }
-        }
-        return builder;
+    public StringRequest(Builder builder) {
+        this.baseUrl = builder.baseUrl;
+        this.params = builder.params;
+        this.callBackOnUiThread = builder.callBackOnUiThread;
+        this.isReturnBody = builder.isReturnBody;
+        this.callback = builder.callback;
+        this.request = builder.request;
     }
 
-    public static StringRequest.Builder getBuilder(boolean forceBuild, Map<String, String> headers) {
-        if (forceBuild)
-            builder = null;
-        if (builder == null) {
-            synchronized (StringRequest.class) {
-                if (builder == null) {
-                    builder = new StringRequest.Builder()
-                            .addHeaders(headers)
-                            .addHeader("accept", "application/json")
-                            .addHeader("content-type", "application/json");
-                }
-            }
-        }
-        return builder;
-    }
-
-    public StringRequest(Request request, Callback callBack) {
-        this.request = request;
-        this.callBack = callBack;
+    public StringRequest.Builder newBuilder() {
+        return new StringRequest.Builder(this);
     }
 
     public Request getRequest() {
         return request;
     }
 
-    public Callback getCallBack() {
-        return callBack;
+    public ICallback getCallBack() {
+        return callback;
+    }
+
+    public String getRequestType() {
+        return "STRING";
+    }
+
+    @Override
+    public void onSuccess(Call call, ResponseBody reponseBody) {
+        if (builder != null && builder.isReturnBody) {
+
+        }
+    }
+
+    @Override
+    public void onSuccess(Call call, String string) {
+        if (callback != null) {
+            callback.onSuccess(string);
+        }
+    }
+
+    @Override
+    public void onFail(Call call, Exception e) {
+        if (callback != null) {
+            callback.onFail(0, e);
+        }
+    }
+
+    @Override
+    public void onCancel() {
+
     }
 
     public static class Builder {
-        public String baseUrl;
-        public String params;
+        String baseUrl;
+        String params;
+        boolean callBackOnUiThread;
+        boolean isReturnBody;
+        ICallback callback;
+        Request request;
         Request.Builder requstBuilder = new Request.Builder();
+
+        public Builder() {
+            this.callBackOnUiThread = false;
+            this.isReturnBody = false;
+        }
+
+        Builder(StringRequest request) {
+            this.baseUrl = request.baseUrl;
+            this.params = request.params;
+            this.callBackOnUiThread = request.callBackOnUiThread;
+            this.isReturnBody = request.isReturnBody;
+        }
+
+        public Builder callBackOnUiThread(boolean callBackOnUiThread) {
+            this.callBackOnUiThread = callBackOnUiThread;
+            return this;
+        }
+
+        public Builder isReturnBody(boolean isReturnBody) {
+            this.isReturnBody = isReturnBody;
+            return this;
+        }
+
+        public Builder header(String name, String value) {
+            requstBuilder.header(name, value);
+            return this;
+        }
 
         public Builder addHeader(String name, String value) {
             requstBuilder.addHeader(name, value);
@@ -79,6 +127,8 @@ public class StringRequest {
         }
 
         public Builder addHeaders(Map<String, String> headers) {
+            addHeader("accept", "application/json");
+            addHeader("content-type", "application/json");
             if (null != headers) {
                 for (String key : headers.keySet()) {
                     try {
@@ -211,9 +261,14 @@ public class StringRequest {
             return this;
         }
 
-        public StringRequest build(Callback callBack) {
-            Request request = requstBuilder.build();
-            return new StringRequest(request, callBack);
+        public StringRequest build(ICallback callBack) {
+            Builder.this.callback = callBack;
+            Builder.this.request = requstBuilder.build();
+            StringRequest stringRequest = new StringRequest(this);
+            stringRequest.setCallBackOnUiThread(callBackOnUiThread);
+            stringRequest.setReturnBody(isReturnBody);
+            builder = this;
+            return stringRequest;
         }
     }
 }
