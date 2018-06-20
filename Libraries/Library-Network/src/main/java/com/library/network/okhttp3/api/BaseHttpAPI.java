@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.framework.utils.NetworkUtil;
-import com.library.network.okhttp3.Ok3Util;
+import com.library.network.okhttp3.util.Ok3Util;
 import com.library.network.okhttp3.callback.DownloadFileCallback;
 import com.library.network.okhttp3.callback.ICallback;
 import com.library.network.okhttp3.callback.UploadFilesCallback;

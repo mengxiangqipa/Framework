@@ -1,4 +1,4 @@
-package com.library.network.okhttp3;
+package com.library.network.okhttp3.util;
 
 import android.support.annotation.NonNull;
 
