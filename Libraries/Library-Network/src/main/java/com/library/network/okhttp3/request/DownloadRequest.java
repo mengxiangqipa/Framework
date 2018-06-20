@@ -3,7 +3,7 @@ package com.library.network.okhttp3.request;
 import android.text.TextUtils;
 
 import com.library.network.okhttp3.callback.DownloadFileCallback;
-import com.library.network.okhttp3.callback.HttpCallback;
+import com.library.network.okhttp3.callback.AbstractCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ import okhttp3.ResponseBody;
  * created at  2018/6/19  14:49
  */
 @SuppressWarnings("unused")
-public final class DownloadRequest extends HttpCallback {
+public final class DownloadRequest extends AbstractCallback {
     private static DownloadRequest.Builder builder;
     private DownloadFileCallback callback;
     private Request request;

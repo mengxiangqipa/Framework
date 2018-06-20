@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.library.network.okhttp3.callback.HttpCallback;
+import com.library.network.okhttp3.callback.AbstractCallback;
 import com.library.network.okhttp3.callback.UploadFilesCallback;
 
 import org.json.JSONArray;
@@ -27,7 +27,7 @@ import okhttp3.ResponseBody;
  * created at  2018/6/19  14:49
  */
 @SuppressWarnings("unused")
-public final class UploadFileRequest extends HttpCallback {
+public final class UploadFileRequest extends AbstractCallback {
     private static UploadFileRequest.Builder builder;
     private UploadFilesCallback callback;
     private Request request;

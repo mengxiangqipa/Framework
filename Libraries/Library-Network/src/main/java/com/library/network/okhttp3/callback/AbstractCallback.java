@@ -17,11 +17,11 @@ import okhttp3.ResponseBody;
  * created at  2017/4/6  17:14
  */
 @SuppressWarnings("unused")
-public abstract class HttpCallback implements Callback {
+public abstract class AbstractCallback implements Callback {
 
     private Handler handler;
     private boolean callBackOnUiThread;
-    private boolean isReturnBody = false;
+    private boolean returnBody = false;
 
     private String tag;
     private String action;
@@ -66,15 +66,15 @@ public abstract class HttpCallback implements Callback {
         }
     }
 
-    private boolean isReturnBody() {
-        return isReturnBody;
+    public boolean isReturnBody() {
+        return returnBody;
     }
 
     /**
      * @param returnBody 网络返回是否是 reponse.body 下载文件时使用
      */
     public void setReturnBody(boolean returnBody) {
-        isReturnBody = returnBody;
+        this.returnBody = returnBody;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.library.network.okhttp3.request;
 
 import android.text.TextUtils;
 
-import com.library.network.okhttp3.callback.HttpCallback;
+import com.library.network.okhttp3.callback.AbstractCallback;
 import com.library.network.okhttp3.callback.ICallback;
 
 import org.json.JSONArray;
@@ -25,7 +25,7 @@ import okhttp3.ResponseBody;
  * created at  2018/6/19  14:49
  */
 @SuppressWarnings("unused")
-public final class StringRequest extends HttpCallback {
+public final class StringRequest extends AbstractCallback {
     private static StringRequest.Builder builder;
     private ICallback callback;
     private Request request;

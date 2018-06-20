@@ -24,7 +24,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * HttpImpl-->okhttp3的简单实现
+ * HttpImpl-->okhttp3的简单封装实现
  *
  * @author YobertJomi
  * className HttpImpl
@@ -42,7 +42,7 @@ final class HttpImpl {
      * @param data     JSONObject
      * @param callback ICallback
      */
-    private void doPostStringRequest(final Context context, final String url,
+    protected void doPostStringRequest(final Context context, final String url,
                                      final JSONObject data, final ICallback callback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
@@ -79,7 +79,7 @@ final class HttpImpl {
      * @param jsonObject          JSONObject
      * @param uploadFilesCallback UploadFilesCallback
      */
-    private void doPostUploadFilesRequest(Context context, String[] filePaths, String[] addFormDataPartNames,
+    protected void doPostUploadFilesRequest(Context context, String[] filePaths, String[] addFormDataPartNames,
                                           String url, long filesMaxLenth, JSONObject jsonObject,
                                           final UploadFilesCallback uploadFilesCallback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
@@ -168,7 +168,7 @@ final class HttpImpl {
      * @param offsetBytes          断点偏移量，默认为0
      * @param downloadFileCallback DownloadFilesResponse
      */
-    private void doPostDownloadFileRequest(Context context, String url, JSONObject jsonObject,
+    protected void doPostDownloadFileRequest(Context context, String url, JSONObject jsonObject,
                                            String destinationFilePath, String fileName, long offsetBytes,
                                            final DownloadFileCallback downloadFileCallback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
