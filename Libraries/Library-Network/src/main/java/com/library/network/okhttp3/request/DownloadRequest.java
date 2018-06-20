@@ -1,9 +1,11 @@
 package com.library.network.okhttp3.request;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
-import com.library.network.okhttp3.callback.DownloadFileCallback;
 import com.library.network.okhttp3.callback.AbstractCallback;
+import com.library.network.okhttp3.callback.DownloadFileCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -119,16 +121,34 @@ public final class DownloadRequest extends AbstractCallback {
     }
 
     @Override
-    public void onSuccess(Call call, String string) {
+    public void onSuccess(Call call, final String string) {
         if (callback != null) {
-            callback.onSuccess(string);
+            if (callBackOnUiThread) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onSuccess(string);
+                    }
+                });
+            } else {
+                callback.onSuccess(string);
+            }
         }
     }
 
     @Override
-    public void onFail(Call call, Exception e) {
+    public void onFail(Call call, final Exception e) {
         if (callback != null) {
-            callback.onFail(0, e);
+            if (callBackOnUiThread) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onFail(0, e);
+                    }
+                });
+            } else {
+                callback.onFail(0, e);
+            }
         }
     }
 
