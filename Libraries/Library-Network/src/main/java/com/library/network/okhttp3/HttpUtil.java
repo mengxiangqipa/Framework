@@ -2,7 +2,10 @@ package com.library.network.okhttp3;
 
 import android.content.Context;
 
+import com.library.network.okhttp3.api.BaseHttpAPI;
+import com.library.network.okhttp3.callback.DownloadFileCallback;
 import com.library.network.okhttp3.callback.ICallback;
+import com.library.network.okhttp3.callback.UploadFilesCallback;
 
 import org.json.JSONObject;
 
@@ -17,7 +20,7 @@ public class HttpUtil {
 
     private final Object object = new Object();// 加互斥锁对象
     private static volatile HttpUtil singleton;
-    private static volatile HttpImpl httpImpl;
+    private static volatile BaseHttpAPI httpAPI;
 
     private HttpUtil() {
     }
@@ -30,10 +33,10 @@ public class HttpUtil {
                 }
             }
         }
-        if (httpImpl == null) {
+        if (httpAPI == null) {
             synchronized (HttpUtil.class) {
-                if (httpImpl == null) {
-                    httpImpl = new HttpImpl();
+                if (httpAPI == null) {
+                    httpAPI = new BaseHttpAPI();
                 }
             }
         }
@@ -41,11 +44,21 @@ public class HttpUtil {
     }
 
     public void doPostStringRequest(final Context context, final String url,
-                                     final JSONObject data, final ICallback callback) {
-        httpImpl.doPostStringRequest(context, url, data, callback);
-    }
-    public void doPostStringRequest1(final Context context, final String url,
                                     final JSONObject data, final ICallback callback) {
-        httpImpl.doPostStringRequest(context, url, data, callback);
+        httpAPI.doPostStringRequest(context, url, data, callback);
+    }
+
+    public void doPostUploadFilesRequest(Context context, String[] filePaths, String[] addFormDataPartNames,
+                                         String url, long filesMaxLenth, JSONObject jsonObject,
+                                         final UploadFilesCallback uploadFilesCallback) {
+        httpAPI.doPostUploadFilesRequest(context, filePaths, addFormDataPartNames, url, filesMaxLenth, jsonObject,
+                uploadFilesCallback);
+    }
+
+    public void doPostDownloadFileRequest(Context context, String url, JSONObject jsonObject,
+                                          String destinationFilePath, String fileName, long offsetBytes,
+                                          final DownloadFileCallback downloadFileCallback) {
+        httpAPI.doPostDownloadFileRequest(context, url, jsonObject, destinationFilePath, fileName,
+                offsetBytes, downloadFileCallback);
     }
 }

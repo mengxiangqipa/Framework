@@ -94,7 +94,7 @@ public abstract class AbstractCallback implements Callback {
     @Override
     public void onResponse(final Call call, final Response reponse) throws IOException {
         try {
-            if (callBackOnUiThread&&!isReturnBody()) {
+            if (callBackOnUiThread && !isReturnBody()) {
                 final String result = reponse.body().string();
                 handler.post(new Runnable() {
                     @Override

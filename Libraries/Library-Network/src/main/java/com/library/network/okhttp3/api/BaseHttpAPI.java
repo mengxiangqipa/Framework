@@ -1,9 +1,10 @@
-package com.library.network.okhttp3;
+package com.library.network.okhttp3.api;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.framework.utils.NetworkUtil;
+import com.library.network.okhttp3.Ok3Util;
 import com.library.network.okhttp3.callback.DownloadFileCallback;
 import com.library.network.okhttp3.callback.ICallback;
 import com.library.network.okhttp3.callback.UploadFilesCallback;
@@ -30,7 +31,7 @@ import okhttp3.RequestBody;
  * className HttpImpl
  * created at  2018/6/20  0:28
  */
-final class HttpImpl {
+public final class BaseHttpAPI {
 
     private AtomicInteger autoTryCount = new AtomicInteger(0);
 
@@ -42,8 +43,8 @@ final class HttpImpl {
      * @param data     JSONObject
      * @param callback ICallback
      */
-    protected void doPostStringRequest(final Context context, final String url,
-                                     final JSONObject data, final ICallback callback) {
+    public void doPostStringRequest(final Context context, final String url,
+                                    final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != callback) {
@@ -61,13 +62,21 @@ final class HttpImpl {
             StringRequest stringRequest = new StringRequest.Builder()
                     .url(url)
                     .isReturnBody(false)
-                    .callBackOnUiThread(true)
+                    .callBackOnUiThread(callBackOnUiThread)
                     .postString_json(data == null ? "" : data.toString())
                     .build(callback);
             Ok3Util.getInstance().addToRequestQueueAsynchoronous(stringRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @see #doPostStringRequest(Context, String, JSONObject, boolean, ICallback)
+     */
+    public void doPostStringRequest(final Context context, final String url,
+                                    final JSONObject data, final ICallback callback) {
+        doPostStringRequest(context, url, data, true, callback);
     }
 
     /**
@@ -79,9 +88,9 @@ final class HttpImpl {
      * @param jsonObject          JSONObject
      * @param uploadFilesCallback UploadFilesCallback
      */
-    protected void doPostUploadFilesRequest(Context context, String[] filePaths, String[] addFormDataPartNames,
-                                          String url, long filesMaxLenth, JSONObject jsonObject,
-                                          final UploadFilesCallback uploadFilesCallback) {
+    public void doPostUploadFilesRequest(Context context, String[] filePaths, String[] addFormDataPartNames,
+                                         String url, long filesMaxLenth, JSONObject jsonObject,
+                                         final UploadFilesCallback uploadFilesCallback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != uploadFilesCallback) {
@@ -168,9 +177,9 @@ final class HttpImpl {
      * @param offsetBytes          断点偏移量，默认为0
      * @param downloadFileCallback DownloadFilesResponse
      */
-    protected void doPostDownloadFileRequest(Context context, String url, JSONObject jsonObject,
-                                           String destinationFilePath, String fileName, long offsetBytes,
-                                           final DownloadFileCallback downloadFileCallback) {
+    public void doPostDownloadFileRequest(Context context, String url, JSONObject jsonObject,
+                                          String destinationFilePath, String fileName, long offsetBytes,
+                                          final DownloadFileCallback downloadFileCallback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != downloadFileCallback) {
