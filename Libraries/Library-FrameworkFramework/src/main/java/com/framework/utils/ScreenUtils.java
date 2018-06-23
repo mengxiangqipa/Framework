@@ -253,13 +253,16 @@ public class ScreenUtils {
     }
 
     /**
+     * <p>
      * 状态栏颜色--深浅设置
+     * 如果调用setTranslucentStatus(Activity , boolean )，第二个参数不能为true
      * xml中根路径需要android:fitsSystemWindows="false"或true；
      *
      * @param activity Activity
      * @param dark     状态栏颜色--深浅设置
      * @return 是否设置成功
      * @see #setTranslucentStatus(Activity, boolean)
+     * </p>
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean setSystemUiColorDark(Activity activity, boolean dark) {
