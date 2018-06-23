@@ -181,15 +181,21 @@ public class ScreenUtils {
      */
     public boolean setTranslucentStatus(Activity activity, boolean setTranslucentStatus) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window win = activity.getWindow();
-            WindowManager.LayoutParams winParams = win.getAttributes();
+            Window window = activity.getWindow();
+            WindowManager.LayoutParams winParams = window.getAttributes();
             final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
             if (setTranslucentStatus) {
                 winParams.flags |= bits;
             } else {
                 winParams.flags &= ~bits;
             }
-            win.setAttributes(winParams);
+            window.setAttributes(winParams);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以上
+                View decorView = window.getDecorView();
+                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                decorView.setSystemUiVisibility(option);
+            }
             return true;
         }
         return false;
@@ -249,5 +255,33 @@ public class ScreenUtils {
         tintManager.setNavigationBarTintEnabled(true);
         // 设置一个颜色给系统栏
         tintManager.setTintDrawable(activity.getResources().getDrawable(drawableRes));// 通知栏所需drawable
+    }
+
+    /**
+     * 调用这个方法之前需要先调用 setTranslucentStatus(activity,false);
+     * xml中根路径需要android:fitsSystemWindows="false"或true；
+     * @see #setTranslucentStatus(Activity, boolean)
+     * @param activity Activity
+     * @param dark     状态栏颜色--深浅设置
+     * @return 是否设置成功
+     */
+    public boolean setSystemUiColorDark(Activity activity, boolean dark) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = activity.getWindow();
+            try {
+                if (dark) {
+                    //设置状态栏文字颜色及图标为深色
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                } else {
+                    //设置状态栏文字颜色及图标为浅色
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                }
+                return true;
+            } catch (Exception e) {
+            }
+        }
+        return false;
     }
 }
