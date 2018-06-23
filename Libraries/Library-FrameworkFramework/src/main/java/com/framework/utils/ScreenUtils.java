@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -190,12 +191,6 @@ public class ScreenUtils {
                 winParams.flags &= ~bits;
             }
             window.setAttributes(winParams);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0及以上
-                View decorView = window.getDecorView();
-                int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-                decorView.setSystemUiVisibility(option);
-            }
             return true;
         }
         return false;
@@ -258,17 +253,20 @@ public class ScreenUtils {
     }
 
     /**
-     * 调用这个方法之前需要先调用 setTranslucentStatus(activity,false);
+     * 状态栏颜色--深浅设置
      * xml中根路径需要android:fitsSystemWindows="false"或true；
-     * @see #setTranslucentStatus(Activity, boolean)
+     *
      * @param activity Activity
      * @param dark     状态栏颜色--深浅设置
      * @return 是否设置成功
+     * @see #setTranslucentStatus(Activity, boolean)
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean setSystemUiColorDark(Activity activity, boolean dark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = activity.getWindow();
             try {
+                window.setStatusBarColor(Color.TRANSPARENT);
                 if (dark) {
                     //设置状态栏文字颜色及图标为深色
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
