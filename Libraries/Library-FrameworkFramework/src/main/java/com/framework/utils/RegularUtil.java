@@ -62,7 +62,21 @@ public class RegularUtil {
         Matcher m = p.matcher(mobile);
         return m.matches();
     }
-
+    /**
+     * 验证手机号(1开头的15位数字)
+     *
+     * @param number number
+     * @return boolean
+     */
+    public boolean isMobileNOSimple(String number) {
+        if (TextUtils.isEmpty(number)) {
+            return false;
+        }
+        Pattern p = Pattern
+                .compile("^1\\d{14}$");
+        Matcher m = p.matcher(number);
+        return m.matches();
+    }
     /**
      * 验证数字
      *
