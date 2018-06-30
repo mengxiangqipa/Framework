@@ -73,7 +73,7 @@ public class RegularUtil {
             return false;
         }
         Pattern p = Pattern
-                .compile("^1\\d{14}$");
+                .compile("^1\\d{10}$");
         Matcher m = p.matcher(number);
         return m.matches();
     }
