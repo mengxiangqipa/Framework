@@ -1,5 +1,6 @@
 package com.framework.customviews;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
+import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,11 +38,17 @@ public class OverScrollView extends ScrollView {
     private float downY, lastY;
     // 上拉的距离
     private float pullUpY = 0;
-    private MyTimer timer;
+    private UpdateTimer timer;
+
     /**
      * 执行自动回滚的handler
      */
-    Handler updateHandler = new Handler() {
+    private class WeakHandler extends Handler {
+        WeakReference<Activity> weakReference;
+
+        private WeakHandler(Activity activity) {
+            weakReference = new WeakReference<>(activity);
+        }
 
         @Override
         public void handleMessage(Message msg) {
@@ -64,7 +72,36 @@ public class OverScrollView extends ScrollView {
             // 刷新布局,会自动调用onLayout
             requestLayout();
         }
-    };
+    }
+
+    /**
+     * 执行自动回滚的handler
+     */
+//    Handler updateHandler = new Handler() {
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            // 回弹速度随下拉距离moveDeltaY增大而增大
+//            MOVE_SPEED = (float) (5 + 15 * Math.tan(Math.PI / 2
+//                    / getMeasuredHeight() * (pullDownY + Math.abs(pullUpY))));
+//            if (pullDownY > 0)
+//                pullDownY -= MOVE_SPEED;
+//            else if (pullUpY < 0)
+//                pullUpY += MOVE_SPEED;
+//            if (pullDownY < 0) {
+//                // 已完成回弹
+//                pullDownY = 0;
+//                timer.cancel();
+//            }
+//            if (pullUpY > 0) {
+//                // 已完成回弹
+//                pullUpY = 0;
+//                timer.cancel();
+//            }
+//            // 刷新布局,会自动调用onLayout
+//            requestLayout();
+//        }
+//    };
     // 第一次执行布局
     private boolean isLayout = false;
     // 手指滑动距离与下拉头的滑动距离比，中间会随正切函数变化
@@ -95,7 +132,13 @@ public class OverScrollView extends ScrollView {
     }
 
     private void initView(Context context) {
-        timer = new MyTimer(updateHandler);
+        Handler updateHandler;
+        if (context instanceof Activity) {
+            updateHandler = new WeakHandler((Activity) context);
+        } else {
+            updateHandler = new WeakHandler(null);
+        }
+        timer = new UpdateTimer(updateHandler);
         setFadingEdgeLength(0);
     }
 
@@ -371,12 +414,12 @@ public class OverScrollView extends ScrollView {
         void scrollLoosen();
     }
 
-    class MyTimer {
+    class UpdateTimer {
         private Handler handler;
         private Timer timer;
-        private MyTask mTask;
+        private UpdateTask mTask;
 
-        public MyTimer(Handler handler) {
+        public UpdateTimer(Handler handler) {
             this.handler = handler;
             timer = new Timer();
         }
@@ -386,7 +429,7 @@ public class OverScrollView extends ScrollView {
                 mTask.cancel();
                 mTask = null;
             }
-            mTask = new MyTask(handler);
+            mTask = new UpdateTask(handler);
             timer.schedule(mTask, 0, period);
         }
 
@@ -397,10 +440,10 @@ public class OverScrollView extends ScrollView {
             }
         }
 
-        class MyTask extends TimerTask {
+        class UpdateTask extends TimerTask {
             private Handler handler;
 
-            public MyTask(Handler handler) {
+            public UpdateTask(Handler handler) {
                 this.handler = handler;
             }
 
