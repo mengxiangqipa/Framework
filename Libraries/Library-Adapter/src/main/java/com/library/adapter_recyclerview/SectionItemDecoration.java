@@ -26,7 +26,7 @@ import android.view.View;
  */
 @SuppressWarnings("unused")
 public class SectionItemDecoration extends RecyclerView.ItemDecoration {
-    private SectionCallBack callback;
+    private SectionItemDecoration.SectionCallBack callback;
     private TextPaint textPaint;
     private Paint backgroundPaint;
     /**
@@ -37,7 +37,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     private int textLeftMargin;
     private Paint.FontMetrics fontMetrics;
 
-    public SectionItemDecoration(@NonNull SectionCallBack callback) {
+    public SectionItemDecoration(@NonNull SectionItemDecoration.SectionCallBack callback) {
         this.callback = callback;
         //设置悬浮栏的画笔---backgroundPaint
         backgroundPaint = new Paint();
@@ -110,12 +110,15 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
         return this;
     }
 
+    public TextPaint getTextPaint() {
+        return textPaint;
+    }
+
     private int getSpanCount(RecyclerView parent) {
         // 列数
         int spanCount = 1;
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-
             spanCount = ((GridLayoutManager) layoutManager).getSpanCount();
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             spanCount = ((StaggeredGridLayoutManager) layoutManager).getSpanCount();
@@ -132,9 +135,12 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
             return;
         //只有是同一组的第一个才显示悬浮栏
         int dex = getSpanCount(parent);
-        if (isFirstInSection(position - adapter.getHeaderCount()) || (dex > 1 && isFirstInSection((position - adapter
-				.getHeaderCount()) / dex * dex))) {//   ||或判断主要是针对gridLayoutManager,左边第一个是新Section，该行都留outRect.top =
-			// sectionHeight
+        if (isFirstInSection(position - adapter.getHeaderCount())
+                || (dex > 1 && parent.getLayoutManager() instanceof GridLayoutManager
+                && isFirstInSection((position - adapter.getHeaderCount()) - ((GridLayoutManager) parent
+                .getLayoutManager()).
+                getSpanSizeLookup().getSpanIndex(position, dex)))) {// ||或判断主要是针对gridLayoutManager,
+            // 左边第一个是新Section，该行都留outRect.top =sectionHeight
             outRect.top = sectionHeight;
             if (TextUtils.isEmpty(callback.getSectionTitle(position - adapter.getHeaderCount()))) {
                 outRect.top = 0;
@@ -179,7 +185,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
             //textY - sectionHeight决定了悬浮栏绘制的高度和位置
             c.drawRect(left, textY - sectionHeight, right, textY, backgroundPaint);
             c.drawText(title, left + textLeftMargin, (2 * textY - sectionHeight - fontMetrics.top - fontMetrics
-					.bottom) / 2, textPaint);
+                    .bottom) / 2, textPaint);
             //(targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2    字体基准线
         }
     }
@@ -203,7 +209,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    public SectionCallBack getSectionCallBack() {
+    public SectionItemDecoration.SectionCallBack getSectionCallBack() {
         return callback;
     }
 
