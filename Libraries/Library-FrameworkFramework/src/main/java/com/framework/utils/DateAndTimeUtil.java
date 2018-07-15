@@ -1,5 +1,7 @@
 package com.framework.utils;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +35,7 @@ public class DateAndTimeUtil {
      * @param timeMillis 毫秒数
      * @return 30:32
      */
-    public static String getTimeFilmFormat(String timeMillis) {
+    public String getTimeFilmFormat(String timeMillis) {
         try {
             Y.y("String_timeMillis:" + timeMillis);
             float timeMillis2 = Float.parseFloat(timeMillis);
@@ -122,5 +124,58 @@ public class DateAndTimeUtil {
         String minuteT = (minute >= 10) ? String.valueOf(minute) : "0"
                 + String.valueOf(minute);
         return secondsT + ":" + minuteT;
+    }
+
+    public Date stringToDate(String time, String formatType) {
+        SimpleDateFormat sdf = new SimpleDateFormat(formatType, Locale.getDefault());
+        Date date = null;
+        if (!TextUtils.isEmpty(time)) {
+            try {
+                date = sdf.parse(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
+
+    public String dateToString(Date date, String formatType) {
+        String time = null;
+        if (null != date) {
+            time = new SimpleDateFormat(formatType, Locale.getDefault()).format(date);
+        }
+        return time;
+    }
+
+    public long dateToLong(Date date) {
+        if (null != date) {
+            return date.getTime();
+        }
+        return 0;
+    }
+
+    public Date longToDate(long time) {
+        return new Date(time);
+    }
+
+    public String longToString(long time, String formatType) {
+        Date date = new Date(time);
+        return dateToString(date, formatType);
+    }
+
+    public long stringTolong(String timeStr, String formatType) {
+        if (!TextUtils.isEmpty(timeStr)) {
+            Date date = stringToDate(timeStr, formatType);
+            return date.getTime();
+        }
+        return 0;
+    }
+
+    public String longToString(long time) {
+        return longToString(time, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    public String longToStringWithfff(long time) {
+        return longToString(time, "yyyy-MM-dd HH:mm:ss.fff");
     }
 }
