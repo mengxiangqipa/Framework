@@ -203,31 +203,31 @@ dependencies {
     compile files('libs/ClipPicView_noSource.jar')
     compile files('libs/open_sdk_r5788_lite.jar')
 
-    implementation project(':Libraries:Library-Adapter')
-    implementation project(':Libraries:Library-Android-Base')
-    implementation project(':Libraries:Library-AndroidVideoCache')
-    implementation project(':Libraries:Library-CameraFilter')
-    implementation project(':Libraries:Library-ClipPicView')
-    implementation project(':Libraries:Library-CropPicture')
-    implementation project(':Libraries:Library-Emoji')
-    implementation project(':Libraries:Library-EventBus')
-    implementation project(':Libraries:Library-FrameworkFramework')
-    implementation project(':Libraries:Library-Loadingview')
-    implementation project(':Libraries:Library-MPAndroidChart')
-    implementation project(':Libraries:Library-Network')
-    implementation project(':Libraries:Library-PercentLayout')
-    implementation project(':Libraries:Library-Pulltorefresh')
-    implementation project(':Libraries:Library-Scan')
-    implementation project(':Libraries:Library-SlideFinish')
-    implementation project(':Libraries:Library-Videoview')
+    api project(':Libraries:Library-Adapter')
+    api project(':Libraries:Library-Android-Base')
+    api project(':Libraries:Library-AndroidVideoCache')
+    api project(':Libraries:Library-CameraFilter')
+    api project(':Libraries:Library-ClipPicView')
+    api project(':Libraries:Library-CropPicture')
+    api project(':Libraries:Library-Emoji')
+    api project(':Libraries:Library-EventBus')
+    api project(':Libraries:Library-FrameworkFramework')
+    api project(':Libraries:Library-Loadingview')
+    api project(':Libraries:Library-MPAndroidChart')
+    api project(':Libraries:Library-Network')
+    api project(':Libraries:Library-PercentLayout')
+    api project(':Libraries:Library-Pulltorefresh')
+    api project(':Libraries:Library-Scan')
+    api project(':Libraries:Library-SlideFinish')
+    api project(':Libraries:Library-Videoview')
 
 
     //微信授权登录
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    api files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
 
     // 我是netty
-    compile 'io.netty:netty-all:5.0.0.Alpha2'
+    api 'io.netty:netty-all:5.0.0.Alpha2'
 
     //    //三方百分比
 

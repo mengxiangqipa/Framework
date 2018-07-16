@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.danikula.videocache.CacheListener;
 import com.danikula.videocache.HttpProxyCacheServer;
@@ -59,7 +60,8 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
         if (!hasInit) {
             hasInit = true;
             if (getArguments().getInt(HEIGHT) > 0) {
-                baseCustomVideoViewWithUI.setMinimumHeight(getArguments().getInt(HEIGHT));
+                LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getArguments().getInt(HEIGHT));
+                baseCustomVideoViewWithUI.setLayoutParams(params);
             }
             if (getArguments().getBoolean(WITH_CACHE)) {
                 HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
