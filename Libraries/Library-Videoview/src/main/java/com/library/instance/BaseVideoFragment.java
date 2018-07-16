@@ -31,14 +31,19 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
     @BindView(R2.id.videoView)
     BaseCustomVideoViewWithUI baseCustomVideoViewWithUI;
 
+    public static String HEIGHT = "height";
+    public static String URL = "url";
+    public static String TITLE = "title";
+    public static String WITH_CACHE = "with_cache";
+
     private Context context;
 
     private Unbinder unbinder;
 
     private boolean hasInit;
 
-    public static BaseVideoFragment build(String url) {
-        return new Builder().url(url).build();
+    public static BaseVideoFragment build(String url, String title, int height) {
+        return new Builder().url(url).title(title).height(height).build();
     }
 
     @Override
@@ -53,10 +58,18 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
         unbinder = ButterKnife.bind(this, view);
         if (!hasInit) {
             hasInit = true;
-            HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
-            proxy.registerCacheListener(this, getArguments().getString("url"));
-            String proxyUrl = proxy.getProxyUrl(getArguments().getString("url"));
-            baseCustomVideoViewWithUI.start(proxyUrl);
+            if (getArguments().getInt(HEIGHT) > 0) {
+                baseCustomVideoViewWithUI.setMinimumHeight(getArguments().getInt(HEIGHT));
+            }
+            if (getArguments().getBoolean(WITH_CACHE)) {
+                HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
+                proxy.registerCacheListener(this, getArguments().getString(URL));
+                String proxyUrl = proxy.getProxyUrl(getArguments().getString(URL));
+                baseCustomVideoViewWithUI.start(proxyUrl);
+            } else {
+                baseCustomVideoViewWithUI.start(getArguments().getString(URL));
+            }
+            baseCustomVideoViewWithUI.setTitle(getArguments().getString(TITLE));
         }
         initEvent();
         return view;
@@ -125,16 +138,36 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
 
     public static class Builder {
         private String url;
+        private String title;
+        private int height;
+        private boolean withCache;
 
         public Builder url(String url) {
             this.url = url;
             return this;
         }
 
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = height;
+            return this;
+        }
+        public Builder withCache(boolean withCache) {
+            this.withCache = withCache;
+            return this;
+        }
+
         public BaseVideoFragment build() {
             BaseVideoFragment videoFragment = new BaseVideoFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("url", TextUtils.isEmpty(url) ? "" : url);
+            bundle.putString(URL, TextUtils.isEmpty(url) ? "" : url);
+            bundle.putString(TITLE, TextUtils.isEmpty(title) ? "" : title);
+            bundle.putInt(HEIGHT, height);
+            bundle.putBoolean(WITH_CACHE, withCache);
             videoFragment.setArguments(bundle);
             return videoFragment;
         }

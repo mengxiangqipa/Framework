@@ -746,6 +746,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     public void setTitle(CharSequence charSequence) {
         if (!TextUtils.isEmpty(charSequence)) {
             titleView.setText(charSequence);
+        }else {
+            titleView.setText("");
         }
     }
 
