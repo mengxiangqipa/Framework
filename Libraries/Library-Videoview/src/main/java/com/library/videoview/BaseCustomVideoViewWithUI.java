@@ -692,6 +692,9 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     public void showBottomView(boolean showBottomView) {
         videoControllerLayout.setVisibility(showBottomView ? VISIBLE : GONE);
     }
+    public void showClock(boolean showClock){
+        titleViewTime.setVisibility(showClock?VISIBLE:GONE);
+    }
 
     public CustomFullScreenVideoView getVideoView() {
         return customFullScreenVideoView;
