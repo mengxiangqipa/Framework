@@ -3,9 +3,9 @@ package com.framework2.utils;
 /**
  * 用于请求一些常量
  *
- * @author YobertJomi
- *         className ConstantRequestUtil
- *         created at  2017/4/18  11:02
+ * @author Yangjie
+ * className ConstantRequestUtil
+ * created at  2017/4/18  11:02
  */
 public class ConstantRequestUtil {
     private static volatile ConstantRequestUtil singleton;
@@ -29,7 +29,8 @@ public class ConstantRequestUtil {
 //    }
 //
 //    public void requestJustShopIds(BaseActivity activity, final String errorMsg) {
-//        HttpUtil.getInstance().requestJustShopIds(activity, InterfaceConfig.shopIds, new HttpUtil.OnRequestListResult<IdsInfo>() {
+//        HttpUtil.getInstance().requestJustShopIds(activity, InterfaceConfig.shopIds, new HttpUtil
+// .OnRequestListResult<IdsInfo>() {
 //            @Override
 //            public void onSuccess(List<IdsInfo> list, String... msg) {
 //                CustomProgressDialogUtils.dismissProcessDialog();

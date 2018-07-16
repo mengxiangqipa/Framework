@@ -3,9 +3,9 @@ package com.demo.configs;
 /**
  * 常量
  *
- * @author YobertJomi
- *         className EventBusTag
- *         created at  2017/3/16  14:32
+ * @author Yangjie
+ * className EventBusTag
+ * created at  2017/3/16  14:32
  */
 public interface EventBusTag {
 
@@ -20,4 +20,6 @@ public interface EventBusTag {
 
     String showFloatActionButton = "showFloatActionButton";
     String hideFloatActionButton = "hideFloatActionButton";
+
+    String nettyMsg = "nettyMsg";
 }

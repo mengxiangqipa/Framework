@@ -1,8 +1,6 @@
 package com.framework2.eventbus;
 
-public class User
-{
-	String name;
-	String age;
-
+public class User {
+    String name;
+    String age;
 }

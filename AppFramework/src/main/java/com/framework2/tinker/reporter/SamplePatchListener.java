@@ -39,10 +39,8 @@ import java.util.Properties;
  * such as we can check rom space or apk channel
  */
 public class SamplePatchListener extends DefaultPatchListener {
-    private static final String TAG = "Tinker.SamplePatchListener";
-
     protected static final long NEW_PATCH_RESTRICTION_SPACE_SIZE_MIN = 60 * 1024 * 1024;
-
+    private static final String TAG = "Tinker.SamplePatchListener";
     private final int maxMemory;
 
     public SamplePatchListener(Context context) {
@@ -62,7 +60,8 @@ public class SamplePatchListener extends DefaultPatchListener {
     @Override
     public int patchCheck(String path, String patchMd5) {
         File patchFile = new File(path);
-        TinkerLog.i(TAG, "receive a patch file: %s, file size:%d", path, SharePatchFileUtil.getFileOrDirectorySize(patchFile));
+        TinkerLog.i(TAG, "receive a patch file: %s, file size:%d", path, SharePatchFileUtil.getFileOrDirectorySize
+                (patchFile));
         int returnCode = super.patchCheck(path, patchMd5);
 
         if (returnCode == ShareConstants.ERROR_PATCH_OK) {
@@ -70,7 +69,8 @@ public class SamplePatchListener extends DefaultPatchListener {
         }
 
         if (returnCode == ShareConstants.ERROR_PATCH_OK) {
-            SharedPreferences sp = context.getSharedPreferences(ShareConstants.TINKER_SHARE_PREFERENCE_CONFIG, Context.MODE_MULTI_PROCESS);
+            SharedPreferences sp = context.getSharedPreferences(ShareConstants.TINKER_SHARE_PREFERENCE_CONFIG,
+                    Context.MODE_MULTI_PROCESS);
             //optional, only disable this patch file with md5
             int fastCrashCount = sp.getInt(patchMd5, 0);
             if (fastCrashCount >= SampleUncaughtExceptionHandler.MAX_CRASH_COUNT) {

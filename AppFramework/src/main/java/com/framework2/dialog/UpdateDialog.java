@@ -32,12 +32,11 @@ import com.framework.utils.ScreenUtils;
 /**
  * 自定义的dialog
  *
- * @author YobertJomi
- *         className UpdateDialog
- *         created at  2017/3/17  10:06
+ * @author Yangjie
+ * className UpdateDialog
+ * created at  2017/3/17  10:06
  */
-public class UpdateDialog extends Dialog
-{
+public class UpdateDialog extends Dialog {
     private View view;
     private TextView tvSure;
     private TextView tvCancel;
@@ -86,7 +85,8 @@ public class UpdateDialog extends Dialog
                         PreferencesHelper.getInstance().putInfo(
                                 DownLoadManagerUtils.FileName,
                                 getContext().getResources().getString(R.string.app_name)
-                                        + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion) + ".apk");
+                                        + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion) + "" +
+                                        ".apk");
                         DownLoadManagerUtils.getInstance().requestDownLoad(getContext(),
                                 Environment.DIRECTORY_DOWNLOADS,
                                 downLoadUrl,
@@ -96,14 +96,19 @@ public class UpdateDialog extends Dialog
                                         + version, getContext().getResources().getString(R.string.app_name));
                         if (null != progressHandler) {
                             //监听下载进度条
-                            activity.getContentResolver().registerContentObserver(Uri.parse("content://downloads/"), true, new DownLoadObserver(progressHandler, activity,
-                                    PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance().getStringData(DownLoadManagerUtils.DownLoad_FileName))));
+                            activity.getContentResolver().registerContentObserver(Uri.parse("content://downloads/"),
+                                    true, new DownLoadObserver(progressHandler, activity,
+                                    PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
+                                            .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
                         }
                         dismiss();
                     } else {
-                        int permissionCheck1 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
-                        int permissionCheck2 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
+                        int permissionCheck1 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission
+                                .READ_EXTERNAL_STORAGE);
+                        int permissionCheck2 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission
+                                .WRITE_EXTERNAL_STORAGE);
+                        if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 !=
+                                PackageManager.PERMISSION_GRANTED) {
                             //申请WRITE_EXTERNAL_STORAGE权限
                             dismiss();
                             ActivityCompat.requestPermissions(activity,
@@ -114,18 +119,23 @@ public class UpdateDialog extends Dialog
                             PreferencesHelper.getInstance().putInfo(
                                     DownLoadManagerUtils.FileName,
                                     getContext().getResources().getString(R.string.app_name)
-                                            + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion) + ".apk");
+                                            + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion) +
+                                            ".apk");
                             DownLoadManagerUtils.getInstance().requestDownLoad(getContext(),
                                     Environment.DIRECTORY_DOWNLOADS,
                                     downLoadUrl,
                                     getContext().getResources().getString(R.string.app_name)
-                                            + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion) + ".apk",
+                                            + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion) +
+                                            ".apk",
                                     getContext().getResources().getString(R.string.app_name) + "新版本"
-                                            + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion), getContext().getResources().getString(R.string.app_name));
+                                            + PreferencesHelper.getInstance().getStringData(ConstantsME.appVersion),
+                                    getContext().getResources().getString(R.string.app_name));
                             if (null != progressHandler) {
                                 //监听下载进度条
-                                activity.getContentResolver().registerContentObserver(Uri.parse("content://downloads/"), true, new DownLoadObserver(progressHandler, activity,
-                                        PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance().getStringData(DownLoadManagerUtils.DownLoad_FileName))));
+                                activity.getContentResolver().registerContentObserver(Uri.parse
+                                        ("content://downloads/"), true, new DownLoadObserver(progressHandler, activity,
+                                        PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
+                                                .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
                             }
                             dismiss();
                         }

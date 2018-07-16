@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.demo.demo.R;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
+import com.library.adapter_listview.CommonPagerAdapter;
 import com.library.emoji.adapter.OnClickedEmoji;
 import com.library.emoji.fragment.Fragment_face_bb1;
 import com.library.emoji.fragment.Fragment_face_bb2;
@@ -25,7 +26,6 @@ import com.library.emoji.fragment.Fragment_face_ee3;
 import com.library.emoji.fragment.Fragment_face_ee4;
 import com.library.emoji.util.SmileParserUtils;
 import com.library.percent.PercentLinearLayout;
-import com.library.adapter_listview.CommonPagerAdapter;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -41,11 +41,10 @@ import butterknife.OnClick;
  * emoji详情
  *
  * @author YobertJomi
- *         className EmojiDetailActivity
- *         created at  2017/8/21  13:50
+ * className EmojiDetailActivity
+ * created at  2017/8/21  13:50
  */
-public class EmojiDetailActivity extends BaseActivity
-{
+public class EmojiDetailActivity extends BaseActivity {
 
     @BindView(R.id.ivPic)
     ImageView ivPic;
@@ -69,21 +68,6 @@ public class EmojiDetailActivity extends BaseActivity
     RelativeLayout emojiDefault;
 
     private CommonPagerAdapter emojiAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emoji_detail);
-        ButterKnife.bind(this);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
-                getResources().getColor(R.color.white));
-    }
-    //eventBus通知新消息
-    @Subscribe(threadMode = ThreadMode.MAIN, tag = "newMessage")
-    public void receivedNewMessage(String info) {
-    }
     private Fragment fragment_1;
     private Fragment fragment_2;
     private Fragment fragment_3;
@@ -92,12 +76,62 @@ public class EmojiDetailActivity extends BaseActivity
     private Fragment fragment_6;
     private Fragment fragment_7;
     private Fragment fragment_8;
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            for (int i = 0; i < dotsLayout.getChildCount(); i++) {
+                dotsLayout.getChildAt(i).setBackgroundResource(i == position % dotsLayout.getChildCount() ? R
+                        .drawable.shape_dot3 : R.drawable.shape_dot1);
+            }
+            emojiOther.setBackgroundResource(position >= 4 ? R.color.spaceline : R.color.white);
+            emojiDefault.setBackgroundResource(position >= 4 ? R.color.white : R.color.spaceline);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+    private OnClickedEmoji onClickedEmoji = new OnClickedEmoji() {
+        @Override
+        public void onClickedEmoji(String emoji) {
+            etComment.setText(SmileParserUtils.getInstance().getSmiledText(EmojiDetailActivity.this, etComment
+                    .getText() + emoji, 22, 22));
+            etComment.setSelection(etComment.getText().length());
+        }
+
+        @Override
+        public void onClickedDel() {
+            int action = KeyEvent.ACTION_DOWN;
+            int code = KeyEvent.KEYCODE_DEL;
+            KeyEvent event = new KeyEvent(action, code);
+            etComment.onKeyDown(KeyEvent.KEYCODE_DEL, event);
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_emoji_detail);
+        ButterKnife.bind(this);
+        ScreenUtils.getInstance().setTranslucentStatus(this, true);
+        ScreenUtils.getInstance().setStatusBarTintColor(this,
+                getResources().getColor(R.color.white));
+    }
+
+    //eventBus通知新消息
+    @Subscribe(threadMode = ThreadMode.MAIN, tag = "newMessage")
+    public void receivedNewMessage(String info) {
+    }
 
     @OnClick({R.id.bottomComment, R.id.emojiOther, R.id.emojiDefault, R.id.ivPic, R.id.tvSend})
-    public void onViewClicked(View view)
-    {
-        switch (view.getId())
-        {
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
             case R.id.emojiOther:
                 emojiOther.setBackgroundResource(R.color.white);
                 emojiDefault.setBackgroundResource(R.color.spaceline);
@@ -110,8 +144,7 @@ public class EmojiDetailActivity extends BaseActivity
                 break;
             case R.id.ivPic:
                 bottomComment.setVisibility(View.VISIBLE);
-                if (emojiAdapter == null)
-                {
+                if (emojiAdapter == null) {
                     fragment_1 = new Fragment_face_bb1(onClickedEmoji);
                     fragment_2 = new Fragment_face_bb2(onClickedEmoji);
                     fragment_3 = new Fragment_face_bb3(onClickedEmoji);
@@ -130,7 +163,8 @@ public class EmojiDetailActivity extends BaseActivity
                     list.add(fragment_6);
                     list.add(fragment_7);
                     list.add(fragment_8);
-                    emojiAdapter = new CommonPagerAdapter(EmojiDetailActivity.this, getSupportFragmentManager(), list, titles);
+                    emojiAdapter = new CommonPagerAdapter(EmojiDetailActivity.this, getSupportFragmentManager(),
+                            list, titles);
                     emojiViewPager.setAdapter(emojiAdapter);
                     emojiViewPager.addOnPageChangeListener(onPageChangeListener);
                 }
@@ -139,36 +173,31 @@ public class EmojiDetailActivity extends BaseActivity
             case R.id.tvSend:
                 ToastUtil.getInstance().showToast("发送,,,,...");
                 break;
-
         }
     }
 
     /**
      * 添加小圆点
      */
-    private void addDots(int lenth)
-    {
+    private void addDots(int lenth) {
         if (dotsLayout.getChildCount() <= 0)
             //加小圆点
-            for (int i = 0; i < lenth; i++)
-            {
+            for (int i = 0; i < lenth; i++) {
                 TextView textView;
                 int margin = ScreenUtils.getInstance().dip2px(this, 5);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtils.getInstance().dip2px(this, 8), ScreenUtils.getInstance().dip2px(this, 8));
-                if (i == 0)
-                {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtils.getInstance().dip2px
+                        (this, 8), ScreenUtils.getInstance().dip2px(this, 8));
+                if (i == 0) {
                     textView = new TextView(this);
                     textView.setBackgroundResource(R.drawable.shape_dot3);
                     params.leftMargin = 0;
                     params.rightMargin = margin;
-                } else if (i == lenth - 1)
-                {
+                } else if (i == lenth - 1) {
                     textView = new TextView(this);
                     textView.setBackgroundResource(R.drawable.shape_dot1);
                     params.leftMargin = margin;
                     params.rightMargin = 0;
-                } else
-                {
+                } else {
                     textView = new TextView(this);
                     textView.setBackgroundResource(R.drawable.shape_dot1);
                     params.leftMargin = margin;
@@ -178,47 +207,4 @@ public class EmojiDetailActivity extends BaseActivity
                 dotsLayout.addView(textView);
             }
     }
-
-    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener()
-    {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-        {
-
-        }
-
-        @Override
-        public void onPageSelected(int position)
-        {
-            for (int i = 0; i < dotsLayout.getChildCount(); i++)
-            {
-                dotsLayout.getChildAt(i).setBackgroundResource(i == position % dotsLayout.getChildCount() ? R.drawable.shape_dot3 : R.drawable.shape_dot1);
-            }
-            emojiOther.setBackgroundResource(position >= 4 ? R.color.spaceline : R.color.white);
-            emojiDefault.setBackgroundResource(position >= 4 ? R.color.white : R.color.spaceline);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state)
-        {
-
-        }
-    };
-    private OnClickedEmoji onClickedEmoji = new OnClickedEmoji()
-    {
-        @Override
-        public void onClickedEmoji(String emoji)
-        {
-            etComment.setText(SmileParserUtils.getInstance().getSmiledText(EmojiDetailActivity.this, etComment.getText() + emoji, 22, 22));
-            etComment.setSelection(etComment.getText().length());
-        }
-        @Override
-        public void onClickedDel()
-        {
-            int action = KeyEvent.ACTION_DOWN;
-            int code = KeyEvent.KEYCODE_DEL;
-            KeyEvent event = new KeyEvent(action, code);
-            etComment.onKeyDown(KeyEvent.KEYCODE_DEL, event);
-        }
-    };
 }

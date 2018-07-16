@@ -15,12 +15,10 @@ import com.demo.demo.R;
 import com.framework.utils.ScreenUtils;
 import com.framework2.customLoading.LoadingDialog;
 
-
 /**
  * 自定义对话框
  */
-public class CustomLoadingDialog extends Dialog
-{
+public class CustomLoadingDialog extends Dialog {
     private View view;
     private String mLoadingTip;
     private TextView mLoadingTv;
@@ -34,7 +32,6 @@ public class CustomLoadingDialog extends Dialog
         initView();
         initData();
     }
-
 
     private void initData() {
         mLoadingTv.setText(mLoadingTip);
@@ -52,8 +49,8 @@ public class CustomLoadingDialog extends Dialog
     }
 
     private void initView() {
-        view= LayoutInflater.from(getContext()).inflate(R.layout.progress_dialog,null);
-        mLoadingTv = (TextView)view. findViewById(R.id.loadingTv);
+        view = LayoutInflater.from(getContext()).inflate(R.layout.progress_dialog, null);
+        mLoadingTv = (TextView) view.findViewById(R.id.loadingTv);
         customLoadingView = (LoadingDialog) view.findViewById(R.id.customLoadingView);
         customLoadingView.setState(LoadingDialog.State.Loading);
         if (TextUtils.isEmpty(mLoadingTip)) {

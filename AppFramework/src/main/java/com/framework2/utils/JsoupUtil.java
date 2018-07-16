@@ -22,8 +22,8 @@ import okhttp3.Cookie;
  * http://www.jianshu.com/p/a620a2664f58
  *
  * @author YobertJomi
- *         className JsoupUtil
- *         created at  2017/6/19  17:51
+ * className JsoupUtil
+ * created at  2017/6/19  17:51
  */
 public class JsoupUtil {
     private static volatile JsoupUtil singleton;
@@ -69,8 +69,10 @@ public class JsoupUtil {
                         //“椒麻鸡”和它对应的图片都在<div class="pic">中
                         Elements titleAndPic = doc.select("div.pic");
                         //使用Element.select(String selector)查找元素，使用Node.attr(String key)方法取得一个属性的值
-                        Log.e("yy", "title:" + titleAndPic.get(1).select("a").attr("title") + "pic:" + titleAndPic.get(1).select("a").select("img").attr("data-src"));
-                        ToastUtil.getInstance().showToast("title:" + titleAndPic.get(1).select("a").attr("title") + "pic:" + titleAndPic.get(1).select("a").select("img").attr("data-src"));
+                        Log.e("yy", "title:" + titleAndPic.get(1).select("a").attr("title") + "pic:" + titleAndPic
+                                .get(1).select("a").select("img").attr("data-src"));
+                        ToastUtil.getInstance().showToast("title:" + titleAndPic.get(1).select("a").attr("title") +
+                                "pic:" + titleAndPic.get(1).select("a").select("img").attr("data-src"));
                         //所需链接在<div class="detail">中的<a>标签里面
                         Elements url = doc.select("div.detail").select("a");
                         Log.e("yy", "url:" + url.get(1).attr("href"));

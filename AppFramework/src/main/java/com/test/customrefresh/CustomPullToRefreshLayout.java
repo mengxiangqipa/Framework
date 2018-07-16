@@ -18,12 +18,13 @@ import com.library.pulltorefresh.storehouse.LocalDisplay;
 /**
  * 头部可悬停,其他的跟ClassicalPullToRefreshLayout一样
  *
- * @author YobertJomi
- *         className CustomPullToRefreshLayout
- *         created at  2017/1/9  15:36
+ * @author Yangjie
+ * className CustomPullToRefreshLayout
+ * created at  2017/1/9  15:36
  * @see CustomPullToRefreshLayout
  */
-public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout implements BaseAbstractPullToRefreshLayout.OnClickEmptyViewListener {
+public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout implements
+        BaseAbstractPullToRefreshLayout.OnClickEmptyViewListener {
     /**
      * 下拉头
      */
@@ -49,7 +50,6 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
      * 加载结果：成功或失败
      */
     private TextView loadStateTextView;
-
 
     private CirclesDrawable circlesDrawable, circlesDrawableFooter;
     private IndicatorDelegate indicator;//参数设置
@@ -78,8 +78,8 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
         indicator.setCanPullDown(true);//设置是否能下拉
         indicator.setCanPullUp(false);//设置是否能上拉
 //        indicator.setLoadmoreDistcance(ScreenUtils.getInstance().dip2px(getContext(), 86));//上拉距离px
-        indicator.setLoadmoreDistcance(ScreenUtils.getInstance().getScreenHeightPx(getContext())*10/100);//上拉距离px
-        indicator.setRefreshDistance(ScreenUtils.getInstance().getScreenHeightPx(getContext())*10/100);//下拉距离px
+        indicator.setLoadmoreDistcance(ScreenUtils.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//上拉距离px
+        indicator.setRefreshDistance(ScreenUtils.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//下拉距离px
         indicator.setResistance(1f);//设置阻力系数，内部按正余弦变化，设置可能无效
         indicator.setMOVE_SPEED(1);//设置每次滚动距离
         indicator.setResistanceTime(300);//设置释放回滚的时间
@@ -105,9 +105,11 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
         refreshStateTextView = (TextView) refreshView.findViewById(R.id.refreshStateTextView);
         refreshingView = (ImageView) refreshView.findViewById(R.id.refreshingView);
         circlesDrawable = new CirclesDrawable(context);
-//        int[] mColorSchemeColors = new int[]{Color.rgb(0xC9, 0x34, 0x37), Color.rgb(0x37, 0x5B, 0xF1), Color.rgb(0xF7, 0xD2, 0x3E), Color.rgb(0x34, 0xA3, 0x50)};
+//        int[] mColorSchemeColors = new int[]{Color.rgb(0xC9, 0x34, 0x37), Color.rgb(0x37, 0x5B, 0xF1), Color.rgb
+// (0xF7, 0xD2, 0x3E), Color.rgb(0x34, 0xA3, 0x50)};
         //0799FC B6DA53 E78E94 6FCD78
-        int[] mColorSchemeColors = new int[]{Color.rgb(0x07, 0x99, 0xFC), Color.rgb(0xB6, 0xDA, 0x53), Color.rgb(0xE7, 0x8E, 0x96), Color.rgb(0x6F, 0xCD, 0x78)};
+        int[] mColorSchemeColors = new int[]{Color.rgb(0x07, 0x99, 0xFC), Color.rgb(0xB6, 0xDA, 0x53), Color.rgb
+                (0xE7, 0x8E, 0x96), Color.rgb(0x6F, 0xCD, 0x78)};
         circlesDrawable.setColorSchemeColors(mColorSchemeColors);
 //        circlesDrawable.start();
         refreshingView.setImageDrawable(circlesDrawable);
@@ -141,7 +143,6 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
     protected View initLoadMoreView() {
         return loadmoreView;
     }
-
 
     /**
      * 各种改变状态的，动画等

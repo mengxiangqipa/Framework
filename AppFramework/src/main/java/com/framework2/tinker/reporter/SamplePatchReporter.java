@@ -31,6 +31,7 @@ import java.util.List;
  */
 public class SamplePatchReporter extends DefaultPatchReporter {
     private final static String TAG = "Tinker.SamplePatchReporter";
+
     public SamplePatchReporter(Context context) {
         super(context);
     }

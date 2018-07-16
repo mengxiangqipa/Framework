@@ -26,7 +26,6 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import java.io.File;
 
-
 /**
  * optional, you can just use DefaultLoadReporter
  * Created by zhangshaowen on 16/4/13.
@@ -107,8 +106,8 @@ public class SampleLoadReporter extends DefaultLoadReporter {
     }
 
     @Override
-    public void onLoadPatchVersionChanged(String oldVersion, String newVersion, File patchDirectoryFile, String currentPatchName) {
+    public void onLoadPatchVersionChanged(String oldVersion, String newVersion, File patchDirectoryFile, String
+            currentPatchName) {
         super.onLoadPatchVersionChanged(oldVersion, newVersion, patchDirectoryFile, currentPatchName);
     }
-
 }

@@ -1,13 +1,5 @@
 package com.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.demo.activity.BaseSlideFinishActivity;
-import com.demo.demo.R;
-import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
-import com.library.pulltorefresh.pullableview.PullableListView;
-
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,14 +7,21 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Toast;
 
+import com.demo.activity.BaseSlideFinishActivity;
+import com.demo.demo.R;
+import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
+import com.library.pulltorefresh.pullableview.PullableListView;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 更多详解见博客http://blog.csdn.net/zhongkejingwang/article/details/38868463
  */
-public class MainActivity extends BaseSlideFinishActivity
-{
+public class MainActivity extends BaseSlideFinishActivity {
     private PullableListView listView;
 
     //eventBus通知新消息
@@ -81,7 +80,8 @@ public class MainActivity extends BaseSlideFinishActivity
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, " LongClick on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, " LongClick on " + parent.getAdapter().getItemId(position), Toast
+                        .LENGTH_SHORT).show();
                 return true;
             }
         });

@@ -22,10 +22,10 @@ import com.demo.demo.R;
 import com.demo.fragment.Fragment_guide_1;
 import com.demo.fragment.Fragment_guide_2;
 import com.demo.fragment.Fragment_guide_3;
+import com.framework.security.RSAmethodInRaw;
 import com.framework.utils.ActivityTaskUtil;
 import com.framework.utils.PreferencesHelper;
 import com.framework.utils.ScreenUtils;
-import com.framework.security.RSAmethodInRaw;
 import com.library.adapter_recyclerview.GuideFragmentPagerAdapter;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,8 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LaunchActivity extends BaseActivity implements OnClickListener, CallBack_enter
-{
+public class LaunchActivity extends BaseActivity implements OnClickListener, CallBack_enter {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     @BindView(R.id.tv_dot_dynamic)
@@ -71,9 +70,9 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
 
 //        PreferencesHelper.getInstance().putInfo(ConstantsME.NOTFIRSTIN, false);//test
 
-
         if (PreferencesHelper.getInstance().getBooleanData(ConstantsME.NOTFIRSTIN)) {
-            if (!TextUtils.isEmpty(RSAmethodInRaw.rsaDecrypt(this, PreferencesHelper.getInstance().getStringData(ConstantsME.PHONE)))
+            if (!TextUtils.isEmpty(RSAmethodInRaw.rsaDecrypt(this, PreferencesHelper.getInstance().getStringData
+                    (ConstantsME.PHONE)))
                     && !TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.token))
                     && PreferencesHelper.getInstance().getBooleanData(ConstantsME.LOGINED)
                     && !TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.currentShopId))) {
@@ -91,7 +90,8 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
             initData();
         }
     }
-//    Handler handler = new Handler() {
+
+    //    Handler handler = new Handler() {
 //        @Override
 //        public void handleMessage(Message msg) {
 //            super.handleMessage(msg);
@@ -132,9 +132,11 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //                Y.y("onPageScrolled:" + position + "   " + positionOffsetPixels + "    " + positionOffset + "          " + ViewHelper.getTranslationX(tv_dot_dynamic));
+                //                Y.y("onPageScrolled:" + position + "   " + positionOffsetPixels + "    " +
+                // positionOffset + "          " + ViewHelper.getTranslationX(tv_dot_dynamic));
                 if (currentPosition == position && oldPosition == position) {
-                    //                    ViewHelper.setTranslationX(tv_dot_dynamic, currentPosition * _21dp + positionOffsetPixels * _21dp / screenWidth);
+                    //                    ViewHelper.setTranslationX(tv_dot_dynamic, currentPosition * _21dp +
+                    // positionOffsetPixels * _21dp / screenWidth);
                     tvDotDynamic.setTranslationX(currentPosition * _21dp + positionOffsetPixels * _21dp / screenWidth);
                 }
                 oldPosition = currentPosition;//最后一次位置

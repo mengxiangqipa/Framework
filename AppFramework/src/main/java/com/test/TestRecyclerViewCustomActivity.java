@@ -26,6 +26,9 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
     PullableRecyclerView recyclerView;
     int len = 0;
     BaseAbstractPullToRefreshLayout layout;
+    boolean first = true;
+    List<String> items;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
 //                            // 千万别忘了告诉控件刷新完毕了哦！
 //                            pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.FAIL);
 //                        } else {
-                            pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.SUCCEED);
+                        pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.SUCCEED);
 //                        }
                         len++;
                     }
@@ -76,8 +79,6 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
         initListView();
     }
 
-    boolean first = true;
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,7 +86,8 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
             first = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             Dialog dialog = builder.create();
-            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent","FixedHeaderHover"}, 0, new DialogInterface.OnClickListener() {
+            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent",
+                    "FixedHeaderHover"}, 0, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which) {
@@ -124,9 +126,6 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
         //		},4000);
     }
 
-    List<String> items;
-    MyAdapter adapter;
-
     /**
      * ListView初始化方法
      */
@@ -140,7 +139,8 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
         recyclerView.setCanPullDown(true);
         recyclerView.setCanPullUp(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewCustomActivity.this, R.layout.test_list_item_layout, items) {
+        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewCustomActivity.this, R.layout
+                .test_list_item_layout, items) {
             @Override
             protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
                 viewHolder.setText(R.id.tv, item);
@@ -170,5 +170,4 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
             }
         }.sendEmptyMessageDelayed(0, 2000);
     }
-
 }

@@ -1,15 +1,14 @@
 package com.framework2.greendao;
 
-
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.JoinProperty;
+import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.OrderBy;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.ToOne;
-import org.greenrobot.greendao.DaoException;
-import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class User {
     private int age;
     @ToOne(joinProperty = "id")
     private User user;
-//    @ToMany(referencedJoinProperty = "teacherTag")
+    //    @ToMany(referencedJoinProperty = "teacherTag")
 //    @OrderBy(value = "id ASC")
     @ToMany(joinProperties = {@JoinProperty(name = "userTag", referencedName = "teacherTag")})
     @OrderBy(value = "id ASC")
@@ -86,11 +85,9 @@ public class User {
         this.age = age;
     }
 
-    public void setList(List<Teacher> list) {
-        this.list = list;
-    }
-
-    /** To-one relationship, resolved on first access. */
+    /**
+     * To-one relationship, resolved on first access.
+     */
     @Generated(hash = 866595985)
     public User getUser() {
         long __key = this.id;
@@ -109,7 +106,9 @@ public class User {
         return user;
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 549177597)
     public void setUser(@NotNull User user) {
         if (user == null) {
@@ -189,7 +188,13 @@ public class User {
         return list;
     }
 
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    public void setList(List<Teacher> list) {
+        this.list = list;
+    }
+
+    /**
+     * Resets a to-many relationship, making the next get call to query for a fresh result.
+     */
     @Generated(hash = 589833612)
     public synchronized void resetList() {
         list = null;
@@ -201,5 +206,4 @@ public class User {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getUserDao() : null;
     }
-
 }

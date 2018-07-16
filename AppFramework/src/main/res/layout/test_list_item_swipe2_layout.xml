@@ -33,11 +33,13 @@
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
         <ImageView
             android:id="@+id/iv_delete"

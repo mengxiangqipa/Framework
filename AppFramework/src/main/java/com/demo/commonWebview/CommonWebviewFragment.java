@@ -31,8 +31,8 @@ import com.demo.demo.R;
 import com.demo.util.ReloginUtil;
 import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
-import com.framework2.customLoading.LoadingIndicatorView;
 import com.framework2.utils.CookieManagerUtil;
+import com.library.loadingview.LoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +40,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class CommonWebviewFragment extends Fragment {
-
 
     @BindView(R.id.progress)
     ProgressBar progress;
@@ -78,14 +77,16 @@ public class CommonWebviewFragment extends Fragment {
                     .getDefaultDisplay().getWidth());
             containerLayout.addView(view);
             unbinder = ButterKnife.bind(this, containerLayout);
-            Y.y("onCreateView1:"+getArguments().getString(ConstantsME.url));
-//            CookieManagerUtil.getInstance().synCookies(getActivity(), null == getArguments() ? RealInterfaceConfig.getRealBaseServerUrl() : getArguments().getString(ConstantsME.url));
-            CookieManagerUtil.getInstance().synCookies(getActivity(),  RealInterfaceConfig.getRealBaseServerUrl());
-            Y.y("onCreateView2:"+getArguments().getString(ConstantsME.url));
+            Y.y("onCreateView1:" + getArguments().getString(ConstantsME.url));
+//            CookieManagerUtil.getInstance().synCookies(getActivity(), null == getArguments() ? RealInterfaceConfig
+// .getRealBaseServerUrl() : getArguments().getString(ConstantsME.url));
+            CookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig.getRealBaseServerUrl());
+            Y.y("onCreateView2:" + getArguments().getString(ConstantsME.url));
             CookieManager cookieManager = CookieManager.getInstance();
-            String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.jsCLickLogin);
-            Y.y("jsClick--cookie："+cookie);
-            Y.y("主页cookie："+cookieManager.getCookie(getArguments().getString(ConstantsME.url)));
+            String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+                    .jsCLickLogin);
+            Y.y("jsClick--cookie：" + cookie);
+            Y.y("主页cookie：" + cookieManager.getCookie(getArguments().getString(ConstantsME.url)));
 
             initWebViewSetting();
             loadUrl(null == getArguments() ? null : getArguments().getString(ConstantsME.url));
@@ -94,7 +95,8 @@ public class CommonWebviewFragment extends Fragment {
             containerLayout = new LinearLayout(getActivity());
             containerLayout.addView(view);
         }
-//        String co = "aaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbccc";
+//        String co =
+// "aaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbccc";
 //        CookieManagerUtil.getInstance().saveCookie(getContext(), co);
 //        CookieManagerUtil.getInstance().synCookies(getContext(), RealInterfaceConfig.getRealBaseServerUrl());
 
@@ -122,7 +124,6 @@ public class CommonWebviewFragment extends Fragment {
 //        String dir = getActivity().getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
 //        webSettings.setDatabasePath(dir);
 
-
         //多窗口
         webSettings.supportMultipleWindows();
         //获取触摸焦点
@@ -148,7 +149,6 @@ public class CommonWebviewFragment extends Fragment {
         webSettings.setBlockNetworkLoads(false);//阻断网络下载
         webSettings.setSaveFormData(true);//设置WebView是否保存表单数据，默认true，保存数据。
 
-
 //        //对离线应用的支持
         webSettings.setDomStorageEnabled(true);
         webSettings.setAppCacheMaxSize(1024 * 1024 * 10);//设置缓冲大小，10M
@@ -172,13 +172,15 @@ public class CommonWebviewFragment extends Fragment {
 
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES.LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
+                    //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES
+                    // .LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
                     //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
                     Y.y("shouldOverrideUrlLoading111:" + url);
                     CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.jsCLickLogin);
-                    Y.y("当前网页的cookie："+cookieManager.getCookie(url));
+                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                            InterfaceConfig.jsCLickLogin);
+                    Y.y("当前网页的cookie：" + cookieManager.getCookie(url));
 //                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
 //                        Y.y("fragment111-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
 //                        cookieManager.removeAllCookie();
@@ -186,12 +188,16 @@ public class CommonWebviewFragment extends Fragment {
 //                    }
 
                     if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webKPIdetail)) {
-                        Y.y("同步base："+cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain));
-                        CookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig.getRealBaseServerUrl());
-                        Y.y("同步base2："+cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain));
+                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+                            .webKPIdetail)) {
+                        Y.y("同步base：" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                                InterfaceConfig.webMain));
+                        CookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig
+                                .getRealBaseServerUrl());
+                        Y.y("同步base2：" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                                InterfaceConfig.webMain));
                     }
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url,RealInterfaceConfig.getRealBaseServerUrl())) {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(mContext);
                         return true;
                     }
@@ -210,7 +216,8 @@ public class CommonWebviewFragment extends Fragment {
                     String url = request.getUrl().toString();
                     Y.y("shouldOverrideUrlLoading222:" + url);
                     CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.jsCLickLogin);
+                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                            InterfaceConfig.jsCLickLogin);
                     Y.y("fragment222-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
                     if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
                         cookieManager.removeAllCookie();
@@ -218,23 +225,27 @@ public class CommonWebviewFragment extends Fragment {
                     }
 
                     if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webKPIdetail)) {
+                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+                            .webKPIdetail)) {
                         ToastUtil.getInstance().showToast("start:" + cookie);
-                        CookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig.getRealBaseServerUrl());
+                        CookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig
+                                .getRealBaseServerUrl());
                         Y.y("end:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl()));
-                        Y.y("end2:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain));
+                        Y.y("end2:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                                InterfaceConfig.webMain));
                     }
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url,RealInterfaceConfig.getRealBaseServerUrl())) {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(mContext);
                         return true;
                     }
                     view.loadUrl(url);
                     return true;
                 }
+
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url,RealInterfaceConfig.getRealBaseServerUrl())) {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(mContext);
                     }
                 }
@@ -252,7 +263,6 @@ public class CommonWebviewFragment extends Fragment {
 //                    progress.setVisibility(View.GONE);
 //                    emptyLayout.setVisibility(View.VISIBLE);
 //                }
-
 
                 @Override
                 public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {

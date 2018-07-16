@@ -10,23 +10,16 @@ import android.widget.Toast;
 
 import com.demo.demo.R;
 
-
-public class PicToastUtil
-{
+public class PicToastUtil {
     private static volatile PicToastUtil singleton;
 
-    private PicToastUtil()
-    {
+    private PicToastUtil() {
     }
 
-    public static PicToastUtil getInstance()
-    {
-        if (singleton == null)
-        {
-            synchronized (PicToastUtil.class)
-            {
-                if (singleton == null)
-                {
+    public static PicToastUtil getInstance() {
+        if (singleton == null) {
+            synchronized (PicToastUtil.class) {
+                if (singleton == null) {
                     singleton = new PicToastUtil();
                 }
             }
@@ -44,8 +37,7 @@ public class PicToastUtil
      */
     private void showPicToast(Context context, String text,
                               int drawableResId, int gravity, int duration, int xOffset,
-                              int yOffset)
-    {
+                              int yOffset) {
         Toast toast = new Toast(context);
         View view = LayoutInflater.from(context).inflate(
                 R.layout.inflater_toast, null);
@@ -60,27 +52,23 @@ public class PicToastUtil
     }
 
     public void showPicToast(Context context, String text,
-                             int drawableResId, int gravity, int duration)
-    {
+                             int drawableResId, int gravity, int duration) {
         showPicToast(context, text, drawableResId, gravity, duration, 0, 0);
     }
 
     public void showPicToast(Context context, String text,
-                             int drawableResId, int gravity, int duration, int yOffset)
-    {
+                             int drawableResId, int gravity, int duration, int yOffset) {
         showPicToast(context, text, drawableResId, gravity, duration, 0,
                 yOffset);
     }
 
-    public void showPicToast(Context context, String text)
-    {
+    public void showPicToast(Context context, String text) {
         showPicToast(context, text, R.mipmap.ic_launcher, Gravity.CENTER,
                 3000, 0, 0);
     }
 
     public void showPicToast(Context context, String text, int gravity,
-                             int yOffset)
-    {
+                             int yOffset) {
         showPicToast(context, text, R.mipmap.ic_launcher, Gravity.BOTTOM,
                 3000, 0, yOffset);
     }

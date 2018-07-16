@@ -28,7 +28,6 @@ import com.tencent.tinker.lib.util.TinkerServiceInternals;
 
 import java.io.File;
 
-
 /**
  * optional, you can just use DefaultTinkerResultService
  * we can restart process when we are at background or screen off
@@ -36,7 +35,6 @@ import java.io.File;
  */
 public class SampleResultService extends DefaultTinkerResultService {
     private static final String TAG = "Tinker.SampleResultService";
-
 
     @Override
     public void onPatchResult(final PatchResult result) {
@@ -54,9 +52,11 @@ public class SampleResultService extends DefaultTinkerResultService {
             @Override
             public void run() {
                 if (result.isSuccess) {
-                    Toast.makeText(getApplicationContext(), "patch success, please restart process", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "patch success, please restart process", Toast
+                            .LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "patch fail, please check reason", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "patch fail, please check reason", Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         });
@@ -96,5 +96,4 @@ public class SampleResultService extends DefaultTinkerResultService {
         //you can send service or broadcast intent to restart your process
         android.os.Process.killProcess(android.os.Process.myPid());
     }
-
 }

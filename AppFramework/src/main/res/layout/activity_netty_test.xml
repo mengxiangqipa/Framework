@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+    <com.framework.customviews.OverScrollView
+        android:id="@+id/overScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:scrollbars="none">
+
+        <com.library.percent.PercentLinearLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Netty测试"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Netty--开始连接"
+                android:textSize="16dp"/>
+
+            <Button
+                android:id="@+id/btnEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Netty--断开连接"
+                android:textSize="16dp"/>
+
+            <Button
+                android:id="@+id/btnRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Netty--重连"
+                android:textSize="16dp"/>
+
+            <com.framework.customviews.CustomTextSwitcher
+                android:id="@+id/tvNettyMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Netty接收到的Msg"/>
+
+        </com.library.percent.PercentLinearLayout>
+    </com.framework.customviews.OverScrollView>
+
+</RelativeLayout>

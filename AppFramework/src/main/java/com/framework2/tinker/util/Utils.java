@@ -35,22 +35,18 @@ import java.io.PrintStream;
  * Created by zhangshaowen on 16/4/7.
  */
 public class Utils {
-    private static final String TAG = "Tinker.Utils";
-
     /**
      * the error code define by myself
      * should after {@code ShareConstants.ERROR_PATCH_INSERVICE
      */
-    public static final int ERROR_PATCH_GOOGLEPLAY_CHANNEL      = -20;
-    public static final int ERROR_PATCH_ROM_SPACE               = -21;
-    public static final int ERROR_PATCH_MEMORY_LIMIT            = -22;
-    public static final int ERROR_PATCH_CRASH_LIMIT             = -23;
+    public static final int ERROR_PATCH_GOOGLEPLAY_CHANNEL = -20;
+    public static final int ERROR_PATCH_ROM_SPACE = -21;
+    public static final int ERROR_PATCH_MEMORY_LIMIT = -22;
+    public static final int ERROR_PATCH_CRASH_LIMIT = -23;
     public static final int ERROR_PATCH_CONDITION_NOT_SATISFIED = -24;
-
     public static final String PLATFORM = "platform";
-
     public static final int MIN_MEMORY_HEAP_SIZE = 45;
-
+    private static final String TAG = "Tinker.Utils";
     private static boolean background = false;
 
     public static boolean isGooglePlay() {
@@ -160,10 +156,6 @@ public class Utils {
     }
 
     public static class ScreenState {
-        public interface IOnScreenOff {
-            void onScreenOff();
-        }
-
         public ScreenState(final Context context, final IOnScreenOff onScreenOffInterface) {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -182,6 +174,10 @@ public class Utils {
                     context.unregisterReceiver(this);
                 }
             }, filter);
+        }
+
+        public interface IOnScreenOff {
+            void onScreenOff();
         }
     }
 }

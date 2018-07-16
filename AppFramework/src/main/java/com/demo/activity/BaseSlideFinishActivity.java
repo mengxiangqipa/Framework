@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
-import com.demo.entity.Entity;
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
+import com.demo.entity.Entity;
 import com.framework.configs.Configs;
 import com.framework.utils.ActivityTaskUtil;
 import com.framework.utils.ScreenUtils;
@@ -26,9 +26,9 @@ import java.util.List;
 /**
  * activity的base类
  *
- * @author YobertJomi
- *         className BaseActivity
- *         created at  2017/3/15  13:44
+ * @author Yangjie
+ * className BaseActivity
+ * created at  2017/3/15  13:44
  */
 public abstract class BaseSlideFinishActivity extends AppCompatActivity {
     public abstract void _onCreate();
@@ -76,7 +76,6 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -98,7 +97,8 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
      * 返回主页，这个会clearHistoryTasks，并新建HomepageActivity
      */
     public void goBackHomepage(boolean shouldRefresh) {
-        Intent intent = new Intent(BaseSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        Intent intent = new Intent(BaseSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent
+                .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(ConstantsME.CITY, shouldRefresh);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_right_in,
@@ -119,7 +119,6 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
 //                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 //        finish();
     }
-
 
     public void startActivity(@Nullable Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(BaseSlideFinishActivity.this, cls);

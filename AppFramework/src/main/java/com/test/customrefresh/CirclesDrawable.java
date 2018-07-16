@@ -18,7 +18,10 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
     private static final float CIRCLE_COUNT = ProgressStates.values().length;
     private static final float MAX_LEVEL_PER_CIRCLE = MAX_LEVEL / CIRCLE_COUNT;
     private static final int ALPHA_OPAQUE = 255;
-
+    private static int mColor1;
+    private static int mColor2;
+    private static int mColor3;
+    private static int mColor4;
     private Paint mFstHalfPaint;
     private Paint mScndHalfPaint;
     private Paint mAbovePaint;
@@ -31,10 +34,6 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
     private int mControlPointMaximum;
     private int mAxisValue;
     private ColorFilter mColorFilter;
-    private static int mColor1;
-    private static int mColor2;
-    private static int mColor3;
-    private static int mColor4;
     private int fstColor, scndColor;
     private boolean goesBackward;
     private Handler mHandler = new Handler();
@@ -108,8 +107,8 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
 
         mAbovePaint.setAlpha(200 + (int) (55 * (levelForCircle / MAX_LEVEL_PER_CIRCLE)));
 
-        mAxisValue = (int) (mControlPointMinimum + (mControlPointMaximum - mControlPointMinimum) * (levelForCircle / MAX_LEVEL_PER_CIRCLE));
-
+        mAxisValue = (int) (mControlPointMinimum + (mControlPointMaximum - mControlPointMinimum) * (levelForCircle /
+                MAX_LEVEL_PER_CIRCLE));
     }
 
     @Override
@@ -128,13 +127,6 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
             updateLevel(mLevel);
             invalidateSelf();
         }
-    }
-
-    private enum ProgressStates {
-        FOLDING_DOWN,
-        FOLDING_LEFT,
-        FOLDING_UP,
-        FOLDING_RIGHT
     }
 
     private void initCirclesProgress(int[] colors) {
@@ -257,6 +249,14 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
     }
 
     private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
+                .getDisplayMetrics());
+    }
+
+    private enum ProgressStates {
+        FOLDING_DOWN,
+        FOLDING_LEFT,
+        FOLDING_UP,
+        FOLDING_RIGHT
     }
 }

@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.internal.DaoConfig;
@@ -16,13 +15,14 @@ import java.util.List;
 /**
  * greenDao数据库升级-----
  *
- * @author YobertJomi
- *         className MigrationHelper
- *         created at  2017/3/31  11:42
+ * @author Yangjie
+ * className MigrationHelper
+ * created at  2017/3/31  11:42
  */
 public class MigrationHelper {
 
-    private static final String CONVERSION_CLASS_NOT_FOUND_EXCEPTION = "MIGRATION HELPER - CLASS DOESN'T MATCH WITH THE CURRENT PARAMETERS";
+    private static final String CONVERSION_CLASS_NOT_FOUND_EXCEPTION = "MIGRATION HELPER - CLASS DOESN'T MATCH WITH " +
+            "THE CURRENT PARAMETERS";
 
     private static volatile MigrationHelper instance;
 
@@ -100,7 +100,6 @@ public class MigrationHelper {
             insertTableStringBuilder.append(" FROM ").append(tableName).append(";");
 
             db.execSQL(insertTableStringBuilder.toString());
-
         }
     }
 
@@ -164,7 +163,8 @@ public class MigrationHelper {
             return "boolean";
         }
         /////////////////////////////////////添加--修改
-        Exception exception = new Exception(CONVERSION_CLASS_NOT_FOUND_EXCEPTION.concat(" - Class: ").concat(type.toString()));
+        Exception exception = new Exception(CONVERSION_CLASS_NOT_FOUND_EXCEPTION.concat(" - Class: ").concat(type
+                .toString()));
         exception.printStackTrace();
         throw exception;
     }

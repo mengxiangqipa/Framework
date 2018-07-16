@@ -20,9 +20,9 @@ import com.framework2.baseEvent.BaseOnClickListener;
 /**
  * 自定义头部view
  *
- * @author YobertJomi
- *         className TitleView
- *         created at  2017/3/15  14:29
+ * @author Yangjie
+ * className TitleView
+ * created at  2017/3/15  14:29
  */
 public class TitleView extends FrameLayout {
     private View view;
@@ -73,7 +73,8 @@ public class TitleView extends FrameLayout {
             public void onClick(View v) {
                 if (tv_right.getVisibility() != VISIBLE) {
                     showRightMarkIcon(false);
-//                    GohomePopupWindowUtil.getInstance().showGohomePopupWindow(getContext(), iv_right.getVisibility() == VISIBLE && PreferencesHelper.getInstance().getBooleanData(ConstantsME.hasNewMessage), TitleView.this);
+//                    GohomePopupWindowUtil.getInstance().showGohomePopupWindow(getContext(), iv_right.getVisibility
+// () == VISIBLE && PreferencesHelper.getInstance().getBooleanData(ConstantsME.hasNewMessage), TitleView.this);
                 }
             }
         });

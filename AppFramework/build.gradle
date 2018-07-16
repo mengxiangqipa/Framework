@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
-apply plugin: 'org.greenrobot.greendao'//应用GreenDao数据库插件，不使用GreenDao数据库，将其删除
-//apply plugin: 'com.jakewharton.butterknife'//Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
+apply plugin: 'org.greenrobot.greendao'//应用GreenDao数据库插件，不使用GreenDao数据库，将其删除   library时必须有
 apply plugin: 'AndResGuard'//微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名
+
 
 android {
     dataBinding {
         enabled = true
     }
+
     useLibrary 'org.apache.http.legacy'//用volley时需要
     //更改生成的apk名字
     List<String> flavors = new ArrayList<>();
@@ -37,10 +38,8 @@ android {
 //        }
 //    }
 
-
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-
 
     // tinker recommend
     dexOptions {
@@ -85,15 +84,7 @@ android {
     //以下为签名打包
     signingConfigs {
         // your debug keystore
-//        debug {
-//            storeFile file("AppFramework.jks")
-//            storePassword "123456"
-//            keyAlias "com.demo.appframework"
-//            keyPassword "123456"
-//            v1SigningEnabled true
-//            v2SigningEnabled true
-//        }
-        release {
+        debug {
             storeFile file("AppFramework.jks")
             storePassword "123456"
             keyAlias "com.demo.appframework"
@@ -101,6 +92,17 @@ android {
             v1SigningEnabled true
             v2SigningEnabled true
         }
+//        release {
+//            try {
+//                storeFile file("AppFramework.jks")
+//                storePassword "123456"
+//                keyAlias "com.demo.appframework"
+//                keyPassword "123456"
+//                v1SigningEnabled true
+//                v2SigningEnabled true
+//            } catch (Exception e) {
+//            }
+//        }
 //        release {
 //            try {
 //                storeFile file(System.console().readLine("\n 请输入   .jks文件名： "))
@@ -115,19 +117,7 @@ android {
     }
     //打包apk配置
     buildTypes {
-//        debug {
-//            // 不显示Log
-//            buildConfigField "boolean", "LOG_DEBUG", "false"
-//            //混淆
-//            minifyEnabled true
-//            //Zipalign优化
-//            zipAlignEnabled true
-//            // 移除无用的resource文件
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.debug
-//        }
-        release {
+        debug {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
@@ -137,8 +127,20 @@ android {
             // 移除无用的resource文件
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
+//        release {
+//            // 不显示Log
+//            buildConfigField "boolean", "LOG_DEBUG", "false"
+//            //混淆
+//            minifyEnabled true
+//            //Zipalign优化
+//            zipAlignEnabled true
+//            // 移除无用的resource文件
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//        }
     }
     sourceSets.main {//解决NDK报错的
         jni.srcDirs = []
@@ -149,55 +151,101 @@ android {
     }
 }
 
+ext {
+//    FrameworkVersion = '1.4.2'
+    FrameworkVersion = '2.2.1'
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    //    compile 'com.android.support:appcompat-v7:27.1.1'
-    //    compile 'com.android.support:appcompat-v7:25.3.1'
-//    //ok3网络请求
-//    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+
+    //ok3网络请求
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+
     //GreenDao数据库插件，不使用GreenDao数据库，将其删除
     compile 'org.greenrobot:greendao:3.2.2'
+
     //butterknife注解
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     //glide加载图片
     compile 'com.github.bumptech.glide:okhttp3-integration:4.0.0'
     compile 'com.github.bumptech.glide:glide:4.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
     //jsoup java抓包html
     compile 'org.jsoup:jsoup:1.10.3'
+
     //cardview
-    compile rootProject.ext.androidSupport.cardview_v7
-    compile rootProject.ext.androidSupport.design
-    compile project(':Libraries:Library-Adapter')
-    compile project(':Libraries:Library-AndroidVideoCache')
-    compile project(':Libraries:Library-CameraFilter')
-    compile project(':Libraries:Library-CropPicture')
-    compile project(':Libraries:Library-Emoji')
-    compile project(':Libraries:Library-EventBus')
-    compile project(':Libraries:Library-FrameworkFramework')
-    compile project(':Libraries:Library-Loadingview')
-    compile project(':Libraries:Library-MPAndroidChart')
-    compile project(':Libraries:Library-Pulltorefresh')
-    compile project(':Libraries:Library-SlideFinish')
-    compile project(':Libraries:Library-Videoview')
-    //百分比
-    compile project(':Libraries:Library-PercentLayout')
-    compile project(':Libraries:Library-Network')
+    compile 'com.android.support:cardview-v7:27.1.1'
+    compile 'com.android.support:design:27.1.1'
+
+    //    //自定义library
+//    compile "com.github.mengxiangqipa.Framework:Library-Android-Base:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-Adapter:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-AndroidVideoCache:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-CameraFilter:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-ClipPicView:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-CropPicture:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-Emoji:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-EventBus:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-FrameworkFramework:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-Loadingview:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-MPAndroidChart:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-PercentLayout:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-Pulltorefresh:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-SlideFinish:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-Videoview:${FrameworkVersion}"
+//    compile "com.github.mengxiangqipa.Framework:Library-Scan:${FrameworkVersion}"
+    compile files('libs/ClipPicView_noSource.jar')
+    compile files('libs/open_sdk_r5788_lite.jar')
+
+    implementation project(':Libraries:Library-Adapter')
+    implementation project(':Libraries:Library-Android-Base')
+    implementation project(':Libraries:Library-AndroidVideoCache')
+    implementation project(':Libraries:Library-CameraFilter')
+    implementation project(':Libraries:Library-ClipPicView')
+    implementation project(':Libraries:Library-CropPicture')
+    implementation project(':Libraries:Library-Emoji')
+    implementation project(':Libraries:Library-EventBus')
+    implementation project(':Libraries:Library-FrameworkFramework')
+    implementation project(':Libraries:Library-Loadingview')
+    implementation project(':Libraries:Library-MPAndroidChart')
+    implementation project(':Libraries:Library-Network')
+    implementation project(':Libraries:Library-PercentLayout')
+    implementation project(':Libraries:Library-Pulltorefresh')
+    implementation project(':Libraries:Library-Scan')
+    implementation project(':Libraries:Library-SlideFinish')
+    implementation project(':Libraries:Library-Videoview')
+
+
+    //微信授权登录
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
+
+    // 我是netty
+    compile 'io.netty:netty-all:5.0.0.Alpha2'
+
+    //    //三方百分比
+
+    //    compile 'com.zhy:percent-support-extends:1.1.1'
+
     /** tinker    */
+
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
     annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
     compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+
     //支持multidex
     api 'com.android.support:multidex:1.0.3'
+
     /** tinker    */
-    compile files('libs/open_sdk_r5788_lite.jar')
-    //微信授权登录
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    compile files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
-    compile project(':Libraries:Library-Scan')
+    compile files('libs/pinyin4j-2.5.0.jar')
+
 }
 
 //微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名

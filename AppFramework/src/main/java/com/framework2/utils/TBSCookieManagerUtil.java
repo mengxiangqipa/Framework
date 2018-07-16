@@ -4,17 +4,17 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.demo.configs.ConstantsME;
-import com.framework.utils.PreferencesHelper;
 import com.framework.security.AesUtils;
 import com.framework.security.Base64Coder;
 import com.framework.security.RSAmethodInRaw;
+import com.framework.utils.PreferencesHelper;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 
 /**
  * @author YobertJomi
- *         className CookieManagertUtil
- *         created at  2017/6/14  11:02
+ * className CookieManagertUtil
+ * created at  2017/6/14  11:02
  */
 public class TBSCookieManagerUtil {
     private static volatile TBSCookieManagerUtil singleton;
@@ -53,20 +53,26 @@ public class TBSCookieManagerUtil {
     public void saveCookie(Context context, String cookies) {
         if (!TextUtils.isEmpty(cookies)) {
             if (TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey))) {
-                PreferencesHelper.getInstance().putInfo(ConstantsME.aesKey, Base64Coder.encodeString(AesUtils.getInstance().generateKey()));
+                PreferencesHelper.getInstance().putInfo(ConstantsME.aesKey, Base64Coder.encodeString(AesUtils
+                        .getInstance().generateKey()));
             }
             if (cookies.length() > 128) {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i * 128 < cookies.length(); i++) {
-                    String cookiesWithRSA = RSAmethodInRaw.rsaEncrypt(context, cookies.substring(i * 128, Math.min((i + 1) * 128, cookies.length())));
+                    String cookiesWithRSA = RSAmethodInRaw.rsaEncrypt(context, cookies.substring(i * 128, Math.min((i
+                            + 1) * 128, cookies.length())));
                     if (i > 0)
                         sb.append(",,,,");
                     sb.append(Base64Coder.encodeString(cookiesWithRSA));
                 }
-                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt(Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)), sb.toString()));
+                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt
+                        (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
+                                sb.toString()));
             } else {
                 String cookiesWithRSA = RSAmethodInRaw.rsaEncrypt(context, cookies);
-                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt(Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)), Base64Coder.encodeString(cookiesWithRSA)));
+                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt
+                        (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
+                                Base64Coder.encodeString(cookiesWithRSA)));
             }
         }
 //        String aa = Base64Coder.encodeString(Base64Coder.encodeString(cookies));
@@ -82,7 +88,8 @@ public class TBSCookieManagerUtil {
 
     public String decodeCookie(Context context, String cookies) {
         if (!TextUtils.isEmpty(cookies)) {
-            String tm = AesUtils.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)), cookies);
+            String tm = AesUtils.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance()
+                    .getStringData(ConstantsME.aesKey)), cookies);
             if (!TextUtils.isEmpty(tm)) {
                 String cookie[] = tm.split(",,,,");
                 StringBuilder sb = new StringBuilder();

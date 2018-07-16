@@ -15,31 +15,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
-import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
-import com.demo.entity.UpdateInfo;
+import com.framework.customviews.OverScrollView;
+import com.framework.security.RSAmethodInRaw;
 import com.framework.utils.KeyBoardUtil;
 import com.framework.utils.PreferencesHelper;
 import com.framework.utils.RegularUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
-import com.framework.customviews.OverScrollView;
-import com.framework.security.RSAmethodInRaw;
-import com.framework2.utils.CustomLoadingDialogUtils;
-import com.framework2.utils.PicToastUtil;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.framework2.utils.CustomLoadingDialogUtils;
+import com.framework2.utils.PicToastUtil;
 
 /**
  * 注册
  *
- * @author YobertJomi
- *         className RegisterActivity
- *         created at  2017/3/15  11:30
+ * @author Yangjie
+ * className RegisterActivity
+ * created at  2017/3/15  11:30
  */
 public class RegisterActivity extends BaseActivity {
     private EditText et_register_phone, et_register_password, et_register_captcha;
@@ -50,11 +45,6 @@ public class RegisterActivity extends BaseActivity {
     private boolean registerSuccess;
     private String verifyKey;
 
-    //eventBus通知新消息
-    @Subscribe(threadMode = ThreadMode.MAIN, tag = "我是tag")
-    public void eventBusUpdate(UpdateInfo info){
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +124,8 @@ public class RegisterActivity extends BaseActivity {
 
         tv_protocol = (TextView) findViewById(R.id.tv_protocol);
         SpannableString spannableString = new SpannableString(getString(R.string.protocol));
-        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color._blue)), 14, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color._blue)), 14, spannableString
+                .length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_protocol.setText(spannableString);
     }
 
@@ -151,8 +142,10 @@ public class RegisterActivity extends BaseActivity {
                     et_register_phone.requestFocus();
                     KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, false);
                 } else {
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.rsaEncrypt(this, et_register_phone.getText().toString()));
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System.currentTimeMillis());
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.rsaEncrypt(this,
+                            et_register_phone.getText().toString()));
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System
+                            .currentTimeMillis());
                     myCountDownTimer.start();
                     CustomLoadingDialogUtils.getInstance().showDialog(RegisterActivity.this, "获取验证码");
                     requestCaptcha();
@@ -212,7 +205,8 @@ public class RegisterActivity extends BaseActivity {
      */
 
     private void requestRegister(@NonNull String verifyKey) {
-//        HttpUtil.getInstance().requestRegister(InterfaceConfig.register, et_register_phone.getText().toString(), et_register_password.getText().toString(),verifyKey, et_register_captcha.getText().toString(),
+//        HttpUtil.getInstance().requestRegister(InterfaceConfig.register, et_register_phone.getText().toString(),
+// et_register_password.getText().toString(),verifyKey, et_register_captcha.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
@@ -277,6 +271,34 @@ public class RegisterActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myCountDownTimer != null) {
+            myCountDownTimer.cancel();
+            myCountDownTimer = null;
+        }
+        if (existCountDownTimer != null) {
+            existCountDownTimer.cancel();
+            existCountDownTimer = null;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (registerSuccess) {
+                back();
+            } else {
+                finishActivity();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private class MyCountDownTimer extends CountDownTimer {
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
@@ -326,33 +348,5 @@ public class RegisterActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (myCountDownTimer != null) {
-            myCountDownTimer.cancel();
-            myCountDownTimer = null;
-        }
-        if (existCountDownTimer != null) {
-            existCountDownTimer.cancel();
-            existCountDownTimer = null;
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (registerSuccess) {
-                back();
-            } else {
-                finishActivity();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

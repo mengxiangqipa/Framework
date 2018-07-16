@@ -20,8 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SplashActivity extends BaseActivity
-{
+public class SplashActivity extends BaseActivity {
     @BindView(R.id.iv_guide)
     ImageView ivGuide;
     @BindView(R.id.tvTimer)
@@ -81,5 +80,4 @@ public class SplashActivity extends BaseActivity
                 tvTimer.setText("跳过" + (int) Math.ceil(millisUntilFinished / 1000d) + "s");
         }
     }
-
 }

@@ -17,28 +17,23 @@ import com.framework.utils.ToastUtil;
  * js调用android
  *
  * @author YobertJomi
- *         className JsCallAndroid
- *         created at  2017/7/14  9:43
+ * className JsCallAndroid
+ * created at  2017/7/14  9:43
  */
-public class JsCallAndroid
-{
+public class JsCallAndroid {
     private Context context;
     private WebView webView;
 
-    public JsCallAndroid(Context context, WebView webView)
-    {
+    public JsCallAndroid(Context context, WebView webView) {
         this.context = context;
         this.webView = webView;
     }
 
     @JavascriptInterface
-    public void clickOnAndroid()
-    {
-        ((Activity) context).runOnUiThread(new Runnable()
-        {
+    public void clickOnAndroid() {
+        ((Activity) context).runOnUiThread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 ToastUtil.getInstance().showToast("js 调用android--");
                 webView.loadUrl("javascript:displayDate()");
             }
@@ -46,52 +41,43 @@ public class JsCallAndroid
     }
 
     @JavascriptInterface
-    public void getLatLng()
-    {
-        ((Activity) context).runOnUiThread(new Runnable()
-        {
+    public void getLatLng() {
+        ((Activity) context).runOnUiThread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 ToastUtil.getInstance().showToast("js 调用android--clickOnAndroidGetLatLng");
-                webView.loadUrl("javascript:getLatLng('" + PreferencesHelper.getInstance().getStringData(ConstantsME.LATITUDE) + "','" + PreferencesHelper.getInstance().getStringData(ConstantsME.LONGTITUDE) + "')");
+                webView.loadUrl("javascript:getLatLng('" + PreferencesHelper.getInstance().getStringData(ConstantsME
+                        .LATITUDE) + "','" + PreferencesHelper.getInstance().getStringData(ConstantsME.LONGTITUDE) +
+                        "')");
             }
         });
     }
 
     @JavascriptInterface
-    public void nativeLogin()
-    {
-        ((Activity) context).runOnUiThread(new Runnable()
-        {
+    public void nativeLogin() {
+        ((Activity) context).runOnUiThread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 webView.loadUrl("javascript:dispalyDate()");
             }
         });
     }
 
     @JavascriptInterface
-    public void nativeGoBack()
-    {
-        ((Activity) context).runOnUiThread(new Runnable()
-        {
+    public void nativeGoBack() {
+        ((Activity) context).runOnUiThread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 goBack();
             }
         });
     }
 
-    private void goBack()
-    {
-        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(), RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain))
-        {
+    private void goBack() {
+        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(), RealInterfaceConfig
+                .getRealBaseServerUrl() + InterfaceConfig.webMain)) {
             webView.goBack();
-        } else
-        {
+        } else {
             KeyBoardUtil.getInstance().isCloseSoftInputMethod(context, null, true);
             ((Activity) context).finish();
         }

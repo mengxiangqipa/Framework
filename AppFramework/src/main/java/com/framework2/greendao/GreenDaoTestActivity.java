@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-
 import com.demo.demo.R;
 
 import java.util.ArrayList;
@@ -35,7 +34,8 @@ public class GreenDaoTestActivity extends AppCompatActivity {
         for (User user : userList) {
             user.setAge(10);
         }
-        userList = dbManager.queryEntityListWithCondition(GreenDaoTestActivity.this, User.class, UserDao.Properties.Age.between(200, 300));
+        userList = dbManager.queryEntityListWithCondition(GreenDaoTestActivity.this, User.class, UserDao.Properties
+                .Age.between(200, 300));
         for (User user : userList) {
             Log.e("yy", "queryUserList--条件查询--->" + user.getId() + "---" + user.getName() + "--" + user.getAge());
         }
@@ -53,7 +53,8 @@ public class GreenDaoTestActivity extends AppCompatActivity {
         dbManager.deleteAll(GreenDaoTestActivity.this, User.class);
         Log.e("yy", "删除耗时2-->" + (System.currentTimeMillis() - a));
         //		a = System.currentTimeMillis();
-        userList = dbManager.queryEntityListWithCondition(GreenDaoTestActivity.this, User.class, UserDao.Properties.Age.eq(11));
+        userList = dbManager.queryEntityListWithCondition(GreenDaoTestActivity.this, User.class, UserDao.Properties
+                .Age.eq(11));
         for (User user : userList) {
             Log.e("yy", "queryUserList--after--->" + user.getId() + "---" + user.getName() + "--" + user.getAge());
         }

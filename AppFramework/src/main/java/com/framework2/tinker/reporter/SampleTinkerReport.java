@@ -26,8 +26,6 @@ import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
  * Created by zhangshaowen on 16/9/17.
  */
 public class SampleTinkerReport {
-    private static final String TAG = "Tinker.SampleTinkerReport";
-
     // KEY - PV
     public static final int KEY_REQUEST = 0;
     public static final int KEY_DOWNLOAD = 1;
@@ -40,7 +38,6 @@ public class SampleTinkerReport {
     public static final int KEY_CRASH_CAUSE_XPOSED_DALVIK = 8;
     public static final int KEY_CRASH_CAUSE_XPOSED_ART = 9;
     public static final int KEY_APPLY_WITH_RETRY = 10;
-
     //Key -- try apply detail
     public static final int KEY_TRY_APPLY_UPGRADE = 70;
     public static final int KEY_TRY_APPLY_DISABLE = 71;
@@ -54,11 +51,9 @@ public class SampleTinkerReport {
     public static final int KEY_TRY_APPLY_CRASH_LIMIT = 79;
     public static final int KEY_TRY_APPLY_CONDITION_NOT_SATISFIED = 80;
     public static final int KEY_TRY_APPLY_JIT = 81;
-
     //Key -- apply detail
     public static final int KEY_APPLIED_UPGRADE = 100;
     public static final int KEY_APPLIED_UPGRADE_FAIL = 101;
-
     public static final int KEY_APPLIED_EXCEPTION = 120;
     public static final int KEY_APPLIED_DEXOPT_OTHER = 121;
     public static final int KEY_APPLIED_DEXOPT_EXIST = 122;
@@ -74,7 +69,6 @@ public class SampleTinkerReport {
     public static final int KEY_APPLIED_PACKAGE_CHECK_TINKER_ID_NOT_EQUAL = 156;
     public static final int KEY_APPLIED_PACKAGE_CHECK_RES_META = 157;
     public static final int KEY_APPLIED_PACKAGE_CHECK_TINKERFLAG_NOT_SUPPORT = 158;
-
     //version check
     public static final int KEY_APPLIED_VERSION_CHECK = 180;
     //extract error
@@ -88,13 +82,11 @@ public class SampleTinkerReport {
     public static final int KEY_APPLIED_SUCC_COST_30S_LESS = 202;
     public static final int KEY_APPLIED_SUCC_COST_60S_LESS = 203;
     public static final int KEY_APPLIED_SUCC_COST_OTHER = 204;
-
     public static final int KEY_APPLIED_FAIL_COST_5S_LESS = 205;
     public static final int KEY_APPLIED_FAIL_COST_10S_LESS = 206;
     public static final int KEY_APPLIED_FAIL_COST_30S_LESS = 207;
     public static final int KEY_APPLIED_FAIL_COST_60S_LESS = 208;
     public static final int KEY_APPLIED_FAIL_COST_OTHER = 209;
-
     // KEY -- load detail
     public static final int KEY_LOADED_UNKNOWN_EXCEPTION = 250;
     public static final int KEY_LOADED_UNCAUGHT_EXCEPTION = 251;
@@ -102,7 +94,6 @@ public class SampleTinkerReport {
     public static final int KEY_LOADED_EXCEPTION_DEX_CHECK = 253;
     public static final int KEY_LOADED_EXCEPTION_RESOURCE = 254;
     public static final int KEY_LOADED_EXCEPTION_RESOURCE_CHECK = 255;
-
     public static final int KEY_LOADED_MISMATCH_DEX = 300;
     public static final int KEY_LOADED_MISMATCH_LIB = 301;
     public static final int KEY_LOADED_MISMATCH_RESOURCE = 302;
@@ -113,7 +104,6 @@ public class SampleTinkerReport {
     public static final int KEY_LOADED_MISSING_DEX_OPT = 307;
     public static final int KEY_LOADED_MISSING_RES = 308;
     public static final int KEY_LOADED_INFO_CORRUPTED = 309;
-
     //load package check
     public static final int KEY_LOADED_PACKAGE_CHECK_SIGNATURE = 350;
     public static final int KEY_LOADED_PACKAGE_CHECK_DEX_META = 351;
@@ -124,28 +114,16 @@ public class SampleTinkerReport {
     public static final int KEY_LOADED_PACKAGE_CHECK_PACKAGE_META_NOT_FOUND = 356;
     public static final int KEY_LOADED_PACKAGE_CHECK_RES_META = 357;
     public static final int KEY_LOADED_PACKAGE_CHECK_TINKERFLAG_NOT_SUPPORT = 358;
-
     public static final int KEY_LOADED_SUCC_COST_500_LESS = 400;
     public static final int KEY_LOADED_SUCC_COST_1000_LESS = 401;
     public static final int KEY_LOADED_SUCC_COST_3000_LESS = 402;
     public static final int KEY_LOADED_SUCC_COST_5000_LESS = 403;
     public static final int KEY_LOADED_SUCC_COST_OTHER = 404;
-
     public static final int KEY_LOADED_INTERPRET_GET_INSTRUCTION_SET_ERROR = 450;
     public static final int KEY_LOADED_INTERPRET_INTERPRET_COMMAND_ERROR = 451;
     public static final int KEY_LOADED_INTERPRET_TYPE_INTERPRET_OK = 452;
-
-    interface Reporter {
-        void onReport(int key);
-
-        void onReport(String message);
-    }
-
+    private static final String TAG = "Tinker.SampleTinkerReport";
     private static Reporter reporter = null;
-
-    public void setReporter(Reporter reporter) {
-        this.reporter = reporter;
-    }
 
     public static void onTryApply(boolean success) {
         if (reporter == null) {
@@ -548,5 +526,15 @@ public class SampleTinkerReport {
             return;
         }
         reporter.onReport(KEY_APPLY_WITH_RETRY);
+    }
+
+    public void setReporter(Reporter reporter) {
+        this.reporter = reporter;
+    }
+
+    interface Reporter {
+        void onReport(int key);
+
+        void onReport(String message);
     }
 }

@@ -126,7 +126,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/ic_bb_expression_icon"/>
+                            android:src="@drawable/emoji_ic_bb_expression_icon"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -140,7 +140,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/ic_default_expression_icon"/>
+                            android:src="@drawable/emoji_ic_default_expression_icon"/>
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

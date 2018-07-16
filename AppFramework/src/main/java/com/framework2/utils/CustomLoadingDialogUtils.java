@@ -6,24 +6,18 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.view.KeyEvent;
 
-
-public class CustomLoadingDialogUtils
-{
+public class CustomLoadingDialogUtils {
 
     private static volatile CustomLoadingDialogUtils singleton;
+    private CustomLoadingDialog customProgress;
 
-    private CustomLoadingDialogUtils()
-    {
+    private CustomLoadingDialogUtils() {
     }
 
-    public static CustomLoadingDialogUtils getInstance()
-    {
-        if (singleton == null)
-        {
-            synchronized (CustomLoadingDialogUtils.class)
-            {
-                if (singleton == null)
-                {
+    public static CustomLoadingDialogUtils getInstance() {
+        if (singleton == null) {
+            synchronized (CustomLoadingDialogUtils.class) {
+                if (singleton == null) {
                     singleton = new CustomLoadingDialogUtils();
                 }
             }
@@ -31,35 +25,24 @@ public class CustomLoadingDialogUtils
         return singleton;
     }
 
-    private CustomLoadingDialog customProgress;
-
-    public void dismissDialog()
-    {
-        try
-        {
-            if (customProgress != null)
-            {
+    public void dismissDialog() {
+        try {
+            if (customProgress != null) {
                 customProgress.dismiss();
                 customProgress = null;
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
 
-    public Dialog showDialog(Context ac, String message)
-    {
-        try
-        {
-            if (customProgress != null)
-            {
-                try
-                {
+    public Dialog showDialog(Context ac, String message) {
+        try {
+            if (customProgress != null) {
+                try {
                     customProgress.setContent(message);
                     customProgress.showDialog();
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 //                customProgress.setMessage(message);
@@ -72,26 +55,19 @@ public class CustomLoadingDialogUtils
 //            customProgress.setIndeterminate(false);
             customProgress.setCancelable(false);
 
-            try
-            {
+            try {
 
-                if (null != customProgress)
-                {
+                if (null != customProgress) {
                     customProgress.showDialog();
                 }
-
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            customProgress.setOnKeyListener(new OnKeyListener()
-            {
+            customProgress.setOnKeyListener(new OnKeyListener() {
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode,
-                                     KeyEvent event)
-                {
-                    if (null != customProgress)
-                    {
+                                     KeyEvent event) {
+                    if (null != customProgress) {
                         customProgress.dismiss();
                     }
                     customProgress = null;
@@ -99,8 +75,7 @@ public class CustomLoadingDialogUtils
                 }
             });
             return customProgress;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }

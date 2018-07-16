@@ -41,11 +41,11 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
 //            initDefaultUncaughtExceptionHandler();
         }
         Y.y("ShareApplication:" + "initMyLocation1");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager
+                .PERMISSION_GRANTED) {
             //			initLocation_gaode();
             Y.y("initLocation_gaode");
         }
-
     }
 
     private void initFrameworkApplication() {

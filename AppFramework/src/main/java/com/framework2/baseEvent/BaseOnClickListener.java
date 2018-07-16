@@ -5,16 +5,14 @@ import android.view.View;
 /**
  * 单次点击，间隔200ms
  *
- * @author YobertJomi
- *         className BaseOnClickListener
- *         created at  2017/3/20  14:53
+ * @author Yangjie
+ * className BaseOnClickListener
+ * created at  2017/3/20  14:53
  */
 
 public abstract class BaseOnClickListener implements View.OnClickListener {
     private long timeMillisInterval = 200;//时间间隔
     private long lastTimeMillis;
-
-    protected abstract void onBaseClick(View v);
 
     public BaseOnClickListener() {
         this(200);
@@ -23,6 +21,8 @@ public abstract class BaseOnClickListener implements View.OnClickListener {
     public BaseOnClickListener(long timeMillisInterval) {
         this.timeMillisInterval = timeMillisInterval;
     }
+
+    protected abstract void onBaseClick(View v);
 
     public void setTimeMillisInterval(long timeMillisInterval) {
         this.timeMillisInterval = timeMillisInterval;

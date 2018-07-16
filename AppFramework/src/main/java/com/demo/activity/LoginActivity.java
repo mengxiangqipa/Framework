@@ -25,17 +25,17 @@ import com.demo.configs.IntentCode;
 import com.demo.demo.R;
 import com.demo.wchatutil.JsonUtils;
 import com.demo.wxapi.WXEntryActivity;
+import com.framework.customviews.OverScrollView;
+import com.framework.security.RSAmethodInRaw;
 import com.framework.utils.KeyBoardUtil;
 import com.framework.utils.PreferencesHelper;
 import com.framework.utils.RegularUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
-import com.framework.customviews.OverScrollView;
-import com.framework.security.RSAmethodInRaw;
+import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.utils.CustomLoadingDialogUtils;
 import com.framework2.utils.PicToastUtil;
-import com.framework2.baseEvent.BaseOnClickListener;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -58,11 +58,17 @@ import butterknife.ButterKnife;
 /**
  * 登录注册
  *
- * @author YobertJomi
- *         className LoginActivity
- *         created at  2017/3/13  16:24
+ * @author Yangjie
+ * className LoginActivity
+ * created at  2017/3/13  16:24
  */
 public class LoginActivity extends BaseActivity {
+    public static final String WCHAT_APP_ID = "wxf159411fd8b11d79";// 微信开放平台申请到的app_id
+    public static final String WCHAT_APP_SECRET = "ac9a8bbaa1684cf81952f190f6b26463";// 微信开放平台申请到的app_id对应的app_secret
+    private static final int RETURN_OPENID_ACCESSTOKEN = 0;// 返回openid，accessToken消息码
+    private static final int RETURN_NICKNAME_UID = 1; // 返回昵称，uid消息码
+    private static final String WEIXIN_SCOPE = "snsapi_userinfo";// 用于请求用户信息的作用域
+    private static final String WEIXIN_STATE = "android_wchat_login_state"; // 自定义
     @BindView(R.id.etLoginPhone)
     EditText etLoginPhone;
     @BindView(R.id.etLoginPassword)
@@ -81,27 +87,128 @@ public class LoginActivity extends BaseActivity {
     LinearLayout wchatLogin;
     @BindView(R.id.qqLogin)
     LinearLayout qqLogin;
+    WchatLoginBroadcastReceiver receiver;
     //************************三方状态
     private UserInfo qqUserInfo;
     private boolean qqAuthSuccess;
     private String qqOpenId;
     private String qqImgUrl;
     private String qqNick;
-
     private boolean wchatAuthSuccess;
     private String wchatOpenId;
     private String wChatImgUrl;
     private String wChatNick;
     private boolean checkQQBindSuccess;
     private boolean checkWchatBindSuccess;
-
     private String phoneTemp;
     private String pwdTemp;
     private String captchaTemp;
     private int thirdType = 2;//2qq  3wchat
-
     private MyCountDownTimer myCountDownTimer;
     private String verifyKey;//验证码key
+    //*************************************************************************************//chat_Login
+    ////////////////////////微信登录
+    private IWXAPI api;
+    /////////////////微信登录
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Y.y("微信登录：" + "handler:" + "丫丫");
+            switch (msg.what) {
+                case RETURN_OPENID_ACCESSTOKEN:
+                    Y.y("微信登录：" + "handler:" + "RETURN_OPENID_ACCESSTOKEN");
+                    Bundle bundle1 = (Bundle) msg.obj;
+                    String accessToken = bundle1.getString("access_token");
+                    String openId = bundle1.getString("openid");
+                    Y.y("微信登录：" + "accessToken:" + accessToken);
+                    Y.y("微信登录：" + "openId:" + openId);
+                    getUID(openId, accessToken);
+                    break;
+
+                case RETURN_NICKNAME_UID:
+                    Y.y("微信登录：" + "handler:" + "RETURN_NICKNAME_UID");
+                    Bundle bundle2 = (Bundle) msg.obj;
+                    String nickname = bundle2.getString("nickname");
+                    String headimgurl = bundle2.getString("headimgurl");
+                    String unionid = bundle2.getString("unionid");
+                    String openId2 = bundle2.getString("openId");
+                    Y.y("微信登录：" + "unionid:" + unionid);
+                    CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
+                    wchatOpenId = openId2;
+                    wChatImgUrl = headimgurl;
+                    wChatNick = nickname;
+                    wchatAuthSuccess = true;
+                    requestThirdLoginCheckBinding(thirdType, wchatOpenId, wChatImgUrl, wChatNick);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
+    //*************************************************************************************QQ_Login
+    private Tencent mTencent;
+    private String mAppid = "1106106460";
+    private IUiListener loginListener = new BaseUiListener() {
+        @Override
+        protected void doComplete(JSONObject values) {
+            initOpenidAndToken(values);
+            CustomLoadingDialogUtils.getInstance().dismissDialog();
+            CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
+
+            qqUserInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
+            qqUserInfo.getUserInfo(new BaseUiListener() {
+                @Override
+                protected void doComplete(JSONObject values) {
+                    super.doComplete(values);
+                    if (null == values) {
+                        CustomLoadingDialogUtils.getInstance().dismissDialog();
+                        return;
+                    }
+                    Y.y("json=" + String.valueOf(values));
+                    String nickName = values.optString("nickname");
+                    qqNick = nickName;
+                    qqImgUrl = values.optString("figureurl_qq_2");
+                    requestThirdLoginCheckBinding(thirdType, qqOpenId, qqImgUrl, nickName);
+                }
+            });
+        }
+    };
+    BaseOnClickListener onClickListener = new BaseOnClickListener() {
+        @Override
+        protected void onBaseClick(View v) {
+            switch (v.getId()) {
+                case R.id.wchatLogin:
+                    thirdType = 3;
+                    if (wchatAuthSuccess && checkWchatBindSuccess && !TextUtils.isEmpty(wchatOpenId)) {
+//                        showBindingPop(thirdType, phoneTemp, qqOpenId, qqImgUrl, qqNick);
+                        showBindingPop(thirdType, phoneTemp, qqOpenId, pwdTemp, captchaTemp);
+                    } else if (wchatAuthSuccess && !checkWchatBindSuccess) {
+                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
+                        requestThirdLoginCheckBinding(thirdType, wchatOpenId, wChatImgUrl, wChatNick);
+                    } else {
+                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "跳转到微信");
+                        wchatLogin();
+                    }
+                    break;
+                case R.id.qqLogin:
+                    thirdType = 2;
+                    if (qqAuthSuccess && checkQQBindSuccess && !TextUtils.isEmpty(qqOpenId)) {
+//                        showBindingPop(thirdType, phoneTemp, wchatOpenId, wChatImgUrl, wChatNick);
+                        showBindingPop(thirdType, phoneTemp, qqOpenId, pwdTemp, captchaTemp);
+                    } else if (qqAuthSuccess && !checkQQBindSuccess) {
+                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
+                        requestThirdLoginCheckBinding(thirdType, qqOpenId, qqImgUrl, qqNick);
+                    } else {
+                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "跳转到QQ");
+                        qqLogin();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +327,8 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_forget_pwd:
                 KeyBoardUtil.getInstance().isCloseSoftInputMethod(LoginActivity.this, etLoginPhone, true);
                 Bundle forgetBundle = new Bundle();
-                if (!TextUtils.isEmpty(etLoginPhone.getText()) && RegularUtil.getInstance().isMobileNO(etLoginPhone.getText().toString()))
+                if (!TextUtils.isEmpty(etLoginPhone.getText()) && RegularUtil.getInstance().isMobileNO(etLoginPhone
+                        .getText().toString()))
                     forgetBundle.putString(ConstantsME.PHONE, etLoginPhone.getText().toString());
                 startActivityForResult(ForgetPasswordActivity.class, forgetBundle, IntentCode.login);
                 break;
@@ -237,7 +345,8 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_register:
                 KeyBoardUtil.getInstance().isCloseSoftInputMethod(LoginActivity.this, etLoginPhone, true);
                 Bundle bundle = new Bundle();
-                if (!TextUtils.isEmpty(etLoginPhone.getText()) && RegularUtil.getInstance().isMobileNO(etLoginPhone.getText().toString()))
+                if (!TextUtils.isEmpty(etLoginPhone.getText()) && RegularUtil.getInstance().isMobileNO(etLoginPhone
+                        .getText().toString()))
                     bundle.putString(ConstantsME.PHONE, etLoginPhone.getText().toString());
                 startActivityForResult(RegisterActivity.class, bundle, IntentCode.login);
                 break;
@@ -245,42 +354,6 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
-
-    BaseOnClickListener onClickListener = new BaseOnClickListener() {
-        @Override
-        protected void onBaseClick(View v) {
-            switch (v.getId()) {
-                case R.id.wchatLogin:
-                    thirdType = 3;
-                    if (wchatAuthSuccess && checkWchatBindSuccess && !TextUtils.isEmpty(wchatOpenId)) {
-//                        showBindingPop(thirdType, phoneTemp, qqOpenId, qqImgUrl, qqNick);
-                        showBindingPop(thirdType, phoneTemp, qqOpenId, pwdTemp, captchaTemp);
-                    } else if (wchatAuthSuccess && !checkWchatBindSuccess) {
-                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
-                        requestThirdLoginCheckBinding(thirdType, wchatOpenId, wChatImgUrl, wChatNick);
-                    } else {
-                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "跳转到微信");
-                        wchatLogin();
-                    }
-                    break;
-                case R.id.qqLogin:
-                    thirdType = 2;
-                    if (qqAuthSuccess && checkQQBindSuccess && !TextUtils.isEmpty(qqOpenId)) {
-//                        showBindingPop(thirdType, phoneTemp, wchatOpenId, wChatImgUrl, wChatNick);
-                        showBindingPop(thirdType, phoneTemp, qqOpenId, pwdTemp, captchaTemp);
-                    } else if (qqAuthSuccess && !checkQQBindSuccess) {
-                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
-                        requestThirdLoginCheckBinding(thirdType, qqOpenId, qqImgUrl, qqNick);
-                    } else {
-                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "跳转到QQ");
-                        qqLogin();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onDestroy() {
@@ -300,16 +373,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    //*************************************************************************************//chat_Login
-    ////////////////////////微信登录
-    private IWXAPI api;
-    public static final String WCHAT_APP_ID = "wxf159411fd8b11d79";// 微信开放平台申请到的app_id
-    public static final String WCHAT_APP_SECRET = "ac9a8bbaa1684cf81952f190f6b26463";// 微信开放平台申请到的app_id对应的app_secret
-    private static final int RETURN_OPENID_ACCESSTOKEN = 0;// 返回openid，accessToken消息码
-    private static final int RETURN_NICKNAME_UID = 1; // 返回昵称，uid消息码
-    private static final String WEIXIN_SCOPE = "snsapi_userinfo";// 用于请求用户信息的作用域
-    private static final String WEIXIN_STATE = "android_wchat_login_state"; // 自定义
-
     //////////////////////微信登录
     private void wchatLogin() {
         if (null == api) {
@@ -326,45 +389,8 @@ public class LoginActivity extends BaseActivity {
         req.state = WEIXIN_STATE;
         api.sendReq(req);
     }
-
     /////////////////微信登录
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            Y.y("微信登录：" + "handler:" + "丫丫");
-            switch (msg.what) {
-                case RETURN_OPENID_ACCESSTOKEN:
-                    Y.y("微信登录：" + "handler:" + "RETURN_OPENID_ACCESSTOKEN");
-                    Bundle bundle1 = (Bundle) msg.obj;
-                    String accessToken = bundle1.getString("access_token");
-                    String openId = bundle1.getString("openid");
-                    Y.y("微信登录：" + "accessToken:" + accessToken);
-                    Y.y("微信登录：" + "openId:" + openId);
-                    getUID(openId, accessToken);
-                    break;
-
-                case RETURN_NICKNAME_UID:
-                    Y.y("微信登录：" + "handler:" + "RETURN_NICKNAME_UID");
-                    Bundle bundle2 = (Bundle) msg.obj;
-                    String nickname = bundle2.getString("nickname");
-                    String headimgurl = bundle2.getString("headimgurl");
-                    String unionid = bundle2.getString("unionid");
-                    String openId2 = bundle2.getString("openId");
-                    Y.y("微信登录：" + "unionid:" + unionid);
-                    CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
-                    wchatOpenId = openId2;
-                    wChatImgUrl = headimgurl;
-                    wChatNick = nickname;
-                    wchatAuthSuccess = true;
-                    requestThirdLoginCheckBinding(thirdType, wchatOpenId, wChatImgUrl, wChatNick);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-    };
+    // *************************************************************************************//wchat_Login
 
     /**
      * 获取openid accessToken值用于后期操作
@@ -452,32 +478,6 @@ public class LoginActivity extends BaseActivity {
         }.start();
     }
 
-    WchatLoginBroadcastReceiver receiver;
-
-    class WchatLoginBroadcastReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Y.y("微信WchatLoginBroadcastReceiver ");
-            try {
-                if (intent.getAction().equals("com.yaxin.yyt.wchatlogin")) {
-                    ToastUtil.getInstance().showToast("微信授权登录成功");
-                    String code = intent.getStringExtra("code");
-                    getResult(code);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                ToastUtil.getInstance().showToast("微信登录异常");
-            }
-        }
-
-    }
-    /////////////////微信登录
-    // *************************************************************************************//wchat_Login
-
-    //*************************************************************************************QQ_Login
-    private Tencent mTencent;
-    private String mAppid = "1106106460";
-
     private void qqLogin() {
         if (mTencent == null) {
             mTencent = Tencent.createInstance(mAppid, this);
@@ -488,32 +488,6 @@ public class LoginActivity extends BaseActivity {
 //        }
         }
     }
-
-    private IUiListener loginListener = new BaseUiListener() {
-        @Override
-        protected void doComplete(JSONObject values) {
-            initOpenidAndToken(values);
-            CustomLoadingDialogUtils.getInstance().dismissDialog();
-            CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查用户信息");
-
-            qqUserInfo = new UserInfo(LoginActivity.this, mTencent.getQQToken());
-            qqUserInfo.getUserInfo(new BaseUiListener() {
-                @Override
-                protected void doComplete(JSONObject values) {
-                    super.doComplete(values);
-                    if (null == values) {
-                        CustomLoadingDialogUtils.getInstance().dismissDialog();
-                        return;
-                    }
-                    Y.y("json=" + String.valueOf(values));
-                    String nickName = values.optString("nickname");
-                    qqNick = nickName;
-                    qqImgUrl = values.optString("figureurl_qq_2");
-                    requestThirdLoginCheckBinding(thirdType, qqOpenId, qqImgUrl, nickName);
-                }
-            });
-        }
-    };
 
     private void initOpenidAndToken(JSONObject jsonObject) {
         try {
@@ -532,50 +506,17 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private class BaseUiListener implements IUiListener {
-
-        @Override
-        public void onComplete(Object response) {
-            if (null == response) {
-                ToastUtil.getInstance().showToast("返回为空" + "登录失败");
-                return;
-            }
-            JSONObject jsonResponse = (JSONObject) response;
-            if (null != jsonResponse && jsonResponse.length() == 0) {
-                ToastUtil.getInstance().showToast("返回为空" + "登录失败");
-                return;
-            }
-            doComplete((JSONObject) response);
-        }
-
-        protected void doComplete(JSONObject values) {
-
-        }
-
-        @Override
-        public void onError(UiError e) {
-            CustomLoadingDialogUtils.getInstance().dismissDialog();
-            ToastUtil.getInstance().showToast("QQ授权错误: " + e.errorDetail);
-        }
-
-        @Override
-        public void onCancel() {
-            CustomLoadingDialogUtils.getInstance().dismissDialog();
-            ToastUtil.getInstance().showToast("已取消QQ授权");
-        }
-    }
-    //*************************************************************************************QQ_Login
-
     /**
      * login
-     *
      */
     private void requestLogin() {
-//        HttpUtil.getInstance().requestLogin(InterfaceConfig.login, etLoginPhone.getText().toString(), etLoginPassword.getText().toString(), new HttpUtil.OnRequestResult<String>() {
+//        HttpUtil.getInstance().requestLogin(InterfaceConfig.login, etLoginPhone.getText().toString(),
+// etLoginPassword.getText().toString(), new HttpUtil.OnRequestResult<String>() {
 //            @Override
 //            public void onSuccess(String... msg) {
 ////                CustomProgressDialogUtils.dismissProcessDialog();
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt(LoginActivity.this, etLoginPhone.getText().toString()));
+//                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt(LoginActivity.this,
+// etLoginPhone.getText().toString()));
 //                PreferencesHelper.getInstance().putInfo(ConstantsME.token, msg != null ? msg[0] : "");
 //                PreferencesHelper.getInstance().putInfo(ConstantsME.nick, msg != null ? msg[1] : "");
 //                PreferencesHelper.getInstance().putInfo(ConstantsME.imgUrl, msg != null ? msg[2] : "");
@@ -593,37 +534,11 @@ public class LoginActivity extends BaseActivity {
 //        });
     }
 
-    private class MyCountDownTimer extends CountDownTimer {
-        private TextView tv_captcha;
-
-        public MyCountDownTimer(TextView tv_captcha, long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
-            this.tv_captcha = tv_captcha;
-        }
-
-        @Override
-        public void onFinish() {// 计时完毕时触发
-            tv_captcha.setText("重新获取");
-            tv_captcha.setTextColor(getResources().getColor(R.color._blue));
-            tv_captcha.setClickable(true);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {// 计时过程显示
-            try {
-                tv_captcha.setClickable(false);
-                tv_captcha.setTextColor(getResources().getColor(
-                        R.color.trans));
-                tv_captcha.setText(millisUntilFinished / 1000 + "秒");
-            } catch (Resources.NotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void showBindingPop(final int type, String phone, final String openId, final String pwd, final String captcha) {
+    private void showBindingPop(final int type, String phone, final String openId, final String pwd, final String
+            captcha) {
 //        CustomProgressDialogUtils.dismissProcessDialog();
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED | WindowManager
+// .LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 //        final BindingPhonePopupwindow pop = new BindingPhonePopupwindow(LoginActivity.this);
 //
 ////        pop.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -653,7 +568,8 @@ public class LoginActivity extends BaseActivity {
 //        if (difference < 60 * 1000 && diff >= 1) {
 //            new MyCountDownTimer(pop.getCaptcaTextView(), diff * 1000, 1000).start();
 //        }
-//        pop.setContent(phone).setPassword(pwd).setCaptcha(captcha).setOnGetCaptchaListener(new BindingPhonePopupwindow.OnGetCaptchaListener() {
+//        pop.setContent(phone).setPassword(pwd).setCaptcha(captcha).setOnGetCaptchaListener(new
+// BindingPhonePopupwindow.OnGetCaptchaListener() {
 //            @Override
 //            public void onGetCaptchaListener(String phoneNum) {
 //                myCountDownTimer = new MyCountDownTimer(pop.getCaptcaTextView(), 60000, 1000);
@@ -666,7 +582,8 @@ public class LoginActivity extends BaseActivity {
 //        pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 //            @Override
 //            public void onDismiss() {
-//                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager
+// .LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 //            }
 //        });
 //        pop.setOnSureClickListener(new BindingPhonePopupwindow.OnSureClickListener() {
@@ -686,6 +603,7 @@ public class LoginActivity extends BaseActivity {
 //            }
 //        }).showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
     }
+    //*************************************************************************************QQ_Login
 
     /**
      * 请求获取验证码
@@ -719,8 +637,10 @@ public class LoginActivity extends BaseActivity {
     /**
      * 请求 检测三方登录是否绑定phone
      */
-    private void requestThirdLoginCheckBinding(final int type, final String openId, final String imgUrl, final String nick) {
-//        HttpUtil.getInstance().requestThirdLoginCheckBinding(InterfaceConfig.thirdLoginCheckBinding, type, openId, nick, imgUrl,
+    private void requestThirdLoginCheckBinding(final int type, final String openId, final String imgUrl, final String
+            nick) {
+//        HttpUtil.getInstance().requestThirdLoginCheckBinding(InterfaceConfig.thirdLoginCheckBinding, type, openId,
+// nick, imgUrl,
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
@@ -732,7 +652,8 @@ public class LoginActivity extends BaseActivity {
 //                                checkWchatBindSuccess = true;
 //                            }
 //                            if (!TextUtils.isEmpty(s[0])) {
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt(LoginActivity.this, s[0]));
+//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt
+// (LoginActivity.this, s[0]));
 //                                PreferencesHelper.getInstance().putInfo(ConstantsME.token, s.length > 1 ? s[1] : "");
 //                                PreferencesHelper.getInstance().putInfo(ConstantsME.nick, s.length > 2 ? s[2] : "");
 //                                PreferencesHelper.getInstance().putInfo(ConstantsME.imgUrl, s.length > 3 ? s[3] : "");
@@ -776,14 +697,17 @@ public class LoginActivity extends BaseActivity {
     /**
      * 请求 三方登录绑定phone
      */
-    private void requestThirdLoginBindPhone(final int type, final String openId, final String phone, final String mobileValidVoucher, final String moblieVerifyCode, final String password) {
-//        HttpUtil.getInstance().requestThirdLoginBindPhone(InterfaceConfig.thirdLoginBindPhone, type, openId, phone, mobileValidVoucher, moblieVerifyCode, password,
+    private void requestThirdLoginBindPhone(final int type, final String openId, final String phone, final String
+            mobileValidVoucher, final String moblieVerifyCode, final String password) {
+//        HttpUtil.getInstance().requestThirdLoginBindPhone(InterfaceConfig.thirdLoginBindPhone, type, openId, phone,
+// mobileValidVoucher, moblieVerifyCode, password,
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
 //                        if (null != s) {
 //                            if (!TextUtils.isEmpty(s[0]) && TextUtils.equals("true", s[0])) {
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt(LoginActivity.this, phone));
+//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt
+// (LoginActivity.this, phone));
 //                                if (s.length > 1 && !TextUtils.isEmpty(s[1]))
 //                                    PreferencesHelper.getInstance().putInfo(ConstantsME.token, s[1]);
 //                                if (s.length > 2 && !TextUtils.isEmpty(s[2]))
@@ -848,5 +772,83 @@ public class LoginActivity extends BaseActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         Y.y("onWindowFocusChanged" + hasFocus);
+    }
+
+    class WchatLoginBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Y.y("微信WchatLoginBroadcastReceiver ");
+            try {
+                if (intent.getAction().equals("com.yaxin.yyt.wchatlogin")) {
+                    ToastUtil.getInstance().showToast("微信授权登录成功");
+                    String code = intent.getStringExtra("code");
+                    getResult(code);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ToastUtil.getInstance().showToast("微信登录异常");
+            }
+        }
+    }
+
+    private class BaseUiListener implements IUiListener {
+
+        @Override
+        public void onComplete(Object response) {
+            if (null == response) {
+                ToastUtil.getInstance().showToast("返回为空" + "登录失败");
+                return;
+            }
+            JSONObject jsonResponse = (JSONObject) response;
+            if (null != jsonResponse && jsonResponse.length() == 0) {
+                ToastUtil.getInstance().showToast("返回为空" + "登录失败");
+                return;
+            }
+            doComplete((JSONObject) response);
+        }
+
+        protected void doComplete(JSONObject values) {
+
+        }
+
+        @Override
+        public void onError(UiError e) {
+            CustomLoadingDialogUtils.getInstance().dismissDialog();
+            ToastUtil.getInstance().showToast("QQ授权错误: " + e.errorDetail);
+        }
+
+        @Override
+        public void onCancel() {
+            CustomLoadingDialogUtils.getInstance().dismissDialog();
+            ToastUtil.getInstance().showToast("已取消QQ授权");
+        }
+    }
+
+    private class MyCountDownTimer extends CountDownTimer {
+        private TextView tv_captcha;
+
+        public MyCountDownTimer(TextView tv_captcha, long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+            this.tv_captcha = tv_captcha;
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+            tv_captcha.setText("重新获取");
+            tv_captcha.setTextColor(getResources().getColor(R.color._blue));
+            tv_captcha.setClickable(true);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+            try {
+                tv_captcha.setClickable(false);
+                tv_captcha.setTextColor(getResources().getColor(
+                        R.color.trans));
+                tv_captcha.setText(millisUntilFinished / 1000 + "秒");
+            } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

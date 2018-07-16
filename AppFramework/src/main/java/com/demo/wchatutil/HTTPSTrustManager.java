@@ -1,4 +1,5 @@
 package com.demo.wchatutil;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -12,16 +13,42 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 /**
+ * @author xiong_it
  * @description 有一个信任管理器类负责决定是否信任远端的证书  X509TrustManager，更多移动开发内容请关注： http://blog.csdn.net/xiong_it
  * @charset UTF-8
- * @author xiong_it
  * @date 2015-7-16下午5:38:38
- * @version
  */
 public class HTTPSTrustManager implements X509TrustManager {
 
+    private static final X509Certificate[] _AcceptedIssuers = new X509Certificate[]{};
     private static TrustManager[] trustManagers;
-    private static final X509Certificate[] _AcceptedIssuers = new X509Certificate[] {};
+
+    public static void allowAllSSL() {
+        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+
+            @Override
+            public boolean verify(String arg0, SSLSession arg1) {
+                return true;
+            }
+        });
+
+        SSLContext context = null;
+        if (trustManagers == null) {
+            trustManagers = new TrustManager[]{new HTTPSTrustManager()};
+        }
+
+        try {
+            context = SSLContext.getInstance("TLS");
+            context.init(null, trustManagers, new SecureRandom());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+
+        HttpsURLConnection.setDefaultSSLSocketFactory(context
+                .getSocketFactory());
+    }
 
     /**
      * 该方法检查客户端的证书，若不信任该证书则抛出异常。由于我们不需要对客户端进行认证，
@@ -35,10 +62,10 @@ public class HTTPSTrustManager implements X509TrustManager {
         // Templates.
     }
 
-  /**
-   * 该方法检查服务器的证书，若不信任该证书同样抛出异常。通过自己实现该方法，可以使之信任我们指定的任何证书。在实现该方法时，
-   * 也可以简单的不做任何处理，即一个空的函数体，由于不会抛出异常，它就会信任任何证书。
-   */
+    /**
+     * 该方法检查服务器的证书，若不信任该证书同样抛出异常。通过自己实现该方法，可以使之信任我们指定的任何证书。在实现该方法时，
+     * 也可以简单的不做任何处理，即一个空的函数体，由于不会抛出异常，它就会信任任何证书。
+     */
     @Override
     public void checkServerTrusted(
             X509Certificate[] x509Certificates, String s)
@@ -59,33 +86,4 @@ public class HTTPSTrustManager implements X509TrustManager {
     public X509Certificate[] getAcceptedIssuers() {
         return _AcceptedIssuers;
     }
-
-    public static void allowAllSSL() {
-        HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-
-            @Override
-            public boolean verify(String arg0, SSLSession arg1) {
-                return true;
-            }
-
-        });
-
-        SSLContext context = null;
-        if (trustManagers == null) {
-            trustManagers = new TrustManager[] { new HTTPSTrustManager() };
-        }
-
-        try {
-            context = SSLContext.getInstance("TLS");
-            context.init(null, trustManagers, new SecureRandom());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        }
-
-        HttpsURLConnection.setDefaultSSLSocketFactory(context
-                .getSocketFactory());
-    }
-
 }

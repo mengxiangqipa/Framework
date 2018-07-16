@@ -14,18 +14,18 @@ import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
+import com.framework.customviews.OverScrollView;
+import com.framework.security.RSAmethodInRaw;
 import com.framework.utils.KeyBoardUtil;
 import com.framework.utils.PreferencesHelper;
 import com.framework.utils.RegularUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
-import com.framework.customviews.OverScrollView;
-import com.framework.security.RSAmethodInRaw;
-import com.framework2.utils.CustomLoadingDialogUtils;
-import com.framework2.utils.PicToastUtil;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
+import com.framework2.utils.CustomLoadingDialogUtils;
+import com.framework2.utils.PicToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,9 +33,9 @@ import butterknife.ButterKnife;
 /**
  * 忘记密码
  *
- * @author YobertJomi
- *         className ForgetPasswordActivity
- *         created at  2017/4/5  11:10
+ * @author Yangjie
+ * className ForgetPasswordActivity
+ * created at  2017/4/5  11:10
  */
 public class ForgetPasswordActivity extends BaseActivity {
     @BindView(R.id.titleView)
@@ -149,8 +149,10 @@ public class ForgetPasswordActivity extends BaseActivity {
                     etPhone.requestFocus();
                     KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
                 } else {
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.rsaEncrypt(this, etPhone.getText().toString()));
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System.currentTimeMillis());
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.rsaEncrypt(this,
+                            etPhone.getText().toString()));
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System
+                            .currentTimeMillis());
                     myCountDownTimer.start();
                     CustomLoadingDialogUtils.getInstance().showDialog(ForgetPasswordActivity.this, "正在获取验证码");
                     requestCaptcha();
@@ -208,7 +210,8 @@ public class ForgetPasswordActivity extends BaseActivity {
      * 请求重置密码
      */
     private void requestResetPwd(@NonNull String verifyKey) {
-//        HttpUtil.getInstance().requestForgetPwd(InterfaceConfig.forgetPwd, etPhone.getText().toString(), etPassword.getText().toString(), verifyKey, etCaptcha.getText().toString(),
+//        HttpUtil.getInstance().requestForgetPwd(InterfaceConfig.forgetPwd, etPhone.getText().toString(), etPassword
+// .getText().toString(), verifyKey, etCaptcha.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
@@ -273,6 +276,34 @@ public class ForgetPasswordActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myCountDownTimer != null) {
+            myCountDownTimer.cancel();
+            myCountDownTimer = null;
+        }
+        if (existCountDownTimer != null) {
+            existCountDownTimer.cancel();
+            existCountDownTimer = null;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (resetPwdSuccess) {
+                back();
+            } else {
+                finishActivity();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private class MyCountDownTimer extends CountDownTimer {
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
@@ -324,33 +355,5 @@ public class ForgetPasswordActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (myCountDownTimer != null) {
-            myCountDownTimer.cancel();
-            myCountDownTimer = null;
-        }
-        if (existCountDownTimer != null) {
-            existCountDownTimer.cancel();
-            existCountDownTimer = null;
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (resetPwdSuccess) {
-                back();
-            } else {
-                finishActivity();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 }

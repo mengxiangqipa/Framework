@@ -44,7 +44,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 public class TinkerMainActivity extends AppCompatActivity {
     private static final String TAG = "Tinker.MainActivity";
 
@@ -60,7 +59,8 @@ public class TinkerMainActivity extends AppCompatActivity {
         loadPatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
+//                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment
+// .getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
                 File fileDir = new File(getFilesDir().getAbsolutePath() + File.separator + "app_frameworkTemp");
                 if (!fileDir.exists()) {
                     fileDir.mkdir();
@@ -151,17 +151,19 @@ public class TinkerMainActivity extends AppCompatActivity {
             sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n", BaseBuildInfo.BASE_TINKER_ID));
 
             sb.append(String.format("[buildConfig MESSSAGE] %s \n", BuildInfo.MESSAGE));
-            sb.append(String.format("[TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName(ShareConstants.TINKER_ID)));
-            sb.append(String.format("[packageConfig patchMessage] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName("patchMessage")));
+            sb.append(String.format("[TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName
+                    (ShareConstants.TINKER_ID)));
+            sb.append(String.format("[packageConfig patchMessage] %s \n", tinker.getTinkerLoadResultIfPresent()
+                    .getPackageConfigByName("patchMessage")));
             sb.append(String.format("[TINKER_ID Rom Space] %d k \n", tinker.getTinkerRomSpace()));
-
         } else {
             sb.append(String.format("[patch is not loaded] \n"));
             sb.append(String.format("[buildConfig TINKER_ID] %s \n", BuildInfo.TINKER_ID));
             sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n", BaseBuildInfo.BASE_TINKER_ID));
 
             sb.append(String.format("[buildConfig MESSSAGE] %s \n", BuildInfo.MESSAGE));
-            sb.append(String.format("[TINKER_ID] %s \n", ShareTinkerInternals.getManifestTinkerID(getApplicationContext())));
+            sb.append(String.format("[TINKER_ID] %s \n", ShareTinkerInternals.getManifestTinkerID
+                    (getApplicationContext())));
         }
         sb.append(String.format("[BaseBuildInfo Message] %s \n", BaseBuildInfo.TEST_MESSAGE));
 
@@ -169,7 +171,8 @@ public class TinkerMainActivity extends AppCompatActivity {
         v.setText(sb);
         v.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-        v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+                .WRAP_CONTENT));
         v.setTextColor(0xFF000000);
         v.setTypeface(Typeface.MONOSPACE);
         final int padding = 16;
@@ -190,7 +193,6 @@ public class TinkerMainActivity extends AppCompatActivity {
 
         super.onResume();
         Utils.setBackground(false);
-
     }
 
     @Override

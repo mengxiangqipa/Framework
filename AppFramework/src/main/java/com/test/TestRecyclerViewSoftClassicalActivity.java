@@ -1,17 +1,5 @@
 package com.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.demo.demo.R;
-import com.framework.utils.ToastUtil;
-import com.library.adapter_recyclerview.UniversalAdapter;
-import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
-import com.library.pulltorefresh.IndicatorDelegate;
-import com.library.pulltorefresh.pullableview.PullableListView2;
-import com.library.pulltorefresh.pullableview.PullableListView2.OnLoadListener;
-import com.library.pulltorefresh.pullableview.PullableRecyclerView;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -22,10 +10,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.demo.demo.R;
+import com.framework.utils.ToastUtil;
+import com.library.adapter_recyclerview.UniversalAdapter;
+import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
+import com.library.pulltorefresh.IndicatorDelegate;
+import com.library.pulltorefresh.pullableview.PullableListView2;
+import com.library.pulltorefresh.pullableview.PullableListView2.OnLoadListener;
+import com.library.pulltorefresh.pullableview.PullableRecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity implements OnLoadListener {
     PullableRecyclerView recyclerView;
     int len = 0;
     BaseAbstractPullToRefreshLayout layout;
+    boolean first = true;
+    List<String> items;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
 //                            // 千万别忘了告诉控件刷新完毕了哦！
 //                            pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.FAIL);
 //                        } else {
-                            pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.SUCCEED);
+                        pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.SUCCEED);
 //                        }
                         len++;
                     }
@@ -76,8 +79,6 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
         initListView();
     }
 
-    boolean first = true;
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -85,7 +86,8 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
             first = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             Dialog dialog = builder.create();
-            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent","FixedHeaderHover"}, 0, new DialogInterface.OnClickListener() {
+            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent",
+                    "FixedHeaderHover"}, 0, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which) {
@@ -123,9 +125,6 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
         //		},4000);
     }
 
-    List<String> items;
-    MyAdapter adapter;
-
     /**
      * ListView初始化方法
      */
@@ -139,7 +138,8 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
         recyclerView.setCanPullDown(true);
         recyclerView.setCanPullUp(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewSoftClassicalActivity.this, R.layout.test_list_item_layout, items) {
+        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewSoftClassicalActivity.this, R.layout
+                .test_list_item_layout, items) {
             @Override
             protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
                 viewHolder.setText(R.id.tv, item);
@@ -169,5 +169,4 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
             }
         }.sendEmptyMessageDelayed(0, 2000);
     }
-
 }

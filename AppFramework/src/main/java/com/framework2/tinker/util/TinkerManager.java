@@ -41,12 +41,12 @@ public class TinkerManager {
     private static SampleUncaughtExceptionHandler uncaughtExceptionHandler;
     private static boolean isInstalled = false;
 
-    public static void setTinkerApplicationLike(ApplicationLike appLike) {
-        applicationLike = appLike;
-    }
-
     public static ApplicationLike getTinkerApplicationLike() {
         return applicationLike;
+    }
+
+    public static void setTinkerApplicationLike(ApplicationLike appLike) {
+        applicationLike = appLike;
     }
 
     public static void initFastCrashProtect() {

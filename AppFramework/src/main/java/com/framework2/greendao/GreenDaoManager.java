@@ -1,13 +1,5 @@
 package com.framework2.greendao;
 
-import java.util.List;
-
-import org.greenrobot.greendao.AbstractDao;
-import org.greenrobot.greendao.Property;
-import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.query.QueryBuilder;
-import org.greenrobot.greendao.query.WhereCondition;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -15,12 +7,20 @@ import android.support.annotation.Nullable;
 
 import com.framework.utils.Y;
 
+import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.Property;
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
+
+import java.util.List;
+
 /**
  * 数据库管理类
  *
- * @author YobertJomi
- *         className GreenDaoManager
- *         created at  2016/11/28  11:08
+ * @author Yangjie
+ * className GreenDaoManager
+ * created at  2016/11/28  11:08
  */
 public class GreenDaoManager<T> {
     private final static String dbName = "greenDao_51office";
@@ -28,6 +28,7 @@ public class GreenDaoManager<T> {
     private DaoMaster.DevOpenHelper openHelper;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
+    private List<T> listTemp;
 
     /**
      * 获取单例引用
@@ -244,7 +245,8 @@ public class GreenDaoManager<T> {
      * @param property       UserDao.Properties.Age
      */
     @SuppressWarnings("unchecked")
-    public List<T> queryEntityListWithCondition(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull WhereCondition whereCondition,
+    public List<T> queryEntityListWithCondition(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull
+            WhereCondition whereCondition,
                                                 @Nullable Property property) {
         initDaoMasterAndDaoSession(context);
         AbstractDao<T, ?> dao = (AbstractDao<T, ?>) daoSession.getDao(entityClass);
@@ -260,7 +262,8 @@ public class GreenDaoManager<T> {
         }
     }
 
-    public List<T> queryEntityListWithCondition(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull WhereCondition whereCondition) {
+    public List<T> queryEntityListWithCondition(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull
+            WhereCondition whereCondition) {
         return queryEntityListWithCondition(context, entityClass, whereCondition, null);
     }
 
@@ -273,8 +276,6 @@ public class GreenDaoManager<T> {
     private void backUpOldData(Database db, int oldVersion, int newVersion) {
 
     }
-
-    private List<T> listTemp;
 
     /**
      * <pre>

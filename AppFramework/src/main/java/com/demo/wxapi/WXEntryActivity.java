@@ -16,18 +16,17 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 
-
 /**
- * @author YobertJomi
- *         className WXEntryActivity
- *         created at  2017/4/13  17:15
+ * @author Yangjie
+ * className WXEntryActivity
+ * created at  2017/4/13  17:15
  */
 /*
  * 微信登录，分享应用中必须有这个名字叫WXEntryActivity，并且必须在wxapi包名下，腾讯官方文档中有要求
  */
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
-    private IWXAPI api;
     private static final String WCHAT_APP_ID = "wxf159411fd8b11d79";// 微信开放平台申请到的app_id
+    private IWXAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 String code = sendAuthResp.code;
                 Y.y("微信登录：" + "请求响应回调接口:" + code);
                 Y.y("微信登录：" + "请求响应回调接口:" + baseResp.errCode);
-                WchatAuthResult result=new WchatAuthResult();
+                WchatAuthResult result = new WchatAuthResult();
                 result.setAuthCode(code);
                 if (baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
                     result.setSuccess(true);
@@ -79,7 +78,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     intent.setAction("com.yaxin.yyt.wchatlogin");
                     intent.putExtra("code", code);
                     sendBroadcast(intent);
-                }else {
+                } else {
                     result.setSuccess(false);
                     EventBus.getDefault().post(result, EventBusTag.wchatAuthSuccess);
                 }

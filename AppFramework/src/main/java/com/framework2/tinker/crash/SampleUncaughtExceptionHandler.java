@@ -38,12 +38,12 @@ import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
  * use {@code TinkerApplicationHelper} api, no need to install tinker!
  */
 public class SampleUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
+    public static final int MAX_CRASH_COUNT = 3;
     private static final String TAG = "Tinker.SampleUncaughtExHandler";
-
+    private static final long QUICK_CRASH_ELAPSE = 10 * 1000;
+    private static final String DALVIK_XPOSED_CRASH = "Class ref in pre-verified class resolved to unexpected " +
+            "implementation";
     private final Thread.UncaughtExceptionHandler ueh;
-    private static final long   QUICK_CRASH_ELAPSE  = 10 * 1000;
-    public static final  int    MAX_CRASH_COUNT     = 3;
-    private static final String DALVIK_XPOSED_CRASH = "Class ref in pre-verified class resolved to unexpected implementation";
 
     public SampleUncaughtExceptionHandler() {
         ueh = Thread.getDefaultUncaughtExceptionHandler();
@@ -128,7 +128,8 @@ public class SampleUncaughtExceptionHandler implements Thread.UncaughtExceptionH
                 return false;
             }
 
-            SharedPreferences sp = applicationLike.getApplication().getSharedPreferences(ShareConstants.TINKER_SHARE_PREFERENCE_CONFIG, Context.MODE_MULTI_PROCESS);
+            SharedPreferences sp = applicationLike.getApplication().getSharedPreferences(ShareConstants
+                    .TINKER_SHARE_PREFERENCE_CONFIG, Context.MODE_MULTI_PROCESS);
             int fastCrashCount = sp.getInt(currentVersion, 0) + 1;
             if (fastCrashCount >= MAX_CRASH_COUNT) {
                 SampleTinkerReport.onFastCrashProtect();

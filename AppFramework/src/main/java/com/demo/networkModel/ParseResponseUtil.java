@@ -10,9 +10,9 @@ import org.json.JSONObject;
 /**
  * 返回的response---json解析类
  *
- * @author YobertJomi
- *         className ParseJsonUtil
- *         created at  2017/4/1  9:01
+ * @author Yangjie
+ * className ParseJsonUtil
+ * created at  2017/4/1  9:01
  */
 public class ParseResponseUtil {
     private static volatile ParseResponseUtil singleton;
@@ -38,7 +38,8 @@ public class ParseResponseUtil {
 //    public boolean isSuccess(final BaseActivity baseActivity, String response) {
 //        if (JSONParseUtil.getInstance().optBoolean(response, "success")) {
 //            return true;
-//        } else if (response.contains("获取用户信息失败") || response.contains("重新登录") || response.contains("未登录") || response.contains("未登陆") || response.contains("登录已失效")) {
+//        } else if (response.contains("获取用户信息失败") || response.contains("重新登录") || response.contains("未登录") ||
+// response.contains("未登陆") || response.contains("登录已失效")) {
 //            if (null != baseActivity) {
 //                CustomProgressDialogUtils.dismissProcessDialog();
 //                final ReloginDialog dialog = new ReloginDialog(baseActivity);
@@ -80,7 +81,8 @@ public class ParseResponseUtil {
      */
     public String parseReturnString(String result, String key) {
         if (!TextUtils.isEmpty(result)) {
-            return JSONParseUtil.getInstance().optString(JSONParseUtil.getInstance().optJSONObject(result, "data"), key);
+            return JSONParseUtil.getInstance().optString(JSONParseUtil.getInstance().optJSONObject(result, "data"),
+                    key);
         }
         return null;
     }
@@ -108,7 +110,8 @@ public class ParseResponseUtil {
     public String parseVerifyCode(String result) {
         if (!TextUtils.isEmpty(result)) {
             if (isSuccess(result)) {
-                return JSONParseUtil.getInstance().optString(JSONParseUtil.getInstance().optJSONObject(result, "data"), "key");
+                return JSONParseUtil.getInstance().optString(JSONParseUtil.getInstance().optJSONObject(result,
+                        "data"), "key");
             }
         }
         return null;

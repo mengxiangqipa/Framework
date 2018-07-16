@@ -26,10 +26,10 @@ import com.framework.utils.KeyBoardUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
+import com.framework2.customviews.TitleView;
 import com.framework2.utils.CustomLoadingDialogUtils;
 import com.framework2.utils.TBSCookieManagerUtil;
-import com.framework2.customLoading.LoadingIndicatorView;
-import com.framework2.customviews.TitleView;
+import com.library.loadingview.LoadingIndicatorView;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
@@ -47,17 +47,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 /**
  * 通用加载webview的activity
  *
  * @author YobertJomi
- *         className CommonFullTBSWebViewActivity
- *         created at  2017/6/13  15:54
+ * className CommonFullTBSWebViewActivity
+ * created at  2017/6/13  15:54
  */
-public class CommonFullTBSWebViewActivity extends BaseActivity
-{
-
+public class CommonFullTBSWebViewActivity extends BaseActivity {
 
     @BindView(R.id.titleView)
     TitleView titleView;
@@ -73,8 +70,7 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
     LoadingIndicatorView onLoading;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_tbs_webview);
         ButterKnife.bind(this);
@@ -89,14 +85,11 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
 
     //eventBus通知新消息
     @Subscribe(threadMode = ThreadMode.MAIN, tag = EventBusTag.newMessage)
-    public void receivedNewMessage(String info)
-    {
+    public void receivedNewMessage(String info) {
     }
 
-    private void initView()
-    {
-        try
-        {
+    private void initView() {
+        try {
 //            titleView.setRightVisible(false).setLeftOnClickListener(new BaseOnClickListener() {
 //                @Override
 //                protected void onBaseClick(View v) {
@@ -104,14 +97,12 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
 //                }
 //            });
             titleView.setTitle(getIntent().getStringExtra(ConstantsME.title));
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void initWebViewSetting()
-    {
+    private void initWebViewSetting() {
 
         WebSettings webSettings = webView.getSettings();
         //支持缩放，默认为true。
@@ -166,44 +157,42 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
 //        webSettings.setAppCachePath(appCacheDir);
     }
 
-    private void loadUrl()
-    {
-        Y.y("loadUrl:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread.currentThread().getName());
-        try
-        {
+    private void loadUrl() {
+        Y.y("loadUrl:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread.currentThread
+                ().getName());
+        try {
             onLoading.setVisibility(View.VISIBLE);
             progress.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
             webView.loadUrl(getIntent().getStringExtra(ConstantsME.url));
             //如果不设置WebViewClient，请求会跳转系统浏览器
-            webView.setWebViewClient(new WebViewClient()
-            {
+            webView.setWebViewClient(new WebViewClient() {
 
                 @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url)
-                {
-                    //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES.LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES
+                    // .LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
                     //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
                     Y.y("CommonFullTBSWebViewActivity--shouldOverrideUrlLoading111:" + url);
                     view.loadUrl(url);
                     CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.jsCLickLogin);
-                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";"))
-                    {
+                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                            InterfaceConfig.jsCLickLogin);
+                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
                         Y.y("CommonFullTBSWebViewActivity-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
                         cookieManager.removeAllCookie();
                         TBSCookieManagerUtil.getInstance().saveCookie(CommonFullTBSWebViewActivity.this, cookie);
                     }
 
                     if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webKPIdetail))
-                    {
-                        TBSCookieManagerUtil.getInstance().synCookies(CommonFullTBSWebViewActivity.this, RealInterfaceConfig.getRealBaseServerUrl());
+                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+                            .webKPIdetail)) {
+                        TBSCookieManagerUtil.getInstance().synCookies(CommonFullTBSWebViewActivity.this,
+                                RealInterfaceConfig.getRealBaseServerUrl());
                     }
 
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl()))
-                    {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(CommonFullTBSWebViewActivity.this);
                         return true;
                     }
@@ -211,35 +200,34 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
                 }
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request)
-                {
+                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
                     //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                     }
                     String url = request.getUrl().toString();
                     Y.y("shouldOverrideUrlLoading222:" + url);
                     CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.jsCLickLogin);
+                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                            InterfaceConfig.jsCLickLogin);
                     Y.y("full -shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
-                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";"))
-                    {
+                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
                         cookieManager.removeAllCookie();
                         TBSCookieManagerUtil.getInstance().saveCookie(CommonFullTBSWebViewActivity.this, cookie);
                     }
 
                     if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webKPIdetail))
-                    {
+                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+                            .webKPIdetail)) {
                         ToastUtil.getInstance().showToast("start:" + cookie);
-                        TBSCookieManagerUtil.getInstance().synCookies(CommonFullTBSWebViewActivity.this, RealInterfaceConfig.getRealBaseServerUrl());
+                        TBSCookieManagerUtil.getInstance().synCookies(CommonFullTBSWebViewActivity.this,
+                                RealInterfaceConfig.getRealBaseServerUrl());
                         Y.y("end:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl()));
-                        Y.y("end2:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain));
+                        Y.y("end2:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                                InterfaceConfig.webMain));
                     }
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl()))
-                    {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(CommonFullTBSWebViewActivity.this);
                         return true;
                     }
@@ -248,34 +236,32 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
                 }
 
                 @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon)
-                {
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     Y.y("onPageStarted:--" + url);
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl()))
-                    {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(CommonFullTBSWebViewActivity.this);
                     }
                 }
 
                 @Override
-                public void onLoadResource(final WebView view, final String url)
-                {
+                public void onLoadResource(final WebView view, final String url) {
 //                    Y.y("加载资源:--"+url);
-                    Y.y("加载资源:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread.currentThread().getName());
+                    Y.y("加载资源:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread
+                            .currentThread().getName());
                     super.onLoadResource(view, url);
                 }
 
                 @Override
-                public WebResourceResponse shouldInterceptRequest(WebView view, String url)
-                {
+                public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
                     Y.y("shouldInterceptRequest1:--" + url);
                     return super.shouldInterceptRequest(view, url);
                 }
 
 //                @Override
 //                public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-//                    Y.y("shouldInterceptRequest:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread.currentThread().getName());
+//                    Y.y("shouldInterceptRequest:--" + ";currentThread:" + Thread.currentThread().getId() + "
+// getName:" + Thread.currentThread().getName());
 ////                    WebResourceResponse response = null;
 ////                    if(url.contains("avatar.php?")){
 ////                        try {
@@ -315,8 +301,7 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
 //                }
 
                 @Override
-                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error)
-                {
+                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                     super.onReceivedSslError(view, handler, error);
                     handler.proceed(); // 接受所有证书
                 }
@@ -335,40 +320,32 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
 ////                    emptyLayout.setVisibility(View.VISIBLE);
 //                    Y.y("onReceivedError:"+error.getDescription());
 //                }
-                public void onPageFinished(WebView view, String url)
-                {
+                public void onPageFinished(WebView view, String url) {
                     Y.y("onPageFinished:--" + url);
                     super.onPageFinished(view, url);
-                    if (!webView.getSettings().getLoadsImagesAutomatically())
-                    {
+                    if (!webView.getSettings().getLoadsImagesAutomatically()) {
                         webView.getSettings().setLoadsImagesAutomatically(true);
                     }
                 }
             });
-            webView.setWebChromeClient(new WebChromeClient()
-            {
+            webView.setWebChromeClient(new WebChromeClient() {
                 @Override
-                public void onProgressChanged(WebView view, int newProgress)
-                {
+                public void onProgressChanged(WebView view, int newProgress) {
                     super.onProgressChanged(view, newProgress);
-                    if (newProgress >= 100)
-                    {
+                    if (newProgress >= 100) {
                         progress.setProgress(100);
                         onLoading.setVisibility(View.GONE);
                         progress.setVisibility(View.GONE);
                         emptyLayout.setVisibility(View.GONE);
-                    } else
-                    {
+                    } else {
                         progress.setProgress(newProgress);
                         onLoading.setVisibility(View.GONE);// TODO: 2017/6/13 可以修改为visible
                         progress.setVisibility(View.VISIBLE);
                         emptyLayout.setVisibility(View.GONE);
                     }
                 }
-
             });
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             onLoading.setVisibility(View.GONE);
             progress.setVisibility(View.GONE);
             emptyLayout.setVisibility(View.VISIBLE);
@@ -378,37 +355,30 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
     /**
      * 请求更改昵称
      */
-    private void requestModifyNick(@NonNull String nick)
-    {
+    private void requestModifyNick(@NonNull String nick) {
         HttpUtil.getInstance().requestModifyNick(InterfaceConfig.modifyNick, nick,
-                new HttpUtil.OnRequestResult<String>()
-                {
+                new HttpUtil.OnRequestResult<String>() {
                     @Override
-                    public void onSuccess(String... s)
-                    {
+                    public void onSuccess(String... s) {
                         CustomLoadingDialogUtils.getInstance().dismissDialog();
                         finishActivity();
                     }
 
                     @Override
-                    public void onFail(int code, String msg)
-                    {
+                    public void onFail(int code, String msg) {
                         CustomLoadingDialogUtils.getInstance().dismissDialog();
                         ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "修改昵称失败" : msg);
                     }
                 });
     }
 
-
     @OnClick(R.id.emptyLayout)
-    public void onViewClicked()
-    {
+    public void onViewClicked() {
         loadUrl();
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
 //        try {
 //            if (webView != null) {
 //                webView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
@@ -420,15 +390,12 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
 //        } catch (Exception e) {
 //        }
 
-        if (webView != null)
-        {
-            try
-            {
+        if (webView != null) {
+            try {
                 // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
                 // destory()
                 ViewParent parent = webView.getParent();
-                if (parent != null)
-                {
+                if (parent != null) {
                     ((ViewGroup) parent).removeView(webView);
                 }
                 webView.stopLoading();
@@ -438,21 +405,18 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
                 webView.clearView();
                 webView.removeAllViews();
                 webView.destroy();
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
         super.onDestroy();
     }
 
-    private void goBack()
-    {
-        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(), RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain))
-        {
+    private void goBack() {
+        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(), RealInterfaceConfig
+                .getRealBaseServerUrl() + InterfaceConfig.webMain)) {
             webView.goBack();
-        } else
-        {
+        } else {
             KeyBoardUtil.getInstance().isCloseSoftInputMethod(this, null, true);
             beforeFinishActivity();
             finishActivity();
@@ -460,12 +424,10 @@ public class CommonFullTBSWebViewActivity extends BaseActivity
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN)
-        {
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
             goBack();
             return true;
         }
