@@ -15,7 +15,7 @@ public class VideoTestActivity extends FragmentActivity {
         setContentView(R.layout.video_activity_video_test);
         baseVideoFragment = BaseVideoFragment.build
                 ("http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc.yinyuetai" +
-                        ".com/D046015255134077DDB3ACA0D7E68D45.flv","我是title",500);
+                        ".com/D046015255134077DDB3ACA0D7E68D45.flv","我是title",400);
         if (state == null) {
             getSupportFragmentManager()
                     .beginTransaction()
