@@ -109,6 +109,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     private Context context;
     private boolean isProxyUrl = false;//是否是代理url，用来处理进度条的显示
     private String cacheUrl;
+    private boolean autoPlay;//自动播放
+    private String tempUrl;//非自动播放的临时url
 
     private int screenWidth;//屏幕宽度
     private int screenHeight;//屏幕高度
@@ -652,6 +654,12 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
      * 开始/恢复播放
      */
     private void startPlay() {
+        if (TextUtils.isEmpty(cacheUrl)) {
+            autoPlay(true);
+            if (!TextUtils.isEmpty(tempUrl)) {
+                start(tempUrl);
+            }
+        }
         startTimer();//启动timer
         customFullScreenVideoView.start();
         videoPlayImg.setVisibility(View.INVISIBLE);
@@ -680,6 +688,21 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
         customFullScreenVideoView.setOnPreparedListener(this);
     }
 
+    public void autoPlay(boolean autoPlay) {
+        this.autoPlay = autoPlay;
+        if (!autoPlay) {
+            videoPlayImg.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        } else {
+            videoPlayImg.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void setTempUrl(String url) {
+        this.tempUrl = url;
+    }
+
     public void showErrorView() {
         videoError.setVisibility(View.VISIBLE);
         pausePlay();
@@ -692,8 +715,13 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     public void showBottomView(boolean showBottomView) {
         videoControllerLayout.setVisibility(showBottomView ? VISIBLE : GONE);
     }
-    public void showClock(boolean showClock){
-        titleViewTime.setVisibility(showClock?VISIBLE:GONE);
+
+    public void showFullScreen(boolean showFullScreen) {
+        screenSwitchBtn.setVisibility(showFullScreen ? VISIBLE : GONE);
+    }
+
+    public void showClock(boolean showClock) {
+        titleViewTime.setVisibility(showClock ? VISIBLE : GONE);
     }
 
     public CustomFullScreenVideoView getVideoView() {
@@ -749,7 +777,7 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     public void setTitle(CharSequence charSequence) {
         if (!TextUtils.isEmpty(charSequence)) {
             titleView.setText(charSequence);
-        }else {
+        } else {
             titleView.setText("");
         }
     }

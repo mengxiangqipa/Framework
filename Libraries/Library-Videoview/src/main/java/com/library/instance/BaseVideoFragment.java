@@ -23,9 +23,26 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * <p>
+ *
  * @author YobertJomi
  * className BaseVideoFragment
  * created at  2017/9/5  10:32
+ * <p>
+ * Bundle bundle=new Bundle();
+ * bundle.putString(BaseVideoFragment.URL,"http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc
+ * .yinyuetai" +
+ * ".com/D046015255134077DDB3ACA0D7E68D45.flv");
+ * bundle.putString(BaseVideoFragment.TITLE,"我是title");
+ * bundle.putInt(BaseVideoFragment.HEIGHT,400);
+ * bundle.putBoolean(BaseVideoFragment.WITH_CACHE,false);
+ * bundle.putBoolean(BaseVideoFragment.SHOW_CLOCK,false);
+ * bundle.putBoolean(BaseVideoFragment.SHOW_FULL_SCREENB,false);
+ * bundle.putBoolean(BaseVideoFragment.SHOW_BOTTOM,true);
+ * bundle.putBoolean(BaseVideoFragment.SHOW_TOP,false);
+ * bundle.putBoolean(BaseVideoFragment.AUTO_PLAY,false);
+ * baseVideoFragment = BaseVideoFragment.build(bundle);
+ * </p>
  */
 public class BaseVideoFragment extends Fragment implements CacheListener {
 
@@ -35,7 +52,12 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
     public static String HEIGHT = "height";
     public static String URL = "url";
     public static String TITLE = "title";
-    public static String WITH_CACHE = "with_cache";
+    public static String WITH_CACHE = "WITH_CACHE";
+    public static String SHOW_FULL_SCREENB = "SHOW_CLOCK";
+    public static String SHOW_CLOCK = "SHOW_CLOCK";
+    public static String SHOW_TOP = "SHOW_TOP";
+    public static String SHOW_BOTTOM = "SHOW_BOTTOM";
+    public static String AUTO_PLAY = "AUTO_PLAY";
 
     private Context context;
 
@@ -43,8 +65,13 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
 
     private boolean hasInit;
 
-    public static BaseVideoFragment build(String url, String title, int height) {
-        return new Builder().url(url).title(title).height(height).build();
+    public static BaseVideoFragment build(Bundle bundle) {
+        if (null == bundle || TextUtils.isEmpty(bundle.getString(BaseVideoFragment.URL))) {
+            Bundle bundleT = new Bundle();
+            bundleT.putString(URL, "http://www.baidu.com");
+            return new Builder().bundle(bundleT).build();
+        }
+        return new Builder().bundle(bundle).build();
     }
 
     @Override
@@ -59,17 +86,45 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
         unbinder = ButterKnife.bind(this, view);
         if (!hasInit) {
             hasInit = true;
-            if (getArguments().getInt(HEIGHT) > 0) {
-                LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,getArguments().getInt(HEIGHT));
+            if (getArguments().getInt(HEIGHT) > 0) {//设置高度播放高度
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        getArguments().getInt(HEIGHT));
                 baseCustomVideoViewWithUI.setLayoutParams(params);
             }
-            if (getArguments().getBoolean(WITH_CACHE)) {
-                HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
-                proxy.registerCacheListener(this, getArguments().getString(URL));
-                String proxyUrl = proxy.getProxyUrl(getArguments().getString(URL));
-                baseCustomVideoViewWithUI.start(proxyUrl);
+            if (getArguments().getBoolean(SHOW_FULL_SCREENB)) {//是否显示右下角全屏按钮
+                baseCustomVideoViewWithUI.showFullScreen(true);
             } else {
-                baseCustomVideoViewWithUI.start(getArguments().getString(URL));
+                baseCustomVideoViewWithUI.showFullScreen(false);
+            }
+            if (getArguments().getBoolean(SHOW_CLOCK)) {//是否显示右上角系统时间
+                baseCustomVideoViewWithUI.showClock(true);
+            } else {
+                baseCustomVideoViewWithUI.showClock(false);
+            }
+            if (getArguments().getBoolean(SHOW_TOP)) {//是否显示顶部
+                baseCustomVideoViewWithUI.showTopView(true);
+            } else {
+                baseCustomVideoViewWithUI.showTopView(false);
+            }
+            if (getArguments().getBoolean(SHOW_BOTTOM)) {//是否显示底部
+                baseCustomVideoViewWithUI.showBottomView(true);
+            } else {
+                baseCustomVideoViewWithUI.showBottomView(false);
+            }
+            if (getArguments().getBoolean(AUTO_PLAY)) {//是否自动播放
+                baseCustomVideoViewWithUI.autoPlay(true);
+                if (getArguments().getBoolean(WITH_CACHE)) {
+                    HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
+                    proxy.registerCacheListener(this, getArguments().getString(URL));
+                    String proxyUrl = proxy.getProxyUrl(getArguments().getString(URL));
+                    baseCustomVideoViewWithUI.showFullScreen(false);
+                    baseCustomVideoViewWithUI.start(proxyUrl);
+                } else {
+                    baseCustomVideoViewWithUI.start(getArguments().getString(URL));
+                }
+            } else {
+                baseCustomVideoViewWithUI.autoPlay(false);
+                baseCustomVideoViewWithUI.setTempUrl(getArguments().getString(URL));
             }
             baseCustomVideoViewWithUI.setTitle(getArguments().getString(TITLE));
         }
@@ -139,38 +194,22 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
     }
 
     public static class Builder {
-        private String url;
-        private String title;
-        private int height;
-        private boolean withCache;
+        private Bundle bundle;
 
-        public Builder url(String url) {
-            this.url = url;
-            return this;
-        }
-
-        public Builder title(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder height(int height) {
-            this.height = height;
-            return this;
-        }
-        public Builder withCache(boolean withCache) {
-            this.withCache = withCache;
+        public Builder bundle(Bundle bundle) {
+            this.bundle = bundle;
             return this;
         }
 
         public BaseVideoFragment build() {
             BaseVideoFragment videoFragment = new BaseVideoFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(URL, TextUtils.isEmpty(url) ? "" : url);
-            bundle.putString(TITLE, TextUtils.isEmpty(title) ? "" : title);
-            bundle.putInt(HEIGHT, height);
-            bundle.putBoolean(WITH_CACHE, withCache);
-            videoFragment.setArguments(bundle);
+            Bundle bundleT;
+            if (bundle == null) {
+                bundleT = new Bundle();
+            } else {
+                bundleT = bundle;
+            }
+            videoFragment.setArguments(bundleT);
             return videoFragment;
         }
     }
