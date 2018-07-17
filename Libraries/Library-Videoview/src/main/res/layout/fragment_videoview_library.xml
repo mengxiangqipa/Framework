@@ -4,11 +4,12 @@
     android:id="@+id/viewBox"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
+    android:background="@android:color/darker_gray"
     android:orientation="vertical">
+    <!--android:descendantFocusability="beforeDescendants"-->
 
     <com.library.videoview.BaseCustomVideoViewWithUI
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="50dp"/>
 </LinearLayout>
