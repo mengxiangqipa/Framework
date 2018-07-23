@@ -23,6 +23,7 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private boolean canDraw = true;
+    private boolean drawFirstLine = true;
 
     public GridDividerItemDecoration2(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
@@ -39,6 +40,10 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
 
     public void setCanDraw(boolean canDraw) {
         this.canDraw = canDraw;
+    }
+
+    public void setDrawFirstLine(boolean drawFirstLine) {
+        this.drawFirstLine = drawFirstLine;
     }
 
     @Override
@@ -79,7 +84,7 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
             final int topFirstLaw = child.getTop() - params.topMargin - mDivider.getIntrinsicHeight();//第一行top
             final int bottomFirstLaw = child.getTop() - params.topMargin;//第一行bottom
             int spanCount = getSpanCount(parent);
-            if (position - adapter.getHeaderCount() < spanCount) {//第一行顶部
+            if (position - adapter.getHeaderCount() < spanCount && drawFirstLine) {//第一行顶部
                 if ((position - adapter.getHeaderCount()) % spanCount == 0) {
                     mDivider.setBounds(left - mDivider.getIntrinsicWidth(), topFirstLaw, right - mDivider
                             .getIntrinsicWidth() / 2, bottomFirstLaw);
@@ -156,11 +161,15 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
 
     private boolean isLastRaw(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
             childCount) {
+        UniversalAdapter adapter = (UniversalAdapter) parent.getAdapter();
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-//            childCount = childCount - childCount % spanCount;
-            // 如果是最后一行，则不需要绘制底部
-            return (itemPosition >= (childCount - (childCount % spanCount == 0 ? spanCount : childCount % spanCount)));
+            // 如果是最后一行，则不需要绘制底部,这个是考虑resizeSpan的情况
+            return (itemPosition >= adapter.getDataList().size() - ((GridLayoutManager) parent
+                    .getLayoutManager()).getSpanSizeLookup().getSpanIndex(itemPosition, spanCount));
+//            // 如果是最后一行，则不需要绘制底部，没有考虑resizeSpan的情况
+//            return (itemPosition >= (childCount - (childCount % spanCount == 0 ? spanCount : childCount %
+// spanCount)));
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
             // StaggeredGridLayoutManager 且纵向滚动
@@ -194,10 +203,17 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
                 int bottom = isLastRaw(parent, itemPosition, spanCount, childCount) ? mDivider.getIntrinsicHeight() : 0;
                 if (adapter.isHeader(itemPosition) || adapter.isFooter(itemPosition)) {
                     outRect.set(0, 0, 0, 0);
-                } else if ((itemPosition - adapter.getHeaderCount()) % spanCount == 0) {//列第一项
+//                } else if ((itemPosition - adapter.getHeaderCount()) % spanCount == 0) {//列第一项
+                } else if (parent.getLayoutManager() instanceof GridLayoutManager && ((GridLayoutManager) parent
+                        .getLayoutManager()).getSpanSizeLookup().getSpanIndex(itemPosition, spanCount) == 0&&drawFirstLine) {//列第一项留空
                     outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(), mDivider
                             .getIntrinsicWidth() / 2, bottom);
-                } else if ((itemPosition - adapter.getHeaderCount()) % spanCount == (spanCount - 1)) {//列最后一项
+                } else if (parent.getLayoutManager() instanceof GridLayoutManager && ((GridLayoutManager) parent
+                        .getLayoutManager()).getSpanSizeLookup().getSpanIndex(itemPosition, spanCount) == 0&&!drawFirstLine) {//列第一项不留空
+                    outRect.set(0,0,0,0);//根据条件，顶部不留空白
+//                } else if ((itemPosition - adapter.getHeaderCount()) % spanCount == (spanCount - 1)) {//列最后一项
+                } else if (parent.getLayoutManager() instanceof GridLayoutManager && ((GridLayoutManager) parent
+                        .getLayoutManager()).getSpanSizeLookup().getSpanIndex(itemPosition, spanCount) == spanCount-1) {//列最后一项
                     outRect.set(mDivider.getIntrinsicWidth() / 2, mDivider.getIntrinsicHeight(), mDivider
                             .getIntrinsicWidth(), bottom);
                 } else {//列中间项
