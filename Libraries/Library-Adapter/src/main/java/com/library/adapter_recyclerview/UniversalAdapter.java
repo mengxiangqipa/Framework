@@ -59,7 +59,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         this.list = list;
     }
 
-    public void preDealItemView(View itemView){
+    public void preDealItemView(View itemView) {
 
     }
 
@@ -71,7 +71,9 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         } else if (viewType >= VIEW_TYPE_FOODER) {
             itemView = footerSparseArray.get(viewType % VIEW_TYPE_FOODER);
         } else {
-            itemView = LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false);
+            itemView = initItemView(viewType);
+            if (null == itemView)
+                itemView = LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false);
             preDealItemView(itemView);
         }
         return createUniversalViewHolder(itemView);
@@ -104,6 +106,10 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
      * 获取item项
      */
     protected abstract void getItemView(UniversalViewHolder viewHolder, D item, int position);
+
+    public View initItemView(int viewType) {
+        return null;
+    }
 
     /**
      * 初始化layoutId
