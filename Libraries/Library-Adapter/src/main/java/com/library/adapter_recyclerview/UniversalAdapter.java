@@ -59,6 +59,10 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         this.list = list;
     }
 
+    public void preDealItemView(View itemView){
+
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
@@ -68,6 +72,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             itemView = footerSparseArray.get(viewType % VIEW_TYPE_FOODER);
         } else {
             itemView = LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false);
+            preDealItemView(itemView);
         }
         return createUniversalViewHolder(itemView);
     }
