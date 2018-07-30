@@ -25,7 +25,7 @@ import okhttp3.ResponseBody;
  * created at  2018/6/19  14:49
  */
 @SuppressWarnings("unused")
-public  class StringRequest extends AbstractCallback {
+public class StringRequest extends AbstractCallback {
     private static StringRequest.Builder builder;
     private ICallback callback;
     private Request request;

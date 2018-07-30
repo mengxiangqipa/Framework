@@ -7,10 +7,23 @@ import com.library.network.okhttp3.request.StringRequest;
 import com.library.network.okhttp3.request.UploadFileRequest;
 import com.library.network.okhttp3.upload_dowload.ProgressResponseBody;
 
+import java.io.File;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Interceptor;
@@ -84,10 +97,49 @@ public final class Ok3Util {
      */
     private OkHttpClient getOkHttpClient() {
         if (null == defaultBuilder && !hasBuilder) {
+//            X509TrustManager xtm = new X509TrustManager() {
+//                @Override
+//                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//                }
+//
+//                @Override
+//                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//                }
+//
+//                @Override
+//                public X509Certificate[] getAcceptedIssuers() {
+//                    X509Certificate[] x509Certificates = new X509Certificate[0];
+//                    return x509Certificates;
+//                }
+//            };
+//            SSLContext sslContext = null;
+//            try {
+//                sslContext = SSLContext.getInstance("SSL");
+//                sslContext.init(null, new TrustManager[]{xtm}, new SecureRandom());
+//            } catch (NoSuchAlgorithmException e) {
+//                e.printStackTrace();
+//            } catch (KeyManagementException e) {
+//                e.printStackTrace();
+//            }
+//            HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
+//                @Override
+//                public boolean verify(String hostname, SSLSession session) {
+//                    return true;
+//                }
+//            };
+//
+//            File sdcache = application.getExternalCacheDir();
+//            int cacheSize = 10 * 1024 * 1024;
             defaultBuilder = new OkHttpClient.Builder();
             defaultBuilder.connectTimeout(15000, TimeUnit.MILLISECONDS)
                     .readTimeout(8000, TimeUnit.MILLISECONDS)
-                    .writeTimeout(8000, TimeUnit.MILLISECONDS);
+                    .writeTimeout(8000, TimeUnit.MILLISECONDS)
+//                    .sslSocketFactory(sslContext.getSocketFactory())
+//                    .hostnameVerifier(DO_NOT_VERIFY)
+//                .sslSocketFactory(createSSLSocketFactory())
+//                .hostnameVerifier(new TrustAllHostnameVerifier())
+//             .cache(new Cache(sdcache.getAbsoluteFile(), cacheSize));
+            ;
             mOkHttpClient = defaultBuilder.build();
         }
         hasBuilder = false;
