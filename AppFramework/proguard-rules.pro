@@ -25,7 +25,7 @@
 
     #不去忽略非公共的库类
 #    -dontskipnonpubliclibraryclasses
-
+    -ignorewarnings
      #优化  不优化输入的类文件
     -dontoptimize
 
