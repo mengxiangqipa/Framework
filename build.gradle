@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         //GreenDao数据库插件，不使用GreenDao数据库，将其删除
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
         //Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
