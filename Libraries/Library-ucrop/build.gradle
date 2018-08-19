@@ -24,8 +24,6 @@ android {
         abortOnError false
     }
 
-//    resourcePrefix 'ucrop_'
-
 }
 
 dependencies {
