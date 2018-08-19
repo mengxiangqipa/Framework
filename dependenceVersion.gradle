@@ -22,4 +22,21 @@ ext {
             aaaaaa: "com.xxxxxx:aaaaaa:${version}",
     ]
 
+
+    cfgs = [
+            compileSdkVersion    : 27,
+            buildToolsVersion    : "27.0.3",
+            minSdkVersion        : 14,
+            targetSdkVersion     : 27,
+            versionCode          : 10,
+            versionName          : "2.0.0",
+            ucropVersionCode     : 22,
+            ucropVersionName     : "2.2.0-native",
+
+            //open version control
+            androidSupportVersion: "27.1.1",
+            glide                : "4.7.1",
+            rxjava               : "2.0.5",
+            rxandroid            : "2.0.1"
+    ]
 }

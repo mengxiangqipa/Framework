@@ -22,6 +22,7 @@
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" filepath="$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" filepath="$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Videoview/Library-Videoview.iml" filepath="$PROJECT_DIR$/Libraries/Library-Videoview/Library-Videoview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-choose-picture/Library-choose-picture.iml" filepath="$PROJECT_DIR$/Libraries/Library-choose-picture/Library-choose-picture.iml" />
     </modules>
   </component>
 </project>
