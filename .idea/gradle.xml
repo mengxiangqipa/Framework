@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/Libraries/Library-Android-Base" />
             <option value="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache" />
             <option value="$PROJECT_DIR$/Libraries/Library-CameraFilter" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Choose-Media" />
             <option value="$PROJECT_DIR$/Libraries/Library-ClipPicView" />
             <option value="$PROJECT_DIR$/Libraries/Library-CropPicture" />
             <option value="$PROJECT_DIR$/Libraries/Library-Emoji" />
@@ -26,8 +27,9 @@
             <option value="$PROJECT_DIR$/Libraries/Library-Pulltorefresh" />
             <option value="$PROJECT_DIR$/Libraries/Library-Scan" />
             <option value="$PROJECT_DIR$/Libraries/Library-SlideFinish" />
+            <option value="$PROJECT_DIR$/Libraries/Library-Ucrop" />
             <option value="$PROJECT_DIR$/Libraries/Library-Videoview" />
-            <option value="$PROJECT_DIR$/Libraries/Library-choose-picture" />
+            <option value="$PROJECT_DIR$/app-choose-media" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

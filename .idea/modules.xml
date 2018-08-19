@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" filepath="$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-CameraFilter/Library-CameraFilter.iml" filepath="$PROJECT_DIR$/Libraries/Library-CameraFilter/Library-CameraFilter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Choose-Media/Library-Choose-Media.iml" filepath="$PROJECT_DIR$/Libraries/Library-Choose-Media/Library-Choose-Media.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-ClipPicView/Library-ClipPicView.iml" filepath="$PROJECT_DIR$/Libraries/Library-ClipPicView/Library-ClipPicView.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-CropPicture/Library-CropPicture.iml" filepath="$PROJECT_DIR$/Libraries/Library-CropPicture/Library-CropPicture.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Emoji/Library-Emoji.iml" filepath="$PROJECT_DIR$/Libraries/Library-Emoji/Library-Emoji.iml" />
@@ -21,8 +22,9 @@
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" filepath="$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" filepath="$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" filepath="$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Ucrop/Library-Ucrop.iml" filepath="$PROJECT_DIR$/Libraries/Library-Ucrop/Library-Ucrop.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Videoview/Library-Videoview.iml" filepath="$PROJECT_DIR$/Libraries/Library-Videoview/Library-Videoview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-choose-picture/Library-choose-picture.iml" filepath="$PROJECT_DIR$/Libraries/Library-choose-picture/Library-choose-picture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app-choose-media/app-choose-media.iml" filepath="$PROJECT_DIR$/app-choose-media/app-choose-media.iml" />
     </modules>
   </component>
 </project>
