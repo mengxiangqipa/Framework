@@ -3,13 +3,14 @@ apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
-    compileSdkVersion cfgs.compileSdkVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion cfgs.minSdkVersion
-        targetSdkVersion cfgs.targetSdkVersion
-        versionCode cfgs.ucropVersionCode
-        versionName cfgs.ucropVersionName
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -19,15 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
     lintOptions {
         abortOnError false
     }
 
-    resourcePrefix 'ucrop_'
+//    resourcePrefix 'ucrop_'
 
 }
 

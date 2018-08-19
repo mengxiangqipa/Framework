@@ -27,11 +27,9 @@ ext {
             compileSdkVersion    : 27,
             buildToolsVersion    : "27.0.3",
             minSdkVersion        : 14,
-            targetSdkVersion     : 27,
+            targetSdkVersion     : 22,
             versionCode          : 10,
             versionName          : "2.0.0",
-            ucropVersionCode     : 22,
-            ucropVersionName     : "2.2.0-native",
 
             //open version control
             androidSupportVersion: "27.1.1",
