@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.luck.picture.lib.adapter.SimpleFragmentAdapter;
 import com.luck.picture.lib.anim.OptAnimationLoader;
 import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.observable.ImagesObservable;
@@ -30,7 +29,9 @@ import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.UCropMulti;
 import com.yalantis.ucrop.model.CutInfo;
 
+import java.io.File;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,6 +137,36 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
 //                            return;
 //                        }
                     }
+                    //TODO 20180819 我修改 限制文件的总大小及单个大小
+                    if (!check.isSelected() && !TextUtils.isEmpty(image.getPath())) {
+                        File file = new File(image.getPath());
+                        if (file.exists()) {
+                            if (file.length() > config.singleFileMaxLenth) {
+                                String str = getString(R.string.picture_message_singleFile_max_lenth) + fileSize
+                                        (config.singleFileMaxLenth);
+                                ToastManage.s(PicturePreviewActivity.this, str);
+                                check.startAnimation(animation);
+                                return;
+                            } else {
+                                int totalFileMax = 0;
+                                for (int i = 0, len = selectImages.size(); i < len; i++) {
+                                    LocalMedia imageTemp = selectImages.get(i);
+                                    File fileT = new File(imageTemp.getPath());
+                                    if (fileT.exists()) {
+                                        totalFileMax += fileT.length();
+                                    }
+                                }
+                                totalFileMax += file.length();
+                                if (totalFileMax > config.totalFileMaxLenth) {
+                                    String str = getString(R.string.picture_message_totalFile_max_lenth) +
+                                            fileSize(config.totalFileMaxLenth);
+                                    ToastManage.s(PicturePreviewActivity.this, str);
+                                    check.startAnimation(animation);
+                                    return;
+                                }
+                            }
+                        }
+                    }
                     // 刷新图片列表中图片状态
                     boolean isChecked;
                     if (!check.isSelected()) {
@@ -147,10 +178,11 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= config.maxSelectNum && isChecked) {
-                        ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum));
+                        ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum+""));
                         check.setSelected(false);
                         return;
                     }
+
                     if (isChecked) {
                         VoiceUtils.playVoice(mContext, config.openClickSound);
                         // 如果是单选，则清空已选中的并刷新列表(作单一选择)
@@ -386,7 +418,6 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
     public void onAnimationRepeat(Animation animation) {
     }
 
-
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -401,9 +432,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             if (config.minSelectNum > 0) {
                 if (size < config.minSelectNum && config.selectionMode == PictureConfig.MULTIPLE) {
                     boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
-                    String str = eqImg ? getString(R.string.picture_min_img_num, config.minSelectNum)
-                            : getString(R.string.picture_min_video_num, config.minSelectNum);
-                    ToastManage.s(mContext,str);
+                    String str = eqImg ? getString(R.string.picture_min_img_num, config.minSelectNum+"")
+                            : getString(R.string.picture_min_video_num, config.minSelectNum + "");
+                    ToastManage.s(mContext, str);
                     return;
                 }
             }
@@ -455,10 +486,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             Throwable throwable = (Throwable) data.getSerializableExtra(UCrop.EXTRA_ERROR);
-            ToastManage.s(mContext,throwable.getMessage());
+            ToastManage.s(mContext, throwable.getMessage());
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -484,5 +514,16 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
     @Override
     public void onActivityBackPressed() {
         onBackPressed();
+    }
+
+    /**
+     * @param size 文件大小Byte
+     * @return 格式化的文件大小
+     */
+    public String fileSize(long size) {
+        if (size <= 0) return "0";
+        final String[] units = new String[]{"B", "kB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 }
