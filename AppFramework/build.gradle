@@ -154,6 +154,7 @@ android {
 ext {
 //    FrameworkVersion = '1.4.2'
     FrameworkVersion = '2.2.1'
+    TINKER_VERSION='1.9.1'
 }
 
 dependencies {
@@ -184,22 +185,6 @@ dependencies {
     compile 'com.android.support:design:27.1.1'
 
     //    //自定义library
-//    compile "com.github.mengxiangqipa.Framework:Library-Android-Base:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-Adapter:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-AndroidVideoCache:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-CameraFilter:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-ClipPicView:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-CropPicture:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-Emoji:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-EventBus:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-FrameworkFramework:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-Loadingview:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-MPAndroidChart:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-PercentLayout:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-Pulltorefresh:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-SlideFinish:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-Videoview:${FrameworkVersion}"
-//    compile "com.github.mengxiangqipa.Framework:Library-Scan:${FrameworkVersion}"
     compile files('libs/ClipPicView_noSource.jar')
     compile files('libs/open_sdk_r5788_lite.jar')
 
@@ -238,7 +223,8 @@ dependencies {
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
     annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
-    compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+//    compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+    implementation("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
 
     //支持multidex
     api 'com.android.support:multidex:1.0.3'

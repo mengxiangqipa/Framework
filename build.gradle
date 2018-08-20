@@ -5,6 +5,7 @@ buildscript {
     repositories {
         maven { url "https://jitpack.io" }//这个是自定义的maven仓库，上传自己的library需要
         mavenLocal()
+        mavenCentral()
         google()
         jcenter()
     }
@@ -16,7 +17,8 @@ buildscript {
         //AS3.0之后Butterknife 版本为8.4.0 高版本异常
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.8'//微信7zip压缩，资源混淆。。
-        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"
+//        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"//gradle.properties
+        classpath 'com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1'
 
         //这个是JitPack插件 上传自己的library需要
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
@@ -27,6 +29,7 @@ allprojects {
     repositories {
         maven { url "https://jitpack.io" }//这个是自定义的maven仓库，上传自己的library需要
         mavenLocal()
+        mavenCentral()
         google()
         jcenter()
     }
