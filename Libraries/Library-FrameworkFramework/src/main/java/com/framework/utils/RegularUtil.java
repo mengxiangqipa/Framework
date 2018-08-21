@@ -40,8 +40,10 @@ public class RegularUtil {
         if (TextUtils.isEmpty(email)) {
             return false;
         }
-        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\" +
-                ".]*[a-zA-Z]$";
+//        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\" +
+//                ".]*[a-zA-Z]$";
+        //这个是一个企业级的程序里copy出来的
+        String strPattern="^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(email);
         return m.matches();
