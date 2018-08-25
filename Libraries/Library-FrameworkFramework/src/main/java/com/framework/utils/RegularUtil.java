@@ -43,7 +43,7 @@ public class RegularUtil {
 //        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\" +
 //                ".]*[a-zA-Z]$";
         //这个是一个企业级的程序里copy出来的
-        String strPattern="^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+        String strPattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(email);
         return m.matches();
@@ -64,6 +64,7 @@ public class RegularUtil {
         Matcher m = p.matcher(mobile);
         return m.matches();
     }
+
     /**
      * 验证手机号(1开头的15位数字)
      *
@@ -79,6 +80,7 @@ public class RegularUtil {
         Matcher m = p.matcher(number);
         return m.matches();
     }
+
     /**
      * 验证数字
      *
@@ -216,5 +218,94 @@ public class RegularUtil {
         } catch (Exception e) {
             return 0;
         }
+    }
+
+    /**
+     * @param str 用户名（汉字、字母、数字的组合）
+     * @return boolean
+     */
+    public boolean isCommonUserName(String str) {
+        Pattern p = Pattern
+                .compile("^(?!_)(?!.*?_$)[a-zA-Z0-9_\\u4e00-\\u9fa5]+$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     * @param str 密码（8-24位数字和字母的组合）
+     * @return boolean
+     */
+    public boolean isCommonPwd(String str) {
+        Pattern p = Pattern
+                .compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,24}$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     * @param str 特殊密码（8-24位数字和字母的组合）
+     * @return boolean
+     */
+    public boolean isSpecialPwd(String str) {
+        Pattern p1 = Pattern
+                .compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,24}$");
+        // 中：字母+数字，字母+特殊字符，数字+特殊字符
+        Pattern p2 = Pattern
+                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
+        // 强：字母+数字+特殊字符
+        Pattern p3 = Pattern
+                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*]+$)" +
+                        "(?![\\d!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
+        Matcher m = p1.matcher(str);
+        Matcher m1 = p1.matcher(str);
+        Matcher m2 = p2.matcher(str);
+        Matcher m3 = p3.matcher(str);
+        return m1.matches() || m2.matches();
+    }
+
+    /**
+     * @param str 年龄（1岁--120岁）
+     * @return boolean
+     */
+    public boolean isCommonAge(String str) {
+        Pattern p = Pattern
+                .compile("^(?:[1-9][0-9]?|1[01][0-9]|120)$$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     * @param str 含数字，字母，特殊字符其中之二
+     * @return boolean
+     */
+    public boolean isSpecial(String str) {
+        Pattern p1 = Pattern
+                .compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,24}$");
+        // 中：字母+数字，字母+特殊字符，数字+特殊字符
+        Pattern p2 = Pattern
+                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![`~!@#$%^&*()+=|{}':;',\\[\\]" +
+                        ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)[a-zA-Z\\d`~!@#$%^&*()+=|{}':;',\\[\\]" +
+                        ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$");
+        // 强：字母+数字+特殊字符
+        Pattern p3 = Pattern
+                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![`~!@#$%^&*()+=|{}':;',\\[\\]" +
+                        ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)(?![a-zA-z\\d]+$)(?![a-zA-z`~!@#$%^&*()+=|{}':;'," +
+                        "\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)" +
+                        "(?![\\d`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)" +
+                        "[a-zA-Z\\d`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$");
+        Matcher m = p1.matcher(str);
+        Matcher m1 = p1.matcher(str);
+        Matcher m2 = p2.matcher(str);
+        Matcher m3 = p3.matcher(str);
+        return m1.matches() || m2.matches();
+    }
+
+    /**
+     * @return 是否含特殊字符
+     */
+    public boolean containsSpecialChar(String str) {
+        Pattern p = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]");
+        Matcher m = p.matcher(str);
+        return m.matches();
     }
 }
