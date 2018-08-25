@@ -308,4 +308,37 @@ public class RegularUtil {
         Matcher m = p.matcher(str);
         return m.matches();
     }
+
+    /**
+     *（汉字、字母组合）
+     * @return boolean
+     */
+    public boolean isChineseCharactersOrLetter(String str) {
+        Pattern p = Pattern
+                .compile("^(?!_)(?!.*?_$)[a-zA-Z_\\u4e00-\\u9fa5]+$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     *（汉字）
+     * @return boolean
+     */
+    public boolean isChineseCharacters(String str) {
+        Pattern p = Pattern
+                .compile("^(?!_)(?!.*?_$)[\\u4e00-\\u9fa5]+$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+
+    /**
+     *（汉字、字母组合）
+     * @return boolean
+     */
+    public boolean isLetter(String str) {
+        Pattern p = Pattern
+                .compile("^(?!_)(?!.*?_$)[a-zA-Z_]+$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
 }
