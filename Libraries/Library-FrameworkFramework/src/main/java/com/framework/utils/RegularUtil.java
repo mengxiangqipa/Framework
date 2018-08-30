@@ -275,32 +275,6 @@ public class RegularUtil {
     }
 
     /**
-     * @param str 含数字，字母，特殊字符其中之二
-     * @return boolean
-     */
-    public boolean isSpecial(String str) {
-        Pattern p1 = Pattern
-                .compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,24}$");
-        // 中：字母+数字，字母+特殊字符，数字+特殊字符
-        Pattern p2 = Pattern
-                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![`~!@#$%^&*()+=|{}':;',\\[\\]" +
-                        ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)[a-zA-Z\\d`~!@#$%^&*()+=|{}':;',\\[\\]" +
-                        ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$");
-        // 强：字母+数字+特殊字符
-        Pattern p3 = Pattern
-                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![`~!@#$%^&*()+=|{}':;',\\[\\]" +
-                        ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)(?![a-zA-z\\d]+$)(?![a-zA-z`~!@#$%^&*()+=|{}':;'," +
-                        "\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)" +
-                        "(?![\\d`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$)" +
-                        "[a-zA-Z\\d`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]+$");
-        Matcher m = p1.matcher(str);
-        Matcher m1 = p1.matcher(str);
-        Matcher m2 = p2.matcher(str);
-        Matcher m3 = p3.matcher(str);
-        return m1.matches() || m2.matches();
-    }
-
-    /**
      * @return 是否含特殊字符
      */
     public boolean containsSpecialChar(String str) {
@@ -341,4 +315,38 @@ public class RegularUtil {
         Matcher m = p.matcher(str);
         return m.matches();
     }
+
+    /**
+     * @param str 含数字，大写字母，小写字母，特殊字符其中之三
+     * @return boolean
+     */
+    public boolean isSpecial(String str) {
+        // 必填字母数字特殊字符(数字+大写或小写+特殊)
+        String regAll = "^(?![0-9]+$)(?![^0-9]+$)(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-zA-Z0-9]+$)[a-zA-Z0-9\\S]+$";
+        //小写字母+大写字母+数字
+        String reg1 = "^(?![0-9]+$)(?![^0-9]+$)(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-z0-9]+$)(?![A-Z0-9]+$)[a-zA-Z0-9]+$";
+        //特殊字符+大写字母+数字
+        String reg2 = "^(?![0-9]+$)(?![^0-9]+$)(?![A-Z]+$)(?![^A-Z]+$)(?![A-Z0-9]+$)(?![a-zA-Z0-9]+$)[A-Z0-9\\S]+$";
+        //特殊字符+小写字母+数字
+        String reg3 = "^(?![0-9]+$)(?![^0-9]+$)(?![a-z]+$)(?![^a-z]+$)(?![a-z0-9]+$)(?![a-zA-Z0-9]+$)[a-z0-9\\S]+$";
+        //特殊字符+小写字母+大写字母
+        String reg4 = "^(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-zA-Z0-9]+$)[a-zA-Z\\S]+$";
+        Pattern p01 = Pattern.compile(reg1);
+        Pattern p02 = Pattern.compile(reg2);
+        Pattern p03 = Pattern.compile(reg3);
+        Pattern p04 = Pattern.compile(reg4);
+        Pattern pAll = Pattern.compile(regAll);
+        Matcher matcher01 = p01.matcher(str);
+        Matcher matcher02 = p02.matcher(str);
+        Matcher matcher03 = p03.matcher(str);
+        Matcher matcher04 = p04.matcher(str);
+        Matcher matcherAll = pAll.matcher(str);
+//        Y.y("isIOVpwd--" + "小写字母+大写字母+数字：" + matcher01.matches());
+//        Y.y("isIOVpwd--" + "特殊字符+大写字母+数字：" + matcher02.matches());
+//        Y.y("isIOVpwd--" + "特殊字符+小写字母+数字：" + matcher03.matches());
+//        Y.y("isIOVpwd--" + "特殊字符+小写字母+大写字母：" + matcher04.matches());
+//        Y.y("isIOVpwd--" + "特殊字符+小写字母或者大写字母+数字：              " + matcherAll.matches());
+        return matcher01.matches() || matcher02.matches() || matcher03.matches() || matcher04.matches() || matcherAll.matches();
+    }
+
 }
