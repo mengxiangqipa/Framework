@@ -239,8 +239,11 @@ public class RequestPermissionsUtil {
      */
     public void openIgnoreBatteryOptimization(Context context) {
         if (context != null) {
-            Intent intent2 = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-            context.startActivity(intent2);
+            Intent intent2 ;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                intent2 = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                context.startActivity(intent2);
+            }
         }
     }
 
@@ -252,9 +255,27 @@ public class RequestPermissionsUtil {
     public void requestIgnoreBatteryOptimization(Context context) {
         if (context != null) {
             Intent intent = new Intent();
-            intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(Uri.parse("package:" + context.getPackageName()));
-            context.startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + context.getPackageName()));
+                context.startActivity(intent);
+            }
+        }
+    }
+
+    /**
+     * 将用户引导至安装未知应用界面。（8.0及以上）
+     *
+     * @param activity    Activity
+     * @param requestCode 跟申请普通权限一样onRequestPermissionsResult
+     */
+    public void requestManageUnknownAppSources(Activity activity, int requestCode) {
+        if (activity != null) {
+            Intent intent;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                activity.startActivityForResult(intent, requestCode);
+            }
         }
     }
 }

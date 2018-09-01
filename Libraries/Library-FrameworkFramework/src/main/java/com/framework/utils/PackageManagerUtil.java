@@ -10,6 +10,8 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
@@ -122,22 +124,34 @@ public class PackageManagerUtil {
 
     /**
      * <pre>
-     * @param apkUrl
+     * @param apkPath /storage/emulated/0/Download/和路通
+     * @param apkPath 7.0及以上使用的文件访问authority  形如 包名+".fileprovider"
      * 安装APP
      *
      * <pre/>
      */
-    public void installApk(Context context, String apkUrl) {
-        if (null == apkUrl) {
+    public void installApk(Context context, String apkPath, String authority) {
+        if (null == apkPath) {
             return;
         }
-        if (apkUrl.endsWith(".apk")) {
+        if (!TextUtils.isEmpty(apkPath) && apkPath.endsWith(".apk")) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if (apkUrl.startsWith("file:")) {
-                intent.setDataAndType(Uri.parse(apkUrl), "application/vnd.android.package-archive");
+            //7.0以上通过FileProvider
+            if (android.os.Build.VERSION.SDK_INT >= 24) {
+                Uri uri = FileProvider.getUriForFile(context, TextUtils.isEmpty(authority) ? context.getPackageName()
+                        + ".fileprovider" : authority, new File(apkPath));
+                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                context.startActivity(intent);
             } else {
-                intent.setDataAndType(Uri.fromFile(new File(apkUrl)), "application/vnd.android.package-archive");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (apkPath.startsWith("file:")) {
+                    intent.setDataAndType(Uri.parse(apkPath), "application/vnd.android.package-archive");
+                } else {
+                    intent.setDataAndType(Uri.fromFile(new File(apkPath)), "application/vnd.android.package-archive");
+                }
+//                intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd.android.package-archive");
             }
             context.startActivity(intent);
         }
