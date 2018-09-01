@@ -266,15 +266,15 @@ public class DownLoadManagerUtils {
         return queryDownloadStatus(context, filterById, null);
     }
 
-    private void installAPK(Context context, String path) {
+    private void installAPK(Context context, String path,String authority) {
         try {
             if (PreferencesHelper.getInstance().getBooleanData(SDAvailable)) {
-                PackageManagerUtil.getInstance().installApk(context, path);// SD卡可用
+                PackageManagerUtil.getInstance().installApk(context, path,authority);// SD卡可用
             } else {
                 File file = new File(Environment.getExternalStoragePublicDirectory("Download"), DownloadManager
                         .COLUMN_TITLE);
                 if (file.exists()) {
-                    PackageManagerUtil.getInstance().installApk(context, file.getPath());
+                    PackageManagerUtil.getInstance().installApk(context, file.getPath(),authority);
                 }
             }
         } catch (Exception e) {
@@ -322,7 +322,7 @@ public class DownLoadManagerUtils {
                                             File.separator + File.separator + file.getPath()) >= PackageManagerUtil
                                             .getInstance()
                                             .getCurrentApkVersionCode(mContext)) {
-                                        installAPK(mContext, File.separator + File.separator + file.getPath());
+                                        installAPK(mContext, File.separator + File.separator + file.getPath(),mContext.getPackageName()+".provider");
                                         return true;
                                     }
                                 }

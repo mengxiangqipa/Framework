@@ -626,7 +626,7 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                 if (progress >= 100) {
                     String path = (String) msg.obj;
                     if (!TextUtils.isEmpty(path)) {
-                        PackageManagerUtil.getInstance().installApk(weakReference.get(), path);
+                        PackageManagerUtil.getInstance().installApk(weakReference.get(), path,"");
                     }
                 }
             }
