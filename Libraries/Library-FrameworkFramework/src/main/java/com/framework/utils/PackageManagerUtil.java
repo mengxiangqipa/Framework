@@ -1,5 +1,7 @@
 package com.framework.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +10,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
@@ -153,6 +157,37 @@ public class PackageManagerUtil {
                 }
             }
             context.startActivity(intent);
+        }
+    }
+
+    /**
+     * @param authority              activity.getPackageName() + "" + ".fileprovider"
+     * @param permissionRequestConde Manifest.permission.REQUEST_INSTALL_PACKAGES 的权限请求code
+     * @return 进入安装页面就返回true 返回false标识进入了申请权限
+     */
+    public boolean installApk(Activity activity, String apkPath, String authority, int permissionRequestConde) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            //来判断应用是否有权限安装apk
+            boolean installAllowed = activity.getPackageManager().canRequestPackageInstalls();
+            Y.y("installAPK---：" + installAllowed);
+            //有权限
+            if (installAllowed) {
+                Y.y("installAPK---安装apk：");
+                //安装apk
+                PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty(authority) ?
+                        activity.getPackageName() + "" + ".fileprovider" : authority);
+                return true;
+            } else {
+                Y.y("installAPK---无权限 申请权限：");
+                //无权限 申请权限
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission
+                        .REQUEST_INSTALL_PACKAGES}, permissionRequestConde);
+                return false;
+            }
+        } else {
+            PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty(authority) ?
+                    activity.getPackageName() + "" + ".fileprovider" : authority);
+            return true;
         }
     }
 
