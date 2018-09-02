@@ -149,9 +149,8 @@ public class PackageManagerUtil {
                 if (apkPath.startsWith("file:")) {
                     intent.setDataAndType(Uri.parse(apkPath), "application/vnd.android.package-archive");
                 } else {
-                    intent.setDataAndType(Uri.fromFile(new File(apkPath)), "application/vnd.android.package-archive");
+                    intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd.android.package-archive");
                 }
-//                intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd.android.package-archive");
             }
             context.startActivity(intent);
         }
