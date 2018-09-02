@@ -166,6 +166,8 @@ public class PackageManagerUtil {
      * @return 进入安装页面就返回true 返回false标识进入了申请权限
      */
     public boolean installApk(Activity activity, String apkPath, String authority, int permissionRequestConde) {
+        if (null == activity || TextUtils.isEmpty(apkPath))
+            return false;
         if (Build.VERSION.SDK_INT >= 26) {
             //来判断应用是否有权限安装apk
             boolean installAllowed = activity.getPackageManager().canRequestPackageInstalls();
