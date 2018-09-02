@@ -320,6 +320,16 @@ public class RegularUtil {
      * @param str 用户名（汉字、字母组合）
      * @return boolean
      */
+    public boolean isChineseCharactersOrLetter(String str) {
+        Pattern p = Pattern
+                .compile("^(?!_)(?!.*?_$)[a-zA-Z_\\u4e00-\\u9fa5]+$");
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
+    /**
+     * @param str 用户名（汉字、字母组合）
+     * @return boolean
+     */
     public boolean isChineseCharactersOrLetterOrNumber(String str) {
         Pattern p = Pattern
                 .compile("^[a-zA-Z\\d\\u4e00-\\u9fa5]+$");
