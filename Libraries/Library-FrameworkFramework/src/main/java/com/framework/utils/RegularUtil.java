@@ -51,6 +51,12 @@ public class RegularUtil {
 
     /**
      * 验证号码的有效性
+     * 正则：手机号（精确）
+     * <p>移动：134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188、198</p>
+     * <p>联通：130、131、132、145、155、156、175、176、185、186、166</p>
+     * <p>电信：133、153、173、177、180、181、189、199</p>
+     * <p>全球星：1349</p>
+     * <p>虚拟运营商：170</p>
      *
      * @param mobile mobile
      * @return boolean
@@ -60,7 +66,7 @@ public class RegularUtil {
             return false;
         }
         Pattern p = Pattern
-                .compile("^((13[0-9])|(15[^4,\\D])|(18[0,1,2,3,5-9])|(17[0-9]))\\d{8}$");
+                .compile("^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0,3,5-8])|(18[0-9]))|166|198|199|(147)\\d{8}$");
         Matcher m = p.matcher(mobile);
         return m.matches();
     }
@@ -284,7 +290,8 @@ public class RegularUtil {
     }
 
     /**
-     *（汉字、字母组合）
+     * （汉字、字母组合）
+     *
      * @return boolean
      */
     public boolean isChineseCharactersAndLetter(String str) {
@@ -295,7 +302,8 @@ public class RegularUtil {
     }
 
     /**
-     *（汉字）
+     * （汉字）
+     *
      * @return boolean
      */
     public boolean isChineseCharacters(String str) {
@@ -306,7 +314,8 @@ public class RegularUtil {
     }
 
     /**
-     *（汉字、字母组合）
+     * （汉字、字母组合）
+     *
      * @return boolean
      */
     public boolean isLetter(String str) {
@@ -326,6 +335,7 @@ public class RegularUtil {
         Matcher m = p.matcher(str);
         return m.matches();
     }
+
     /**
      * @param str 用户名（汉字、字母组合）
      * @return boolean
@@ -367,7 +377,8 @@ public class RegularUtil {
 //        Y.y("isIOVpwd--" + "特殊字符+小写字母+数字：" + matcher03.matches());
 //        Y.y("isIOVpwd--" + "特殊字符+小写字母+大写字母：" + matcher04.matches());
 //        Y.y("isIOVpwd--" + "特殊字符+小写字母或者大写字母+数字：              " + matcherAll.matches());
-        return matcher01.matches() || matcher02.matches() || matcher03.matches() || matcher04.matches() || matcherAll.matches();
+        return matcher01.matches() || matcher02.matches() || matcher03.matches() || matcher04.matches() || matcherAll
+                .matches();
     }
 
     public boolean isIDNumber(String IDNumber) {
@@ -434,14 +445,13 @@ public class RegularUtil {
         return matches;
     }
 
-
     /**
      * 校验银行卡卡号
-     *
-     *  校验过程：
-     1、从卡号最后一位数字开始，逆向将奇数位(1、3、5等等)相加。
-     2、从卡号最后一位数字开始，逆向将偶数位数字，先乘以2（如果乘积为两位数，将个位十位数字相加，即将其减去9），再求和。
-     3、将奇数位总和加上偶数位总和，结果应该可以被10整除。
+     * <p>
+     * 校验过程：
+     * 1、从卡号最后一位数字开始，逆向将奇数位(1、3、5等等)相加。
+     * 2、从卡号最后一位数字开始，逆向将偶数位数字，先乘以2（如果乘积为两位数，将个位十位数字相加，即将其减去9），再求和。
+     * 3、将奇数位总和加上偶数位总和，结果应该可以被10整除。
      */
     public boolean isBankCard(String bankCard) {
         if (TextUtils.isEmpty(bankCard) || bankCard.length() < 15 || bankCard.length() > 19) {
@@ -477,5 +487,4 @@ public class RegularUtil {
         }
         return (luhmSum % 10 == 0) ? '0' : (char) ((10 - luhmSum % 10) + '0');
     }
-
 }
