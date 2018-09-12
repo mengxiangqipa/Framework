@@ -66,7 +66,7 @@ public class RegularUtil {
             return false;
         }
         Pattern p = Pattern
-                .compile("^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0,3,5-8])|(18[0-9]))|166|198|199|(147)\\d{8}$");
+                .compile("^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0,3,5-8])|(18[0-9])|166|198|199|147)\\d{8}$");
         Matcher m = p.matcher(mobile);
         return m.matches();
     }
