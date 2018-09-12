@@ -233,13 +233,40 @@ public class RequestPermissionsUtil {
     }
 
     /**
+     * 跳转到设置通知界面
+     */
+    public void requestSetNotification(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+            context.startActivity(intent);
+        } else if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Intent intent = new Intent();
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("app_package", context.getPackageName());
+            intent.putExtra("app_uid", context.getApplicationInfo().uid);
+            context.startActivity(intent);
+        } else if (android.os.Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
+            context.startActivity(intent);
+        }else{
+            //跳转到详情
+            showCurrentAppDetailSettingIntent(context);
+        }
+    }
+
+    /**
      * 打开setting-忽略电池优化
      *
      * @param context context
      */
     public void openIgnoreBatteryOptimization(Context context) {
         if (context != null) {
-            Intent intent2 ;
+            Intent intent2;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                 intent2 = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                 context.startActivity(intent2);
