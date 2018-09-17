@@ -125,7 +125,7 @@ public class LogCollectUtil {
      * @param txt
      */
     public static void writeFileToSDSimple(Context context, String txt) {
-        if (!Config.allowLog)
+        if (!Config.ALLOWLOG)
             return;
         java.text.SimpleDateFormat df = new java.text.SimpleDateFormat(
                 "yyyy_MM_dd HH:mm:ss:SSS");

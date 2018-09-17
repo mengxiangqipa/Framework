@@ -42,7 +42,7 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
         int secondary = getResources().getColor(R.color.black);
         EventBus.getDefault().register(this);
         ActivityTaskUtil.getInstance().addActivity(this);
-        if (Config.allowLog) {
+        if (Config.ALLOWLOG) {
             ViewServer.get(this).addWindow(this);
         }
         SlidrPosition position = SlidrPosition.LEFT;
