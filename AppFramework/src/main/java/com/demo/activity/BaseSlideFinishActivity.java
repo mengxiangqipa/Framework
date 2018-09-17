@@ -10,7 +10,7 @@ import android.view.KeyEvent;
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
 import com.demo.entity.Entity;
-import com.framework.configs.Configs;
+import com.framework.config.Config;
 import com.framework.utils.ActivityTaskUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ViewServer;
@@ -42,7 +42,7 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
         int secondary = getResources().getColor(R.color.black);
         EventBus.getDefault().register(this);
         ActivityTaskUtil.getInstance().addActivity(this);
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             ViewServer.get(this).addWindow(this);
         }
         SlidrPosition position = SlidrPosition.LEFT;

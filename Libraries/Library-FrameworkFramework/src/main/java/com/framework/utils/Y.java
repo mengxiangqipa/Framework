@@ -3,7 +3,7 @@ package com.framework.utils;
 import android.os.Environment;
 import android.util.Log;
 
-import com.framework.configs.Configs;
+import com.framework.config.Config;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -70,7 +70,7 @@ public class Y {
      * @param msg msg
      */
     public static void d(String tag, String msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.d(tag, prefix + msg);
         }
     }
@@ -83,7 +83,7 @@ public class Y {
      * @param tr  tr
      */
     public static void d(String tag, String msg, Throwable tr) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.d(tag, prefix + msg, tr);
         }
     }
@@ -95,7 +95,7 @@ public class Y {
      * @param msg msg
      */
     public static void e(String tag, String msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.e(tag, prefix + msg);
         }
     }
@@ -108,7 +108,7 @@ public class Y {
      * @param tr  tr
      */
     public static void e(String tag, String msg, Throwable tr) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.e(tag, prefix + msg, tr);
         }
     }
@@ -120,7 +120,7 @@ public class Y {
      * @param msg msg
      */
     public static void v(String tag, String msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.v(tag, prefix + msg);
         }
     }
@@ -133,37 +133,37 @@ public class Y {
      * @param tr  tr
      */
     public static void v(String tag, String msg, Throwable tr) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.v(tag, prefix + msg, tr);
         }
     }
 
     public static void i(String msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.i("yy", prefix + msg);
         }
     }
 
     public static void i(int msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.i("yy", prefix + msg + "");
         }
     }
 
     public static void i(String tag, String msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.i(tag, prefix + msg);
         }
     }
 
     public static void y(String msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.e("yy", prefix + msg);
         }
     }
 
     public static void y(int msg) {
-        if (Configs.allowLog) {
+        if (Config.allowLog) {
             Log.e("yy", prefix + msg + "");
         }
     }

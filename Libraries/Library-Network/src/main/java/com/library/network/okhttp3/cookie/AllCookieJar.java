@@ -3,7 +3,7 @@ package com.library.network.okhttp3.cookie;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.framework.configs.FrameworkConstant;
+import com.framework.config.FrameworkConstant;
 import com.framework.security.SecurityManagerUtil;
 import com.framework.utils.PreferencesHelper;
 

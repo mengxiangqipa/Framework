@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.framework.configs.Configs;
+import com.framework.config.Config;
 
 import java.io.File;
 import java.io.RandomAccessFile;
@@ -125,7 +125,7 @@ public class LogCollectUtil {
      * @param txt
      */
     public static void writeFileToSDSimple(Context context, String txt) {
-        if (!Configs.allowLog)
+        if (!Config.allowLog)
             return;
         java.text.SimpleDateFormat df = new java.text.SimpleDateFormat(
                 "yyyy_MM_dd HH:mm:ss:SSS");

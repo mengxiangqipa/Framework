@@ -1,4 +1,4 @@
-package com.framework.configs;
+package com.framework.config;
 
 public interface FrameworkConstant {
     String IMEI = "IMEI";
