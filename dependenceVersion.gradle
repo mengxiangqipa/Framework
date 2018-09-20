@@ -6,7 +6,8 @@ ext {
     minSdkVersion = 14            //android-defaultConfig-minSdkVersion
     targetSdkVersion = 22         //android-defaultConfig-targetSdkVersion
 
-    supportLibraryVersion = '27.1.1'
+//    supportLibraryVersion = '27.1.1'
+    supportLibraryVersion = '25.3.1'
 
     version = '1.5'
 
