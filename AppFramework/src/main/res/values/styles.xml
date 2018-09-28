@@ -41,7 +41,7 @@
     </style>
 
 
-    <style name="ThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar" >
+    <style name="ThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:listDivider">@drawable/shape_horizontal_divider</item>
     </style>
 

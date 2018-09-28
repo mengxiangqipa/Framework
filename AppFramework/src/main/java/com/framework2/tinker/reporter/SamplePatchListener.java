@@ -18,19 +18,9 @@ package com.framework2.tinker.reporter;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import com.framework2.tinker.app.BuildInfo;
-import com.framework2.tinker.crash.SampleUncaughtExceptionHandler;
-import com.framework2.tinker.util.Utils;
 import com.tencent.tinker.lib.listener.DefaultPatchListener;
 import com.tencent.tinker.lib.util.TinkerLog;
-import com.tencent.tinker.loader.shareutil.ShareConstants;
-import com.tencent.tinker.loader.shareutil.SharePatchFileUtil;
-import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
-
-import java.io.File;
-import java.util.Properties;
 
 /**
  * Created by zhangshaowen on 16/4/30.

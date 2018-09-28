@@ -7,17 +7,17 @@
     <string name="exit_message">再按一次退出</string>
 
 
- <string name="protocol">点击『注册』按钮即表示你同意《61歌舞厅协议》</string>
+    <string name="protocol">点击『注册』按钮即表示你同意《61歌舞厅协议》</string>
 
- <string name="hint_login">请输入手机号码</string>
- <string name="hint_password">请输入密码</string>
- <string name="hint_pwd_pre">请输入原密码</string>
- <string name="hint_pwd_new">6-20位数字或字母</string>
- <string name="hint_pwd_new_again">重复输入新密码</string>
- <string name="show_pwd">显示密码</string>
- <string name="reset">重置</string>
- <string name="hint_input_title">请输入标题</string>
- <string name="hint_input_content">请输入您的反馈意见</string>
+    <string name="hint_login">请输入手机号码</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="hint_pwd_pre">请输入原密码</string>
+    <string name="hint_pwd_new">6-20位数字或字母</string>
+    <string name="hint_pwd_new_again">重复输入新密码</string>
+    <string name="show_pwd">显示密码</string>
+    <string name="reset">重置</string>
+    <string name="hint_input_title">请输入标题</string>
+    <string name="hint_input_content">请输入您的反馈意见</string>
 
 
     <string name="forget_password">忘记密码?</string>

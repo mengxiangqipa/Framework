@@ -9,11 +9,11 @@
     <com.framework.customviews.CustomRoundImageView_new
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_widthPercent="15%w"
-        app:layout_heightPercent="15%w"
-        android:scaleType="fitXY"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/update_icon"/>
+        android:scaleType="fitXY"
+        android:src="@mipmap/update_icon"
+        app:layout_heightPercent="15%w"
+        app:layout_widthPercent="15%w"/>
 
     <com.library.percent.PercentLinearLayout
         android:layout_width="match_parent"
@@ -28,8 +28,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="升级提示"
             android:textColor="#0099FF"
@@ -48,8 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="32dp"
             android:gravity="center"
             android:text="新版本"
             android:textColor="#515151"
@@ -60,8 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="32dp"
             android:gravity="left"
             android:text="更新信息"
             android:textColor="#515151"
@@ -71,11 +71,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:minHeight="32dp"
             android:orientation="horizontal"
             app:layout_heightPercent="5%h"
-            android:minHeight="32dp"
             app:layout_minHeightPercent="5%w"
             app:layout_widthPercent="100%w">
 

@@ -117,7 +117,7 @@
     <color name="red_txt">#E78E94</color>
     <color name="color_text_unpressed">#fdefe6</color>
     <color name="color_text_pressed">#FF3A00</color>
-	<!-- <color name="color_text_pressed">#ffcd1f</color> -->
+    <!-- <color name="color_text_pressed">#ffcd1f</color> -->
     <color name="balck_personal_information">#454545</color>
     <color name="common_top_bar_blue">#4ebcd3</color>
     <color name="btn_login_normal">#007086</color>

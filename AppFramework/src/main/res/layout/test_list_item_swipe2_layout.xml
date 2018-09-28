@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="60dp">
+             android:layout_width="match_parent"
+             android:layout_height="60dp">
 
     <Button
         android:id="@+id/btnDelete"
@@ -10,7 +10,7 @@
         android:layout_gravity="start"
         android:background="#ff4a57"
         android:text="删除"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
 
     <Button
@@ -21,7 +21,7 @@
         android:background="#ecd50a"
         android:clickable="true"
         android:text="标记未读"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <RelativeLayout
         android:id="@+id/content"
@@ -33,13 +33,13 @@
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/iv_delete"
@@ -48,7 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/allview_pull_icon_big" />
+            android:src="@drawable/allview_pull_icon_big"/>
     </RelativeLayout>
 
 </FrameLayout>

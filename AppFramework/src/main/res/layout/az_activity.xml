@@ -43,7 +43,6 @@
 
         <TextView
             android:id="@+id/tvCircle"
-            tools:visibility="visible"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
@@ -52,7 +51,8 @@
             android:text="A"
             android:textColor="@android:color/white"
             android:textSize="36sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <com.demo.activity.az.SideBar
             android:id="@+id/sideBar"

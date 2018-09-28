@@ -91,24 +91,26 @@ public class TestListviewRentalsSunActivity extends AppCompatActivity implements
             Dialog dialog = builder.create();
             builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case 0:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedNothing);
-                            dialog.dismiss();
-                            break;
-                        case 1:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeader);
-                            dialog.dismiss();
-                            break;
-                        case 2:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedContent);
-                            dialog.dismiss();
-                            break;
-                    }
-                }
-            });
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode
+                                            .FixedNothing);
+                                    dialog.dismiss();
+                                    break;
+                                case 1:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeader);
+                                    dialog.dismiss();
+                                    break;
+                                case 2:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode
+                                            .FixedContent);
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        }
+                    });
             builder.show();
         }
     }
@@ -139,7 +141,8 @@ public class TestListviewRentalsSunActivity extends AppCompatActivity implements
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestListviewRentalsSunActivity.this, "LongClick on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TestListviewRentalsSunActivity.this, "LongClick on " + parent.getAdapter().getItemId
+                        (position), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -147,7 +150,8 @@ public class TestListviewRentalsSunActivity extends AppCompatActivity implements
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestListviewRentalsSunActivity.this, " Click on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TestListviewRentalsSunActivity.this, " Click on " + parent.getAdapter().getItemId
+                        (position), Toast.LENGTH_SHORT).show();
             }
         });
     }

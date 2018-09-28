@@ -88,24 +88,26 @@ public class TestRecyclerViewClassicalActivity extends AppCompatActivity impleme
             Dialog dialog = builder.create();
             builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case 0:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedNothing);
-                            dialog.dismiss();
-                            break;
-                        case 1:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeader);
-                            dialog.dismiss();
-                            break;
-                        case 2:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedContent);
-                            dialog.dismiss();
-                            break;
-                    }
-                }
-            });
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode
+                                            .FixedNothing);
+                                    dialog.dismiss();
+                                    break;
+                                case 1:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeader);
+                                    dialog.dismiss();
+                                    break;
+                                case 2:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode
+                                            .FixedContent);
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        }
+                    });
             builder.show();
         }
     }
@@ -135,7 +137,8 @@ public class TestRecyclerViewClassicalActivity extends AppCompatActivity impleme
         recyclerView.setCanPullDown(true);
         recyclerView.setCanPullUp(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewClassicalActivity.this, R.layout.test_list_item_layout, items) {
+        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewClassicalActivity.this, R.layout
+                .test_list_item_layout, items) {
             @Override
             protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
                 viewHolder.setText(R.id.tv, item);

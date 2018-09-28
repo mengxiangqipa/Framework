@@ -146,8 +146,8 @@
                             <View
                                 android:layout_width="1px"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/_8dp"
                                 android:layout_marginTop="@dimen/_8dp"
+                                android:layout_marginBottom="@dimen/_8dp"
                                 android:background="@color/gray"/>
 
                             <TextView
@@ -158,10 +158,10 @@
                                 android:clickable="true"
                                 android:gravity="center"
                                 android:onClick="onClick"
-                                android:paddingBottom="10dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="@dimen/_10dp"
                                 android:paddingTop="10dp"
+                                android:paddingRight="@dimen/_10dp"
+                                android:paddingBottom="10dp"
                                 android:text="获取验证码"
                                 android:textColor="@color/color_selector_txt"
                                 android:textSize="@dimen/_12dp"/>
@@ -176,8 +176,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_50dp"
-                    android:layout_marginRight="@dimen/_50dp"
                     android:layout_marginTop="@dimen/_30dp"
+                    android:layout_marginRight="@dimen/_50dp"
                     android:background="@drawable/selector_bt_ensure_login"
                     android:clickable="true"
                     android:gravity="center"
@@ -218,8 +218,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_50dp"
-                android:layout_marginRight="@dimen/_50dp"
                 android:layout_marginTop="@dimen/_30dp"
+                android:layout_marginRight="@dimen/_50dp"
                 android:background="@drawable/selector_bt_ensure_login"
                 android:clickable="true"
                 android:gravity="center"

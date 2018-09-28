@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relative_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+                android:id="@+id/relative_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@mipmap/guide_3" />
+        android:src="@mipmap/guide_3"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="17" />
+            android:layout_weight="17"/>
 
         <TextView
             android:id="@+id/tv_go"
@@ -27,18 +27,18 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_white_3px_stroke_1dp_blue"
             android:gravity="center"
-            android:paddingBottom="10dp"
             android:paddingLeft="40dp"
-            android:paddingRight="40dp"
             android:paddingTop="10dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="10dp"
             android:text="马上体验"
             android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:textSize="16dp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3" />
+            android:layout_weight="3"/>
     </LinearLayout>
 
 </RelativeLayout>

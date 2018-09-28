@@ -154,7 +154,7 @@ android {
 ext {
 //    FrameworkVersion = '1.4.2'
     FrameworkVersion = '2.2.1'
-    TINKER_VERSION='1.9.1'
+    TINKER_VERSION = '1.9.1'
 }
 
 dependencies {
@@ -205,7 +205,6 @@ dependencies {
     api project(':Libraries:Library-Scan')
     api project(':Libraries:Library-SlideFinish')
     api project(':Libraries:Library-Videoview')
-
 
     //微信授权登录
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'

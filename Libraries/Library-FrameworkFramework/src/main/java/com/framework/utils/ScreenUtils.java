@@ -264,12 +264,13 @@ public class ScreenUtils {
      * @see #setTranslucentStatus(Activity, boolean)
      * </p>
      */
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean setSystemUiColorDark(Activity activity, boolean dark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = activity.getWindow();
             try {
-                window.setStatusBarColor(Color.TRANSPARENT);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.setStatusBarColor(Color.TRANSPARENT);
+                }
                 if (dark) {
                     //设置状态栏文字颜色及图标为深色
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
