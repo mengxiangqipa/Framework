@@ -17,7 +17,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
-import com.framework.utils.Y;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
