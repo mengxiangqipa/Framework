@@ -34,7 +34,9 @@ dependencies {
     })
     testImplementation 'junit:junit:4.12'
     //appcompat-v7
-    api rootProject.ext.androidSupport.appcompat_v7
+        api rootProject.ext.androidSupport.appcompat_v7
+//    api 'com.android.support:appcompat-v7:27.1.1'
+//    api 'com.android.support:support-v4:27.1.1'
 }
 
 //生成jar包--自定义(会排出引用jar的class)

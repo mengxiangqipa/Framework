@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
+import com.framework.utils.Y;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -168,27 +169,40 @@ public class PackageManagerUtil {
     public boolean installApk(Activity activity, String apkPath, String authority, int permissionRequestConde) {
         if (null == activity || TextUtils.isEmpty(apkPath))
             return false;
-        if (Build.VERSION.SDK_INT >= 26) {
-            //来判断应用是否有权限安装apk
-            boolean installAllowed = activity.getPackageManager().canRequestPackageInstalls();
-            Y.y("installAPK---：" + installAllowed);
-            //有权限
-            if (installAllowed) {
-                Y.y("installAPK---安装apk：");
-                //安装apk
-                PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty(authority) ?
-                        activity.getPackageName() + "" + ".fileprovider" : authority);
-                return true;
+        int targetSdkVersion = activity.getApplicationInfo().targetSdkVersion;
+        if (targetSdkVersion < 24) {
+            PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty
+                    (authority) ?activity.getPackageName() + "" + ".fileprovider" : authority);
+            return true;
+        } else if (targetSdkVersion >= 26) {
+
+            if (Build.VERSION.SDK_INT >= 26) {
+                //来判断应用是否有权限安装apk
+                boolean installAllowed = activity.getPackageManager().canRequestPackageInstalls();
+                Y.y("installAPK---：" + installAllowed);
+                //有权限
+                if (installAllowed) {
+                    Y.y("installAPK---安装apk：");
+                    //安装apk
+                    PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty(authority) ?
+                            activity.getPackageName() + "" + ".fileprovider" : authority);
+                    return true;
+                } else {
+                    Y.y("installAPK---无权限 申请权限：");
+                    //无权限 申请权限
+                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission
+                            .REQUEST_INSTALL_PACKAGES}, permissionRequestConde);
+                    return false;
+                }
             } else {
-                Y.y("installAPK---无权限 申请权限：");
-                //无权限 申请权限
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission
-                        .REQUEST_INSTALL_PACKAGES}, permissionRequestConde);
-                return false;
+                PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty
+                        (authority) ? activity.getPackageName() + "" + ".fileprovider" : authority);
+                return true;
             }
         } else {
-            PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty(authority) ?
-                    activity.getPackageName() + "" + ".fileprovider" : authority);
+            //targetSdkVersion(24  25)
+            PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty
+                    (authority) ?activity.getPackageName() + "" + ".fileprovider" : authority);
             return true;
         }
     }
