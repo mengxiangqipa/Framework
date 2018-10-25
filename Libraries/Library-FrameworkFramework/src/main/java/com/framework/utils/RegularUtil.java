@@ -72,6 +72,22 @@ public class RegularUtil {
     }
 
     /**
+     * 验证手机号(1开头的15位数字)
+     *
+     * @param number number
+     * @return boolean
+     */
+    public boolean isMobileNOSimple(String number) {
+        if (TextUtils.isEmpty(number)) {
+            return false;
+        }
+        Pattern p = Pattern
+                .compile("^1\\d{10}$");
+        Matcher m = p.matcher(number);
+        return m.matches();
+    }
+
+    /**
      * 验证数字
      *
      * @param number number
@@ -268,7 +284,7 @@ public class RegularUtil {
      * @return 是否含特殊字符
      */
     public boolean containsSpecialChar(String str) {
-        Pattern p = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]");
+        Pattern p = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？/：；\\\"]");
         Matcher m = p.matcher(str);
         return m.matches();
     }
@@ -329,6 +345,12 @@ public class RegularUtil {
                 .compile("^[a-zA-Z\\d\\u4e00-\\u9fa5]+$");
         Matcher m = p.matcher(str);
         return m.matches();
+    }
+
+    public String removeChineseAndSpace(String str) {
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        return m.replaceAll("");
     }
 
     /**
