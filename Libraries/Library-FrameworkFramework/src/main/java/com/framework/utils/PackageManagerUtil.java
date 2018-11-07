@@ -307,7 +307,7 @@ public class PackageManagerUtil {
      * @param type
      * @return signature
      */
-    public static String getSignature(Context context, String type) {
+    public String getSignature(Context context, String type) {
         String signature = null;
         Signature[] signatures = getSignatures(context);
         if (null != signatures)
@@ -326,7 +326,7 @@ public class PackageManagerUtil {
      * @param context Context
      * @return Signature[]
      */
-    private static Signature[] getSignatures(@NonNull Context context) {
+    private Signature[] getSignatures(@NonNull Context context) {
         PackageInfo packageInfo;
         try {
             packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
@@ -344,7 +344,7 @@ public class PackageManagerUtil {
      * @param type      String (SHA1)
      * @return getSignatureString
      */
-    private static String getSignatureString(Signature signature, String type) {
+    private String getSignatureString(Signature signature, String type) {
         byte[] hexBytes = signature.toByteArray();
         String fingerprint = "error!";
         try {
