@@ -79,11 +79,11 @@ public class OSutil {
 
     public static String getIMSI(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
                 .PERMISSION_GRANTED) {
-            return "无权限";
+            return "NoPermission";
         }
         return manager.getSubscriberId();
     }
@@ -94,40 +94,40 @@ public class OSutil {
 
     public String getUUID(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     public String getTelphoneNumber(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) != PackageManager
                 .PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            return "无权限";
+            return "NoPermission";
         }
         return manager.getLine1Number();
     }
 
     public String getIMEI(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
                 .PERMISSION_GRANTED) {
-            return "无权限";
+            return "NoPermission";
         }
         return manager.getDeviceId();
     }
 
     public String getSimSerialNumber(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
                 .PERMISSION_GRANTED) {
-            return "无权限";
+            return "NoPermission";
         }
         return manager.getSimSerialNumber();
     }
@@ -198,7 +198,7 @@ public class OSutil {
      */
     public String getIPV4(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE))
                 .getActiveNetworkInfo();
         if (info != null && info.isConnected()) {
@@ -310,7 +310,7 @@ public class OSutil {
      */
     public String getRomUsableSpace(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         File sdcard_filedir = Environment.getExternalStorageDirectory();//得到sdcard的目录作为一个文件对象
         long usableSpace = sdcard_filedir.getUsableSpace();//获取文件目录对象剩余空间
         String usableSpace_str = Formatter.formatFileSize(context, usableSpace);
@@ -322,7 +322,7 @@ public class OSutil {
      */
     public String getRomTotalSpace(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         File sdcard_filedir = Environment.getExternalStorageDirectory();//得到sdcard的目录作为一个文件对象
         long totalSpace = sdcard_filedir.getTotalSpace();
         String totalSpace_str = Formatter.formatFileSize(context, totalSpace);
@@ -334,7 +334,7 @@ public class OSutil {
      */
     public String getRamTotalSpace(Context context) {//GB
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         String path = "/proc/meminfo";
         String firstLine = null;
         try {
@@ -356,7 +356,7 @@ public class OSutil {
      */
     public String getRamUsableSpace(Context context) {
         if (null == context)
-            return "context 为空";
+            return "NoContext";
         long MEM_UNUSED;
         // 得到ActivityManager
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

@@ -9,10 +9,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -22,6 +24,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class PackageManagerUtil {
@@ -171,7 +175,7 @@ public class PackageManagerUtil {
         int targetSdkVersion = activity.getApplicationInfo().targetSdkVersion;
         if (targetSdkVersion < 24) {
             PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty
-                    (authority) ?activity.getPackageName() + "" + ".fileprovider" : authority);
+                    (authority) ? activity.getPackageName() + "" + ".fileprovider" : authority);
             return true;
         } else if (targetSdkVersion >= 26) {
 
@@ -201,7 +205,7 @@ public class PackageManagerUtil {
         } else {
             //targetSdkVersion(24  25)
             PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty
-                    (authority) ?activity.getPackageName() + "" + ".fileprovider" : authority);
+                    (authority) ? activity.getPackageName() + "" + ".fileprovider" : authority);
             return true;
         }
     }
@@ -293,6 +297,70 @@ public class PackageManagerUtil {
             e.printStackTrace();
             return "1.0.0";
         }
+    }
+
+    public final static String SIGNATURE_SHA1 = "SHA1";
+    /**
+     * 返回一个签名的对应类型的字符串
+     *
+     * @param context     context
+     * @param type
+     * @return signature
+     */
+    public static String getSignature(Context context, String type) {
+        String signature = null;
+        Signature[] signatures = getSignatures(context);
+        if (null != signatures)
+            for (Signature sig : signatures) {
+                if (TextUtils.equals(SIGNATURE_SHA1, type)) {
+                    signature = getSignatureString(sig, SIGNATURE_SHA1);
+                    break;
+                }
+            }
+        return signature;
+    }
+
+    /**
+     * 返回对应包的签名信息
+     *
+     * @param context Context
+     * @return Signature[]
+     */
+    private static Signature[] getSignatures(@NonNull Context context) {
+        PackageInfo packageInfo;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            return packageInfo.signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取相应的类型的字符串（把签名的byte[]信息转换成16进制）
+     *
+     * @param signature Signature
+     * @param type      String (SHA1)
+     * @return getSignatureString
+     */
+    private static String getSignatureString(Signature signature, String type) {
+        byte[] hexBytes = signature.toByteArray();
+        String fingerprint = "error!";
+        try {
+            MessageDigest digest = MessageDigest.getInstance(type);
+            if (digest != null) {
+                byte[] digestBytes = digest.digest(hexBytes);
+                StringBuilder sb = new StringBuilder();
+                for (byte digestByte : digestBytes) {
+                    sb.append((Integer.toHexString((digestByte & 0xFF) | 0x100)).substring(1, 3));
+                }
+                fingerprint = sb.toString();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return fingerprint;
     }
 
     /**
