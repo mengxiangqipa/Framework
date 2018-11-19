@@ -4,7 +4,7 @@ group='com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
     //appcompat-v7
-    compile rootProject.ext.androidSupport.appcompat_v7
+    implementation rootProject.ext.androidSupport.appcompat_v7
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

@@ -4,7 +4,7 @@ group='com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    buildToolsVersion '28.0.3'
 
 
     defaultConfig {
@@ -27,10 +27,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //appcompat-v7
-    compile rootProject.ext.androidSupport.appcompat_v7
-    testCompile 'junit:junit:4.12'
+    implementation rootProject.ext.androidSupport.appcompat_v7
+    testImplementation 'junit:junit:4.12'
 
 }
 

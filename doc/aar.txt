@@ -1,0 +1,82 @@
+https://blog.csdn.net/u014418171/article/details/82023947
+
+打包AAR时 引用了远程项目，导致资源缺失
+
+1.在将打包library的build.gradle
+最顶部加入
+apply plugin: 'maven-publish'//打包aar本地仓库
+
+最底部加入
+/*******打包arr（远程依赖*******/
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+/*******打包arr（远程依赖*******/
+publishing {
+    publications {
+        aar(MavenPublication) {
+            //记住一下规则,等会导入时注意, 举例compile 'com.cmcc.iov:localMaven:1.0.0'
+            groupId 'com.cmcc.iov'//包名
+            artifactId 'localMaven'
+            version '1.0.0'//版本
+            // Tell maven to prepare the generated "*.aar" file for publishing
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+            //同时记录该依赖库所依赖的其他远程依赖
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.compile.allDependencies.each {
+                    if(it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null)
+                    {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+                configurations.implementation.allDependencies.each {
+                    if(it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null)
+                    {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+                configurations.api.allDependencies.each {
+                    if(it.group != null && (it.name != null || "unspecified".equals(it.name)) && it.version != null)
+                    {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            //仓库存放在项目根目录
+            url("file://"+project.rootDir.absolutePath+"/repository")
+        }
+    }
+}
+
+2.在项目根路径 build.gradle--repositories  加入
+maven { url "file://" + project.rootDir.absolutePath + "/repository" }//本地maven仓库
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url "https://jitpack.io" }//这个是自定义的maven仓库，下载jitpack-library需要
+        maven { url "file://" + project.rootDir.absolutePath + "/repository" }//本地maven仓库
+    }
+}
+
+3.assembleRelease-->生成aar
+
+4.publish-->根路径生成repository

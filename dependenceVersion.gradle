@@ -1,7 +1,7 @@
 ext {
 
-    compileSdkVersion = 27        //android-compileSdkVersion
-    buildToolsVersion = "27.0.3"  //android-buildToolsVersion
+    compileSdkVersion = 28        //android-compileSdkVersion
+    buildToolsVersion = "28.0.3"  //android-buildToolsVersion
 
     minSdkVersion = 14            //android-defaultConfig-minSdkVersion
     targetSdkVersion = 22         //android-defaultConfig-targetSdkVersion

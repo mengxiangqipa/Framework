@@ -29,8 +29,8 @@ android {
 }
 
 dependencies {
-    compile 'org.slf4j:slf4j-android:1.7.25'
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'org.slf4j:slf4j-android:1.7.25'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 }
 
 
