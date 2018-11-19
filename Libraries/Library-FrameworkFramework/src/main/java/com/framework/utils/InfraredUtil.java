@@ -11,12 +11,29 @@ import android.support.annotation.NonNull;
  * @author YobertJomi
  * className InfraredUtil
  * created at  2018/11/19  15:33
-        <!-- 调用红外设备权限声明 -->
-        <uses-permission android:name="android.permission.TRANSMIT_IR" />
-        <!-- Android Market会根据uses-feature过滤所有你设备不支持的应用,即无红外功能的设备看不到此应用 -->
-        <uses-feature android:name="android.hardware.ConsumerIrManager" />
+ * <!-- 调用红外设备权限声明 -->
+ * <uses-permission android:name="android.permission.TRANSMIT_IR" />
+ * <!-- Android Market会根据uses-feature过滤所有你设备不支持的应用,即无红外功能的设备看不到此应用 -->
+ * <uses-feature android:name="android.hardware.ConsumerIrManager" />
+ * final int carrierFrequency=38*1000;
+ * /*
+ * 一种交替的载波序列模式，用于发射红外, pattern要和所用的红外码对应
+ * 下标偶数：红外开
+ * 下标奇数：红外关
+ * 单位：微秒
+ * 如：打开1000微秒再关闭500微秒再打开1000微秒关闭500微秒。
+ * 注：1.开对应的是示波器上的低电平，关对应的高电平
+ * 2.整个数组的时间之和不能超过两秒,且不能太短，否则无法读取用户码数据码
+ * final  int[] pattern = {
+ * 1000,500,1000,500,
+ * 1000,500,1000,500,
+ * 1000,500,1000,500,
+ * 1000,500,1000,500,
+ * 1000,500,1000,500 };
+ * transmit(int carrierFrequency, int[] pattern)
+ * 参数1：代表红外传输的频率，一般是38KHz，参数2：pattern就是指以微妙为单位的红外开和关的交替时间。
+ * 通过38400赫兹的载波频率发射红外
  */
-
 public class InfraredUtil {
 
     private static volatile InfraredUtil mInstance;
@@ -49,7 +66,7 @@ public class InfraredUtil {
         }
     }
 
-    public void transmit(@NonNull Context context, int carrierFrequency, int[] pattern) {
+    public void transmit(final @NonNull Context context, final int carrierFrequency, final int[] pattern) {
         //如果sdk版本大于4.4才进行是否有红外的功能
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null == consumerIrManager) {
             //获取红外管理器,调用系统API  CONSUMER_IR_SERVICE红外的API
