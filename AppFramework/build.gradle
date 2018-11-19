@@ -61,6 +61,19 @@ android {
         //todo 修改版本或者使用Tinker功能时需要修改versionName
         versionName "1.0.000000000000"
 //        versionName "1.0." + "${date}"
+
+
+        //        configurations.all {
+//            resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//                def requested = details.requested
+//                if (requested.group == 'com.android.support') {
+//                    if (!requested.name.startsWith("multidex")) {
+//                        details.useVersion '26.0.1'
+//                    }
+//                }
+//            }
+//        }
+
         // dex突破65536的限制
         multiDexEnabled true
         resConfigs "zh"
@@ -158,7 +171,6 @@ android {
 }
 
 ext {
-//    FrameworkVersion = '1.4.2'
     FrameworkVersion = '2.2.1'
     TINKER_VERSION = '1.9.1'
 }
