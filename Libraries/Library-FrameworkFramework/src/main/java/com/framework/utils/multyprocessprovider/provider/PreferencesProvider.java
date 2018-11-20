@@ -54,7 +54,6 @@ public class PreferencesProvider extends BaseContentProvider {
         super.onCreate();
 //        String authority = getContext().getString(R.string.preferences_provider_authority);
         String authority = getHostProviderAuthorities(getContext());
-        Log.e("yy", "authority:" + authority);
         if (LIBRARY_DEFAULT_AUTHORITY.equals(authority)) {
             throw new IllegalStateException("Please don't use the library's default authority for your app. \n " +
                     "Multiple apps with the same authority will fail to install on the same device.\n " +

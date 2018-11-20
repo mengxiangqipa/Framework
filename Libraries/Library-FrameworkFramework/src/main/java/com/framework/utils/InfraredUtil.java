@@ -53,6 +53,10 @@ public class InfraredUtil {
         return mInstance;
     }
 
+    /**
+     * @param context Context
+     * @return 是否有红外功能
+     */
     public boolean hasIrEmitter(@NonNull Context context) {
         //如果sdk版本大于4.4才进行是否有红外的功能
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -60,12 +64,15 @@ public class InfraredUtil {
             consumerIrManager = (ConsumerIrManager) context.getSystemService(Context
                     .CONSUMER_IR_SERVICE);
             //判断是否有红外
-            return consumerIrManager.hasIrEmitter();
+            return null!=consumerIrManager&&consumerIrManager.hasIrEmitter();
         } else {
             return false;
         }
     }
-
+    /**
+     *  发射红外信号
+     * @param context Context
+     */
     public void transmit(final @NonNull Context context, final int carrierFrequency, final int[] pattern) {
         //如果sdk版本大于4.4才进行是否有红外的功能
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null == consumerIrManager) {
@@ -76,5 +83,52 @@ public class InfraredUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null != consumerIrManager) {
             consumerIrManager.transmit(carrierFrequency, pattern);
         }
+    }
+    /**
+     * @param context Context
+     * @return 最大红外频率
+     */
+    public int getMaxFrequency(final @NonNull Context context) {
+        //如果sdk版本大于4.4才进行是否有红外的功能
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null == consumerIrManager) {
+            //获取红外管理器,调用系统API  CONSUMER_IR_SERVICE红外的API
+            consumerIrManager = (ConsumerIrManager) context.getSystemService(Context
+                    .CONSUMER_IR_SERVICE);
+        }
+        int maxFrequency = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null != consumerIrManager) {
+            ConsumerIrManager.CarrierFrequencyRange[] carrierFrequencyRange = consumerIrManager.getCarrierFrequencies();
+            if (null != carrierFrequencyRange) {
+                for (ConsumerIrManager.CarrierFrequencyRange range : carrierFrequencyRange) {
+                    if (null != range)
+                        maxFrequency = range.getMaxFrequency();
+                }
+            }
+        }
+        return maxFrequency;
+    }
+
+    /**
+     * @param context Context
+     * @return 最小红外频率
+     */
+    public int getMinFrequency(final @NonNull Context context) {
+        //如果sdk版本大于4.4才进行是否有红外的功能
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null == consumerIrManager) {
+            //获取红外管理器,调用系统API  CONSUMER_IR_SERVICE红外的API
+            consumerIrManager = (ConsumerIrManager) context.getSystemService(Context
+                    .CONSUMER_IR_SERVICE);
+        }
+        int minFrequency = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null != consumerIrManager) {
+            ConsumerIrManager.CarrierFrequencyRange[] carrierFrequencyRange = consumerIrManager.getCarrierFrequencies();
+            if (null != carrierFrequencyRange) {
+                for (ConsumerIrManager.CarrierFrequencyRange range : carrierFrequencyRange) {
+                    if (null != range)
+                        minFrequency = range.getMinFrequency();
+                }
+            }
+        }
+        return minFrequency;
     }
 }
