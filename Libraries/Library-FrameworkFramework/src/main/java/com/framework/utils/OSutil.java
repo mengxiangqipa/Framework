@@ -77,7 +77,7 @@ public class OSutil {
         return jsonObject;
     }
 
-    public static String getIMSI(Context context) {
+    public String getIMSI(Context context) {
         if (null == context)
             return "NoContext";
         TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
