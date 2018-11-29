@@ -6,9 +6,9 @@ import android.util.Log;
 
 import com.demo.demo.R;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import custom.org.greenrobot.eventbus.EventBus;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
     @Override

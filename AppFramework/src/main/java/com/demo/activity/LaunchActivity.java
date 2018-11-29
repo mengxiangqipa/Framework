@@ -28,14 +28,13 @@ import com.framework.utils.PreferencesHelper;
 import com.framework.utils.ScreenUtils;
 import com.library.adapter_recyclerview.GuideFragmentPagerAdapter;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 public class LaunchActivity extends BaseActivity implements OnClickListener, CallBack_enter {
     @BindView(R.id.viewPager)

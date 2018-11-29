@@ -11,7 +11,7 @@ import com.demo.demo.R;
 import com.demo.entity.Entity;
 import com.framework.utils.KeyBoardUtil;
 
-import org.greenrobot.eventbus.EventBus;
+import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * activity的base类

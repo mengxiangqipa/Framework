@@ -42,12 +42,11 @@ import com.framework2.utils.CookieManagerUtil;
 import com.framework2.utils.CustomLoadingDialogUtils;
 import com.library.loadingview.LoadingIndicatorView;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 通用加载webview的activity

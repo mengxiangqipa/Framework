@@ -12,11 +12,11 @@ import com.demo.demo.R;
 import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
 import com.library.pulltorefresh.pullableview.PullableListView;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 更多详解见博客http://blog.csdn.net/zhongkejingwang/article/details/38868463

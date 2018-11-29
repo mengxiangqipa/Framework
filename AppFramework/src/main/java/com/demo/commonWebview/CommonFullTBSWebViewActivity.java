@@ -40,12 +40,11 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 通用加载webview的activity

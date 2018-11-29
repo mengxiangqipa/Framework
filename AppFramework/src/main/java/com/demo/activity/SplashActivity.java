@@ -13,12 +13,11 @@ import com.demo.demo.R;
 import com.framework.utils.ActivityTaskUtil;
 import com.framework.utils.ScreenUtils;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 public class SplashActivity extends BaseActivity {
     @BindView(R.id.iv_guide)

@@ -16,10 +16,10 @@ import com.framework.utils.ActivityTaskUtil;
 import com.framework.utils.PackageManagerUtil;
 import com.framework.utils.Y;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * service

@@ -14,12 +14,11 @@ import com.framework.utils.Y;
 import com.framework2.netty.KeepAliveClientUtil;
 import com.framework2.netty.NettyInfo;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 public class NettyTestActivity extends BaseSlideFinishActivity {
     @BindView(R.id.btnStart)

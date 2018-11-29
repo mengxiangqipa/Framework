@@ -27,8 +27,6 @@ import com.library.emoji.fragment.Fragment_face_ee4;
 import com.library.emoji.util.SmileParserUtils;
 import com.library.percent.PercentLinearLayout;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 /**
  * emoji详情

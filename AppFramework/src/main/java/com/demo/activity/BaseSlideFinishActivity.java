@@ -19,9 +19,9 @@ import com.library.slidefinish.Slidr;
 import com.library.slidefinish.model.SlidrConfig;
 import com.library.slidefinish.model.SlidrPosition;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
+
+import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * activity的base类

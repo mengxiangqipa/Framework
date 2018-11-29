@@ -71,9 +71,6 @@ import com.library.androidvideocache.Utils;
 import com.test.MainActivity;
 import com.testactivity.ScanActivity;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -86,6 +83,9 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import custom.org.greenrobot.eventbus.EventBus;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

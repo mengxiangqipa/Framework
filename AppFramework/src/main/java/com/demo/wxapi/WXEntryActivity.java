@@ -14,7 +14,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import org.greenrobot.eventbus.EventBus;
+import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * @author Yangjie
