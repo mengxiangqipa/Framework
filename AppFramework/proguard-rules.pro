@@ -271,11 +271,11 @@
 
      #keep eventbus
     -keepclassmembers class ** {
-        @org.greenrobot.eventbus.Subscribe <methods>;
+        @Subscribe <methods>;
     }
-    -keep enum org.greenrobot.eventbus.ThreadMode { *; }
+    -keep enum ThreadMode { *; }
     # Only required if you use AsyncExecutor
-    -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    -keepclassmembers class * extends ThrowableFailureEvent {
         <init>(Java.lang.Throwable);
     }
     -keepclasseswithmembernames class * {

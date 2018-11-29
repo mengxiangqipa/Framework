@@ -140,11 +140,11 @@ android {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
-            minifyEnabled true
+            minifyEnabled false
             //Zipalign优化
-            zipAlignEnabled true
+            zipAlignEnabled false
             // 移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -232,11 +232,9 @@ dependencies {
     api 'io.netty:netty-all:5.0.0.Alpha2'
 
     //    //三方百分比
-
     //    compile 'com.zhy:percent-support-extends:1.1.1'
 
     /** tinker    */
-
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
     annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
