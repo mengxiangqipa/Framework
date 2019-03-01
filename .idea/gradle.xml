@@ -5,33 +5,6 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/AppFramework" />
-            <option value="$PROJECT_DIR$/Libraries" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Adapter" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Android-Base" />
-            <option value="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache" />
-            <option value="$PROJECT_DIR$/Libraries/Library-CameraFilter" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Choose-Media" />
-            <option value="$PROJECT_DIR$/Libraries/Library-ClipPicView" />
-            <option value="$PROJECT_DIR$/Libraries/Library-CropPicture" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Emoji" />
-            <option value="$PROJECT_DIR$/Libraries/Library-EventBus" />
-            <option value="$PROJECT_DIR$/Libraries/Library-FrameworkFramework" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Loadingview" />
-            <option value="$PROJECT_DIR$/Libraries/Library-MPAndroidChart" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Network" />
-            <option value="$PROJECT_DIR$/Libraries/Library-PercentLayout" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Pulltorefresh" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Scan" />
-            <option value="$PROJECT_DIR$/Libraries/Library-SlideFinish" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Ucrop" />
-            <option value="$PROJECT_DIR$/Libraries/Library-Videoview" />
-            <option value="$PROJECT_DIR$/app-choose-media" />
-          </set>
-        </option>
         <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>

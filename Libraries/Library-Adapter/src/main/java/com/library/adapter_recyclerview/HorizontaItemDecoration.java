@@ -77,6 +77,9 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
                     continue;
                 float top = view.getBottom();
                 float bottom = view.getBottom() + dividerHeight;
+                if ((type == TYPE.BOTH || type == TYPE.WITH_TOP) && i == 0) {
+                    c.drawRect(left, view.getTop() - dividerHeight, right, view.getTop(), dividerPaint);
+                }
                 c.drawRect(left, top, right, bottom, dividerPaint);
             }
         }

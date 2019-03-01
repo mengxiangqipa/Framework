@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AppFramework/AppFramework.iml" filepath="$PROJECT_DIR$/AppFramework/AppFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Framework.iml" filepath="$PROJECT_DIR$/Framework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Libraries.iml" filepath="$PROJECT_DIR$/Libraries/Libraries.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" filepath="$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" filepath="$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-CameraFilter/Library-CameraFilter.iml" filepath="$PROJECT_DIR$/Libraries/Library-CameraFilter/Library-CameraFilter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Choose-Media/Library-Choose-Media.iml" filepath="$PROJECT_DIR$/Libraries/Library-Choose-Media/Library-Choose-Media.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-ClipPicView/Library-ClipPicView.iml" filepath="$PROJECT_DIR$/Libraries/Library-ClipPicView/Library-ClipPicView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-CropPicture/Library-CropPicture.iml" filepath="$PROJECT_DIR$/Libraries/Library-CropPicture/Library-CropPicture.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Emoji/Library-Emoji.iml" filepath="$PROJECT_DIR$/Libraries/Library-Emoji/Library-Emoji.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-EventBus/Library-EventBus.iml" filepath="$PROJECT_DIR$/Libraries/Library-EventBus/Library-EventBus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-FrameworkFramework/Library-FrameworkFramework.iml" filepath="$PROJECT_DIR$/Libraries/Library-FrameworkFramework/Library-FrameworkFramework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Loadingview/Library-Loadingview.iml" filepath="$PROJECT_DIR$/Libraries/Library-Loadingview/Library-Loadingview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-MPAndroidChart/Library-MPAndroidChart.iml" filepath="$PROJECT_DIR$/Libraries/Library-MPAndroidChart/Library-MPAndroidChart.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Network/Library-Network.iml" filepath="$PROJECT_DIR$/Libraries/Library-Network/Library-Network.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-PercentLayout/Library-PercentLayout.iml" filepath="$PROJECT_DIR$/Libraries/Library-PercentLayout/Library-PercentLayout.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" filepath="$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" filepath="$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" filepath="$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Ucrop/Library-Ucrop.iml" filepath="$PROJECT_DIR$/Libraries/Library-Ucrop/Library-Ucrop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Videoview/Library-Videoview.iml" filepath="$PROJECT_DIR$/Libraries/Library-Videoview/Library-Videoview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app-choose-media/app-choose-media.iml" filepath="$PROJECT_DIR$/app-choose-media/app-choose-media.iml" />
     </modules>
   </component>
 </project>
