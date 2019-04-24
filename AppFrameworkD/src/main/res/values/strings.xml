@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exist">再按一次退出</string>
+    <string name="app_name">AppFramework</string>
+    <string name="content">AppFramework:\n&#x000A;■.修改包名\n&#x000A;■.改混淆文件\n&#x000A;■.library-module/test里面有测试使用方法\n&#x000A;■.去掉不用的library-module\n&#x000A;
+   ■.剩余library-module里面的test删除\n&#x000A; </string>
+    <string name="exit_message">再按一次退出</string>
+
+
+ <string name="protocol">点击『注册』按钮即表示你同意《61歌舞厅协议》</string>
+
+ <string name="hint_login">请输入手机号码</string>
+ <string name="hint_password">请输入密码</string>
+ <string name="hint_pwd_pre">请输入原密码</string>
+ <string name="hint_pwd_new">6-20位数字或字母</string>
+ <string name="hint_pwd_new_again">重复输入新密码</string>
+ <string name="show_pwd">显示密码</string>
+ <string name="reset">重置</string>
+ <string name="hint_input_title">请输入标题</string>
+ <string name="hint_input_content">请输入您的反馈意见</string>
+
+
+    <string name="forget_password">忘记密码?</string>
+    <string name="user_register">用户注册</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="reset_pwd">重置密码</string>
+    <string name="network_error">网络连接异常</string>
+    <string name="enter_me">进入APP</string>
+    <string name="setting">设置</string>
+    <string name="hint_phonenum">请输入注册时的手机号</string>
+    <string name="hint_phone_register">请输入手机号码进行注册</string>
+    <string name="hint_pwd">请输入密码</string>
+    <string name="hint_pwd_ensure">请再次输入密码</string>
+    <string name="hint_captcha">请输入验证码</string>
+    <string name="get_captcha">获取验证码</string>
+    <string name="can_not_receive_captcha">收不到验证码?</string>
+    <string name="help_feedback">帮助反馈</string>
+    <string name="version_check">检查新版本</string>
+    <string name="agreement">用户协议</string>
+    <string name="network_unavailable">21世纪居然塞网，赶紧查看网络连接</string>
+    <string name="button_logout">退出登录</string>
+    <!--更新-->
+    <string name="update_now">马上更新</string>
+    <string name="tip_next_time">下次再说</string>
+    <string name="update_tip">升级提示</string>
+
+    <string name="name">姓名</string>
+    <string name="phone">手机号</string>
+    <string name="forgetPwd">忘记密码</string>
+    <string name="captcha">验证码</string>
+    <string name="hint_name">请输入您的姓名</string>
+    <string name="hint_phone">请输入您的手机号码</string>
+
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+
+</resources>

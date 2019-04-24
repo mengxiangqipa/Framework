@@ -10,6 +10,7 @@
         <attr name="mBorderThicknessInside" format="dimension"/>
         <attr name="mBorderInsideColor" format="color"/>
     </declare-styleable>
+
     <!--4方向抽屉-->
     <declare-styleable name="MultiDirectionSlidingDrawer">
         <attr name="handle" format="reference"/>
@@ -25,6 +26,7 @@
         <attr name="allowSingleTap" format="boolean"/>
         <attr name="animateOnClick" format="boolean"/>
     </declare-styleable>
+
     <!-- 截图 -->
     <declare-styleable name="CropImageView">
         <attr name="imgSrc" format="reference"/>
@@ -60,6 +62,7 @@
         <attr name="guideStrokeWeight" format="dimension"/>
         <attr name="cropEnabled" format="boolean"/>
     </declare-styleable>
+
     <!--任务完成进度-->
     <declare-styleable name="TasksCompletedView">
         <attr name="radius" format="dimension"/>
@@ -67,8 +70,35 @@
         <attr name="circleColor" format="color"/>
         <attr name="ringColor" format="color"/>
     </declare-styleable>
+
     <!--文件菜单展开-->
     <declare-styleable name="FoldingMenu">
         <attr name="foldNumber" format="integer"/>
     </declare-styleable>
+
+    <!--广告progress进度-->
+    <declare-styleable name="CustomADprogress">
+        <!--圆半径-->
+        <attr format="dimension" name="radius"/>
+        <!--圆环厚度-->
+        <attr format="dimension" name="strokeWidth"/>
+        <!-- 圆形（实心）颜色-->
+        <attr format="color" name="circleColor"/>
+        <!-- 圆环背景颜色-->
+        <attr format="color" name="bgRingColor"/>
+        <!-- 圆环颜色-->
+        <attr format="color" name="ringColor"/>
+        <!-- 圆环进度值-->
+        <attr format="float" name="progress"/>
+        <!-- 是否绘制背景圆环-->
+        <attr format="boolean" name="drawBgCircleRing"/>
+        <!-- 圆环中心文字-->
+        <attr format="string" name="text"/>
+        <!-- 圆环中心文字颜色-->
+        <attr format="color" name="textColor"/>
+        <!-- 圆环中心文字大小-->
+        <attr format="dimension" name="textSize_"/>
+    </declare-styleable>
+
+
 </resources>

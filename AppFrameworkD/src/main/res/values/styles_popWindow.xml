@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/_blue</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+
+    <style name="popWindowAnimAlpha">
+        <item name="android:windowEnterAnimation">@anim/myset_pop_alpha1</item>
+        <item name="android:windowExitAnimation">@anim/myset_pop_alpha0</item>
+    </style>
+
+    <style name="popWindowAnimTrans">
+        <item name="android:windowEnterAnimation">@anim/myset_pop_trans0</item>
+        <item name="android:windowExitAnimation">@anim/myset_pop_trans1</item>
+    </style>
+</resources>
