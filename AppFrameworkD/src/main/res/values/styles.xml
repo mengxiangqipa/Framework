@@ -41,7 +41,7 @@
     </style>
 
 
-    <style name="ThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar" >
+    <style name="ThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:listDivider">@drawable/shape_horizontal_divider</item>
     </style>
 
@@ -66,4 +66,13 @@
         <item name="android:minHeight">20dp</item>
         <item name="android:maxHeight">20dp</item>
     </style>
+
+    <style name="HomepageStyle.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="HomepageStyle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="HomepageStyle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

@@ -165,11 +165,6 @@ android {
     }
 }
 
-ext {
-//    FrameworkVersion = '2.2.1'
-//    FrameworkVersion = '3.0.2'
-    FrameworkVersion = '3.1.0'
-}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

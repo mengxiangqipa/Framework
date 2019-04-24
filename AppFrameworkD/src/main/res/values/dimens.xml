@@ -23,7 +23,6 @@
     <dimen name="tab_height">60dp</dimen>
 
 
-
     <dimen name="_10px">10px</dimen>
     <dimen name="_16px">16px</dimen>
     <dimen name="_20px">20px</dimen>
@@ -66,4 +65,7 @@
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_25dp">25dp</dimen>
     <dimen name="_19dp">19dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

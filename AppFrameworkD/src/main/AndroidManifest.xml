@@ -8,8 +8,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!--<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />-->
+    <uses-permission android:name="android.permission.CAMERA"/> <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" /> -->
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
@@ -26,44 +25,28 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
-    <!-- QQ、QQ空间所需权限 -->
+    <uses-permission android:name="android.permission.READ_LOGS"/> <!-- QQ、QQ空间所需权限 -->
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <!-- 这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <!-- 用于读取手机当前的状态-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/> <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- 访问网络，网络定位需要上网-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-
-
     <uses-permission android:name="android.permission.NFC"/>
 
-    <uses-feature android:name="android.hardware.nfc.hce"/>
-    <!-- 添加快捷方式 -->
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <!-- 移除快捷方式 -->
-    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/>
-    <!-- 查询快捷方式 -->
+    <uses-feature android:name="android.hardware.nfc.hce"/> <!-- 添加快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/> <!-- 移除快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT"/> <!-- 查询快捷方式 -->
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
 
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
-
 
     <application
         android:name="com.demo.application.ShareApplication"
@@ -73,7 +56,11 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/HomepageStyle">
-
+        <activity
+            android:name="com.demo.activity.CustomViewActivity"
+            android:label="@string/title_activity_custom_view"
+            android:theme="@style/HomepageStyle.NoActionBar">
+        </activity>
         <activity
             android:name="com.demo.activity.LaunchActivity"
             android:screenOrientation="portrait"
@@ -96,27 +83,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar">
         </activity>
-
         <activity android:name="com.demo.activity.az.AzActivity"/>
-
         <activity android:name="com.demo.activity.cloudtags.CloudTagsActivity"/>
-
         <activity android:name="com.demo.activity.slidingDrawer.SlidingDrawerActivity"/>
-
         <activity android:name="com.demo.activity.calendar.CalendarActivity"/>
-
         <activity android:name="com.demo.activity.tasksCompleted.TasksCompletedActivity"/>
-
         <activity android:name="com.demo.activity.foldmenu.FolderMenuActivity"/>
-
         <activity
             android:name="com.demo.activity.netty_test.NettyTestActivity"
             android:theme="@style/MyThemeTranslucent"/>
-
-
         <activity android:name="com.demo.activity.cameraFilter.ResultActivity"/>
-        <activity android:name="com.demo.activity.cameraFilter.CameraFilterActivity"/>
-        <!-- CameraSDK相册选取 -->
+        <activity android:name="com.demo.activity.cameraFilter.CameraFilterActivity"/> <!-- CameraSDK相册选取 -->
         <activity android:name="com.library.camerafilter.PhotoPickActivity"/>
         <activity android:name="com.library.camerafilter.PreviewActivity"/>
         <activity android:name="com.library.camerafilter.CropperImageActivity"/>
@@ -140,16 +117,13 @@
             android:name="com.demo.activity.crop.CropSampleActivity"
             android:configChanges="orientation|screenSize|screenLayout|layoutDirection"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.demo.activity.VideoTestActivity"
             android:configChanges="orientation|screenSize|screenLayout|layoutDirection"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.demo.activity.crop.ResultActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
@@ -162,7 +136,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
         <activity
             android:name="com.demo.activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -171,9 +144,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
-        <!--android:theme="@style/MyThemeTranslucent"-->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/> <!-- android:theme="@style/MyThemeTranslucent" -->
         <activity
             android:name="com.demo.activity.RegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -182,7 +153,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
         <activity
             android:name="com.demo.activity.ForgetPasswordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -191,16 +161,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-
         <activity
             android:name="com.demo.activity.HomePageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-
-        <!--测试用，可删除-->
+            android:windowSoftInputMode="adjustPan"/> <!-- 测试用，可删除 -->
         <activity
             android:name="com.test.MainActivity"
             android:theme="@style/MyThemeTranslucent"/>
@@ -233,9 +200,7 @@
         <activity android:name="com.test.TestListviewStoreHouseActivity"/>
         <activity android:name="com.test.TestListviewMaterialActivity"/>
         <activity android:name="com.test.TestListviewRentalsSunActivity"/>
-        <activity android:name="com.framework2.tinker.app.TinkerMainActivity"/>
-
-        <!--webwiew相关start-->
+        <activity android:name="com.framework2.tinker.app.TinkerMainActivity"/> <!-- webwiew相关start -->
         <activity
             android:name="com.demo.commonWebview.CommonFullTBSWebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -265,23 +230,20 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <!--独立进程webview-->
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/> <!-- 独立进程webview -->
         <activity
             android:name="com.demo.commonWebview.DetachedProcessCommonFullWebViewActivity"
-            android:process=":H5"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:process=":H5"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.DetachedProcessTheme"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
-        <!--webwiew相关end-->
-
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/> <!-- webwiew相关end -->
         <!-- *************************以下为QQ登录************************* -->
-        <!--QQ登录-->
+        <!-- QQ登录 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -300,26 +262,20 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <!--QQ登录-->
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/> <!-- QQ登录 -->
         <!-- *************************以上为QQ登录************************* -->
-
         <!-- *************************以下为微信回调activity************************* -->
-        <!--微信登录回调-->
+        <!-- 微信登录回调 -->
         <activity
             android:name="com.demo.wxapi.WXEntryActivity"
             android:exported="true"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <!--微信登录回调-->
+            android:theme="@style/AppTheme.NoActionBar"/> <!-- 微信登录回调 -->
         <!-- *************************以上为微信回调activity************************* -->
-
-
         <service
             android:name="com.framework2.tinker.service.TinkerResultService"
-            android:exported="false"/>
-        <!--service-->
+            android:exported="false"/> <!-- service -->
         <service android:name="com.demo.service.CheckUpdateService">
             <intent-filter android:priority="1000">
                 <action android:name="com.demo.service.CheckUpdateService"/>
@@ -329,13 +285,12 @@
         <meta-data
             android:name="CONTENTPROVIDER_KEY"
             android:value="${applicationId}.preferences"/>
+
         <provider
             android:name="com.framework.utils.multyprocessprovider.provider.PreferencesProvider"
             android:authorities="${applicationId}.preferences"
             android:exported="false"
             android:grantUriPermissions="false"/>
-        <!--android:authorities="@string/preferences_provider_authority"-->
-
     </application>
 
 </manifest>

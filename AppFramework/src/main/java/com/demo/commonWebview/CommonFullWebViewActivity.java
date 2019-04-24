@@ -1,51 +1,62 @@
 package com.demo.commonWebview;
 
-import android.content.Context;
+import android.Manifest;
+import android.app.Activity;
+import android.content.ClipData;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.webkit.CookieManager;
+import android.webkit.GeolocationPermissions;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.demo.activity.BaseActivity;
-import com.demo.configs.ConstantsME;
-import com.demo.configs.EventBusTag;
-import com.demo.configs.InterfaceConfig;
-import com.demo.configs.RealInterfaceConfig;
-import com.demo.demo.R;
-import com.demo.networkModel.HttpUtil;
-import com.demo.util.ReloginUtil;
-import com.framework.utils.KeyBoardUtil;
+import com.asiainfo.iov.R;
+import com.asiainfo.iov.configs.EventBusTag;
+import com.framework.utils.FileUtils;
 import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
 import com.framework.utils.Y;
+import com.framework2.baseEvent.BaseOnClickListener;
+import com.framework2.customLoading.LoadingIndicatorView;
 import com.framework2.customviews.TitleView;
-import com.framework2.utils.CookieManagerUtil;
-import com.framework2.utils.CustomLoadingDialogUtils;
-import com.library.loadingview.LoadingIndicatorView;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import custom.org.greenrobot.eventbus.Subscribe;
-import custom.org.greenrobot.eventbus.ThreadMode;
 
 /**
  * 通用加载webview的activity
@@ -54,58 +65,70 @@ import custom.org.greenrobot.eventbus.ThreadMode;
  * className CommonFullWebViewActivity
  * created at  2017/6/13  15:54
  */
-public class CommonFullWebViewActivity extends BaseActivity {
+public class CommonFullWebViewActivity extends AppCompatActivity {
 
+    public static String TITLE = "TITLE";
+    public static String URL = "URL";
+    public static String SHOWRIGHT = "SHOWRIGHT";
     @BindView(R.id.titleView)
     TitleView titleView;
     @BindView(R.id.progress)
     ProgressBar progress;
+    @BindView(R.id.webView)
+    WebView webView;
     @BindView(R.id.tvEmpty)
     TextView tvEmpty;
     @BindView(R.id.emptyLayout)
     LinearLayout emptyLayout;
-    @BindView(R.id.webView)
-    WebView webView;
     @BindView(R.id.onLoading)
     LoadingIndicatorView onLoading;
 
+    private int PERMISSION_CALL_PHONE = 10086;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_webview_with_titlebar);
         ButterKnife.bind(this);
         ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
-                getResources().getColor(R.color.white));
+        ScreenUtils.getInstance().setStatusBarTintColor(this, getResources().getColor(R.color.white));
+        ScreenUtils.getInstance().setSystemUiColorDark(this, true);
         initView();
-        CookieManagerUtil.getInstance().synCookies(this, RealInterfaceConfig.getRealBaseServerUrl());
         initWebViewSetting();
-        addJavascriptInterface(webView);
         loadUrl();
-    }
-
-    //eventBus通知新消息
-    @Subscribe(threadMode = ThreadMode.MAIN, tag = EventBusTag.newMessage)
-    public void receivedNewMessage(String info) {
     }
 
     private void initView() {
         try {
-//            titleView.setRightVisible(false).setLeftOnClickListener(new BaseOnClickListener() {
-//                @Override
-//                protected void onBaseClick(View v) {
-//                    goBack();
-//                }
-//            });
-            titleView.setTitle(getIntent().getStringExtra(ConstantsME.title));
+            titleView.setTitle(getIntent().getStringExtra(TITLE));
+            titleView.setRightVisible((getIntent().getBooleanExtra(SHOWRIGHT, false)));
+            titleView.setLeftOnClickListener(new BaseOnClickListener() {
+                @Override
+                protected void onBaseClick(View v) {
+                    goBack();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
+        emptyLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onViewClicked();
+            }
+        });
     }
 
     private void initWebViewSetting() {
 
         WebSettings webSettings = webView.getSettings();
+        //加载https 在Android5.0中，WebView方面做了些修改，如果你的系统target api为21以上:
+        //系统默认禁止了mixed content和第三方cookie。可以使用setMixedContentMode()
+        // 和 setAcceptThirdPartyCookies()以分别启用。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         //支持缩放，默认为true。
         webSettings.setSupportZoom(false);
         //调整图片至适合webview的大小
@@ -150,22 +173,14 @@ public class CommonFullWebViewActivity extends BaseActivity {
         webSettings.setBlockNetworkImage(false);//阻断网络图片
         webSettings.setBlockNetworkLoads(false);//阻断网络下载
         webSettings.setSaveFormData(true);//设置WebView是否保存表单数据，默认true，保存数据。
-
-        //        //对离线应用的支持
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheMaxSize(1024 * 1024 * 10);//设置缓冲大小，10M
-        String appCacheDir = getDir("cache", Context.MODE_PRIVATE).getPath();
-        webSettings.setAppCachePath(appCacheDir);
     }
 
     private void loadUrl() {
-        Y.y("loadUrl:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread.currentThread
-                ().getName());
         try {
             onLoading.setVisibility(View.VISIBLE);
             progress.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
-            webView.loadUrl(getIntent().getStringExtra(ConstantsME.url));
+            webView.loadUrl(getIntent().getStringExtra(URL));
             //如果不设置WebViewClient，请求会跳转系统浏览器
             webView.setWebViewClient(new WebViewClient() {
 
@@ -175,136 +190,52 @@ public class CommonFullWebViewActivity extends BaseActivity {
                     // .LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
                     //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
-                    Y.y("CommonFullWebViewActivity--shouldOverrideUrlLoading111:" + url);
-                    view.loadUrl(url);
-                    CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
-                            InterfaceConfig.jsCLickLogin);
-                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
-                        Y.y("CommonFullWebViewActivity-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
-                        cookieManager.removeAllCookie();
-                        CookieManagerUtil.getInstance().saveCookie(CommonFullWebViewActivity.this, cookie);
+//                    view.loadUrl(url);
+//                    return true;
+                    String tag = "tel:";
+                    if (!TextUtils.isEmpty(url) && url.contains(tag)) {
+                        int result = callPhone(url, tag);
+                        if (result == -1) {
+                            return super.shouldOverrideUrlLoading(view, url);
+                        } else if (result == 0) {
+                            return super.shouldOverrideUrlLoading(view, url);
+                        } else if (result == 1) {
+                            return true;
+                        }
                     }
-
-                    if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
-                            .webKPIdetail)) {
-                        CookieManagerUtil.getInstance().synCookies(CommonFullWebViewActivity.this,
-                                RealInterfaceConfig.getRealBaseServerUrl());
-                    }
-
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
-                        ReloginUtil.getInstance().gotoLogin(CommonFullWebViewActivity.this);
-                        return true;
-                    }
-                    return true;
+                    return super.shouldOverrideUrlLoading(view, url);
                 }
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
                     //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-                    }
                     String url = request.getUrl().toString();
-                    Y.y("shouldOverrideUrlLoading222:" + url);
-                    CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
-                            InterfaceConfig.jsCLickLogin);
-                    Y.y("full -shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
-                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
-                        cookieManager.removeAllCookie();
-                        CookieManagerUtil.getInstance().saveCookie(CommonFullWebViewActivity.this, cookie);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        String tag = "tel:";
+                        if (!TextUtils.isEmpty(url) && url.contains(tag)) {
+                            int result = callPhone(url, tag);
+                            if (result == -1) {
+                                return super.shouldOverrideUrlLoading(view, url);
+                            } else if (result == 0) {
+                                return super.shouldOverrideUrlLoading(view, url);
+                            } else if (result == 1) {
+                                return true;
+                            }
+                        }
                     }
-
-                    if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
-                            .webKPIdetail)) {
-                        ToastUtil.getInstance().showToast("start:" + cookie);
-                        CookieManagerUtil.getInstance().synCookies(CommonFullWebViewActivity.this,
-                                RealInterfaceConfig.getRealBaseServerUrl());
-                        Y.y("end:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl()));
-                        Y.y("end2:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
-                                InterfaceConfig.webMain));
-                    }
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
-                        ReloginUtil.getInstance().gotoLogin(CommonFullWebViewActivity.this);
-                        return true;
-                    }
-                    view.loadUrl(url);
-                    return true;
+//                    view.loadUrl(url);
+                    return false;
                 }
 
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
-                    Y.y("onPageStarted:--" + url);
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
-                        ReloginUtil.getInstance().gotoLogin(CommonFullWebViewActivity.this);
-                    }
                 }
-
-                @Override
-                public void onLoadResource(final WebView view, final String url) {
-//                    Y.y("加载资源:--"+url);
-                    Y.y("加载资源:--" + ";currentThread:" + Thread.currentThread().getId() + "   getName:" + Thread
-                            .currentThread().getName());
-                    super.onLoadResource(view, url);
-                }
-
-                @Override
-                public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                    Y.y("shouldInterceptRequest1:--" + url);
-                    return super.shouldInterceptRequest(view, url);
-                }
-
-//                @Override
-//                public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-//                    Y.y("shouldInterceptRequest:--" + ";currentThread:" + Thread.currentThread().getId() + "
-// getName:" + Thread.currentThread().getName());
-////                    WebResourceResponse response = null;
-////                    if(url.contains("avatar.php?")){
-////                        try {
-////                            final PipedOutputStream out = new PipedOutputStream();
-////                            PipedInputStream in = new PipedInputStream(out);
-//////                            ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
-//////                                @Override
-//////                                public void onLoadingStarted(String s, View view) {}
-//////                                @Override
-//////                                public void onLoadingFailed(String s, View view, FailReason failReason) {}
-//////                                @Override
-//////                                public void onLoadingCancelled(String s, View view) {}
-//////
-//////                                @Override
-//////                                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//////                                    if (bitmap != null) {
-//////                                        try {
-//////                                            out.write(IOUtils.Bitmap2Bytes(bitmap));
-//////                                            out.close();
-//////                                        }catch (Exception e){
-//////                                            e.printStackTrace();
-//////                                        }
-//////                                    }
-//////                                }
-//////                            });
-////                            response = new WebResourceResponse("image/png", "UTF-8", in);
-////                        }catch (Exception e){
-////                            e.printStackTrace();
-////                        }
-////                    }
-////                    return response;
-//
-//
-////                    WebResourceResponse response = new WebResourceResponse("image/png", "UTF-8", in);
-//
-//                    return super.shouldInterceptRequest(view, request);
-//                }
 
                 @Override
                 public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                    super.onReceivedSslError(view, handler, error);
+//                    super.onReceivedSslError(view, handler, error);
                     handler.proceed(); // 接受所有证书
                 }
 
@@ -320,17 +251,36 @@ public class CommonFullWebViewActivity extends BaseActivity {
 ////                    onLoading.setVisibility(View.GONE);
 ////                    progress.setVisibility(View.GONE);
 ////                    emptyLayout.setVisibility(View.VISIBLE);
-//                    Y.y("onReceivedError:"+error.getDescription());
 //                }
                 public void onPageFinished(WebView view, String url) {
-                    Y.y("onPageFinished:--" + url);
+//                    CookieManager cookieManager = CookieManager.getInstance();
+//                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+// InterfaceConfig.jsCLickLogin);
+//                    if (!TextUtils.isEmpty(cookie)) {
+//                        cookieManager.removeAllCookie();
+//                        CookieManagerUtil.getInstance().saveCookie(CommonWebViewActivity.this, cookie);
+//                    }
                     super.onPageFinished(view, url);
                     if (!webView.getSettings().getLoadsImagesAutomatically()) {
                         webView.getSettings().setLoadsImagesAutomatically(true);
                     }
+                    //兼容低版本设置HTML的title
+                    String title = view.getTitle();
+                    if (!TextUtils.isEmpty(title) && null != titleView) {
+                        titleView.setTitle(title);
+                    }
                 }
             });
             webView.setWebChromeClient(new WebChromeClient() {
+
+                @Override
+                public void onReceivedTitle(WebView view, String title) {
+                    super.onReceivedTitle(view, title);
+                    if (!TextUtils.isEmpty(title) && null != titleView) {
+                        titleView.setTitle(title);
+                    }
+                }
+
                 @Override
                 public void onProgressChanged(WebView view, int newProgress) {
                     super.onProgressChanged(view, newProgress);
@@ -346,6 +296,37 @@ public class CommonFullWebViewActivity extends BaseActivity {
                         emptyLayout.setVisibility(View.GONE);
                     }
                 }
+
+                @Override
+                public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback
+                        callback) {
+                    callback.invoke(origin, true, true);
+                    super.onGeolocationPermissionsShowPrompt(origin, callback);
+                }
+
+                @Override
+                public boolean onShowFileChooser(WebView webView,
+                                                 ValueCallback<Uri[]> filePathCallback,
+                                                 FileChooserParams fileChooserParams) {
+                    mUploadCallbackAboveL = filePathCallback;
+                    takePic();
+                    return true;
+                }
+
+                public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+                    mUploadMessage = uploadMsg;
+                    takePic();
+                }
+
+                public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+                    mUploadMessage = uploadMsg;
+                    takePic();
+                }
+
+                public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+                    mUploadMessage = uploadMsg;
+                    takePic();
+                }
             });
         } catch (Exception e) {
             onLoading.setVisibility(View.GONE);
@@ -354,27 +335,6 @@ public class CommonFullWebViewActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 请求更改昵称
-     */
-    private void requestModifyNick(@NonNull String nick) {
-        HttpUtil.getInstance().requestModifyNick(InterfaceConfig.modifyNick, nick,
-                new HttpUtil.OnRequestResult<String>() {
-                    @Override
-                    public void onSuccess(String... s) {
-                        CustomLoadingDialogUtils.getInstance().dismissDialog();
-                        finishActivity();
-                    }
-
-                    @Override
-                    public void onFail(int code, String msg) {
-                        CustomLoadingDialogUtils.getInstance().dismissDialog();
-                        ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "修改昵称失败" : msg);
-                    }
-                });
-    }
-
-    @OnClick(R.id.emptyLayout)
     public void onViewClicked() {
         loadUrl();
     }
@@ -415,13 +375,89 @@ public class CommonFullWebViewActivity extends BaseActivity {
     }
 
     private void goBack() {
-        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(), RealInterfaceConfig
-                .getRealBaseServerUrl() + InterfaceConfig.webMain)) {
+        if (null != webView && webView.canGoBack()) {
             webView.goBack();
         } else {
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(this, null, true);
-            beforeFinishActivity();
-            finishActivity();
+            EventBus.getDefault().post("", EventBusTag.NOTIFY_CLOSE_H5);
+            finish();
+        }
+    }
+
+    private String tempMobileNo;
+
+    private int callPhone(String url, String tag) {
+        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(tag))
+            return 0;
+        if (url.contains(tag)) {
+            final String mobile = url.substring(url.lastIndexOf("/") + 1);
+            tempMobileNo = mobile;
+            boolean startWithNum = false;
+            if (!TextUtils.isEmpty(tempMobileNo)) {
+                Pattern pattern = Pattern.compile("[0-9]*");
+                Matcher isNum = pattern.matcher(tempMobileNo.charAt(0) + "");
+                startWithNum = isNum.matches();
+            }
+            if (TextUtils.isDigitsOnly(tempMobileNo) || startWithNum || mobile.startsWith("tel:")) {
+//                checkPermission(new CheckPermListener() {
+//                    @SuppressLint("MissingPermission")
+//                    @Override
+//                    public void superPermission() {
+//                        Intent mIntent = new Intent(Intent.ACTION_CALL);
+//                        Uri data = Uri.parse(mobile);
+//                        mIntent.setData(data);
+//                        startActivity(mIntent);
+//                    }
+//                }, R.string.require_permission_call_phone, Manifest.permission.CALL_PHONE);
+                //Android6.0以后的动态获取打电话权限
+                if (ActivityCompat.checkSelfPermission(CommonFullWebViewActivity.this,
+                        Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    try {
+                        Intent mIntent = new Intent(Intent.ACTION_CALL);
+                        Uri data;
+                        if (mobile.startsWith("tel")) {
+                            data = Uri.parse(mobile);
+                        } else {
+                            data = Uri.parse("tel:" + mobile);
+                        }
+                        mIntent.setData(data);
+                        startActivity(mIntent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //这个超连接,java已经处理了，webview不要处理
+                    return 1;
+                } else {
+                    //申请权限
+                    ActivityCompat.requestPermissions(CommonFullWebViewActivity.this, new
+                            String[]{Manifest.permission.CALL_PHONE}, 1);
+                    return 1;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+            grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults != null && grantResults.length >= 1) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent mIntent = new Intent(Intent.ACTION_CALL);
+                    Uri data;
+                    if (tempMobileNo.startsWith("tel")) {
+                        data = Uri.parse(tempMobileNo);
+                    } else {
+                        data = Uri.parse("tel:" + tempMobileNo);
+                    }
+                    mIntent.setData(data);
+                    startActivity(mIntent);
+                }
+            }
         }
     }
 
@@ -431,18 +467,107 @@ public class CommonFullWebViewActivity extends BaseActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
             goBack();
-            return true;
+//            return super.onKeyDown(keyCode, event);
+            return true;//不继承BaseActivity时使用
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    @OnClick(R.id.ivRight)
-    public void onViewClicked1() {
-        ToastUtil.getInstance().showToast("android调用js");
-        webView.loadUrl("javascript:displayDate()");
+    //===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>
+    //===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>===>>
+    private ValueCallback<Uri> mUploadMessage;// 表单的数据信息
+    private ValueCallback<Uri[]> mUploadCallbackAboveL;
+    private final static int FILECHOOSER_RESULTCODE = 1;// 表单的结果回调</span>
+    private Uri imageUri;
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (null == mUploadMessage && null == mUploadCallbackAboveL) return;
+            Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
+            if (mUploadCallbackAboveL != null) {
+                onActivityResultAboveL(requestCode, resultCode, data);
+            } else if (mUploadMessage != null) {
+                if (result != null) {
+                    String path = FileUtils.getInstance().getRealFilePath(getApplicationContext(), result);
+                    Uri uri = Uri.fromFile(new File(path));
+                    mUploadMessage
+                            .onReceiveValue(uri);
+                } else {
+                    mUploadMessage.onReceiveValue(imageUri);
+                }
+                mUploadMessage = null;
+            }
+        }
     }
 
-    private void addJavascriptInterface(@NonNull WebView webView) {
-        webView.addJavascriptInterface(new JsCallAndroid(this, webView), "android");
+    @SuppressWarnings("null")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void onActivityResultAboveL(int requestCode, int resultCode, Intent data) {
+        if (requestCode != FILECHOOSER_RESULTCODE
+                || mUploadCallbackAboveL == null) {
+            return;
+        }
+        Uri[] results = null;
+        if (resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                results = new Uri[]{imageUri};
+            } else {
+                String dataString = data.getDataString();
+                ClipData clipData = data.getClipData();
+                if (clipData != null) {
+                    results = new Uri[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        results[i] = item.getUri();
+                    }
+                }
+                if (dataString != null) {
+                    results = new Uri[]{Uri.parse(dataString)};
+                }
+            }
+        }
+        if (results != null) {
+            mUploadCallbackAboveL.onReceiveValue(results);
+            mUploadCallbackAboveL = null;
+        } else {
+            results = new Uri[]{imageUri};
+            mUploadCallbackAboveL.onReceiveValue(results);
+            mUploadCallbackAboveL = null;
+        }
+        return;
+    }
+
+    private void takePic() {
+        File imageStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                , "IOV");
+        // Create the storage directory if it does not exist
+        if (!imageStorageDir.exists()) {
+            imageStorageDir.mkdirs();
+        }
+        File file = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) +
+                ".jpg");
+        imageUri = Uri.fromFile(file);
+
+        final List<Intent> cameraIntents = new ArrayList<Intent>();
+        final Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        final PackageManager packageManager = getPackageManager();
+        final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
+        for (ResolveInfo res : listCam) {
+            final String packageName = res.activityInfo.packageName;
+            final Intent i = new Intent(captureIntent);
+            i.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+            i.setPackage(packageName);
+            i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            cameraIntents.add(i);
+        }
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("image/*");
+        Intent chooserIntent = Intent.createChooser(i, "Image Chooser");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
+        startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
     }
 }
