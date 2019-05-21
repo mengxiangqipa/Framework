@@ -210,6 +210,7 @@ dependencies {
     api project(':Libraries:Library-Android-Base')
     api project(':Libraries:Library-AndroidVideoCache')
     api project(':Libraries:Library-CameraFilter')
+    api project(':Libraries:Library-Choose-Media')
     api project(':Libraries:Library-ClipPicView')
     api project(':Libraries:Library-CropPicture')
     api project(':Libraries:Library-Emoji')
@@ -222,7 +223,30 @@ dependencies {
     api project(':Libraries:Library-Pulltorefresh')
     api project(':Libraries:Library-Scan')
     api project(':Libraries:Library-SlideFinish')
+    api project(':Libraries:Library-Ucrop')
     api project(':Libraries:Library-Videoview')
+
+//    implementation "com.github.mengxiangqipa.Framework:Library-Adapter:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Android-Base:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-AndroidVideoCache:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-CameraFilter:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Choose-Media:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-ClipPicView:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-CropPicture:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Emoji:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-EventBus:${FrameworkVersion_eventBus}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-FrameworkFramework:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Loadingview:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-MPAndroidChart:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Network:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-PercentLayout:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Pulltorefresh:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Scan:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Ucrop:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-SlideFinish:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Videoview:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Choose-Media:${FrameworkVersion}"
+
 
     //微信授权登录
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
