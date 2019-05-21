@@ -209,10 +209,4 @@ public class SplashActivity extends BaseActivity {
             return super.onKeyDown(keyCode, event);
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 }

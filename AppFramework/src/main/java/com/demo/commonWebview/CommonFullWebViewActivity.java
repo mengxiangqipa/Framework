@@ -371,6 +371,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
     private void goBack() {
         if (null != webView && webView.canGoBack()) {
             webView.goBack();
+        }else{
+            finish();
         }
     }
 

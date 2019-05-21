@@ -437,13 +437,6 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
         progressHandler.removeCallbacksAndMessages(null);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     private void upLoadVideo(String path) {
         String currentApkPath = TextUtils.isEmpty(path) ? getApplicationContext().getPackageResourcePath() : path;
         File apkFile = new File(currentApkPath);
@@ -568,7 +561,7 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Y.y("再按一次:");
+        Y.y("再按一次:"+System.currentTimeMillis());
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - this.exitTime > 2000L) {
                 this.exitTime = System.currentTimeMillis();
@@ -581,7 +574,7 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                         + this.getResources().getString(R.string.app_name));
                 wholeNotification = new WholeNotification.Builder().setContext(HomePageActivity.this)
                         .setView(view)
-                        .setMonitorTouch(false)
+                        .setMonitorTouch(true)
                         .build();
                 wholeNotification.show();
                 return false;

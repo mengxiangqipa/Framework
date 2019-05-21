@@ -30,7 +30,7 @@ public class Slidr {
      * the user to lock/unlock the sliding mechanism for whatever purpose.
      */
     public static SlidrInterface attach(Activity activity) {
-        return attach(activity, -1, -1);
+        return attach(activity, -1, -1, null);
     }
 
     /**
@@ -44,7 +44,8 @@ public class Slidr {
      * @return a {@link com.library.slidefinish.model.SlidrInterface} that allows
      * the user to lock/unlock the sliding mechanism for whatever purpose.
      */
-    public static SlidrInterface attach(final Activity activity, final int statusBarColor1, final int statusBarColor2) {
+    public static SlidrInterface attach(final Activity activity, final int statusBarColor1, final int statusBarColor2
+            , final OnSlideListener listener) {
 
         // Setup the slider panel and attach it to the decor
         final SliderPanel panel = initSliderPanel(activity, null);
@@ -56,18 +57,26 @@ public class Slidr {
 
             @Override
             public void onStateChanged(int state) {
-
+                if (null != listener) {
+                    listener.onStateChanged(state);
+                }
             }
 
             @Override
             public void onClosed() {
-                activity.finish();
-                activity.overridePendingTransition(0, 0);
+                if (null != listener) {
+                    listener.onClosed();
+                } else {
+                    activity.finish();
+                    activity.overridePendingTransition(0, 0);
+                }
             }
 
             @Override
             public void onOpened() {
-
+                if (null != listener) {
+                    listener.onOpened();
+                }
             }
 
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -183,5 +192,17 @@ public class Slidr {
 
         // Return the lock interface
         return slidrInterface;
+    }
+
+    /**
+     * 2019 05 21 回调接口
+     */
+    public interface OnSlideListener {
+
+        void onStateChanged(int state);
+
+        void onClosed();
+
+        void onOpened();
     }
 }
