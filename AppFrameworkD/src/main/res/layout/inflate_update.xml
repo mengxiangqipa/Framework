@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:orientation="vertical">
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom"
+             android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/shape_exit" />
+        android:src="@drawable/shape_exit"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:gravity="center"
             android:text="@string/update_tip"
             android:textColor="#0099FF"
-            android:textSize="20dp" />
+            android:textSize="20dp"/>
 
         <View
             android:id="@+id/view"
@@ -33,7 +33,7 @@
             android:layout_height="2dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:background="#0099FF" />
+            android:background="#0099FF"/>
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -49,7 +49,7 @@
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="24dp"
                 android:textColor="#515151"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
         </ScrollView>
 
         <LinearLayout
@@ -71,7 +71,7 @@
                 android:gravity="center"
                 android:text="@string/tip_next_time"
                 android:textColor="@color/color_selector_tv_cancel"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tv_ensure"
@@ -86,7 +86,7 @@
                 android:gravity="center"
                 android:text="@string/update_now"
                 android:textColor="@color/color_selector_tv_ensure"
-                android:textSize="14sp" />
+                android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
 

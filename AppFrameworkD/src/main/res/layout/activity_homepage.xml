@@ -3,17 +3,17 @@
 
     <data>
 
-        <import type="com.demo.entity.DataBindingItem" />
+        <import type="com.demo.entity.DataBindingItem"/>
 
-        <import type="com.test.MyHandlers" />
+        <import type="com.test.MyHandlers"/>
 
         <variable
             name="dataBindingItem"
-            type="com.demo.entity.DataBindingItem" />
+            type="com.demo.entity.DataBindingItem"/>
 
         <variable
             name="myHandler"
-            type="com.test.MyHandlers" />
+            type="com.test.MyHandlers"/>
     </data>
 
     <ScrollView
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:text="@{dataBindingItem.title}"
-                android:textSize="27sp" />
+                android:textSize="27sp"/>
             <!--android:text="@string/content"-->
 
             <ImageView
@@ -43,7 +43,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_below="@+id/tvTitle"
-                android:background="@drawable/ic_android_blue_24dp" />
+                android:background="@drawable/ic_android_blue_24dp"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
@@ -51,17 +51,19 @@
                 android:layout_height="200dp">
 
             </android.support.v4.view.ViewPager>
+
             <ImageView
                 android:id="@+id/ivGlide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_android_blue_24dp" />
+                android:background="@drawable/ic_android_blue_24dp"/>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:onClick="@{myHandler.onClickRefresh}"
-                android:text="刷新测试" />
+                android:text="刷新测试"/>
 
             <CalendarView
                 android:layout_width="match_parent"

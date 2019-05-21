@@ -91,24 +91,24 @@ public class TestListviewMaterialActivity extends AppCompatActivity implements O
             Dialog dialog = builder.create();
             builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case 0:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedNothing);
-                            dialog.dismiss();
-                            break;
-                        case 1:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeader);
-                            dialog.dismiss();
-                            break;
-                        case 2:
-                            layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedContent);
-                            dialog.dismiss();
-                            break;
-                    }
-                }
-            });
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedNothing);
+                                    dialog.dismiss();
+                                    break;
+                                case 1:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedHeader);
+                                    dialog.dismiss();
+                                    break;
+                                case 2:
+                                    layout.getIndicatorDelegate().setFixedMode(IndicatorDelegate.FixedMode.FixedContent);
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        }
+                    });
             builder.show();
         }
     }
@@ -139,7 +139,8 @@ public class TestListviewMaterialActivity extends AppCompatActivity implements O
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestListviewMaterialActivity.this, "LongClick on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TestListviewMaterialActivity.this,
+                        "LongClick on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -147,7 +148,8 @@ public class TestListviewMaterialActivity extends AppCompatActivity implements O
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestListviewMaterialActivity.this, " Click on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TestListviewMaterialActivity.this,
+                        " Click on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
             }
         });
     }

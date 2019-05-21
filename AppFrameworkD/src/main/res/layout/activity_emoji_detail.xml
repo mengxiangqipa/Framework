@@ -31,7 +31,6 @@
                 android:background="@color/spaceline"/>
 
             <com.library.percent.PercentLinearLayout
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/bottomComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

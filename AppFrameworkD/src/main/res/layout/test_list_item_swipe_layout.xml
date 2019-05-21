@@ -16,7 +16,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/iv_delete"
@@ -25,7 +25,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/allview_pull_icon_big" />
+            android:src="@drawable/allview_pull_icon_big"/>
     </RelativeLayout>
 
     <Button
@@ -34,7 +34,7 @@
         android:layout_height="match_parent"
         android:background="#ff4a57"
         android:text="删除"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/btnTop"
@@ -42,7 +42,7 @@
         android:layout_height="match_parent"
         android:background="#d9dee4"
         android:text="置顶"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/btnUnRead"
@@ -51,7 +51,7 @@
         android:background="#ecd50a"
         android:clickable="true"
         android:text="标记未读"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
 </com.framework2.customviews.SwipeMenuView>
 

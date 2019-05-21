@@ -32,9 +32,9 @@
                 app:popupTheme="@style/HomepageStyle.PopupOverlay"/>
 
             <!--<Sin-->
-                <!--android:id="@+id/sineView"-->
-                <!--android:layout_width="300dp"-->
-                <!--android:layout_height="300dp"/>-->
+            <!--android:id="@+id/sineView"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="300dp"/>-->
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

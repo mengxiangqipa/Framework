@@ -42,7 +42,6 @@ import com.framework2.utils.CookieManagerUtil;
 import com.framework2.utils.CustomLoadingDialogUtils;
 import com.library.loadingview.LoadingIndicatorView;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

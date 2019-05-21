@@ -63,7 +63,8 @@ public class PullableGridViewActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PullableGridViewActivity.this, " Click on " + parent.getAdapter().getItemId(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PullableGridViewActivity.this, " Click on " + parent.getAdapter().getItemId(position),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

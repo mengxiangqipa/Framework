@@ -26,7 +26,7 @@ import com.framework.R;
  * @author Administrator
  * http://blog.csdn.net/lmj623565791/article/details/41967509
  */
-public class CustomRoundImageView_new extends AppCompatImageView {
+public class CustomRoundImageView extends AppCompatImageView {
     public static final int TYPE_CIRCLE = 0;
     public static final int TYPE_ROUND = 1;
     /**
@@ -78,7 +78,7 @@ public class CustomRoundImageView_new extends AppCompatImageView {
      */
     private int mBorderInsideColor = Color.parseColor("#ffffff");
 
-    public CustomRoundImageView_new(Context context, AttributeSet attrs) {
+    public CustomRoundImageView(Context context, AttributeSet attrs) {
 
         super(context, attrs);
         mMatrix = new Matrix();
@@ -88,25 +88,25 @@ public class CustomRoundImageView_new extends AppCompatImageView {
         mPaintTemp.setAntiAlias(true);
 
         TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.CustomRoundImageView_new);
+                R.styleable.CustomRoundImageView);
 
         mBorderRadius = a.getDimensionPixelSize(
-                R.styleable.CustomRoundImageView_new_borderRadius_new,
+                R.styleable.CustomRoundImageView_borderRadius_new,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         BODER_RADIUS_DEFAULT, getResources()
                                 .getDisplayMetrics()));// 默认为10dp
-        type = a.getInt(R.styleable.CustomRoundImageView_new_type_new,
+        type = a.getInt(R.styleable.CustomRoundImageView_type_new,
                 TYPE_CIRCLE);// 默认为Circle
         // 以下自己加的
         mBorderThicknessInside = a.getDimensionPixelSize(
-                R.styleable.CustomRoundImageView_new_mBorderThicknessInside, 0);
+                R.styleable.CustomRoundImageView_mBorderThicknessInside, 0);
         mBorderInsideColor = a.getColor(
-                R.styleable.CustomRoundImageView_new_mBorderInsideColor,
+                R.styleable.CustomRoundImageView_mBorderInsideColor,
                 Color.parseColor("#ffffff"));
         a.recycle();
     }
 
-    public CustomRoundImageView_new(Context context) {
+    public CustomRoundImageView(Context context) {
         this(context, null);
     }
 

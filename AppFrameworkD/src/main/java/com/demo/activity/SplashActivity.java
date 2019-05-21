@@ -13,7 +13,6 @@ import com.demo.demo.R;
 import com.framework.utils.ActivityTaskUtil;
 import com.framework.utils.ScreenUtils;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

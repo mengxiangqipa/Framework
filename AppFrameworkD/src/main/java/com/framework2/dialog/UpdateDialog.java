@@ -98,8 +98,8 @@ public class UpdateDialog extends Dialog {
                             //监听下载进度条
                             activity.getContentResolver().registerContentObserver(Uri.parse("content://downloads/"),
                                     true, new DownLoadObserver(progressHandler, activity,
-                                    PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
-                                            .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
+                                            PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
+                                                    .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
                         }
                         dismiss();
                     } else {

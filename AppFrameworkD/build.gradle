@@ -106,17 +106,17 @@ android {
             v1SigningEnabled true
             v2SigningEnabled true
         }
-//        release {
-//            try {
-//                storeFile file("AppFramework.jks")
-//                storePassword "123456"
-//                keyAlias "com.demo.appframework"
-//                keyPassword "123456"
-//                v1SigningEnabled true
-//                v2SigningEnabled true
-//            } catch (Exception e) {
-//            }
-//        }
+        release {
+            try {
+                storeFile file("AppFramework.jks")
+                storePassword "123456"
+                keyAlias "com.demo.appframework"
+                keyPassword "123456"
+                v1SigningEnabled true
+                v2SigningEnabled true
+            } catch (Exception e) {
+            }
+        }
 //        release {
 //            try {
 //                storeFile file(System.console().readLine("\n 请输入   .jks文件名： "))
@@ -143,18 +143,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
-//        release {
-//            // 不显示Log
-//            buildConfigField "boolean", "LOG_DEBUG", "false"
-//            //混淆
-//            minifyEnabled true
-//            //Zipalign优化
-//            zipAlignEnabled true
-//            // 移除无用的resource文件
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
-//        }
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
     }
     sourceSets.main {//解决NDK报错的
         jni.srcDirs = []

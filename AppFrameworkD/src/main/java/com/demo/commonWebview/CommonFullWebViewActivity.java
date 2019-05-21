@@ -20,7 +20,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,21 +32,17 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.asiainfo.iov.R;
-import com.asiainfo.iov.configs.EventBusTag;
+import com.demo.configs.EventBusTag;
+import com.demo.demo.R;
 import com.framework.utils.FileUtils;
 import com.framework.utils.ScreenUtils;
-import com.framework.utils.Y;
 import com.framework2.baseEvent.BaseOnClickListener;
-import com.framework2.customLoading.LoadingIndicatorView;
 import com.framework2.customviews.TitleView;
-
-import org.greenrobot.eventbus.EventBus;
+import com.library.loadingview.LoadingIndicatorView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -57,6 +52,7 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * 通用加载webview的activity
@@ -378,7 +374,6 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
         if (null != webView && webView.canGoBack()) {
             webView.goBack();
         } else {
-            EventBus.getDefault().post("", EventBusTag.NOTIFY_CLOSE_H5);
             finish();
         }
     }

@@ -135,7 +135,8 @@ public class PullableExpandableListViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
+                                 ViewGroup parent) {
             View view = LayoutInflater.from(context).inflate(R.layout.test_list_item_layout, null);
             TextView tv = (TextView) view.findViewById(R.id.tv);
             tv.setText(groupItems[groupPosition][childPosition]);

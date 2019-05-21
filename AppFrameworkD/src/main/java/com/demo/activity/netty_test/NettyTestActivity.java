@@ -14,7 +14,6 @@ import com.framework.utils.Y;
 import com.framework2.netty.KeepAliveClientUtil;
 import com.framework2.netty.NettyInfo;
 
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

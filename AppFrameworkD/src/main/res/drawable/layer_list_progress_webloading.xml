@@ -42,7 +42,7 @@
                     android:centerX="0.5"
                     android:endColor="#2611ff"
                     android:startColor="#26ffff"/>
-                    <!--android:centerY="0.75"-->
+                <!--android:centerY="0.75"-->
                 <!--<gradient-->
                 <!--android:startColor="#ffffd300"-->
                 <!--android:centerColor="#ffffb600"-->

@@ -170,7 +170,8 @@ public class Util {
 
             options.inJustDecodeBounds = false;
 
-            Log.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" + options.outHeight + ", sample=" + options.inSampleSize);
+            Log.i(TAG,
+                    "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" + options.outHeight + ", sample=" + options.inSampleSize);
             Bitmap bm = BitmapFactory.decodeFile(path, options);
             if (bm == null) {
                 Log.e(TAG, "bitmap decode failed");
@@ -185,7 +186,8 @@ public class Util {
             }
 
             if (crop) {
-                final Bitmap cropped = Bitmap.createBitmap(bm, (bm.getWidth() - width) >> 1, (bm.getHeight() - height) >> 1, width, height);
+                final Bitmap cropped = Bitmap.createBitmap(bm, (bm.getWidth() - width) >> 1,
+                        (bm.getHeight() - height) >> 1, width, height);
                 if (cropped == null) {
                     return bm;
                 }

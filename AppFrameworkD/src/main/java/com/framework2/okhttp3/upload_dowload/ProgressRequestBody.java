@@ -19,6 +19,7 @@ public class ProgressRequestBody extends RequestBody {
 
     private final RequestBody mRequestBody;
     private final ProgressListener progressListener;
+
     public ProgressRequestBody(RequestBody requestBody, ProgressListener progressListener) {
         this.mRequestBody = requestBody;
         this.progressListener = progressListener;

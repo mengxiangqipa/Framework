@@ -29,11 +29,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * @author xiong_it
  * @description 更多移动开发内容请关注： http://blog.csdn.net/xiong_it
  * @charset UTF-8
- * @author xiong_it
  * @date 2015-7-16下午5:41:05
- * @version
  */
 public class JsonUtils {
     public static JSONObject initSSLWithHttpClinet(String path)

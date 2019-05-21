@@ -12,7 +12,6 @@ import com.demo.demo.R;
 import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
 import com.library.pulltorefresh.pullableview.PullableListView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

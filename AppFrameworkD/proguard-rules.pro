@@ -63,7 +63,7 @@
     #如果有引用v4包可以添加下面这行
     -keep public class * extends android.support.v4.app.Fragment
     #忽略警告
-    -ignorewarning
+    -ignorewarnings
 
     #-------------记录生成的日志数据,gradle build时在本项目根目录输出##
     #apk 包内所有 class 的内部结构
@@ -323,6 +323,22 @@
     #防止这个类混淆出错 com.asiainfo.andcampus.util.TabLayoutIndicatorUtil(android.support.design.widget.TabLayout用了反射
     -keep public class  android.support.design.**{*;}
     -keep public class com.framework2.tinker.app.**{*;}#用了反射
+
+     #keep customEventBus
+      -keepclassmembers class ** {
+          @custom.org.greenrobot.eventbus.Subscribe <methods>;
+      }
+      -keep enum custom.org.greenrobot.eventbus.ThreadMode { *; }
+      # Only required if you use AsyncExecutor
+      -keepclassmembers class * extends custom.org.greenrobot.eventbus.util.ThrowableFailureEvent {
+          <init>(Java.lang.Throwable);
+      }
+      -keepclasseswithmembernames class * {
+           @Subcribe.* <fields>;
+       }
+      -keepclasseswithmembernames class * {
+           @Subcribe.* <methods>;
+       }
 
 
 
