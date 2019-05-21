@@ -5,10 +5,10 @@
         path="."/>
 </paths>
 
-<!--<resources>-->
-<!--<paths>-->
+    <!--<resources>-->
+    <!--<paths>-->
     <!--<external-path-->
-        <!--name="external_files"-->
-        <!--path=""/>-->
-<!--</paths>-->
-<!--</resources>-->
+    <!--name="external_files"-->
+    <!--path=""/>-->
+    <!--</paths>-->
+    <!--</resources>-->

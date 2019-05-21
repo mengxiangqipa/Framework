@@ -27,7 +27,6 @@ import com.library.emoji.fragment.Fragment_face_ee4;
 import com.library.emoji.util.SmileParserUtils;
 import com.library.percent.PercentLinearLayout;
 
-
 import java.util.ArrayList;
 import java.util.List;
 

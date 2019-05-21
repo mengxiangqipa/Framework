@@ -1,18 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'//应用GreenDao数据库插件，不使用GreenDao数据库，将其删除   library时必须有
 apply plugin: 'AndResGuard'//微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名
-//apply plugin: 'com.tencent.tinker.patch'//微信tinker热修复插件
 
-def date
-def buildName
-def buildVersion
 
 android {
     dataBinding {
         enabled = true
     }
-//    def date = new Date().format("yyyyMMddHHmm")
-    date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+8"))
 
     useLibrary 'org.apache.http.legacy'//用volley时需要
     //更改生成的apk名字
@@ -20,16 +14,14 @@ android {
     project.android.productFlavors.each { flavor ->
         flavors.add(flavor.name)
     }
+    def date = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))
     boolean hasFlavors = flavors.size() > 0
-
-    applicationVariants.all {
-        variant ->
-            variant.outputs.all {
-                buildName = "${project.getName()}-${buildType.name}"
-                buildVersion = defaultConfig.versionName
-                outputFileName = "${buildName}-${defaultConfig.versionName}-${date}.apk"
-            }
-    }
+//    applicationVariants.all {
+//        variant ->
+//            variant.outputs.all {
+//                outputFileName = "${project.name}_${buildType.name}-${defaultConfig.versionName}-${date}.apk"
+//            }
+//    }
 //    android.applicationVariants.all { variant ->
 //        variant.outputs.each { output ->
 //            def fileName = hasFlavors ? "${project.name}-${buildType.name}-${defaultConfig.versionName}-${defaultConfig.versionCode}" + "-${variant.flavorName}" + ".apk"
@@ -69,6 +61,19 @@ android {
         //todo 修改版本或者使用Tinker功能时需要修改versionName
         versionName "1.0.000000000000"
 //        versionName "1.0." + "${date}"
+
+
+        //        configurations.all {
+//            resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//                def requested = details.requested
+//                if (requested.group == 'com.android.support') {
+//                    if (!requested.name.startsWith("multidex")) {
+//                        details.useVersion '26.0.1'
+//                    }
+//                }
+//            }
+//        }
+
         // dex突破65536的限制
         multiDexEnabled true
         resConfigs "zh"
@@ -135,11 +140,11 @@ android {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
-            minifyEnabled true
+            minifyEnabled false
             //Zipalign优化
-            zipAlignEnabled true
+            zipAlignEnabled false
             // 移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -165,6 +170,10 @@ android {
     }
 }
 
+ext {
+    FrameworkVersion = '2.2.1'
+    TINKER_VERSION = '1.9.1'
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -193,52 +202,56 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
 
-    //自定义library
-    implementation "com.github.mengxiangqipa.Framework:Library-Android-Base:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-Adapter:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-AndroidVideoCache:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-CameraFilter:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-ClipPicView:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-CropPicture:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-Emoji:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-EventBus:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-FrameworkFramework:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-Loadingview:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-MPAndroidChart:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-PercentLayout:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-Pulltorefresh:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-SlideFinish:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-Videoview:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-Scan:${FrameworkVersion}"
+    //    //自定义library
     implementation files('libs/ClipPicView_noSource.jar')
     implementation files('libs/open_sdk_r5788_lite.jar')
 
+    api project(':Libraries:Library-Adapter')
+    api project(':Libraries:Library-Android-Base')
+    api project(':Libraries:Library-AndroidVideoCache')
+    api project(':Libraries:Library-CameraFilter')
+    api project(':Libraries:Library-ClipPicView')
+    api project(':Libraries:Library-CropPicture')
+    api project(':Libraries:Library-Emoji')
+    api project(':Libraries:Library-EventBus')
+    api project(':Libraries:Library-FrameworkFramework')
+    api project(':Libraries:Library-Loadingview')
+    api project(':Libraries:Library-MPAndroidChart')
+    api project(':Libraries:Library-Network')
+    api project(':Libraries:Library-PercentLayout')
+    api project(':Libraries:Library-Pulltorefresh')
+    api project(':Libraries:Library-Scan')
+    api project(':Libraries:Library-SlideFinish')
+    api project(':Libraries:Library-Videoview')
+
     //微信授权登录
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-    implementation files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    api files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
 
     // 我是netty
-    implementation 'io.netty:netty-all:5.0.0.Alpha2'
+    api 'io.netty:netty-all:5.0.0.Alpha2'
 
     //    //三方百分比
-
-    //    implementation 'com.zhy:percent-support-extends:1.1.1'
+    //    compile 'com.zhy:percent-support-extends:1.1.1'
 
     /** tinker    */
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
     annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
-    compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+//    compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+    implementation("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+
     //支持multidex
     api 'com.android.support:multidex:1.0.3'
 
     /** tinker    */
     implementation files('libs/pinyin4j-2.5.0.jar')
+
 }
 
 //微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名
 andResGuard {
-    //TODO 使用Tinker需要上一次的mappingFile
+    //todo 使用Tinker需要上一次的mappingFile
     //Tinker时需要mappingFile
     mappingFile = file("${buildDir}/bakApk/resguard/AppFramework-release-2017-06-09_14-24-06-resource_mapping.txt")
 //    mappingFile = null
@@ -321,23 +334,14 @@ ext {
     //todo andResGuard--mappingFile = file("${buildDir}/bakApk/resguard/AppFramework-release-2017-06-09_14-00-15-resource_mapping.txt")//Tinker时需要mappingFile
     //for normal build 用了7zip需要添加/resguard，否则不加
     //old apk file to build patch apk   = "${bakPath}/app-debug-2017-06-08_14-16-11.apk"
-//    tinkerOldApkPath = "${bakPath}/resguard/AppFramework-release-2017-06-09_14-24-06.apk"
-//    //proguard mapping file to build patch apk   = "${bakPath}/app-debug-2017-06-08_14-16-11-mapping.apk"
-//    tinkerApplyMappingPath = "${bakPath}/resguard/AppFramework-release-2017-06-09_14-24-06-mapping.txt"
-//    //resource R.txt to build patch apk, must input if there is resource changed   ="${bakPath}/app-debug-2017-06-08_14-16-11-R.apk"
-//    tinkerApplyResourcePath = "${bakPath}/resguard/AppFramework-release-2017-06-09_14-24-06-R.txt"
+    tinkerOldApkPath = "${bakPath}/resguard/AppFramework-release-2017-06-09_14-24-06.apk"
+    //proguard mapping file to build patch apk   = "${bakPath}/app-debug-2017-06-08_14-16-11-mapping.apk"
+    tinkerApplyMappingPath = "${bakPath}/resguard/AppFramework-release-2017-06-09_14-24-06-mapping.txt"
+    //resource R.txt to build patch apk, must input if there is resource changed   ="${bakPath}/app-debug-2017-06-08_14-16-11-R.apk"
+    tinkerApplyResourcePath = "${bakPath}/resguard/AppFramework-release-2017-06-09_14-24-06-R.txt"
 
     //only use for build all flavor, if not, just ignore this field  ="${bakPath}/app-debug-2017-06-08_14-16-11"
-    tinkerBuildFlavorDirectory = "${bakPath}/flavor"
-
-    //TEST
-//    tinkerOldApkPath = "${bakPath}/resguard/${bakPath}/app-release-20190130-2.2.1-20190130.apk"
-//    tinkerApplyMappingPath = "${bakPath}/resguard/app-release-20190130-mapping.txt"
-//    tinkerApplyResourcePath = "${bakPath}/resguard/app-release-20190130-R.txt"
-
-    tinkerOldApkPath = "${bakPath}/app-release-20190130-2.2.1-20190130.apk"
-    tinkerApplyMappingPath = "${bakPath}/app-release-20190130-mapping.txt"
-    tinkerApplyResourcePath = "${bakPath}/app-release-20190130-R.txt"
+    tinkerBuildFlavorDirectory = "${bakPath}/app-debug-2017-06-08_14-16-11"
 }
 
 
@@ -565,7 +569,7 @@ if (buildWithTinker()) {
         flavors.add(flavor.name)
     }
     boolean hasFlavors = flavors.size() > 0
-    def dateTinker = new Date().format("yyyy-MM-dd_HH-mm-ss")
+    def date = new Date().format("yyyy-MM-dd_HH-mm-ss")
 
     /**
      * bak apk and mapping
@@ -577,8 +581,6 @@ if (buildWithTinker()) {
         def taskName = variant.name
 
         tasks.all {
-            def andResDir = "${buildDir}/outputs/apk/${taskName}/AndResGuard_${project.getName()}-${taskName}-${variant.mergedFlavor.versionName}-${date}"
-            def apkPrefix = "${project.getName()}-${taskName}-${variant.mergedFlavor.versionName}-${date}"
             /**<---以下  我的Tinker添加7zip   我的Tinker添加7zip------------------->*/
             if (variant.buildType.name == 'release') {
                 if ("tinkerPatch${taskName.capitalize()}".equalsIgnoreCase(it.name)) {
@@ -591,42 +593,40 @@ if (buildWithTinker()) {
                     }
                     it.doFirst({
                         // change build apk path
-                        it.buildApkPath = "${andResDir}/${apkPrefix}_signed_7zip_aligned.apk"
+                        it.buildApkPath = "${buildDir}/outputs/apk/AndResGuard_${project.getName()}-${taskName}/${project.getName()}-${taskName}_aligned_signed.apk"
                     })
-                    it.dependsOn resguardTask // change task dependence to resguard task
+                    // change task dependence to resguard task
+                    it.dependsOn resguardTask
                 }
 
-                //TODO tinkerPatch时需注释，防止覆盖
-//                if (it.name.contains("resguard")) {
-//                    it.doLast {
-//                        copy {
-//                            //outputs/apk/release/AndResGuard_app-release-2.1.1-20190130/app-release-2.1.1-20190130_aligned_signed.apk
-//                            from "${andResDir}/${apkPrefix}_signed_7zip_aligned.apk"
-//                            into file(bakPath.absolutePath + "/resguard")
-//                            rename { String fileName ->
-//                                fileName.replace("${project.getName()}-${taskName}_signed_7zip_aligned.apk", "${project.getName()}-${taskName}-${date}.apk")
-//                            }
-//
-//                            from "${buildDir}/outputs/mapping/${taskName}/mapping.txt"
-//                            into file(bakPath.absolutePath + "/resguard")
-//                            rename { String fileName ->
-//                                fileName.replace("mapping.txt", "${project.getName()}-${taskName}-${date}-mapping.txt")
-//                            }
-//
-//                            from "${buildDir}/intermediates/symbols/${taskName}/R.txt"
-//                            into file(bakPath.absolutePath + "/resguard")
-//                            rename { String fileName ->
-//                                fileName.replace("R.txt", "${project.getName()}-${taskName}-${date}-R.txt")
-//                            }
-//
-//                            from "${andResDir}/resource_mapping_${apkPrefix}.txt"
-//                            into file(bakPath.absolutePath + "/resguard")
-////                            rename { String fileName ->
-////                                fileName.replace("resource_mapping_${apkPrefix}.txt", "${project.getName()}-${taskName}-${date}-resource_mapping.txt")
-////                            }
-//                        }
-//                    }
-//                }
+                if (it.name.contains("resguard")) {
+                    it.doLast {
+                        copy {
+                            from "${buildDir}/outputs/apk/AndResGuard_${project.getName()}-${taskName}/${project.getName()}-${taskName}_aligned_signed.apk"
+                            into file(bakPath.absolutePath + "/resguard")
+                            rename { String fileName ->
+                                fileName.replace("${project.getName()}-${taskName}_aligned_signed.apk", "${project.getName()}-${taskName}-${date}.apk")
+                            }
+
+                            from "${buildDir}/outputs/mapping/${taskName}/mapping.txt"
+                            into file(bakPath.absolutePath + "/resguard")
+                            rename { String fileName ->
+                                fileName.replace("mapping.txt", "${project.getName()}-${taskName}-${date}-mapping.txt")
+                            }
+
+                            from "${buildDir}/intermediates/symbols/${taskName}/R.txt"
+                            into file(bakPath.absolutePath + "/resguard")
+                            rename { String fileName ->
+                                fileName.replace("R.txt", "${project.getName()}-${taskName}-${date}-R.txt")
+                            }
+                            from "${buildDir}/outputs/apk/AndResGuard_${project.getName()}-${taskName}/resource_mapping_${project.getName()}-release.txt"
+                            into file(bakPath.absolutePath + "/resguard")
+                            rename { String fileName ->
+                                fileName.replace("resource_mapping_${project.getName()}-release.txt", "${project.getName()}-${taskName}-${date}-resource_mapping.txt")
+                            }
+                        }
+                    }
+                }
             }
             /**<---以上  我的Tinker添加7zip   我的Tinker添加7zip------------------->*/
 
@@ -636,10 +636,11 @@ if (buildWithTinker()) {
                     copy {
                         def fileNamePrefix = "${project.name}-${variant.baseName}"
                         def newFileNamePrefix = hasFlavors ? "${fileNamePrefix}" : "${fileNamePrefix}-${date}"
-
                         def destPath = hasFlavors ? file("${bakPath}/${project.name}-${date}/${variant.flavorName}") : bakPath
 
                         from variant.outputs.first().outputFile
+//                        from variant.outputs.outputFile
+
                         into destPath
                         rename { String fileName ->
                             fileName.replace("${fileNamePrefix}", "${newFileNamePrefix}")
@@ -662,7 +663,6 @@ if (buildWithTinker()) {
             /**<---以上Tinker无7zip复制备份发到bakApk------------------------------->*/
         }
     }
-
     project.afterEvaluate {
         //sample use for build all flavor for one time
         if (hasFlavors) {

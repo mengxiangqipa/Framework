@@ -36,7 +36,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
 import com.framework.utils.FileUtils;
 import com.framework.utils.ScreenUtils;
@@ -52,7 +51,6 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * 通用加载webview的activity
