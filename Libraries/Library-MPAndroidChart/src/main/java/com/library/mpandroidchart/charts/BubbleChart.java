@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.content.Context;

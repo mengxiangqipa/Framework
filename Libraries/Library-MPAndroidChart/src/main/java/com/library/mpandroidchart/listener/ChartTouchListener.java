@@ -109,7 +109,6 @@ public abstract class ChartTouchListener<T extends Chart<?>> extends GestureDete
         return mLastGesture;
     }
 
-
     /**
      * Perform a highlight operation.
      *

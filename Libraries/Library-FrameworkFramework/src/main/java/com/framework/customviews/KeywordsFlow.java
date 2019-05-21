@@ -84,7 +84,8 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener 
     private Random random;
 
     /**
-     * */
+     *
+     */
     private int txtAnimInType, txtAnimOutType;
     /**
      * 最近一次启动动画显示的时间。

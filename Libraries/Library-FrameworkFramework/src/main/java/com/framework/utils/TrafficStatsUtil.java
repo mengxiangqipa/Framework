@@ -45,6 +45,7 @@ public class TrafficStatsUtil {
      * 上一次记录网络字节流
      */
     private long preRxBytes = 0;
+
     public TrafficStatsUtil() {
     }
 

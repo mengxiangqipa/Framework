@@ -3,29 +3,29 @@
 
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <corners android:radius="2dp" />
-            <solid android:color="#44BF1A" />
+            <corners android:radius="2dp"/>
+            <solid android:color="#44BF1A"/>
         </shape>
     </item>
 
     <item android:state_enabled="true">
         <shape android:shape="rectangle">
-            <corners android:radius="2dp" />
-            <solid android:color="#44BF1A" />
+            <corners android:radius="2dp"/>
+            <solid android:color="#44BF1A"/>
         </shape>
     </item>
 
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <corners android:radius="2dp" />
-            <solid android:color="#337523" />
+            <corners android:radius="2dp"/>
+            <solid android:color="#337523"/>
         </shape>
     </item>
 
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="2dp" />
-            <solid android:color="#337523" />
+            <corners android:radius="2dp"/>
+            <solid android:color="#337523"/>
         </shape>
     </item>
 

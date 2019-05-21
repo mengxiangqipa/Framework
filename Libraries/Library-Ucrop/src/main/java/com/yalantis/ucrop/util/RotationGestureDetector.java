@@ -107,5 +107,4 @@ public class RotationGestureDetector {
 
         boolean onRotation(RotationGestureDetector rotationDetector);
     }
-
 }

@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.buffer;
 
 import com.library.mpandroidchart.data.Entry;
@@ -6,7 +5,7 @@ import com.library.mpandroidchart.data.Entry;
 import java.util.List;
 
 public class ScatterBuffer extends AbstractBuffer<Entry> {
-    
+
     public ScatterBuffer(int size) {
         super(size);
     }
@@ -18,15 +17,15 @@ public class ScatterBuffer extends AbstractBuffer<Entry> {
 
     @Override
     public void feed(List<Entry> entries) {
-        
+
         float size = entries.size() * phaseX;
-        
+
         for (int i = 0; i < size; i++) {
 
             Entry e = entries.get(i);
             addForm(e.getXIndex(), e.getVal() * phaseY);
         }
-        
+
         reset();
     }
 }

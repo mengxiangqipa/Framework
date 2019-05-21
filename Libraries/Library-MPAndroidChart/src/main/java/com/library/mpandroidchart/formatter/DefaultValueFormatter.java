@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.formatter;
 
 import com.library.mpandroidchart.data.Entry;
@@ -14,13 +13,15 @@ import java.text.DecimalFormat;
  */
 public class DefaultValueFormatter implements ValueFormatter {
 
-    /** decimalformat for formatting */
+    /**
+     * decimalformat for formatting
+     */
     private DecimalFormat mFormat;
 
     /**
      * Constructor that specifies to how many digits the value should be
      * formatted.
-     * 
+     *
      * @param digits
      */
     public DefaultValueFormatter(int digits) {

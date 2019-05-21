@@ -335,7 +335,8 @@ public class PullableListView2 extends ListView implements Pullable {
         deltaY = (int) Math.abs(deltaY * Math.cos(Math.PI * (deltaY + scrollY) / mMaxYOverscrollDistance));
         mScrollY = scrollY;
         isTouch = isTouchEvent;
-        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, mMaxYOverscrollDistance, isTouchEvent);
+        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX,
+                mMaxYOverscrollDistance, isTouchEvent);
     }
 
     @SuppressLint("NewApi")

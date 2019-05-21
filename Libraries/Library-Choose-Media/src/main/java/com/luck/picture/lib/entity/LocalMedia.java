@@ -101,7 +101,6 @@ public class LocalMedia implements Parcelable {
         this.duration = duration;
     }
 
-
     public boolean isChecked() {
         return isChecked;
     }

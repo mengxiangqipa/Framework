@@ -36,12 +36,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"/>
+
         <Button
             android:id="@+id/btn"
             android:layout_gravity="bottom"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:text="放大" />
+            android:text="放大"/>
     </FrameLayout>
 
 </LinearLayout>

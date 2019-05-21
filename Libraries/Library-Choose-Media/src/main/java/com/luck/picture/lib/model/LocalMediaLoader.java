@@ -22,7 +22,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-
 /**
  * author：luck
  * project：LocalMediaLoader
@@ -109,7 +108,8 @@ public class LocalMediaLoader {
                         CursorLoader cursorLoader = null;
                         switch (id) {
                             case PictureConfig.TYPE_ALL:
-                                String all_condition = getSelectionArgsForAllMediaCondition(getDurationCondition(0, 0), isGif);
+                                String all_condition = getSelectionArgsForAllMediaCondition(getDurationCondition(0,
+                                        0), isGif);
                                 cursorLoader = new CursorLoader(
                                         activity, QUERY_URI,
                                         PROJECTION, all_condition,
@@ -117,7 +117,8 @@ public class LocalMediaLoader {
                                 break;
                             case PictureConfig.TYPE_IMAGE:
                                 // 只获取图片
-                                String[] MEDIA_TYPE_IMAGE = getSelectionArgsForSingleMediaType(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
+                                String[] MEDIA_TYPE_IMAGE =
+                                        getSelectionArgsForSingleMediaType(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
                                 cursorLoader = new CursorLoader(
                                         activity, QUERY_URI,
                                         PROJECTION, isGif ? SELECTION : SELECTION_NOT_GIF, MEDIA_TYPE_IMAGE
@@ -125,15 +126,20 @@ public class LocalMediaLoader {
                                 break;
                             case PictureConfig.TYPE_VIDEO:
                                 // 只获取视频
-                                String video_condition = getSelectionArgsForSingleMediaCondition(getDurationCondition(0, 0));
-                                String[] MEDIA_TYPE_VIDEO = getSelectionArgsForSingleMediaType(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO);
+                                String video_condition =
+                                        getSelectionArgsForSingleMediaCondition(getDurationCondition(0, 0));
+                                String[] MEDIA_TYPE_VIDEO =
+                                        getSelectionArgsForSingleMediaType(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO);
                                 cursorLoader = new CursorLoader(
                                         activity, QUERY_URI, PROJECTION, video_condition, MEDIA_TYPE_VIDEO
                                         , ORDER_BY);
                                 break;
                             case PictureConfig.TYPE_AUDIO:
-                                String audio_condition = getSelectionArgsForSingleMediaCondition(getDurationCondition(0, AUDIO_DURATION));
-                                String[] MEDIA_TYPE_AUDIO = getSelectionArgsForSingleMediaType(MediaStore.Files.FileColumns.MEDIA_TYPE_AUDIO);
+                                String audio_condition =
+                                        getSelectionArgsForSingleMediaCondition(getDurationCondition(0,
+                                                AUDIO_DURATION));
+                                String[] MEDIA_TYPE_AUDIO =
+                                        getSelectionArgsForSingleMediaType(MediaStore.Files.FileColumns.MEDIA_TYPE_AUDIO);
                                 cursorLoader = new CursorLoader(
                                         activity, QUERY_URI, PROJECTION, audio_condition, MEDIA_TYPE_AUDIO
                                         , ORDER_BY);
@@ -268,7 +274,6 @@ public class LocalMediaLoader {
                 Math.max(exMinLimit, videoMinS) == 0 ? "" : "=",
                 maxS);
     }
-
 
     public interface LocalMediaLoadListener {
         void loadComplete(List<LocalMediaFolder> folders);

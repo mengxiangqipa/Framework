@@ -159,7 +159,8 @@ public class MaterialPullToRefreshLayout extends BaseAbstractPullToRefreshLayout
         footer.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
         footer.setMinimumHeight((int) indicator.getRefreshDistance());
         RelativeLayout relativeLayout = new RelativeLayout(getContext());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         relativeLayout.setLayoutParams(params);
         relativeLayout.addView(footer, params);

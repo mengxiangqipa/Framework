@@ -80,7 +80,6 @@ public class RomUtils {
         return false;
     }
 
-
     public static int getMIUIVersionCode() {
         String miuiVersionCodeStr = getSystemProperty("ro.miui.ui.version.code");
         int miuiVersionCode = 0;
@@ -101,7 +100,6 @@ public class RomUtils {
         }
         return false;
     }
-
 
     /**
      * Android Api 23以上

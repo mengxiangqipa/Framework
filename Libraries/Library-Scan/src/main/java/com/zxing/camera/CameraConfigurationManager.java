@@ -60,11 +60,13 @@ final class CameraConfigurationManager {
 //            if (Integer.parseInt(Build.VERSION.SDK) >= 8) {// 判断系统版本是否大于等于2.2
 //                camera.setDisplayOrientation(90);// 旋转90°，前提是当前页portrait，纵向
 //            } else {// 系统版本在2.2以下的采用下面的方式旋转
-//                if (this.context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+//                if (this.context.getResources().getConfiguration().orientation == Configuration
+//                .ORIENTATION_PORTRAIT) {
 //                    parameters.set("orientation", "portrait");
 //                    parameters.set("rotation", 90);
 //                }
-//                if (this.context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                if (this.context.getResources().getConfiguration().orientation == Configuration
+//                .ORIENTATION_LANDSCAPE) {
 //                    parameters.set("orientation", "landscape");
 //                    parameters.set("rotation", 90);
 //                }
@@ -79,13 +81,14 @@ final class CameraConfigurationManager {
         //二
 //            screenResolution = new Point(480, 800);
         if (CameraManager.getViewfinderScreenWidth() > 50 && CameraManager.getViewfinderScreenHeight() > 50) {
-            screenResolution = new Point(CameraManager.getViewfinderScreenWidth(), CameraManager.getViewfinderScreenHeight());
+            screenResolution = new Point(CameraManager.getViewfinderScreenWidth(),
+                    CameraManager.getViewfinderScreenHeight());
         } else if (CameraManager.getFrameWidth() > 0 && CameraManager.getFrameHeight() > 0) {
 //            screenResolution = new Point(CameraManager.getFrameWidth(), CameraManager.getFrameHeight());
-            int width=Math.max(CameraManager.getFrameWidth(),CameraManager.getFrameHeight());
-            screenResolution = new Point(width,width * display.getHeight() / display.getWidth());
-        } else if (CameraManager.getMaxFrameWidth() > 0&&CameraManager.getMaxFrameHeight() > 0) {
-            int width=Math.max(CameraManager.getMaxFrameWidth(),CameraManager.getMaxFrameHeight());
+            int width = Math.max(CameraManager.getFrameWidth(), CameraManager.getFrameHeight());
+            screenResolution = new Point(width, width * display.getHeight() / display.getWidth());
+        } else if (CameraManager.getMaxFrameWidth() > 0 && CameraManager.getMaxFrameHeight() > 0) {
+            int width = Math.max(CameraManager.getMaxFrameWidth(), CameraManager.getMaxFrameHeight());
             screenResolution = new Point(width, width * display.getHeight() / display.getWidth());
         } else if (null != viewfinderView) {
             int width = viewfinderView.getWidth();
@@ -207,7 +210,6 @@ final class CameraConfigurationManager {
                 bestY = newY;
                 diff = newDiff;
             }
-
         }
 
         if (bestX > 0 && bestY > 0) {
@@ -332,5 +334,4 @@ final class CameraConfigurationManager {
         } catch (Exception e1) {
         }
     }
-
 }

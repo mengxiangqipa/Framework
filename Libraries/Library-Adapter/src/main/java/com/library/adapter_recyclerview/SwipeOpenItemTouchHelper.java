@@ -51,7 +51,7 @@ import java.util.List;
  * Adapted from and based off of Google's {@link ItemTouchHelper}
  */
 public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implements RecyclerView
-		.OnChildAttachStateChangeListener {
+        .OnChildAttachStateChangeListener {
 
     /**
      * Up direction, used for swipe to open
@@ -329,7 +329,7 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
                 if (openedPositions.size() > 0) {
                     for (int i = 0; i < openedPositions.size(); i++) {
                         RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition
-								(openedPositions.keyAt(i));
+                                (openedPositions.keyAt(i));
                         if (holder instanceof SwipeOpenViewHolder) {
                             closeOpenHolder((SwipeOpenViewHolder) holder);
                         }
@@ -412,7 +412,7 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
 //		isRtl = resources.getBoolean(R.bool.rtl_enabled);
         if (recyclerView.getAdapter() == null) {
             throw new IllegalStateException("SwipeOpenItemTouchHelper.attachToRecyclerView must be called after " +
-					"the RecyclerView's adapter has been set.");
+                    "the RecyclerView's adapter has been set.");
         } else {
             recyclerView.getAdapter().registerAdapterDataObserver(adapterDataObserver);
         }
@@ -496,7 +496,7 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
                 .getEndHiddenViewSize() == 0f))) {
             return true;
         } else if (translationX < 0f && ((!isRtl && holder.getEndHiddenViewSize() == 0f) ^ (isRtl && holder
-				.getStartHiddenViewSize() == 0f))) {
+                .getStartHiddenViewSize() == 0f))) {
             return true;
         }
         return false;
@@ -542,10 +542,10 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
         if (closeOnAction && openedPositions.size() > 0) {
             for (int i = 0; i < openedPositions.size(); i++) {
                 RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(openedPositions.keyAt
-						(i));
+                        (i));
                 // if our selected isn't the opened position, close it
                 if (holder instanceof SwipeOpenViewHolder && (selected == null || holder.getAdapterPosition() !=
-						selected.getViewHolder().getAdapterPosition())) {
+                        selected.getViewHolder().getAdapterPosition())) {
                     closeOpenHolder((SwipeOpenViewHolder) holder);
                 }
                 openedPositions.removeAt(i);
@@ -566,7 +566,7 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
                 final float currentTranslateY = tmpPosition[1];
                 // only need to check if we need a recover animation for non-zero translation views
                 if (ViewCompat.getTranslationX(prevSelected.getSwipeView()) != 0 || ViewCompat.getTranslationY
-						(prevSelected.getSwipeView()) != 0) {
+                        (prevSelected.getSwipeView()) != 0) {
                     final float absTranslateX = Math.abs(currentTranslateX);
                     final float absTranslateY = Math.abs(currentTranslateY);
                     final SavedOpenState state;
@@ -627,10 +627,10 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
                     }
 
                     final RecoverAnimation rv = new RecoverAnimation(prevSelected, prevActionState,
-							currentTranslateX, currentTranslateY, targetTranslateX,
+                            currentTranslateX, currentTranslateY, targetTranslateX,
                             targetTranslateY);
                     final long duration = callback.getAnimationDuration(recyclerView, ANIMATION_TYPE_SWIPE,
-							targetTranslateX - currentTranslateX,
+                            targetTranslateX - currentTranslateX,
                             targetTranslateY - currentTranslateY);
                     rv.setDuration(duration);
                     recoverAnimations.add(rv);
@@ -647,12 +647,12 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
         }
         if (selected != null) {
             selectedFlags = (callback.getAbsMovementFlags(recyclerView, selected.getViewHolder()) & actionStateMask)
-					>> (this.actionState
+                    >> (this.actionState
                     * DIRECTION_FLAG_COUNT);
             selectedStartX = selected.getViewHolder().itemView.getLeft() + ViewCompat.getTranslationX(selected
-					.getSwipeView());
+                    .getSwipeView());
             selectedStartY = selected.getViewHolder().itemView.getTop() + ViewCompat.getTranslationY(selected
-					.getSwipeView());
+                    .getSwipeView());
             this.selected = selected;
         }
         final ViewParent rvParent = recyclerView.getParent();
@@ -691,12 +691,12 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
                 }
 
                 ViewCompat.setTranslationX(swipeHolder.getSwipeView(), state == SavedOpenState.START_OPEN ?
-						swipeHolder.getStartHiddenViewSize() * rtlFlipStart
+                        swipeHolder.getStartHiddenViewSize() * rtlFlipStart
                         : swipeHolder.getEndHiddenViewSize() * rtlFlipEnd);
             } else {
                 ViewCompat.setTranslationY(swipeHolder.getSwipeView(),
                         state == SavedOpenState.START_OPEN ? swipeHolder.getStartHiddenViewSize() : swipeHolder
-								.getEndHiddenViewSize() * -1);
+                                .getEndHiddenViewSize() * -1);
             }
         }
     }
@@ -790,7 +790,7 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
         final float translationY = ViewCompat.getTranslationY(swipeView);
         final RecoverAnimation rv = new RecoverAnimation(holder, 0, translationX, translationY, 0, 0);
         final long duration = callback.getAnimationDuration(recyclerView, ANIMATION_TYPE_SWIPE, translationX,
-				translationY);
+                translationY);
         rv.setDuration(duration);
         recoverAnimations.add(rv);
         rv.start();
@@ -982,14 +982,14 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
     private int checkPreviousSwipeDirection(RecyclerView.ViewHolder viewHolder) {
         final int originalMovementFlags = callback.getMovementFlags(recyclerView, viewHolder);
         final int absoluteMovementFlags = callback.convertToAbsoluteDirection(originalMovementFlags, ViewCompat
-				.getLayoutDirection(recyclerView));
+                .getLayoutDirection(recyclerView));
         final int flags = (absoluteMovementFlags & ACTION_MODE_SWIPE_MASK) >> (ACTION_STATE_SWIPE *
-				DIRECTION_FLAG_COUNT);
+                DIRECTION_FLAG_COUNT);
         if (flags == 0) {
             return 0;
         }
         final int originalFlags = (originalMovementFlags & ACTION_MODE_SWIPE_MASK) >> (ACTION_STATE_SWIPE *
-				DIRECTION_FLAG_COUNT);
+                DIRECTION_FLAG_COUNT);
         int swipeDir;
         if (Math.abs(dX) > Math.abs(dY)) {
             if ((swipeDir = checkHorizontalSwipe(flags)) > 0) {
@@ -1096,7 +1096,7 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
 
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
-				target) {
+                target) {
             // do not use
             return false;
         }
@@ -1180,7 +1180,8 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
             }
         }
 
-        private void onDrawOver(Canvas c, RecyclerView parent, SwipeOpenViewHolder selected, List<RecoverAnimation> recoverAnimationList, int actionState,
+        private void onDrawOver(Canvas c, RecyclerView parent, SwipeOpenViewHolder selected,
+                                List<RecoverAnimation> recoverAnimationList, int actionState,
                                 float dX, float dY) {
             final int recoverAnimSize = recoverAnimationList.size();
             boolean hasRunningAnimation = false;
@@ -1201,12 +1202,15 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
             getDefaultUIUtil().clearView(viewHolder.getSwipeView());
         }
 
-        public void onChildDraw(Canvas c, RecyclerView recyclerView, SwipeOpenViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+        public void onChildDraw(Canvas c, RecyclerView recyclerView, SwipeOpenViewHolder viewHolder, float dX,
+                                float dY, boolean isCurrentlyActive) {
             // handle the draw
-            getDefaultUIUtil().onDraw(c, recyclerView, viewHolder.getSwipeView(), dX, dY, ACTION_STATE_SWIPE, isCurrentlyActive);
+            getDefaultUIUtil().onDraw(c, recyclerView, viewHolder.getSwipeView(), dX, dY, ACTION_STATE_SWIPE,
+                    isCurrentlyActive);
         }
 
-        public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy) {
+        public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx,
+                                         float animateDy) {
             final RecyclerView.ItemAnimator itemAnimator = recyclerView.getItemAnimator();
             if (itemAnimator == null) {
                 return DEFAULT_SWIPE_ANIMATION_DURATION;
@@ -1273,7 +1277,8 @@ public class SwipeOpenItemTouchHelper extends RecyclerView.ItemDecoration implem
 
         private float mFraction;
 
-        public RecoverAnimation(SwipeOpenViewHolder viewHolder, int actionState, float startDx, float startDy, float targetX, float targetY) {
+        public RecoverAnimation(SwipeOpenViewHolder viewHolder, int actionState, float startDx, float startDy,
+                                float targetX, float targetY) {
             mActionState = actionState;
             mViewHolder = viewHolder;
             mStartDx = startDx;

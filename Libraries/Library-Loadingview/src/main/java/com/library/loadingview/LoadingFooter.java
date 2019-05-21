@@ -169,7 +169,8 @@ public class LoadingFooter extends RelativeLayout {
                 }
 
                 mNetworkErrorView.setVisibility(showView ? VISIBLE : GONE);
-                mNoNetWorkText.setText(TextUtils.isEmpty(noNetWorkHint) ? getResources().getString(R.string.footer_network_error) : noNetWorkHint);
+                mNoNetWorkText.setText(TextUtils.isEmpty(noNetWorkHint) ?
+                        getResources().getString(R.string.footer_network_error) : noNetWorkHint);
 
                 break;
             default:

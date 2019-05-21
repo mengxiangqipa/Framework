@@ -97,7 +97,7 @@ public class KeyBoardUtil {
      *
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull Context context,final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to = 1920 * 2) int
             softKeyboardHeight) {
         return isKeyboardShown((((Activity) context).getWindow().getDecorView()), softKeyboardHeight);
     }

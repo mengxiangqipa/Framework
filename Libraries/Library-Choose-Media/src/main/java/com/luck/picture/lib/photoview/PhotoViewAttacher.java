@@ -104,15 +104,15 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             mSuppMatrix.postTranslate(dx, dy);
             checkAndDisplayMatrix();
 
-        /*
-         * Here we decide whether to let the ImageView's parent to start taking
-         * over the touch event.
-         *
-         * First we check whether this function is enabled. We never want the
-         * parent to take over if we're scaling. We then check the edge we're
-         * on, and the direction of the scroll (i.e. if we're pulling against
-         * the edge, aka 'overscrolling', let the parent take over).
-         */
+            /*
+             * Here we decide whether to let the ImageView's parent to start taking
+             * over the touch event.
+             *
+             * First we check whether this function is enabled. We never want the
+             * parent to take over if we're scaling. We then check the edge we're
+             * on, and the direction of the scroll (i.e. if we're pulling against
+             * the edge, aka 'overscrolling', let the parent take over).
+             */
             ViewParent parent = mImageView.getParent();
             if (mAllowParentInterceptOnEdge && !mScaleDragDetector.isScaling() && !mBlockParentIntercept) {
                 if (mScrollEdge == EDGE_BOTH
@@ -333,7 +333,8 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     }
 
     @Override
-    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
+                               int oldRight, int oldBottom) {
         // Update our base matrix, as the bounds have changed
         if (left != oldLeft || top != oldTop || right != oldRight || bottom != oldBottom) {
             updateBaseMatrix(mImageView.getDrawable());
@@ -398,7 +399,6 @@ public class PhotoViewAttacher implements View.OnTouchListener,
             if (mGestureDetector != null && mGestureDetector.onTouchEvent(ev)) {
                 handled = true;
             }
-
         }
 
         return handled;
@@ -633,19 +633,16 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         if (mScaleType == ScaleType.CENTER) {
             mBaseMatrix.postTranslate((viewWidth - drawableWidth) / 2F,
                     (viewHeight - drawableHeight) / 2F);
-
         } else if (mScaleType == ScaleType.CENTER_CROP) {
             float scale = Math.max(widthScale, heightScale);
             mBaseMatrix.postScale(scale, scale);
             mBaseMatrix.postTranslate((viewWidth - drawableWidth * scale) / 2F,
                     (viewHeight - drawableHeight * scale) / 2F);
-
         } else if (mScaleType == ScaleType.CENTER_INSIDE) {
             float scale = Math.min(1.0f, Math.min(widthScale, heightScale));
             mBaseMatrix.postScale(scale, scale);
             mBaseMatrix.postTranslate((viewWidth - drawableWidth * scale) / 2F,
                     (viewHeight - drawableHeight * scale) / 2F);
-
         } else {
             RectF mTempSrc = new RectF(0, 0, drawableWidth, drawableHeight);
             RectF mTempDst = new RectF(0, 0, viewWidth, viewHeight);

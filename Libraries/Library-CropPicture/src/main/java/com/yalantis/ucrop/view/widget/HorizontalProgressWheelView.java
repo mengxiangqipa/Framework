@@ -113,8 +113,9 @@ public class HorizontalProgressWheelView extends View {
         }
 
         mProgressLinePaint.setColor(mMiddleLineColor);
-        canvas.drawLine(mCanvasClipBounds.centerX(), mCanvasClipBounds.centerY() - mProgressLineHeight / 2.0f, mCanvasClipBounds.centerX(), mCanvasClipBounds.centerY() + mProgressLineHeight / 2.0f, mProgressLinePaint);
-
+        canvas.drawLine(mCanvasClipBounds.centerX(), mCanvasClipBounds.centerY() - mProgressLineHeight / 2.0f,
+                mCanvasClipBounds.centerX(), mCanvasClipBounds.centerY() + mProgressLineHeight / 2.0f,
+                mProgressLinePaint);
     }
 
     private void onScrollEvent(MotionEvent event, float distance) {
@@ -129,14 +130,16 @@ public class HorizontalProgressWheelView extends View {
     private void init() {
         mMiddleLineColor = ContextCompat.getColor(getContext(), R.color.ucrop_color_progress_wheel_line);
 
-        mProgressLineWidth = getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_width_horizontal_wheel_progress_line);
-        mProgressLineHeight = getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_height_horizontal_wheel_progress_line);
-        mProgressLineMargin = getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_margin_horizontal_wheel_progress_line);
+        mProgressLineWidth =
+                getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_width_horizontal_wheel_progress_line);
+        mProgressLineHeight =
+                getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_height_horizontal_wheel_progress_line);
+        mProgressLineMargin =
+                getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_margin_horizontal_wheel_progress_line);
 
         mProgressLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mProgressLinePaint.setStyle(Paint.Style.STROKE);
         mProgressLinePaint.setStrokeWidth(mProgressLineWidth);
-
     }
 
     public interface ScrollingListener {
@@ -147,5 +150,4 @@ public class HorizontalProgressWheelView extends View {
 
         void onScrollEnd();
     }
-
 }

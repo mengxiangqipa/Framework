@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/black"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title"
@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:background="@color/transparent"
             android:src="?attr/picture.preview.leftBack.icon"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/picture_title"
@@ -30,13 +30,13 @@
             android:ellipsize="end"
             android:maxEms="11"
             android:textColor="?attr/picture.ac_preview.title.textColor"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 
     <com.luck.picture.lib.widget.PreviewViewPager
         android:id="@+id/preview_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

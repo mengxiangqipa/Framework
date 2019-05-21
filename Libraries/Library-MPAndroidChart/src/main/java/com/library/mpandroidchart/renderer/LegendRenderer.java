@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Canvas;
@@ -107,7 +106,6 @@ public class LegendRenderer extends Renderer {
                         colors.add(ColorTemplate.COLOR_SKIP);
                         labels.add(bds.getLabel());
                     }
-
                 } else if (dataSet instanceof PieDataSet) {
 
                     List<String> xVals = data.getXVals();
@@ -124,7 +122,6 @@ public class LegendRenderer extends Renderer {
                         colors.add(ColorTemplate.COLOR_SKIP);
                         labels.add(pds.getLabel());
                     }
-
                 } else { // all others
 
                     for (int j = 0; j < clrs.size() && j < entryCount; j++) {
@@ -250,7 +247,8 @@ public class LegendRenderer extends Renderer {
                     }
 
                     if (posX == originPosX && legendPosition == Legend.LegendPosition.BELOW_CHART_CENTER && lineIndex < calculatedLineSizes.length) {
-                        posX += (direction == Legend.LegendDirection.RIGHT_TO_LEFT ? calculatedLineSizes[lineIndex].width : -calculatedLineSizes[lineIndex].width) / 2.f;
+                        posX += (direction == Legend.LegendDirection.RIGHT_TO_LEFT ?
+                                calculatedLineSizes[lineIndex].width : -calculatedLineSizes[lineIndex].width) / 2.f;
                         lineIndex++;
                     }
 
@@ -269,7 +267,8 @@ public class LegendRenderer extends Renderer {
 
                     if (!isStacked) {
                         if (drawingForm)
-                            posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -formToTextSpace : formToTextSpace;
+                            posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -formToTextSpace :
+                                    formToTextSpace;
 
                         if (direction == Legend.LegendDirection.RIGHT_TO_LEFT)
                             posX -= calculatedLabelSizes[i].width;
@@ -283,7 +282,6 @@ public class LegendRenderer extends Renderer {
                     } else
                         posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -stackSpace : stackSpace;
                 }
-
             }
             break;
 
@@ -327,11 +325,11 @@ public class LegendRenderer extends Renderer {
                             legendPosition == Legend.LegendPosition.LEFT_OF_CHART_CENTER) {
                         posY = mViewPortHandler.getChartHeight() / 2f - mLegend.mNeededHeight / 2f;
                     } else /*
-                            * if (legendPosition ==
-                            * Legend.LegendPosition.RIGHT_OF_CHART_INSIDE ||
-                            * legendPosition ==
-                            * Legend.LegendPosition.LEFT_OF_CHART_INSIDE)
-                            */ {
+                     * if (legendPosition ==
+                     * Legend.LegendPosition.RIGHT_OF_CHART_INSIDE ||
+                     * legendPosition ==
+                     * Legend.LegendPosition.LEFT_OF_CHART_INSIDE)
+                     */ {
                         posY = mViewPortHandler.contentTop() + yoffset;
                     }
                 }

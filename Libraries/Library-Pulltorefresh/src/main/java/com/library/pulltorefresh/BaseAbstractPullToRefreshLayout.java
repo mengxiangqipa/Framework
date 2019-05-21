@@ -674,7 +674,7 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                 && (!(indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeaderHover && state ==
                 LOADING
                 && (-pullUpY >= loadmoreDist - MOVE_SPEED / 2 && -pullUpY <= loadmoreDist + MOVE_SPEED / 2)))
-                )//上拉头部
+        )//上拉头部
             loadmoreView.layout(0, indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ? 0 :
                             loadmoreViewTop,
                     loadmoreView.getMeasuredWidth(),

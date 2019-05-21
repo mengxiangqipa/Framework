@@ -300,10 +300,11 @@ public class PackageManagerUtil {
     }
 
     public final static String SIGNATURE_SHA1 = "SHA1";
+
     /**
      * 返回一个签名的对应类型的字符串
      *
-     * @param context     context
+     * @param context context
      * @param type
      * @return signature
      */
@@ -329,7 +330,8 @@ public class PackageManagerUtil {
     private Signature[] getSignatures(@NonNull Context context) {
         PackageInfo packageInfo;
         try {
-            packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(),
+                    PackageManager.GET_SIGNATURES);
             return packageInfo.signatures;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

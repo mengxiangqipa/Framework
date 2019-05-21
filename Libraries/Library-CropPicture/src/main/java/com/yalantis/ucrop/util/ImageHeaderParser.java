@@ -415,11 +415,9 @@ public class ImageHeaderParser {
             newExif.setAttribute(ExifInterface.TAG_ORIENTATION, "0");
 
             newExif.saveAttributes();
-
         } catch (IOException e) {
             Log.d(TAG, e.getMessage());
         }
     }
-
 }
 

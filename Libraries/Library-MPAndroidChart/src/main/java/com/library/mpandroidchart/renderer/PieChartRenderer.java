@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Bitmap;
@@ -230,7 +229,6 @@ public class PieChartRenderer extends DataRenderer {
                     if (j < data.getXValCount())
                         c.drawText(data.getXVals().get(j), x, y + lineHeight,
                                 mValuePaint);
-
                 } else if (drawXVals && !drawYVals) {
                     if (j < data.getXValCount())
                         c.drawText(data.getXVals().get(j), x, y + lineHeight / 2f, mValuePaint);
@@ -299,7 +297,8 @@ public class PieChartRenderer extends DataRenderer {
 
             PointF center = mChart.getCenterCircleBox();
 
-            float innerRadius = mChart.isDrawHoleEnabled() && mChart.isHoleTransparent() ? mChart.getRadius() * (mChart.getHoleRadius() / 100f) : mChart.getRadius();
+            float innerRadius = mChart.isDrawHoleEnabled() && mChart.isHoleTransparent() ?
+                    mChart.getRadius() * (mChart.getHoleRadius() / 100f) : mChart.getRadius();
 
             RectF holeRect = mRectBuffer[0];
             holeRect.left = center.x - innerRadius;

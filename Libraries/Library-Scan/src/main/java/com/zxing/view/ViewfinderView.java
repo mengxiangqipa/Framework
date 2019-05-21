@@ -207,7 +207,6 @@ public final class ViewfinderView extends View {
                 height = canvas.getHeight();
             }
 
-
             paint.setColor(resultBitmap != null ? resultColor : maskColor);
 
             drawOuterView(canvas, frame);
@@ -236,32 +235,33 @@ public final class ViewfinderView extends View {
                 canvas.drawRect(frame.right - CORNER_WIDTH, frame.bottom - cornerLenth,
                         frame.right, frame.bottom, paint);
 
-
                 //绘制中间的线,每次刷新界面，中间的线往下移动SPEEN_DISTANCE
                 slideTop += SPEEN_DISTANCE;
                 if (slideTop >= frame.bottom - 4) {//修改 slideTop >= frame.bottom
                     slideTop = frame.top;
                 }
-//			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right - MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
+//			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right -
+//			MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
 
 //                lineRect.left = frame.left;
 //                lineRect.right = frame.right;
 //                lineRect.top = slideTop;
 //                lineRect.bottom = slideTop + 18;
-//                canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.mipmap.qrcode_scan_line_test))).getBitmap(), null, lineRect, paint);
+//                canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.mipmap.qrcode_scan_line_test)))
+//                .getBitmap(), null, lineRect, paint);
                 lineRect.left = frame.left + 20;
                 lineRect.right = frame.right - 20;
                 lineRect.top = slideTop;
                 lineRect.bottom = slideTop + 4;
                 canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.mipmap.qrcode_scan_line_test1))).getBitmap(), null, lineRect, paint);
 
-
                 //画扫描框下面的字
 //			paint.setColor(Color.WHITE);
 //			paint.setTextSize(TEXT_SIZE * density);
 //			paint.setAlpha(0x40);
 //			paint.setTypeface(Typeface.create("System", Typeface.BOLD));
-//			canvas.drawText(getResources().getString(R.string.scan_text), frame.left, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
+//			canvas.drawText(getResources().getString(R.string.scan_text), frame.left, (float) (frame.bottom + (float)
+//			TEXT_PADDING_TOP *density), paint);
 
                 paint.setColor(textColor);
                 paint.setTextSize(TEXT_SIZE * density);
@@ -270,10 +270,12 @@ public final class ViewfinderView extends View {
                 // 这里取消掉了 绘制文字
                 String text = getResources().getString(R.string.scan_text);
                 float textWidth = paint.measureText(text);
-//                canvas.drawText(text, (width - textWidth) / 2, (frame.bottom + (float) TEXT_PADDING_TOP * density), paint);
-//                canvas.drawText(text, frame.left+((frame.right- frame.left)- textWidth) / 2, (frame.bottom + (float) TEXT_PADDING_TOP * density), paint);
-                canvas.drawText(text, (width - textWidth) / 2, (frame.bottom + (float) ScreenUtils.getInstance().dip2px(getContext(), 30)), paint);
-
+//                canvas.drawText(text, (width - textWidth) / 2, (frame.bottom + (float) TEXT_PADDING_TOP * density),
+//                paint);
+//                canvas.drawText(text, frame.left+((frame.right- frame.left)- textWidth) / 2, (frame.bottom +
+//                (float) TEXT_PADDING_TOP * density), paint);
+                canvas.drawText(text, (width - textWidth) / 2,
+                        (frame.bottom + (float) ScreenUtils.getInstance().dip2px(getContext(), 30)), paint);
 
                 //绘制小圆点
                 if (showRandomCircle) {
@@ -328,5 +330,4 @@ public final class ViewfinderView extends View {
     public void addPossibleResultPoint(ResultPoint point) {
         possibleResultPoints.add(point);
     }
-
 }

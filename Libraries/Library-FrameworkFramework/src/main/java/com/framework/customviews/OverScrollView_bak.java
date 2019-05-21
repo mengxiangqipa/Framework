@@ -296,7 +296,8 @@
 //                heightPadding = 0;
 //            }
 //            if (heightSize > height) {
-//                int myHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize - heightPadding, MeasureSpec.EXACTLY);
+//                int myHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize - heightPadding, MeasureSpec
+//                .EXACTLY);
 //                super.onMeasure(widthMeasureSpec, myHeightMeasureSpec);
 //            }
 //        }

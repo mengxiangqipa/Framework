@@ -11,7 +11,9 @@ import java.text.DecimalFormat;
  */
 public class DefaultYAxisValueFormatter implements YAxisValueFormatter {
 
-    /** decimalformat for formatting */
+    /**
+     * decimalformat for formatting
+     */
     private DecimalFormat mFormat;
 
     /**

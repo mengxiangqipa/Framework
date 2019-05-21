@@ -2,15 +2,17 @@
 <com.library.camerafilter.widget.tag.FixWidthFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
+
     <com.library.camerafilter.widget.tag.FixWidthImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:id="@+id/backImage"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/backImage"/>
+
     <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/tagsContainer"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tagsContainer"/>
 
 </com.library.camerafilter.widget.tag.FixWidthFrameLayout>

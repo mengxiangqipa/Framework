@@ -1,6 +1,5 @@
 package com.luck.picture.lib.config;
 
-
 import android.content.Context;
 import android.media.MediaMetadataRetriever;
 import android.text.TextUtils;
@@ -16,6 +15,7 @@ import java.io.File;
  * package：com.luck.picture.lib.config
  * email：893855882@qq.com
  * data：2017/5/24
+ *
  * @author luck
  */
 

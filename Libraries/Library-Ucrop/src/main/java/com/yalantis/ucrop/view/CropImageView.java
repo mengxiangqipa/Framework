@@ -499,8 +499,10 @@ public class CropImageView extends TransformImageView {
      */
     @SuppressWarnings("deprecation")
     protected void processStyledAttributes(@NonNull TypedArray a) {
-        float targetAspectRatioX = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_x, DEFAULT_ASPECT_RATIO));
-        float targetAspectRatioY = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_y, DEFAULT_ASPECT_RATIO));
+        float targetAspectRatioX = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_x,
+                DEFAULT_ASPECT_RATIO));
+        float targetAspectRatioY = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_y,
+                DEFAULT_ASPECT_RATIO));
 
         if (targetAspectRatioX == SOURCE_IMAGE_ASPECT_RATIO || targetAspectRatioY == SOURCE_IMAGE_ASPECT_RATIO) {
             mTargetAspectRatio = SOURCE_IMAGE_ASPECT_RATIO;
@@ -561,9 +563,11 @@ public class CropImageView extends TransformImageView {
             float newScale = CubicEasing.easeInOut(currentMs, 0, mDeltaScale, mDurationMs);
 
             if (currentMs < mDurationMs) {
-                cropImageView.postTranslate(newX - (cropImageView.mCurrentImageCenter[0] - mOldX), newY - (cropImageView.mCurrentImageCenter[1] - mOldY));
+                cropImageView.postTranslate(newX - (cropImageView.mCurrentImageCenter[0] - mOldX),
+                        newY - (cropImageView.mCurrentImageCenter[1] - mOldY));
                 if (!mWillBeImageInBoundsAfterTranslate) {
-                    cropImageView.zoomInImage(mOldScale + newScale, cropImageView.mCropRect.centerX(), cropImageView.mCropRect.centerY());
+                    cropImageView.zoomInImage(mOldScale + newScale, cropImageView.mCropRect.centerX(),
+                            cropImageView.mCropRect.centerY());
                 }
                 if (!cropImageView.isImageWrapCropBounds()) {
                     cropImageView.post(this);
@@ -621,7 +625,5 @@ public class CropImageView extends TransformImageView {
                 cropImageView.setImageToWrapCropBounds();
             }
         }
-
     }
-
 }

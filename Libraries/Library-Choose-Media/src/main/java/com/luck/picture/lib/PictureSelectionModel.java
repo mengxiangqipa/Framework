@@ -189,7 +189,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-
     /**
      * @param cropWidth  crop width
      * @param cropHeight crop height
@@ -235,6 +234,7 @@ public class PictureSelectionModel {
         selectionConfig.singleFileMaxLenth = singleFileMaxLenth;
         return this;
     }
+
     /**
      * @param recordVideoSecond video record second
      * @return
@@ -462,5 +462,4 @@ public class PictureSelectionModel {
             throw new NullPointerException("This PictureSelector is Null");
         }
     }
-
 }

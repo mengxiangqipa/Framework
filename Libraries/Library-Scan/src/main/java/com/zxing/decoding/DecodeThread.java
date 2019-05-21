@@ -82,5 +82,4 @@ final class DecodeThread extends Thread {
         handlerInitLatch.countDown();
         Looper.loop();
     }
-
 }

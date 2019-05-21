@@ -74,7 +74,8 @@ public class FolderPopWindow extends PopupWindow implements View.OnClickListener
         recyclerView = (RecyclerView) window.findViewById(R.id.folder_list);
         recyclerView.getLayoutParams().height = (int) (ScreenUtils.getScreenHeight(context) * 0.6);
         recyclerView.addItemDecoration(new RecycleViewDivider(
-                context, LinearLayoutManager.HORIZONTAL, ScreenUtils.dip2px(context, 0), ContextCompat.getColor(context, R.color.transparent)));
+                context, LinearLayoutManager.HORIZONTAL, ScreenUtils.dip2px(context, 0),
+                ContextCompat.getColor(context, R.color.transparent)));
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
         id_ll_root.setOnClickListener(this);
@@ -155,7 +156,6 @@ public class FolderPopWindow extends PopupWindow implements View.OnClickListener
         });
     }
 
-
     /**
      * 设置选中状态
      */
@@ -194,5 +194,4 @@ public class FolderPopWindow extends PopupWindow implements View.OnClickListener
             dismiss();
         }
     }
-
 }

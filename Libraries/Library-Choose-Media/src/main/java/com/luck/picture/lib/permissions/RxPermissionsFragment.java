@@ -45,7 +45,8 @@ public class RxPermissionsFragment extends Fragment {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode != PERMISSIONS_REQUEST_CODE) return;
@@ -59,14 +60,16 @@ public class RxPermissionsFragment extends Fragment {
         onRequestPermissionsResult(permissions, grantResults, shouldShowRequestPermissionRationale);
     }
 
-    void onRequestPermissionsResult(String permissions[], int[] grantResults, boolean[] shouldShowRequestPermissionRationale) {
+    void onRequestPermissionsResult(String permissions[], int[] grantResults,
+                                    boolean[] shouldShowRequestPermissionRationale) {
         for (int i = 0, size = permissions.length; i < size; i++) {
             log("onRequestPermissionsResult  " + permissions[i]);
             // Find the corresponding subject
             PublishSubject<Permission> subject = mSubjects.get(permissions[i]);
             if (subject == null) {
                 // No subject found
-                Log.e(RxPermissions.TAG, "RxPermissions.onRequestPermissionsResult invoked but didn't find the corresponding permission request.");
+                Log.e(RxPermissions.TAG, "RxPermissions.onRequestPermissionsResult invoked but didn't find the " +
+                        "corresponding permission request.");
                 return;
             }
             mSubjects.remove(permissions[i]);
@@ -83,7 +86,8 @@ public class RxPermissionsFragment extends Fragment {
 
     @TargetApi(Build.VERSION_CODES.M)
     boolean isRevoked(String permission) {
-        return getActivity().getPackageManager().isPermissionRevokedByPolicy(permission, getActivity().getPackageName());
+        return getActivity().getPackageManager().isPermissionRevokedByPolicy(permission,
+                getActivity().getPackageName());
     }
 
     public void setLogging(boolean logging) {
@@ -98,7 +102,8 @@ public class RxPermissionsFragment extends Fragment {
         return mSubjects.containsKey(permission);
     }
 
-    public PublishSubject<Permission> setSubjectForPermission(@NonNull String permission, @NonNull PublishSubject<Permission> subject) {
+    public PublishSubject<Permission> setSubjectForPermission(@NonNull String permission,
+                                                              @NonNull PublishSubject<Permission> subject) {
         return mSubjects.put(permission, subject);
     }
 

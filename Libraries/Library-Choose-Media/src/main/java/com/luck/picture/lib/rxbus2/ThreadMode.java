@@ -1,7 +1,6 @@
 package com.luck.picture.lib.rxbus2;
 
 /**
- *
  * Created by gorden on 2016/7/23.
  */
 public enum ThreadMode {
@@ -14,7 +13,6 @@ public enum ThreadMode {
      * android main thread
      */
     MAIN,
-
 
     /**
      * new thread

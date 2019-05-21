@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Canvas;
@@ -27,7 +26,7 @@ public class BubbleChartRenderer extends DataRenderer {
     protected BubbleDataProvider mChart;
 
     public BubbleChartRenderer(BubbleDataProvider chart, ChartAnimator animator,
-            ViewPortHandler viewPortHandler) {
+                               ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
         mChart = chart;
 
@@ -180,7 +179,6 @@ public class BubbleChartRenderer extends DataRenderer {
                 }
             }
         }
-
     }
 
     @Override
@@ -215,12 +213,12 @@ public class BubbleChartRenderer extends DataRenderer {
                 continue;
 
             Transformer trans = mChart.getTransformer(dataSet.getAxisDependency());
-            
+
             sizeBuffer[0] = 0f;
             sizeBuffer[2] = 1f;
 
             trans.pointValuesToPixel(sizeBuffer);
-            
+
             // calcualte the full width of 1 step on the x-axis
             final float maxBubbleWidth = Math.abs(sizeBuffer[2] - sizeBuffer[0]);
             final float maxBubbleHeight = Math.abs(mViewPortHandler.contentBottom() - mViewPortHandler.contentTop());

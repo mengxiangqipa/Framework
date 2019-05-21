@@ -119,7 +119,8 @@ public class EglUtils {
                 EGL_CONTEXT_CLIENT_VERSION, 1,
                 EGL10.EGL_NONE
         };
-        javax.microedition.khronos.egl.EGLContext ctx = egl.eglCreateContext(dpy, config, EGL10.EGL_NO_CONTEXT, ctxAttrib);
+        javax.microedition.khronos.egl.EGLContext ctx = egl.eglCreateContext(dpy, config, EGL10.EGL_NO_CONTEXT,
+                ctxAttrib);
         egl.eglMakeCurrent(dpy, surf, surf, ctx);
         int[] maxSize = new int[1];
         GLES10.glGetIntegerv(GLES10.GL_MAX_TEXTURE_SIZE, maxSize, 0);

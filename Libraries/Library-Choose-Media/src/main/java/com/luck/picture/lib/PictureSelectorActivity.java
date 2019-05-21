@@ -140,7 +140,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +182,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             initView(savedInstanceState);
         }
     }
-
 
     /**
      * init views
@@ -232,7 +230,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         // 解决调用 notifyItemChanged 闪烁问题,取消默认动画
         ((SimpleItemAnimator) picture_recycler.getItemAnimator())
                 .setSupportsChangeAnimations(false);
-        mediaLoader = new LocalMediaLoader(this, config.mimeType, config.isGif, config.videoMaxSecond, config.videoMinSecond);
+        mediaLoader = new LocalMediaLoader(this, config.mimeType, config.isGif, config.videoMaxSecond,
+                config.videoMinSecond);
         rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Observer<Boolean>() {
                     @Override
@@ -447,7 +446,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         }
         return imageUri;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -802,7 +800,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 bundle.putSerializable(PictureConfig.EXTRA_SELECT_LIST, (Serializable) selectedImages);
                 bundle.putInt(PictureConfig.EXTRA_POSITION, position);
                 startActivity(PicturePreviewActivity.class, bundle,
-                        config.selectionMode == PictureConfig.SINGLE ? UCrop.REQUEST_CROP : UCropMulti.REQUEST_MULTI_CROP);
+                        config.selectionMode == PictureConfig.SINGLE ? UCrop.REQUEST_CROP :
+                                UCropMulti.REQUEST_MULTI_CROP);
                 overridePendingTransition(R.anim.a5, 0);
                 break;
             case PictureConfig.TYPE_VIDEO:
@@ -826,7 +825,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 break;
         }
     }
-
 
     /**
      * change image selector state
@@ -881,7 +879,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             }
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1048,7 +1045,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         }
     }
 
-
     /**
      * 手动添加拍照后的相片到图片列表，并设为选中
      *
@@ -1074,7 +1070,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

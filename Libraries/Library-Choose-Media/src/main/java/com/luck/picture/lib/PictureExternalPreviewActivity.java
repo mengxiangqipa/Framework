@@ -139,7 +139,8 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
             // 常规图控件
             final PhotoView imageView = (PhotoView) contentView.findViewById(R.id.preview_image);
             // 长图控件
-            final SubsamplingScaleImageView longImg = (SubsamplingScaleImageView) contentView.findViewById(R.id.longImg);
+            final SubsamplingScaleImageView longImg =
+                    (SubsamplingScaleImageView) contentView.findViewById(R.id.longImg);
 
             LocalMedia media = images.get(position);
             if (media != null) {
@@ -331,7 +332,6 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         dialog.show();
     }
 
-
     // 进度条线程
     public class loadDataThread extends Thread {
         private String path;
@@ -381,7 +381,6 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
             e.printStackTrace();
         }
     }
-
 
     private Handler handler = new Handler() {
         @Override

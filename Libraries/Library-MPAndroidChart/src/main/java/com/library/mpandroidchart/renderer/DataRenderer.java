@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Canvas;
@@ -139,7 +138,8 @@ public abstract class DataRenderer extends Renderer {
      * @param x            position
      * @param y            position
      */
-    public void drawValue(Canvas c, ValueFormatter formatter, float value, Entry entry, int dataSetIndex, float x, float y) {
+    public void drawValue(Canvas c, ValueFormatter formatter, float value, Entry entry, int dataSetIndex, float x,
+                          float y) {
         c.drawText(formatter.getFormattedValue(value, entry, dataSetIndex, mViewPortHandler), x, y, mValuePaint);
     }
 

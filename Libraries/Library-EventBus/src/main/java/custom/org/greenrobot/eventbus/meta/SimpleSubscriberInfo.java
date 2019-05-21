@@ -18,13 +18,15 @@ package custom.org.greenrobot.eventbus.meta;
 import custom.org.greenrobot.eventbus.SubscriberMethod;
 
 /**
- * Uses {@link SubscriberMethodInfo} objects to create {@link custom.org.greenrobot.eventbus.SubscriberMethod} objects on demand.
+ * Uses {@link SubscriberMethodInfo} objects to create {@link custom.org.greenrobot.eventbus.SubscriberMethod}
+ * objects on demand.
  */
 public class SimpleSubscriberInfo extends AbstractSubscriberInfo {
 
     private final SubscriberMethodInfo[] methodInfos;
 
-    public SimpleSubscriberInfo(Class subscriberClass, boolean shouldCheckSuperclass, SubscriberMethodInfo[] methodInfos) {
+    public SimpleSubscriberInfo(Class subscriberClass, boolean shouldCheckSuperclass,
+                                SubscriberMethodInfo[] methodInfos) {
         super(subscriberClass, null, shouldCheckSuperclass);
         this.methodInfos = methodInfos;
     }

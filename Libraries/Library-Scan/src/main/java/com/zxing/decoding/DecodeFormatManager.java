@@ -30,7 +30,7 @@ public final class DecodeFormatManager {
 
     private static final Pattern COMMA_PATTERN = Pattern.compile(",");
 
-    public  static final Vector<BarcodeFormat> PRODUCT_FORMATS;
+    public static final Vector<BarcodeFormat> PRODUCT_FORMATS;
     public static final Vector<BarcodeFormat> ONE_D_FORMATS;
     public static final Vector<BarcodeFormat> QR_CODE_FORMATS;
     public static final Vector<BarcodeFormat> DATA_MATRIX_FORMATS;
@@ -103,5 +103,4 @@ public final class DecodeFormatManager {
         }
         return null;
     }
-
 }

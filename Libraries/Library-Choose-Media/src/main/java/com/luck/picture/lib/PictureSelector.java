@@ -212,5 +212,4 @@ public final class PictureSelector {
     Fragment getFragment() {
         return mFragment != null ? mFragment.get() : null;
     }
-
 }

@@ -90,12 +90,10 @@ public class PicturePhotoGalleryAdapter extends RecyclerView.Adapter<PicturePhot
                 .into(holder.mIvPhoto);
     }
 
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView mIvPhoto;
@@ -107,5 +105,4 @@ public class PicturePhotoGalleryAdapter extends RecyclerView.Adapter<PicturePhot
             iv_dot = (ImageView) view.findViewById(R.id.iv_dot);
         }
     }
-
 }

@@ -42,5 +42,4 @@ public final class FinishListener
     public void run() {
         activityToFinish.finish();
     }
-
 }

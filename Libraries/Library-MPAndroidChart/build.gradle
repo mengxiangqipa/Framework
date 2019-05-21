@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
-group='com.github.mengxiangqipa'//替换成你的Github的用户名
+group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion

@@ -70,5 +70,4 @@ final class BackgroundPoster implements Runnable, Poster {
             executorRunning = false;
         }
     }
-
 }

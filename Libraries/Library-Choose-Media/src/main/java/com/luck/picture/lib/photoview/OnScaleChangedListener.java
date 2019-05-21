@@ -1,6 +1,5 @@
 package com.luck.picture.lib.photoview;
 
-
 /**
  * Interface definition for callback to be invoked when attached ImageView scale changes
  */

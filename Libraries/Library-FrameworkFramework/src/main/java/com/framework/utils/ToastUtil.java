@@ -61,7 +61,8 @@ public class ToastUtil {
             @Override
             public void run() {
                 try {
-                    Toast.makeText(FrameApplication.frameApplication, FrameApplication.frameApplication.getResources().getString(resId),
+                    Toast.makeText(FrameApplication.frameApplication,
+                            FrameApplication.frameApplication.getResources().getString(resId),
                             toastLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();

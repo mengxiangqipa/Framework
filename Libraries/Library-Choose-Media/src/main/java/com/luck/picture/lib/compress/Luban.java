@@ -107,7 +107,6 @@ public class Luban implements Handler.Callback {
         return null;
     }
 
-
     /**
      * start asynchronous compress thread
      */

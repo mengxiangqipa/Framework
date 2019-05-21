@@ -7,7 +7,10 @@ package com.luck.picture.lib.rxbus2;
 public class BusData {
     String id;
     String status;
-    public BusData() {}
+
+    public BusData() {
+    }
+
     public BusData(String id, String status) {
         this.id = id;
         this.status = status;

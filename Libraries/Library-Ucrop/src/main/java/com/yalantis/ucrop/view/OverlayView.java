@@ -65,9 +65,11 @@ public class OverlayView extends View {
     private boolean mShouldSetupCropBounds;
 
     {
-        mTouchPointThreshold = getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_corner_touch_threshold);
+        mTouchPointThreshold =
+                getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_corner_touch_threshold);
         mCropRectMinSize = getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_min_size);
-        mCropRectCornerTouchAreaLineLength = getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_corner_touch_area_line_length);
+        mCropRectCornerTouchAreaLineLength =
+                getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_corner_touch_area_line_length);
     }
 
     public OverlayView(Context context) {
@@ -464,15 +466,19 @@ public class OverlayView extends View {
                 int index = 0;
                 for (int i = 0; i < mCropGridRowCount; i++) {
                     mGridPoints[index++] = mCropViewRect.left;
-                    mGridPoints[index++] = (mCropViewRect.height() * (((float) i + 1.0f) / (float) (mCropGridRowCount + 1))) + mCropViewRect.top;
+                    mGridPoints[index++] =
+                            (mCropViewRect.height() * (((float) i + 1.0f) / (float) (mCropGridRowCount + 1))) + mCropViewRect.top;
                     mGridPoints[index++] = mCropViewRect.right;
-                    mGridPoints[index++] = (mCropViewRect.height() * (((float) i + 1.0f) / (float) (mCropGridRowCount + 1))) + mCropViewRect.top;
+                    mGridPoints[index++] =
+                            (mCropViewRect.height() * (((float) i + 1.0f) / (float) (mCropGridRowCount + 1))) + mCropViewRect.top;
                 }
 
                 for (int i = 0; i < mCropGridColumnCount; i++) {
-                    mGridPoints[index++] = (mCropViewRect.width() * (((float) i + 1.0f) / (float) (mCropGridColumnCount + 1))) + mCropViewRect.left;
+                    mGridPoints[index++] =
+                            (mCropViewRect.width() * (((float) i + 1.0f) / (float) (mCropGridColumnCount + 1))) + mCropViewRect.left;
                     mGridPoints[index++] = mCropViewRect.top;
-                    mGridPoints[index++] = (mCropViewRect.width() * (((float) i + 1.0f) / (float) (mCropGridColumnCount + 1))) + mCropViewRect.left;
+                    mGridPoints[index++] =
+                            (mCropViewRect.width() * (((float) i + 1.0f) / (float) (mCropGridColumnCount + 1))) + mCropViewRect.left;
                     mGridPoints[index++] = mCropViewRect.bottom;
                 }
             }
@@ -509,7 +515,8 @@ public class OverlayView extends View {
      */
     @SuppressWarnings("deprecation")
     protected void processStyledAttributes(@NonNull TypedArray a) {
-        mCircleDimmedLayer = a.getBoolean(R.styleable.ucrop_UCropView_ucrop_circle_dimmed_layer, DEFAULT_CIRCLE_DIMMED_LAYER);
+        mCircleDimmedLayer = a.getBoolean(R.styleable.ucrop_UCropView_ucrop_circle_dimmed_layer,
+                DEFAULT_CIRCLE_DIMMED_LAYER);
         mDimmedColor = a.getColor(R.styleable.ucrop_UCropView_ucrop_dimmed_color,
                 getResources().getColor(R.color.ucrop_color_default_dimmed));
         mDimmedStrokePaint.setColor(mDimmedColor);
@@ -554,7 +561,7 @@ public class OverlayView extends View {
         mCropGridPaint.setColor(cropGridColor);
 
         mCropGridRowCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_row_count, DEFAULT_CROP_GRID_ROW_COUNT);
-        mCropGridColumnCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_column_count, DEFAULT_CROP_GRID_COLUMN_COUNT);
+        mCropGridColumnCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_column_count,
+                DEFAULT_CROP_GRID_COLUMN_COUNT);
     }
-
 }

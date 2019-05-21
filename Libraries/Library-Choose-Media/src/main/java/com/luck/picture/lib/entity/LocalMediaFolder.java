@@ -22,7 +22,6 @@ public class LocalMediaFolder implements Parcelable {
     private boolean isChecked;
     private List<LocalMedia> images = new ArrayList<LocalMedia>();
 
-
     public boolean isChecked() {
         return isChecked;
     }

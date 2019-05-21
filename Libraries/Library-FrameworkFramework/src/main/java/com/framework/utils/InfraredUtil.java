@@ -64,13 +64,15 @@ public class InfraredUtil {
             consumerIrManager = (ConsumerIrManager) context.getSystemService(Context
                     .CONSUMER_IR_SERVICE);
             //判断是否有红外
-            return null!=consumerIrManager&&consumerIrManager.hasIrEmitter();
+            return null != consumerIrManager && consumerIrManager.hasIrEmitter();
         } else {
             return false;
         }
     }
+
     /**
-     *  发射红外信号
+     * 发射红外信号
+     *
      * @param context Context
      */
     public void transmit(final @NonNull Context context, final int carrierFrequency, final int[] pattern) {
@@ -84,6 +86,7 @@ public class InfraredUtil {
             consumerIrManager.transmit(carrierFrequency, pattern);
         }
     }
+
     /**
      * @param context Context
      * @return 最大红外频率

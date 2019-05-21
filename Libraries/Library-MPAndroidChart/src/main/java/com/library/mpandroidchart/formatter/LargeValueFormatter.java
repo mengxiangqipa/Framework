@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.formatter;
 
 import com.library.mpandroidchart.components.YAxis;

@@ -44,5 +44,4 @@ public interface MainThreadSupport {
             return new HandlerPoster(eventBus, looper, 10);
         }
     }
-
 }

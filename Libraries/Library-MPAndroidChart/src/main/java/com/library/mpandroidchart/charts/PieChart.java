@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.content.Context;
@@ -222,7 +221,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
                 cnt++;
             }
         }
-
     }
 
     /**
@@ -615,7 +613,6 @@ public class PieChart extends PieRadarChartBase<PieData> {
         return mCenterTextRadiusPercent;
     }
 
-
     @Override
     protected void onDetachedFromWindow() {
         // releases the bitmap in the renderer to avoid oom error
@@ -624,5 +621,4 @@ public class PieChart extends PieRadarChartBase<PieData> {
         }
         super.onDetachedFromWindow();
     }
-
 }

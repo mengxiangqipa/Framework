@@ -62,7 +62,7 @@ public class ScreenUtils {
 
     public int dp2px(Context context, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
-				.getDisplayMetrics());
+                .getDisplayMetrics());
     }
 
     /**

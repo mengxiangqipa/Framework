@@ -23,5 +23,4 @@ interface OnGestureListener {
                  float velocityY);
 
     void onScale(float scaleFactor, float focusX, float focusY);
-
 }

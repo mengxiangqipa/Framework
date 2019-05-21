@@ -79,7 +79,6 @@ public class YAxisRendererRadarChart extends YAxisRenderer {
                 mYAxis.mEntries = new float[2];
                 mYAxis.mEntries[0] = yMin;
                 mYAxis.mEntries[1] = yMax;
-
             } else {
 
                 final double rawCount = yMin / interval;

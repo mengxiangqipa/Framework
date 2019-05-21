@@ -38,7 +38,8 @@ public abstract class MarkerView extends RelativeLayout {
         View inflated = LayoutInflater.from(getContext()).inflate(layoutResource, this);
 
         inflated.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        inflated.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        inflated.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0,
+                MeasureSpec.UNSPECIFIED));
 
         // measure(getWidth(), getHeight());
         inflated.layout(0, 0, inflated.getMeasuredWidth(), inflated.getMeasuredHeight());
@@ -68,7 +69,8 @@ public abstract class MarkerView extends RelativeLayout {
      *
      * @param e         The Entry the MarkerView belongs to. This can also be any subclass of Entry, like BarEntry or
      *                  CandleEntry, simply cast it at runtime.
-     * @param highlight the highlight object contains information about the highlighted value such as it's dataset-index, the
+     * @param highlight the highlight object contains information about the highlighted value such as it's
+     *                  dataset-index, the
      *                  selected range or stack-index (only stacked bar entries).
      */
     public abstract void refreshContent(Entry e, Highlight highlight);

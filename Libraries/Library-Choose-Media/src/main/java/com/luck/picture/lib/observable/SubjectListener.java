@@ -1,6 +1,5 @@
 package com.luck.picture.lib.observable;
 
-
 /**
  * author：luck
  * project：PictureSelector

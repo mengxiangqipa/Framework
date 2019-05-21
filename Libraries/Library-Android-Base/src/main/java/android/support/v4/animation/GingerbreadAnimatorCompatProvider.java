@@ -8,6 +8,7 @@ package android.support.v4.animation;
 import android.annotation.TargetApi;
 import android.support.annotation.RequiresApi;
 import android.view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
         private Runnable mLoopRunnable = new Runnable() {
             public void run() {
                 long dt = GingerbreadFloatValueAnimator.this.getTime() - GingerbreadFloatValueAnimator.this.mStartTime;
-                float fraction = (float)dt * 1.0F / (float)GingerbreadFloatValueAnimator.this.mDuration;
+                float fraction = (float) dt * 1.0F / (float) GingerbreadFloatValueAnimator.this.mDuration;
                 if (fraction > 1.0F || GingerbreadFloatValueAnimator.this.mTarget.getParent() == null) {
                     fraction = 1.0F;
                 }
@@ -48,7 +49,6 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
                 } else {
                     GingerbreadFloatValueAnimator.this.mTarget.postDelayed(GingerbreadFloatValueAnimator.this.mLoopRunnable, 16L);
                 }
-
             }
         };
 
@@ -56,10 +56,9 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
         }
 
         private void notifyUpdateListeners() {
-            for(int i = this.mUpdateListeners.size() - 1; i >= 0; --i) {
-                ((AnimatorUpdateListenerCompat)this.mUpdateListeners.get(i)).onAnimationUpdate(this);
+            for (int i = this.mUpdateListeners.size() - 1; i >= 0; --i) {
+                ((AnimatorUpdateListenerCompat) this.mUpdateListeners.get(i)).onAnimationUpdate(this);
             }
-
         }
 
         public void setTarget(View view) {
@@ -74,7 +73,6 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
             if (!this.mStarted) {
                 this.mDuration = duration;
             }
-
         }
 
         public void start() {
@@ -92,24 +90,21 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
         }
 
         private void dispatchStart() {
-            for(int i = this.mListeners.size() - 1; i >= 0; --i) {
-                ((AnimatorListenerCompat)this.mListeners.get(i)).onAnimationStart(this);
+            for (int i = this.mListeners.size() - 1; i >= 0; --i) {
+                ((AnimatorListenerCompat) this.mListeners.get(i)).onAnimationStart(this);
             }
-
         }
 
         private void dispatchEnd() {
-            for(int i = this.mListeners.size() - 1; i >= 0; --i) {
-                ((AnimatorListenerCompat)this.mListeners.get(i)).onAnimationEnd(this);
+            for (int i = this.mListeners.size() - 1; i >= 0; --i) {
+                ((AnimatorListenerCompat) this.mListeners.get(i)).onAnimationEnd(this);
             }
-
         }
 
         private void dispatchCancel() {
-            for(int i = this.mListeners.size() - 1; i >= 0; --i) {
-                ((AnimatorListenerCompat)this.mListeners.get(i)).onAnimationCancel(this);
+            for (int i = this.mListeners.size() - 1; i >= 0; --i) {
+                ((AnimatorListenerCompat) this.mListeners.get(i)).onAnimationCancel(this);
             }
-
         }
 
         public void cancel() {

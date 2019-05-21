@@ -61,7 +61,8 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
             decoder = BitmapRegionDecoder.newInstance(context.getResources().openRawResource(id), false);
         } else if (uriString.startsWith(ASSET_PREFIX)) {
             String assetName = uriString.substring(ASSET_PREFIX.length());
-            decoder = BitmapRegionDecoder.newInstance(context.getAssets().open(assetName, AssetManager.ACCESS_RANDOM), false);
+            decoder = BitmapRegionDecoder.newInstance(context.getAssets().open(assetName, AssetManager.ACCESS_RANDOM)
+                    , false);
         } else if (uriString.startsWith(FILE_PREFIX)) {
             decoder = BitmapRegionDecoder.newInstance(uriString.substring(FILE_PREFIX.length()), false);
         } else {
@@ -72,7 +73,10 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
                 decoder = BitmapRegionDecoder.newInstance(inputStream, false);
             } finally {
                 if (inputStream != null) {
-                    try { inputStream.close(); } catch (Exception e) { }
+                    try {
+                        inputStream.close();
+                    } catch (Exception e) {
+                    }
                 }
             }
         }
@@ -87,7 +91,8 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
             options.inPreferredConfig = Config.RGB_565;
             Bitmap bitmap = decoder.decodeRegion(sRect, options);
             if (bitmap == null) {
-                throw new RuntimeException("Skia image decoder returned null bitmap - image format may not be supported");
+                throw new RuntimeException("Skia image decoder returned null bitmap - image format may not be " +
+                        "supported");
             }
             return bitmap;
         }

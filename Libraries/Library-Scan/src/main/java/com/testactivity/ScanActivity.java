@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.framework.utils.PreferencesHelper;
 import com.framework.utils.RequestPermissionsUtil;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ToastUtil;
@@ -117,10 +116,12 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //        CameraManager.setViewfinderScreenWidth(CameraManager.getMaxFrameWidth());
 //        CameraManager.setViewfinderScreenHeight(CameraManager.getMaxFrameHeight());
 
-        int topOffset = (int) (ScreenUtils.getInstance().getScreenHeightPx(this) * 0.18);//TODO 0.18=ConstantsME.scanMarginTopFloat
+        int topOffset = (int) (ScreenUtils.getInstance().getScreenHeightPx(this) * 0.18);//TODO 0.18=ConstantsME
+        // .scanMarginTopFloat
         int leftOffset = ScreenUtils.getInstance().dip2px(this, 40);
-        int width = ScreenUtils.getInstance().getScreenWidthPx(this) - 2 * ScreenUtils.getInstance().dip2px(this, 50)
-                ;//设置取景框最大宽度
+        int width =
+                ScreenUtils.getInstance().getScreenWidthPx(this) - 2 * ScreenUtils.getInstance().dip2px(this, 50);
+        //设置取景框最大宽度
         int height = width / 3;
         Rect framingRect = new Rect(leftOffset, topOffset, ScreenUtils.getInstance().getScreenWidthPx(this) -
                 leftOffset,

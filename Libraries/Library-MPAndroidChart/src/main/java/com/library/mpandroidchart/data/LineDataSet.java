@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.data;
 
 import android.content.Context;
@@ -15,28 +14,44 @@ import java.util.List;
 
 public class LineDataSet extends LineRadarDataSet<Entry> {
 
-    /** List representing all colors that are used for the circles */
+    /**
+     * List representing all colors that are used for the circles
+     */
     private List<Integer> mCircleColors = null;
 
-    /** the color of the inner circles */
+    /**
+     * the color of the inner circles
+     */
     private int mCircleColorHole = Color.WHITE;
 
-    /** the radius of the circle-shaped value indicators */
+    /**
+     * the radius of the circle-shaped value indicators
+     */
     private float mCircleSize = 8f;
 
-    /** sets the intensity of the cubic lines */
+    /**
+     * sets the intensity of the cubic lines
+     */
     private float mCubicIntensity = 0.2f;
 
-    /** the path effect of this DataSet that makes dashed lines possible */
+    /**
+     * the path effect of this DataSet that makes dashed lines possible
+     */
     private DashPathEffect mDashPathEffect = null;
 
-    /** formatter for customizing the position of the fill-line */
+    /**
+     * formatter for customizing the position of the fill-line
+     */
     private FillFormatter mFillFormatter = new DefaultFillFormatter();
 
-    /** if true, drawing circles is enabled */
+    /**
+     * if true, drawing circles is enabled
+     */
     private boolean mDrawCircles = true;
 
-    /** if true, cubic lines are drawn instead of linear */
+    /**
+     * if true, cubic lines are drawn instead of linear
+     */
     private boolean mDrawCubic = false;
 
     private boolean mDrawCircleHole = true;
@@ -79,7 +94,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
     /**
      * Sets the intensity for cubic lines (if enabled). Max = 1f = very cubic,
      * Min = 0.05f = low cubic effect, Default: 0.2f
-     * 
+     *
      * @param intensity
      */
     public void setCubicIntensity(float intensity) {
@@ -94,7 +109,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * Returns the intensity of the cubic lines (the effect intensity).
-     * 
+     *
      * @return
      */
     public float getCubicIntensity() {
@@ -104,7 +119,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
     /**
      * sets the size (radius) of the circle shpaed value indicators, default
      * size = 4f
-     * 
+     *
      * @param size
      */
     public void setCircleSize(float size) {
@@ -122,13 +137,13 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
      * Enables the line to be drawn in dashed mode, e.g. like this
      * "- - - - - -". THIS ONLY WORKS IF HARDWARE-ACCELERATION IS TURNED OFF.
      * Keep in mind that hardware acceleration boosts performance.
-     * 
-     * @param lineLength the length of the line pieces
+     *
+     * @param lineLength  the length of the line pieces
      * @param spaceLength the length of space in between the pieces
-     * @param phase offset, in degrees (normally, use 0)
+     * @param phase       offset, in degrees (normally, use 0)
      */
     public void enableDashedLine(float lineLength, float spaceLength, float phase) {
-        mDashPathEffect = new DashPathEffect(new float[] {
+        mDashPathEffect = new DashPathEffect(new float[]{
                 lineLength, spaceLength
         }, phase);
     }
@@ -142,7 +157,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * Returns true if the dashed-line effect is enabled, false if not.
-     * 
+     *
      * @return
      */
     public boolean isDashedLineEnabled() {
@@ -151,7 +166,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * returns the DashPathEffect that is set for this DataSet
-     * 
+     *
      * @return
      */
     public DashPathEffect getDashPathEffect() {
@@ -161,7 +176,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
     /**
      * set this to true to enable the drawing of circle indicators for this
      * DataSet, default true
-     * 
+     *
      * @param enabled
      */
     public void setDrawCircles(boolean enabled) {
@@ -170,7 +185,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * returns true if drawing circles for this DataSet is enabled, false if not
-     * 
+     *
      * @return
      */
     public boolean isDrawCirclesEnabled() {
@@ -180,7 +195,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
     /**
      * If set to true, the linechart lines are drawn in cubic-style instead of
      * linear. This affects performance! Default: false
-     * 
+     *
      * @param enabled
      */
     public void setDrawCubic(boolean enabled) {
@@ -189,7 +204,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * returns true if drawing cubic lines is enabled, false if not.
-     * 
+     *
      * @return
      */
     public boolean isDrawCubicEnabled() {
@@ -200,7 +215,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * returns all colors specified for the circles
-     * 
+     *
      * @return
      */
     public List<Integer> getCircleColors() {
@@ -210,7 +225,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
     /**
      * Returns the color at the given index of the DataSet's circle-color array.
      * Performs a IndexOutOfBounds check by modulus.
-     * 
+     *
      * @param index
      * @return
      */
@@ -224,7 +239,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
      * is higher than the size of the colors array. Make sure that the colors
      * are already prepared (by calling getResources().getColor(...)) before
      * adding them to the DataSet.
-     * 
+     *
      * @param colors
      */
     public void setCircleColors(List<Integer> colors) {
@@ -237,7 +252,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
      * is higher than the size of the colors array. Make sure that the colors
      * are already prepared (by calling getResources().getColor(...)) before
      * adding them to the DataSet.
-     * 
+     *
      * @param colors
      */
     public void setCircleColors(int[] colors) {
@@ -251,7 +266,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
      * "new String[] { R.color.red, R.color.green, ... }" to provide colors for
      * this method. Internally, the colors are resolved using
      * getResources().getColor(...)
-     * 
+     *
      * @param colors
      */
     public void setCircleColors(int[] colors, Context c) {
@@ -268,7 +283,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
     /**
      * Sets the one and ONLY color that should be used for this DataSet.
      * Internally, this recreates the colors array and adds the specified color.
-     * 
+     *
      * @param color
      */
     public void setCircleColor(int color) {
@@ -285,7 +300,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * Sets the color of the inner circle of the line-circles.
-     * 
+     *
      * @param color
      */
     public void setCircleColorHole(int color) {
@@ -294,7 +309,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * Returns the color of the inner circle.
-     * 
+     *
      * @return
      */
     public int getCircleHoleColor() {
@@ -303,7 +318,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * Set this to true to allow drawing a hole in each data circle.
-     * 
+     *
      * @param enabled
      */
     public void setDrawCircleHole(boolean enabled) {
@@ -330,6 +345,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> {
 
     /**
      * Returns the FillFormatter that is set for this DataSet.
+     *
      * @return
      */
     public FillFormatter getFillFormatter() {

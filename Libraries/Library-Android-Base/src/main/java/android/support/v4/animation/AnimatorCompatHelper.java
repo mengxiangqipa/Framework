@@ -31,6 +31,5 @@ public final class AnimatorCompatHelper {
         } else {
             IMPL = new GingerbreadAnimatorCompatProvider();
         }
-
     }
 }

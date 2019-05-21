@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.animation.ObjectAnimator;
@@ -27,22 +26,30 @@ import java.util.List;
 
 /**
  * Baseclass of PieChart and RadarChart.
- * 
+ *
  * @author Philipp Jahoda
  */
 public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? extends Entry>>>
         extends Chart<T> {
 
-    /** holds the normalized version of the current rotation angle of the chart */
+    /**
+     * holds the normalized version of the current rotation angle of the chart
+     */
     private float mRotationAngle = 270f;
 
-    /** holds the raw version of the current rotation angle of the chart */
+    /**
+     * holds the raw version of the current rotation angle of the chart
+     */
     private float mRawRotationAngle = 270f;
 
-    /** flag that indicates if rotation is enabled or not */
+    /**
+     * flag that indicates if rotation is enabled or not
+     */
     protected boolean mRotateEnabled = true;
 
-    /** Sets the minimum offset (padding) around the chart, defaults to 0.f */
+    /**
+     * Sets the minimum offset (padding) around the chart, defaults to 0.f
+     */
     protected float mMinOffset = 0.f;
 
     public PieRadarChartBase(Context context) {
@@ -104,9 +111,9 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
         float legendLeft = 0f, legendRight = 0f, legendBottom = 0f, legendTop = 0f;
 
         if (mLegend != null && mLegend.isEnabled()) {
-            
-            float fullLegendWidth = Math.min(mLegend.mNeededWidth, 
-                    mViewPortHandler.getChartWidth() * mLegend.getMaxSizePercent()) + 
+
+            float fullLegendWidth = Math.min(mLegend.mNeededWidth,
+                    mViewPortHandler.getChartWidth() * mLegend.getMaxSizePercent()) +
                     mLegend.getFormSize() + mLegend.getFormToTextSpace();
 
             if (mLegend.getPosition() == LegendPosition.RIGHT_OF_CHART_CENTER) {
@@ -115,7 +122,6 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
                 float spacing = Utils.convertDpToPixel(13f);
 
                 legendRight = fullLegendWidth + spacing;
-
             } else if (mLegend.getPosition() == LegendPosition.RIGHT_OF_CHART) {
 
                 // this is the space between the legend and the chart
@@ -145,14 +151,12 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
                 if (bottomRight.y >= c.y && getHeight() - legendWidth > getWidth()) {
                     legendRight = legendWidth;
                 }
-
             } else if (mLegend.getPosition() == LegendPosition.LEFT_OF_CHART_CENTER) {
 
                 // this is the space between the legend and the chart
                 float spacing = Utils.convertDpToPixel(13f);
 
                 legendLeft = fullLegendWidth + spacing;
-
             } else if (mLegend.getPosition() == LegendPosition.LEFT_OF_CHART) {
 
                 // this is the space between the legend and the chart
@@ -182,7 +186,6 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
                 if (bottomLeft.y >= c.y && getHeight() - legendWidth > getWidth()) {
                     legendLeft = legendWidth;
                 }
-
             } else if (mLegend.getPosition() == LegendPosition.BELOW_CHART_LEFT
                     || mLegend.getPosition() == LegendPosition.BELOW_CHART_RIGHT
                     || mLegend.getPosition() == LegendPosition.BELOW_CHART_CENTER) {
@@ -192,8 +195,8 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
                 //   changing default visibility for existing apps.
                 float yOffset = getRequiredLegendOffset();
 
-                legendBottom = Math.min(mLegend.mNeededHeight + yOffset, mViewPortHandler.getChartHeight() * mLegend.getMaxSizePercent());
-
+                legendBottom = Math.min(mLegend.mNeededHeight + yOffset,
+                        mViewPortHandler.getChartHeight() * mLegend.getMaxSizePercent());
             } else if (mLegend.getPosition() == LegendPosition.ABOVE_CHART_LEFT
                     || mLegend.getPosition() == LegendPosition.ABOVE_CHART_RIGHT
                     || mLegend.getPosition() == LegendPosition.ABOVE_CHART_CENTER) {
@@ -203,8 +206,8 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
                 //   changing default visibility for existing apps.
                 float yOffset = getRequiredLegendOffset();
 
-                legendTop = Math.min(mLegend.mNeededHeight + yOffset, mViewPortHandler.getChartHeight() * mLegend.getMaxSizePercent());
-
+                legendTop = Math.min(mLegend.mNeededHeight + yOffset,
+                        mViewPortHandler.getChartHeight() * mLegend.getMaxSizePercent());
             }
 
             legendLeft += getRequiredBaseOffset();
@@ -243,7 +246,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
      * returns the angle relative to the chart center for the given point on the
      * chart in degrees. The angle is always between 0 and 360°, 0° is NORTH,
      * 90° is EAST, ...
-     * 
+     *
      * @param x
      * @param y
      * @return
@@ -274,10 +277,10 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
     /**
      * Calculates the position around a center point, depending on the distance
      * from the center, and the angle of the position around the center.
-     * 
+     *
      * @param center
      * @param dist
-     * @param angle in degrees, converted to radians internally
+     * @param angle  in degrees, converted to radians internally
      * @return
      */
     protected PointF getPosition(PointF center, float dist, float angle) {
@@ -325,7 +328,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
     /**
      * Returns the xIndex for the given angle around the center of the chart.
      * Returns -1 if not found / outofbounds.
-     * 
+     *
      * @param angle
      * @return
      */
@@ -334,7 +337,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
     /**
      * Set an offset for the rotation of the RadarChart in degrees. Default 270f
      * --> top (NORTH)
-     * 
+     *
      * @param angle
      */
     public void setRotationAngle(float angle) {
@@ -367,7 +370,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
     /**
      * Set this to true to enable the rotation / spinning of the chart by touch.
      * Set it to false to disable it. Default: true
-     * 
+     *
      * @param enabled
      */
     public void setRotationEnabled(boolean enabled) {
@@ -376,26 +379,30 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
 
     /**
      * Returns true if rotation of the chart by touch is enabled, false if not.
-     * 
+     *
      * @return
      */
     public boolean isRotationEnabled() {
         return mRotateEnabled;
     }
 
-    /** Gets the minimum offset (padding) around the chart, defaults to 0.f */
+    /**
+     * Gets the minimum offset (padding) around the chart, defaults to 0.f
+     */
     public float getMinOffset() {
         return mMinOffset;
     }
 
-    /** Sets the minimum offset (padding) around the chart, defaults to 0.f */
+    /**
+     * Sets the minimum offset (padding) around the chart, defaults to 0.f
+     */
     public void setMinOffset(float minOffset) {
         mMinOffset = minOffset;
     }
 
     /**
      * returns the diameter of the pie- or radar-chart
-     * 
+     *
      * @return
      */
     public float getDiameter() {
@@ -405,14 +412,14 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
 
     /**
      * Returns the radius of the chart in pixels.
-     * 
+     *
      * @return
      */
     public abstract float getRadius();
 
     /**
      * Returns the required offset for the chart legend.
-     * 
+     *
      * @return
      */
     protected abstract float getRequiredLegendOffset();
@@ -420,7 +427,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
     /**
      * Returns the base offset needed for the chart without calculating the
      * legend size.
-     * 
+     *
      * @return
      */
     protected abstract float getRequiredBaseOffset();
@@ -471,7 +478,7 @@ public abstract class PieRadarChartBase<T extends ChartData<? extends DataSet<? 
 
     /**
      * Applys a spin animation to the Chart.
-     * 
+     *
      * @param durationmillis
      * @param fromangle
      * @param toangle

@@ -15,7 +15,6 @@
  */
 package custom.org.greenrobot.eventbus.util;
 
-
 import java.lang.reflect.Constructor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -26,7 +25,7 @@ import custom.org.greenrobot.eventbus.EventBus;
 /**
  * Executes an {@link RunnableEx} using a thread pool. Thrown exceptions are propagated by posting failure events of any
  * given type (default is {@link ThrowableFailureEvent}).
- * 
+ *
  * @author Markus
  */
 public class AsyncExecutor {
@@ -44,6 +43,7 @@ public class AsyncExecutor {
             this.threadPool = threadPool;
             return this;
         }
+
         //我修改
         public Builder tag(String tag) {
             this.tag = tag;
@@ -78,7 +78,9 @@ public class AsyncExecutor {
         }
     }
 
-    /** Like {@link Runnable}, but the run method may throw an exception. */
+    /**
+     * Like {@link Runnable}, but the run method may throw an exception.
+     */
     public interface RunnableEx {
         void run() throws Exception;
     }
@@ -96,7 +98,9 @@ public class AsyncExecutor {
     private final EventBus eventBus;
     private final Object scope;
     private String tag;//我修改
-    private AsyncExecutor(Executor threadPool, EventBus eventBus, Class<?> failureEventType, Object scope, String tag) {//我修改
+
+    private AsyncExecutor(Executor threadPool, EventBus eventBus, Class<?> failureEventType, Object scope,
+                          String tag) {//我修改
         this.threadPool = threadPool;
         this.eventBus = eventBus;
         this.scope = scope;
@@ -109,7 +113,9 @@ public class AsyncExecutor {
         }
     }
 
-    /** Posts an failure event if the given {@link RunnableEx} throws an Exception. */
+    /**
+     * Posts an failure event if the given {@link RunnableEx} throws an Exception.
+     */
     public void execute(final RunnableEx runnable) {
         threadPool.execute(new Runnable() {
             @Override
@@ -132,5 +138,4 @@ public class AsyncExecutor {
             }
         });
     }
-
 }

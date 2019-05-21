@@ -51,7 +51,6 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
         this.drawLastLine = drawLastLine;
     }
 
-
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (canDraw) {
@@ -199,7 +198,8 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
                                 outRect.set(mDivider.getIntrinsicWidth(), 0, mDivider.getIntrinsicWidth(), bottom);
 //                                Y.y("getItemOffsets 列第一项0-- "+ itemPosition);
                             } else {
-                                outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),mDivider.getIntrinsicWidth(), bottom);
+                                outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                                        mDivider.getIntrinsicWidth(), bottom);
 //                                Y.y("getItemOffsets 列第一项1-- "+ itemPosition);
                             }
                             //该列属于首项
@@ -226,19 +226,22 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
                         //第一行
                     } else if (gridLayoutManager.getSpanSizeLookup().getSpanGroupIndex(itemPosition, spanCount) == 0) {
                         if (!drawFirstLine) {//列第一项第一个
-                            outRect.set(mDivider.getIntrinsicWidth() , 0, mDivider.getIntrinsicWidth(), bottom);
+                            outRect.set(mDivider.getIntrinsicWidth(), 0, mDivider.getIntrinsicWidth(), bottom);
 //                            Y.y("getItemOffsets 第一行1-- "+ itemPosition);
                         } else {
-                            outRect.set(mDivider.getIntrinsicWidth() , mDivider.getIntrinsicHeight(), mDivider.getIntrinsicWidth(), bottom);
+                            outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                                    mDivider.getIntrinsicWidth(), bottom);
 //                            Y.y("getItemOffsets 第一行2-- "+ itemPosition);
                         }
                         //列中间项
                     } else {
-                        outRect.set(mDivider.getIntrinsicWidth() , mDivider.getIntrinsicHeight(), mDivider.getIntrinsicWidth(), bottom);
+                        outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                                mDivider.getIntrinsicWidth(), bottom);
 //                        Y.y("getItemOffsets 列中间项-- "+ itemPosition);
                     }
                 } else {//列中间项
-                    outRect.set(mDivider.getIntrinsicWidth() , mDivider.getIntrinsicHeight(),mDivider.getIntrinsicWidth(), bottom);
+                    outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                            mDivider.getIntrinsicWidth(), bottom);
                 }
             }
         }

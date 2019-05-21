@@ -26,9 +26,7 @@ import android.widget.ImageView;
  */
 public class ClipZoomImageView extends ImageView implements
         OnScaleGestureListener, OnTouchListener,
-        ViewTreeObserver.OnGlobalLayoutListener
-
-{
+        ViewTreeObserver.OnGlobalLayoutListener {
 
     private static final String TAG = ClipZoomImageView.class.getSimpleName();
     public static float SCALE_MAX = 4.0f;

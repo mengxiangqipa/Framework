@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.data;
 
 import java.util.ArrayList;
@@ -7,7 +6,7 @@ import java.util.List;
 /**
  * Data object that allows the combination of Line-, Bar-, Scatter-, Bubble- and
  * CandleData. Used in the CombinedChart class.
- * 
+ *
  * @author Philipp Jahoda
  */
 public class CombinedData extends BarLineScatterCandleBubbleData<BarLineScatterCandleBubbleDataSet<?>> {
@@ -82,20 +81,21 @@ public class CombinedData extends BarLineScatterCandleBubbleData<BarLineScatterC
 
     /**
      * Returns all data objects in row: line-bar-scatter-candle-bubble if not null.
+     *
      * @return
      */
     public List<ChartData> getAllData() {
 
         List<ChartData> data = new ArrayList<ChartData>();
-        if(mLineData != null)
+        if (mLineData != null)
             data.add(mLineData);
-        if(mBarData != null)
+        if (mBarData != null)
             data.add(mBarData);
-        if(mScatterData != null)
+        if (mScatterData != null)
             data.add(mScatterData);
-        if(mCandleData != null)
+        if (mCandleData != null)
             data.add(mCandleData);
-        if(mBubbleData != null)
+        if (mBubbleData != null)
             data.add(mBubbleData);
 
         return data;

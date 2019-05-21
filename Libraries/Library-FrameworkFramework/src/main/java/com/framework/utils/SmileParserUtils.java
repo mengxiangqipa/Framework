@@ -94,7 +94,7 @@ public class SmileParserUtils {
     // ////////////////
     private static final Factory spannableFactory = Factory.getInstance();
     private static final Map<Pattern, Integer> mapEmotions = new HashMap<Pattern, Integer>();
-//	{
+    //	{
 //		R.drawable.bg_mood1,
 //			R.drawable.bg_mood2, R.drawable.bg_mood3, R.drawable.bg_mood4,
 //			R.drawable.bg_mood5, R.drawable.bg_mood6, R.drawable.bg_mood7,

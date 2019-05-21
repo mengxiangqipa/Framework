@@ -114,7 +114,8 @@ final class DecodeHandler extends Handler {
         if (rawResult != null) {
             long end = System.currentTimeMillis();
             Log.e("yy", "Found barcode (" + (end - start) + " ms):\n" + rawResult.toString());
-            Message message = Message.obtain(activity.getCaptureActivityHandler(), R.id.decode_succeeded, new Result[]{rawResult});
+            Message message = Message.obtain(activity.getCaptureActivityHandler(), R.id.decode_succeeded,
+                    new Result[]{rawResult});
             Bundle bundle = new Bundle();
             bundle.putParcelable(DecodeThread.BARCODE_BITMAP, source.renderCroppedGreyscaleBitmap());
             message.setData(bundle);
@@ -165,14 +166,16 @@ final class DecodeHandler extends Handler {
 
         Result[] results = null;
         try {
-            GenericMultipleBarcodeReader genericMultipleBarcodeReader = new GenericMultipleBarcodeReader(multiFormatReader);
+            GenericMultipleBarcodeReader genericMultipleBarcodeReader =
+                    new GenericMultipleBarcodeReader(multiFormatReader);
             results = genericMultipleBarcodeReader.decodeMultiple(multipleBinaryBitmap);
             if (results != null) {
                 Log.e("yy", "Found barcode_s(" + (System.currentTimeMillis() - start) + " ms):\n" + results.toString());
                 Log.e("yy", "Found barcode_s_length:(" + results.length);
                 for (int i = 0; i < results.length; i++) {
                     Result result = results[i];
-                    Log.e("yy", "Found barcode (" + (System.currentTimeMillis() - start) + " ms):\n" + result.getText());
+                    Log.e("yy",
+                            "Found barcode (" + (System.currentTimeMillis() - start) + " ms):\n" + result.getText());
                 }
             }
         } catch (ReaderException e) {
@@ -196,5 +199,4 @@ final class DecodeHandler extends Handler {
             message.sendToTarget();
         }
     }
-
 }

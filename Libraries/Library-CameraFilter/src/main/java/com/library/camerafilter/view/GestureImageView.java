@@ -33,6 +33,7 @@ public class GestureImageView extends android.support.v7.widget.AppCompatImageVi
         super(context);
         init(context);
     }
+
     public GestureImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);

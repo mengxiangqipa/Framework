@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.buffer;
 
 import com.library.mpandroidchart.data.CandleEntry;
@@ -22,7 +21,7 @@ public class CandleShadowBuffer extends AbstractBuffer<CandleEntry> {
     @Override
     public void feed(List<CandleEntry> entries) {
 
-        int size = (int)Math.ceil((mTo - mFrom) * phaseX + mFrom);
+        int size = (int) Math.ceil((mTo - mFrom) * phaseX + mFrom);
 
         for (int i = mFrom; i < size; i++) {
 

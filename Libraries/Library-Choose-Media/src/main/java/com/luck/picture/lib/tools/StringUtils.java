@@ -55,5 +55,4 @@ public class StringUtils {
             v.setCompoundDrawables(null, null, null, drawable);
         }
     }
-
 }

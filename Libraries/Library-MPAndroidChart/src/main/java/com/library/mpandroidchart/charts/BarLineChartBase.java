@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.annotation.SuppressLint;
@@ -42,7 +41,8 @@ import com.library.mpandroidchart.utils.Utils;
  * @author Philipp Jahoda
  */
 @SuppressLint("RtlHardcoded")
-public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<? extends BarLineScatterCandleBubbleDataSet<? extends Entry>>>
+public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<?
+        extends BarLineScatterCandleBubbleDataSet<? extends Entry>>>
         extends Chart<T> implements BarLineScatterCandleBubbleDataProvider {
 
     /**
@@ -385,40 +385,54 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         if (mAxisLeft.isStartAtZeroEnabled()) {
             if (minLeft < 0.f && maxLeft < 0.f) {
                 // If the values are all negative, let's stay in the negative zone
-                mAxisLeft.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisLeft.getAxisMinValue()) ? mAxisLeft.getAxisMinValue() : (minLeft - bottomSpaceLeft));
+                mAxisLeft.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisLeft.getAxisMinValue()) ?
+                        mAxisLeft.getAxisMinValue() : (minLeft - bottomSpaceLeft));
                 mAxisLeft.mAxisMaximum = 0.f;
             } else if (minLeft >= 0.0) {
                 // We have positive values only, stay in the positive zone
                 mAxisLeft.mAxisMinimum = 0.f;
-                mAxisLeft.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisLeft.getAxisMaxValue()) ? mAxisLeft.getAxisMaxValue() : (maxLeft + topSpaceLeft));
+                mAxisLeft.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisLeft.getAxisMaxValue()) ?
+                        mAxisLeft.getAxisMaxValue() : (maxLeft + topSpaceLeft));
             } else {
-                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at the same time)
-                mAxisLeft.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisLeft.getAxisMinValue()) ? mAxisLeft.getAxisMinValue() : (minLeft - bottomSpaceLeft));
-                mAxisLeft.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisLeft.getAxisMaxValue()) ? mAxisLeft.getAxisMaxValue() : (maxLeft + topSpaceLeft));
+                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at
+                // the same time)
+                mAxisLeft.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisLeft.getAxisMinValue()) ?
+                        mAxisLeft.getAxisMinValue() : (minLeft - bottomSpaceLeft));
+                mAxisLeft.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisLeft.getAxisMaxValue()) ?
+                        mAxisLeft.getAxisMaxValue() : (maxLeft + topSpaceLeft));
             }
         } else {
             // Use the values as they are
-            mAxisLeft.mAxisMinimum = !Float.isNaN(mAxisLeft.getAxisMinValue()) ? mAxisLeft.getAxisMinValue() : (minLeft - bottomSpaceLeft);
-            mAxisLeft.mAxisMaximum = !Float.isNaN(mAxisLeft.getAxisMaxValue()) ? mAxisLeft.getAxisMaxValue() : (maxLeft + topSpaceLeft);
+            mAxisLeft.mAxisMinimum = !Float.isNaN(mAxisLeft.getAxisMinValue()) ? mAxisLeft.getAxisMinValue() :
+                    (minLeft - bottomSpaceLeft);
+            mAxisLeft.mAxisMaximum = !Float.isNaN(mAxisLeft.getAxisMaxValue()) ? mAxisLeft.getAxisMaxValue() :
+                    (maxLeft + topSpaceLeft);
         }
 
         if (mAxisRight.isStartAtZeroEnabled()) {
             if (minRight < 0.f && maxRight < 0.f) {
                 // If the values are all negative, let's stay in the negative zone
-                mAxisRight.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisRight.getAxisMinValue()) ? mAxisRight.getAxisMinValue() : (minRight - bottomSpaceRight));
+                mAxisRight.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisRight.getAxisMinValue()) ?
+                        mAxisRight.getAxisMinValue() : (minRight - bottomSpaceRight));
                 mAxisRight.mAxisMaximum = 0.f;
             } else if (minRight >= 0.f) {
                 // We have positive values only, stay in the positive zone
                 mAxisRight.mAxisMinimum = 0.f;
-                mAxisRight.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisRight.getAxisMaxValue()) ? mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight));
+                mAxisRight.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisRight.getAxisMaxValue()) ?
+                        mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight));
             } else {
-                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at the same time)
-                mAxisRight.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisRight.getAxisMinValue()) ? mAxisRight.getAxisMinValue() : (minRight - bottomSpaceRight));
-                mAxisRight.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisRight.getAxisMaxValue()) ? mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight));
+                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at
+                // the same time)
+                mAxisRight.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisRight.getAxisMinValue()) ?
+                        mAxisRight.getAxisMinValue() : (minRight - bottomSpaceRight));
+                mAxisRight.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisRight.getAxisMaxValue()) ?
+                        mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight));
             }
         } else {
-            mAxisRight.mAxisMinimum = !Float.isNaN(mAxisRight.getAxisMinValue()) ? mAxisRight.getAxisMinValue() : (minRight - bottomSpaceRight);
-            mAxisRight.mAxisMaximum = !Float.isNaN(mAxisRight.getAxisMaxValue()) ? mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight);
+            mAxisRight.mAxisMinimum = !Float.isNaN(mAxisRight.getAxisMinValue()) ? mAxisRight.getAxisMinValue() :
+                    (minRight - bottomSpaceRight);
+            mAxisRight.mAxisMaximum = !Float.isNaN(mAxisRight.getAxisMaxValue()) ? mAxisRight.getAxisMaxValue() :
+                    (maxRight + topSpaceRight);
         }
 
         mAxisLeft.mAxisRange = Math.abs(mAxisLeft.mAxisMaximum - mAxisLeft.mAxisMinimum);
@@ -441,14 +455,12 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
                     offsetRight += Math.min(mLegend.mNeededWidth, mViewPortHandler.getChartWidth()
                             * mLegend.getMaxSizePercent())
                             + mLegend.getXOffset() * 2f;
-
                 } else if (mLegend.getPosition() == LegendPosition.LEFT_OF_CHART
                         || mLegend.getPosition() == LegendPosition.LEFT_OF_CHART_CENTER) {
 
                     offsetLeft += Math.min(mLegend.mNeededWidth, mViewPortHandler.getChartWidth()
                             * mLegend.getMaxSizePercent())
                             + mLegend.getXOffset() * 2f;
-
                 } else if (mLegend.getPosition() == LegendPosition.BELOW_CHART_LEFT
                         || mLegend.getPosition() == LegendPosition.BELOW_CHART_RIGHT
                         || mLegend.getPosition() == LegendPosition.BELOW_CHART_CENTER) {
@@ -460,7 +472,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
                     offsetBottom += Math.min(mLegend.mNeededHeight + yOffset,
                             mViewPortHandler.getChartHeight() * mLegend.getMaxSizePercent());
-
                 } else if (mLegend.getPosition() == LegendPosition.ABOVE_CHART_LEFT
                         || mLegend.getPosition() == LegendPosition.ABOVE_CHART_RIGHT
                         || mLegend.getPosition() == LegendPosition.ABOVE_CHART_CENTER) {
@@ -472,7 +483,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
                     offsetTop += Math.min(mLegend.mNeededHeight + yOffset,
                             mViewPortHandler.getChartHeight() * mLegend.getMaxSizePercent());
-
                 }
             }
 
@@ -495,11 +505,9 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
                 if (mXAxis.getPosition() == XAxisPosition.BOTTOM) {
 
                     offsetBottom += xlabelheight;
-
                 } else if (mXAxis.getPosition() == XAxisPosition.TOP) {
 
                     offsetTop += xlabelheight;
-
                 } else if (mXAxis.getPosition() == XAxisPosition.BOTH_SIDED) {
 
                     offsetBottom += xlabelheight;
@@ -547,7 +555,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
             mXAxis.mAxisLabelModulus = (int) Math
                     .ceil((mData.getXValCount() * mXAxis.mLabelRotatedWidth)
                             / (mViewPortHandler.contentWidth() * values[Matrix.MSCALE_X]));
-
         }
 
         if (mLogEnabled)
@@ -1133,12 +1140,16 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         mBorderPaint.setColor(color);
     }
 
-    /** Gets the minimum offset (padding) around the chart, defaults to 10.f */
+    /**
+     * Gets the minimum offset (padding) around the chart, defaults to 10.f
+     */
     public float getMinOffset() {
         return mMinOffset;
     }
 
-    /** Sets the minimum offset (padding) around the chart, defaults to 10.f */
+    /**
+     * Sets the minimum offset (padding) around the chart, defaults to 10.f
+     */
     public void setMinOffset(float minOffset) {
         mMinOffset = minOffset;
     }

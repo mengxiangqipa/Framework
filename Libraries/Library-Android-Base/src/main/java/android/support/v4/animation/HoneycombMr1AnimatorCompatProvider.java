@@ -89,17 +89,16 @@ class HoneycombMr1AnimatorCompatProvider implements AnimatorProvider {
 
         public void addUpdateListener(final AnimatorUpdateListenerCompat animatorUpdateListener) {
             if (this.mWrapped instanceof ValueAnimator) {
-                ((ValueAnimator)this.mWrapped).addUpdateListener(new AnimatorUpdateListener() {
+                ((ValueAnimator) this.mWrapped).addUpdateListener(new AnimatorUpdateListener() {
                     public void onAnimationUpdate(ValueAnimator animation) {
                         animatorUpdateListener.onAnimationUpdate(HoneycombValueAnimatorCompat.this);
                     }
                 });
             }
-
         }
 
         public float getAnimatedFraction() {
-            return ((ValueAnimator)this.mWrapped).getAnimatedFraction();
+            return ((ValueAnimator) this.mWrapped).getAnimatedFraction();
         }
     }
 }

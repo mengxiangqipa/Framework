@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.utils;
 
 import android.graphics.Matrix;

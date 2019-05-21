@@ -740,7 +740,8 @@ public class CustomVideoViewWithUI extends FrameLayout implements MediaPlayer.On
      */
     public void resumeVolumAndBrightness() {
         while (lastVolume != AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC))
-            if (lastVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC)) {
+            if (lastVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                    AudioManager.STREAM_MUSIC)) {
                 AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context, AudioManager.STREAM_MUSIC);
             } else {
                 AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context, AudioManager.STREAM_MUSIC);
@@ -758,7 +759,8 @@ public class CustomVideoViewWithUI extends FrameLayout implements MediaPlayer.On
      */
     public void resetVolumAndBrightness() {
         while (initVolume != AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC))
-            if (initVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC)) {
+            if (initVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                    AudioManager.STREAM_MUSIC)) {
                 AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context, AudioManager.STREAM_MUSIC);
             } else {
                 AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context, AudioManager.STREAM_MUSIC);
@@ -766,7 +768,8 @@ public class CustomVideoViewWithUI extends FrameLayout implements MediaPlayer.On
         if (ScreenBrightnessUtil.getInstance().hasSettingsPermission(context)) {
             if (initBrightness > 0) {
                 ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context, initBrightness);
-                ScreenBrightnessUtil.getInstance().closeAutomaticScreenBrightness((Activity) context, !isAutomaticBrightness);
+                ScreenBrightnessUtil.getInstance().closeAutomaticScreenBrightness((Activity) context,
+                        !isAutomaticBrightness);
             }
         }
     }

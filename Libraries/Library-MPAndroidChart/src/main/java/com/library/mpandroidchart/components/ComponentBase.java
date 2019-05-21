@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.components;
 
 import android.graphics.Color;

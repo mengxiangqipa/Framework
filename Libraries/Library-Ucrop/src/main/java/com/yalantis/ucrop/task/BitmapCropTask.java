@@ -55,7 +55,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
     private int mCroppedImageWidth, mCroppedImageHeight;
     private int cropOffsetX, cropOffsetY;
 
-    public BitmapCropTask(@NonNull Context context, @Nullable Bitmap viewBitmap, @NonNull ImageState imageState, @NonNull CropParameters cropParameters,
+    public BitmapCropTask(@NonNull Context context, @Nullable Bitmap viewBitmap, @NonNull ImageState imageState,
+                          @NonNull CropParameters cropParameters,
                           @Nullable BitmapCropCallback cropCallback) {
 
         mContext = new WeakReference<>(context);
@@ -90,7 +91,6 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
             return new NullPointerException("CurrentImageRect is empty");
         }
 
-
         try {
             crop();
             mViewBitmap = null;
@@ -100,7 +100,6 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
 
         return null;
     }
-
 
     private boolean crop() throws IOException {
         // Downsize if needed
@@ -131,7 +130,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
             Matrix tempMatrix = new Matrix();
             tempMatrix.setRotate(mCurrentAngle, mViewBitmap.getWidth() / 2, mViewBitmap.getHeight() / 2);
 
-            Bitmap rotatedBitmap = Bitmap.createBitmap(mViewBitmap, 0, 0, mViewBitmap.getWidth(), mViewBitmap.getHeight(),
+            Bitmap rotatedBitmap = Bitmap.createBitmap(mViewBitmap, 0, 0, mViewBitmap.getWidth(),
+                    mViewBitmap.getHeight(),
                     tempMatrix, true);
             if (mViewBitmap != rotatedBitmap) {
                 mViewBitmap.recycle();
@@ -149,7 +149,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
 
         if (shouldCrop) {
             ExifInterface originalExif = new ExifInterface(mImageInputPath);
-            saveImage(Bitmap.createBitmap(mViewBitmap, cropOffsetX, cropOffsetY, mCroppedImageWidth, mCroppedImageHeight));
+            saveImage(Bitmap.createBitmap(mViewBitmap, cropOffsetX, cropOffsetY, mCroppedImageWidth,
+                    mCroppedImageHeight));
             if (mCompressFormat.equals(Bitmap.CompressFormat.JPEG)) {
                 ImageHeaderParser.copyExif(originalExif, mCroppedImageWidth, mCroppedImageHeight, mImageOutputPath);
             }
@@ -205,5 +206,4 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
             }
         }
     }
-
 }

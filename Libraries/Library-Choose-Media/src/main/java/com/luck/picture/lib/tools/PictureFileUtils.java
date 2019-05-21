@@ -104,7 +104,6 @@ public class PictureFileUtils {
         return tmpFile;
     }
 
-
     /**
      * TAG for log messages.
      */
@@ -355,7 +354,8 @@ public class PictureFileUtils {
         int degree = 0;
         try {
             ExifInterface exifInterface = new ExifInterface(path);
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_90:
                     degree = 90;
@@ -459,7 +459,8 @@ public class PictureFileUtils {
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);// 画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
         // canvas.drawCircle(roundPx, roundPx, roundPx, paint);
 
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye
+        // .com/blog/1189452
         canvas.drawBitmap(bitmap, src, dst, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
 
         return output;
@@ -473,7 +474,8 @@ public class PictureFileUtils {
      */
     public static String createDir(Context context, String filename, String directory_path) {
         String state = Environment.getExternalStorageState();
-        File rootDir = state.equals(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory() : context.getCacheDir();
+        File rootDir = state.equals(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory() :
+                context.getCacheDir();
         File path = null;
         if (!TextUtils.isEmpty(directory_path)) {
             // 自定义保存目录
@@ -489,7 +491,6 @@ public class PictureFileUtils {
 
         return path + "/" + filename;
     }
-
 
     /**
      * image is Damage
@@ -625,7 +626,6 @@ public class PictureFileUtils {
             }
         }
     }
-
 
     /**
      * delete file

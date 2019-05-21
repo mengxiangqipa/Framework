@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.data;
 
 import android.graphics.Typeface;
@@ -186,7 +185,7 @@ public abstract class ChartData<T extends DataSet<? extends Entry>> {
         if (mDataSets == null)
             return;
 
-        if(this instanceof ScatterData)
+        if (this instanceof ScatterData)
             return;
 
         for (int i = 0; i < mDataSets.size(); i++) {
@@ -194,7 +193,8 @@ public abstract class ChartData<T extends DataSet<? extends Entry>> {
                     .getYVals()
                     .size() > mXVals.size()) {
                 throw new IllegalArgumentException(
-                        "One or more of the DataSet Entry arrays are longer than the x-values array of this ChartData object.");
+                        "One or more of the DataSet Entry arrays are longer than the x-values array of this ChartData" +
+                                " object.");
             }
         }
     }
@@ -336,10 +336,11 @@ public abstract class ChartData<T extends DataSet<? extends Entry>> {
     /**
      * Returns the average value across all entries in this Data object
      * (all entries from the DataSets this data object holds)
+     *
      * @return
      */
     public float getAverage() {
-        return (float ) getYValueSum() / (float) getYValCount();
+        return (float) getYValueSum() / (float) getYValCount();
     }
 
     /**

@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Canvas;
@@ -246,5 +245,4 @@ public class RadarChartRenderer extends LineScatterCandleRadarRenderer {
             drawHighlightLines(c, pts, set);
         }
     }
-
 }

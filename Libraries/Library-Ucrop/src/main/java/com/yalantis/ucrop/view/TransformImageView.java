@@ -66,7 +66,6 @@ public class TransformImageView extends ImageView {
         void onRotate(float currentAngle);
 
         void onScale(float currentScale);
-
     }
 
     public TransformImageView(Context context) {
@@ -142,7 +141,8 @@ public class TransformImageView extends ImageView {
                 new BitmapLoadCallback() {
 
                     @Override
-                    public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String imageInputPath, @Nullable String imageOutputPath) {
+                    public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo,
+                                               @NonNull String imageInputPath, @Nullable String imageOutputPath) {
                         mImageInputPath = imageInputPath;
                         mImageOutputPath = imageOutputPath;
                         mExifInfo = exifInfo;
@@ -308,7 +308,8 @@ public class TransformImageView extends ImageView {
      * @param valueIndex - index of needed value. See {@link Matrix#MSCALE_X} and others.
      * @return - matrix value for index
      */
-    protected float getMatrixValue(@NonNull Matrix matrix, @IntRange(from = 0, to = MATRIX_VALUES_COUNT) int valueIndex) {
+    protected float getMatrixValue(@NonNull Matrix matrix,
+                                   @IntRange(from = 0, to = MATRIX_VALUES_COUNT) int valueIndex) {
         matrix.getValues(mMatrixValues);
         return mMatrixValues[valueIndex];
     }
@@ -323,7 +324,8 @@ public class TransformImageView extends ImageView {
         float y = getMatrixValue(matrix, Matrix.MTRANS_Y);
         float rScale = getMatrixScale(matrix);
         float rAngle = getMatrixAngle(matrix);
-        Log.d(TAG, logPrefix + ": matrix: { x: " + x + ", y: " + y + ", scale: " + rScale + ", angle: " + rAngle + " }");
+        Log.d(TAG, logPrefix + ": matrix: { x: " + x + ", y: " + y + ", scale: " + rScale + ", angle: " + rAngle + " " +
+                "}");
     }
 
     /**
@@ -335,5 +337,4 @@ public class TransformImageView extends ImageView {
         mCurrentImageMatrix.mapPoints(mCurrentImageCorners, mInitialImageCorners);
         mCurrentImageMatrix.mapPoints(mCurrentImageCenter, mInitialImageCenter);
     }
-
 }

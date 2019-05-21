@@ -52,7 +52,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
     private int mCroppedImageWidth, mCroppedImageHeight;
     private int cropOffsetX, cropOffsetY;
 
-    public BitmapCropTask(@Nullable Bitmap viewBitmap, @NonNull ImageState imageState, @NonNull CropParameters cropParameters,
+    public BitmapCropTask(@Nullable Bitmap viewBitmap, @NonNull ImageState imageState,
+                          @NonNull CropParameters cropParameters,
                           @Nullable BitmapCropCallback cropCallback) {
 
         mViewBitmap = viewBitmap;
@@ -191,5 +192,4 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
             }
         }
     }
-
 }

@@ -116,7 +116,6 @@ public class YAxisRenderer extends AxisRenderer {
                 mYAxis.mEntries = new float[2];
                 mYAxis.mEntries[0] = yMin;
                 mYAxis.mEntries[1] = yMax;
-
             } else {
 
                 double first = Math.ceil(yMin / interval) * interval;
@@ -191,7 +190,6 @@ public class YAxisRenderer extends AxisRenderer {
                 mAxisLabelPaint.setTextAlign(Align.LEFT);
                 xPos = mViewPortHandler.offsetLeft() + xoffset;
             }
-
         } else {
 
             if (labelPosition == YAxisLabelPosition.OUTSIDE_CHART) {
@@ -295,7 +293,7 @@ public class YAxisRenderer extends AxisRenderer {
 
             LimitLine l = limitLines.get(i);
 
-            if(!l.isEnabled())
+            if (!l.isEnabled())
                 continue;
 
             mLimitLinePaint.setStyle(Paint.Style.STROKE);
@@ -338,21 +336,18 @@ public class YAxisRenderer extends AxisRenderer {
                     c.drawText(label,
                             mViewPortHandler.contentRight() - xOffset,
                             pts[1] - yOffset + labelLineHeight, mLimitLinePaint);
-
                 } else if (position == LimitLine.LimitLabelPosition.RIGHT_BOTTOM) {
 
                     mLimitLinePaint.setTextAlign(Align.RIGHT);
                     c.drawText(label,
                             mViewPortHandler.contentRight() - xOffset,
                             pts[1] + yOffset, mLimitLinePaint);
-
                 } else if (position == LimitLine.LimitLabelPosition.LEFT_TOP) {
 
                     mLimitLinePaint.setTextAlign(Align.LEFT);
                     c.drawText(label,
                             mViewPortHandler.contentLeft() + xOffset,
                             pts[1] - yOffset + labelLineHeight, mLimitLinePaint);
-
                 } else {
 
                     mLimitLinePaint.setTextAlign(Align.LEFT);

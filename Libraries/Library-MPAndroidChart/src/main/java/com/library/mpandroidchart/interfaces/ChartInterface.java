@@ -9,7 +9,7 @@ import com.library.mpandroidchart.formatter.ValueFormatter;
 /**
  * Interface that provides everything there is to know about the dimensions,
  * bounds, and range of the chart.
- * 
+ *
  * @author Philipp Jahoda
  */
 public interface ChartInterface {
@@ -21,7 +21,7 @@ public interface ChartInterface {
     float getYChartMin();
 
     float getYChartMax();
-    
+
     int getXValCount();
 
     int getWidth();
@@ -33,7 +33,7 @@ public interface ChartInterface {
     PointF getCenterOffsets();
 
     RectF getContentRect();
-    
+
     ValueFormatter getDefaultValueFormatter();
 
     ChartData getData();

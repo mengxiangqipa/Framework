@@ -62,5 +62,4 @@ public class AspectRatio implements Parcelable {
     public float getAspectRatioY() {
         return mAspectRatioY;
     }
-
 }

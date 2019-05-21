@@ -35,7 +35,6 @@ import com.zxing.view.ViewfinderView;
 import java.io.IOException;
 import java.util.List;
 
-
 /**
  * This object wraps the Camera service object and expects to be the only one
  * talking to it. The implementation encapsulates the steps needed to take
@@ -120,6 +119,7 @@ public final class CameraManager {
     public static int getViewfinderScreenWidth() {
         return VIEWFINDER_SCREEN_WIDTH;
     }
+
     public static boolean isDecodeMultiple() {
         return DecodeMultiple;
     }
@@ -127,8 +127,10 @@ public final class CameraManager {
     public static void setDecodeMultiple(boolean decodeMultiple) {
         DecodeMultiple = decodeMultiple;
     }
+
     /**
      * 设置屏幕取景的宽高//设置屏幕取景面积越大（最后会根据宽高使用系统推荐值），扫描成功概率越大，单次解析速度越慢
+     *
      * @param viewfinderScreenWidth 设置屏幕取景的宽
      */
     public static void setViewfinderScreenWidth(int viewfinderScreenWidth) {
@@ -138,8 +140,10 @@ public final class CameraManager {
     public static int getViewfinderScreenHeight() {
         return VIEWFINDER_SCREEN_HEIGHT;
     }
+
     /**
      * 设置屏幕取景的宽高//设置屏幕取景面积越大（最后会根据宽高使用系统推荐值），扫描成功概率越大，单次解析速度越慢
+     *
      * @param viewfinderScreenHeight 设置屏幕取景的高
      */
     public static void setViewfinderScreenHeight(int viewfinderScreenHeight) {
@@ -380,11 +384,13 @@ public final class CameraManager {
 
     /**
      * 在screen上预览的框
+     *
      * @param framingRect 在screen上预览的框
      */
     public void setRectInPreview(Rect framingRect) {
         this.framingRect = framingRect;
     }
+
     /**
      * Calculates the framing rect which the UI should draw to show the user where to place the
      * barcode. This target helps with alignment as well as forces the user to hold the device
@@ -429,7 +435,9 @@ public final class CameraManager {
                 leftOffset = (screenResolution.x - width) / 2;
                 topOffset = (screenResolution.y - height) / 2;
             }
-            framingRect = new Rect(leftOffset, topOffset, viewfinderView != null ? (viewfinderView.getWidth() - leftOffset) : leftOffset + width, viewfinderView != null ? (viewfinderView.getHeight() - topOffset) : topOffset + height);
+            framingRect = new Rect(leftOffset, topOffset, viewfinderView != null ?
+                    (viewfinderView.getWidth() - leftOffset) : leftOffset + width, viewfinderView != null ?
+                    (viewfinderView.getHeight() - topOffset) : topOffset + height);
 //            framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
 //            framingRect = new Rect(360, 720, 720, 1080);
 //            framingRect = new Rect(180, 720, 900, 1080);
@@ -542,5 +550,4 @@ public final class CameraManager {
     public Context getContext() {
         return context;
     }
-
 }

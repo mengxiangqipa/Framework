@@ -11,8 +11,8 @@ import okhttp3.Cookie;
  * cookie 持久化
  *
  * @author YobertJomi
- *         className SerializableOkHttpCookies
- *         created at  2017/6/19  13:46
+ * className SerializableOkHttpCookies
+ * created at  2017/6/19  13:46
  */
 
 public class SerializableOkHttpCookies implements Serializable {

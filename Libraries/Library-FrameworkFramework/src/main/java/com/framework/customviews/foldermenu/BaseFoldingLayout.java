@@ -99,6 +99,7 @@ public class BaseFoldingLayout extends ViewGroup {
     private float mPreviousFoldFactor = 0;
     private Bitmap mFullBitmap;
     private Rect mDstRect;
+
     public BaseFoldingLayout(Context context) {
         super(context);
     }

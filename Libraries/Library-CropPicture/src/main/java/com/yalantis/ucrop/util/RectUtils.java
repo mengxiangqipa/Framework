@@ -39,7 +39,8 @@ public class RectUtils {
      * @return the float array of width and height (2 floats)
      */
     public static float[] getRectSidesFromCorners(float[] corners) {
-        return new float[]{(float) Math.sqrt(Math.pow(corners[0] - corners[2], 2) + Math.pow(corners[1] - corners[3], 2)),
+        return new float[]{(float) Math.sqrt(Math.pow(corners[0] - corners[2], 2) + Math.pow(corners[1] - corners[3],
+                2)),
                 (float) Math.sqrt(Math.pow(corners[2] - corners[4], 2) + Math.pow(corners[3] - corners[5], 2))};
     }
 
@@ -68,5 +69,4 @@ public class RectUtils {
         r.sort();
         return r;
     }
-
 }

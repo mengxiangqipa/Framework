@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="48dp"
+              android:gravity="center_vertical"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_picture_title"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="15dp"
-            android:src="?attr/picture.leftBack.icon" />
+            android:src="?attr/picture.leftBack.icon"/>
 
         <TextView
             android:id="@+id/picture_title"
@@ -33,7 +33,7 @@
             android:padding="6dp"
             android:text="@string/picture_camera_roll"
             android:textColor="?picture.title.textColor"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
 
         <TextView
             android:id="@+id/picture_right"
@@ -45,12 +45,12 @@
             android:padding="10dp"
             android:text="@string/picture_cancel"
             android:textColor="?picture.right.textColor"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/line_color" />
+        android:background="@color/line_color"/>
 </LinearLayout>
 

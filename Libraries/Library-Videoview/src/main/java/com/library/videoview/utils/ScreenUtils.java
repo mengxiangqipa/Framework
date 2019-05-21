@@ -192,7 +192,8 @@ public class ScreenUtils {
     /**
      * 设置状态栏颜色
      */
-    public void setStatusBarTintColor(Activity activity, int colorResource, boolean StatusBarTintEnabled, boolean NavigationBarTintEnabled) {
+    public void setStatusBarTintColor(Activity activity, int colorResource, boolean StatusBarTintEnabled,
+                                      boolean NavigationBarTintEnabled) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(StatusBarTintEnabled);
         tintManager.setNavigationBarTintEnabled(NavigationBarTintEnabled);

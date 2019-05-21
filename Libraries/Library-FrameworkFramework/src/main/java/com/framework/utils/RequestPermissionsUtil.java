@@ -253,7 +253,7 @@ public class RequestPermissionsUtil {
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.setData(Uri.parse("package:" + context.getPackageName()));
             context.startActivity(intent);
-        }else{
+        } else {
             //跳转到详情
             showCurrentAppDetailSettingIntent(context);
         }

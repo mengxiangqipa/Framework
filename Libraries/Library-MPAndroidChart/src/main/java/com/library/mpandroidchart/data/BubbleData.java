@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.data;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class BubbleData extends BarLineScatterCandleBubbleData<BubbleDataSet> {
     /**
      * Sets the width of the circle that surrounds the bubble when highlighted
      * for all DataSet objects this data object contains, in dp.
-     * 
+     *
      * @param width
      */
     public void setHighlightCircleWidth(float width) {

@@ -166,7 +166,6 @@ public class FileUtils {
                         return null;
                     }
                 }
-
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
@@ -232,5 +231,4 @@ public class FileUtils {
             if (outputChannel != null) outputChannel.close();
         }
     }
-
 }

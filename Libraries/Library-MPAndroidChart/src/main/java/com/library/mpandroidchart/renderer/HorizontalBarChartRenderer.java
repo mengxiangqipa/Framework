@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Canvas;
@@ -20,13 +19,13 @@ import java.util.List;
 
 /**
  * Renderer for the HorizontalBarChart.
- * 
+ *
  * @author Philipp Jahoda
  */
 public class HorizontalBarChartRenderer extends BarChartRenderer {
 
     public HorizontalBarChartRenderer(BarDataProvider chart, ChartAnimator animator,
-            ViewPortHandler viewPortHandler) {
+                                      ViewPortHandler viewPortHandler) {
         super(chart, animator, viewPortHandler);
 
         mValuePaint.setTextAlign(Align.LEFT);
@@ -193,9 +192,8 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
                             }
 
                             drawValue(c, formattedValue, valuePoints[j]
-                                    + (e.getVal() >= 0 ? posOffset : negOffset),
+                                            + (e.getVal() >= 0 ? posOffset : negOffset),
                                     valuePoints[j + 1] + halfTextHeight);
-
                         } else {
 
                             float[] transformed = new float[vals.length * 2];
@@ -264,7 +262,7 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
 
     @Override
     protected void prepareBarHighlight(float x, float y1, float y2, float barspaceHalf,
-            Transformer trans) {
+                                       Transformer trans) {
 
         float top = x - 0.5f + barspaceHalf;
         float bottom = x + 0.5f - barspaceHalf;
@@ -278,7 +276,7 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
 
     @Override
     public float[] getTransformedValues(Transformer trans, List<BarEntry> entries,
-            int dataSetIndex) {
+                                        int dataSetIndex) {
         return trans.generateTransformedValuesHorizontalBarChart(entries, dataSetIndex,
                 mChart.getBarData(), mAnimator.getPhaseY());
     }

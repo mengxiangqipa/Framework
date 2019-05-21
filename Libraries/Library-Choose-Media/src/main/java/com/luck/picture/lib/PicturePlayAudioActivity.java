@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.luck.picture.lib.tools.DateUtils;
 
-
 public class PicturePlayAudioActivity extends PictureBaseActivity implements View.OnClickListener {
     private String audio_path;
     private MediaPlayer mediaPlayer;
@@ -101,13 +100,11 @@ public class PicturePlayAudioActivity extends PictureBaseActivity implements Vie
         int i = v.getId();
         if (i == R.id.tv_PlayPause) {
             playAudio();
-
         }
         if (i == R.id.tv_Stop) {
             tv_musicStatus.setText(getString(R.string.picture_stop_audio));
             tv_PlayPause.setText(getString(R.string.picture_play_audio));
             stop(audio_path);
-
         }
         if (i == R.id.tv_Quit) {
             handler.removeCallbacks(runnable);
@@ -124,7 +121,6 @@ public class PicturePlayAudioActivity extends PictureBaseActivity implements Vie
             }
         }
     }
-
 
     /**
      * 播放音频

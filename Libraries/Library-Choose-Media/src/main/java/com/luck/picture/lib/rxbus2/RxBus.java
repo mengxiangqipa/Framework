@@ -1,6 +1,5 @@
 package com.luck.picture.lib.rxbus2;
 
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +61,7 @@ public class RxBus {
      * @param eventType 事件类型
      * @return return
      */
-    public  <T> Flowable<T> toObservable(Class<T> eventType) {
+    public <T> Flowable<T> toObservable(Class<T> eventType) {
         return bus.toFlowable(BackpressureStrategy.BUFFER).ofType(eventType);
     }
 
@@ -109,7 +108,8 @@ public class RxBus {
                     int code = sub.code();
                     ThreadMode threadMode = sub.threadMode();
 
-                    SubscriberMethod subscriberMethod = new SubscriberMethod(subscriber, method, eventType, code, threadMode);
+                    SubscriberMethod subscriberMethod = new SubscriberMethod(subscriber, method, eventType, code,
+                            threadMode);
                     addSubscriberToMap(eventType, subscriberMethod);
 
                     addSubscriber(subscriberMethod);
@@ -122,16 +122,15 @@ public class RxBus {
                     int code = sub.code();
                     ThreadMode threadMode = sub.threadMode();
 
-                    SubscriberMethod subscriberMethod = new SubscriberMethod(subscriber, method, eventType, code, threadMode);
+                    SubscriberMethod subscriberMethod = new SubscriberMethod(subscriber, method, eventType, code,
+                            threadMode);
                     addSubscriberToMap(eventType, subscriberMethod);
 
                     addSubscriber(subscriberMethod);
-
                 }
             }
         }
     }
-
 
     /**
      * 将event的类型以订阅中subscriber为key保存到map里
@@ -254,11 +253,9 @@ public class RxBus {
                 if (c == method.code && method.subscriber.equals(subscriberMethod.subscriber) && method.method.equals(subscriberMethod.method)) {
                     subscriberMethod.invoke(object);
                 }
-
             }
         }
     }
-
 
     /**
      * 是否注册

@@ -143,5 +143,4 @@ final class FlashlightManager {
             invoke(setFlashEnabledMethod, iHardwareService, active);
         }
     }
-
 }

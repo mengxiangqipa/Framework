@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.components;
 
 import com.library.mpandroidchart.formatter.DefaultXAxisValueFormatter;
@@ -12,12 +11,14 @@ import java.util.List;
  * Class representing the x-axis labels settings. Only use the setter methods to
  * modify it. Do not access public variables directly. Be aware that not all
  * features the XLabels class provides are suitable for the RadarChart.
- * 
+ *
  * @author Philipp Jahoda
  */
 public class XAxis extends AxisBase {
 
-    /** the arraylist containing all the x-axis labels */
+    /**
+     * the arraylist containing all the x-axis labels
+     */
     protected List<String> mValues = new ArrayList<String>();
 
     /**
@@ -86,10 +87,14 @@ public class XAxis extends AxisBase {
      */
     protected XAxisValueFormatter mXAxisValueFormatter = new DefaultXAxisValueFormatter();
 
-    /** the position of the x-labels relative to the chart */
+    /**
+     * the position of the x-labels relative to the chart
+     */
     private XAxisPosition mPosition = XAxisPosition.TOP;
 
-    /** enum for the position of the x-labels relative to the chart */
+    /**
+     * enum for the position of the x-labels relative to the chart
+     */
     public enum XAxisPosition {
         TOP, BOTTOM, BOTH_SIDED, TOP_INSIDE, BOTTOM_INSIDE
     }
@@ -109,7 +114,7 @@ public class XAxis extends AxisBase {
 
     /**
      * sets the position of the x-labels
-     * 
+     *
      * @param pos
      */
     public void setPosition(XAxisPosition pos) {
@@ -136,7 +141,7 @@ public class XAxis extends AxisBase {
      * Sets the space (in characters) that should be left out between the x-axis
      * labels, default 4. This only applies if the number of labels that will be
      * skipped in between drawn axis labels is not custom set.
-     * 
+     *
      * @param spaceCharacters
      */
     public void setSpaceBetweenLabels(int spaceCharacters) {
@@ -149,7 +154,7 @@ public class XAxis extends AxisBase {
      * calculates an adequate space between the axis labels and set the number
      * of labels to be skipped to the fixed number provided by this method. Call
      * resetLabelsToSkip(...) to re-enable automatic calculation.
-     * 
+     *
      * @param count
      */
     public void setLabelsToSkip(int count) {
@@ -173,7 +178,7 @@ public class XAxis extends AxisBase {
     /**
      * Returns true if a custom axis-modulus has been set that determines the
      * number of labels to skip when drawing.
-     * 
+     *
      * @return
      */
     public boolean isAxisModulusCustom() {
@@ -191,7 +196,7 @@ public class XAxis extends AxisBase {
     /**
      * if set to true, the chart will avoid that the first and last label entry
      * in the chart "clip" off the edge of the chart or the screen
-     * 
+     *
      * @param enabled
      */
     public void setAvoidFirstLastClipping(boolean enabled) {
@@ -200,7 +205,7 @@ public class XAxis extends AxisBase {
 
     /**
      * returns true if avoid-first-lastclipping is enabled, false if not
-     * 
+     *
      * @return
      */
     public boolean isAvoidFirstLastClippingEnabled() {
@@ -209,7 +214,7 @@ public class XAxis extends AxisBase {
 
     /**
      * Sets the labels for this axis.
-     * 
+     *
      * @param values
      */
     public void setValues(List<String> values) {
@@ -218,13 +223,12 @@ public class XAxis extends AxisBase {
 
     /**
      * Returns the labels for this axis.
-     * 
+     *
      * @return
      */
     public List<String> getValues() {
         return mValues;
     }
-
 
     /**
      * Sets a custom XAxisValueFormatter for the data object that allows custom-formatting
@@ -234,7 +238,7 @@ public class XAxis extends AxisBase {
      * @param formatter
      */
     public void setValueFormatter(XAxisValueFormatter formatter) {
-        if(formatter == null)
+        if (formatter == null)
             mXAxisValueFormatter = new DefaultXAxisValueFormatter();
         else
             mXAxisValueFormatter = formatter;
@@ -242,6 +246,7 @@ public class XAxis extends AxisBase {
 
     /**
      * Returns the custom XAxisValueFormatter that is set for this data object.
+     *
      * @return
      */
     public XAxisValueFormatter getValueFormatter() {

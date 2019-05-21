@@ -14,7 +14,6 @@ public class CropParameters {
     private String mImageInputPath, mImageOutputPath;
     private ExifInfo mExifInfo;
 
-
     public CropParameters(int maxResultImageSizeX, int maxResultImageSizeY,
                           Bitmap.CompressFormat compressFormat, int compressQuality,
                           String imageInputPath, String imageOutputPath, ExifInfo exifInfo) {
@@ -54,5 +53,4 @@ public class CropParameters {
     public ExifInfo getExifInfo() {
         return mExifInfo;
     }
-
 }

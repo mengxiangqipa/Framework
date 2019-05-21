@@ -38,7 +38,7 @@ public class CombinedHighlighter extends ChartHighlighter<BarLineScatterCandleBu
 
         for (int i = 0; i < dataObjects.size(); i++) {
 
-            for(int j = 0; j < dataObjects.get(i).getDataSetCount(); j++) {
+            for (int j = 0; j < dataObjects.get(i).getDataSetCount(); j++) {
 
                 DataSet<?> dataSet = dataObjects.get(i).getDataSetByIndex(j);
 

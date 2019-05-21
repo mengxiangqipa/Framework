@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.buffer;
 
 import com.library.mpandroidchart.data.BarEntry;
@@ -51,7 +50,6 @@ public class HorizontalBarBuffer extends BarBuffer {
                     left *= phaseY;
 
                 addBar(left, top, right, bottom);
-
             } else {
 
                 float posY = 0f;
@@ -63,7 +61,7 @@ public class HorizontalBarBuffer extends BarBuffer {
 
                     float value = vals[k];
 
-                    if(value >= 0f) {
+                    if (value >= 0f) {
                         y = posY;
                         yStart = posY + value;
                         posY = yStart;

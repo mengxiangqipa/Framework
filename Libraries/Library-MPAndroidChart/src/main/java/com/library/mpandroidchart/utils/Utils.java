@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.utils;
 
 import android.annotation.SuppressLint;
@@ -34,7 +33,7 @@ public abstract class Utils {
     private static int mMinimumFlingVelocity = 50;
     private static int mMaximumFlingVelocity = 8000;
     public final static double DEG2RAD = (Math.PI / 180.0);
-    public final static float FDEG2RAD = ((float)Math.PI / 180.f);
+    public final static float FDEG2RAD = ((float) Math.PI / 180.f);
 
     /**
      * initialize method, called inside the Chart.init() method.
@@ -52,7 +51,6 @@ public abstract class Utils {
 
             Log.e("MPChartLib-Utils"
                     , "Utils.init(...) PROVIDED CONTEXT OBJECT IS NULL");
-
         } else {
             ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
             mMinimumFlingVelocity = viewConfiguration.getScaledMinimumFlingVelocity();
@@ -94,10 +92,12 @@ public abstract class Utils {
         if (mMetrics == null) {
 
             Log.e("MPChartLib-Utils",
-                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils.convertDpToPixel(...). Otherwise conversion does not take place.");
+                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils" +
+                            ".convertDpToPixel(...). Otherwise conversion does not take place.");
             return dp;
             // throw new IllegalStateException(
-            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils.convertDpToPixel(...).");
+            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils
+            // .convertDpToPixel(...).");
         }
 
         DisplayMetrics metrics = mMetrics;
@@ -117,10 +117,12 @@ public abstract class Utils {
         if (mMetrics == null) {
 
             Log.e("MPChartLib-Utils",
-                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils.convertPixelsToDp(...). Otherwise conversion does not take place.");
+                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils" +
+                            ".convertPixelsToDp(...). Otherwise conversion does not take place.");
             return px;
             // throw new IllegalStateException(
-            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils.convertPixelsToDp(...).");
+            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils
+            // .convertPixelsToDp(...).");
         }
 
         DisplayMetrics metrics = mMetrics;
@@ -261,7 +263,6 @@ public abstract class Utils {
                         out[ind--] = separateChar;
                         charCount++;
                     }
-
                 } else {
 
                     if ((charCount - digitCount) % 4 == 3) {
@@ -504,7 +505,8 @@ public abstract class Utils {
 
     private static Rect mDrawTextRectBuffer = new Rect();
 
-    public static void drawText(Canvas c, String text, float x, float y, Paint paint, PointF anchor, float angleDegrees) {
+    public static void drawText(Canvas c, String text, float x, float y, Paint paint, PointF anchor,
+                                float angleDegrees) {
 
         float drawOffsetX = 0.f;
         float drawOffsetY = 0.f;
@@ -548,8 +550,7 @@ public abstract class Utils {
             c.drawText(text, drawOffsetX, drawOffsetY, paint);
 
             c.restore();
-        }
-        else {
+        } else {
             if (anchor.x != 0.f || anchor.y != 0.f) {
 
                 drawOffsetX -= mDrawTextRectBuffer.width() * anchor.x;
@@ -565,29 +566,24 @@ public abstract class Utils {
         paint.setTextAlign(originalTextAlign);
     }
 
-    public static FSize getSizeOfRotatedRectangleByDegrees(FSize rectangleSize, float degrees)
-    {
+    public static FSize getSizeOfRotatedRectangleByDegrees(FSize rectangleSize, float degrees) {
         final float radians = degrees * FDEG2RAD;
         return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height, radians);
     }
 
-    public static FSize getSizeOfRotatedRectangleByRadians(FSize rectangleSize, float radians)
-    {
+    public static FSize getSizeOfRotatedRectangleByRadians(FSize rectangleSize, float radians) {
         return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height, radians);
     }
 
-    public static FSize getSizeOfRotatedRectangleByDegrees(float rectangleWidth, float rectangleHeight, float degrees)
-    {
+    public static FSize getSizeOfRotatedRectangleByDegrees(float rectangleWidth, float rectangleHeight, float degrees) {
         final float radians = degrees * FDEG2RAD;
         return getSizeOfRotatedRectangleByRadians(rectangleWidth, rectangleHeight, radians);
     }
 
-    public static FSize getSizeOfRotatedRectangleByRadians(float rectangleWidth, float rectangleHeight, float radians)
-    {
+    public static FSize getSizeOfRotatedRectangleByRadians(float rectangleWidth, float rectangleHeight, float radians) {
         return new FSize(
-                Math.abs(rectangleWidth * (float)Math.cos(radians)) + Math.abs(rectangleHeight * (float)Math.sin(radians)),
-                Math.abs(rectangleWidth * (float)Math.sin(radians)) + Math.abs(rectangleHeight * (float)Math.cos(radians))
+                Math.abs(rectangleWidth * (float) Math.cos(radians)) + Math.abs(rectangleHeight * (float) Math.sin(radians)),
+                Math.abs(rectangleWidth * (float) Math.sin(radians)) + Math.abs(rectangleHeight * (float) Math.cos(radians))
         );
     }
-
 }

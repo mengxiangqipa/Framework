@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.content.Context;
@@ -12,7 +11,7 @@ import com.library.mpandroidchart.renderer.ScatterChartRenderer;
  * The ScatterChart. Draws dots, triangles, squares and custom shapes into the
  * Chart-View. CIRCLE and SCQUARE offer the best performance, TRIANGLE has the
  * worst performance.
- * 
+ *
  * @author Philipp Jahoda
  */
 public class ScatterChart extends BarLineChartBase<ScatterData> implements ScatterDataProvider {
@@ -59,16 +58,18 @@ public class ScatterChart extends BarLineChartBase<ScatterData> implements Scatt
 
     /**
      * Returns all possible predefined ScatterShapes.
-     * 
+     *
      * @return
      */
     public static ScatterShape[] getAllPossibleShapes() {
-        return new ScatterShape[] {
+        return new ScatterShape[]{
                 ScatterShape.SQUARE, ScatterShape.CIRCLE, ScatterShape.TRIANGLE, ScatterShape.CROSS
         };
     }
 
     public ScatterData getScatterData() {
         return mData;
-    };
+    }
+
+    ;
 }

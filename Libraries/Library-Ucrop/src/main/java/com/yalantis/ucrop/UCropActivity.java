@@ -222,7 +222,8 @@ public class UCropActivity extends AppCompatActivity {
         }
         mCompressFormat = (compressFormat == null) ? DEFAULT_COMPRESS_FORMAT : compressFormat;
 
-        mCompressQuality = intent.getIntExtra(UCrop.Options.EXTRA_COMPRESSION_QUALITY, UCropActivity.DEFAULT_COMPRESS_QUALITY);
+        mCompressQuality = intent.getIntExtra(UCrop.Options.EXTRA_COMPRESSION_QUALITY,
+                UCropActivity.DEFAULT_COMPRESS_QUALITY);
 
         // Gestures options
         int[] allowedGestures = intent.getIntArrayExtra(UCrop.Options.EXTRA_ALLOWED_GESTURES);
@@ -231,8 +232,10 @@ public class UCropActivity extends AppCompatActivity {
         }
 
         // Crop image view options
-        mGestureCropImageView.setMaxBitmapSize(intent.getIntExtra(UCrop.Options.EXTRA_MAX_BITMAP_SIZE, CropImageView.DEFAULT_MAX_BITMAP_SIZE));
-        mGestureCropImageView.setMaxScaleMultiplier(intent.getFloatExtra(UCrop.Options.EXTRA_MAX_SCALE_MULTIPLIER, CropImageView.DEFAULT_MAX_SCALE_MULTIPLIER));
+        mGestureCropImageView.setMaxBitmapSize(intent.getIntExtra(UCrop.Options.EXTRA_MAX_BITMAP_SIZE,
+                CropImageView.DEFAULT_MAX_BITMAP_SIZE));
+        mGestureCropImageView.setMaxScaleMultiplier(intent.getFloatExtra(UCrop.Options.EXTRA_MAX_SCALE_MULTIPLIER,
+                CropImageView.DEFAULT_MAX_SCALE_MULTIPLIER));
         mGestureCropImageView.setImageToWrapCropBoundsAnimDuration(intent.getIntExtra(UCrop.Options.EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION, CropImageView.DEFAULT_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION));
 
         // Overlay view options
@@ -240,25 +243,36 @@ public class UCropActivity extends AppCompatActivity {
 
         mOverlayView.setDragFrame(isDragFrame);
 
-        mOverlayView.setDimmedColor(intent.getIntExtra(UCrop.Options.EXTRA_DIMMED_LAYER_COLOR, getResources().getColor(R.color.ucrop_color_default_dimmed)));
-        mOverlayView.setCircleDimmedLayer(intent.getBooleanExtra(UCrop.Options.EXTRA_CIRCLE_DIMMED_LAYER, OverlayView.DEFAULT_CIRCLE_DIMMED_LAYER));
+        mOverlayView.setDimmedColor(intent.getIntExtra(UCrop.Options.EXTRA_DIMMED_LAYER_COLOR,
+                getResources().getColor(R.color.ucrop_color_default_dimmed)));
+        mOverlayView.setCircleDimmedLayer(intent.getBooleanExtra(UCrop.Options.EXTRA_CIRCLE_DIMMED_LAYER,
+                OverlayView.DEFAULT_CIRCLE_DIMMED_LAYER));
 
-        mOverlayView.setShowCropFrame(intent.getBooleanExtra(UCrop.Options.EXTRA_SHOW_CROP_FRAME, OverlayView.DEFAULT_SHOW_CROP_FRAME));
-        mOverlayView.setCropFrameColor(intent.getIntExtra(UCrop.Options.EXTRA_CROP_FRAME_COLOR, getResources().getColor(R.color.ucrop_color_default_crop_frame)));
-        mOverlayView.setCropFrameStrokeWidth(intent.getIntExtra(UCrop.Options.EXTRA_CROP_FRAME_STROKE_WIDTH, getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_frame_stoke_width)));
+        mOverlayView.setShowCropFrame(intent.getBooleanExtra(UCrop.Options.EXTRA_SHOW_CROP_FRAME,
+                OverlayView.DEFAULT_SHOW_CROP_FRAME));
+        mOverlayView.setCropFrameColor(intent.getIntExtra(UCrop.Options.EXTRA_CROP_FRAME_COLOR,
+                getResources().getColor(R.color.ucrop_color_default_crop_frame)));
+        mOverlayView.setCropFrameStrokeWidth(intent.getIntExtra(UCrop.Options.EXTRA_CROP_FRAME_STROKE_WIDTH,
+                getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_frame_stoke_width)));
 
-        mOverlayView.setShowCropGrid(intent.getBooleanExtra(UCrop.Options.EXTRA_SHOW_CROP_GRID, OverlayView.DEFAULT_SHOW_CROP_GRID));
-        mOverlayView.setCropGridRowCount(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_ROW_COUNT, OverlayView.DEFAULT_CROP_GRID_ROW_COUNT));
-        mOverlayView.setCropGridColumnCount(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_COLUMN_COUNT, OverlayView.DEFAULT_CROP_GRID_COLUMN_COUNT));
-        mOverlayView.setCropGridColor(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_COLOR, getResources().getColor(R.color.ucrop_color_default_crop_grid)));
-        mOverlayView.setCropGridStrokeWidth(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_STROKE_WIDTH, getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_grid_stoke_width)));
+        mOverlayView.setShowCropGrid(intent.getBooleanExtra(UCrop.Options.EXTRA_SHOW_CROP_GRID,
+                OverlayView.DEFAULT_SHOW_CROP_GRID));
+        mOverlayView.setCropGridRowCount(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_ROW_COUNT,
+                OverlayView.DEFAULT_CROP_GRID_ROW_COUNT));
+        mOverlayView.setCropGridColumnCount(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_COLUMN_COUNT,
+                OverlayView.DEFAULT_CROP_GRID_COLUMN_COUNT));
+        mOverlayView.setCropGridColor(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_COLOR,
+                getResources().getColor(R.color.ucrop_color_default_crop_grid)));
+        mOverlayView.setCropGridStrokeWidth(intent.getIntExtra(UCrop.Options.EXTRA_CROP_GRID_STROKE_WIDTH,
+                getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_grid_stoke_width)));
 
         // Aspect ratio options
         float aspectRatioX = intent.getFloatExtra(UCrop.EXTRA_ASPECT_RATIO_X, 0);
         float aspectRatioY = intent.getFloatExtra(UCrop.EXTRA_ASPECT_RATIO_Y, 0);
 
         int aspectRationSelectedByDefault = intent.getIntExtra(UCrop.Options.EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT, 0);
-        ArrayList<AspectRatio> aspectRatioList = intent.getParcelableArrayListExtra(UCrop.Options.EXTRA_ASPECT_RATIO_OPTIONS);
+        ArrayList<AspectRatio> aspectRatioList =
+                intent.getParcelableArrayListExtra(UCrop.Options.EXTRA_ASPECT_RATIO_OPTIONS);
 
         if (aspectRatioX > 0 && aspectRatioY > 0) {
             if (mWrapperStateAspectRatio != null) {
@@ -290,8 +304,10 @@ public class UCropActivity extends AppCompatActivity {
         // 是否可拖动裁剪框
         isDragFrame = intent.getBooleanExtra(UCrop.Options.EXTRA_DRAG_CROP_FRAME, true);
 
-        mStatusBarColor = intent.getIntExtra(UCrop.Options.EXTRA_STATUS_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_statusbar));
-        mToolbarColor = intent.getIntExtra(UCrop.Options.EXTRA_TOOL_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_toolbar));
+        mStatusBarColor = intent.getIntExtra(UCrop.Options.EXTRA_STATUS_BAR_COLOR, ContextCompat.getColor(this,
+                R.color.ucrop_color_statusbar));
+        mToolbarColor = intent.getIntExtra(UCrop.Options.EXTRA_TOOL_BAR_COLOR, ContextCompat.getColor(this,
+                R.color.ucrop_color_toolbar));
         if (mToolbarColor == -1) {
             mToolbarColor = ContextCompat.getColor(this, R.color.ucrop_color_toolbar);
         }
@@ -299,18 +315,25 @@ public class UCropActivity extends AppCompatActivity {
             mStatusBarColor = ContextCompat.getColor(this, R.color.ucrop_color_statusbar);
         }
 
-        mActiveWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_COLOR_WIDGET_ACTIVE, ContextCompat.getColor(this, R.color.ucrop_color_widget_active));
-        mToolbarWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_COLOR_TOOLBAR, ContextCompat.getColor(this, R.color.ucrop_color_toolbar_widget));
+        mActiveWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_COLOR_WIDGET_ACTIVE,
+                ContextCompat.getColor(this, R.color.ucrop_color_widget_active));
+        mToolbarWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_COLOR_TOOLBAR,
+                ContextCompat.getColor(this, R.color.ucrop_color_toolbar_widget));
         if (mToolbarWidgetColor == -1) {
             mToolbarWidgetColor = ContextCompat.getColor(this, R.color.ucrop_color_toolbar_widget);
         }
-        mToolbarCancelDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE, R.drawable.ucrop_ic_cross);
-        mToolbarCropDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CROP_DRAWABLE, R.drawable.ucrop_ic_done);
+        mToolbarCancelDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE,
+                R.drawable.ucrop_ic_cross);
+        mToolbarCropDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CROP_DRAWABLE,
+                R.drawable.ucrop_ic_done);
         mToolbarTitle = intent.getStringExtra(UCrop.Options.EXTRA_UCROP_TITLE_TEXT_TOOLBAR);
-        mToolbarTitle = mToolbarTitle != null ? mToolbarTitle : getResources().getString(R.string.ucrop_label_edit_photo);
-        mLogoColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_LOGO_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_default_logo));
+        mToolbarTitle = mToolbarTitle != null ? mToolbarTitle :
+                getResources().getString(R.string.ucrop_label_edit_photo);
+        mLogoColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_LOGO_COLOR, ContextCompat.getColor(this,
+                R.color.ucrop_color_default_logo));
         mShowBottomControls = !intent.getBooleanExtra(UCrop.Options.EXTRA_HIDE_BOTTOM_CONTROLS, false);
-        mRootViewBackgroundColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_crop_background));
+        mRootViewBackgroundColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR,
+                ContextCompat.getColor(this, R.color.ucrop_color_crop_background));
 
         setupAppBar();
         initiateRootViews();
@@ -401,7 +424,6 @@ public class UCropActivity extends AppCompatActivity {
             setResultError(e);
             closeActivity();
         }
-
     };
 
     /**
@@ -412,11 +434,12 @@ public class UCropActivity extends AppCompatActivity {
         ImageView stateRotateImageView = (ImageView) findViewById(R.id.image_view_state_rotate);
         ImageView stateAspectRatioImageView = (ImageView) findViewById(R.id.image_view_state_aspect_ratio);
 
-        stateScaleImageView.setImageDrawable(new SelectedStateListDrawable(stateScaleImageView.getDrawable(), mActiveWidgetColor));
-        stateRotateImageView.setImageDrawable(new SelectedStateListDrawable(stateRotateImageView.getDrawable(), mActiveWidgetColor));
+        stateScaleImageView.setImageDrawable(new SelectedStateListDrawable(stateScaleImageView.getDrawable(),
+                mActiveWidgetColor));
+        stateRotateImageView.setImageDrawable(new SelectedStateListDrawable(stateRotateImageView.getDrawable(),
+                mActiveWidgetColor));
         stateAspectRatioImageView.setImageDrawable(new SelectedStateListDrawable(stateAspectRatioImageView.getDrawable(), mActiveWidgetColor));
     }
-
 
     /**
      * Sets status-bar color for L devices.
@@ -437,7 +460,8 @@ public class UCropActivity extends AppCompatActivity {
     private void setupAspectRatioWidget(@NonNull Intent intent) {
 
         int aspectRationSelectedByDefault = intent.getIntExtra(UCrop.Options.EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT, 0);
-        ArrayList<AspectRatio> aspectRatioList = intent.getParcelableArrayListExtra(UCrop.Options.EXTRA_ASPECT_RATIO_OPTIONS);
+        ArrayList<AspectRatio> aspectRatioList =
+                intent.getParcelableArrayListExtra(UCrop.Options.EXTRA_ASPECT_RATIO_OPTIONS);
 
         if (aspectRatioList == null || aspectRatioList.isEmpty()) {
             aspectRationSelectedByDefault = 2;
@@ -508,7 +532,6 @@ public class UCropActivity extends AppCompatActivity {
                 });
 
         ((HorizontalProgressWheelView) findViewById(R.id.rotate_scroll_wheel)).setMiddleLineColor(mActiveWidgetColor);
-
 
         findViewById(R.id.wrapper_reset_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -630,7 +653,8 @@ public class UCropActivity extends AppCompatActivity {
     private void addBlockingView() {
         if (mBlockingView == null) {
             mBlockingView = new View(this);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
             lp.addRule(RelativeLayout.BELOW, R.id.toolbar);
             mBlockingView.setLayoutParams(lp);
             mBlockingView.setClickable(true);
@@ -646,8 +670,10 @@ public class UCropActivity extends AppCompatActivity {
         mGestureCropImageView.cropAndSaveImage(mCompressFormat, mCompressQuality, new BitmapCropCallback() {
 
             @Override
-            public void onBitmapCropped(@NonNull Uri resultUri, int offsetX, int offsetY, int imageWidth, int imageHeight) {
-                setResultUri(resultUri, mGestureCropImageView.getTargetAspectRatio(), offsetX, offsetY, imageWidth, imageHeight);
+            public void onBitmapCropped(@NonNull Uri resultUri, int offsetX, int offsetY, int imageWidth,
+                                        int imageHeight) {
+                setResultUri(resultUri, mGestureCropImageView.getTargetAspectRatio(), offsetX, offsetY, imageWidth,
+                        imageHeight);
             }
 
             @Override
@@ -658,7 +684,8 @@ public class UCropActivity extends AppCompatActivity {
         });
     }
 
-    protected void setResultUri(Uri uri, float resultAspectRatio, int offsetX, int offsetY, int imageWidth, int imageHeight) {
+    protected void setResultUri(Uri uri, float resultAspectRatio, int offsetX, int offsetY, int imageWidth,
+                                int imageHeight) {
         setResult(RESULT_OK, new Intent()
                 .putExtra(UCrop.EXTRA_OUTPUT_URI, uri)
                 .putExtra(UCrop.EXTRA_OUTPUT_CROP_ASPECT_RATIO, resultAspectRatio)

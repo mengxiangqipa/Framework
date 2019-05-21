@@ -182,7 +182,6 @@ public class UCropMulti {
         return mCropIntent;
     }
 
-
     /**
      * Retrieve cropped image Cuts from the result Intent
      *
@@ -232,7 +231,6 @@ public class UCropMulti {
         return (Throwable) result.getSerializableExtra(EXTRA_ERROR);
     }
 
-
     /**
      * Class that helps to setup advanced configs that are not commonly used.
      * Use it with method {@link #withOptions(Options)}
@@ -246,7 +244,8 @@ public class UCropMulti {
 
         public static final String EXTRA_MAX_BITMAP_SIZE = EXTRA_PREFIX + ".MaxBitmapSize";
         public static final String EXTRA_MAX_SCALE_MULTIPLIER = EXTRA_PREFIX + ".MaxScaleMultiplier";
-        public static final String EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION = EXTRA_PREFIX + ".ImageToCropBoundsAnimDuration";
+        public static final String EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION = EXTRA_PREFIX +
+                ".ImageToCropBoundsAnimDuration";
 
         public static final String EXTRA_DIMMED_LAYER_COLOR = EXTRA_PREFIX + ".DimmedLayerColor";
         public static final String EXTRA_CIRCLE_DIMMED_LAYER = EXTRA_PREFIX + ".CircleDimmedLayer";
@@ -284,11 +283,12 @@ public class UCropMulti {
         public static final String EXTRA_ROTATE = EXTRA_PREFIX + ".rotate";
         public static final String EXTRA_SCALE = EXTRA_PREFIX + ".scale";
 
-        public static final String EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT = EXTRA_PREFIX + ".AspectRatioSelectedByDefault";
+        public static final String EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT = EXTRA_PREFIX +
+                ".AspectRatioSelectedByDefault";
         public static final String EXTRA_ASPECT_RATIO_OPTIONS = EXTRA_PREFIX + ".AspectRatioOptions";
 
-        public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX + ".UcropRootViewBackgroundColor";
-
+        public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX +
+                ".UcropRootViewBackgroundColor";
 
         private final Bundle mOptionBundle;
 
@@ -343,7 +343,8 @@ public class UCropMulti {
         }
 
         /**
-         * Setter for max size for both width and height of bitmap that will be decoded from an input Uri and used in the view.
+         * Setter for max size for both width and height of bitmap that will be decoded from an input Uri and used in
+         * the view.
          *
          * @param maxBitmapSize - size in pixels
          */
@@ -451,7 +452,8 @@ public class UCropMulti {
         }
 
         /**
-         * @param color - desired resolved color of the active and selected widget (default is orange) and progress wheel middle line
+         * @param color - desired resolved color of the active and selected widget (default is orange) and progress
+         *              wheel middle line
          */
         public void setActiveWidgetColor(@ColorInt int color) {
             mOptionBundle.putInt(EXTRA_UCROP_COLOR_WIDGET_ACTIVE, color);
@@ -533,7 +535,8 @@ public class UCropMulti {
                         selectedByDefault, aspectRatio.length));
             }
             mOptionBundle.putInt(EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT, selectedByDefault);
-            mOptionBundle.putParcelableArrayList(EXTRA_ASPECT_RATIO_OPTIONS, new ArrayList<Parcelable>(Arrays.asList(aspectRatio)));
+            mOptionBundle.putParcelableArrayList(EXTRA_ASPECT_RATIO_OPTIONS,
+                    new ArrayList<Parcelable>(Arrays.asList(aspectRatio)));
         }
 
         /**
@@ -574,7 +577,5 @@ public class UCropMulti {
             mOptionBundle.putInt(EXTRA_MAX_SIZE_X, width);
             mOptionBundle.putInt(EXTRA_MAX_SIZE_Y, height);
         }
-
     }
-
 }

@@ -22,10 +22,10 @@ public class ImmersiveManage {
      * @param navigationBarColor  导航栏的颜色
      * @param isDarkStatusBarIcon 状态栏图标颜色是否是深（黑）色  false状态栏图标颜色为白色
      */
-    public static void immersiveAboveAPI19(AppCompatActivity baseActivity, int statusBarColor, int navigationBarColor, boolean isDarkStatusBarIcon) {
+    public static void immersiveAboveAPI19(AppCompatActivity baseActivity, int statusBarColor, int navigationBarColor
+            , boolean isDarkStatusBarIcon) {
         immersiveAboveAPI23(baseActivity, false, false, statusBarColor, navigationBarColor, isDarkStatusBarIcon);
     }
-
 
     /**
      * 注意：使用最好将布局xml 跟布局加入    android:fitsSystemWindows="true" ，这样可以避免有些手机上布局顶边的问题
@@ -35,12 +35,12 @@ public class ImmersiveManage {
      * @param navigationBarColor  导航栏的颜色
      * @param isDarkStatusBarIcon 状态栏图标颜色是否是深（黑）色  false状态栏图标颜色为白色
      */
-    public static void immersiveAboveAPI23(Activity baseActivity, int statusBarColor, int navigationBarColor, boolean isDarkStatusBarIcon) {
+    public static void immersiveAboveAPI23(Activity baseActivity, int statusBarColor, int navigationBarColor,
+                                           boolean isDarkStatusBarIcon) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             immersiveAboveAPI23(baseActivity, false, false, statusBarColor, navigationBarColor, isDarkStatusBarIcon);
         }
     }
-
 
     /**
      * @param baseActivity
@@ -78,8 +78,6 @@ public class ImmersiveManage {
                             , isDarkStatusBarIcon);
 
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-
                 } else if (!isMarginStatusBar && isMarginNavigationBar) {
                     window.requestFeature(Window.FEATURE_NO_TITLE);
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -90,8 +88,6 @@ public class ImmersiveManage {
                             , isDarkStatusBarIcon);
 
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-
                 } else {
                     //留出来状态栏 不留出来导航栏 没找到办法。。
                     return;
@@ -99,7 +95,6 @@ public class ImmersiveManage {
 
                 window.setStatusBarColor(statusBarColor);
                 window.setNavigationBarColor(navigationBarColor);
-
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -155,7 +155,7 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
                 if (adapter.isHeader(itemPosition) || adapter.isFooter(itemPosition)) {
                     outRect.set(0, 0, 0, 0);
                 } else if (isLastRaw(parent, itemPosition - adapter.getHeaderCount(), spanCount, childCount))//
-                    // 如果是最后一行，则不需要绘制底部
+                // 如果是最后一行，则不需要绘制底部
                 {
                     outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
                 } else if (spanCount == 1 || isLastColum(parent, itemPosition - adapter.getHeaderCount(), spanCount,

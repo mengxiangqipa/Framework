@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.animation.ValueAnimator;
@@ -585,7 +584,7 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
      * highlightValues(...), this generates a callback to the
      * OnChartValueSelectedListener.
      *
-     * @param high - the highlight object
+     * @param high         - the highlight object
      * @param callListener - call the listener
      */
     public void highlightValue(Highlight high, boolean callListener) {
@@ -1569,7 +1568,6 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
 
             out.flush();
             out.close();
-
         } catch (IOException e) {
             e.printStackTrace();
 

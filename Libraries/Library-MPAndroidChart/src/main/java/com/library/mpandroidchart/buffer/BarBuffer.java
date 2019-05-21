@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.buffer;
 
 import com.library.mpandroidchart.data.BarEntry;
@@ -28,7 +27,7 @@ public class BarBuffer extends AbstractBuffer<BarEntry> {
     public void setDataSet(int index) {
         this.mDataSetIndex = index;
     }
-    
+
     public void setInverted(boolean inverted) {
         this.mInverted = inverted;
     }
@@ -59,8 +58,8 @@ public class BarBuffer extends AbstractBuffer<BarEntry> {
             float x = e.getXIndex() + e.getXIndex() * dataSetOffset + mDataSetIndex
                     + mGroupSpace * e.getXIndex() + groupSpaceHalf;
             float y = e.getVal();
-            float [] vals = e.getVals();
-                
+            float[] vals = e.getVals();
+
             if (!mContainsStacks || vals == null) {
 
                 float left = x - barWidth + barSpaceHalf;
@@ -81,7 +80,6 @@ public class BarBuffer extends AbstractBuffer<BarEntry> {
                     bottom *= phaseY;
 
                 addBar(left, top, right, bottom);
-
             } else {
 
                 float posY = 0f;
@@ -93,7 +91,7 @@ public class BarBuffer extends AbstractBuffer<BarEntry> {
 
                     float value = vals[k];
 
-                    if(value >= 0f) {
+                    if (value >= 0f) {
                         y = posY;
                         yStart = posY + value;
                         posY = yStart;

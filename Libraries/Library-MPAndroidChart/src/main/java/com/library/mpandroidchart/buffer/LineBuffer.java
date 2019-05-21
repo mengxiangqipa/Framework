@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.buffer;
 
 import com.library.mpandroidchart.data.Entry;

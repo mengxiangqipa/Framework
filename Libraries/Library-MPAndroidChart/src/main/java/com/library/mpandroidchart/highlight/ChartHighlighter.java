@@ -14,107 +14,109 @@ import com.library.mpandroidchart.utils.Utils;
  */
 public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> {
 
-	/** instance of the data-provider */
-	protected T mChart;
+    /**
+     * instance of the data-provider
+     */
+    protected T mChart;
 
-	public ChartHighlighter(T chart) {
-		this.mChart = chart;
-	}
+    public ChartHighlighter(T chart) {
+        this.mChart = chart;
+    }
 
-	/**
-	 * Returns a Highlight object corresponding to the given x- and y- touch positions in pixels.
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	public Highlight getHighlight(float x, float y) {
+    /**
+     * Returns a Highlight object corresponding to the given x- and y- touch positions in pixels.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public Highlight getHighlight(float x, float y) {
 
-		int xIndex = getXIndex(x);
-		if (xIndex == -Integer.MAX_VALUE)
-			return null;
+        int xIndex = getXIndex(x);
+        if (xIndex == -Integer.MAX_VALUE)
+            return null;
 
-		int dataSetIndex = getDataSetIndex(xIndex, x, y);
-		if (dataSetIndex == -Integer.MAX_VALUE)
-			return null;
+        int dataSetIndex = getDataSetIndex(xIndex, x, y);
+        if (dataSetIndex == -Integer.MAX_VALUE)
+            return null;
 
-		return new Highlight(xIndex, dataSetIndex);
-	}
+        return new Highlight(xIndex, dataSetIndex);
+    }
 
-	/**
-	 * Returns the corresponding x-index for a given touch-position in pixels.
-	 * 
-	 * @param x
-	 * @return
-	 */
-	protected int getXIndex(float x) {
+    /**
+     * Returns the corresponding x-index for a given touch-position in pixels.
+     *
+     * @param x
+     * @return
+     */
+    protected int getXIndex(float x) {
 
-		// create an array of the touch-point
-		float[] pts = new float[2];
-		pts[0] = x;
+        // create an array of the touch-point
+        float[] pts = new float[2];
+        pts[0] = x;
 
-		// take any transformer to determine the x-axis value
-		mChart.getTransformer(YAxis.AxisDependency.LEFT).pixelsToValue(pts);
+        // take any transformer to determine the x-axis value
+        mChart.getTransformer(YAxis.AxisDependency.LEFT).pixelsToValue(pts);
 
-		return (int) Math.round(pts[0]);
-	}
+        return (int) Math.round(pts[0]);
+    }
 
-	/**
-	 * Returns the corresponding dataset-index for a given xIndex and xy-touch position in pixels.
-	 * 
-	 * @param xIndex
-	 * @param x
-	 * @param y
-	 * @return
-	 */
-	protected int getDataSetIndex(int xIndex, float x, float y) {
+    /**
+     * Returns the corresponding dataset-index for a given xIndex and xy-touch position in pixels.
+     *
+     * @param xIndex
+     * @param x
+     * @param y
+     * @return
+     */
+    protected int getDataSetIndex(int xIndex, float x, float y) {
 
-		List<SelectionDetail> valsAtIndex = getSelectionDetailsAtIndex(xIndex);
+        List<SelectionDetail> valsAtIndex = getSelectionDetailsAtIndex(xIndex);
 
-		float leftdist = Utils.getMinimumDistance(valsAtIndex, y, YAxis.AxisDependency.LEFT);
-		float rightdist = Utils.getMinimumDistance(valsAtIndex, y, YAxis.AxisDependency.RIGHT);
+        float leftdist = Utils.getMinimumDistance(valsAtIndex, y, YAxis.AxisDependency.LEFT);
+        float rightdist = Utils.getMinimumDistance(valsAtIndex, y, YAxis.AxisDependency.RIGHT);
 
-		YAxis.AxisDependency axis = leftdist < rightdist ? YAxis.AxisDependency.LEFT : YAxis.AxisDependency.RIGHT;
+        YAxis.AxisDependency axis = leftdist < rightdist ? YAxis.AxisDependency.LEFT : YAxis.AxisDependency.RIGHT;
 
-		int dataSetIndex = Utils.getClosestDataSetIndex(valsAtIndex, y, axis);
+        int dataSetIndex = Utils.getClosestDataSetIndex(valsAtIndex, y, axis);
 
-		return dataSetIndex;
-	}
+        return dataSetIndex;
+    }
 
-	/**
-	 * Returns a list of SelectionDetail object corresponding to the given xIndex.
-	 * 
-	 * @param xIndex
-	 * @return
-	 */
-	protected List<SelectionDetail> getSelectionDetailsAtIndex(int xIndex) {
+    /**
+     * Returns a list of SelectionDetail object corresponding to the given xIndex.
+     *
+     * @param xIndex
+     * @return
+     */
+    protected List<SelectionDetail> getSelectionDetailsAtIndex(int xIndex) {
 
-		List<SelectionDetail> vals = new ArrayList<SelectionDetail>();
+        List<SelectionDetail> vals = new ArrayList<SelectionDetail>();
 
-		float[] pts = new float[2];
+        float[] pts = new float[2];
 
-		for (int i = 0; i < mChart.getData().getDataSetCount(); i++) {
+        for (int i = 0; i < mChart.getData().getDataSetCount(); i++) {
 
-			DataSet<?> dataSet = mChart.getData().getDataSetByIndex(i);
+            DataSet<?> dataSet = mChart.getData().getDataSetByIndex(i);
 
-			// dont include datasets that cannot be highlighted
-			if (!dataSet.isHighlightEnabled())
-				continue;
+            // dont include datasets that cannot be highlighted
+            if (!dataSet.isHighlightEnabled())
+                continue;
 
-			// extract all y-values from all DataSets at the given x-index
-			final float yVal = dataSet.getYValForXIndex(xIndex);
-			if (yVal == Float.NaN)
-				continue;
+            // extract all y-values from all DataSets at the given x-index
+            final float yVal = dataSet.getYValForXIndex(xIndex);
+            if (yVal == Float.NaN)
+                continue;
 
-			pts[1] = yVal;
+            pts[1] = yVal;
 
-			mChart.getTransformer(dataSet.getAxisDependency()).pointValuesToPixel(pts);
+            mChart.getTransformer(dataSet.getAxisDependency()).pointValuesToPixel(pts);
 
-			if (!Float.isNaN(pts[1])) {
-				vals.add(new SelectionDetail(pts[1], i, dataSet));
-			}
-		}
+            if (!Float.isNaN(pts[1])) {
+                vals.add(new SelectionDetail(pts[1], i, dataSet));
+            }
+        }
 
-		return vals;
-	}
+        return vals;
+    }
 }

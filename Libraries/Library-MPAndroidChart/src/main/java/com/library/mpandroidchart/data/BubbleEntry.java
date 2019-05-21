@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.data;
 
 /**
@@ -10,15 +9,17 @@ package com.library.mpandroidchart.data;
  */
 public class BubbleEntry extends Entry {
 
-    /** size value */
+    /**
+     * size value
+     */
     private float mSize = 0f;
 
     /**
      * Constructor.
      *
      * @param xIndex The index on the x-axis.
-     * @param val The value on the y-axis.
-     * @param size The size of the bubble.
+     * @param val    The value on the y-axis.
+     * @param size   The size of the bubble.
      */
     public BubbleEntry(int xIndex, float val, float size) {
         super(val, xIndex);
@@ -30,9 +31,9 @@ public class BubbleEntry extends Entry {
      * Constructor.
      *
      * @param xIndex The index on the x-axis.
-     * @param val The value on the y-axis.
-     * @param size The size of the bubble.
-     * @param data Spot for additional data this Entry represents.
+     * @param val    The value on the y-axis.
+     * @param size   The size of the bubble.
+     * @param data   Spot for additional data this Entry represents.
      */
     public BubbleEntry(int xIndex, float val, float size, Object data) {
         super(val, xIndex, data);
@@ -59,5 +60,4 @@ public class BubbleEntry extends Entry {
     public void setSize(float size) {
         this.mSize = size;
     }
-
 }

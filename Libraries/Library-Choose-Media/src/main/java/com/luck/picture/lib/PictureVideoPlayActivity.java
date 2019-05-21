@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-public class PictureVideoPlayActivity extends PictureBaseActivity implements MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
+public class PictureVideoPlayActivity extends PictureBaseActivity implements MediaPlayer.OnErrorListener,
+        MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, View.OnClickListener {
     private String video_path = "";
     private ImageView picture_left_back;
     private MediaController mMediaController;
@@ -36,7 +37,6 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         picture_left_back.setOnClickListener(this);
         iv_play.setOnClickListener(this);
     }
-
 
     @Override
     public void onStart() {
@@ -84,7 +84,6 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements Med
         if (null != iv_play) {
             iv_play.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override

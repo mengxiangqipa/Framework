@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <!-- 截图 -->
     <declare-styleable name="CropImageView">
-        <attr name="imgSrc" format="reference" />
+        <attr name="imgSrc" format="reference"/>
         <attr name="cropMode">
             <enum name="ratio_fit_image" value="0"/>
             <enum name="ratio_4_3" value="1"/>
@@ -36,20 +36,20 @@
         <attr name="guideStrokeWeight" format="dimension"/>
         <attr name="cropEnabled" format="boolean"/>
     </declare-styleable>
-    
-    
+
+
     <declare-styleable name="CameraSDKPagerSlidingTabStrip">
-        <attr name="camerasdk_pstsIndicatorColor" format="color" />
-        <attr name="camerasdk_pstsUnderlineColor" format="color" />
-        <attr name="camerasdk_pstsDividerColor" format="color" />
-        <attr name="camerasdk_pstsIndicatorHeight" format="dimension" />
-        <attr name="camerasdk_pstsUnderlineHeight" format="dimension" />
-        <attr name="camerasdk_pstsDividerPadding" format="dimension" />
-        <attr name="camerasdk_pstsTabPaddingLeftRight" format="dimension" />
-        <attr name="camerasdk_pstsScrollOffset" format="dimension" />
-        <attr name="camerasdk_pstsTabBackground" format="reference" />
-        <attr name="camerasdk_pstsShouldExpand" format="boolean" />
-        <attr name="camerasdk_pstsTextAllCaps" format="boolean" />
+        <attr name="camerasdk_pstsIndicatorColor" format="color"/>
+        <attr name="camerasdk_pstsUnderlineColor" format="color"/>
+        <attr name="camerasdk_pstsDividerColor" format="color"/>
+        <attr name="camerasdk_pstsIndicatorHeight" format="dimension"/>
+        <attr name="camerasdk_pstsUnderlineHeight" format="dimension"/>
+        <attr name="camerasdk_pstsDividerPadding" format="dimension"/>
+        <attr name="camerasdk_pstsTabPaddingLeftRight" format="dimension"/>
+        <attr name="camerasdk_pstsScrollOffset" format="dimension"/>
+        <attr name="camerasdk_pstsTabBackground" format="reference"/>
+        <attr name="camerasdk_pstsShouldExpand" format="boolean"/>
+        <attr name="camerasdk_pstsTextAllCaps" format="boolean"/>
     </declare-styleable>
-    
+
 </resources>

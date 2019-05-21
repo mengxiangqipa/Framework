@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.utils;
 
 import android.graphics.Matrix;
@@ -7,7 +6,8 @@ import android.graphics.RectF;
 import android.view.View;
 
 /**
- * Class that contains information about the charts current viewport settings, including offsets, scale & translation levels, ...
+ * Class that contains information about the charts current viewport settings, including offsets, scale & translation
+ * levels, ...
  *
  * @author Philipp Jahoda
  */
@@ -101,7 +101,6 @@ public class ViewPortHandler {
         mChartWidth = width;
 
         restrainViewPort(offsetLeft, offsetTop, offsetRight, offsetBottom);
-
     }
 
     public boolean hasChartDimens() {
@@ -591,5 +590,4 @@ public class ViewPortHandler {
     public boolean canZoomInMoreX() {
         return (mScaleX < mMaxScaleX);
     }
-
 }

@@ -135,5 +135,4 @@ public final class CaptureActivityHandler extends Handler {
             activity.drawViewfinder();
         }
     }
-
 }

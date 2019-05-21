@@ -49,7 +49,6 @@ public class ExifInfo {
         if (mExifOrientation != exifInfo.mExifOrientation) return false;
         if (mExifDegrees != exifInfo.mExifDegrees) return false;
         return mExifTranslation == exifInfo.mExifTranslation;
-
     }
 
     @Override
@@ -59,5 +58,4 @@ public class ExifInfo {
         result = 31 * result + mExifTranslation;
         return result;
     }
-
 }

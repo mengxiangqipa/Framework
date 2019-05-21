@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.charts;
 
 import android.content.Context;
@@ -10,7 +9,7 @@ import com.library.mpandroidchart.renderer.CandleStickChartRenderer;
 
 /**
  * Financial chart type that draws candle-sticks (OHCL chart).
- * 
+ *
  * @author Philipp Jahoda
  */
 public class CandleStickChart extends BarLineChartBase<CandleData> implements CandleDataProvider {

@@ -63,7 +63,6 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         public BitmapWorkerResult(@NonNull Exception bitmapWorkerException) {
             mBitmapWorkerException = bitmapWorkerException;
         }
-
     }
 
     public BitmapLoadTask(@NonNull Context context,
@@ -109,7 +108,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
         if (options.outWidth == -1 || options.outHeight == -1) {
-            return new BitmapWorkerResult(new IllegalArgumentException("Bounds for bitmap could not be retrieved from the Uri: [" + mInputUri + "]"));
+            return new BitmapWorkerResult(new IllegalArgumentException("Bounds for bitmap could not be retrieved from" +
+                    " the Uri: [" + mInputUri + "]"));
         }
 
         options.inSampleSize = BitmapLoadUtils.calculateInSampleSize(options, mRequiredWidth, mRequiredHeight);
@@ -251,7 +251,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         mInputUri = mOutputUri;
     }
 
-//    private void downloadFile(@NonNull Uri inputUri, @Nullable Uri outputUri) throws NullPointerException, IOException {
+//    private void downloadFile(@NonNull Uri inputUri, @Nullable Uri outputUri) throws NullPointerException,
+//    IOException {
 //        Log.d(TAG, "downloadFile");
 //
 //        if (outputUri == null) {
@@ -294,10 +295,10 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
     @Override
     protected void onPostExecute(@NonNull BitmapWorkerResult result) {
         if (result.mBitmapWorkerException == null) {
-            mBitmapLoadCallback.onBitmapLoaded(result.mBitmapResult, result.mExifInfo, mInputUri.getPath(), (mOutputUri == null) ? null : mOutputUri.getPath());
+            mBitmapLoadCallback.onBitmapLoaded(result.mBitmapResult, result.mExifInfo, mInputUri.getPath(),
+                    (mOutputUri == null) ? null : mOutputUri.getPath());
         } else {
             mBitmapLoadCallback.onFailure(result.mBitmapWorkerException);
         }
     }
-
 }

@@ -40,7 +40,7 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
         super.getItemOffsets(outRect, view, parent, state);
         int itemPosition = parent.getChildAdapterPosition(view);
         if (parent.getAdapter() instanceof UniversalAdapter) {
-            UniversalAdapter adapter=(UniversalAdapter) parent.getAdapter();
+            UniversalAdapter adapter = (UniversalAdapter) parent.getAdapter();
             if (adapter.isFooter(itemPosition) || adapter.isHeader(itemPosition)) {
                 outRect.bottom = 0;
                 outRect.top = 0;
@@ -52,10 +52,10 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
                 outRect.top = dividerHeight;
             } else {
                 //BOTH
-                if (itemPosition -adapter.getHeaderCount() == 0) {
+                if (itemPosition - adapter.getHeaderCount() == 0) {
                     outRect.bottom = dividerHeight;
                     outRect.top = dividerHeight;
-                }else{
+                } else {
                     outRect.bottom = dividerHeight;
                     outRect.top = 0;
                 }

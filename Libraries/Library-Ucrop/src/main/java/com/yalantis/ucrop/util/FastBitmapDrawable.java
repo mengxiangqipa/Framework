@@ -99,5 +99,4 @@ public class FastBitmapDrawable extends Drawable {
             mWidth = mHeight = 0;
         }
     }
-
 }

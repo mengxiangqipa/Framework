@@ -12,8 +12,8 @@ import okhttp3.HttpUrl;
  * 自动管理Cookies
  *
  * @author YobertJomi
- *         className CookieJarManager
- *         created at  2017/6/19  13:47
+ * className CookieJarManager
+ * created at  2017/6/19  13:47
  */
 public class CookieJarManager implements CookieJar {
     private Context context;

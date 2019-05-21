@@ -176,7 +176,6 @@ public final class Intents {
         }
     }
 
-
     public static final class Share {
         /**
          * Give the user a choice of items to encode as a barcode, then render it as a QR Code and

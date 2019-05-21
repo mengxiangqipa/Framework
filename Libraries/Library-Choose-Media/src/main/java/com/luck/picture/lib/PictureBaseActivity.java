@@ -170,7 +170,6 @@ public class PictureBaseActivity extends FragmentActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -198,7 +197,6 @@ public class PictureBaseActivity extends FragmentActivity {
             e.printStackTrace();
         }
     }
-
 
     /**
      * compressImage
@@ -344,7 +342,6 @@ public class PictureBaseActivity extends FragmentActivity {
                 .start(this);
     }
 
-
     /**
      * 判断拍照 图片是否旋转
      *
@@ -366,7 +363,6 @@ public class PictureBaseActivity extends FragmentActivity {
         }
     }
 
-
     /**
      * compress or callback
      *
@@ -379,7 +375,6 @@ public class PictureBaseActivity extends FragmentActivity {
             onResult(result);
         }
     }
-
 
     /**
      * 如果没有任何相册，先创建一个最近相册出来
@@ -459,7 +454,6 @@ public class PictureBaseActivity extends FragmentActivity {
         dismissDialog();
     }
 
-
     /**
      * 获取DCIM文件下最新一条拍照记录
      *
@@ -536,7 +530,6 @@ public class PictureBaseActivity extends FragmentActivity {
                     audioPath = getAudioFilePathFromUri(uri);
                 }
                 return audioPath;
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

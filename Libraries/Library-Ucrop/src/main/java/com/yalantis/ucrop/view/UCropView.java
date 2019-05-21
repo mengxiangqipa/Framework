@@ -33,7 +33,6 @@ public class UCropView extends FrameLayout {
         mGestureCropImageView.processStyledAttributes(a);
         a.recycle();
 
-
         mGestureCropImageView.setCropBoundsChangeListener(new CropBoundsChangeListener() {
             @Override
             public void onCropAspectRatioChanged(float cropRatio) {
@@ -62,5 +61,4 @@ public class UCropView extends FrameLayout {
     public OverlayView getOverlayView() {
         return mViewOverlay;
     }
-
 }

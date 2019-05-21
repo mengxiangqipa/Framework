@@ -105,7 +105,8 @@ package com.zxing.decoding;//package com.zxing.decoding;
 //        super.onDestroy();
 //    }
 //
-//    private void initCamera(SurfaceHolder surfaceHolder, @NonNull ViewfinderView viewfinderView, boolean cameraAutoFocus) {
+//    private void initCamera(SurfaceHolder surfaceHolder, @NonNull ViewfinderView viewfinderView, boolean
+//    cameraAutoFocus) {
 //        try {
 //            CameraManager.get().openDriver(surfaceHolder,viewfinderView);
 //        } catch (IOException ioe) {

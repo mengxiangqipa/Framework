@@ -27,7 +27,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 
 /**
- * EventBus is a central publish/subscribe event system for Android. Events are posted ({@link #post(Object,String)}) to the
+ * EventBus is a central publish/subscribe event system for Android. Events are posted ({@link #post(Object, String)}
+ * ) to the
  * bus, which delivers it to subscribers that have a matching handler method for the event type. To receive events,
  * subscribers must register themselves to the bus using {@link #register(Object)}. Once registered, subscribers
  * receive events until {@link #unregister(Object)} is called. Event handling methods must be annotated by
@@ -319,13 +320,13 @@ public class EventBus {
             stickyEvents.put(event.getClass(), event);
         }
         // Should be posted after it is putted, in case the subscriber wants to remove immediately
-        post(event,tag);
+        post(event, tag);
     }
 
     /**
      * Gets the most recent sticky event for the given type.
      *
-     * @see #postSticky(Object,String)
+     * @see #postSticky(Object, String)
      */
     public <T> T getStickyEvent(Class<T> eventType) {
         synchronized (stickyEvents) {
@@ -336,7 +337,7 @@ public class EventBus {
     /**
      * Remove and gets the recent sticky event for the given event type.
      *
-     * @see #postSticky(Object,String)
+     * @see #postSticky(Object, String)
      */
     public <T> T removeStickyEvent(Class<T> eventType) {
         synchronized (stickyEvents) {
@@ -413,6 +414,7 @@ public class EventBus {
             }
         }
     }
+
     //我修改
     private boolean postSingleEventForEventType(Object event, PostingThreadState postingState, Class<?> eventClass,
                                                 String tag) {
@@ -426,7 +428,7 @@ public class EventBus {
                 postingState.subscription = subscription;
                 boolean aborted = false;
                 try {
-                    postToSubscription(subscription, event, postingState.isMainThread,tag);
+                    postToSubscription(subscription, event, postingState.isMainThread, tag);
                     aborted = postingState.canceled;
                 } finally {
                     postingState.event = null;
@@ -556,7 +558,7 @@ public class EventBus {
             if (sendSubscriberExceptionEvent) {
                 SubscriberExceptionEvent exEvent = new SubscriberExceptionEvent(this, cause, event,
                         subscription.subscriber);
-                post(exEvent,subscription.subscriberMethod.tag);
+                post(exEvent, subscription.subscriberMethod.tag);
             }
         }
     }

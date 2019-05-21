@@ -93,7 +93,8 @@ public class AspectRatioTextView extends TextView {
 
         if (isSelected()) {
             canvas.getClipBounds(mCanvasClipBounds);
-            canvas.drawCircle((mCanvasClipBounds.right - mCanvasClipBounds.left) / 2.0f, mCanvasClipBounds.bottom - mDotSize,
+            canvas.drawCircle((mCanvasClipBounds.right - mCanvasClipBounds.left) / 2.0f,
+                    mCanvasClipBounds.bottom - mDotSize,
                     mDotSize / 2, mDotPaint);
         }
     }
@@ -103,8 +104,10 @@ public class AspectRatioTextView extends TextView {
         setGravity(Gravity.CENTER_HORIZONTAL);
 
         mAspectRatioTitle = a.getString(R.styleable.ucrop_AspectRatioTextView_ucrop_artv_ratio_title);
-        mAspectRatioX = a.getFloat(R.styleable.ucrop_AspectRatioTextView_ucrop_artv_ratio_x, CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
-        mAspectRatioY = a.getFloat(R.styleable.ucrop_AspectRatioTextView_ucrop_artv_ratio_y, CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
+        mAspectRatioX = a.getFloat(R.styleable.ucrop_AspectRatioTextView_ucrop_artv_ratio_x,
+                CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
+        mAspectRatioY = a.getFloat(R.styleable.ucrop_AspectRatioTextView_ucrop_artv_ratio_y,
+                CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
 
         if (mAspectRatioX == CropImageView.SOURCE_IMAGE_ASPECT_RATIO || mAspectRatioY == CropImageView.SOURCE_IMAGE_ASPECT_RATIO) {
             mAspectRatio = CropImageView.SOURCE_IMAGE_ASPECT_RATIO;
@@ -159,5 +162,4 @@ public class AspectRatioTextView extends TextView {
             setText(String.format(Locale.US, "%d:%d", (int) mAspectRatioX, (int) mAspectRatioY));
         }
     }
-
 }

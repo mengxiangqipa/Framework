@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.data;
 
 import android.graphics.Path;
@@ -11,7 +10,9 @@ import java.util.List;
 
 public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
 
-    /** the size the scattershape will have, in screen pixels */
+    /**
+     * the size the scattershape will have, in screen pixels
+     */
     private float mShapeSize = 15f;
 
     /**
@@ -54,7 +55,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
     /**
      * Sets the size in density pixels the drawn scattershape will have. This
      * only applies for non custom shapes.
-     * 
+     *
      * @param size
      */
     public void setScatterShapeSize(float size) {
@@ -63,7 +64,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
 
     /**
      * returns the currently set scatter shape size
-     * 
+     *
      * @return
      */
     public float getScatterShapeSize() {
@@ -74,7 +75,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
      * Sets the shape that is drawn on the position where the values are at. If
      * "CUSTOM" is chosen, you need to call setCustomScatterShape(...) and
      * provide a path object that is drawn as the custom scattershape.
-     * 
+     *
      * @param shape
      */
     public void setScatterShape(ScatterShape shape) {
@@ -83,7 +84,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
 
     /**
      * returns all the different scattershapes the chart uses
-     * 
+     *
      * @return
      */
     public ScatterShape getScatterShape() {
@@ -94,7 +95,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
      * Sets a path object as the shape to be drawn where the values are at. Do
      * not forget to call setScatterShape(...) and set the shape to
      * ScatterShape.CUSTOM.
-     * 
+     *
      * @param shape
      */
     public void setCustomScatterShape(Path shape) {
@@ -104,7 +105,7 @@ public class ScatterDataSet extends LineScatterCandleRadarDataSet<Entry> {
     /**
      * returns the custom path / shape that is specified to be drawn where the
      * values are at
-     * 
+     *
      * @return
      */
     public Path getCustomScatterShape() {

@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.buffer;
 
 import com.library.mpandroidchart.data.CandleEntry;
@@ -6,13 +5,13 @@ import com.library.mpandroidchart.data.CandleEntry;
 import java.util.List;
 
 public class CandleBodyBuffer extends AbstractBuffer<CandleEntry> {
-    
+
     private float mBodySpace = 0f;
 
     public CandleBodyBuffer(int size) {
         super(size);
     }
-    
+
     public void setBodySpace(float bodySpace) {
         this.mBodySpace = bodySpace;
     }
@@ -28,12 +27,13 @@ public class CandleBodyBuffer extends AbstractBuffer<CandleEntry> {
     @Override
     public void feed(List<CandleEntry> entries) {
 
-        int size = (int)Math.ceil((mTo - mFrom) * phaseX + mFrom);
+        int size = (int) Math.ceil((mTo - mFrom) * phaseX + mFrom);
 
         for (int i = mFrom; i < size; i++) {
 
             CandleEntry e = entries.get(i);
-            addBody(e.getXIndex() - 0.5f + mBodySpace, e.getClose() * phaseY, e.getXIndex() + 0.5f - mBodySpace, e.getOpen() * phaseY);
+            addBody(e.getXIndex() - 0.5f + mBodySpace, e.getClose() * phaseY, e.getXIndex() + 0.5f - mBodySpace,
+                    e.getOpen() * phaseY);
         }
 
         reset();

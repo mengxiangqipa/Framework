@@ -38,5 +38,4 @@ public class SelectedStateListDrawable extends StateListDrawable {
     public boolean isStateful() {
         return true;
     }
-
 }

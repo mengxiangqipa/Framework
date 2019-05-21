@@ -136,7 +136,8 @@ public class RxPermissions {
 
     private Observable<Permission> request(final Observable<?> trigger, final String... permissions) {
         if (permissions == null || permissions.length == 0) {
-            throw new IllegalArgumentException("RxPermissions.request/requestEach requires at least one input permission");
+            throw new IllegalArgumentException("RxPermissions.request/requestEach requires at least one input " +
+                    "permission");
         }
         return oneOf(trigger, pending(permissions))
                 .flatMap(new Function<Object, Observable<Permission>>() {
@@ -197,7 +198,8 @@ public class RxPermissions {
         }
 
         if (!unrequestedPermissions.isEmpty()) {
-            String[] unrequestedPermissionsArray = unrequestedPermissions.toArray(new String[unrequestedPermissions.size()]);
+            String[] unrequestedPermissionsArray =
+                    unrequestedPermissions.toArray(new String[unrequestedPermissions.size()]);
             requestPermissionsFromFragment(unrequestedPermissionsArray);
         }
         return Observable.concat(Observable.fromIterable(list));
@@ -216,7 +218,8 @@ public class RxPermissions {
      * For SDK &lt; 23, the observable will always emit false.
      */
     @SuppressWarnings("WeakerAccess")
-    public Observable<Boolean> shouldShowRequestPermissionRationale(final Activity activity, final String... permissions) {
+    public Observable<Boolean> shouldShowRequestPermissionRationale(final Activity activity,
+                                                                    final String... permissions) {
         if (!isMarshmallow()) {
             return Observable.just(false);
         }
@@ -224,7 +227,8 @@ public class RxPermissions {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    private boolean shouldShowRequestPermissionRationaleImplementation(final Activity activity, final String... permissions) {
+    private boolean shouldShowRequestPermissionRationaleImplementation(final Activity activity,
+                                                                       final String... permissions) {
         for (String p : permissions) {
             if (!isGranted(p) && !activity.shouldShowRequestPermissionRationale(p)) {
                 return false;

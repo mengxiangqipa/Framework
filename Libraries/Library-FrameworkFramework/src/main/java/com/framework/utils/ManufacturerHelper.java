@@ -47,44 +47,48 @@ public final class ManufacturerHelper {
     private static String sVersion;
 
     /**
-     *是否是华为系统
+     * 是否是华为系统
      */
-    public  boolean isEMUI() {
+    public boolean isEMUI() {
         return check(ROM_EMUI);
     }
+
     /**
-     *是否是小米系统
+     * 是否是小米系统
      */
-    public  boolean isMIUI() {
+    public boolean isMIUI() {
         return check(ROM_MIUI);
     }
+
     /**
-     *是否是VIVO系统
+     * 是否是VIVO系统
      */
-    public  boolean isVIVO() {
+    public boolean isVIVO() {
         return check(ROM_VIVO);
     }
+
     /**
-     *是否是OPPO系统
+     * 是否是OPPO系统
      */
-    public  boolean isOPPO() {
+    public boolean isOPPO() {
         return check(ROM_OPPO);
     }
+
     /**
-     *是否是魅族系统
+     * 是否是魅族系统
      */
-    public  boolean isFlyme() {
+    public boolean isFlyme() {
         return check(ROM_FLYME);
     }
 
-    public  boolean is360() {
+    public boolean is360() {
         return check(ROM_QIKU) || check("360");
     }
 
     /**
-     *是否是锤子系统
+     * 是否是锤子系统
      */
-    public  boolean isSmartisan() {
+    public boolean isSmartisan() {
         return check(ROM_SMARTISAN);
     }
 

@@ -51,5 +51,4 @@ public class ImageViewState implements Serializable {
     public int getOrientation() {
         return orientation;
     }
-
 }

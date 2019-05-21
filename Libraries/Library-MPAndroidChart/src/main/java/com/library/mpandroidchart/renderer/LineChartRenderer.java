@@ -1,4 +1,3 @@
-
 package com.library.mpandroidchart.renderer;
 
 import android.graphics.Bitmap;
@@ -325,7 +324,6 @@ public class LineChartRenderer extends LineScatterCandleRadarRenderer {
                 canvas.drawLine(buffer.buffer[j], buffer.buffer[j + 1],
                         buffer.buffer[j + 2], buffer.buffer[j + 3], mRenderPaint);
             }
-
         } else { // only one color per dataset
 
             mRenderPaint.setColor(dataSet.getColor());

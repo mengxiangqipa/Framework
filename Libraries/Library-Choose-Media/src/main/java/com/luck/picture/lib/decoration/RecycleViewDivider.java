@@ -73,7 +73,6 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
         mPaint.setStyle(Paint.Style.FILL);
     }
 
-
     //获取分割线尺寸
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

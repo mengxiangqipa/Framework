@@ -24,6 +24,7 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private Paint p = new Paint();
     private DragFlag dragFlag = DragFlag.UP_DOWN;
     private int swipeFlag = 0;
+
     public DragItemTouchHelperCallback(@NonNull Context context, @Nullable DragAdapter swipeAdapter) {
         this.swipeAdapter = swipeAdapter;
         this.context = context;

@@ -1,6 +1,5 @@
 package com.luck.picture.lib.dialog;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ public class PictureDialog extends Dialog {
         Window window = getWindow();
         window.setWindowAnimations(R.style.DialogWindowStyle);
     }
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

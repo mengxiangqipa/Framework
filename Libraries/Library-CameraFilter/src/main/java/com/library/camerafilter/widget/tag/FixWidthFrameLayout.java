@@ -53,6 +53,7 @@ public class FixWidthFrameLayout extends FrameLayout {
         setMeasuredDimension(width, height);
         this.width = width;
         this.height = height;
-        measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+        measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height,
+                MeasureSpec.EXACTLY));
     }
 }

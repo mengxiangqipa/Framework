@@ -39,7 +39,8 @@ public class BitmapLoadUtils {
 
     public static Bitmap transformBitmap(@NonNull Bitmap bitmap, @NonNull Matrix transformMatrix) {
         try {
-            Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), transformMatrix, true);
+            Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),
+                    transformMatrix, true);
             if (!bitmap.sameAs(converted)) {
                 bitmap = converted;
             }
@@ -169,5 +170,4 @@ public class BitmapLoadUtils {
             }
         }
     }
-
 }
