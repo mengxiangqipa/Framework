@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.demo.demo">
-
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.demo.demo">
 
     <application
         android:name="com.demo.application.ShareApplication"
-        tools:replace="android:theme"
         android:allowBackup="true"
         android:icon="@drawable/ic_android_blue_24dp"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/HomepageStyle">
+        android:theme="@style/HomepageStyle"
+        tools:replace="android:theme">
 
         <activity
             android:name="com.demo.activity.LaunchActivity"
@@ -185,6 +186,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <activity
             android:name="com.demo.commonWebview.CommonFullWebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -195,6 +197,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <activity
             android:name="com.demo.commonWebview.CommonFullWebViewToolBarActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -205,6 +208,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
         <!--独立进程webview-->
         <activity
             android:name="com.demo.commonWebview.DetachedProcessCommonFullWebViewActivity"
@@ -258,7 +262,7 @@
         <service
             android:name="com.framework2.tinker.service.TinkerResultService"
             android:exported="false"/>
-        <!--service-->
+
         <service android:name="com.demo.service.CheckUpdateService">
             <intent-filter android:priority="1000">
                 <action android:name="com.demo.service.CheckUpdateService"/>
@@ -268,14 +272,15 @@
         <meta-data
             android:name="CONTENTPROVIDER_KEY"
             android:value="${applicationId}.preferences"/>
+
         <provider
             android:name="com.framework.utils.multyprocessprovider.provider.PreferencesProvider"
             android:authorities="${applicationId}.preferences"
             android:exported="false"
             android:grantUriPermissions="false"/>
         <!--android:authorities="@string/preferences_provider_authority"-->
-
     </application>
+
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

@@ -15,6 +15,9 @@ public class AudioManagerUtil {
     private static volatile AudioManagerUtil instance;
     private AudioManager mAudioManager;
 
+    private AudioManagerUtil() {
+    }
+
     public static AudioManagerUtil getInstance() {
         if (null == instance) {
             synchronized (AudioManagerUtil.class) {

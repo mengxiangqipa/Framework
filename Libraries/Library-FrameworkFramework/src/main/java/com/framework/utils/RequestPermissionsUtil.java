@@ -35,6 +35,9 @@ public class RequestPermissionsUtil {
     public static int PERMISSION_WRITE_READ_EXTERNAL_STORAGE = 5;
     public static int PERMISSION_CALL_PHONE = 6;
 
+    private RequestPermissionsUtil() {
+    }
+
     public static RequestPermissionsUtil getInstance() {
         if (null == instance) {
             synchronized (RequestPermissionsUtil.class) {

@@ -12,6 +12,8 @@ import com.demo.entity.Entity;
 import com.framework.utils.KeyBoardUtil;
 
 import custom.org.greenrobot.eventbus.EventBus;
+import custom.org.greenrobot.eventbus.Subscribe;
+import custom.org.greenrobot.eventbus.ThreadMode;
 
 /**
  * activity的base类
@@ -21,6 +23,11 @@ import custom.org.greenrobot.eventbus.EventBus;
  * created at  2017/3/15  13:44
  */
 public class BaseActivity extends AppCompatActivity {
+
+    //eventBus通知新消息
+    @Subscribe(threadMode = ThreadMode.MAIN, tag = "newMessage")
+    public void receivedNewMessage(String info) {
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

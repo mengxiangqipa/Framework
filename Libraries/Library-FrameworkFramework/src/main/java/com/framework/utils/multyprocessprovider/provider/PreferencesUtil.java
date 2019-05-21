@@ -14,6 +14,9 @@ public class PreferencesUtil {
     private static volatile String moduleName = "PreferencesUtil";
     private PreferencesHelper preferencesHelper;
 
+    private PreferencesUtil() {
+    }
+
     private PreferencesUtil(Context context, String moduleName) {
         this.moduleName = moduleName;
         preferencesHelper = new PreferencesHelper(context);

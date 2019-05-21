@@ -31,7 +31,7 @@ import java.util.List;
 public class PackageManagerUtil {
     private static volatile PackageManagerUtil instance;
 
-    public PackageManagerUtil() {
+    private PackageManagerUtil() {
     }
 
     public static PackageManagerUtil getInstance() {

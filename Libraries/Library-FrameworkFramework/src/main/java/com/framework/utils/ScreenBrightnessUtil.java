@@ -16,6 +16,9 @@ public class ScreenBrightnessUtil {
 
     private static volatile ScreenBrightnessUtil instance;
 
+    private ScreenBrightnessUtil() {
+    }
+
     public static ScreenBrightnessUtil getInstance() {
         if (null == instance) {
             synchronized (ScreenBrightnessUtil.class) {

@@ -15,6 +15,8 @@ public class MessageQueueUtil {
     // 任务不能重复
     private Set<String> taskIdSet;
 
+
+
     private MessageQueueUtil() {
         taskLinkedList = new LinkedList<RunnableTAG>();
         taskIdSet = new HashSet<String>();

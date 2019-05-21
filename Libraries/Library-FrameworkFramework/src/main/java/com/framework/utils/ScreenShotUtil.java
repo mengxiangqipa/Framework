@@ -51,6 +51,9 @@ public class ScreenShotUtil {
     private int mResultCode = 0;
     private Intent mResultData = null;
 
+    private ScreenShotUtil() {
+    }
+
     public static ScreenShotUtil getInstance() {
         if (instance == null) {
             synchronized (ScreenShotUtil.class) {

@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.library.percent.PercentRelativeLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relative_total_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fitsSystemWindows="false">
 
     <ImageView
-        android:id="@+id/iv_guide"
+        android:id="@+id/ivAD"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@mipmap/splash"/>
 
-    <TextView
-        android:id="@+id/tvTimer"
+    <RelativeLayout
+        android:id="@+id/relaAD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@drawable/shape_grey_20dp"
-        android:padding="5dp"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:visibility="invisible"
-        app:layout_marginRightPercent="5%w"
-        app:layout_marginTopPercent="8%w"/>
-</com.library.percent.PercentRelativeLayout>
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/circle_gray_light"
+        android:padding="1dp">
+
+        <com.framework.customviews.CustomADprogress
+            android:id="@+id/customADprogress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:circleColor="@color/transparent"
+            app:drawBgCircleRing="false"
+            app:progress="100"
+            app:radius="23dp"
+            app:ringColor="@color/white"
+            app:strokeWidth="2dp"
+            app:text="跳过"
+            app:textColor="@color/white"
+            app:textSize_="12sp"/>
+    </RelativeLayout>
+</RelativeLayout>

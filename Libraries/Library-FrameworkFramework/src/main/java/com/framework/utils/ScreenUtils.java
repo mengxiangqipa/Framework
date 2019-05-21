@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -20,6 +19,9 @@ import android.view.WindowManager;
  */
 public class ScreenUtils {
     private static volatile ScreenUtils instance;
+
+    private ScreenUtils() {
+    }
 
     public static ScreenUtils getInstance() {
         if (null == instance) {
@@ -266,7 +268,11 @@ public class ScreenUtils {
      */
     public boolean setSystemUiColorDark(Activity activity, boolean dark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (null == activity)
+                return false;
             Window window = activity.getWindow();
+            if (null == window)
+                return false;
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     window.setStatusBarColor(Color.TRANSPARENT);

@@ -46,7 +46,7 @@ public class TrafficStatsUtil {
      */
     private long preRxBytes = 0;
 
-    public TrafficStatsUtil() {
+    private TrafficStatsUtil() {
     }
 
     public static TrafficStatsUtil getInstance() {

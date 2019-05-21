@@ -13,6 +13,9 @@ import android.content.Intent;
 public class AlarmUtil {
     private static volatile AlarmUtil instance;
 
+    private AlarmUtil() {
+    }
+
     public static AlarmUtil getInstance() {
         if (instance == null) {
             synchronized (AlarmUtil.class) {
