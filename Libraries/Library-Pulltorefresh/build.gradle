@@ -22,7 +22,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
     implementation rootProject.ext.androidSupport.recyclerView
     implementation rootProject.ext.androidSupport.support_v4
 }

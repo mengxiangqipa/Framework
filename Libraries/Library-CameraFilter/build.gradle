@@ -33,7 +33,6 @@ dependencies {
     })
     //appcompat-v7
     implementation rootProject.ext.androidSupport.appcompat_v7
-    testImplementation 'junit:junit:4.12'
     api files('libs/cameraFilterSdk.jar')
     api files('libs/picasso-2.4.0.jar')
 }

@@ -30,8 +30,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //appcompat-v7
     implementation rootProject.ext.androidSupport.appcompat_v7
-    testImplementation 'junit:junit:4.12'
-
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------
