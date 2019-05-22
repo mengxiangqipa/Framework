@@ -45,10 +45,10 @@ public class Slidr {
      * the user to lock/unlock the sliding mechanism for whatever purpose.
      */
     public static SlidrInterface attach(final Activity activity, final int statusBarColor1, final int statusBarColor2
-            , final OnSlideListener listener) {
+            , final SlidrConfig config) {
 
         // Setup the slider panel and attach it to the decor
-        final SliderPanel panel = initSliderPanel(activity, null);
+        final SliderPanel panel = initSliderPanel(activity, config);
 
         // Set the panel slide listener for when it becomes closed or opened
         panel.setOnPanelSlideListener(new SliderPanel.OnPanelSlideListener() {
@@ -57,15 +57,15 @@ public class Slidr {
 
             @Override
             public void onStateChanged(int state) {
-                if (null != listener) {
-                    listener.onStateChanged(state);
+                if (null != config && null != config.getListener()) {
+                    config.getListener().onSlideChange(state);
                 }
             }
 
             @Override
             public void onClosed() {
-                if (null != listener) {
-                    listener.onClosed();
+                if (null != config && null != config.getListener()) {
+                    config.getListener().onSlideClosed();
                 } else {
                     activity.finish();
                     activity.overridePendingTransition(0, 0);
@@ -74,14 +74,17 @@ public class Slidr {
 
             @Override
             public void onOpened() {
-                if (null != listener) {
-                    listener.onOpened();
+                if (null != config && null != config.getListener()) {
+                    config.getListener().onSlideOpened();
                 }
             }
 
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onSlideChange(float percent) {
+                if (null != config && null != config.getListener()) {
+                    config.getListener().onSlideOpened();
+                }
                 // Interpolate the statusbar color
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         statusBarColor1 != -1 && statusBarColor2 != -1) {
@@ -192,17 +195,5 @@ public class Slidr {
 
         // Return the lock interface
         return slidrInterface;
-    }
-
-    /**
-     * 2019 05 21 回调接口
-     */
-    public interface OnSlideListener {
-
-        void onStateChanged(int state);
-
-        void onClosed();
-
-        void onOpened();
     }
 }
