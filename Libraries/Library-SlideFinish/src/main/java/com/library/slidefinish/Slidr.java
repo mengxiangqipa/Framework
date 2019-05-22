@@ -83,7 +83,7 @@ public class Slidr {
             @Override
             public void onSlideChange(float percent) {
                 if (null != config && null != config.getListener()) {
-                    config.getListener().onSlideOpened();
+                    config.getListener().onSlideChange(percent);
                 }
                 // Interpolate the statusbar color
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&

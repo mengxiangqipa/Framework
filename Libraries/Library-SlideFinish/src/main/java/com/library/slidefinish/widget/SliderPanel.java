@@ -605,6 +605,8 @@ public class SliderPanel extends FrameLayout {
 
         ViewDragHelper.Callback callback;
         switch (mConfig.getPosition()) {
+            case NONE:
+                return;
             case LEFT:
                 callback = mLeftCallback;
                 mEdgePosition = ViewDragHelper.EDGE_LEFT;
@@ -707,7 +709,7 @@ public class SliderPanel extends FrameLayout {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if (mDragHelper.continueSettling(true)) {
+        if (null != mDragHelper && mDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
@@ -716,7 +718,9 @@ public class SliderPanel extends FrameLayout {
      * Lock this sliding panel to ignore touch inputs.
      */
     public void lock() {
-        mDragHelper.abort();
+        if (mDragHelper != null) {
+            mDragHelper.abort();
+        }
         mIsLocked = true;
     }
 

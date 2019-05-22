@@ -17,6 +17,7 @@ import com.framework.utils.ViewServer;
 import com.framework.utils.Y;
 import com.library.slidefinish.Slidr;
 import com.library.slidefinish.model.SlidrConfig;
+import com.library.slidefinish.model.SlidrListener;
 import com.library.slidefinish.model.SlidrPosition;
 
 import java.util.List;
@@ -30,14 +31,19 @@ import custom.org.greenrobot.eventbus.EventBus;
  * className BaseActivity
  * created at  2017/3/15  13:44
  */
-public abstract class BaseSlideFinishActivity extends AppCompatActivity {
+public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
+
     public abstract void _onCreate();
 
+    public abstract void onSlideClose();
+
+    public abstract int[] initPrimeryColor();
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _onCreate();
+        ScreenUtils.getInstance().setSystemUiColorDark(this,true);
         int primary = getResources().getColor(R.color.black);
         int secondary = getResources().getColor(R.color.black);
         EventBus.getDefault().register(this);
@@ -45,18 +51,42 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
         if (Config.ALLOWLOG) {
             ViewServer.get(this).addWindow(this);
         }
-        SlidrPosition position = SlidrPosition.LEFT;
         SlidrConfig mConfig = new SlidrConfig.Builder()
                 .primaryColor(primary)
                 .secondaryColor(secondary)
-                .position(position)
+                .position(SlidrPosition.LEFT)
                 .velocityThreshold(2400)
                 .distanceThreshold(.25f)
                 .edge(true)
                 .touchSize(ScreenUtils.getInstance().dip2px(this, 32))
+                .listener(new SlidrListener() {
+                    @Override
+                    public void onSlideStateChanged(int state) {
+
+                    }
+
+                    @Override
+                    public void onSlideChange(float percent) {
+
+                    }
+
+                    @Override
+                    public void onSlideOpened() {
+
+                    }
+
+                    @Override
+                    public void onSlideClosed() {
+                        onSlideClose();
+                    }
+                })
                 .build();
-        // Attach the Slidr Mechanism to this activity
-        Slidr.attach(this, mConfig);
+        int[] color = initPrimeryColor();
+        if (color != null && color.length == 2) {
+            Slidr.attach(this, color[0], color[1], mConfig);
+        } else {
+            Slidr.attach(this, -1, -1, mConfig);
+        }
     }
 
     @Override
@@ -97,7 +127,7 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
      * 返回主页，这个会clearHistoryTasks，并新建HomepageActivity
      */
     public void goBackHomepage(boolean shouldRefresh) {
-        Intent intent = new Intent(BaseSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent
+        Intent intent = new Intent(BaseAbsSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent
                 .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(ConstantsME.CITY, shouldRefresh);
         startActivity(intent);
@@ -121,7 +151,7 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
     }
 
     public void startActivity(@Nullable Class<?> cls, Bundle bundle) {
-        Intent intent = new Intent(BaseSlideFinishActivity.this, cls);
+        Intent intent = new Intent(BaseAbsSlideFinishActivity.this, cls);
         if (null != bundle)
             intent.putExtras(bundle);
         startActivity(intent);
@@ -130,7 +160,7 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
     }
 
     public void startActivity(@Nullable Class<?> cls, Entity entity) {
-        Intent intent = new Intent(BaseSlideFinishActivity.this, cls);
+        Intent intent = new Intent(BaseAbsSlideFinishActivity.this, cls);
         if (null != entity)
             intent.putExtra(ConstantsME.entity, entity);
         startActivity(intent);
@@ -139,7 +169,7 @@ public abstract class BaseSlideFinishActivity extends AppCompatActivity {
     }
 
     public void startActivityForResult(@Nullable Class<?> cls, Bundle bundle, int requestCode) {
-        Intent intent = new Intent(BaseSlideFinishActivity.this, cls);
+        Intent intent = new Intent(BaseAbsSlideFinishActivity.this, cls);
         if (null != bundle)
             intent.putExtras(bundle);
         startActivityForResult(intent, requestCode);

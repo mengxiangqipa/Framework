@@ -3,7 +3,7 @@ package com.demo.activity.netty_test;
 import android.view.View;
 import android.widget.Button;
 
-import com.demo.activity.BaseSlideFinishActivity;
+import com.demo.activity.BaseAbsSlideFinishActivity;
 import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
 import com.framework.customviews.CustomTextSwitcher;
@@ -20,7 +20,7 @@ import butterknife.OnClick;
 import custom.org.greenrobot.eventbus.Subscribe;
 import custom.org.greenrobot.eventbus.ThreadMode;
 
-public class NettyTestActivity extends BaseSlideFinishActivity {
+public class NettyTestActivity extends BaseAbsSlideFinishActivity {
     @BindView(R.id.btnStart)
     Button btnStart;
     @BindView(R.id.btnEnd)
@@ -33,6 +33,18 @@ public class NettyTestActivity extends BaseSlideFinishActivity {
     OverScrollView overScrollView;
     private String host = "192.168.0.101";
     private int port = 8090;
+
+
+    @Override
+    public void onSlideClose() {
+        finishActivity();
+    }
+
+    @Override
+    public int[] initPrimeryColor() {
+        //        return new int[]{R.color.colorPrimary,R.color.colorPrimaryDark};
+        return null;
+    }
 
     //eventBus通知新消息
     @Subscribe(threadMode = ThreadMode.MAIN, tag = EventBusTag.nettyMsg)
@@ -51,9 +63,9 @@ public class NettyTestActivity extends BaseSlideFinishActivity {
     public void _onCreate() {
         setContentView(R.layout.activity_netty_test);
         ButterKnife.bind(this);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
-                getResources().getColor(R.color.white));
+//        ScreenUtils.getInstance().setTranslucentStatus(this, true);
+//        ScreenUtils.getInstance().setStatusBarTintColor(this,
+//                getResources().getColor(R.color.white));
     }
 
     @OnClick({R.id.btnStart, R.id.btnEnd, R.id.btnRetry})

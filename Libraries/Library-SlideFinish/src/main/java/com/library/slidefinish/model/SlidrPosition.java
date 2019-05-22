@@ -6,6 +6,7 @@ package com.library.slidefinish.model;
  * created at  2017/5/26  15:47
  */
 public enum SlidrPosition {
+    NONE,
     LEFT,
     RIGHT,
     TOP,

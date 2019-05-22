@@ -7,7 +7,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Toast;
 
-import com.demo.activity.BaseSlideFinishActivity;
+import com.demo.activity.BaseAbsSlideFinishActivity;
 import com.demo.demo.R;
 import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
 import com.library.pulltorefresh.pullableview.PullableListView;
@@ -21,12 +21,22 @@ import custom.org.greenrobot.eventbus.ThreadMode;
 /**
  * 更多详解见博客http://blog.csdn.net/zhongkejingwang/article/details/38868463
  */
-public class MainActivity extends BaseSlideFinishActivity {
+public class MainActivity extends BaseAbsSlideFinishActivity {
     private PullableListView listView;
 
     //eventBus通知新消息
     @Subscribe(threadMode = ThreadMode.MAIN, tag = "newMessage")
     public void receivedNewMessage(String info) {
+    }
+
+    @Override
+    public void onSlideClose() {
+        finishActivity();
+    }
+
+    @Override
+    public int[] initPrimeryColor() {
+        return new int[]{R.color.colorPrimary,R.color.colorPrimaryDark};
     }
 
     @Override

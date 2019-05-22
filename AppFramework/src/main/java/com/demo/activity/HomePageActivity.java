@@ -99,7 +99,7 @@ import okhttp3.Response;
  * className HomePageActivity
  * created at  2016/10/15  16:40
  */
-public class HomePageActivity extends BaseSlideFinishActivity implements ActivityCompat
+public class HomePageActivity extends BaseAbsSlideFinishActivity implements ActivityCompat
         .OnRequestPermissionsResultCallback {
     private final ProgressHandler progressHandler = new ProgressHandler(this);
     private final int CHOOSE_VIDEO_RESULT = 10086;
@@ -126,15 +126,6 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
     private String version;
     private WholeNotification wholeNotification;
     private long exitTime;
-
-    {
-        Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-            }
-        };
-    }
 
     //eventBus通知新消息
     @Subscribe(threadMode = ThreadMode.MAIN, tag = EventBusTag.updateDialog)
@@ -228,6 +219,17 @@ public class HomePageActivity extends BaseSlideFinishActivity implements Activit
                 .load(R.mipmap.beauty)
                 .into(ivGif5);
         initRecyclerView();
+    }
+
+    @Override
+   public void onSlideClose() {
+        finishActivity();
+    }
+
+    @Override
+    public int[] initPrimeryColor() {
+//        return new int[]{R.color.colorPrimary,R.color.colorPrimaryDark};
+        return null;
     }
 
     private void initRecyclerView() {
