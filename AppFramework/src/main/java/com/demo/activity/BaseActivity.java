@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
 import com.demo.entity.Entity;
+import com.framework.utils.ForbidAndroidPhideAPIdialog;
 import com.framework.utils.KeyBoardUtil;
 
 import custom.org.greenrobot.eventbus.EventBus;
@@ -34,6 +35,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
 //        ActivityTaskUtil.getInstance().addActivity(this);
+        ForbidAndroidPhideAPIdialog.getInstance().closeAndroidPdialog();
     }
 
     @Override

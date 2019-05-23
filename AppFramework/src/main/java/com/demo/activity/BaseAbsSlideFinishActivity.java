@@ -12,6 +12,7 @@ import com.demo.demo.R;
 import com.demo.entity.Entity;
 import com.framework.config.Config;
 import com.framework.utils.ActivityTaskUtil;
+import com.framework.utils.ForbidAndroidPhideAPIdialog;
 import com.framework.utils.ScreenUtils;
 import com.framework.utils.ViewServer;
 import com.framework.utils.Y;
@@ -43,6 +44,7 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _onCreate();
+        ForbidAndroidPhideAPIdialog.getInstance().closeAndroidPdialog();
         ScreenUtils.getInstance().setSystemUiColorDark(this,true);
         int primary = getResources().getColor(R.color.black);
         int secondary = getResources().getColor(R.color.black);

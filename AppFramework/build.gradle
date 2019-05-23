@@ -161,12 +161,20 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
     sourceSets.main {//解决NDK报错的
         jni.srcDirs = []
     }
+
     //greendao 版本设置//应用GreenDao数据库插件，不使用GreenDao数据库，将其删除
     greendao {
         schemaVersion 1
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        disable 'GoogleAppIndexingWarning'
     }
 }
 
