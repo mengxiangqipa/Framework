@@ -13,20 +13,27 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <!--主页theme-->
     <style name="HomepageStyle" parent="Theme.Design.Light.NoActionBar">
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/black</item>
     </style>
+
     <!--闪屏theme-->
     <style name="SplashTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
         <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@mipmap/splash</item>
-        <!--<item name="android:background">@drawable/splash_bitmap</item>-->
+        <item name="android:configChanges">orientation|keyboardHidden|screenSize</item>
+        <item name="android:launchMode">singleTask</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowSoftInputMode">adjustUnspecified|stateHidden</item>
+        <!--<item name="android:windowIsTranslucent">true</item>-->
     </style>
+
     <!--独立进程防白屏theme-->
     <style name="Theme.DetachedProcessTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowDisablePreview">true</item>
@@ -49,7 +56,15 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="MyThemeTranslucent" parent="AppTheme.NoActionBar">
+    <style name="CommonTheme" parent="@style/AppTheme.NoActionBar">
+        <item name="android:configChanges">orientation|keyboardHidden|screenSize</item>
+        <item name="android:exported">false</item>
+        <item name="android:launchMode">singleTask</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowSoftInputMode">adjustUnspecified|stateHidden</item>
+    </style>
+
+    <style name="TranslucentTheme" parent="CommonTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>

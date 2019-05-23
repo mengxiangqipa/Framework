@@ -1,6 +1,7 @@
 package com.demo.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -62,12 +62,10 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         PreferencesHelper.getInstance().putInfo(ConstantsME.fromLauncher, true);
         ActivityTaskUtil.getInstance().addActivity(this);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-//        PreferencesHelper.getInstance().putInfo(ConstantsME.NOTFIRSTIN, false);//test
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (PreferencesHelper.getInstance().getBooleanData(ConstantsME.NOTFIRSTIN)) {
             if (!TextUtils.isEmpty(RSAmethodInRaw.rsaDecrypt(this, PreferencesHelper.getInstance().getStringData
@@ -86,19 +84,13 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         } else {
             setContentView(R.layout.activity_guide);
             ButterKnife.bind(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ScreenUtils.getInstance().setSystemUiColorDark(this, false);//设置状态栏字体颜色浅
+            }
             initData();
         }
     }
 
-    //    Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            if (msg.what == 10086) {
-//                gotoHomepage();
-//            }
-//        }
-//    };
     private void initData() {
         animation_btn = AnimationUtils.loadAnimation(this, R.anim.myset_showbtn);
         if (PreferencesHelper.getInstance().getBooleanData(ConstantsME.NOTFIRSTIN)) {
@@ -123,7 +115,7 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         listFragments.add(fragment_guide_2);
         listFragments.add(fragment_guide_3);
         GuideFragmentPagerAdapter adapter = new GuideFragmentPagerAdapter(getSupportFragmentManager(), listFragments);
-        //		viewPager.setPageTransformer(true, new MyPageTransformer());
+        //viewPager.setPageTransformer(true, new MyPageTransformer());
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
         final int screenWidth = ScreenUtils.getInstance().getScreenWidthPx(this);

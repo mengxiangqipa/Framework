@@ -17,7 +17,9 @@
         <activity
             android:name="com.demo.activity.LaunchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            >
+            <!--android:theme="@style/SplashTheme"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -51,7 +53,7 @@
 
         <activity
             android:name="com.demo.activity.netty_test.NettyTestActivity"
-            android:theme="@style/MyThemeTranslucent"/>
+            android:theme="@style/TranslucentTheme"/>
 
 
         <activity android:name="com.demo.activity.cameraFilter.ResultActivity"/>
@@ -143,7 +145,7 @@
         <!--测试用，可删除-->
         <activity
             android:name="com.test.MainActivity"
-            android:theme="@style/MyThemeTranslucent"/>
+            android:theme="@style/TranslucentTheme"/>
         <activity android:name="com.test.PullableExpandableListViewActivity"/>
         <activity android:name="com.test.PullableGridViewActivity"/>
         <activity android:name="com.test.PullableListViewActivity"/>
