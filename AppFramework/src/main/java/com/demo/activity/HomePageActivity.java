@@ -222,7 +222,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     }
 
     @Override
-   public void onSlideClose() {
+    public void onSlideClose() {
         finishActivity();
     }
 
@@ -256,6 +256,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         items.add("文件下载");
         items.add("独立进程webview");
         items.add("zxing二维码(优化)");
+        items.add("权限页面");
+        items.add("权限页面(APIGuide)");
         HorizontalDividerItemDecoration2 itemDecoration = new HorizontalDividerItemDecoration2(this);
         itemDecoration.setColor(this, R.color.share_texttoast_color);
         itemDecoration.setDividerHeightPx(1);
@@ -396,6 +398,12 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                                 break;
                             case "zxing二维码(优化)":
                                 startActivityForResult(ScanActivity.class, null, 10086);
+                                break;
+                            case "权限页面":
+                                startActivity(PermissionActivity.class);
+                                break;
+                            case "权限页面(APIGuide)":
+                                startActivity(PermissionApiGuideActivity.class);
                                 break;
                         }
                     }
@@ -563,7 +571,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Y.y("再按一次:"+System.currentTimeMillis());
+        Y.y("再按一次:" + System.currentTimeMillis());
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - this.exitTime > 2000L) {
                 this.exitTime = System.currentTimeMillis();

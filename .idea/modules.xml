@@ -19,6 +19,7 @@
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-MPAndroidChart/Library-MPAndroidChart.iml" filepath="$PROJECT_DIR$/Libraries/Library-MPAndroidChart/Library-MPAndroidChart.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Network/Library-Network.iml" filepath="$PROJECT_DIR$/Libraries/Library-Network/Library-Network.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-PercentLayout/Library-PercentLayout.iml" filepath="$PROJECT_DIR$/Libraries/Library-PercentLayout/Library-PercentLayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Permission/Library-Permission.iml" filepath="$PROJECT_DIR$/Libraries/Library-Permission/Library-Permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" filepath="$PROJECT_DIR$/Libraries/Library-Pulltorefresh/Library-Pulltorefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" filepath="$PROJECT_DIR$/Libraries/Library-Scan/Library-Scan.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" filepath="$PROJECT_DIR$/Libraries/Library-SlideFinish/Library-SlideFinish.iml" />

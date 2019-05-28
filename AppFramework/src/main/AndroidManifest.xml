@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.demo.demo">
 
-        <!--android:icon="@drawable/ic_android_blue_24dp"-->
+    <!--android:icon="@drawable/ic_android_blue_24dp"-->
     <application
         android:name="com.demo.application.ShareApplication"
         android:allowBackup="true"
@@ -211,6 +211,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <!--权限页面-->
+        <activity
+            android:name="com.demo.activity.PermissionActivity"
+            android:theme="@style/CommonTheme"/>
+        <!--权限API测试页面-->
+        <activity
+            android:name="com.demo.activity.PermissionApiGuideActivity"
+            android:theme="@style/CommonTheme"/>
 
         <!--独立进程webview-->
         <activity

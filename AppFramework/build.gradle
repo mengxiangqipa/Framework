@@ -233,6 +233,7 @@ dependencies {
     api project(':Libraries:Library-SlideFinish')
     api project(':Libraries:Library-Ucrop')
     api project(':Libraries:Library-Videoview')
+    api project(':Libraries:Library-Permission')
 
 //    implementation "com.github.mengxiangqipa.Framework:Library-Adapter:${FrameworkVersion}"
 //    implementation "com.github.mengxiangqipa.Framework:Library-Android-Base:${FrameworkVersion}"
@@ -254,6 +255,7 @@ dependencies {
 //    implementation "com.github.mengxiangqipa.Framework:Library-SlideFinish:${FrameworkVersion}"
 //    implementation "com.github.mengxiangqipa.Framework:Library-Videoview:${FrameworkVersion}"
 //    implementation "com.github.mengxiangqipa.Framework:Library-Choose-Media:${FrameworkVersion}"
+//    implementation "com.github.mengxiangqipa.Framework:Library-Permission:${FrameworkVersion}"
 
 
     //微信授权登录

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="HardcodedText">
+
+    <Button
+        android:id="@+id/bt_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Make a call"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/bt_choose_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose contact"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
