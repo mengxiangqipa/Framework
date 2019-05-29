@@ -179,8 +179,8 @@ android {
 }
 
 ext {
-    FrameworkVersion = '3.2.1'
-    FrameworkVersion_eventBus="3.2.1"
+    FrameworkVersion = '3.2.4'
+    FrameworkVersion_eventBus="3.2.4"
     TINKER_VERSION = '1.9.1'
 }
 
