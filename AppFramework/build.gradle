@@ -179,7 +179,6 @@ android {
 }
 
 ext {
-    FrameworkVersion = '2.2.1'
     TINKER_VERSION = '1.9.1'
 }
 
@@ -214,26 +213,26 @@ dependencies {
     implementation files('libs/ClipPicView_noSource.jar')
     implementation files('libs/open_sdk_r5788_lite.jar')
 
-    api project(':Libraries:Library-Adapter')
-    api project(':Libraries:Library-Android-Base')
-    api project(':Libraries:Library-AndroidVideoCache')
-    api project(':Libraries:Library-CameraFilter')
-    api project(':Libraries:Library-Choose-Media')
-    api project(':Libraries:Library-ClipPicView')
-    api project(':Libraries:Library-CropPicture')
-    api project(':Libraries:Library-Emoji')
-    api project(':Libraries:Library-EventBus')
-    api project(':Libraries:Library-FrameworkFramework')
-    api project(':Libraries:Library-Loadingview')
-    api project(':Libraries:Library-MPAndroidChart')
-    api project(':Libraries:Library-Network')
-    api project(':Libraries:Library-PercentLayout')
-    api project(':Libraries:Library-Pulltorefresh')
-    api project(':Libraries:Library-Scan')
-    api project(':Libraries:Library-SlideFinish')
-    api project(':Libraries:Library-Ucrop')
-    api project(':Libraries:Library-Videoview')
-    api project(':Libraries:Library-Permission')
+    implementation project(':Libraries:Library-Adapter')
+    implementation project(':Libraries:Library-Android-Base')
+    implementation project(':Libraries:Library-AndroidVideoCache')
+    implementation project(':Libraries:Library-CameraFilter')
+    implementation project(':Libraries:Library-Choose-Media')
+    implementation project(':Libraries:Library-ClipPicView')
+    implementation project(':Libraries:Library-CropPicture')
+    implementation project(':Libraries:Library-Emoji')
+    implementation project(':Libraries:Library-EventBus')
+    implementation project(':Libraries:Library-FrameworkFramework')
+    implementation project(':Libraries:Library-Loadingview')
+    implementation project(':Libraries:Library-MPAndroidChart')
+    implementation project(':Libraries:Library-Network')
+    implementation project(':Libraries:Library-PercentLayout')
+    implementation project(':Libraries:Library-Pulltorefresh')
+    implementation project(':Libraries:Library-Scan')
+    implementation project(':Libraries:Library-SlideFinish')
+    implementation project(':Libraries:Library-Ucrop')
+    implementation project(':Libraries:Library-Videoview')
+    implementation project(':Libraries:Library-Permission')
 
 //    implementation "com.github.mengxiangqipa.Framework:Library-Adapter:${FrameworkVersion}"
 //    implementation "com.github.mengxiangqipa.Framework:Library-Android-Base:${FrameworkVersion}"
