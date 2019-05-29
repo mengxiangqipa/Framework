@@ -242,7 +242,6 @@ dependencies {
     implementation "com.github.mengxiangqipa.Framework:Library-CameraFilter:${FrameworkVersion}"
     implementation "com.github.mengxiangqipa.Framework:Library-Choose-Media:${FrameworkVersion}"
     implementation "com.github.mengxiangqipa.Framework:Library-ClipPicView:${FrameworkVersion}"
-    implementation "com.github.mengxiangqipa.Framework:Library-CropPicture:${FrameworkVersion}"
     implementation "com.github.mengxiangqipa.Framework:Library-Emoji:${FrameworkVersion}"
     implementation "com.github.mengxiangqipa.Framework:Library-EventBus:${FrameworkVersion_eventBus}"
     implementation "com.github.mengxiangqipa.Framework:Library-FrameworkFramework:${FrameworkVersion}"
@@ -257,6 +256,8 @@ dependencies {
     implementation "com.github.mengxiangqipa.Framework:Library-Videoview:${FrameworkVersion}"
     implementation "com.github.mengxiangqipa.Framework:Library-Choose-Media:${FrameworkVersion}"
     implementation "com.github.mengxiangqipa.Framework:Library-Permission:${FrameworkVersion}"
+    //CropPicture   与(':Libraries:Library-Ucrop')雷同
+//    compileOnly "com.github.mengxiangqipa.Framework:Library-CropPicture:${FrameworkVersion}"
 
 
     //微信授权登录

@@ -27,9 +27,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     api project(':Libraries:Library-Ucrop')
-    //noinspection GradleCompatible
     api rootProject.ext.androidSupport.appcompat_v7
-    //noinspection GradleCompatible
     api rootProject.ext.androidSupport.recyclerView
     api "com.github.bumptech.glide:glide:${cfgs.glide}"
     api "io.reactivex.rxjava2:rxjava:${cfgs.rxjava}"
