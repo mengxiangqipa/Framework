@@ -157,8 +157,16 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
         PreferencesUtil.getInstance().putString("test", "testvalue");
+        Log.d("HomePageActivity我是跨:", PreferencesUtil.getInstance().getString("test"));
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString("test"));
+        try {
         SecurityManagerUtil.getInstance().put(this, "sec", "我是加密");
+//        SecurityManagerUtil.getInstance().put(this, "sec", "bbbb");
+            Log.d("HomePageActivity我是加密:", SecurityManagerUtil.getInstance().get(this, "sec"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("HomePageActivity我是加密e:", e.getMessage());
+        }
         ToastUtil.getInstance().showToast("我是跨进程数据操作--加密：" + SecurityManagerUtil.getInstance().get(this, "sec"));
         serviceIntent = new Intent(this, CheckUpdateService.class);
         startService(serviceIntent);

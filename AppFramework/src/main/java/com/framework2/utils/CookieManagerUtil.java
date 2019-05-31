@@ -46,8 +46,8 @@ public class CookieManagerUtil {
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeSessionCookie();//移除
-            for (int i = 0; i < cookie.length; i++) {
-                cookieManager.setCookie(url, cookie[i]);//cookies是在HttpClient中获得的cookie
+            for (String s : cookie) {
+                cookieManager.setCookie(url, s);//cookies是在HttpClient中获得的cookie
             }
             CookieSyncManager.getInstance().sync();
         }
@@ -94,10 +94,9 @@ public class CookieManagerUtil {
             String tm = AesUtils.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance()
                     .getStringData(ConstantsME.aesKey)), cookies);
             if (!TextUtils.isEmpty(tm)) {
-                String cookie[] = tm.split(",,,,");
                 StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < cookie.length; i++) {
-                    String cookiesBase64decode = Base64Coder.decodeString(cookie[i]);
+                for (String s : tm.split(",,,,")) {
+                    String cookiesBase64decode = Base64Coder.decodeString(s);
                     if (!TextUtils.isEmpty(cookiesBase64decode)) {
                         sb.append(RSAmethodInRaw.rsaDecrypt(context, cookiesBase64decode));
                     }

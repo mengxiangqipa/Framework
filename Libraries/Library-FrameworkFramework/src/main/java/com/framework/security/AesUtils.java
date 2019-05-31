@@ -1,8 +1,13 @@
 package com.framework.security;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
+import android.support.annotation.IntDef;
 import android.text.TextUtils;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.Provider;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
@@ -14,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * @author YobertJomi
  * className AesUtils
- * created at  2017/6/14  16:29
+ * created at  2019/05/31  15:03
  * ① AesUtils.getInstance().generateKey();
  * ② AesUtils.getInstance().encrypt
  * ③ AesUtils.getInstance().decrypt
@@ -25,6 +30,7 @@ public class AesUtils {
     private static final String CBC_PKCS5_PADDING = "AES/CBC/PKCS5Padding";//AES是加密方式 CBC是工作模式 PKCS5Padding是填充模式
     private static final String AES = "AES";//AES 加密
     private static final String SHA1PRNG = "SHA1PRNG";//// SHA1PRNG 强随机种子算法, 要区别4.2以上版本的调用方法
+    private static final int KEY_SIZE = 32;
     private static volatile AesUtils singleton;
 
     private AesUtils() {
@@ -42,26 +48,31 @@ public class AesUtils {
     }
 
     // 对密钥进行处理
+    @SuppressLint("DeletedProvider")
     private static byte[] getRawKey(byte[] seed) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance(AES);
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
         //for android
-        SecureRandom sr = null;
+        SecureRandom secureRandom;
         // 在4.2以上版本中，SecureRandom获取方式发生了改变
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            sr = SecureRandom.getInstance("SHA1PRNG", new CryptoProvider());
+        //android 9.0及以上版本废弃CryptoProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//            return InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(new String(seed, StandardCharsets.ISO_8859_1)
+//            .getBytes(StandardCharsets.ISO_8859_1), KEY_SIZE);
+            return InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(seed, KEY_SIZE);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            secureRandom = SecureRandom.getInstance(SHA1PRNG, new CryptoProvider());
         } else if (Build.VERSION.SDK_INT >= 17) {
-            sr = SecureRandom.getInstance(SHA1PRNG, "Crypto");
+            secureRandom = SecureRandom.getInstance(SHA1PRNG, "Crypto");
         } else {
-            sr = SecureRandom.getInstance(SHA1PRNG);
+            secureRandom = SecureRandom.getInstance(SHA1PRNG);
         }
         // for Java
         // secureRandom = SecureRandom.getInstance(SHA1PRNG);
-        sr.setSeed(seed);
-        kgen.init(128, sr); //256 bits or 128 bits,192bits
+        secureRandom.setSeed(seed);
+        keyGenerator.init(128, secureRandom); //256 bits or 128 bits,192bits
         //AES中128位密钥版本有10个加密循环，192比特密钥版本有12个加密循环，256比特密钥版本则有14个加密循环。
-        SecretKey skey = kgen.generateKey();
-        byte[] raw = skey.getEncoded();
-        return raw;
+        SecretKey skey = keyGenerator.generateKey();
+        return skey.getEncoded();
     }
 
     /**
@@ -72,8 +83,7 @@ public class AesUtils {
             SecureRandom localSecureRandom = SecureRandom.getInstance(SHA1PRNG);
             byte[] bytes_key = new byte[20];
             localSecureRandom.nextBytes(bytes_key);
-            String str_key = toHex(bytes_key);
-            return str_key;
+            return toHex(bytes_key);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,12 +93,12 @@ public class AesUtils {
     /**
      * 加密
      */
-    public String encrypt(String key, String cleartext) {
-        if (TextUtils.isEmpty(cleartext)) {
-            return cleartext;
+    public String encrypt(String key, String originalText) {
+        if (TextUtils.isEmpty(originalText)) {
+            return originalText;
         }
         try {
-            byte[] result = encrypt(key, cleartext.getBytes());
+            byte[] result = encrypt(key, originalText.getBytes());
             return Base64Coder.encodeLines(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,13 +109,8 @@ public class AesUtils {
     /**
      * 加密
      */
-    private byte[] encrypt(String key, byte[] clear) throws Exception {
-        byte[] raw = getRawKey(key.getBytes());
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, AES);
-        Cipher cipher = Cipher.getInstance(CBC_PKCS5_PADDING);
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
-        byte[] encrypted = cipher.doFinal(clear);
-        return encrypted;
+    private byte[] encrypt(String key, byte[] original) throws Exception {
+        return encryptDecrypt(key, original, Cipher.ENCRYPT_MODE);
     }
 
     /**
@@ -129,27 +134,50 @@ public class AesUtils {
      * 解密
      */
     private byte[] decrypt(String key, byte[] encrypted) throws Exception {
-        byte[] raw = getRawKey(key.getBytes());
+        return encryptDecrypt(key, encrypted, Cipher.DECRYPT_MODE);
+    }
+
+    /**
+     * 加密/解密
+     */
+    private byte[] encryptDecrypt(String key, byte[] originalOrEncrypted, @AESType int encryptDecryptType) throws Exception {
+        byte[] raw;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            raw = getRawKey(key.getBytes(StandardCharsets.ISO_8859_1));
+        } else {
+            raw = getRawKey(key.getBytes((Charset.forName("ISO-8859-1"))));
+        }
         SecretKeySpec skeySpec = new SecretKeySpec(raw, AES);
         Cipher cipher = Cipher.getInstance(CBC_PKCS5_PADDING);
-        cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
-        byte[] decrypted = cipher.doFinal(encrypted);
-        return decrypted;
+        cipher.init(encryptDecryptType, skeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
+        return cipher.doFinal(originalOrEncrypted);
     }
 
     //二进制转字符
-    public String toHex(byte[] buf) {
+    private String toHex(byte[] buf) {
         if (buf == null)
             return "";
         StringBuffer result = new StringBuffer(2 * buf.length);
-        for (int i = 0; i < buf.length; i++) {
-            appendHex(result, buf[i]);
+        for (byte b : buf) {
+            appendHex(result, b);
         }
         return result.toString();
     }
 
     private void appendHex(StringBuffer sb, byte b) {
         sb.append(HEX.charAt((b >> 4) & 0x0f)).append(HEX.charAt(b & 0x0f));
+    }
+
+    @IntDef({Cipher.ENCRYPT_MODE, Cipher.DECRYPT_MODE})
+    @interface AESType {
+    }
+
+    private static final class CryptoProvider extends Provider {
+        CryptoProvider() {
+            super("Crypto", 1.0, "HARMONY (SHA1 digest; SecureRandom; SHA1withDSA signature)");
+            put("SecureRandom.SHA1PRNG", "org.apache.harmony.security.provider.crypto.SHA1PRNG_SecureRandomImpl");
+            put("SecureRandom.SHA1PRNG ImplementedIn", "Software");
+        }
     }
 
     public void test() {
