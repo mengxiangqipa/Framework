@@ -50,7 +50,7 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
         int secondary = getResources().getColor(R.color.black);
         EventBus.getDefault().register(this);
         ActivityTaskUtil.getInstance().addActivity(this);
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             ViewServer.get(this).addWindow(this);
         }
         SlidrConfig mConfig = new SlidrConfig.Builder()

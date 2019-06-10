@@ -70,7 +70,7 @@ public class Y {
      * @param msg msg
      */
     public static void d(String tag, String msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.d(tag, prefix + msg);
         }
     }
@@ -83,7 +83,7 @@ public class Y {
      * @param tr  tr
      */
     public static void d(String tag, String msg, Throwable tr) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.d(tag, prefix + msg, tr);
         }
     }
@@ -95,7 +95,7 @@ public class Y {
      * @param msg msg
      */
     public static void e(String tag, String msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.e(tag, prefix + msg);
         }
     }
@@ -108,7 +108,7 @@ public class Y {
      * @param tr  tr
      */
     public static void e(String tag, String msg, Throwable tr) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.e(tag, prefix + msg, tr);
         }
     }
@@ -120,7 +120,7 @@ public class Y {
      * @param msg msg
      */
     public static void v(String tag, String msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.v(tag, prefix + msg);
         }
     }
@@ -133,37 +133,37 @@ public class Y {
      * @param tr  tr
      */
     public static void v(String tag, String msg, Throwable tr) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.v(tag, prefix + msg, tr);
         }
     }
 
     public static void i(String msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.i("yy", prefix + msg);
         }
     }
 
     public static void i(int msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.i("yy", prefix + msg + "");
         }
     }
 
     public static void i(String tag, String msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.i(tag, prefix + msg);
         }
     }
 
     public static void y(String msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.e("yy", prefix + msg);
         }
     }
 
     public static void y(int msg) {
-        if (Config.ALLOWLOG) {
+        if (Config.ENABLE_LOG) {
             Log.e("yy", prefix + msg + "");
         }
     }

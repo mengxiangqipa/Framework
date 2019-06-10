@@ -12,5 +12,5 @@ public class Config {
     /**
      * 是否允许日志输出。
      */
-    public static boolean ALLOWLOG = true;
+    public static boolean ENABLE_LOG = true;
 }
