@@ -12,9 +12,9 @@ import com.demo.configs.EventBusTag;
 import com.demo.configs.InterfaceConfig;
 import com.demo.entity.UpdateInfo;
 import com.demo.networkModel.HttpUtil;
-import com.framework.utils.ActivityTaskUtil;
-import com.framework.utils.PackageManagerUtil;
-import com.framework.utils.Y;
+import com.framework.util.ActivityTaskUtil;
+import com.framework.util.PackageManagerUtil;
+import com.framework.util.Y;
 
 import java.util.Timer;
 import java.util.TimerTask;

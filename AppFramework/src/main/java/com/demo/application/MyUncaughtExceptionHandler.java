@@ -8,7 +8,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.demo.activity.HomePageActivity;
-import com.framework.utils.ActivityTaskUtil;
+import com.framework.util.ActivityTaskUtil;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 

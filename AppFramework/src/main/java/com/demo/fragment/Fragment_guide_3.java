@@ -21,7 +21,7 @@ import com.demo.activity.SplashActivity;
 import com.demo.callbacks.CallBack_enter;
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.framework.utils.PreferencesHelper;
+import com.framework.util.PreferencesHelper;
 
 public class Fragment_guide_3 extends Fragment implements GestureDetector.OnGestureListener {
     private Context mContext;

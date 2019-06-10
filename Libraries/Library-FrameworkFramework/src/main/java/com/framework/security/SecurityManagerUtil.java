@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.framework.config.FrameworkConstant;
-import com.framework.utils.multyprocessprovider.provider.PreferencesUtil;
+import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
 
 /**
  * @author YobertJomi

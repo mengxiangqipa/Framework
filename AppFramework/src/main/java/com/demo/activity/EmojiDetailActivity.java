@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ToastUtil;
 import com.library.adapter_listview.CommonPagerAdapter;
 import com.library.emoji.adapter.OnClickedEmoji;
 import com.library.emoji.fragment.Fragment_face_bb1;

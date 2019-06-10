@@ -1,6 +1,6 @@
 package com.framework2.okhttp3.upload_dowload;
 
-import com.framework.utils.Y;
+import com.framework.util.Y;
 
 import java.io.IOException;
 import java.io.OutputStream;

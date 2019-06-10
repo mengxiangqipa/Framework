@@ -114,7 +114,7 @@ public final class Ok3Util {
 //            };
 //            SSLContext sslContext = null;
 //            try {
-//                sslContext = SSLContext.getInstance("SSL");
+//                sslContext = SSLContext.getProxyApplication("SSL");
 //                sslContext.init(null, new TrustManager[]{xtm}, new SecureRandom());
 //            } catch (NoSuchAlgorithmException e) {
 //                e.printStackTrace();

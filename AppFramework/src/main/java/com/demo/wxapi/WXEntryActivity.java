@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.demo.configs.EventBusTag;
 import com.demo.entity.WchatAuthResult;
-import com.framework.utils.Y;
+import com.framework.util.Y;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;

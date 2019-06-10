@@ -20,9 +20,9 @@ import javax.crypto.spec.SecretKeySpec;
  * @author YobertJomi
  * className AesUtils
  * created at  2019/05/31  15:03
- * ① AesUtils.getInstance().generateKey();
- * ② AesUtils.getInstance().encrypt
- * ③ AesUtils.getInstance().decrypt
+ * ① AesUtils.getProxyApplication().generateKey();
+ * ② AesUtils.getProxyApplication().encrypt
+ * ③ AesUtils.getProxyApplication().decrypt
  */
 public class AesUtils {
 
@@ -67,7 +67,7 @@ public class AesUtils {
             secureRandom = SecureRandom.getInstance(SHA1PRNG);
         }
         // for Java
-        // secureRandom = SecureRandom.getInstance(SHA1PRNG);
+        // secureRandom = SecureRandom.getProxyApplication(SHA1PRNG);
         secureRandom.setSeed(seed);
         keyGenerator.init(128, secureRandom); //256 bits or 128 bits,192bits
         //AES中128位密钥版本有10个加密循环，192比特密钥版本有12个加密循环，256比特密钥版本则有14个加密循环。

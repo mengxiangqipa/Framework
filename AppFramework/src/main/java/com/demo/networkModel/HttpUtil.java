@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.demo.configs.InterfaceConfig;
-import com.framework.utils.JSONParseUtil;
-import com.framework.utils.Y;
+import com.framework.util.JSONParseUtil;
+import com.framework.util.Y;
 import com.framework2.okhttp3.HandlerCallback;
 import com.framework2.okhttp3.Ok3Util;
 import com.framework2.okhttp3.StringRequest;
@@ -401,7 +401,7 @@ public class HttpUtil {
                                     Y.y("更新：" + result.getBytes("UTF-8"));
                                     Y.y("更新：" + result.getBytes("GBK"));
                                     Y.y("更新：" + result.getBytes("ISO8859-1"));
-//                                    boolean success = ParseResponseUtil.getInstance().isSuccess(baseActivity, result);
+//                                    boolean success = ParseResponseUtil.getProxyApplication().isSuccess(baseActivity, result);
                                     boolean success = JSONParseUtil.getInstance().optBoolean(result, "success");
                                     String errorMsg = ParseResponseUtil.getInstance().parseReturnStringError(result);
                                     int versionCode = ParseResponseUtil.getInstance().parseReturnInt(result,

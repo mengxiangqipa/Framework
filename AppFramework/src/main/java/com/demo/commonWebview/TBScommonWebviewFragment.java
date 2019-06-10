@@ -21,8 +21,8 @@ import com.demo.configs.InterfaceConfig;
 import com.demo.configs.RealInterfaceConfig;
 import com.demo.demo.R;
 import com.demo.util.ReloginUtil;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.utils.TBSCookieManagerUtil;
 import com.library.loadingview.LoadingIndicatorView;
 import com.tencent.smtt.export.external.interfaces.SslError;
@@ -176,7 +176,7 @@ public class TBScommonWebviewFragment extends Fragment {
 //                    if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
 //                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
 // .webKPIdetail)) {
-//                        TBSCookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig
+//                        TBSCookieManagerUtil.getProxyApplication().synCookies(getActivity(), RealInterfaceConfig
 // .getRealBaseServerUrl());
 //                    }
                     if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {

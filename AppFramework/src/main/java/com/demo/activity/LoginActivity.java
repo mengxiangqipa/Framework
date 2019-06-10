@@ -25,14 +25,14 @@ import com.demo.configs.IntentCode;
 import com.demo.demo.R;
 import com.demo.wchatutil.JsonUtils;
 import com.demo.wxapi.WXEntryActivity;
-import com.framework.customviews.OverScrollView;
+import com.framework.customview.OverScrollView;
 import com.framework.security.RSAmethodInRaw;
-import com.framework.utils.KeyBoardUtil;
-import com.framework.utils.PreferencesHelper;
-import com.framework.utils.RegularUtil;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.KeyBoardUtil;
+import com.framework.util.PreferencesHelper;
+import com.framework.util.RegularUtil;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.utils.CustomLoadingDialogUtils;
 import com.framework2.utils.PicToastUtil;
@@ -338,7 +338,7 @@ public class LoginActivity extends BaseActivity {
 
 //                Utils.isCloseSoftInputMethod(LoginActivity.this, etLoginPhone, true);
 //                if (isLegal(etLoginPhone, etLoginPassword, null)) {
-//                    CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "正在登录");
+//                    CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "正在登录");
 //                    requestLogin();
 //                }
                 break;
@@ -510,26 +510,26 @@ public class LoginActivity extends BaseActivity {
      * login
      */
     private void requestLogin() {
-//        HttpUtil.getInstance().requestLogin(InterfaceConfig.login, etLoginPhone.getText().toString(),
+//        HttpUtil.getProxyApplication().requestLogin(InterfaceConfig.login, etLoginPhone.getText().toString(),
 // etLoginPassword.getText().toString(), new HttpUtil.OnRequestResult<String>() {
 //            @Override
 //            public void onSuccess(String... msg) {
 ////                CustomProgressDialogUtils.dismissProcessDialog();
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt(LoginActivity.this,
+//                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt(LoginActivity.this,
 // etLoginPhone.getText().toString()));
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.token, msg != null ? msg[0] : "");
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.nick, msg != null ? msg[1] : "");
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.imgUrl, msg != null ? msg[2] : "");
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.LOGINED, true);
+//                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, msg != null ? msg[0] : "");
+//                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.nick, msg != null ? msg[1] : "");
+//                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.imgUrl, msg != null ? msg[2] : "");
+//                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.LOGINED, true);
 //
-//                CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查店铺");
-//                ConstantRequestUtil.getInstance().requestJustShopIds(LoginActivity.this);
+//                CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "检查店铺");
+//                ConstantRequestUtil.getProxyApplication().requestJustShopIds(LoginActivity.this);
 //            }
 //
 //            @Override
 //            public void onFail(int code, String msg) {
 //                CustomProgressDialogUtils.dismissProcessDialog();
-//                ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "登录失败" : msg);
+//                ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "登录失败" : msg);
 //            }
 //        });
     }
@@ -546,7 +546,7 @@ public class LoginActivity extends BaseActivity {
 ////                if (actionId == EditorInfo.IME_ACTION_SEND) {
 ////                    if (!TextUtils.isEmpty(v.getText())) {
 ////                        Utils.isCloseSoftInputMethod(LoginActivity.this, null, true);
-////                        CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "正在绑定手机号");
+////                        CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "正在绑定手机号");
 ////                        requestThirdLoginBindPhone(type, v.getText().toString(), openId, imgUrl, nick);
 ////                        pop.dismiss();
 ////                    } else {
@@ -558,7 +558,7 @@ public class LoginActivity extends BaseActivity {
 ////                return false;
 ////            }
 ////        });
-//        long last = PreferencesHelper.getInstance().getLongData(ConstantsME.captcha_last_clicked);
+//        long last = PreferencesHelper.getProxyApplication().getLongData(ConstantsME.captcha_last_clicked);
 //        long currentTimeMillis = System.currentTimeMillis();
 //        long difference = currentTimeMillis - last;
 //        int diff = (int) ((60 * 1000 - difference) / 1000);
@@ -574,8 +574,8 @@ public class LoginActivity extends BaseActivity {
 //            public void onGetCaptchaListener(String phoneNum) {
 //                myCountDownTimer = new MyCountDownTimer(pop.getCaptcaTextView(), 60000, 1000);
 //                myCountDownTimer.start();
-//                PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System.currentTimeMillis());
-//                CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "获取验证码");
+//                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.captcha_last_clicked, System.currentTimeMillis());
+//                CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "获取验证码");
 //                requestCaptcha(pop.getCaptcaTextView(), phoneNum);
 //            }
 //        });
@@ -593,9 +593,9 @@ public class LoginActivity extends BaseActivity {
 //                pwdTemp = pwd;
 //                captchaTemp = captcha;
 //                if (TextUtils.isEmpty(verifyKey)) {
-//                    ToastUtil.getInstance().showToast("请先获取验证码");
+//                    ToastUtil.getProxyApplication().showToast("请先获取验证码");
 //                } else {
-//                    CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "正在绑定手机号");
+//                    CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "正在绑定手机号");
 //                    Utils.isCloseSoftInputMethod(LoginActivity.this, pop.getEditText(), true);
 //                    requestThirdLoginBindPhone(type, openId, phone, verifyKey, captcha, pwd);
 //                    pop.dismiss();
@@ -609,12 +609,12 @@ public class LoginActivity extends BaseActivity {
      * 请求获取验证码
      */
     private void requestCaptcha(final TextView tv_captcha, String phone) {
-//        HttpUtil.getInstance().requestMobileVerify(InterfaceConfig.captcha, 4, phone,
+//        HttpUtil.getProxyApplication().requestMobileVerify(InterfaceConfig.captcha, 4, phone,
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast("获取验证码成功");
+//                        ToastUtil.getProxyApplication().showToast("获取验证码成功");
 //                        if (null != s && !TextUtils.isEmpty(s[0])) {
 //                            verifyKey = s[0];
 //                        }
@@ -623,8 +623,8 @@ public class LoginActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "获取验证码失败" : msg);
-//                        PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, 0L);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "获取验证码失败" : msg);
+//                        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.captcha_last_clicked, 0L);
 //                        if (null != myCountDownTimer)
 //                            myCountDownTimer.cancel();
 //                        tv_captcha.setText("重新获取");
@@ -639,7 +639,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void requestThirdLoginCheckBinding(final int type, final String openId, final String imgUrl, final String
             nick) {
-//        HttpUtil.getInstance().requestThirdLoginCheckBinding(InterfaceConfig.thirdLoginCheckBinding, type, openId,
+//        HttpUtil.getProxyApplication().requestThirdLoginCheckBinding(InterfaceConfig.thirdLoginCheckBinding, type, openId,
 // nick, imgUrl,
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
@@ -652,27 +652,27 @@ public class LoginActivity extends BaseActivity {
 //                                checkWchatBindSuccess = true;
 //                            }
 //                            if (!TextUtils.isEmpty(s[0])) {
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt
 // (LoginActivity.this, s[0]));
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.token, s.length > 1 ? s[1] : "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.nick, s.length > 2 ? s[2] : "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.imgUrl, s.length > 3 ? s[3] : "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.LOGINED, true);
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, s.length > 1 ? s[1] : "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.nick, s.length > 2 ? s[2] : "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.imgUrl, s.length > 3 ? s[3] : "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.LOGINED, true);
 //                                if (type == 2) {
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.qqBind, true);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.qqBind, true);
 //                                } else if (type == 3) {
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.wChatBind, true);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.wChatBind, true);
 //                                }
-//                                CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查店铺");
-//                                ConstantRequestUtil.getInstance().requestJustShopIds(LoginActivity.this);
+//                                CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "检查店铺");
+//                                ConstantRequestUtil.getProxyApplication().requestJustShopIds(LoginActivity.this);
 ////                                startActivity(HomepageActivity.class);
 ////                                finish();
 //                            } else {
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.token, s.length > 1 ? s[1] : "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.nick, s.length > 2 ? s[2] : "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.imgUrl, s.length > 3 ? s[3] : "");
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.LOGINED, false);
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.PHONE, "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, s.length > 1 ? s[1] : "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.nick, s.length > 2 ? s[2] : "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.imgUrl, s.length > 3 ? s[3] : "");
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.LOGINED, false);
 //                                showBindingPop(type, "", openId, "", "");
 //                            }
 //                        } else {
@@ -683,7 +683,7 @@ public class LoginActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "未检测是否绑定手机" : msg);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "未检测是否绑定手机" : msg);
 ////                        showBindingPop(type, "", openId, "", "");
 //                        if (type == 2) {
 //                            checkQQBindSuccess = false;
@@ -699,29 +699,29 @@ public class LoginActivity extends BaseActivity {
      */
     private void requestThirdLoginBindPhone(final int type, final String openId, final String phone, final String
             mobileValidVoucher, final String moblieVerifyCode, final String password) {
-//        HttpUtil.getInstance().requestThirdLoginBindPhone(InterfaceConfig.thirdLoginBindPhone, type, openId, phone,
+//        HttpUtil.getProxyApplication().requestThirdLoginBindPhone(InterfaceConfig.thirdLoginBindPhone, type, openId, phone,
 // mobileValidVoucher, moblieVerifyCode, password,
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
 //                        if (null != s) {
 //                            if (!TextUtils.isEmpty(s[0]) && TextUtils.equals("true", s[0])) {
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.PHONE, RSAmethod.rsaEncrypt
 // (LoginActivity.this, phone));
 //                                if (s.length > 1 && !TextUtils.isEmpty(s[1]))
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.token, s[1]);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, s[1]);
 //                                if (s.length > 2 && !TextUtils.isEmpty(s[2]))
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.nick, s[2]);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.nick, s[2]);
 //                                if (s.length > 3 && !TextUtils.isEmpty(s[3]))
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.imgUrl, s[3]);
-//                                PreferencesHelper.getInstance().putInfo(ConstantsME.LOGINED, true);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.imgUrl, s[3]);
+//                                PreferencesHelper.getProxyApplication().putInfo(ConstantsME.LOGINED, true);
 //                                if (type == 2) {
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.qqBind, true);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.qqBind, true);
 //                                } else if (type == 3) {
-//                                    PreferencesHelper.getInstance().putInfo(ConstantsME.wChatBind, true);
+//                                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.wChatBind, true);
 //                                }
-//                                CustomLoadingDialogUtils.getInstance().showDialog(LoginActivity.this, "检查店铺");
-//                                ConstantRequestUtil.getInstance().requestJustShopIds(LoginActivity.this);
+//                                CustomLoadingDialogUtils.getProxyApplication().showDialog(LoginActivity.this, "检查店铺");
+//                                ConstantRequestUtil.getProxyApplication().requestJustShopIds(LoginActivity.this);
 ////                                startActivity(HomepageActivity.class);
 ////                                finish();
 //                            } else {
@@ -734,7 +734,7 @@ public class LoginActivity extends BaseActivity {
 //
 //                    @Override
 //                    public void onFail(int code, String msg) {
-//                        ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "未成功绑定手机" : msg);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "未成功绑定手机" : msg);
 //                        CustomProgressDialogUtils.dismissProcessDialog();
 //                        showBindingPop(type, phone, openId, password, moblieVerifyCode);
 //                    }

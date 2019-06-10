@@ -31,7 +31,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.utils.Y;
+import com.framework.util.Y;
 import com.framework2.tinker.util.Utils;
 import com.tencent.tinker.lib.library.TinkerLoadLibrary;
 import com.tencent.tinker.lib.tinker.Tinker;

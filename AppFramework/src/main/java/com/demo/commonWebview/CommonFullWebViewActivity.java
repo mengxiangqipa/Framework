@@ -37,8 +37,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.utils.FileUtils;
-import com.framework.utils.ScreenUtils;
+import com.framework.util.FileUtil;
+import com.framework.util.ScreenUtils;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
 import com.library.loadingview.LoadingIndicatorView;
@@ -247,12 +247,12 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
 ////                    emptyLayout.setVisibility(View.VISIBLE);
 //                }
                 public void onPageFinished(WebView view, String url) {
-//                    CookieManager cookieManager = CookieManager.getInstance();
+//                    CookieManager cookieManager = CookieManager.getProxyApplication();
 //                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
 // InterfaceConfig.jsCLickLogin);
 //                    if (!TextUtils.isEmpty(cookie)) {
 //                        cookieManager.removeAllCookie();
-//                        CookieManagerUtil.getInstance().saveCookie(CommonWebViewActivity.this, cookie);
+//                        CookieManagerUtil.getProxyApplication().saveCookie(CommonWebViewActivity.this, cookie);
 //                    }
                     super.onPageFinished(view, url);
                     if (!webView.getSettings().getLoadsImagesAutomatically()) {
@@ -484,7 +484,7 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                 onActivityResultAboveL(requestCode, resultCode, data);
             } else if (mUploadMessage != null) {
                 if (result != null) {
-                    String path = FileUtils.getInstance().getRealFilePath(getApplicationContext(), result);
+                    String path = FileUtil.getInstance().getRealFilePath(getApplicationContext(), result);
                     Uri uri = Uri.fromFile(new File(path));
                     mUploadMessage
                             .onReceiveValue(uri);

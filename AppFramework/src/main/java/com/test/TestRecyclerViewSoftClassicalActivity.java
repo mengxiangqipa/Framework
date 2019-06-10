@@ -11,7 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.demo.demo.R;
-import com.framework.utils.ToastUtil;
+import com.framework.util.ToastUtil;
 import com.library.adapter_recyclerview.UniversalAdapter;
 import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
 import com.library.pulltorefresh.IndicatorDelegate;

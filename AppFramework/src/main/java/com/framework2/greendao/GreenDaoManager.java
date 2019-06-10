@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.framework.utils.Y;
+import com.framework.util.Y;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
@@ -65,7 +65,7 @@ public class GreenDaoManager<T> {
                 @Override
                 public void onUpgrade(Database db, int oldVersion, int newVersion) {
                     Y.y("数据库更新:" + oldVersion + "    " + newVersion);
-//                    MigrationHelper.getInstance().migrate(db, MessageInfoDao.class);
+//                    MigrationHelper.getProxyApplication().migrate(db, MessageInfoDao.class);
 //                    backUpOldData(db, oldVersion, newVersion);//备份
 //                    DaoMaster.dropAllTables(db, true);
 //                    onCreate(db);

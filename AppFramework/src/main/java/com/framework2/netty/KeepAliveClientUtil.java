@@ -2,9 +2,9 @@ package com.framework2.netty;
 
 import android.content.Context;
 
-import com.framework.utils.ProcessUtil;
-import com.framework.utils.ThreadPoolUtil;
-import com.framework.utils.Y;
+import com.framework.util.ProcessUtil;
+import com.framework.util.ThreadPoolUtil;
+import com.framework.util.Y;
 
 import java.net.InetSocketAddress;
 

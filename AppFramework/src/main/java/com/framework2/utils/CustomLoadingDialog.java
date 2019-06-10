@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.utils.ScreenUtils;
+import com.framework.util.ScreenUtils;
 import com.framework2.customLoading.LoadingDialog;
 
 /**

@@ -2,7 +2,7 @@ package com.demo.networkModel;
 
 import android.text.TextUtils;
 
-import com.framework.utils.JSONParseUtil;
+import com.framework.util.JSONParseUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +36,7 @@ public class ParseResponseUtil {
     }
 
 //    public boolean isSuccess(final BaseActivity baseActivity, String response) {
-//        if (JSONParseUtil.getInstance().optBoolean(response, "success")) {
+//        if (JSONParseUtil.getProxyApplication().optBoolean(response, "success")) {
 //            return true;
 //        } else if (response.contains("获取用户信息失败") || response.contains("重新登录") || response.contains("未登录") ||
 // response.contains("未登陆") || response.contains("登录已失效")) {

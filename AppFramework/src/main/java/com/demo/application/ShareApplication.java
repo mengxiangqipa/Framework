@@ -6,9 +6,9 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 
 import com.demo.configs.InterfaceConfig;
-import com.framework.application.FrameApplication;
-import com.framework.utils.StrictModeUtil;
-import com.framework.utils.Y;
+import com.framework.application.ProxyApplication;
+import com.framework.util.StrictModeUtil;
+import com.framework.util.Y;
 
 //public class ShareApplication extends FrameApplication{
 public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改变Application
@@ -49,7 +49,7 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
     }
 
     private void initFrameworkApplication() {
-        FrameApplication frameApplication = new FrameApplication();
+        ProxyApplication frameApplication = new ProxyApplication();
         frameApplication.onCreate(this);
     }
 

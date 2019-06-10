@@ -27,7 +27,7 @@ import android.support.annotation.IntRange;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.framework.utils.ScreenUtils;
+import com.framework.util.ScreenUtils;
 import com.google.zxing.ResultPoint;
 import com.library.scan.R;
 import com.zxing.camera.CameraManager;

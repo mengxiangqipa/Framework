@@ -45,18 +45,18 @@ import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
 import com.demo.entity.UpdateInfo;
 import com.demo.service.CheckUpdateService;
-import com.framework.customviews.WholeNotification;
+import com.framework.customview.WholeNotification;
 import com.framework.security.SecurityManagerUtil;
-import com.framework.utils.DownLoadManagerUtils;
-import com.framework.utils.DownLoadObserver;
-import com.framework.utils.FileUtils;
-import com.framework.utils.PackageManagerUtil;
-import com.framework.utils.PreferencesHelper;
-import com.framework.utils.RequestPermissionsUtil;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
-import com.framework.utils.multyprocessprovider.provider.PreferencesUtil;
+import com.framework.util.DownLoadManagerUtils;
+import com.framework.util.DownLoadObserver;
+import com.framework.util.FileUtil;
+import com.framework.util.PackageManagerUtil;
+import com.framework.util.PreferencesHelper;
+import com.framework.util.RequestPermissionsUtil;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
+import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
 import com.framework2.dialog.UpdateDialog;
 import com.framework2.okhttp3.Ok3Util;
 import com.framework2.okhttp3.StringRequest;
@@ -161,7 +161,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString("test"));
         try {
         SecurityManagerUtil.getInstance().put(this, "sec", "我是加密");
-//        SecurityManagerUtil.getInstance().put(this, "sec", "bbbb");
+//        SecurityManagerUtil.getProxyApplication().put(this, "sec", "bbbb");
             Log.d("HomePageActivity我是加密:", SecurityManagerUtil.getInstance().get(this, "sec"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -508,7 +508,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
             Log.e("yy", "onActivityResult:" + data.getDataString());
             Uri uri = data.getData();
             if (Build.VERSION.SDK_INT >= 19) {
-                String path = FileUtils.getInstance().getRealFilePath(this, data.getData());
+                String path = FileUtil.getInstance().getRealFilePath(this, data.getData());
                 Log.e("yy", "pathpath=" + path);
             }
             Cursor cursor = getContentResolver().query(uri, null, null,

@@ -7,8 +7,8 @@ import android.webkit.CookieSyncManager;
 
 import com.framework.config.FrameworkConstant;
 import com.framework.security.SecurityManagerUtil;
-import com.framework.utils.PreferencesHelper;
-import com.framework.utils.Y;
+import com.framework.util.PreferencesHelper;
+import com.framework.util.Y;
 
 /**
  * @author YobertJomi

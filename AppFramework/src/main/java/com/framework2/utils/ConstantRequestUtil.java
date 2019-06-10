@@ -29,14 +29,14 @@ public class ConstantRequestUtil {
 //    }
 //
 //    public void requestJustShopIds(BaseActivity activity, final String errorMsg) {
-//        HttpUtil.getInstance().requestJustShopIds(activity, InterfaceConfig.shopIds, new HttpUtil
+//        HttpUtil.getProxyApplication().requestJustShopIds(activity, InterfaceConfig.shopIds, new HttpUtil
 // .OnRequestListResult<IdsInfo>() {
 //            @Override
 //            public void onSuccess(List<IdsInfo> list, String... msg) {
 //                CustomProgressDialogUtils.dismissProcessDialog();
-//                if (!CollectionUtil.getInstance().isEmpty(list)) {
-//                    PreferencesHelper.getInstance().putInfo(ConstantsME.currentShopId, list.get(0).getShopId());
-//                    PreferencesHelper.getInstance().putInfo(ConstantsME.companyId, list.get(0).getCompanyId());
+//                if (!CollectionUtil.getProxyApplication().isEmpty(list)) {
+//                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.currentShopId, list.get(0).getShopId());
+//                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.companyId, list.get(0).getCompanyId());
 //                    StringBuilder stringBuilder = new StringBuilder();
 //                    for (int i = 0; i < list.size(); i++) {
 //                        if (i == 0) {
@@ -45,7 +45,7 @@ public class ConstantRequestUtil {
 //                            stringBuilder.append(",").append(list.get(i).getShopId());
 //                        }
 //                    }
-//                    PreferencesHelper.getInstance().putInfo(ConstantsME.shopIds, stringBuilder.toString());
+//                    PreferencesHelper.getProxyApplication().putInfo(ConstantsME.shopIds, stringBuilder.toString());
 //                    EventBus.getDefault().post("Success", EventBusTag.getShopIdSuccess);
 //                }
 //            }
@@ -53,7 +53,7 @@ public class ConstantRequestUtil {
 //            @Override
 //            public void onFail(int code, String msg) {
 //                if (!TextUtils.isEmpty(errorMsg)) {
-//                    ToastUtil.getInstance().showToast(errorMsg);
+//                    ToastUtil.getProxyApplication().showToast(errorMsg);
 //                }
 //                CustomProgressDialogUtils.dismissProcessDialog();
 //                if (!TextUtils.isEmpty(msg)&&msg.contains("companyId:单位ID不正确")){

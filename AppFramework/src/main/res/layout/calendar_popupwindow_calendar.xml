@@ -62,11 +62,11 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <com.framework.customviews.CustomCalendar
+        <com.framework.customview.CustomCalendar
             android:id="@+id/popupwindow_calendar"
             android:layout_width="match_parent"
             android:layout_height="320dp">
-        </com.framework.customviews.CustomCalendar>
+        </com.framework.customview.CustomCalendar>
 
         <TextView
             android:layout_width="match_parent"

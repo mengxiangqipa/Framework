@@ -23,8 +23,8 @@ import android.widget.TextView;
 
 import com.demo.adapter.ADPagerAdapter;
 import com.demo.demo.R;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.customLoading.LoadingFooter;
 import com.framework2.customviews.CustomViewPager;
 import com.library.adapter_recyclerview.DragAdapter;
@@ -326,7 +326,7 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
         //									initFooterView(clss[position], "我是动态");
         //									adapter1.removeAllFooterView();
         //									adapter1.addFooterViewAfterSetAdapter(footerView);
-        //									ToastUtil.getInstance().showToast("recyclerView的点击:" + clss[position]);
+        //									ToastUtil.getProxyApplication().showToast("recyclerView的点击:" + clss[position]);
         //									Y.y("items.size:" + items.size());
         //									if (items.size() > 50)
         //									{

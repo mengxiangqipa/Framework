@@ -22,10 +22,10 @@ import com.demo.configs.RealInterfaceConfig;
 import com.demo.demo.R;
 import com.demo.networkModel.HttpUtil;
 import com.demo.util.ReloginUtil;
-import com.framework.utils.KeyBoardUtil;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.KeyBoardUtil;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.customviews.TitleView;
 import com.framework2.utils.CustomLoadingDialogUtils;
 import com.framework2.utils.TBSCookieManagerUtil;
@@ -266,7 +266,7 @@ public class CommonFullTBSWebViewActivity extends BaseActivity {
 ////                        try {
 ////                            final PipedOutputStream out = new PipedOutputStream();
 ////                            PipedInputStream in = new PipedInputStream(out);
-//////                            ImageLoader.getInstance().loadImage(url, new ImageLoadingListener() {
+//////                            ImageLoader.getProxyApplication().loadImage(url, new ImageLoadingListener() {
 //////                                @Override
 //////                                public void onLoadingStarted(String s, View view) {}
 //////                                @Override

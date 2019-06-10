@@ -39,7 +39,7 @@ public class StringRequest {
                 if (builder == null) {
                     builder = new StringRequest.Builder()
 //                            .addHeader("biuoo-from", "android").
-//                            addHeader(ConstantsME.token, PreferencesHelper.getInstance().getStringData(ConstantsME
+//                            addHeader(ConstantsME.token, PreferencesHelper.getProxyApplication().getStringData(ConstantsME
 // .token))
 //                            .addHeader("accept", "application/json")
 //                            .addHeader("content-type", "application/json")

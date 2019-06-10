@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.demo.adapter.ADPagerAdapter;
 import com.demo.demo.R;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.customLoading.LoadingFooter;
 import com.framework2.customviews.CustomViewPager;
 import com.framework2.customviews.SwipeMenuView;

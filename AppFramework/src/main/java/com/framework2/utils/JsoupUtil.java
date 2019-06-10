@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.framework.utils.CollectionUtil;
-import com.framework.utils.ThreadPoolUtil;
-import com.framework.utils.ToastUtil;
+import com.framework.util.CollectionUtil;
+import com.framework.util.ThreadPoolUtil;
+import com.framework.util.ToastUtil;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

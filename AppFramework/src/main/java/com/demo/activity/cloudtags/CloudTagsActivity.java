@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.customviews.KeywordsFlow;
-import com.framework.utils.ToastUtil;
+import com.framework.customview.KeywordsFlow;
+import com.framework.util.ToastUtil;
 
 import java.util.Random;
 

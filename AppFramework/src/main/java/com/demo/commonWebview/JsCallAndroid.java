@@ -9,9 +9,9 @@ import android.webkit.WebView;
 import com.demo.configs.ConstantsME;
 import com.demo.configs.InterfaceConfig;
 import com.demo.configs.RealInterfaceConfig;
-import com.framework.utils.KeyBoardUtil;
-import com.framework.utils.PreferencesHelper;
-import com.framework.utils.ToastUtil;
+import com.framework.util.KeyBoardUtil;
+import com.framework.util.PreferencesHelper;
+import com.framework.util.ToastUtil;
 
 /**
  * js调用android

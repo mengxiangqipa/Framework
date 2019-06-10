@@ -16,14 +16,14 @@ import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.framework.customviews.OverScrollView;
+import com.framework.customview.OverScrollView;
 import com.framework.security.RSAmethodInRaw;
-import com.framework.utils.KeyBoardUtil;
-import com.framework.utils.PreferencesHelper;
-import com.framework.utils.RegularUtil;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.KeyBoardUtil;
+import com.framework.util.PreferencesHelper;
+import com.framework.util.RegularUtil;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
 import com.framework2.utils.CustomLoadingDialogUtils;
@@ -175,12 +175,12 @@ public class RegisterActivity extends BaseActivity {
      * 请求获取验证码
      */
     private void requestCaptcha() {
-//        HttpUtil.getInstance().requestMobileVerify(InterfaceConfig.captcha, 1, et_register_phone.getText().toString(),
+//        HttpUtil.getProxyApplication().requestMobileVerify(InterfaceConfig.captcha, 1, et_register_phone.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast("获取验证码成功");
+//                        ToastUtil.getProxyApplication().showToast("获取验证码成功");
 //                        if (null!=s&&!TextUtils.isEmpty(s[0])) {
 //                            verifyKey = s[0];
 //                        }
@@ -189,8 +189,8 @@ public class RegisterActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "获取验证码失败" : msg);
-//                        PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, 0L);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "获取验证码失败" : msg);
+//                        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.captcha_last_clicked, 0L);
 //                        if (null != myCountDownTimer)
 //                            myCountDownTimer.cancel();
 //                        tv_captcha.setText("重新获取");
@@ -205,20 +205,20 @@ public class RegisterActivity extends BaseActivity {
      */
 
     private void requestRegister(@NonNull String verifyKey) {
-//        HttpUtil.getInstance().requestRegister(InterfaceConfig.register, et_register_phone.getText().toString(),
+//        HttpUtil.getProxyApplication().requestRegister(InterfaceConfig.register, et_register_phone.getText().toString(),
 // et_register_password.getText().toString(),verifyKey, et_register_captcha.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast("注册成功");
+//                        ToastUtil.getProxyApplication().showToast("注册成功");
 //                        registerSuccess();
 //                    }
 //
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getInstance().showToast(TextUtils.isEmpty(msg) ? "注册失败" : msg);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "注册失败" : msg);
 //                    }
 //                });
     }

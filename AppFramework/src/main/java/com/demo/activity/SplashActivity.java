@@ -21,9 +21,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.demo.commonWebview.CommonFullWebViewActivity;
 import com.demo.demo.R;
-import com.framework.application.FrameApplication;
-import com.framework.customviews.CustomADprogress;
-import com.framework.utils.ScreenUtils;
+import com.framework.application.ProxyApplication;
+import com.framework.customview.CustomADprogress;
+import com.framework.util.ScreenUtils;
 import com.framework2.baseEvent.BaseOnClickListener;
 
 import java.util.HashMap;
@@ -36,7 +36,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import custom.org.greenrobot.eventbus.EventBus;
 
 /**
  * 闪屏页/广告页
@@ -163,7 +162,7 @@ public class SplashActivity extends BaseActivity {
         Future future = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                FrameApplication.mHandler.post(new Runnable() {
+                ProxyApplication.proxyHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         float progress =

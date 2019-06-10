@@ -29,8 +29,8 @@ import com.demo.configs.InterfaceConfig;
 import com.demo.configs.RealInterfaceConfig;
 import com.demo.demo.R;
 import com.demo.util.ReloginUtil;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.framework2.utils.CookieManagerUtil;
 import com.library.loadingview.LoadingIndicatorView;
 
@@ -78,7 +78,7 @@ public class CommonWebviewFragment extends Fragment {
             containerLayout.addView(view);
             unbinder = ButterKnife.bind(this, containerLayout);
             Y.y("onCreateView1:" + getArguments().getString(ConstantsME.url));
-//            CookieManagerUtil.getInstance().synCookies(getActivity(), null == getArguments() ? RealInterfaceConfig
+//            CookieManagerUtil.getProxyApplication().synCookies(getActivity(), null == getArguments() ? RealInterfaceConfig
 // .getRealBaseServerUrl() : getArguments().getString(ConstantsME.url));
             CookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig.getRealBaseServerUrl());
             Y.y("onCreateView2:" + getArguments().getString(ConstantsME.url));
@@ -97,8 +97,8 @@ public class CommonWebviewFragment extends Fragment {
         }
 //        String co =
 // "aaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbcccaaabbbccc";
-//        CookieManagerUtil.getInstance().saveCookie(getContext(), co);
-//        CookieManagerUtil.getInstance().synCookies(getContext(), RealInterfaceConfig.getRealBaseServerUrl());
+//        CookieManagerUtil.getProxyApplication().saveCookie(getContext(), co);
+//        CookieManagerUtil.getProxyApplication().synCookies(getContext(), RealInterfaceConfig.getRealBaseServerUrl());
 
         return containerLayout;
     }
@@ -184,7 +184,7 @@ public class CommonWebviewFragment extends Fragment {
 //                    if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
 //                        Y.y("fragment111-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
 //                        cookieManager.removeAllCookie();
-//                        CookieManagerUtil.getInstance().saveCookie(getActivity(), cookie);
+//                        CookieManagerUtil.getProxyApplication().saveCookie(getActivity(), cookie);
 //                    }
 
                     if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)

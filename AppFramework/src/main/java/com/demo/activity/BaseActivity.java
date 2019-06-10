@@ -9,8 +9,8 @@ import android.view.KeyEvent;
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
 import com.demo.entity.Entity;
-import com.framework.utils.ForbidAndroidPhideAPIdialog;
-import com.framework.utils.KeyBoardUtil;
+import com.framework.util.ForbidAndroidPhideAPIdialog;
+import com.framework.util.KeyBoardUtil;
 
 import custom.org.greenrobot.eventbus.EventBus;
 import custom.org.greenrobot.eventbus.Subscribe;
@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-//        ActivityTaskUtil.getInstance().addActivity(this);
+//        ActivityTaskUtil.getProxyApplication().addActivity(this);
         ForbidAndroidPhideAPIdialog.getInstance().closeAndroidPdialog();
     }
 
@@ -42,8 +42,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-//        ActivityTaskUtil.getInstance().removeActivity(this);
-//        List<Activity> list = ActivityTaskUtil.getInstance().getActivityList();
+//        ActivityTaskUtil.getProxyApplication().removeActivity(this);
+//        List<Activity> list = ActivityTaskUtil.getProxyApplication().getActivityList();
     }
 
     @Override
@@ -83,8 +83,8 @@ public class BaseActivity extends AppCompatActivity {
      * 返回重新登录
      */
     public void reLogin() {
-//        ResetConstantUtil.getInstance().clearUserLoginInfo();
-//        PreferencesHelper.getInstance().putInfo(ConstantsME.token, "");
+//        ResetConstantUtil.getProxyApplication().clearUserLoginInfo();
+//        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, "");
 //        startActivity(new Intent(BaseActivity.this,
 //                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 //        finish();

@@ -18,10 +18,10 @@ import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.framework.utils.RequestPermissionsUtil;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ToastUtil;
-import com.framework.utils.Y;
+import com.framework.util.RequestPermissionsUtil;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ToastUtil;
+import com.framework.util.Y;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.library.scan.R;
@@ -110,9 +110,9 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
         viewfinderView.setCornerThickness(ScreenUtils.getInstance().dip2px(this, 3));
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
-//        CameraManager.setMaxFrameWidth(ScreenUtils.getInstance().getScreenWidthPx(this) - 2 * ScreenUtils
-// .getInstance().dip2px(this, 50));//设置取景框最大宽度
-//        CameraManager.setMaxFrameHeight(ScreenUtils.getInstance().dip2px(this, 40));//设置取景框最大高度
+//        CameraManager.setMaxFrameWidth(ScreenUtils.getProxyApplication().getScreenWidthPx(this) - 2 * ScreenUtils
+// .getProxyApplication().dip2px(this, 50));//设置取景框最大宽度
+//        CameraManager.setMaxFrameHeight(ScreenUtils.getProxyApplication().dip2px(this, 40));//设置取景框最大高度
 //        CameraManager.setViewfinderScreenWidth(CameraManager.getMaxFrameWidth());
 //        CameraManager.setViewfinderScreenHeight(CameraManager.getMaxFrameHeight());
 

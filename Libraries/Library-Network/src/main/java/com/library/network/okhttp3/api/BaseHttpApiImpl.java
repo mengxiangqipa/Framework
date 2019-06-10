@@ -3,7 +3,7 @@ package com.library.network.okhttp3.api;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.framework.utils.NetworkUtil;
+import com.framework.util.NetworkUtil;
 import com.library.network.okhttp3.callback.DownloadFileCallback;
 import com.library.network.okhttp3.callback.ICallback;
 import com.library.network.okhttp3.callback.UploadFilesCallback;

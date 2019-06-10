@@ -1,7 +1,7 @@
 package com.framework2.utils;
 
 import com.demo.configs.ConstantsME;
-import com.framework.utils.PreferencesHelper;
+import com.framework.util.PreferencesHelper;
 
 /**
  * 重置sharePreference的一些常量

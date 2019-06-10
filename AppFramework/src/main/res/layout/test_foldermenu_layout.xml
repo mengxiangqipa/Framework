@@ -57,7 +57,7 @@
                         android:tag="service_arrow"/>
                 </RelativeLayout>
 
-                <com.framework.customviews.foldermenu.FoldingLayout
+                <com.framework.customview.foldermenu.FoldingLayout
                     android:id="@+id/traffic_item"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
@@ -183,7 +183,7 @@
                                 android:visibility="invisible"/>
                         </LinearLayout>
                     </LinearLayout>
-                </com.framework.customviews.foldermenu.FoldingLayout>
+                </com.framework.customview.foldermenu.FoldingLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -230,7 +230,7 @@
 
                 </RelativeLayout>
 
-                <com.framework.customviews.foldermenu.FoldingLayout
+                <com.framework.customview.foldermenu.FoldingLayout
                     android:id="@+id/life_item"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
@@ -356,7 +356,7 @@
                                 android:visibility="invisible"/>
                         </LinearLayout>
                     </LinearLayout>
-                </com.framework.customviews.foldermenu.FoldingLayout>
+                </com.framework.customview.foldermenu.FoldingLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -403,7 +403,7 @@
 
                 </RelativeLayout>
 
-                <com.framework.customviews.foldermenu.FoldingLayout
+                <com.framework.customview.foldermenu.FoldingLayout
                     android:id="@+id/medical_item"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
@@ -529,7 +529,7 @@
                                 android:visibility="invisible"/>
                         </LinearLayout>
                     </LinearLayout>
-                </com.framework.customviews.foldermenu.FoldingLayout>
+                </com.framework.customview.foldermenu.FoldingLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -576,7 +576,7 @@
 
                 </RelativeLayout>
 
-                <com.framework.customviews.foldermenu.FoldingLayout
+                <com.framework.customview.foldermenu.FoldingLayout
                     android:id="@+id/live_item"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
@@ -702,7 +702,7 @@
                                 android:visibility="invisible"/>
                         </LinearLayout>
                     </LinearLayout>
-                </com.framework.customviews.foldermenu.FoldingLayout>
+                </com.framework.customview.foldermenu.FoldingLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -749,7 +749,7 @@
 
                 </RelativeLayout>
 
-                <com.framework.customviews.foldermenu.FoldingLayout
+                <com.framework.customview.foldermenu.FoldingLayout
                     android:id="@+id/public_item"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
@@ -875,7 +875,7 @@
                                 android:visibility="invisible"/>
                         </LinearLayout>
                     </LinearLayout>
-                </com.framework.customviews.foldermenu.FoldingLayout>
+                </com.framework.customview.foldermenu.FoldingLayout>
             </LinearLayout>
 
             <View

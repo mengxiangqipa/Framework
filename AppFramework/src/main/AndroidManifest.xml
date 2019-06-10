@@ -285,7 +285,7 @@
             android:value="${applicationId}.preferences"/>
 
         <provider
-            android:name="com.framework.utils.multyprocessprovider.provider.PreferencesProvider"
+            android:name="com.framework.util.multyprocessprovider.provider.PreferencesProvider"
             android:authorities="${applicationId}.preferences"
             android:exported="false"
             android:grantUriPermissions="false"/>

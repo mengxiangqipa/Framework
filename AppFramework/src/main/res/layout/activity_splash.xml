@@ -23,7 +23,7 @@
         android:background="@drawable/circle_gray_light"
         android:padding="1dp">
 
-        <com.framework.customviews.CustomADprogress
+        <com.framework.customview.CustomADprogress
             android:id="@+id/customADprogress"
             android:layout_width="50dp"
             android:layout_height="50dp"

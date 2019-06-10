@@ -23,11 +23,11 @@ import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.framework.utils.DownLoadManagerUtils;
-import com.framework.utils.DownLoadObserver;
-import com.framework.utils.PreferencesHelper;
-import com.framework.utils.RequestPermissionsUtil;
-import com.framework.utils.ScreenUtils;
+import com.framework.util.DownLoadManagerUtils;
+import com.framework.util.DownLoadObserver;
+import com.framework.util.PreferencesHelper;
+import com.framework.util.RequestPermissionsUtil;
+import com.framework.util.ScreenUtils;
 
 /**
  * 自定义的dialog

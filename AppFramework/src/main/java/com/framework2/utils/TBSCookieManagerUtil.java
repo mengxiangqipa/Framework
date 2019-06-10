@@ -7,7 +7,7 @@ import com.demo.configs.ConstantsME;
 import com.framework.security.AesUtils;
 import com.framework.security.Base64Coder;
 import com.framework.security.RSAmethodInRaw;
-import com.framework.utils.PreferencesHelper;
+import com.framework.util.PreferencesHelper;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 

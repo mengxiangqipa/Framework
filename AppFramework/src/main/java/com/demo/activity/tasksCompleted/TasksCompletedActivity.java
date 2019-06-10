@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.demo.demo.R;
-import com.framework.customviews.TasksCompletedView;
+import com.framework.customview.TasksCompletedView;
 
 /**
  * @author naiyu(http : / / snailws.com)

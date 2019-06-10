@@ -20,7 +20,7 @@ public class ReloginUtil {
     }
 
     public void gotoLogin(Context context) {
-//        PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, "");
+//        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.cookies, "");
 //        Intent intent;
 //        if (DebugConfig.TBSx5) {
 //            intent = new Intent(context, LoginTBSWebViewActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |

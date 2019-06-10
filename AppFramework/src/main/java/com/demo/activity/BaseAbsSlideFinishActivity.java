@@ -11,11 +11,11 @@ import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
 import com.demo.entity.Entity;
 import com.framework.config.Config;
-import com.framework.utils.ActivityTaskUtil;
-import com.framework.utils.ForbidAndroidPhideAPIdialog;
-import com.framework.utils.ScreenUtils;
-import com.framework.utils.ViewServer;
-import com.framework.utils.Y;
+import com.framework.util.ActivityTaskUtil;
+import com.framework.util.ForbidAndroidPhideAPIdialog;
+import com.framework.util.ScreenUtils;
+import com.framework.util.ViewServer;
+import com.framework.util.Y;
 import com.library.slidefinish.Slidr;
 import com.library.slidefinish.model.SlidrConfig;
 import com.library.slidefinish.model.SlidrListener;
@@ -145,8 +145,8 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
      * 返回重新登录
      */
     public void reLogin() {
-//        ResetConstantUtil.getInstance().clearUserLoginInfo();
-//        PreferencesHelper.getInstance().putInfo(ConstantsME.token, "");
+//        ResetConstantUtil.getProxyApplication().clearUserLoginInfo();
+//        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, "");
 //        startActivity(new Intent(BaseActivity.this,
 //                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
 //        finish();

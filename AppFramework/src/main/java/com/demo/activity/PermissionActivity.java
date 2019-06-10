@@ -33,7 +33,7 @@ public class PermissionActivity extends BaseActivity {
     }
 
 //    public void makeCall() {
-//        Permission.getInstance()
+//        Permission.getProxyApplication()
 //                .checkAndRequestPermission(Manifest.permission.CALL_PHONE, new CheckRequestPermissionListener() {
 //                    @Override
 //                    public void onPermissionGranted(Permission permission) {

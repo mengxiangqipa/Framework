@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.demo.demo.R;
-import com.framework.customviews.foldermenu.FoldingLayout;
-import com.framework.customviews.foldermenu.OnFoldListener;
-import com.framework.utils.Y;
+import com.framework.customview.foldermenu.FoldingLayout;
+import com.framework.customview.foldermenu.OnFoldListener;
+import com.framework.util.Y;
 
 public class FolderMenuActivity extends Activity {
 
