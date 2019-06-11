@@ -463,4 +463,32 @@ public class PackageManagerUtil {
             }
         });
     }
+
+    /**
+     * 启用组件
+     *
+     * @param context       Context
+     * @param componentName ComponentName
+     */
+    public void enableComponent(Context context, ComponentName componentName) {
+        if (null == context || null == componentName)
+            return;
+        PackageManager packageManager = context.getPackageManager();
+        packageManager.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
+
+    /**
+     * 隐藏组件
+     *
+     * @param context       Context
+     * @param componentName componentName
+     */
+    public void disableComponent(Context context, ComponentName componentName) {
+        if (null == context || null == componentName)
+            return;
+        PackageManager packageManager = context.getPackageManager();
+        packageManager.setComponentEnabledSetting(componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+    }
 }
