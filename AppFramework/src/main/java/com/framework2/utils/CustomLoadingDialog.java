@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework2.customLoading.LoadingDialog;
 
 /**
@@ -66,7 +66,7 @@ public class CustomLoadingDialog extends Dialog {
         Window window = getWindow();
         if (null != window) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.width = ScreenUtils.getInstance().getScreenWidthPx(getContext());
+            layoutParams.width = ScreenUtil.getInstance().getScreenWidthPx(getContext());
             window.setAttributes(layoutParams);
             window.setGravity(Gravity.CENTER);
             window.setBackgroundDrawable(new ColorDrawable(0));

@@ -24,7 +24,7 @@ import com.demo.fragment.Fragment_guide_3;
 import com.framework.security.RSAmethodInRaw;
 import com.framework.util.ActivityTaskUtil;
 import com.framework.util.PreferencesHelper;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.library.adapter_recyclerview.GuideFragmentPagerAdapter;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
             setContentView(R.layout.activity_guide);
             ButterKnife.bind(this);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                ScreenUtils.getInstance().setSystemUiColorDark(this, false);//设置状态栏字体颜色浅
+                ScreenUtil.getInstance().setSystemUiColorDark(this, false);//设置状态栏字体颜色浅
             }
             initData();
         }
@@ -117,8 +117,8 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         //viewPager.setPageTransformer(true, new MyPageTransformer());
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
-        final int screenWidth = ScreenUtils.getInstance().getScreenWidthPx(this);
-        final int _21dp = ScreenUtils.getInstance().dip2px(this, 21);
+        final int screenWidth = ScreenUtil.getInstance().getScreenWidthPx(this);
+        final int _21dp = ScreenUtil.getInstance().dip2px(this, 21);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

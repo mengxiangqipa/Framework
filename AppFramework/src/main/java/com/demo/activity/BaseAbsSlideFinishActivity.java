@@ -13,7 +13,7 @@ import com.demo.entity.Entity;
 import com.framework.config.Config;
 import com.framework.util.ActivityTaskUtil;
 import com.framework.util.ForbidAndroidPhideAPIdialog;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.ViewServer;
 import com.framework.util.Y;
 import com.library.slidefinish.Slidr;
@@ -45,7 +45,7 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         _onCreate();
         ForbidAndroidPhideAPIdialog.getInstance().closeAndroidPdialog();
-        ScreenUtils.getInstance().setSystemUiColorDark(this,true);
+        ScreenUtil.getInstance().setSystemUiColorDark(this,true);
         int primary = getResources().getColor(R.color.black);
         int secondary = getResources().getColor(R.color.black);
         EventBus.getDefault().register(this);
@@ -60,7 +60,7 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
                 .velocityThreshold(2400)
                 .distanceThreshold(.25f)
                 .edge(true)
-                .touchSize(ScreenUtils.getInstance().dip2px(this, 32))
+                .touchSize(ScreenUtil.getInstance().dip2px(this, 32))
                 .listener(new SlidrListener() {
                     @Override
                     public void onSlideStateChanged(int state) {

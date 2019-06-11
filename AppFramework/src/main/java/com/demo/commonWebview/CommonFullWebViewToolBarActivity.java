@@ -34,7 +34,7 @@ import com.demo.demo.R;
 import com.demo.networkModel.HttpUtil;
 import com.demo.util.ReloginUtil;
 import com.framework.util.KeyBoardUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
 import com.framework2.utils.CookieManagerUtil;
@@ -76,8 +76,8 @@ public class CommonFullWebViewToolBarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_webview_with_toolbar);
         ButterKnife.bind(this);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
+        ScreenUtil.getInstance().setTranslucentStatus(this, true);
+        ScreenUtil.getInstance().setStatusBarTintColor(this,
                 getResources().getColor(R.color.white));
         initView();
         CookieManagerUtil.getInstance().synCookies(this, RealInterfaceConfig.getRealBaseServerUrl());

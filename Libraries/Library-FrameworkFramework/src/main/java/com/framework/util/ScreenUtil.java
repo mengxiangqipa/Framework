@@ -17,17 +17,17 @@ import android.view.WindowManager;
  * className ScreenUtils
  * created at  2016/10/5  10:49
  */
-public class ScreenUtils {
-    private static volatile ScreenUtils instance;
+public class ScreenUtil {
+    private static volatile ScreenUtil instance;
 
-    private ScreenUtils() {
+    private ScreenUtil() {
     }
 
-    public static ScreenUtils getInstance() {
+    public static ScreenUtil getInstance() {
         if (null == instance) {
-            synchronized (ScreenUtils.class) {
+            synchronized (ScreenUtil.class) {
                 if (null == instance) {
-                    instance = new ScreenUtils();
+                    instance = new ScreenUtil();
                 }
             }
         }

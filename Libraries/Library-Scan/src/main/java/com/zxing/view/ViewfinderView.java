@@ -27,7 +27,7 @@ import android.support.annotation.IntRange;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.google.zxing.ResultPoint;
 import com.library.scan.R;
 import com.zxing.camera.CameraManager;
@@ -275,7 +275,7 @@ public final class ViewfinderView extends View {
 //                canvas.drawText(text, frame.left+((frame.right- frame.left)- textWidth) / 2, (frame.bottom +
 //                (float) TEXT_PADDING_TOP * density), paint);
                 canvas.drawText(text, (width - textWidth) / 2,
-                        (frame.bottom + (float) ScreenUtils.getInstance().dip2px(getContext(), 30)), paint);
+                        (frame.bottom + (float) ScreenUtil.getInstance().dip2px(getContext(), 30)), paint);
 
                 //绘制小圆点
                 if (showRandomCircle) {

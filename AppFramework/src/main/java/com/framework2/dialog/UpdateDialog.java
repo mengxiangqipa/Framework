@@ -27,7 +27,7 @@ import com.framework.util.DownLoadManagerUtils;
 import com.framework.util.DownLoadObserver;
 import com.framework.util.PreferencesHelper;
 import com.framework.util.RequestPermissionsUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 
 /**
  * 自定义的dialog
@@ -190,7 +190,7 @@ public class UpdateDialog extends Dialog {
         Window window = getWindow();
         if (null != window) {
             WindowManager.LayoutParams layoutParams = window.getAttributes();
-            layoutParams.width = ScreenUtils.getInstance().getScreenWidthPx(getContext());
+            layoutParams.width = ScreenUtil.getInstance().getScreenWidthPx(getContext());
             window.setAttributes(layoutParams);
             window.setGravity(Gravity.BOTTOM);
             window.setBackgroundDrawable(new ColorDrawable(0));

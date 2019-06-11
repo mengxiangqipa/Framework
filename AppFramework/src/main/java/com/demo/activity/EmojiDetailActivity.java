@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.library.adapter_listview.CommonPagerAdapter;
 import com.library.emoji.adapter.OnClickedEmoji;
@@ -118,8 +118,8 @@ public class EmojiDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emoji_detail);
         ButterKnife.bind(this);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
+        ScreenUtil.getInstance().setTranslucentStatus(this, true);
+        ScreenUtil.getInstance().setStatusBarTintColor(this,
                 getResources().getColor(R.color.white));
     }
 
@@ -183,9 +183,9 @@ public class EmojiDetailActivity extends BaseActivity {
             //加小圆点
             for (int i = 0; i < lenth; i++) {
                 TextView textView;
-                int margin = ScreenUtils.getInstance().dip2px(this, 5);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtils.getInstance().dip2px
-                        (this, 8), ScreenUtils.getInstance().dip2px(this, 8));
+                int margin = ScreenUtil.getInstance().dip2px(this, 5);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtil.getInstance().dip2px
+                        (this, 8), ScreenUtil.getInstance().dip2px(this, 8));
                 if (i == 0) {
                     textView = new TextView(this);
                     textView.setBackgroundResource(R.drawable.shape_dot3);

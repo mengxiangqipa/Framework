@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.library.pulltorefresh.BaseAbstractPullToRefreshLayout;
 import com.library.pulltorefresh.IndicatorDelegate;
 import com.library.pulltorefresh.storehouse.LocalDisplay;
@@ -78,8 +78,8 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
         indicator.setCanPullDown(true);//设置是否能下拉
         indicator.setCanPullUp(false);//设置是否能上拉
 //        indicator.setLoadmoreDistcance(ScreenUtils.getProxyApplication().dip2px(getContext(), 86));//上拉距离px
-        indicator.setLoadmoreDistcance(ScreenUtils.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//上拉距离px
-        indicator.setRefreshDistance(ScreenUtils.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//下拉距离px
+        indicator.setLoadmoreDistcance(ScreenUtil.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//上拉距离px
+        indicator.setRefreshDistance(ScreenUtil.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//下拉距离px
         indicator.setResistance(1f);//设置阻力系数，内部按正余弦变化，设置可能无效
         indicator.setMOVE_SPEED(1);//设置每次滚动距离
         indicator.setResistanceTime(300);//设置释放回滚的时间

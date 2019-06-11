@@ -19,7 +19,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.framework.util.RequestPermissionsUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
 import com.google.zxing.BarcodeFormat;
@@ -48,8 +48,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
+        ScreenUtil.getInstance().setTranslucentStatus(this, true);
+        ScreenUtil.getInstance().setStatusBarTintColor(this,
                 getResources().getColor(android.R.color.white));
         setContentView(R.layout.activity_scan);
 //        initView();
@@ -106,8 +106,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private void initParameters() {
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinderView);
-        viewfinderView.setCornerLenth(ScreenUtils.getInstance().dip2px(this, 17));
-        viewfinderView.setCornerThickness(ScreenUtils.getInstance().dip2px(this, 3));
+        viewfinderView.setCornerLenth(ScreenUtil.getInstance().dip2px(this, 17));
+        viewfinderView.setCornerThickness(ScreenUtil.getInstance().dip2px(this, 3));
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
 //        CameraManager.setMaxFrameWidth(ScreenUtils.getProxyApplication().getScreenWidthPx(this) - 2 * ScreenUtils
@@ -116,14 +116,14 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //        CameraManager.setViewfinderScreenWidth(CameraManager.getMaxFrameWidth());
 //        CameraManager.setViewfinderScreenHeight(CameraManager.getMaxFrameHeight());
 
-        int topOffset = (int) (ScreenUtils.getInstance().getScreenHeightPx(this) * 0.18);//TODO 0.18=ConstantsME
+        int topOffset = (int) (ScreenUtil.getInstance().getScreenHeightPx(this) * 0.18);//TODO 0.18=ConstantsME
         // .scanMarginTopFloat
-        int leftOffset = ScreenUtils.getInstance().dip2px(this, 40);
+        int leftOffset = ScreenUtil.getInstance().dip2px(this, 40);
         int width =
-                ScreenUtils.getInstance().getScreenWidthPx(this) - 2 * ScreenUtils.getInstance().dip2px(this, 50);
+                ScreenUtil.getInstance().getScreenWidthPx(this) - 2 * ScreenUtil.getInstance().dip2px(this, 50);
         //设置取景框最大宽度
         int height = width / 3;
-        Rect framingRect = new Rect(leftOffset, topOffset, ScreenUtils.getInstance().getScreenWidthPx(this) -
+        Rect framingRect = new Rect(leftOffset, topOffset, ScreenUtil.getInstance().getScreenWidthPx(this) -
                 leftOffset,
                 topOffset + height);
         CameraManager.setDecodeMultiple(false);

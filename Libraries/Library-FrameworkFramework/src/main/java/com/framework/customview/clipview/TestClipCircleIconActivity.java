@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.framework.R;
 import com.framework.util.BitmapUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.Y;
 
 import java.io.ByteArrayOutputStream;
@@ -50,8 +50,8 @@ public class TestClipCircleIconActivity extends AppCompatActivity {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 Y.y("跳转:" + "2");
                 Bitmap bmap_sdcard = BitmapUtil.getInstance().getBitmapFromFile(file,
-                        ScreenUtils.getInstance().getScreenWidthPx(this),
-                        ScreenUtils.getInstance().getScreenWidthPx(this));
+                        ScreenUtil.getInstance().getScreenWidthPx(this),
+                        ScreenUtil.getInstance().getScreenWidthPx(this));
                 bmap_sdcard.compress(Bitmap.CompressFormat.JPEG,
                         100, baos);
                 Y.y("跳转:" + "3");

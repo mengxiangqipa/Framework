@@ -23,7 +23,7 @@ import com.demo.commonWebview.CommonFullWebViewActivity;
 import com.demo.demo.R;
 import com.framework.application.ProxyApplication;
 import com.framework.customview.CustomADprogress;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework2.baseEvent.BaseOnClickListener;
 
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ScreenUtils.getInstance().setSystemUiColorDark(this, false);
+        ScreenUtil.getInstance().setSystemUiColorDark(this, false);
         Executors.newScheduledThreadPool(1).schedule(new Runnable() {
             @Override
             public void run() {

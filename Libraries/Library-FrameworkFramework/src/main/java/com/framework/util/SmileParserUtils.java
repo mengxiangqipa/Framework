@@ -169,8 +169,8 @@ public class SmileParserUtils {
                     }
                 if (set) {
                     hasChanges = true;
-                    final int outputX_new = ScreenUtils.getInstance().dip2px(context, outPutX);
-                    final int outputY_new = ScreenUtils.getInstance().dip2px(context, outPutY);
+                    final int outputX_new = ScreenUtil.getInstance().dip2px(context, outPutX);
+                    final int outputY_new = ScreenUtil.getInstance().dip2px(context, outPutY);
                     Drawable drawable = context.getResources().getDrawable(
                             entry.getValue());
                     // MLog.i( "2");

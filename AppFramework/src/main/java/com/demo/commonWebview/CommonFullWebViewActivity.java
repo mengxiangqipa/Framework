@@ -38,7 +38,7 @@ import android.widget.TextView;
 
 import com.demo.demo.R;
 import com.framework.util.FileUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
 import com.library.loadingview.LoadingIndicatorView;
@@ -85,9 +85,9 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_webview_with_titlebar);
         ButterKnife.bind(this);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this, getResources().getColor(R.color.white));
-        ScreenUtils.getInstance().setSystemUiColorDark(this, true);
+        ScreenUtil.getInstance().setTranslucentStatus(this, true);
+        ScreenUtil.getInstance().setStatusBarTintColor(this, getResources().getColor(R.color.white));
+        ScreenUtil.getInstance().setSystemUiColorDark(this, true);
         initView();
         initWebViewSetting();
         loadUrl();

@@ -19,7 +19,7 @@ import com.framework.security.RSAmethodInRaw;
 import com.framework.util.KeyBoardUtil;
 import com.framework.util.PreferencesHelper;
 import com.framework.util.RegularUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
 import com.framework2.baseEvent.BaseOnClickListener;
@@ -70,8 +70,8 @@ public class ForgetPasswordActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_pwd);
         ButterKnife.bind(this);
-        ScreenUtils.getInstance().setTranslucentStatus(this, true);
-        ScreenUtils.getInstance().setStatusBarTintColor(this,
+        ScreenUtil.getInstance().setTranslucentStatus(this, true);
+        ScreenUtil.getInstance().setStatusBarTintColor(this,
                 getResources().getColor(R.color.white));
         initView();
         myCountDownTimer = new MyCountDownTimer(60000, 1000);

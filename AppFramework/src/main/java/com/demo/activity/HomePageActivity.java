@@ -53,7 +53,7 @@ import com.framework.util.FileUtil;
 import com.framework.util.PackageManagerUtil;
 import com.framework.util.PreferencesHelper;
 import com.framework.util.RequestPermissionsUtil;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
 import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
@@ -586,7 +586,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                 View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification, null);
                 View v_state_bar = view.findViewById(R.id.v_state_bar);
                 ViewGroup.LayoutParams layoutParameter = v_state_bar.getLayoutParams();
-                layoutParameter.height = ScreenUtils.getInstance().getStatusBarHeightPx(this);
+                layoutParameter.height = ScreenUtil.getInstance().getStatusBarHeightPx(this);
                 v_state_bar.setLayoutParams(layoutParameter);
                 ((TextView) view.findViewById(R.id.tv_content)).setText(this.getResources().getString(R.string.exist)
                         + this.getResources().getString(R.string.app_name));

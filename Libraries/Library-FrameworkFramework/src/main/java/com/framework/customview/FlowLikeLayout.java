@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.framework.R;
-import com.framework.util.ScreenUtils;
+import com.framework.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +131,7 @@ public class FlowLikeLayout extends RelativeLayout {
         if (ignorInnerView) {
             mLayoutParams.bottomMargin = 0;
         }
-        if (leftMargin > 0 && leftMargin < ScreenUtils.getInstance().getScreenWidthPx(getContext())) {
+        if (leftMargin > 0 && leftMargin < ScreenUtil.getInstance().getScreenWidthPx(getContext())) {
             mLayoutParams.leftMargin = leftMargin;
             mLayoutParams.addRule(CENTER_HORIZONTAL, 0);
         }
