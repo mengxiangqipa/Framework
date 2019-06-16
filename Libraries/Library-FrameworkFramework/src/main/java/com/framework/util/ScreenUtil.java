@@ -293,6 +293,10 @@ public class ScreenUtil {
         return false;
     }
 
+    /**设置状态栏透明，布局会顶上去
+     * @param activity  Activity
+     * @return boolean
+     */
     public boolean setStatusBarColorTRANSPARENT(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (null == activity || null == activity.getWindow())
