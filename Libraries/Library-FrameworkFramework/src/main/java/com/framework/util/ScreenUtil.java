@@ -293,6 +293,19 @@ public class ScreenUtil {
         return false;
     }
 
+    public boolean setStatusBarColorTRANSPARENT(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (null == activity || null == activity.getWindow())
+                return false;
+            Window window = activity.getWindow();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.setStatusBarColor(Color.TRANSPARENT);
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 隐藏虚拟按键
      */
