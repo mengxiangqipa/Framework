@@ -292,4 +292,149 @@ public class ScreenUtil {
         }
         return false;
     }
+
+    /**
+     * 隐藏虚拟按键
+     */
+    public void hideNavigationUIAndStatusBar(Activity activity) {
+        if (activity == null) {
+            return;
+        }
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+            View v = activity.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            Window window = activity.getWindow();
+            if (null != window) {
+                View decorView = activity.getWindow().getDecorView();
+                int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                decorView.setSystemUiVisibility(uiOptions);
+            }
+        }
+    }
+
+    /**
+     * 隐藏虚拟按键(显示时状态栏变色)
+     */
+    public void hideNavigationBarAndStatusBar(Activity activity) {
+        if (activity == null) {
+            return;
+        }
+        int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN; // hide status bar
+
+        if (android.os.Build.VERSION.SDK_INT >= 19) {
+            uiFlags |= View.SYSTEM_UI_FLAG_IMMERSIVE;//0x00001000; // SYSTEM_UI_FLAG_IMMERSIVE_STICKY: hide
+        } else {
+            uiFlags |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        }
+        try {
+            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 是否显示底部栏
+     *
+     * @param activity Activity
+     * @param show     是否显示
+     */
+    public void setNavigationBarVisible(Activity activity, boolean show) {
+        if (activity == null) {
+            return;
+        }
+        Window window = activity.getWindow();
+        if (null != window) {
+            View decorView = activity.getWindow().getDecorView();
+            int uiOptions;
+            if (show) {
+                uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
+            } else {
+                uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            }
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+    /**
+     * 是否显示状态栏
+     *
+     * @param activity Activity
+     * @param show     是否显示 (false会自动隐藏，手动下拉也会隐藏)
+     */
+    public void setStatusBarVisible(Activity activity, boolean show) {
+        if (activity == null) {
+            return;
+        }
+        if (show) {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            uiFlags |= 0x00001000;
+            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        } else {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            uiFlags |= 0x00001000;
+            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        }
+    }
+
+    /**
+     * 是否显示导航栏和状态栏
+     *
+     * @param activity Activity
+     * @param show     是否显示
+     */
+    private void setSystemUIVisible(Activity activity, boolean show) {
+        if (activity == null) {
+            return;
+        }
+        if (show) {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            uiFlags |= 0x00001000;
+            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        } else {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            uiFlags |= 0x00001000;
+            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        }
+    }
+
+    /**
+     * 是否显示导航栏和状态栏(不显示时，状态栏自动隐藏，底部栏只是占位，会显示阴影)
+     *
+     * @param activity Activity
+     * @param show     是否显示
+     */
+    private void setSystemUIVisible2(Activity activity, boolean show) {
+        if (activity == null) {
+            return;
+        }
+
+        if (null != activity.getWindow()) {
+            if (!show) {
+                WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+                lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+                activity.getWindow().setAttributes(lp);
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            } else {
+                WindowManager.LayoutParams attr = activity.getWindow().getAttributes();
+                attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                activity.getWindow().setAttributes(attr);
+                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            }
+        }
+    }
 }
