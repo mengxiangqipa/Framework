@@ -9,7 +9,6 @@ import android.support.annotation.IntRange;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -245,7 +244,6 @@ public class GridDividerItemWithSpanDecorationNew extends RecyclerView.ItemDecor
                     outRect.set(0, mDivider.getIntrinsicHeight(),
                             mDivider.getIntrinsicWidth(), bottom);
                 }
-                Log.e("getItemOffsets", "outRect:" + itemPosition + "  :" + outRect);
             }
         }
     }
