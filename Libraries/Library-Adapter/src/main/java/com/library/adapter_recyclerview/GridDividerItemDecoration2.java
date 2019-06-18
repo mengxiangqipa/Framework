@@ -159,17 +159,17 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
         return false;
     }
 
-    private boolean isLastRaw(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
+    /**
+     * 是否最后一行
+     */
+    private boolean isLastRow(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
             childCount) {
         UniversalAdapter adapter = (UniversalAdapter) parent.getAdapter();
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            // 如果是最后一行，则不需要绘制底部,这个是考虑resizeSpan的情况
-            return (itemPosition >= adapter.getDataList().size() - ((GridLayoutManager) parent
-                    .getLayoutManager()).getSpanSizeLookup().getSpanIndex(itemPosition, spanCount));
-//            // 如果是最后一行，则不需要绘制底部，没有考虑resizeSpan的情况
-//            return (itemPosition >= (childCount - (childCount % spanCount == 0 ? spanCount : childCount %
-// spanCount)));
+            // 如果是最后一行，则不需要绘制底部,这个是考虑resizeSpan的情况,//2019 06 18 修改
+            return (itemPosition >= adapter.getDataList().size() - (spanCount - ((GridLayoutManager) parent
+                    .getLayoutManager()).getSpanSizeLookup().getSpanIndex(itemPosition, spanCount)));
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
             // StaggeredGridLayoutManager 且纵向滚动
@@ -178,9 +178,8 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
                 // 如果是最后一行，则不需要绘制底部
                 if (itemPosition >= childCount)
                     return true;
-            } else
-            // StaggeredGridLayoutManager 且横向滚动
-            {
+            } else {
+                // StaggeredGridLayoutManager 且横向滚动
                 // 如果是最后一行，则不需要绘制底部
                 if ((itemPosition + 1) % spanCount == 0) {
                     return true;
@@ -198,9 +197,7 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
             if (null != adapter) {
                 int spanCount = getSpanCount(parent);
                 int childCount = adapter.getDataItemCount();
-//                int bottom = isLastRaw(parent, itemPosition - adapter.getHeaderCount(), spanCount, childCount) ?
-// mDivider.getIntrinsicHeight() : 0;
-                int bottom = isLastRaw(parent, itemPosition, spanCount, childCount) ? mDivider.getIntrinsicHeight() : 0;
+                int bottom = isLastRow(parent, itemPosition, spanCount, childCount) ? mDivider.getIntrinsicHeight() : 0;
                 if (adapter.isHeader(itemPosition) || adapter.isFooter(itemPosition)) {
                     outRect.set(0, 0, 0, 0);
 //                } else if ((itemPosition - adapter.getHeaderCount()) % spanCount == 0) {//列第一项
@@ -220,6 +217,8 @@ public class GridDividerItemDecoration2 extends RecyclerView.ItemDecoration {
                     outRect.set(mDivider.getIntrinsicWidth() / 2, mDivider.getIntrinsicHeight(), mDivider
                             .getIntrinsicWidth() / 2, bottom);
                 }
+
+//                Log.e("GridDividerItemDecorati", itemPosition+" outRect:" + outRect);
             }
         }
     }
