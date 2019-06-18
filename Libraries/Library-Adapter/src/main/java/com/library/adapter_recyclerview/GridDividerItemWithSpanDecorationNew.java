@@ -9,24 +9,25 @@ import android.support.annotation.IntRange;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 /**
- * 有做header，footer的判断、 保持左右边距
+ * 有做header，footer的判断、 保持左右边距(最新版，数据不完全居中，右边会留空，可在recyclerview里面设置paddingLeft)
  *
  * @author YobertJomi
- * className GridDividerItemDecoration2
- * created at  2017/1/16  12:00
+ * className GridDividerItemWithSpanDecorationNew
+ * created at  2019/6/18  14:21
  */
 
-public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecoration {
+public class GridDividerItemWithSpanDecorationNew extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private boolean canDraw = true;
     private boolean drawFirstLine = true;
     private boolean drawLastLine = true;
 
-    public GridDividerItemWithSpanDecoration(Context context) {
+    public GridDividerItemWithSpanDecorationNew(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -139,6 +140,9 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
         }
     }
 
+    /**
+     * 是否最后一列
+     */
     private boolean isLastRow(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
             childCount) {
         UniversalAdapter adapter = (UniversalAdapter) parent.getAdapter();
@@ -194,20 +198,19 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
                     if (currentSpanIndex == 0) {
                         if (nextSpanIndex >= 0 && nextSpanIndex < spanCount - 1) {//正常列span为1
                             if (!drawFirstLine && itemPosition - adapter.getHeaderCount() == 0) {//列第一项第一个
-                                outRect.set(mDivider.getIntrinsicWidth(), 0, mDivider.getIntrinsicWidth(), bottom);
+                                outRect.set(0, 0, mDivider.getIntrinsicWidth(), bottom);
 //                                Y.y("getItemOffsets 列第一项0-- "+ itemPosition);
                             } else {
-                                outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
-                                        mDivider.getIntrinsicWidth(), bottom);
+                                outRect.set(0, mDivider.getIntrinsicHeight(), mDivider.getIntrinsicWidth(), bottom);
 //                                Y.y("getItemOffsets 列第一项1-- "+ itemPosition);
                             }
                             //该列属于首项
                         } else {
                             if (!drawFirstLine && itemPosition - adapter.getHeaderCount() == 0) {//列第一项第一个
-                                outRect.set(mDivider.getIntrinsicWidth(), 0, mDivider.getIntrinsicWidth(), bottom);
+                                outRect.set(0, 0, mDivider.getIntrinsicWidth(), bottom);
 //                                Y.y("getItemOffsets 该列属于首项0-- "+ itemPosition);
                             } else {
-                                outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(), mDivider
+                                outRect.set(0, mDivider.getIntrinsicHeight(), mDivider
                                         .getIntrinsicWidth(), bottom);
 //                                Y.y("getItemOffsets 该列属于首项2-- "+ itemPosition);
                             }
@@ -215,33 +218,34 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
                         //列最后一项
                     } else if (currentSpanIndex == spanCount - 1 || nextSpanIndex == 0) {
                         if (!drawFirstLine && itemPosition - adapter.getHeaderCount() <= spanCount) {//列第一项第一个
-                            outRect.set(mDivider.getIntrinsicWidth(), 0, mDivider.getIntrinsicWidth(), bottom);
+                            outRect.set(0, 0, mDivider.getIntrinsicWidth(), bottom);
 //                            Y.y("getItemOffsets 列最后一项1-- "+ itemPosition);
                         } else {
-                            outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(), mDivider
+                            outRect.set(0, mDivider.getIntrinsicHeight(), mDivider
                                     .getIntrinsicWidth(), bottom);
 //                            Y.y("getItemOffsets 列最后一项2-- "+ itemPosition);
                         }
                         //第一行
                     } else if (gridLayoutManager.getSpanSizeLookup().getSpanGroupIndex(itemPosition, spanCount) == 0) {
                         if (!drawFirstLine) {//列第一项第一个
-                            outRect.set(mDivider.getIntrinsicWidth(), 0, mDivider.getIntrinsicWidth(), bottom);
+                            outRect.set(0, 0, mDivider.getIntrinsicWidth(), bottom);
 //                            Y.y("getItemOffsets 第一行1-- "+ itemPosition);
                         } else {
-                            outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                            outRect.set(0, mDivider.getIntrinsicHeight(),
                                     mDivider.getIntrinsicWidth(), bottom);
 //                            Y.y("getItemOffsets 第一行2-- "+ itemPosition);
                         }
                         //列中间项
                     } else {
-                        outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                        outRect.set(0, mDivider.getIntrinsicHeight(),
                                 mDivider.getIntrinsicWidth(), bottom);
 //                        Y.y("getItemOffsets 列中间项-- "+ itemPosition);
                     }
                 } else {//列中间项
-                    outRect.set(mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight(),
+                    outRect.set(0, mDivider.getIntrinsicHeight(),
                             mDivider.getIntrinsicWidth(), bottom);
                 }
+                Log.e("getItemOffsets", "outRect:" + itemPosition + "  :" + outRect);
             }
         }
     }
