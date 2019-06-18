@@ -139,7 +139,7 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
         }
     }
 
-    private boolean isLastRaw(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
+    private boolean isLastRow(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
             childCount) {
         UniversalAdapter adapter = (UniversalAdapter) parent.getAdapter();
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
@@ -177,7 +177,7 @@ public class GridDividerItemWithSpanDecoration extends RecyclerView.ItemDecorati
             if (null != adapter) {
                 int spanCount = getSpanCount(parent);
                 int childCount = adapter.getDataItemCount();
-                boolean isLastRaw = isLastRaw(parent, itemPosition, spanCount, childCount);
+                boolean isLastRaw = isLastRow(parent, itemPosition, spanCount, childCount);
                 int bottom = drawLastLine && isLastRaw ? mDivider.getIntrinsicHeight() : 0;
                 if (adapter.isHeader(itemPosition) || adapter.isFooter(itemPosition)) {
                     outRect.set(0, 0, 0, 0);

@@ -12,7 +12,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 /**
- * 有做header，footer的判断、 保持左右边距
+ * 有做header，footer的判断、 保持左右边距(实际item大小存在差异)
  *
  * @author YobertJomi
  * className GridDividerItemDecoration2
