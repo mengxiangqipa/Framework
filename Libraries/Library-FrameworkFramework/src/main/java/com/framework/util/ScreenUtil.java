@@ -274,9 +274,6 @@ public class ScreenUtil {
             if (null == window)
                 return false;
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    window.setStatusBarColor(Color.TRANSPARENT);
-                }
                 if (dark) {
                     //设置状态栏文字颜色及图标为深色
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
