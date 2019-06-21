@@ -6,6 +6,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -21,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -490,6 +493,11 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         }
     }
 
+    @IntDef({View.VISIBLE, View.INVISIBLE, View.GONE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Visibility {
+    }
+
     public class UniversalViewHolder extends RecyclerView.ViewHolder {
         private final SparseArray<View> sparseArray;
         private View convertView;
@@ -518,6 +526,13 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             } catch (Exception e) {
                 return null;
             }
+        }
+
+        public UniversalViewHolder setVisibl1e(@IdRes int viewId, @Visibility int visible) {
+            View view = getView(viewId);
+            if (view != null)
+                view.setVisibility(visible);
+            return UniversalViewHolder.this;
         }
 
         /**
