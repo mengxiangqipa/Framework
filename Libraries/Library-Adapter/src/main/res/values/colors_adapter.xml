@@ -2,4 +2,7 @@
 <resources>
     <color name="red_adapter">#FF0000</color>
     <color name="blue_adapter">#009</color>
+
+    <color name="library_adapter_recycler_color_text_gray">#FF777777</color>
+
 </resources>
