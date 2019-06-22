@@ -9,9 +9,4 @@
         <attr name="indicatorColor" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="SwipeMenuLayout">
-        <attr name="leftViewId" format="reference"/>
-        <attr name="rightViewId" format="reference"/>
-        <attr name="contentViewId" format="reference"/>
-    </declare-styleable>
 </resources>
