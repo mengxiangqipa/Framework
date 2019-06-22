@@ -498,6 +498,26 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
     public @interface Visibility {
     }
 
+    private OnItemClickListener mOnItemClickListener;
+
+    private OnItemLongClickListener mOnItemLongClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int realPosition);
+    }
+
+    public interface OnItemLongClickListener {
+        void onItemLongClick(View view, int realPosition);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+        this.mOnItemLongClickListener = mOnItemLongClickListener;
+    }
+
     public class UniversalViewHolder extends RecyclerView.ViewHolder {
         private final SparseArray<View> sparseArray;
         private View convertView;
@@ -506,6 +526,12 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             super(itemView);
             this.convertView = itemView;
             sparseArray = new SparseArray<>();
+            if (null != mOnItemClickListener) {
+                mOnItemClickListener.onItemClick(itemView, getAdapterPosition() - getHeaderCount());
+            }
+            if (null != mOnItemLongClickListener) {
+                mOnItemLongClickListener.onItemLongClick(itemView, getAdapterPosition() - getHeaderCount());
+            }
         }
 
         /**

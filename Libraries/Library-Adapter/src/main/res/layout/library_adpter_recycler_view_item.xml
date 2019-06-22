@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.library.adapter.widget.swipemenu.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentViewId="@+id/swipeContent"
+    app:leftViewId="@+id/leftSwipeMenuView"
+    app:rightViewId="@+id/rightSwipeMenuView">
+
+    <com.library.adapter.widget.swipemenu.SwipeMenuView
+        android:id="@+id/leftSwipeMenuView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:id="@+id/swipeContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.library.adapter.widget.swipemenu.SwipeMenuView
+        android:id="@+id/rightSwipeMenuView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+</com.library.adapter.widget.swipemenu.SwipeMenuLayout>
