@@ -351,14 +351,14 @@ public class UniversalRecyclerView extends RecyclerView {
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (mAdapterWrapper != null) {
-            mAdapterWrapper.unregisterAdapterDataObserver(mAdapterDataObserver);
-        }
+//        if (mAdapterWrapper != null) {
+//            mAdapterWrapper.unregisterAdapterDataObserver(mAdapterDataObserver);
+//        }
 
         if (adapter == null) {
             mAdapterWrapper = null;
         } else {
-            adapter.registerAdapterDataObserver(mAdapterDataObserver);
+//            adapter.registerAdapterDataObserver(mAdapterDataObserver);
             if (adapter instanceof UniversalAdapter) {
                 mAdapterWrapper = ((UniversalAdapter) adapter);
                 mAdapterWrapper.setOnItemClickListener(mOnItemClickListener);
@@ -379,43 +379,43 @@ public class UniversalRecyclerView extends RecyclerView {
         super.setAdapter(mAdapterWrapper);
     }
 
-    private AdapterDataObserver mAdapterDataObserver = new AdapterDataObserver() {
-        @Override
-        public void onChanged() {
-            mAdapterWrapper.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount) {
-            positionStart += getHeaderCount();
-            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
-            positionStart += getHeaderCount();
-            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount, payload);
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            positionStart += getHeaderCount();
-            mAdapterWrapper.notifyItemRangeInserted(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            positionStart += getHeaderCount();
-            mAdapterWrapper.notifyItemRangeRemoved(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            fromPosition += getHeaderCount();
-            toPosition += getHeaderCount();
-            mAdapterWrapper.notifyItemMoved(fromPosition, toPosition);
-        }
-    };
+//    private AdapterDataObserver mAdapterDataObserver = new AdapterDataObserver() {
+//        @Override
+//        public void onChanged() {
+//            mAdapterWrapper.notifyDataSetChanged();
+//        }
+//
+//        @Override
+//        public void onItemRangeChanged(int positionStart, int itemCount) {
+//            positionStart += getHeaderCount();
+//            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount);
+//        }
+//
+//        @Override
+//        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+//            positionStart += getHeaderCount();
+//            mAdapterWrapper.notifyItemRangeChanged(positionStart, itemCount, payload);
+//        }
+//
+//        @Override
+//        public void onItemRangeInserted(int positionStart, int itemCount) {
+//            positionStart += getHeaderCount();
+//            mAdapterWrapper.notifyItemRangeInserted(positionStart, itemCount);
+//        }
+//
+//        @Override
+//        public void onItemRangeRemoved(int positionStart, int itemCount) {
+//            positionStart += getHeaderCount();
+//            mAdapterWrapper.notifyItemRangeRemoved(positionStart, itemCount);
+//        }
+//
+//        @Override
+//        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+//            fromPosition += getHeaderCount();
+//            toPosition += getHeaderCount();
+//            mAdapterWrapper.notifyItemMoved(fromPosition, toPosition);
+//        }
+//    };
 
     private List<View> mHeaderViewList = new ArrayList<>();
     private List<View> mFooterViewList = new ArrayList<>();
