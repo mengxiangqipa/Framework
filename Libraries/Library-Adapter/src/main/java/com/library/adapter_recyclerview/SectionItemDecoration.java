@@ -187,28 +187,34 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
         return this;
     }
 
-    public void setSectionTopDividerHeight(int sectionTopDividerHeight) {
+    public SectionItemDecoration setSectionTopDividerHeight(int sectionTopDividerHeight) {
         this.sectionTopDividerHeight = sectionTopDividerHeight;
+        return this;
     }
 
-    public void setSectionTopDividerLeftMargin(int sectionTopDividerLeftMargin) {
+    public SectionItemDecoration setSectionTopDividerLeftMargin(int sectionTopDividerLeftMargin) {
         this.sectionTopDividerLeftMargin = sectionTopDividerLeftMargin;
+        return this;
     }
 
-    public void setSectionTopDividerRightMargin(int sectionTopDividerRightMargin) {
+    public SectionItemDecoration setSectionTopDividerRightMargin(int sectionTopDividerRightMargin) {
         this.sectionTopDividerRightMargin = sectionTopDividerRightMargin;
+        return this;
     }
 
-    public void setSectionBottomDividerHeight(int sectionBottomDividerHeight) {
+    public SectionItemDecoration setSectionBottomDividerHeight(int sectionBottomDividerHeight) {
         this.sectionBottomDividerHeight = sectionBottomDividerHeight;
+        return this;
     }
 
-    public void setSectionBottomDividerLeftMargin(int sectionBottomDividerLeftMargin) {
+    public SectionItemDecoration setSectionBottomDividerLeftMargin(int sectionBottomDividerLeftMargin) {
         this.sectionBottomDividerLeftMargin = sectionBottomDividerLeftMargin;
+        return this;
     }
 
-    public void setSectionBottomDividerRightMargin(int sectionBottomDividerRightMargin) {
+    public SectionItemDecoration setSectionBottomDividerRightMargin(int sectionBottomDividerRightMargin) {
         this.sectionBottomDividerRightMargin = sectionBottomDividerRightMargin;
+        return this;
     }
 
     public TextPaint getTextPaint() {
