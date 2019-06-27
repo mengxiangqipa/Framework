@@ -1,14 +1,18 @@
 package com.framework.util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.ColorRes;
+import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -290,8 +294,10 @@ public class ScreenUtil {
         return false;
     }
 
-    /**设置状态栏透明，布局会顶上去
-     * @param activity  Activity
+    /**
+     * 设置状态栏透明，布局会顶上去
+     *
+     * @param activity Activity
      * @return boolean
      */
     public boolean setStatusBarColorTRANSPARENT(Activity activity) {
@@ -305,6 +311,46 @@ public class ScreenUtil {
             }
         }
         return false;
+    }
+
+    public void setStatusBarColor(Activity activity, @ColorRes int colorResId) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = activity.getWindow();
+                if (null != window) {
+                    //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(activity.getResources().getColor(colorResId));
+                    ViewGroup mContentView = activity.findViewById(Window.ID_ANDROID_CONTENT);
+                    View mChildView = mContentView.getChildAt(0);
+                    if (mChildView != null) {
+                        //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 预留出系统 View 的空间.
+                        ViewCompat.setFitsSystemWindows(mChildView, true);
+                    }
+                    //底部导航栏
+                    //window.setNavigationBarColor(activity.getResources().getColor(colorResId));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStatusBarColor(Dialog dialog, @ColorRes int colorResId) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = dialog.getWindow();
+                if (null != window) {
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(dialog.getContext().getResources().getColor(colorResId));
+                    //底部导航栏
+                    //window.setNavigationBarColor(activity.getResources().getColor(colorResId));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
