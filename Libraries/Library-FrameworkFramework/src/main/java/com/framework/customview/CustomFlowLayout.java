@@ -2,7 +2,6 @@ package com.framework.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -19,8 +18,9 @@ import java.util.ArrayList;
  * created at  2017/9/12  9:22
  */
 public class CustomFlowLayout extends LinearLayout {
-    OnCheckedChangeListener_ onCheckedChangeListener_;
-    OnSingleCheckedChangeListener_ onSingleCheckedChangeListener_;
+    OnCheckedChangeListener onCheckedChangeListener;
+    OnSingleCheckedChangeListener onSingleCheckedChangeListener;
+    OnItemClickListener onItemClickListener;
     private boolean checkable;
     /**
      * 存储所有的子View
@@ -35,7 +35,7 @@ public class CustomFlowLayout extends LinearLayout {
      */
     private ArrayList<Integer> listLineHeight;
     private ArrayList<CompoundButton> listCompoundButton = new ArrayList<CompoundButton>();//存储CompoundButton
-    CustomOnCheckedChangeListener onCheckedChangeListener = new CustomOnCheckedChangeListener() {
+    CustomOnCheckedChangeListener mOnCheckedChangeListener = new CustomOnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             super.onCheckedChanged(compoundButton, b);
@@ -72,7 +72,6 @@ public class CustomFlowLayout extends LinearLayout {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("yy", "流式布局addData：" + e.getMessage());
         }
     }
 
@@ -105,7 +104,7 @@ public class CustomFlowLayout extends LinearLayout {
             View child = getChildAt(i);
             if ((child instanceof CheckBox || child instanceof RadioButton) && checkable) {
                 child.setId(10000 + i);
-                ((CompoundButton) child).setOnCheckedChangeListener(onCheckedChangeListener);
+                ((CompoundButton) child).setOnCheckedChangeListener(mOnCheckedChangeListener);
                 listCompoundButton.add((CompoundButton) child);
             } else if (child instanceof CheckBox && !checkable) {
                 child.setEnabled(false);
@@ -157,7 +156,7 @@ public class CustomFlowLayout extends LinearLayout {
                 MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
                 int cLeft = left + lp.leftMargin;
                 int cTop = top + lp.topMargin;
-                Log.e("yy", "自定义view: " + (i + 1) + " 行" + (j + 1) + "列_  cTop:" + cTop + "     top:" + top);
+//                Log.e("yy", "自定义view: " + (i + 1) + " 行" + (j + 1) + "列_  cTop:" + cTop + "     top:" + top);
                 int cRight = cLeft + child.getMeasuredWidth();
                 int cBottom = cTop + child.getMeasuredHeight();
                 // 进行子View进行布局
@@ -216,7 +215,7 @@ public class CustomFlowLayout extends LinearLayout {
                 height += lineHeight;
             }
         }
-        Log.e("yy", "流失布局22:" + width);
+//        Log.e("yy", "流失布局22:" + width);
         setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width, modeHeight == MeasureSpec.EXACTLY
                 ? sizeHeight : height);
     }
@@ -232,27 +231,35 @@ public class CustomFlowLayout extends LinearLayout {
     /**
      * 设置多选监听
      *
-     * @param onCheckedChangeListener_ 设置多选监听
+     * @param onCheckedChangeListener 设置多选监听
      */
-    public void setOnCheckedChangeListener_(OnCheckedChangeListener_ onCheckedChangeListener_) {
-        this.onCheckedChangeListener_ = onCheckedChangeListener_;
+    public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
+        this.onCheckedChangeListener = onCheckedChangeListener;
     }
 
     /**
      * 设置单选监听
      *
-     * @param onSingleCheckedChangeListener_ 设置单选监听
+     * @param onSingleCheckedChangeListener 设置单选监听
      */
-    public void setOnSingleCheckedChangeListener_(OnSingleCheckedChangeListener_ onSingleCheckedChangeListener_) {
-        this.onSingleCheckedChangeListener_ = onSingleCheckedChangeListener_;
+    public void setOnSingleCheckedChangeListener(OnSingleCheckedChangeListener onSingleCheckedChangeListener) {
+        this.onSingleCheckedChangeListener = onSingleCheckedChangeListener;
     }
 
-    public interface OnCheckedChangeListener_ {
-        void onCheckedChanged_(int position, boolean b, CompoundButton compoundButton);
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
-    public interface OnSingleCheckedChangeListener_ {
-        void onSingleCheckedChanged_(int position, boolean b, CompoundButton compoundButton);
+    public interface OnCheckedChangeListener {
+        void onCheckedChanged(int position, boolean b, CompoundButton compoundButton);
+    }
+
+    public interface OnSingleCheckedChangeListener {
+        void onSingleCheckedChanged(int position, boolean b, CompoundButton compoundButton);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(int position);
     }
 
     class CustomOnCheckedChangeListener implements CompoundButton.OnCheckedChangeListener {
@@ -261,15 +268,15 @@ public class CustomFlowLayout extends LinearLayout {
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             if (compoundButton.getId() >= 10000 && compoundButton.getId() < 40000) {
                 int position = compoundButton.getId() % 10000;
-                if ((getContext() instanceof OnCheckedChangeListener_ || onCheckedChangeListener_ != null) &&
+                if ((getContext() instanceof OnCheckedChangeListener || onCheckedChangeListener != null) &&
                         compoundButton instanceof CheckBox) {
-                    if (getContext() instanceof OnCheckedChangeListener_) {
-                        ((OnCheckedChangeListener_) getContext()).onCheckedChanged_(position, b, compoundButton);
+                    if (getContext() instanceof OnCheckedChangeListener) {
+                        ((OnCheckedChangeListener) getContext()).onCheckedChanged(position, b, compoundButton);
                     } else {
-                        onCheckedChangeListener_.onCheckedChanged_(position, b, compoundButton);
+                        onCheckedChangeListener.onCheckedChanged(position, b, compoundButton);
                     }
-                } else if (b && (getContext() instanceof OnSingleCheckedChangeListener_ ||
-                        onSingleCheckedChangeListener_ != null)
+                } else if (b && (getContext() instanceof OnSingleCheckedChangeListener ||
+                        onSingleCheckedChangeListener != null)
                         && compoundButton instanceof RadioButton) {
                     if (listCompoundButton.size() > 0) {
                         for (CompoundButton bt : listCompoundButton) {
@@ -280,12 +287,18 @@ public class CustomFlowLayout extends LinearLayout {
                             }
                         }
                     }
-                    if (getContext() instanceof OnSingleCheckedChangeListener_) {
+                    if (getContext() instanceof OnSingleCheckedChangeListener) {
 
-                        ((OnSingleCheckedChangeListener_) getContext()).onSingleCheckedChanged_(position, true,
+                        ((OnSingleCheckedChangeListener) getContext()).onSingleCheckedChanged(position, true,
                                 compoundButton);
                     } else {
-                        onSingleCheckedChangeListener_.onSingleCheckedChanged_(position, true, compoundButton);
+                        onSingleCheckedChangeListener.onSingleCheckedChanged(position, true, compoundButton);
+                    }
+                } else if ((getContext() instanceof OnItemClickListener || onItemClickListener != null)) {
+                    if (getContext() instanceof OnItemClickListener) {
+                        ((OnItemClickListener) getContext()).onItemClicked(position);
+                    } else {
+                        onItemClickListener.onItemClicked(position);
                     }
                 }
             }

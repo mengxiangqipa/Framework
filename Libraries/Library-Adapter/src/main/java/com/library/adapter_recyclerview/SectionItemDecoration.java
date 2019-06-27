@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.ColorRes;
 import android.support.annotation.FloatRange;
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * 顶部悬停的ItemDecoration
@@ -29,6 +33,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     private SectionItemDecoration.SectionCallBack callback;
     private TextPaint textPaint;
     private Paint backgroundPaint;
+    private Paint dividerPaint;
     /**
      * 浮条的高度
      */
@@ -37,10 +42,52 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     private int textLeftMargin;
     private Paint.FontMetrics fontMetrics;
 
+    private static final int NONE = 0;
+    private static final int TOP = 1;
+    private static final int BOTTOM = 2;
+    private static final int BOTH = 3;
+
+    /**
+     * 悬停栏的模式
+     */
+    private int sectionDividerMode = NONE;
+    /**
+     * 悬停栏的的 顶部分割线高度
+     */
+    private int sectionTopDividerHeight = 0;
+    /**
+     * 悬停栏的的 顶部分割线 左边边距
+     */
+    private int sectionTopDividerLeftMargin = 0;
+    /**
+     * 悬停栏的的 顶部分割线 右边边距
+     */
+    private int sectionTopDividerRightMargin = 0;
+    /**
+     * 悬停栏的的 底部部分割线高度
+     */
+    private int sectionBottomDividerHeight = 0;
+    /**
+     * 悬停栏的的 底部分割线 左边边距
+     */
+    private int sectionBottomDividerLeftMargin = 0;
+    /**
+     * 悬停栏的的 底部分割线 右边边距
+     */
+    private int sectionBottomDividerRightMargin = 0;
+
+    @IntDef(value = {NONE, TOP, BOTTOM, BOTH})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface SectionDividerLineMode {
+
+    }
+
     public SectionItemDecoration(@NonNull SectionItemDecoration.SectionCallBack callback) {
         this.callback = callback;
         //设置悬浮栏的画笔---backgroundPaint
         backgroundPaint = new Paint();
+        //设置悬浮栏的分割线画笔---dividerPaint
+        dividerPaint = new Paint();
         //设置悬浮栏中文本的画笔
         textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
@@ -61,6 +108,28 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     public SectionItemDecoration setBackgroudColor(@NonNull Context context, @ColorRes int color) {
         if (null != backgroundPaint) {
             backgroundPaint.setColor(context.getResources().getColor(color));
+        }
+        return this;
+    }
+
+    /**
+     * 设置分割线颜色
+     *
+     * @param context context
+     * @param color   color
+     */
+    @SuppressWarnings("deprecation")
+    public SectionItemDecoration setTopDividerColor(@NonNull Context context, @ColorRes int color) {
+        if (null != dividerPaint) {
+            dividerPaint.setColor(context.getResources().getColor(color));
+        }
+        return this;
+    }
+
+    @SuppressWarnings("deprecation")
+    public SectionItemDecoration setBottomDividerColor(@NonNull Context context, @ColorRes int color) {
+        if (null != dividerPaint) {
+            dividerPaint.setColor(context.getResources().getColor(color));
         }
         return this;
     }
@@ -101,6 +170,14 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     /**
+     * 设置悬停兰的分割线样式
+     */
+    public SectionItemDecoration setSectionDividerMode(@SectionDividerLineMode int sectionDividerMode) {
+        this.sectionDividerMode = sectionDividerMode;
+        return this;
+    }
+
+    /**
      * 设置文字的左边距px
      *
      * @param textLeftMargin textLeftMargin
@@ -108,6 +185,30 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     public SectionItemDecoration setTextLeftMargin(@IntRange(from = 0) int textLeftMargin) {
         this.textLeftMargin = textLeftMargin;
         return this;
+    }
+
+    public void setSectionTopDividerHeight(int sectionTopDividerHeight) {
+        this.sectionTopDividerHeight = sectionTopDividerHeight;
+    }
+
+    public void setSectionTopDividerLeftMargin(int sectionTopDividerLeftMargin) {
+        this.sectionTopDividerLeftMargin = sectionTopDividerLeftMargin;
+    }
+
+    public void setSectionTopDividerRightMargin(int sectionTopDividerRightMargin) {
+        this.sectionTopDividerRightMargin = sectionTopDividerRightMargin;
+    }
+
+    public void setSectionBottomDividerHeight(int sectionBottomDividerHeight) {
+        this.sectionBottomDividerHeight = sectionBottomDividerHeight;
+    }
+
+    public void setSectionBottomDividerLeftMargin(int sectionBottomDividerLeftMargin) {
+        this.sectionBottomDividerLeftMargin = sectionBottomDividerLeftMargin;
+    }
+
+    public void setSectionBottomDividerRightMargin(int sectionBottomDividerRightMargin) {
+        this.sectionBottomDividerRightMargin = sectionBottomDividerRightMargin;
     }
 
     public TextPaint getTextPaint() {
@@ -186,6 +287,12 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
             c.drawRect(left, textY - sectionHeight, right, textY, backgroundPaint);
             c.drawText(title, left + textLeftMargin, (2 * textY - sectionHeight - fontMetrics.top - fontMetrics
                     .bottom) / 2, textPaint);
+            if (sectionDividerMode == TOP || sectionDividerMode == BOTH) {
+                c.drawLine(left+sectionTopDividerLeftMargin,textY - sectionHeight,right-sectionTopDividerRightMargin,textY - sectionHeight,dividerPaint);
+            }
+            if (sectionDividerMode == BOTTOM || sectionDividerMode == BOTH) {
+                c.drawLine(left+sectionBottomDividerLeftMargin,textY,right-sectionBottomDividerRightMargin,textY,dividerPaint);
+            }
             //(targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2    字体基准线
         }
     }
