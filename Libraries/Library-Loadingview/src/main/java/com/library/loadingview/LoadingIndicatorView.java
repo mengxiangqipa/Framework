@@ -132,6 +132,16 @@ public class LoadingIndicatorView extends View {
         }
     }
 
+    public void setWidth(int width) {
+        mMaxWidth = mMinWidth = width;
+        invalidate();
+    }
+
+    public void setHeight(int height) {
+        mMaxHeight = mMinHeight = height;
+        invalidate();
+    }
+
     /**
      * setIndicatorColor(0xFF00FF00)
      * or

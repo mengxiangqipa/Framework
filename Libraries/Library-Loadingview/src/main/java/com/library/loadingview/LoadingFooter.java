@@ -1,6 +1,7 @@
 package com.library.loadingview;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -61,6 +62,41 @@ public class LoadingFooter extends RelativeLayout {
         if (null != mLoadingProgress) {
             mLoadingProgress.setIndicator(cls);
         }
+    }
+
+    /**
+     * 需要在setState之后调用 才能生效
+     * @param color color
+     */
+    public void setIndicatorColor(@ColorInt int color) {
+        if (mLoadingProgress != null) {
+            mLoadingProgress.setIndicatorColor(color);
+        }
+        if (mLoadingText != null) {
+            mLoadingText.setTextColor(color);
+        }
+        if (mNoMoreText != null) {
+            mNoMoreText.setTextColor(color);
+        }
+        if (mNoNetWorkText != null) {
+            mNoNetWorkText.setTextColor(color);
+        }
+    }
+
+    /**
+     * 需要在setState之后调用 才能生效
+     * @param height px
+     */
+    public void setIndicatorWidth(int height) {
+        mLoadingProgress.setWidth(height);
+    }
+
+    /**
+     * 需要在setState之后调用 才能生效
+     * @param height px
+     */
+    public void setIndicatorHeight(int height) {
+        mLoadingProgress.setHeight(height);
     }
 
     public State getState() {
