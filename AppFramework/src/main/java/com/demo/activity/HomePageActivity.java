@@ -282,8 +282,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                     public void onClick(View v) {
                         switch (str) {
                             case "刷新测试":
-                                EventBus.getDefault().post("我的","test1");
-//                                startActivity(MainActivity.class);
+                                EventBus.getDefault().post("我的","test2");
+                                startActivity(MainActivity.class);
                                 break;
                             case "Tinker测试":
                                 startActivity(TinkerMainActivity.class);

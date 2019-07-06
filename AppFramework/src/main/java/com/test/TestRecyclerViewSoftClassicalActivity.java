@@ -138,7 +138,7 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
         recyclerView.setCanPullDown(true);
         recyclerView.setCanPullUp(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewSoftClassicalActivity.this, R.layout
+        UniversalAdapter adapter = new UniversalAdapter<String>(TestRecyclerViewSoftClassicalActivity.this, R.layout
                 .test_list_item_layout, items) {
             @Override
             protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
@@ -150,7 +150,14 @@ public class TestRecyclerViewSoftClassicalActivity extends AppCompatActivity imp
                     }
                 });
             }
+        };
+        adapter.setOnItemClickListener(new UniversalAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int realPosition) {
+                ToastUtil.getInstance().showToast("点击了：" + realPosition);
+            }
         });
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

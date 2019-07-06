@@ -22,6 +22,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.library.adapter.R;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -85,9 +87,15 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
     @SuppressWarnings("unchecked")
     @CallSuper
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (position >= headersSparseArray.size() && position < headersSparseArray.size() + list.size()) {
             position = position - headersSparseArray.size();
+            if (null != mOnItemClickListener) {
+                ((UniversalViewHolder) holder).setOnItemClickListenerWithTag(onClickListener, position);
+            }
+            if (null != mOnItemLongClickListener) {
+                ((UniversalViewHolder) holder).setOnItemLongClickListenerWithTag(onLongClickListener, position);
+            }
             getItemView((UniversalViewHolder) holder, list.get(position), position);
         }
     }
@@ -498,23 +506,46 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
     public @interface Visibility {
     }
 
-    private OnItemClickListener mOnItemClickListener;
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getTag(R.id.UniversalAdapterTagPosition) != null
+                    && v.getTag(R.id.UniversalAdapterTagPosition) != null) {
+                mOnItemClickListener.onItemClick((View) v.getTag(R.id.UniversalAdapterTagView),
+                        (int) v.getTag(R.id.UniversalAdapterTagPosition));
+            }
+        }
+    };
 
-    private OnItemLongClickListener mOnItemLongClickListener;
+    private View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            if (v.getTag(R.id.UniversalAdapterTagPosition) != null
+                    && v.getTag(R.id.UniversalAdapterTagPosition) != null) {
+                mOnItemLongClickListener.onItemLongClick((View) v.getTag(R.id.UniversalAdapterTagView),
+                        (int) v.getTag(R.id.UniversalAdapterTagPosition));
+            }
+            return true;
+        }
+    };
 
-    public interface OnItemClickListener {
+    private OnItemClickListener<D> mOnItemClickListener;
+
+    private OnItemLongClickListener<D> mOnItemLongClickListener;
+
+    public interface OnItemClickListener<D> {
         void onItemClick(View view, int realPosition);
     }
 
-    public interface OnItemLongClickListener {
+    public interface OnItemLongClickListener<D> {
         void onItemLongClick(View view, int realPosition);
     }
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener<D> mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
-    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+    public void setOnItemLongClickListener(OnItemLongClickListener<D> mOnItemLongClickListener) {
         this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
 
@@ -526,12 +557,6 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             super(itemView);
             this.convertView = itemView;
             sparseArray = new SparseArray<>();
-            if (null != mOnItemClickListener) {
-                mOnItemClickListener.onItemClick(itemView, getAdapterPosition() - getHeaderCount());
-            }
-            if (null != mOnItemLongClickListener) {
-                mOnItemLongClickListener.onItemLongClick(itemView, getAdapterPosition() - getHeaderCount());
-            }
         }
 
         /**
@@ -646,6 +671,26 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
 
         public UniversalViewHolder setOnItemClickListener(@NonNull View.OnClickListener onClickListener) {
             itemView.setOnClickListener(onClickListener);
+            return this;
+        }
+
+        public UniversalViewHolder setOnItemClickListenerWithTag(@NonNull View.OnClickListener onClickListener,
+                                                                 int position) {
+            itemView.setTag(R.id.UniversalAdapterTagPosition, position);
+            itemView.setTag(R.id.UniversalAdapterTagView, itemView);
+            itemView.setOnClickListener(onClickListener);
+            return this;
+        }
+
+        public UniversalViewHolder setOnItemLongClickListener(@NonNull View.OnLongClickListener onLongClickListener) {
+            itemView.setOnLongClickListener(onLongClickListener);
+            return this;
+        }
+
+        public UniversalViewHolder setOnItemLongClickListenerWithTag(@NonNull View.OnLongClickListener onLongClickListener, int position) {
+            itemView.setTag(R.id.UniversalAdapterTagPosition, position);
+            itemView.setTag(R.id.UniversalAdapterTagView, itemView);
+            itemView.setOnLongClickListener(onLongClickListener);
             return this;
         }
 
