@@ -282,7 +282,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                     public void onClick(View v) {
                         switch (str) {
                             case "刷新测试":
-                                startActivity(MainActivity.class);
+                                EventBus.getDefault().post("我的","test1");
+//                                startActivity(MainActivity.class);
                                 break;
                             case "Tinker测试":
                                 startActivity(TinkerMainActivity.class);
@@ -642,5 +643,15 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                 }
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, tag ="test2")
+    public void eventTest2(String test2) {
+        ToastUtil.getInstance().showToast("我是测试222222");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, tag ="test1")
+    public void eventTest1(String test) {
+        ToastUtil.getInstance().showToast("我是测试1");
     }
 }

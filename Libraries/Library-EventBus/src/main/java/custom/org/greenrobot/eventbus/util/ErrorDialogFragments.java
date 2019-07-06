@@ -1,17 +1,17 @@
 /*
- * Copyright (C) 2012-2016 Markus Junginger, greenrobot (http://greenrobot.org)
+ *  Copyright (c) 2019 YobertJomi
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
  */
 
 package custom.org.greenrobot.eventbus.util;
@@ -30,14 +30,10 @@ import android.support.v4.app.DialogFragment;
 import custom.org.greenrobot.eventbus.EventBus;
 
 public class ErrorDialogFragments {
-    /**
-     * TODO Use config:  Icon res ID to use for all error dialogs. May be configured by each app (optional).
-     */
+    /** TODO Use config:  Icon res ID to use for all error dialogs. May be configured by each app (optional). */
     public static int ERROR_DIALOG_ICON = 0;
 
-    /**
-     * TODO Use config:  Event class to be fired on dismissing the dialog by the user. May be configured by each app.
-     */
+    /** TODO Use config:  Event class to be fired on dismissing the dialog by the user. May be configured by each app. */
     public static Class<?> EVENT_TYPE_ON_CLICK;
 
     public static Dialog createDialog(Context context, Bundle arguments, OnClickListener onClickListener) {
@@ -60,8 +56,8 @@ public class ErrorDialogFragments {
                 throw new RuntimeException("Event cannot be constructed", e);
             }
             EventBus eventBus = ErrorDialogManager.factory.config.getEventBus();
-            String tag = ErrorDialogManager.factory.config.getTag();//我修改
-            eventBus.post(event, tag);//我修改
+            String tag = ErrorDialogManager.factory.config.getTag();
+            eventBus.post(event, tag);
         }
         boolean finish = arguments.getBoolean(ErrorDialogManager.KEY_FINISH_AFTER_DIALOG, false);
         if (finish && activity != null) {

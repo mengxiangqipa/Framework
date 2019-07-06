@@ -1,28 +1,28 @@
 /*
- * Copyright (C) 2012-2016 Markus Junginger, greenrobot (http://greenrobot.org)
+ *  Copyright (c) 2019 YobertJomi
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
  */
 package custom.org.greenrobot.eventbus;
 
-import java.util.logging.Level;
+import android.util.Log;
 
 /**
  * Posts events in background.
  *
  * @author Markus
  */
-final class BackgroundPoster implements Runnable, Poster {
+final class BackgroundPoster implements Runnable {
 
     private final PendingPostQueue queue;
     private final EventBus eventBus;
@@ -64,7 +64,7 @@ final class BackgroundPoster implements Runnable, Poster {
                     eventBus.invokeSubscriber(pendingPost);
                 }
             } catch (InterruptedException e) {
-                eventBus.getLogger().log(Level.WARNING, Thread.currentThread().getName() + " was interruppted", e);
+                Log.w("Event", Thread.currentThread().getName() + " was interruppted", e);
             }
         } finally {
             executorRunning = false;

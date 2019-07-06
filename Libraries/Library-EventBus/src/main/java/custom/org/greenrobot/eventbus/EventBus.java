@@ -1,19 +1,22 @@
 /*
- * Copyright (C) 2012-2016 Markus Junginger, greenrobot (http://greenrobot.org)
+ *  Copyright (c) 2019 YobertJomi
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
  */
 package custom.org.greenrobot.eventbus;
+
+import android.os.Looper;
+import android.text.TextUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -27,8 +30,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 
 /**
- * EventBus is a central publish/subscribe event system for Android. Events are posted ({@link #post(Object, String)}
- * ) to the
+ * EventBus is a central publish/subscribe event system for Android. Events are posted
+ * ({@link #post(Object, String)}) to the
  * bus, which delivers it to subscribers that have a matching handler method for the event type. To receive events,
  * subscribers must register themselves to the bus using {@link #register(Object)}. Once registered, subscribers
  * receive events until {@link #unregister(Object)} is called. Event handling methods must be annotated by
@@ -83,16 +86,14 @@ public class EventBus {
      * Convenience singleton for apps using a process-wide EventBus instance.
      */
     public static EventBus getDefault() {
-        EventBus instance = defaultInstance;
-        if (instance == null) {
+        if (defaultInstance == null) {
             synchronized (EventBus.class) {
-                instance = EventBus.defaultInstance;
-                if (instance == null) {
-                    instance = EventBus.defaultInstance = new EventBus();
+                if (defaultInstance == null) {
+                    defaultInstance = new EventBus();
                 }
             }
         }
-        return instance;
+        return defaultInstance;
     }
 
     public static EventBusBuilder builder() {
@@ -125,8 +126,8 @@ public class EventBus {
         backgroundPoster = new BackgroundPoster(this);
         asyncPoster = new AsyncPoster(this);
         indexCount = builder.subscriberInfoIndexes != null ? builder.subscriberInfoIndexes.size() : 0;
-        subscriberMethodFinder = new SubscriberMethodFinder(builder.subscriberInfoIndexes,
-                builder.strictMethodVerification, builder.ignoreGeneratedIndex);
+        subscriberMethodFinder = new SubscriberMethodFinder(builder.subscriberInfoIndexes, builder
+                .strictMethodVerification, builder.ignoreGeneratedIndex);
         logSubscriberExceptions = builder.logSubscriberExceptions;
         logNoSubscriberMessages = builder.logNoSubscriberMessages;
         sendSubscriberExceptionEvent = builder.sendSubscriberExceptionEvent;
@@ -205,12 +206,12 @@ public class EventBus {
         }
     }
 
-    private void checkPostStickyEventToSubscription(Subscription newSubscription, Object stickyEvent,
-                                                    String tag) {//我修改
+    private void checkPostStickyEventToSubscription(Subscription newSubscription, Object stickyEvent, String tag) {
+        //我修改
         if (stickyEvent != null) {
             // If the subscriber is trying to abort the event, it will fail (event is not tracked in posting state)
             // --> Strange corner case, which we don't take care of here.
-            postToSubscription(newSubscription, stickyEvent, isMainThread(), tag);
+            postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper(), tag);
         }
     }
 
@@ -228,6 +229,7 @@ public class EventBus {
         return typesBySubscriber.containsKey(subscriber);
     }
 
+    //我修改
     /**
      * Only updates subscriptionsByEventType, not typesBySubscriber! Caller must update typesBySubscriber.
      */
@@ -315,7 +317,8 @@ public class EventBus {
      * Posts the given event to the event bus and holds on to the event (because it is sticky). The most recent sticky
      * event of an event's type is kept in memory for future access by subscribers using {@link Subscribe#sticky()}.
      */
-    public void postSticky(Object event, String tag) {//我修改
+    public void postSticky(Object event, String tag)//我修改
+    {
         synchronized (stickyEvents) {
             stickyEvents.put(event.getClass(), event);
         }
@@ -408,8 +411,8 @@ public class EventBus {
             if (logNoSubscriberMessages) {
                 logger.log(Level.FINE, "No subscribers registered for event " + eventClass);
             }
-            if (sendNoSubscriberEvent && eventClass != NoSubscriberEvent.class &&
-                    eventClass != SubscriberExceptionEvent.class) {
+            if (sendNoSubscriberEvent && eventClass != NoSubscriberEvent.class && eventClass !=
+                    SubscriberExceptionEvent.class) {
                 post(new NoSubscriberEvent(this, event), tag);
             }
         }
@@ -444,39 +447,40 @@ public class EventBus {
         return false;
     }
 
-    //我修改
-    private void postToSubscription(Subscription subscription, Object event, boolean isMainThread, String tag) {//先判断tag
-        switch (subscription.subscriberMethod.threadMode) {
-            case POSTING:
-                invokeSubscriber(subscription, event);
-                break;
-            case MAIN:
-                if (isMainThread) {
+    private void postToSubscription(Subscription subscription, Object event, boolean isMainThread,String tag) {
+        if (!TextUtils.isEmpty(tag) && TextUtils.equals(subscription.subscriberMethod.tag, tag)) {
+            switch (subscription.subscriberMethod.threadMode) {
+                case POSTING:
                     invokeSubscriber(subscription, event);
-                } else {
-                    mainThreadPoster.enqueue(subscription, event);
-                }
-                break;
-            case MAIN_ORDERED:
-                if (mainThreadPoster != null) {
-                    mainThreadPoster.enqueue(subscription, event);
-                } else {
-                    // temporary: technically not correct as poster not decoupled from subscriber
-                    invokeSubscriber(subscription, event);
-                }
-                break;
-            case BACKGROUND:
-                if (isMainThread) {
-                    backgroundPoster.enqueue(subscription, event);
-                } else {
-                    invokeSubscriber(subscription, event);
-                }
-                break;
-            case ASYNC:
-                asyncPoster.enqueue(subscription, event);
-                break;
-            default:
-                throw new IllegalStateException("Unknown thread mode: " + subscription.subscriberMethod.threadMode);
+                    break;
+                case MAIN:
+                    if (isMainThread) {
+                        invokeSubscriber(subscription, event);
+                    } else {
+                        mainThreadPoster.enqueue(subscription, event);
+                    }
+                    break;
+                case MAIN_ORDERED:
+                    if (mainThreadPoster != null) {
+                        mainThreadPoster.enqueue(subscription, event);
+                    } else {
+                        // temporary: technically not correct as poster not decoupled from subscriber
+                        invokeSubscriber(subscription, event);
+                    }
+                    break;
+                case BACKGROUND:
+                    if (isMainThread) {
+                        backgroundPoster.enqueue(subscription, event);
+                    } else {
+                        invokeSubscriber(subscription, event);
+                    }
+                    break;
+                case ASYNC:
+                    asyncPoster.enqueue(subscription, event);
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown thread mode: " + subscription.subscriberMethod.threadMode);
+            }
         }
     }
 
