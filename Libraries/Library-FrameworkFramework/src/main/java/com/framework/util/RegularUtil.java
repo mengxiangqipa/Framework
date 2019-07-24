@@ -152,7 +152,7 @@ public class RegularUtil {
         Pattern p = Pattern
                 .compile("\"[\\u4e00-\\u9fa5]\"");
         Matcher m = p.matcher(str);
-        return m.matches();
+        return m.find();
     }
 
     /**

@@ -140,11 +140,11 @@ android {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
-            minifyEnabled false
+            minifyEnabled true
             //Zipalign优化
-            zipAlignEnabled false
+            zipAlignEnabled true
             // 移除无用的resource文件
-            shrinkResources false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -221,7 +221,7 @@ dependencies {
     implementation project(':Libraries:Library-CameraFilter')
     implementation project(':Libraries:Library-Choose-Media')
     implementation project(':Libraries:Library-ClipPicView')
-    implementation project(':Libraries:Library-CropPicture')
+//    implementation project(':Libraries:Library-CropPicture')
     implementation project(':Libraries:Library-Emoji')
     implementation project(':Libraries:Library-EventBus')
     implementation project(':Libraries:Library-FrameworkFramework')
