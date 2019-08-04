@@ -509,7 +509,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (v.getTag(R.id.UniversalAdapterTagPosition) != null
+            if (v.getTag(R.id.UniversalAdapterTagView) != null
                     && v.getTag(R.id.UniversalAdapterTagPosition) != null) {
                 mOnItemClickListener.onItemClick((View) v.getTag(R.id.UniversalAdapterTagView),
                         (int) v.getTag(R.id.UniversalAdapterTagPosition));
@@ -520,7 +520,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
     private View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            if (v.getTag(R.id.UniversalAdapterTagPosition) != null
+            if (v.getTag(R.id.UniversalAdapterTagView) != null
                     && v.getTag(R.id.UniversalAdapterTagPosition) != null) {
                 mOnItemLongClickListener.onItemLongClick((View) v.getTag(R.id.UniversalAdapterTagView),
                         (int) v.getTag(R.id.UniversalAdapterTagPosition));
