@@ -32,6 +32,8 @@ public final class PictureSelectionConfig implements Parcelable {
     public int minSelectNum;
     public int videoQuality;
     public int cropCompressQuality;
+    public int maxVideoNum;//最大视频个数
+    public boolean onlyOneMimeType;//多选模式下只允许一种Mime类型(只能选择一种 图片或视频或其他)
     public int videoMaxSecond;
     public int videoMinSecond;
     public long totalFileMaxLenth;
@@ -76,6 +78,8 @@ public final class PictureSelectionConfig implements Parcelable {
         selectionMode = PictureConfig.MULTIPLE;
         maxSelectNum = 9;
         minSelectNum = 0;
+        maxVideoNum = 0;
+        onlyOneMimeType=false;
         videoQuality = 1;
         cropCompressQuality = 90;
         videoMaxSecond = 0;
@@ -148,6 +152,8 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeInt(this.selectionMode);
         dest.writeInt(this.maxSelectNum);
         dest.writeInt(this.minSelectNum);
+        dest.writeInt(this.maxVideoNum);
+        dest.writeInt(this.onlyOneMimeType? (byte) 1 : (byte) 0);
         dest.writeInt(this.videoQuality);
         dest.writeInt(this.cropCompressQuality);
         dest.writeInt(this.videoMaxSecond);
@@ -200,6 +206,8 @@ public final class PictureSelectionConfig implements Parcelable {
         this.selectionMode = in.readInt();
         this.maxSelectNum = in.readInt();
         this.minSelectNum = in.readInt();
+        this.maxVideoNum = in.readInt();
+        this.onlyOneMimeType = in.readByte() != 0;
         this.videoQuality = in.readInt();
         this.cropCompressQuality = in.readInt();
         this.videoMaxSecond = in.readInt();

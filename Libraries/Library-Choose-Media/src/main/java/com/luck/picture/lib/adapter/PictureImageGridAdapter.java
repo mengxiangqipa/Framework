@@ -34,6 +34,7 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * author：luck
@@ -155,6 +156,49 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             headerHolder.headerView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    /*以下判断个数，类型*/
+                    if (selectImages.size() >= maxSelectNum) {
+                        boolean eqImg = false;
+                        String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum + "")
+                                : context.getString(R.string.picture_message_video_max_num, maxSelectNum + "");
+                        ToastManage.s(context, str);
+                        return;
+                    }
+                    int videoCnt = 0;
+                    for (int i = 0, len = selectImages.size(); i < len; i++) {
+                        LocalMedia localMedia = selectImages.get(i);
+                        if (PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo()) {
+                            if (++videoCnt >= config.maxVideoNum) {
+                                String str = context.getString(R.string.picture_message_video_max_count,
+                                        config.maxVideoNum);
+                                ToastManage.s(context, str);
+                                return;
+                            }
+                        }
+                    }
+                    if (config.onlyOneMimeType) {
+                        if (selectImages != null && selectImages.size() > 0) {
+                            LocalMedia localMedia = selectImages.get(0);
+                            if (null != localMedia) {
+                                if ((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo())) {
+                                    if (config.maxVideoNum >= 1) {
+                                        String tip = String.format(Locale.getDefault(), "只能选择至多%d个视频",
+                                                config.maxVideoNum);
+                                        ToastManage.s(context, tip);
+                                        return;
+                                    }
+                                } else if ((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofImage())) {
+                                    if (config.maxVideoNum >= 1) {
+                                        String tip = String.format(Locale.getDefault(), "只能选择至多%d张图片",
+                                                config.maxSelectNum);
+                                        ToastManage.s(context, tip);
+                                    }
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    /*以上判断个数，类型*/
                     if (imageSelectChangedListener != null) {
                         imageSelectChangedListener.onTakePhoto();
                     }
@@ -331,6 +375,41 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
                     : context.getString(R.string.picture_message_video_max_num, maxSelectNum + "");
             ToastManage.s(context, str);
             return;
+        }
+        if (!isChecked) {
+            int videoCnt = 0;
+            for (int i = 0, len = selectImages.size(); i < len; i++) {
+                LocalMedia localMedia = selectImages.get(i);
+                if (PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo()) {
+                    if (++videoCnt >= config.maxVideoNum) {
+                        String str = context.getString(R.string.picture_message_video_max_count, config.maxVideoNum);
+                        ToastManage.s(context, str);
+                        return;
+                    }
+                }
+            }
+            if (config.onlyOneMimeType) {
+                if (selectImages != null && selectImages.size() > 0) {
+                    LocalMedia localMedia = selectImages.get(0);
+                    if (null != localMedia && null != image) {
+                        if ((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo() && PictureMimeType.isPictureType(image.getPictureType()) != PictureMimeType.ofVideo())) {
+                            if (config.maxVideoNum >= 1) {
+                                String tip = String.format(Locale.getDefault(), "只能选择至多%d个视频",
+                                        config.maxVideoNum);
+                                ToastManage.s(context, tip);
+                                return;
+                            }
+                        } else if (((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofImage() && PictureMimeType.isPictureType(image.getPictureType()) != PictureMimeType.ofImage()))) {
+                            if (config.maxVideoNum >= 1) {
+                                String tip = String.format(Locale.getDefault(), "只能选择至多%d张图片",
+                                        config.maxSelectNum);
+                                ToastManage.s(context, tip);
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
         }
         //TODO 20180819 我修改 限制文件的总大小及单个大小
         if (!isChecked && !TextUtils.isEmpty(image.getPath())) {

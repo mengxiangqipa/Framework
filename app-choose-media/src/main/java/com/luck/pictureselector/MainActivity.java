@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .theme(themeId)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
                         .maxSelectNum(maxSelectNum)// 最大图片选择数量
                         .minSelectNum(1)// 最小选择数量
+                        .maxVideoNum(1)//最大video数量
+                        .onlyOneMimeType(true)//只允许选择一种文件
                         .imageSpanCount(3)// 每行显示个数
                         .selectionMode(cb_choose_mode.isChecked() ?
                                 PictureConfig.MULTIPLE : PictureConfig.SINGLE)// 多选 or 单选
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        .videoMinSecond(10)
                         //.previewEggs(false)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
                         //.cropCompressQuality(90)// 裁剪压缩质量 默认100
-                        .totalFileMaxLenth(2*1024*1024L)
+                        .totalFileMaxLenth(200*1024*1024L)
                         .minimumCompressSize(100)// 小于100kb的图片不压缩
                         //.cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效
                         //.rotateEnabled(true) // 裁剪是否可旋转图片
@@ -204,6 +206,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .theme(themeId)// 主题样式设置 具体参考 values/styles
                         .maxSelectNum(maxSelectNum)// 最大图片选择数量
                         .minSelectNum(1)// 最小选择数量
+                        .maxVideoNum(1)//最大video数量
+                        .onlyOneMimeType(true)//只允许选择一种文件
                         .selectionMode(cb_choose_mode.isChecked() ?
                                 PictureConfig.MULTIPLE : PictureConfig.SINGLE)// 多选 or 单选
                         .previewImage(cb_preview_img.isChecked())// 是否可预览图片

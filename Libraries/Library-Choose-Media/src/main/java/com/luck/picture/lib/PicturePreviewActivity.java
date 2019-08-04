@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.luck.picture.lib.adapter.SimpleFragmentAdapter;
 import com.luck.picture.lib.anim.OptAnimationLoader;
 import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.observable.ImagesObservable;
@@ -34,6 +36,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * author：luck
@@ -126,8 +129,43 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             public void onClick(View view) {
                 if (images != null && images.size() > 0) {
                     LocalMedia image = images.get(viewPager.getCurrentItem());
-                    String pictureType = selectImages.size() > 0 ?
-                            selectImages.get(0).getPictureType() : "";
+                    String pictureType = selectImages.size() > 0 ? selectImages.get(0).getPictureType() : "";
+
+                    if (!check.isSelected()) {
+                        int videoCnt = 0;
+                        for (int i = 0, len = selectImages.size(); i < len; i++) {
+                            LocalMedia localMedia = selectImages.get(i);
+                            if (PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo()) {
+                                if (++videoCnt >= config.maxVideoNum) {
+                                    String str = PicturePreviewActivity.this.getString(R.string.picture_message_video_max_count, config.maxVideoNum);
+                                    ToastManage.s(PicturePreviewActivity.this, str);
+                                    return;
+                                }
+                            }
+                        }
+                        if (config.onlyOneMimeType) {
+                            if (selectImages != null && selectImages.size() > 0) {
+                                LocalMedia localMedia = selectImages.get(0);
+                                if (null != localMedia && null != image) {
+                                    if ((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo() && PictureMimeType.isPictureType(image.getPictureType()) != PictureMimeType.ofVideo())) {
+                                        if (config.maxVideoNum >= 1) {
+                                            String tip = String.format(Locale.getDefault(), "只能选择至多%d个视频",
+                                                    config.maxVideoNum);
+                                            ToastManage.s(PicturePreviewActivity.this, tip);
+                                            return;
+                                        }
+                                    } else if (((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofImage() && PictureMimeType.isPictureType(image.getPictureType()) != PictureMimeType.ofImage()))) {
+                                        if (config.maxVideoNum >= 1) {
+                                            String tip = String.format(Locale.getDefault(), "只能选择至多%d张图片",
+                                                    config.maxSelectNum);
+                                            ToastManage.s(PicturePreviewActivity.this, tip);
+                                        }
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if (!TextUtils.isEmpty(pictureType)) {
                         //TODO 20180819 我修改可以同时选择图片和视频
 //                        boolean toEqual = PictureMimeType.
