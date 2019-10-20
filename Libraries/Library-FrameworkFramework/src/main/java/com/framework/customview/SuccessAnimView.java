@@ -1,3 +1,19 @@
+/*
+ *  Copyright (c) 2019 YobertJomi
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
 package com.framework.customview;
 
 import android.content.Context;
@@ -14,7 +30,7 @@ import com.framework.R;
 /**
  * 自定义广告进度条
  */
-public class CustomADprogress extends View {
+public class SuccessAnimView extends View {
 
     // 画实心圆的画笔
     private Paint mCirclePaint;
@@ -52,11 +68,13 @@ public class CustomADprogress extends View {
     private float mTxtHeight;
     // 总进度
     private final int mTotalProgress;
-    // 当前进度
+    /**
+     * 当前进度  100 画圆  180画圆与勾
+     */
     private float mProgress;
     private RectF oval;
 
-    public CustomADprogress(Context context, AttributeSet attrs) {
+    public SuccessAnimView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // 获取自定义的属性
         initAttrs(context, attrs);
@@ -67,20 +85,19 @@ public class CustomADprogress extends View {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typeArray = context.getTheme().obtainStyledAttributes(attrs,
-                R.styleable.CustomADprogress, 0, 0);
-        mRadius = typeArray.getDimension(R.styleable.CustomADprogress_radius, 80);
-        mStrokeWidth = typeArray.getDimension(R.styleable.CustomADprogress_strokeWidth, 10);
-        mCircleColor = typeArray.getColor(R.styleable.CustomADprogress_circleColor, 0xFFFFFFFF);
-        mRingColor = typeArray.getColor(R.styleable.CustomADprogress_ringColor, 0xFFFFFFFF);
-        mbgRingColor = typeArray.getColor(R.styleable.CustomADprogress_bgRingColor, 0xFFFFFFFF);
-        mProgress = typeArray.getFloat(R.styleable.CustomADprogress_progress, 0F);
-        drawBgCircleRing = typeArray.getBoolean(R.styleable.CustomADprogress_drawBgCircleRing, true);
-        text = typeArray.getString(R.styleable.CustomADprogress_text);
-        mTextColor = typeArray.getColor(R.styleable.CustomADprogress_textColor, 0xFFFFFFFF);
-        textSize = typeArray.getDimension(R.styleable.CustomADprogress_textSize_, 14);
+                R.styleable.SuccessAnimView, 0, 0);
+        mRadius = typeArray.getDimension(R.styleable.SuccessAnimView_radius, 80);
+        mStrokeWidth = typeArray.getDimension(R.styleable.SuccessAnimView_strokeWidth, 10);
+        mCircleColor = typeArray.getColor(R.styleable.SuccessAnimView_circleColor, 0xFFFFFFFF);
+        mRingColor = typeArray.getColor(R.styleable.SuccessAnimView_ringColor, 0xFFFFFFFF);
+        mbgRingColor = typeArray.getColor(R.styleable.SuccessAnimView_bgRingColor, 0xFFFFFFFF);
+        mProgress = typeArray.getFloat(R.styleable.SuccessAnimView_progress, 0F);
+        drawBgCircleRing = typeArray.getBoolean(R.styleable.SuccessAnimView_drawBgCircleRing, true);
+        text = typeArray.getString(R.styleable.SuccessAnimView_text);
+        mTextColor = typeArray.getColor(R.styleable.SuccessAnimView_textColor, 0xFFFFFFFF);
+        textSize = typeArray.getDimension(R.styleable.SuccessAnimView_textSize_, 14);
         typeArray.recycle();
-
-        mProgress = Math.max(Math.min(mProgress, 100F), 0F);
+        mProgress = Math.max(Math.min(mProgress, 200F), 0F);
 
         mRingRadius = mRadius + mStrokeWidth / 2;
     }
@@ -141,7 +158,23 @@ public class CustomADprogress extends View {
             }
             mRingPaint.setColor(mRingColor);
             canvas.drawArc(oval, -90, -(mProgress / mTotalProgress) * 360, false, mRingPaint);
-
+            if (mProgress > 100) {
+                if (mProgress - 100 <= 50) {
+                    canvas.drawLine(mXCenter - mRingRadius / 2, mYCenter,
+                            mXCenter - (150 - mProgress) / 50 * mRingRadius / 2,
+                            mYCenter + (mProgress - 100) / 50 * mRingRadius / 2, mRingPaint);
+                } else if (mProgress - 100 <= 100) {
+                    //+-mStrokeWidth/2 补偿
+                    canvas.drawLine(mXCenter - mRingRadius / 2, mYCenter,
+                            mXCenter + mStrokeWidth * 5 / 14, mYCenter + mRingRadius / 2 + mStrokeWidth *  5 / 14,
+                            mRingPaint);
+//                    float endX = mXCenter + 2 * mRingRadius / 3;
+//                    float endY = mYCenter - mRingRadius / 3;
+                    canvas.drawLine(mXCenter, mYCenter + mRingRadius / 2,
+                            mXCenter + (mProgress - 150) / 50 * 2 * mRingRadius / 3,
+                            mYCenter + mRingRadius / 2 - (mProgress - 150) / 50 * 5 * mRingRadius / 6, mRingPaint);
+                }
+            }
             if (!TextUtils.isEmpty(text)) {
                 mTxtWidth = mTextPaint.measureText(text, 0, text.length());
                 canvas.drawText(text, mXCenter - mTxtWidth / 2, mYCenter + mTxtHeight / 4, mTextPaint);
@@ -149,9 +182,27 @@ public class CustomADprogress extends View {
         }
     }
 
+    public void refresh(ICallback callback) {
+        if (mProgress <= 200) {
+            mProgress += 2;
+            if (mProgress >= 200 && callback != null) {
+                callback.onFinish();
+            }
+            postInvalidateDelayed(10);
+        }
+    }
+
+    public interface ICallback {
+        void onFinish();
+    }
+
     public void setProgress(float progress) {
         mProgress = progress;
         postInvalidate();
+    }
+
+    public float getProgress() {
+        return mProgress;
     }
 
     public void setText(String text) {
@@ -159,3 +210,4 @@ public class CustomADprogress extends View {
         postInvalidate();
     }
 }
+

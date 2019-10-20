@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
 //public class ProxyApplication extends Application {//主module未使用Tinker时继承Application 并修改FrameApplication--onCreate()
 public class ProxyApplication {
 
-    public static Application proxyApplication;
-    public static Handler proxyHandler;
+    private static Application proxyApplication;
+    private static Handler proxyHandler;
 
     /**
      * 获取FrameApplication的单例
@@ -19,7 +19,11 @@ public class ProxyApplication {
         return proxyApplication;
     }
 
-//    @CallSuper
+    public static Handler getProxyHandler() {
+        return proxyHandler;
+    }
+
+    //    @CallSuper
 //    @Override
 //    public void onCreate() {
 //        super.onCreate();

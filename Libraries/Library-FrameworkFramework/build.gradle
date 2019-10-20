@@ -32,6 +32,7 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    api rootProject.ext.androidSupport.recyclerView
     //appcompat-v7
     api rootProject.ext.androidSupport.appcompat_v7
 }

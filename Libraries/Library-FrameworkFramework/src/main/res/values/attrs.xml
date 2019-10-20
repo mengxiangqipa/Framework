@@ -9,6 +9,18 @@
     <attr name="circleColor" format="color"/>
     <!-- 广告Progress进度####圆环颜色-->
     <attr name="ringColor" format="color"/>
+    <!-- 广告progress进度圆####环背景颜色-->
+    <attr name="bgRingColor" format="color"/>
+    <!-- 广告progress进度圆####圆环进度值-->
+    <attr name="progress" format="float"/>
+    <!-- 广告progress进度圆####是否绘制背景圆环-->
+    <attr name="drawBgCircleRing" format="boolean"/>
+    <!-- 广告progress进度圆####圆环中心文字-->
+    <attr name="text" format="string"/>
+    <!-- 广告progress进度圆####圆环中心文字颜色-->
+    <attr name="textColor" format="color"/>
+    <!-- 广告progress进度圆####圆环中心文字颜色-->
+    <attr name="textSize_" format="dimension"/>
 
     <!--圆形图片-->
     <declare-styleable name="CustomRoundImageView">
@@ -102,18 +114,49 @@
         <!-- 圆环颜色-->
         <attr name="ringColor"/>
         <!-- 圆环背景颜色-->
-        <attr name="bgRingColor" format="color"/>
+        <attr name="bgRingColor"/>
         <!-- 圆环进度值-->
-        <attr name="progress" format="float"/>
+        <attr name="progress"/>
         <!-- 是否绘制背景圆环-->
-        <attr name="drawBgCircleRing" format="boolean"/>
+        <attr name="drawBgCircleRing"/>
         <!-- 圆环中心文字-->
-        <attr name="text" format="string"/>
+        <attr name="text"/>
         <!-- 圆环中心文字颜色-->
-        <attr name="textColor" format="color"/>
+        <attr name="textColor"/>
         <!-- 圆环中心文字颜色-->
-        <attr name="textSize_" format="dimension"/>
+        <attr name="textSize_"/>
     </declare-styleable>
 
 
+    <declare-styleable name="SuccessAnimView">
+        <!--圆半径-->
+        <attr name="radius"/>
+        <!--圆环厚度-->
+        <attr name="strokeWidth"/>
+        <!-- 圆形（实心）颜色-->
+        <attr name="circleColor"/>
+        <!-- 圆环颜色-->
+        <attr name="ringColor"/>
+        <!-- 圆环背景颜色-->
+        <attr name="bgRingColor"/>
+        <!-- 圆环进度值-->
+        <attr name="progress"/>
+        <!-- 是否绘制背景圆环-->
+        <attr name="drawBgCircleRing"/>
+        <!-- 圆环中心文字-->
+        <attr name="text"/>
+        <!-- 圆环中心文字颜色-->
+        <attr name="textColor"/>
+        <!-- 圆环中心文字颜色-->
+        <attr name="textSize_"/>
+    </declare-styleable>
+
+
+    <!--人脸遮罩-->
+    <declare-styleable name="FaceShadeView">
+        <attr name="radius"/>
+        <attr name="marginTop" format="dimension"/>
+        <attr name="thicknessWidth" format="dimension"/>
+        <attr name="ringColor"/>
+    </declare-styleable>
 </resources>

@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         //GreenDao数据库插件，不使用GreenDao数据库，将其删除
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         //Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
@@ -22,6 +22,9 @@ buildscript {
 
         //这个是JitPack插件 上传自己的library需要
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
+
+        //美团渠道打包插件
+        classpath 'com.meituan.android.walle:plugin:1.1.6'
     }
 }
 

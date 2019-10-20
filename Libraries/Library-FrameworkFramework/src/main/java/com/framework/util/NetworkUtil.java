@@ -1,11 +1,20 @@
 package com.framework.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.DhcpInfo;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -69,10 +78,10 @@ public class NetworkUtil {
     }
 
     /**
-     * 三、判断WIFI是否打开
+     * 三、判断网络是否打开
      */
 
-    public boolean isWifiEnabled(Context context) {
+    public boolean isNetworkEnabled(Context context) {
         ConnectivityManager mgrConn = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         TelephonyManager mgrTel = (TelephonyManager) context
@@ -180,5 +189,88 @@ public class NetworkUtil {
                 }
         }
         return NETWORN_NONE;
+    }
+
+    /**
+     * 跳转到WIFI设置
+     *
+     * @param context Context
+     */
+    public void gotoWifiSettting(Context context) {
+        context.startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+    }
+
+    /**
+     * 获取wifi的 网关地址
+     */
+    public String getWiFigateway(Context context) {
+        if (null == context) {
+            return "";
+        }
+        WifiManager wifiManager =
+                (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (null == wifiManager) {
+            return "";
+        }
+        //检查Wifi状态
+        if (!wifiManager.isWifiEnabled())
+            wifiManager.setWifiEnabled(true);
+        DhcpInfo dhcpInfo = wifiManager.getDhcpInfo();
+        if (dhcpInfo == null) {
+            return "";
+        }
+        //获取32位整型IP地址
+        int ipAddress = dhcpInfo.gateway;
+        //把整型地址转换成“*.*.*.*”地址
+        return intToIp(ipAddress);
+    }
+
+    /**
+     * 获取wifi的ip
+     */
+    public String getWiFiIp(Context context) {
+        if (null == context) {
+            return "";
+        }
+        WifiManager wifiManager =
+                (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (null == wifiManager) {
+            return "";
+        }
+        //检查Wifi状态
+        if (!wifiManager.isWifiEnabled())
+            wifiManager.setWifiEnabled(true);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        if (wifiInfo == null) {
+            return "";
+        }
+        //获取32位整型IP地址
+        int ipAddress = wifiInfo.getIpAddress();
+        //把整型地址转换成“*.*.*.*”地址
+        return intToIp(ipAddress);
+    }
+
+    private String intToIp(int ipAddress) {
+        return (ipAddress & 0xFF) + "." + ((ipAddress >> 8) & 0xFF) + "." + ((ipAddress >> 16) & 0xFF) + "." +
+                (ipAddress >> 24 & 0xFF);
+    }
+
+    /**
+     * 通过GPS获取本地IP
+     */
+    public String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+        }
+        return null;
     }
 }

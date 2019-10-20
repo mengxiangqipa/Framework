@@ -25,7 +25,7 @@ public class PreferencesHelper {
             synchronized (PreferencesHelper.class) {
                 if (mPreferencesHelper == null) {
                     mPreferencesHelper = new PreferencesHelper();
-                    mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+                    mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                             .SHAREPREFERENCES_NAME, mode);
                 }
             }
@@ -36,7 +36,7 @@ public class PreferencesHelper {
     public void putInfo(String name, String data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putString(name, data);
@@ -46,7 +46,7 @@ public class PreferencesHelper {
     public void putInfo(String name, int data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putInt(name, data);
@@ -56,7 +56,7 @@ public class PreferencesHelper {
     public void putInfo(String name, boolean data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putBoolean(name, data);
@@ -66,7 +66,7 @@ public class PreferencesHelper {
     public int getIntData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getInt(name, 0);
@@ -75,7 +75,7 @@ public class PreferencesHelper {
     public String getStringData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getString(name, "");
@@ -84,7 +84,7 @@ public class PreferencesHelper {
     public boolean getBooleanData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getBoolean(name, false);
@@ -93,7 +93,7 @@ public class PreferencesHelper {
     public void putInfo(String name, long data) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         SharedPreferences.Editor e = mSharedPreferences.edit().putLong(name, data);
@@ -103,7 +103,7 @@ public class PreferencesHelper {
     public long getLongData(String name) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         return mSharedPreferences.getLong(name, 0);
@@ -112,7 +112,7 @@ public class PreferencesHelper {
     public void remove(String key) {
         if (mPreferencesHelper == null) {
             mPreferencesHelper = new PreferencesHelper();
-            mSharedPreferences = ProxyApplication.proxyApplication.getSharedPreferences(Config
+            mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
                     .SHAREPREFERENCES_NAME, mode);
         }
         try {

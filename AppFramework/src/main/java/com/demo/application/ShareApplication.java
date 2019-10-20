@@ -4,11 +4,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.demo.configs.InterfaceConfig;
 import com.framework.application.ProxyApplication;
 import com.framework.util.StrictModeUtil;
 import com.framework.util.Y;
+import com.meituan.android.walle.WalleChannelReader;
 
 //public class ShareApplication extends FrameApplication{
 public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改变Application
@@ -46,6 +49,22 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
             //			initLocation_gaode();
             Y.y("initLocation_gaode");
         }
+
+        //设置MTA渠道
+        initMTAchannel();
+    }
+
+    /**
+     * 设置MTA渠道
+     */
+    private void initMTAchannel() {
+        String channel = WalleChannelReader.getChannel(this.getApplicationContext());
+        Log.e("yy","channel:"+channel);
+//        if (!TextUtils.isEmpty(channel)) {
+//            StatConfig.setInstallChannel(getApplicationContext(), channel);
+//        } else {
+//            StatConfig.setInstallChannel(getApplicationContext(), "天际官方");
+//        }
     }
 
     private void initFrameworkApplication() {

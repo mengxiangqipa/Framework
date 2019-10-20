@@ -38,11 +38,11 @@ public class ToastUtil {
 
     public void showToast(@NonNull final String message, final boolean toastLong) {
         if (!TextUtils.isEmpty(message)) {
-            ProxyApplication.proxyHandler.post(new Runnable() {
+            ProxyApplication.getProxyHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Toast.makeText(ProxyApplication.proxyApplication, message, toastLong ? Toast.LENGTH_LONG :
+                        Toast.makeText(ProxyApplication.getProxyApplication(), message, toastLong ? Toast.LENGTH_LONG :
                                 Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -57,12 +57,12 @@ public class ToastUtil {
     }
 
     public void showToast(@StringRes final int resId, final boolean toastLong) {
-        ProxyApplication.proxyHandler.post(new Runnable() {
+        ProxyApplication.getProxyHandler().post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Toast.makeText(ProxyApplication.proxyApplication,
-                            ProxyApplication.proxyApplication.getResources().getString(resId),
+                    Toast.makeText(ProxyApplication.getProxyApplication(),
+                            ProxyApplication.getProxyApplication().getResources().getString(resId),
                             toastLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();

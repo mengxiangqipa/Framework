@@ -162,7 +162,7 @@ public class SplashActivity extends BaseActivity {
         Future future = scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                ProxyApplication.proxyHandler.post(new Runnable() {
+                ProxyApplication.getProxyHandler().post(new Runnable() {
                     @Override
                     public void run() {
                         float progress =

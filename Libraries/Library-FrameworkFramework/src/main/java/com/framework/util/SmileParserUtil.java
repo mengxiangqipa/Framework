@@ -26,7 +26,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SmileParserUtils {
+public class SmileParserUtil {
 
     public static final String ee_1 = "[:1]";
     public static final String ee_2 = "[:2]";
@@ -114,7 +114,7 @@ public class SmileParserUtils {
 //			R.drawable.bg_mood47, R.drawable.bg_mood48, R.drawable.bg_mood49,
 //			R.drawable.bg_mood50
 //	};
-    private static volatile SmileParserUtils singleton;
+    private static volatile SmileParserUtil singleton;
 
     static {
         int len = mood.length;
@@ -123,11 +123,11 @@ public class SmileParserUtils {
         }
     }
 
-    public static SmileParserUtils getInstance() {
+    public static SmileParserUtil getInstance() {
         if (singleton == null) {
-            synchronized (SmileParserUtils.class) {
+            synchronized (SmileParserUtil.class) {
                 if (singleton == null) {
-                    singleton = new SmileParserUtils();
+                    singleton = new SmileParserUtil();
                 }
             }
         }

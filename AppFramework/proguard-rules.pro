@@ -307,6 +307,28 @@
     #防止这个类混淆出错 com.asiainfo.andcampus.util.TabLayoutIndicatorUtil(android.support.design.widget.TabLayout用了反射
     -keep public class  android.support.design.**{*;}
     -keep public class com.framework2.tinker.app.**{*;}#用了反射
+    #keep eventbus------------------------------>>
+    #keep eventbus------------------------------>>
+    -keepattributes *Annotation*
+    -keepclassmembers class ** {
+        @custom.org.greenrobot.eventbus.Subscribe <methods>;
+    }
+    -keep enum custom.org.greenrobot.eventbus.ThreadMode {*;}
+    # Only required if you use AsyncExecutor
+    -keepclassmembers class * extends custom.org.greenrobot.eventbus.util.ThrowableFailureEvent{
+    <init>(Java.lang.Throwable);
+    }
+    -keepclasseswithmembernames class * {
+         @custom.org.greenrobot.eventbus.Subscribe.* <fields>;
+     }
+    -keepclasseswithmembernames class * {
+         @custom.org.greenrobot.eventbus.Subscribe.* <methods>;
+     }
+    -keepclassmembers class ** {
+        @Subscribe <methods>;
+    }
+    #keep eventbus<<------------------------------
+    #keep eventbus<<------------------------------
 
 
 
