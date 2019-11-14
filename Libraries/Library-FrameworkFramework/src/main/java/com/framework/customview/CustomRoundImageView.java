@@ -1,3 +1,19 @@
+/*
+ *  Copyright (c) 2019 YobertJomi
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
 package com.framework.customview;
 
 import android.content.Context;
@@ -21,10 +37,11 @@ import android.util.TypedValue;
 import com.framework.R;
 
 /**
- * date 2015-7-27
+ *     @author YobertJomi
+ *     className CustomRoundImageView
+ *     created at  2019/11/14  11:33
  *
- * @author Administrator
- * http://blog.csdn.net/lmj623565791/article/details/41967509
+ *     http://blog.csdn.net/lmj623565791/article/details/41967509
  */
 public class CustomRoundImageView extends AppCompatImageView {
     public static final int TYPE_CIRCLE = 0;
@@ -55,6 +72,10 @@ public class CustomRoundImageView extends AppCompatImageView {
      * 圆角的半径
      */
     private int mRadius;
+    /**
+     * 是否 校验圆形时宽高，即圆形时取宽高小值-
+     */
+    private boolean checkCircleMinWH = true;
     // 如果只有其中一个有值，则只画一个圆形边框
     /**
      * 3x3 矩阵，主要用于缩小放大
@@ -103,6 +124,8 @@ public class CustomRoundImageView extends AppCompatImageView {
         mBorderInsideColor = a.getColor(
                 R.styleable.CustomRoundImageView_mBorderInsideColor,
                 Color.parseColor("#ffffff"));
+        checkCircleMinWH = a.getBoolean(
+                R.styleable.CustomRoundImageView_checkCircleMinWH, true);
         a.recycle();
     }
 
@@ -118,9 +141,15 @@ public class CustomRoundImageView extends AppCompatImageView {
          * 如果类型是圆形，则强制改变view的宽高一致，以小值为准
          */
         if (type == TYPE_CIRCLE) {
-            mWidth = Math.min(getMeasuredWidth(), getMeasuredHeight());
-            mRadius = mWidth / 2;
-            setMeasuredDimension(mWidth, mWidth);
+            if (checkCircleMinWH) {
+                mWidth = Math.min(getMeasuredWidth(), getMeasuredHeight());
+                mRadius = mWidth / 2;
+                setMeasuredDimension(mWidth, mWidth);
+            } else {
+                mWidth = Math.max(getMeasuredWidth(), getMeasuredHeight());
+                mRadius = mWidth / 2;
+                setMeasuredDimension(mWidth, mWidth);
+            }
         }
     }
 
@@ -202,20 +231,18 @@ public class CustomRoundImageView extends AppCompatImageView {
             //IF判断是自己加的，圆形居中
             if (type == TYPE_CIRCLE) {
                 Bitmap bit = bd.getBitmap();
-//                com.my.utils.Y.y("drawableToBitamp1");
-//                com.my.utils.Y.y("bit.getWidth()"+bit.getWidth());
-//                com.my.utils.Y.y("bit.getHeight()"+bit.getHeight());
-//                com.my.utils.Y.y("getMeasuredWidth:"+getMeasuredWidth());
-//                com.my.utils.Y.y("getMeasuredHeight:"+getMeasuredHeight());
-                return Bitmap.createBitmap(bit, (bit.getWidth() - bit.getHeight()) > 0 ? Math.abs(bit.getWidth() -
-                        bit.getHeight()) / 2 : 0, (bit.getWidth() - bit.getHeight()) < 0 ? Math.abs(bit.getWidth() -
-                        bit.getHeight()) / 2 : 0, Math.min(bit.getWidth(), bit.getHeight()), Math.min(bit.getWidth(),
-                        bit.getHeight()));
+                return Bitmap.createBitmap(bit, (bit.getWidth() - bit.getHeight()) > 0 ?
+                                Math.abs(bit.getWidth() -
+                                        bit.getHeight()) / 2 : 0,
+                        (bit.getWidth() - bit.getHeight()) < 0 ?
+                                Math.abs(bit.getWidth() -
+                                        bit.getHeight()) / 2 : 0, Math.min(bit.getWidth(),
+                                bit.getHeight()),
+                        Math.min(bit.getWidth(),
+                                bit.getHeight()));
             }
-//            com.my.utils.Y.y("drawableToBitamp2");
             return bd.getBitmap();
         }
-//        com.my.utils.Y.y("drawableToBitamp3");
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);

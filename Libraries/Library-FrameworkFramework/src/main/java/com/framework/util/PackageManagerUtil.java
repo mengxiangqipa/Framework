@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PackageManagerUtil {
@@ -146,7 +147,8 @@ public class PackageManagerUtil {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             //7.0以上通过FileProvider
             if (android.os.Build.VERSION.SDK_INT >= 24) {
-                Uri uri = FileProvider.getUriForFile(context, TextUtils.isEmpty(authority) ? context.getPackageName()
+                Uri uri = FileProvider.getUriForFile(context, TextUtils.isEmpty(authority) ?
+                        context.getPackageName()
                         + ".fileprovider" : authority, new File(apkPath));
                 intent.setDataAndType(uri, "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -155,9 +157,11 @@ public class PackageManagerUtil {
             } else {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if (apkPath.startsWith("file:")) {
-                    intent.setDataAndType(Uri.parse(apkPath), "application/vnd.android.package-archive");
+                    intent.setDataAndType(Uri.parse(apkPath), "application/vnd.android" +
+                            ".package-archive");
                 } else {
-                    intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd.android.package-archive");
+                    intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd" +
+                            ".android.package-archive");
                 }
             }
             context.startActivity(intent);
@@ -169,7 +173,8 @@ public class PackageManagerUtil {
      * @param permissionRequestConde Manifest.permission.REQUEST_INSTALL_PACKAGES 的权限请求code
      * @return 进入安装页面就返回true 返回false标识进入了申请权限
      */
-    public boolean installApk(Activity activity, String apkPath, String authority, int permissionRequestConde) {
+    public boolean installApk(Activity activity, String apkPath, String authority,
+                              int permissionRequestConde) {
         if (null == activity || TextUtils.isEmpty(apkPath))
             return false;
         int targetSdkVersion = activity.getApplicationInfo().targetSdkVersion;
@@ -187,7 +192,8 @@ public class PackageManagerUtil {
                 if (installAllowed) {
                     Y.y("installAPK---安装apk：");
                     //安装apk
-                    PackageManagerUtil.getInstance().installApk(activity, apkPath, TextUtils.isEmpty(authority) ?
+                    PackageManagerUtil.getInstance().installApk(activity, apkPath,
+                            TextUtils.isEmpty(authority) ?
                             activity.getPackageName() + "" + ".fileprovider" : authority);
                     return true;
                 } else {
@@ -276,7 +282,8 @@ public class PackageManagerUtil {
     public String getCurrentApkName(Context context) {
         PackageManager packageManager = context.getPackageManager();
         try {
-            CharSequence applicationLabel = packageManager.getApplicationLabel(packageManager.getApplicationInfo
+            CharSequence applicationLabel =
+                    packageManager.getApplicationLabel(packageManager.getApplicationInfo
                     (context.getPackageName(), 0));
             return applicationLabel.toString();
         } catch (PackageManager.NameNotFoundException e) {
@@ -297,6 +304,27 @@ public class PackageManagerUtil {
             e.printStackTrace();
             return "1.0.0";
         }
+    }
+
+    /**
+     * 检查手机上是否安装了指定的软件
+     *
+     * @param context     Context
+     * @param packageName 包名
+     * @return
+     */
+    public boolean packageNameIsAvilible(Context context, String packageName) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
+        List<String> packageNames = new ArrayList<>();
+        if (packageInfos != null && packageInfos.size() > 0) {
+            for (int i = 0; i < packageInfos.size(); i++) {
+                String packName = packageInfos.get(i).packageName;
+                packageNames.add(packName);
+            }
+        }
+        // 判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
+        return packageNames.contains(packageName);
     }
 
     public final static String SIGNATURE_SHA1 = "SHA1";
@@ -379,7 +407,9 @@ public class PackageManagerUtil {
 
     private String setLocalePath(Context context) {
         if (PackageManagerUtil.getInstance().inspectSDcardIsAvailable()) {
-            String path = Environment.getExternalStoragePublicDirectory("fruits") + File.separator + "apks";
+            String path =
+                    Environment.getExternalStoragePublicDirectory("fruits") + File.separator +
+                            "apks";
             File file = new File(path);
             if (!file.exists()) {
                 file.mkdirs();

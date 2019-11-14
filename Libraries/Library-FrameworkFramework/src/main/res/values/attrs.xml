@@ -31,6 +31,8 @@
         </attr>
         <attr name="mBorderThicknessInside" format="dimension"/>
         <attr name="mBorderInsideColor" format="color"/>
+        <!--是否 校验圆形时宽高，即圆形时取宽高小值-->
+        <attr name="checkCircleMinWH" format="boolean" />
     </declare-styleable>
 
     <!--4方向抽屉-->
@@ -159,4 +161,21 @@
         <attr name="thicknessWidth" format="dimension"/>
         <attr name="ringColor"/>
     </declare-styleable>
+
+    <!--新圆角/圆形图片-->
+    <declare-styleable name="RoundImageView">
+        <attr name="round_imageview_is_circle" format="boolean" />
+        <attr name="round_imageview_is_cover_src" format="boolean" />
+        <attr name="round_imageview_corner_radius" format="dimension" />
+        <attr name="round_imageview_corner_top_left_radius" format="dimension" />
+        <attr name="round_imageview_corner_top_right_radius" format="dimension" />
+        <attr name="round_imageview_corner_bottom_left_radius" format="dimension" />
+        <attr name="round_imageview_corner_bottom_right_radius" format="dimension" />
+        <attr name="round_imageview_border_width" format="dimension" />
+        <attr name="round_imageview_border_color" format="color" />
+        <attr name="round_imageview_inner_border_width" format="dimension" />
+        <attr name="round_imageview_inner_border_color" format="color" />
+        <attr name="round_imageview_mask_color" format="color" />
+    </declare-styleable>
+
 </resources>
