@@ -178,4 +178,10 @@
         <attr name="round_imageview_mask_color" format="color" />
     </declare-styleable>
 
+    <!-- SimpleRoundImageView -->
+    <declare-styleable name="SimpleRoundImageView">
+        <attr name="simple_round_roundWidth" format="dimension" />
+        <attr name="simple_round_roundHeight" format="dimension" />
+    </declare-styleable>
+
 </resources>
