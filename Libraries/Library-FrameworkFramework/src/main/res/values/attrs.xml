@@ -32,7 +32,9 @@
         <attr name="mBorderThicknessInside" format="dimension"/>
         <attr name="mBorderInsideColor" format="color"/>
         <!--是否 校验圆形时宽高，即圆形时取宽高小值-->
-        <attr name="checkCircleMinWH" format="boolean" />
+        <attr name="customRoundImageView_checkCircleMinWH" format="boolean" />
+        <!--是否 校验圆形时宽高，即圆形时取宽高小值-->
+        <attr name="customRoundImageView_showCenter" format="boolean" />
     </declare-styleable>
 
     <!--4方向抽屉-->

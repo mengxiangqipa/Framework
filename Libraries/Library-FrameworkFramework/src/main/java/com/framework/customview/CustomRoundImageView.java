@@ -37,11 +37,11 @@ import android.util.TypedValue;
 import com.framework.R;
 
 /**
- *     @author YobertJomi
- *     className CustomRoundImageView
- *     created at  2019/11/14  11:33
- *
- *     http://blog.csdn.net/lmj623565791/article/details/41967509
+ * @author YobertJomi
+ * className CustomRoundImageView
+ * created at  2019/11/14  11:33
+ * <p>
+ * http://blog.csdn.net/lmj623565791/article/details/41967509
  */
 public class CustomRoundImageView extends AppCompatImageView {
     public static final int TYPE_CIRCLE = 0;
@@ -75,7 +75,13 @@ public class CustomRoundImageView extends AppCompatImageView {
     /**
      * 是否 校验圆形时宽高，即圆形时取宽高小值-
      */
-    private boolean checkCircleMinWH = true;
+    private boolean checkCircleMinWH;
+
+    /**
+     * 矩形时是否显示在中间，圆形时已在中间了
+     */
+    private boolean showCenter;
+
     // 如果只有其中一个有值，则只画一个圆形边框
     /**
      * 3x3 矩阵，主要用于缩小放大
@@ -93,11 +99,11 @@ public class CustomRoundImageView extends AppCompatImageView {
     /**
      * 内圆环厚度
      */
-    private int mBorderThicknessInside = 0;
+    private int mBorderThicknessInside;
     /**
      * 内圆颜色
      */
-    private int mBorderInsideColor = Color.parseColor("#ffffff");
+    private int mBorderInsideColor;
 
     public CustomRoundImageView(Context context, AttributeSet attrs) {
 
@@ -125,7 +131,9 @@ public class CustomRoundImageView extends AppCompatImageView {
                 R.styleable.CustomRoundImageView_mBorderInsideColor,
                 Color.parseColor("#ffffff"));
         checkCircleMinWH = a.getBoolean(
-                R.styleable.CustomRoundImageView_checkCircleMinWH, true);
+                R.styleable.CustomRoundImageView_customRoundImageView_checkCircleMinWH, true);
+        showCenter = a.getBoolean(
+                R.styleable.CustomRoundImageView_customRoundImageView_showCenter, true);
         a.recycle();
     }
 
@@ -166,6 +174,8 @@ public class CustomRoundImageView extends AppCompatImageView {
         // 将bmp作为着色器，就是在指定区域内绘制bmp
         mBitmapShader = new BitmapShader(bmp, TileMode.CLAMP, TileMode.CLAMP);
         float scale = 1.0f;
+        float transX = 0F;
+        float transY = 0F;
         if (type == TYPE_CIRCLE) {
             // 拿到bitmap宽或高的小值
             int bSize = Math.min(bmp.getWidth(), bmp.getHeight());
@@ -175,10 +185,28 @@ public class CustomRoundImageView extends AppCompatImageView {
                 // 如果图片的宽或者高与view的宽高不匹配，计算出需要缩放的比例；缩放后的图片的宽高，一定要大于我们view的宽高；所以我们这里取大值；
                 scale = Math.max(getWidth() * 1.0f / bmp.getWidth(),
                         getHeight() * 1.0f / bmp.getHeight());
+                if (showCenter) {
+                    //图片较大，视图较小 需要平移居中
+                    if (scale < 1) {
+                        //宽度的比例更小，bmp的宽度更大，移动X轴
+                        if (getWidth() * 1.0f / bmp.getWidth() <= getHeight() * 1.0f / bmp.getHeight()) {
+                            // shader的变换矩阵，我们这里主要用于平移（居中）
+                            transX = -(bmp.getWidth() - getWidth()) / 2;
+                        } else {
+                            //高度的比例更小，bmp的高度更大，移动Y轴
+                            // shader的变换矩阵，我们这里主要用于平移（居中）
+                            transY = -(bmp.getHeight() - getHeight()) / 2;
+                        }
+                    }
+                }
             }
         }
         // shader的变换矩阵，我们这里主要用于放大或者缩小
         mMatrix.setScale(scale, scale);
+
+        if (transX != 0 || transY != 0) {
+            mMatrix.setTranslate(transX, transY);
+        }
         // 设置变换矩阵
         mBitmapShader.setLocalMatrix(mMatrix);
         // 设置shader

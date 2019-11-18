@@ -93,13 +93,7 @@ public class SimpleRoundImageView extends AppCompatImageView {
         path.moveTo(0, roundHeight);
         path.lineTo(0, 0);
         path.lineTo(roundWidth, 0);
-        path.arcTo(new RectF(
-                        0,
-                        0,
-                        roundWidth * 2,
-                        roundHeight * 2),
-                -90,
-                -90);
+        path.arcTo(new RectF(0, 0, roundWidth * 2, roundHeight * 2), -90, -90);
         path.close();
         canvas.drawPath(path, paint);
     }

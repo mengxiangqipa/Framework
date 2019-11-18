@@ -117,6 +117,10 @@ public class RoundImageView extends AppCompatImageView {
         }
         ta.recycle();
 
+        initParams();
+    }
+
+    private void initParams() {
         borderRadii = new float[8];
         srcRadii = new float[8];
 
@@ -137,6 +141,12 @@ public class RoundImageView extends AppCompatImageView {
         clearInnerBorderWidth();
     }
 
+    private void reInitParams() {
+        initParams();
+        initBorderRectF();
+        initSrcRectF();
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -149,6 +159,9 @@ public class RoundImageView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        reInitParams();
+
+        canvas.restore();
         // 使用图形混合模式来显示指定区域的图片
         canvas.saveLayer(srcRectF, null, Canvas.ALL_SAVE_FLAG);
         if (!isCoverSrc) {
