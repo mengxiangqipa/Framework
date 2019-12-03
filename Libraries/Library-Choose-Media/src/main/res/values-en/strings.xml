@@ -5,6 +5,7 @@
     <string name="picture_rule">not pictures or video</string>
     <string name="picture_min_video_num">Video Selection Cannot%1$sNumber</string>
     <string name="picture_message_max_num">You can choose the most%1$s Number Pictures</string>
+    <string name="picture_video_message_max_num">>You can choose the most%1$s Number Pictures or Videos</string>
     <string name="picture_preview">Preview</string>
     <string name="picture_please">Please later...</string>
     <string name="picture_done_front_num">%1$d/%2$d Ok</string>

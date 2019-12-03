@@ -45,7 +45,10 @@ import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
 import com.demo.entity.UpdateInfo;
 import com.demo.service.CheckUpdateService;
+import com.framework.application.ProxyApplication;
 import com.framework.customview.WholeNotification;
+import com.framework.security.RSAmethodInRaw;
+import com.framework.security.RSAutil;
 import com.framework.security.SecurityManagerUtil;
 import com.framework.util.DownLoadManagerUtils;
 import com.framework.util.DownLoadObserver;
@@ -149,41 +152,50 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     public void _onCreate() {
         setContentView(R.layout.activity_homepage_setcontentview);
         ButterKnife.bind(this);
-        //        		ActivityHomepageBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R
+        //        		ActivityHomepageBinding viewDataBinding = DataBindingUtil.inflate
+        //        		(LayoutInflater.from(this), R
         // .layout.activity_homepage, null, true);
-//        ActivityHomepageBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_homepage);
+//        ActivityHomepageBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout
+//        .activity_homepage);
 //        DataBindingItem item = new DataBindingItem();
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
         PreferencesUtil.getInstance().putString("test", "testvalue");
         Log.d("HomePageActivity我是跨:", PreferencesUtil.getInstance().getString("test"));
-        ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString("test"));
+        ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
+                "test"));
         try {
-        SecurityManagerUtil.getInstance().put(this, "sec", "我是加密");
-//        SecurityManagerUtil.getProxyApplication().put(this, "sec", "bbbb");
-            Log.d("HomePageActivity我是加密:", SecurityManagerUtil.getInstance().get(this, "sec"));
+            SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec", "我是加密");
+            Log.e("HomePageActivity我是加密:", SecurityManagerUtil.getInstance().get(ProxyApplication.getProxyApplication(), "sec"));
+            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptData("18725618945"));
+            Log.e("HomePageActivity",
+                    "decrypt-AA:" + RSAutil.getInstance().decryptData(RSAutil.getInstance().encryptData("18725618945")));
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("HomePageActivity我是加密e:", e.getMessage());
+            Log.e("HomePageActivity我是加密e:", e.getMessage());
         }
         ToastUtil.getInstance().showToast("我是跨进程数据操作--加密：" + SecurityManagerUtil.getInstance().get(this, "sec"));
         serviceIntent = new Intent(this, CheckUpdateService.class);
         startService(serviceIntent);
-        //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this, progressHandler, false);//检查版本更新
+        //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this,
+        //		progressHandler, false);//检查版本更新
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("is_printed", "1");
             jsonObject.put("_time", "1480408429");
             jsonObject.put("send_place", "前台");
             jsonObject.put("foods",
-                    "[{\"goods_id\":\"c27ef2ab-5dd3-4310-a87d-f04200ea3ab3\",\"type\":\"goods\",\"quantity\":1," +
-                            "\"is_present\":0,\"order_time\":\"2016-11-29 16:33:49\",\"goods\":[]}]");
+                    "[{\"goods_id\":\"c27ef2ab-5dd3-4310-a87d-f04200ea3ab3\",\"type\":\"goods\"," +
+                            "\"quantity\":1," +
+                            "\"is_present\":0,\"order_time\":\"2016-11-29 16:33:49\"," +
+                            "\"goods\":[]}]");
             jsonObject.put("_sign", "08f920da319c3d888577d62a5fe60c46");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        StringRequest jsonRequest = new StringRequest.Builder().url("http://www.baidu.com").postString_json
+        StringRequest jsonRequest =
+                new StringRequest.Builder().url("http://www.baidu.com").postString_json
                 (jsonObject.toString())
                 .build(new Callback() {
                     @Override
@@ -208,7 +220,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                 .connectTimeout(15000, TimeUnit.MILLISECONDS).retryOnConnectionFailure(false))
                 .addToRequestQueueAsynchoronous(false, jsonRequest);
         viewPager();
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)).load("http://img.my.csdn" +
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)).load(
+                "http://img.my.csdn" +
                 ".net/uploads/201508/05/1438760757_3588.jpg")
                 .into(ivGlide);
         Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
@@ -266,36 +279,42 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         items.add("zxing二维码(优化)");
         items.add("权限页面");
         items.add("权限页面(APIGuide)");
-        HorizontalDividerItemDecoration2 itemDecoration = new HorizontalDividerItemDecoration2(this);
+        HorizontalDividerItemDecoration2 itemDecoration =
+                new HorizontalDividerItemDecoration2(this);
         itemDecoration.setColor(this, R.color.share_texttoast_color);
         itemDecoration.setDividerHeightPx(1);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));//（与scrollview嵌套）
-        recyclerView.setAdapter(new UniversalAdapter<String>(this, R.layout.test_list_item_layout, items) {
+        recyclerView.setAdapter(new UniversalAdapter<String>(this, R.layout.test_list_item_layout
+                , items) {
             @Override
-            protected void getItemView(UniversalViewHolder universalViewHolder, final String str, final int i) {
+            protected void getItemView(UniversalViewHolder universalViewHolder, final String str,
+                                       final int i) {
                 universalViewHolder.setText(R.id.tv, TextUtils.isEmpty(str) ? "null" : str);
                 universalViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         switch (str) {
                             case "刷新测试":
-                                EventBus.getDefault().post("我的","test2");
+                                EventBus.getDefault().post("我的", "test2");
                                 startActivity(MainActivity.class);
                                 break;
                             case "Tinker测试":
                                 startActivity(TinkerMainActivity.class);
                                 break;
                             case "退出登录":
-                                Intent intent = new Intent(HomePageActivity.this, LoginActivity.class).setFlags
+                                Intent intent = new Intent(HomePageActivity.this,
+                                        LoginActivity.class).setFlags
                                         (Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 break;
                             case "清除引导标识":
-                                PreferencesHelper.getInstance().putInfo(ConstantsME.NOTFIRSTIN, false);
-                                PicToastUtil.getInstance().showPicToast(HomePageActivity.this, "下次启动可见Guide");
+                                PreferencesHelper.getInstance().putInfo(ConstantsME.NOTFIRSTIN,
+                                        false);
+                                PicToastUtil.getInstance().showPicToast(HomePageActivity.this,
+                                        "下次启动可见Guide");
                                 break;
                             case "聊骚表情":
                                 startActivity(EmojiDetailActivity.class);
@@ -314,7 +333,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                                 }
                                 break;
                             case "图像滤镜":
-                                PicToastUtil.getInstance().showPicToast(HomePageActivity.this, "先申请权限");
+                                PicToastUtil.getInstance().showPicToast(HomePageActivity.this,
+                                        "先申请权限");
                                 startActivity(CameraFilterActivity.class);
                                 break;
                             case "Netty测试"://netty测试
@@ -427,7 +447,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        intent.setAction(Intent.ACTION_GET_CONTENT);
 //        intent.addCategory(Intent.CATEGORY_OPENABLE);
 //        startActivityForResult(intent, CHOOSE_VIDEO_RESULT);
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, CHOOSE_VIDEO_RESULT);
     }
 
@@ -457,7 +478,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     }
 
     private void upLoadVideo(String path) {
-        String currentApkPath = TextUtils.isEmpty(path) ? getApplicationContext().getPackageResourcePath() : path;
+        String currentApkPath = TextUtils.isEmpty(path) ?
+                getApplicationContext().getPackageResourcePath() : path;
         File apkFile = new File(currentApkPath);
 //        String url = "http://www.baidu.com";
         String url = "http://124.207.3.100:8084/openApi/sdkApi/upload/";
@@ -467,7 +489,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        bodyBuilder.addFormDataPart("file", apkFile.getName(), RequestBody.create(MediaType.parse
 // ("application/octet-stream"), apkFile));
         bodyBuilder.addFormDataPart("type", "1");
-        bodyBuilder.addFormDataPart("file", apkFile.getName(), RequestBody.create(MediaType.parse("video/mpeg"),
+        bodyBuilder.addFormDataPart("file", apkFile.getName(),
+                RequestBody.create(MediaType.parse("video/mpeg"),
                 apkFile));
         ProgressRequestBody progressRequestBody = new ProgressRequestBody(bodyBuilder.build(), new
                 ProgressRequestBody.ProgressListener() {
@@ -536,14 +559,16 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[]
             grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Y.y("Homepage--onRequestPermissionsResult:" + requestCode);
         if (requestCode == RequestPermissionsUtil.PERMISSION_WRITE_READ_EXTERNAL_STORAGE) {
             if ((grantResults.length > 1) && (grantResults[0] == PackageManager.PERMISSION_GRANTED) &&
                     (grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-                if (0 == DownLoadManagerUtils.getInstance().requestDownLoad(HomePageActivity.this, Environment
+                if (0 == DownLoadManagerUtils.getInstance().requestDownLoad(HomePageActivity.this
+                        , Environment
                                 .DIRECTORY_DOWNLOADS,
                         downLoadUrl,
                         getResources().getString(R.string.app_name)
@@ -553,7 +578,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                                 + version)) {
                     if (null != progressHandler) {
                         //监听下载进度条
-                        getContentResolver().registerContentObserver(Uri.parse("content://downloads/"), true, new
+                        getContentResolver().registerContentObserver(Uri.parse("content" +
+                                "://downloads/"), true, new
                                 DownLoadObserver(progressHandler, this,
                                 PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
                                         .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
@@ -584,14 +610,16 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - this.exitTime > 2000L) {
                 this.exitTime = System.currentTimeMillis();
-                View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification, null);
+                View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification,
+                        null);
                 View v_state_bar = view.findViewById(R.id.v_state_bar);
                 ViewGroup.LayoutParams layoutParameter = v_state_bar.getLayoutParams();
                 layoutParameter.height = ScreenUtil.getInstance().getStatusBarHeightPx(this);
                 v_state_bar.setLayoutParams(layoutParameter);
                 ((TextView) view.findViewById(R.id.tv_content)).setText(this.getResources().getString(R.string.exist)
                         + this.getResources().getString(R.string.app_name));
-                wholeNotification = new WholeNotification.Builder().setContext(HomePageActivity.this)
+                wholeNotification =
+                        new WholeNotification.Builder().setContext(HomePageActivity.this)
                         .setView(view)
                         .setMonitorTouch(true)
                         .build();
@@ -645,12 +673,12 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, tag ="test2")
+    @Subscribe(threadMode = ThreadMode.MAIN, tag = "test2")
     public void eventTest2(String test2) {
         ToastUtil.getInstance().showToast("我是测试222222");
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, tag ="test1")
+    @Subscribe(threadMode = ThreadMode.MAIN, tag = "test1")
     public void eventTest1(String test) {
         ToastUtil.getInstance().showToast("我是测试1");
     }

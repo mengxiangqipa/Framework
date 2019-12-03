@@ -73,7 +73,7 @@ public class RegisterActivity extends BaseActivity {
                                 et_register_phone, true);
                     }
                 });
-        String phoneTemp = RSAmethodInRaw.rsaDecrypt(this,
+        String phoneTemp = RSAmethodInRaw.getInstance().rsaDecrypt(this,
                 PreferencesHelper.getInstance().getStringData(ConstantsME.PHONE_TEMP));
         long last = PreferencesHelper.getInstance().getLongData(ConstantsME.captcha_last_clicked);
         long currentTimeMillis = System.currentTimeMillis();
@@ -86,7 +86,7 @@ public class RegisterActivity extends BaseActivity {
             }
             new MyCountDownTimer(diff * 1000, 1000).start();
         } else {
-            String phone = RSAmethodInRaw.rsaDecrypt(this,
+            String phone = RSAmethodInRaw.getInstance().rsaDecrypt(this,
                     PreferencesHelper.getInstance().getStringData(ConstantsME.PHONE));
             if (!TextUtils.isEmpty(phone)) {
                 et_register_phone.setText(phone);
@@ -142,7 +142,7 @@ public class RegisterActivity extends BaseActivity {
                     et_register_phone.requestFocus();
                     KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, false);
                 } else {
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.rsaEncrypt(this,
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.getInstance().rsaEncrypt(this,
                             et_register_phone.getText().toString()));
                     PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System
                             .currentTimeMillis());

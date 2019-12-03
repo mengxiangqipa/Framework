@@ -27,34 +27,58 @@ import javax.crypto.Cipher;
 
 /**
  * @author YobertJomi
- * className RSAutils
+ * className RSAutil
  * created at  2017/3/13  12:04
  */
-public final class RSAutils {
+public final class RSAutil {
     private static String RSA = "RSA";
 
-    public RSAutils() {
+    private static volatile RSAutil singleton;
+
+    private static RSAPublicKey rsaPublicKey;
+
+    private static RSAPrivateKey rsaPrivateKey;
+
+    private RSAutil() {
     }
 
-    public static KeyPair generateRSAKeyPair() {
+    public static RSAutil getInstance() {
+        if (singleton == null) {
+            synchronized (RSAutil.class) {
+                if (singleton == null) {
+                    singleton = new RSAutil();
+                }
+            }
+        }
+        return singleton;
+    }
+
+    private KeyPair generateRSAKeyPair() {
         return generateRSAKeyPair(1024);
     }
 
-    public static KeyPair generateRSAKeyPair(int keyLength) {
+    private KeyPair generateRSAKeyPair(int keyLength) {
         try {
-            KeyPairGenerator e = KeyPairGenerator.getInstance(RSA);
-            e.initialize(keyLength);
-            return e.genKeyPair();
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(RSA);
+            keyPairGenerator.initialize(keyLength);
+//            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+            KeyPair keyPair = keyPairGenerator.genKeyPair();
+            rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
+            rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
+            return keyPair;
         } catch (NoSuchAlgorithmException var2) {
             var2.printStackTrace();
             return null;
         }
     }
 
-    public static byte[] encryptData(byte[] data, PublicKey publicKey) {
+    /**
+     * 公钥加密私钥机密或私钥加密公钥解密
+     */
+    public byte[] encryptData(byte[] data, java.security.Key key) {
         try {
             Cipher e = Cipher.getInstance(RSA);
-            e.init(1, publicKey);
+            e.init(Cipher.ENCRYPT_MODE, key);
             return e.doFinal(data);
         } catch (Exception var3) {
             var3.printStackTrace();
@@ -62,56 +86,130 @@ public final class RSAutils {
         }
     }
 
-    public static byte[] decryptData(byte[] encryptedData, PrivateKey privateKey) {
+    /**
+     * 公钥加密私钥机密或私钥加密公钥解密
+     */
+    public byte[] decryptData(byte[] encryptedData, java.security.Key key) {
         try {
             Cipher e = Cipher.getInstance(RSA);
-            e.init(2, privateKey);
+            e.init(Cipher.DECRYPT_MODE, key);
             return e.doFinal(encryptedData);
         } catch (Exception var3) {
             return null;
         }
     }
 
-    public static PublicKey getPublicKey(byte[] keyBytes)
+    /**
+     * 简单加密字符串（公钥传入）
+     */
+    public String encryptData(String data, String publicKey) {
+        try {
+            byte[] encodeByte = encryptData(data.getBytes(), getPublicKey(publicKey.getBytes()));
+            if (null != encodeByte) {
+                return Base64Coder.encodeLines(encodeByte);
+            } else {
+                return null;
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 简单解密密字符串（私钥传入）
+     */
+    public String decryptData(String data, String privateKey) {
+        try {
+            byte[] decryptByte = decryptData(Base64Coder.decode(data),
+                    getPrivateKey(privateKey.getBytes()));
+            if (null != decryptByte) {
+                return new String(decryptByte);
+            } else {
+                return null;
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 简单加密字符串（公私钥自动生成）
+     */
+    public String encryptData(String data) {
+        try {
+            if (rsaPublicKey == null) {
+                generateRSAKeyPair();
+            }
+            byte[] encodeByte = encryptData(data.getBytes(), rsaPublicKey);
+            if (null != encodeByte) {
+                return Base64Coder.encodeString(encodeByte);
+            } else {
+                return null;
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 简单解密密字符串（公私钥自动生成）
+     */
+    public String decryptData(String data) {
+        try {
+            if (rsaPrivateKey == null) {
+                generateRSAKeyPair();
+            }
+            byte[] decryptByte = decryptData(Base64Coder.decode(data), rsaPrivateKey);
+            if (null != decryptByte) {
+                return new String(decryptByte);
+            } else {
+                return null;
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    public PublicKey getPublicKey(byte[] keyBytes)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(RSA);
-        PublicKey publicKey = keyFactory.generatePublic(keySpec);
-        return publicKey;
+        return keyFactory.generatePublic(keySpec);
     }
 
-    public static PrivateKey getPrivateKey(byte[] keyBytes)
+    public PrivateKey getPrivateKey(byte[] keyBytes)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(RSA);
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-        return privateKey;
+        return keyFactory.generatePrivate(keySpec);
     }
 
-    public static PublicKey getPublicKey(String modulus, String publicExponent)
+    public PublicKey getPublicKey(String modulus, String publicExponent)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
         BigInteger bigIntModulus = new BigInteger(modulus);
         BigInteger bigIntPrivateExponent = new BigInteger(publicExponent);
         RSAPublicKeySpec keySpec = new RSAPublicKeySpec(bigIntModulus,
                 bigIntPrivateExponent);
         KeyFactory keyFactory = KeyFactory.getInstance(RSA);
-        PublicKey publicKey = keyFactory.generatePublic(keySpec);
-        return publicKey;
+        return keyFactory.generatePublic(keySpec);
     }
 
-    public static PrivateKey getPrivateKey(String modulus,
-                                           String privateExponent) throws NoSuchAlgorithmException,
+    public PrivateKey getPrivateKey(String modulus,
+                                    String privateExponent) throws NoSuchAlgorithmException,
             InvalidKeySpecException {
         BigInteger bigIntModulus = new BigInteger(modulus);
         BigInteger bigIntPrivateExponent = new BigInteger(privateExponent);
         RSAPublicKeySpec keySpec = new RSAPublicKeySpec(bigIntModulus,
                 bigIntPrivateExponent);
         KeyFactory keyFactory = KeyFactory.getInstance(RSA);
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-        return privateKey;
+        return keyFactory.generatePrivate(keySpec);
     }
 
-    public static PublicKey loadPublicKey(String publicKeyStr) throws Exception {
+    public PublicKey loadPublicKey(String publicKeyStr) throws Exception {
         try {
             byte[] e = Base64Utils.decode(publicKeyStr);
             KeyFactory keyFactory = KeyFactory.getInstance(RSA);
@@ -126,7 +224,7 @@ public final class RSAutils {
         }
     }
 
-    public static PrivateKey loadPrivateKey(String privateKeyStr)
+    public PrivateKey loadPrivateKey(String privateKeyStr)
             throws Exception {
         try {
             byte[] e = Base64Utils.decode(privateKeyStr);
@@ -142,7 +240,7 @@ public final class RSAutils {
         }
     }
 
-    public static PublicKey loadPublicKey(InputStream in) throws Exception {
+    public PublicKey loadPublicKey(InputStream in) throws Exception {
         try {
             return loadPublicKey(readKey(in));
         } catch (IOException var2) {
@@ -152,7 +250,7 @@ public final class RSAutils {
         }
     }
 
-    public static PrivateKey loadPrivateKey(InputStream in) throws Exception {
+    public PrivateKey loadPrivateKey(InputStream in) throws Exception {
         try {
             return loadPrivateKey(readKey(in));
         } catch (IOException var2) {
@@ -162,7 +260,7 @@ public final class RSAutils {
         }
     }
 
-    private static String readKey(InputStream in) throws IOException {
+    private String readKey(InputStream in) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String readLine = null;
         StringBuilder sb = new StringBuilder();
@@ -173,11 +271,10 @@ public final class RSAutils {
                 sb.append('\r');
             }
         }
-
         return sb.toString();
     }
 
-    public static void printPublicKeyInfo(PublicKey publicKey) {
+    public void printPublicKeyInfo(PublicKey publicKey) {
         RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
         System.out.println("----------RSAPublicKey----------");
         System.out.println("Modulus.length="
@@ -189,7 +286,7 @@ public final class RSAutils {
                 + rsaPublicKey.getPublicExponent().toString());
     }
 
-    public static void printPrivateKeyInfo(PrivateKey privateKey) {
+    public void printPrivateKeyInfo(PrivateKey privateKey) {
         RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
         System.out.println("----------RSAPrivateKey ----------");
         System.out.println("Modulus.length="

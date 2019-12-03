@@ -68,6 +68,13 @@ public class Base64Coder {
         return new String(encode(s.getBytes()));
     }
 
+    public static String encodeString(byte[] in) {
+        if (null == in) {
+            return null;
+        }
+        return new String(encode(in));
+    }
+
     /**
      * Encodes a byte array into Base 64 format and breaks the output into lines
      * of 76 characters. This method is compatible with

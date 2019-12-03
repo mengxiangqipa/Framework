@@ -216,7 +216,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= config.maxSelectNum && isChecked) {
-                        ToastManage.s(mContext, getString(R.string.picture_message_max_num, config.maxSelectNum + ""));
+                        ToastManage.s(mContext, config.onlyOneMimeType? getString(R.string.picture_message_max_num, config.maxSelectNum + "")
+                                :getString(R.string.picture_video_message_max_num, config.maxSelectNum  + ""));
                         check.setSelected(false);
                         return;
                     }

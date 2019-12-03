@@ -59,7 +59,7 @@ public class TBSCookieManagerUtil {
             if (cookies.length() > 128) {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i * 128 < cookies.length(); i++) {
-                    String cookiesWithRSA = RSAmethodInRaw.rsaEncrypt(context, cookies.substring(i * 128, Math.min((i
+                    String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, cookies.substring(i * 128, Math.min((i
                             + 1) * 128, cookies.length())));
                     if (i > 0)
                         sb.append(",,,,");
@@ -69,7 +69,7 @@ public class TBSCookieManagerUtil {
                         (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
                                 sb.toString()));
             } else {
-                String cookiesWithRSA = RSAmethodInRaw.rsaEncrypt(context, cookies);
+                String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, cookies);
                 PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt
                         (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
                                 Base64Coder.encodeString(cookiesWithRSA)));
@@ -96,7 +96,7 @@ public class TBSCookieManagerUtil {
                 for (int i = 0; i < cookie.length; i++) {
                     String cookiesBase64decode = Base64Coder.decodeString(cookie[i]);
                     if (!TextUtils.isEmpty(cookiesBase64decode)) {
-                        sb.append(RSAmethodInRaw.rsaDecrypt(context, cookiesBase64decode));
+                        sb.append(RSAmethodInRaw.getInstance().rsaDecrypt(context, cookiesBase64decode));
                     }
                 }
                 return sb.toString();

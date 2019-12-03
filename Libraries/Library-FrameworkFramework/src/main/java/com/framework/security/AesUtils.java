@@ -49,7 +49,7 @@ public class AesUtils {
 
     // 对密钥进行处理
     @SuppressLint("DeletedProvider")
-    private static byte[] getRawKey(byte[] seed) throws Exception {
+    private byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
         //for android
         SecureRandom secureRandom;

@@ -67,7 +67,7 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (PreferencesHelper.getInstance().getBooleanData(ConstantsME.NOTFIRSTIN)) {
-            if (!TextUtils.isEmpty(RSAmethodInRaw.rsaDecrypt(this, PreferencesHelper.getInstance().getStringData
+            if (!TextUtils.isEmpty(RSAmethodInRaw.getInstance().rsaDecrypt(this, PreferencesHelper.getInstance().getStringData
                     (ConstantsME.PHONE)))
                     && !TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.token))
                     && PreferencesHelper.getInstance().getBooleanData(ConstantsME.LOGINED)

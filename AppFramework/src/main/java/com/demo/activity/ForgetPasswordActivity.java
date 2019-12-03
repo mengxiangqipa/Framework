@@ -94,7 +94,7 @@ public class ForgetPasswordActivity extends BaseActivity {
                                 etPhone, true);
                     }
                 });
-        String phoneTemp = RSAmethodInRaw.rsaDecrypt(this,
+        String phoneTemp = RSAmethodInRaw.getInstance().rsaDecrypt(this,
                 PreferencesHelper.getInstance().getStringData(ConstantsME.PHONE_TEMP));
         long last = PreferencesHelper.getInstance().getLongData(ConstantsME.captcha_last_clicked);
         long currentTimeMillis = System.currentTimeMillis();
@@ -107,7 +107,7 @@ public class ForgetPasswordActivity extends BaseActivity {
             }
             new MyCountDownTimer(diff * 1000, 1000).start();
         } else {
-            String phone = RSAmethodInRaw.rsaDecrypt(this,
+            String phone = RSAmethodInRaw.getInstance().rsaDecrypt(this,
                     PreferencesHelper.getInstance().getStringData(ConstantsME.PHONE));
             if (!TextUtils.isEmpty(phone)) {
                 etPhone.setText(phone);
@@ -149,7 +149,7 @@ public class ForgetPasswordActivity extends BaseActivity {
                     etPhone.requestFocus();
                     KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
                 } else {
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.rsaEncrypt(this,
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.getInstance().rsaEncrypt(this,
                             etPhone.getText().toString()));
                     PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System
                             .currentTimeMillis());

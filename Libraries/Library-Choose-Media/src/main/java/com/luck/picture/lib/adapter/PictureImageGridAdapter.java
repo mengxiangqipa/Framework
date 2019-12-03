@@ -159,8 +159,8 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
                     /*以下判断个数，类型*/
                     if (selectImages.size() >= maxSelectNum) {
                         boolean eqImg = false;
-                        String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum + "")
-                                : context.getString(R.string.picture_message_video_max_num, maxSelectNum + "");
+                        String str = config.onlyOneMimeType ? context.getString(R.string.picture_message_max_num, maxSelectNum + "")
+                                : context.getString(R.string.picture_video_message_max_num, maxSelectNum + "");
                         ToastManage.s(context, str);
                         return;
                     }
@@ -371,8 +371,10 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
         if (selectImages.size() >= maxSelectNum && !isChecked) {
             boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
-            String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum + "")
-                    : context.getString(R.string.picture_message_video_max_num, maxSelectNum + "");
+//            String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum + "")
+//                    : context.getString(R.string.picture_message_video_max_num, maxSelectNum + "");
+            String str = config.onlyOneMimeType ? context.getString(R.string.picture_message_max_num, maxSelectNum + "")
+                    : context.getString(R.string.picture_video_message_max_num, maxSelectNum + "");
             ToastManage.s(context, str);
             return;
         }

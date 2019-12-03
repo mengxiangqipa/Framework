@@ -11,24 +11,37 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public class RSAmethodInRaw {
+
+    private static volatile RSAmethodInRaw singleton;
+
+    private RSAmethodInRaw() {
+    }
+
+    public static RSAmethodInRaw getInstance() {
+        if (singleton == null) {
+            synchronized (RSAmethodInRaw.class) {
+                if (singleton == null) {
+                    singleton = new RSAmethodInRaw();
+                }
+            }
+        }
+        return singleton;
+    }
+
     /**
      * RSA数据加密
      *
      * @param data
      */
-    public static String rsaEncrypt(Context context, String data) {
+    public String rsaEncrypt(Context context, String data) {
         try {
-//			InputStream inPublic = context.getResources().getAssets()
-//					.open("rsa_public_key.pem");
             InputStream inPublic = context.getResources().openRawResource(R.raw.rsa_public_key);
-            PublicKey publicKey = RSAutils.loadPublicKey(inPublic);
+            PublicKey publicKey = RSAutil.getInstance().loadPublicKey(inPublic);
             // 加密
-            byte[] encryptByte = RSAutils.encryptData(data.getBytes(),
-                    publicKey);
+            byte[] encryptByte = RSAutil.getInstance().encryptData(data.getBytes(), publicKey);
             return new String(Base64Coder.encode(encryptByte));
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("yy", "Exception:" + e.getMessage());
             return "";
         }
     }
@@ -39,19 +52,17 @@ public class RSAmethodInRaw {
      * @param data
      * @return
      */
-    public static String rsaDecrypt(Context context, String data) {
-        String phone = "";
+    public String rsaDecrypt(Context context, String data) {
+        String phone;
         try {
-//			InputStream inPrivate = context.getResources().getAssets()
-//					.open("pkcs8_rsa_private_key.pem");
-            InputStream inPrivate = context.getResources().openRawResource(R.raw.pkcs8_rsa_private_key);
-            PrivateKey privateKey = RSAutils.loadPrivateKey(inPrivate);
-            byte[] decryptByte1 = RSAutils.decryptData(
+            InputStream inPrivate =
+                    context.getResources().openRawResource(R.raw.pkcs8_rsa_private_key);
+            PrivateKey privateKey = RSAutil.getInstance().loadPrivateKey(inPrivate);
+            byte[] decryptByte1 = RSAutil.getInstance().decryptData(
                     Base64Coder.decode(data), privateKey);
             phone = new String(decryptByte1);
         } catch (Exception e) {
             e.printStackTrace();
-            Y.y("Exception:" + e.getMessage());
             return "";
         }
         return phone;

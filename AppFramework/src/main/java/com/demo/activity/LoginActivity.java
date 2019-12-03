@@ -240,7 +240,7 @@ public class LoginActivity extends BaseActivity {
                                 etLoginPhone, true);
                     }
                 });
-        String phone = RSAmethodInRaw.rsaDecrypt(this,
+        String phone = RSAmethodInRaw.getInstance().rsaDecrypt(this,
                 PreferencesHelper.getInstance().getStringData(ConstantsME.PHONE));
         if (!TextUtils.isEmpty(phone)) {
             etLoginPhone.setText(phone);
