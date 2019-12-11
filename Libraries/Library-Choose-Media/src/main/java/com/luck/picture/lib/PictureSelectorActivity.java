@@ -495,7 +495,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             if (config.minSelectNum > 0 && config.selectionMode == PictureConfig.MULTIPLE) {
                 if (size < config.minSelectNum) {
                     String str = eqImg ? getString(R.string.picture_min_img_num, config.minSelectNum)
-                            : getString(R.string.picture_min_video_num, config.minSelectNum);
+                            : getString(R.string.picture_video_min_num, config.minSelectNum);
                     ToastManage.s(mContext, str);
                     return;
                 }

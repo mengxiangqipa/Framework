@@ -3,9 +3,8 @@
     <string name="picture_cancel">Cancel</string>
     <string name="picture_take_picture">Shot</string>
     <string name="picture_rule">not pictures or video</string>
-    <string name="picture_min_video_num">Video Selection Cannot%1$sNumber</string>
+    <string name="picture_video_min_num">Video Selection Cannot%1$sNumber</string>
     <string name="picture_message_max_num">You can choose the most%1$s Number Pictures</string>
-    <string name="picture_video_message_max_num">>You can choose the most%1$s Number Pictures or Videos</string>
     <string name="picture_preview">Preview</string>
     <string name="picture_please">Please later...</string>
     <string name="picture_done_front_num">%1$d/%2$d Ok</string>
@@ -40,8 +39,9 @@
     <string name="picture_video_error">The video is corrupted</string>
     <string name="picture_audio_error">The audio is corrupted</string>
     <string name="picture_confirm">Cancel</string>
-    <string name="picture_message_video_max_num">You can choose%1$s videos at most</string>
-    <string name="picture_message_video_max_count">最多可以选择%1$d个视频</string>
-    <string name="picture_message_singleFile_max_lenth">单个文件大小不能超过</string>
-    <string name="picture_message_totalFile_max_lenth">总文件大小不能超过</string>
+    <string name="picture_message_all_max_num">>You can choose the most%1$s Number Pictures or Videos</string>
+    <string name="picture_video_max_num">最多可以选择%1$d个视频</string>
+    <string name="picture_message_classify_max_num">最多可以选择%1$d张图片或%2$d个视频</string>
+    <string name="picture_message_singleFile_max_length">单个文件大小不能超过</string>
+    <string name="picture_message_totalFile_max_length">总文件大小不能超过</string>
 </resources>

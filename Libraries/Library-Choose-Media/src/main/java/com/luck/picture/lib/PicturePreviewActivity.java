@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -46,7 +45,8 @@ import java.util.Locale;
  * data：16/12/31
  */
 public class PicturePreviewActivity extends PictureBaseActivity implements
-        View.OnClickListener, Animation.AnimationListener, SimpleFragmentAdapter.OnCallBackActivity {
+        View.OnClickListener, Animation.AnimationListener,
+        SimpleFragmentAdapter.OnCallBackActivity {
     private ImageView picture_left_back;
     private TextView tv_img_num, tv_title, tv_ok;
     private PreviewViewPager viewPager;
@@ -129,7 +129,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             public void onClick(View view) {
                 if (images != null && images.size() > 0) {
                     LocalMedia image = images.get(viewPager.getCurrentItem());
-                    String pictureType = selectImages.size() > 0 ? selectImages.get(0).getPictureType() : "";
+                    String pictureType = selectImages.size() > 0 ?
+                            selectImages.get(0).getPictureType() : "";
 
                     if (!check.isSelected()) {
                         int videoCnt = 0;
@@ -137,8 +138,10 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                             LocalMedia localMedia = selectImages.get(i);
                             if (PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo()) {
                                 if (++videoCnt >= config.maxVideoNum) {
-                                    String str = PicturePreviewActivity.this.getString(R.string.picture_message_video_max_count, config.maxVideoNum);
-                                    ToastManage.s(PicturePreviewActivity.this, str);
+//                                    String str =
+//                                            PicturePreviewActivity.this.getString(R.string.picture_video_max_num, config.maxVideoNum);
+//                                    ToastManage.s(PicturePreviewActivity.this, str);
+                                    showTip();
                                     return;
                                 }
                             }
@@ -149,16 +152,20 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                                 if (null != localMedia && null != image) {
                                     if ((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo() && PictureMimeType.isPictureType(image.getPictureType()) != PictureMimeType.ofVideo())) {
                                         if (config.maxVideoNum >= 1) {
-                                            String tip = String.format(Locale.getDefault(), "只能选择至多%d个视频",
-                                                    config.maxVideoNum);
-                                            ToastManage.s(PicturePreviewActivity.this, tip);
+//                                            String tip = String.format(Locale.getDefault(),
+//                                                    "只能选择至多%d个视频",
+//                                                    config.maxVideoNum);
+//                                            ToastManage.s(PicturePreviewActivity.this, tip);
+                                            showTip();
                                             return;
                                         }
                                     } else if (((PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofImage() && PictureMimeType.isPictureType(image.getPictureType()) != PictureMimeType.ofImage()))) {
                                         if (config.maxVideoNum >= 1) {
-                                            String tip = String.format(Locale.getDefault(), "只能选择至多%d张图片",
-                                                    config.maxSelectNum);
-                                            ToastManage.s(PicturePreviewActivity.this, tip);
+//                                            String tip = String.format(Locale.getDefault(),
+//                                                    "只能选择至多%d张图片",
+//                                                    config.maxSelectNum);
+//                                            ToastManage.s(PicturePreviewActivity.this, tip);
+                                            showTip();
                                         }
                                         return;
                                     }
@@ -180,8 +187,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         File file = new File(image.getPath());
                         if (file.exists()) {
                             if (file.length() > config.singleFileMaxLenth) {
-                                String str = getString(R.string.picture_message_singleFile_max_lenth) + fileSize
-                                        (config.singleFileMaxLenth);
+                                String str =
+                                        getString(R.string.picture_message_singleFile_max_length) + fileSize
+                                                (config.singleFileMaxLenth);
                                 ToastManage.s(PicturePreviewActivity.this, str);
                                 check.startAnimation(animation);
                                 return;
@@ -196,8 +204,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                                 }
                                 totalFileMax += file.length();
                                 if (totalFileMax > config.totalFileMaxLenth) {
-                                    String str = getString(R.string.picture_message_totalFile_max_lenth) +
-                                            fileSize(config.totalFileMaxLenth);
+                                    String str =
+                                            getString(R.string.picture_message_totalFile_max_length) +
+                                                    fileSize(config.totalFileMaxLenth);
                                     ToastManage.s(PicturePreviewActivity.this, str);
                                     check.startAnimation(animation);
                                     return;
@@ -216,8 +225,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= config.maxSelectNum && isChecked) {
-                        ToastManage.s(mContext, config.onlyOneMimeType? getString(R.string.picture_message_max_num, config.maxSelectNum + "")
-                                :getString(R.string.picture_video_message_max_num, config.maxSelectNum  + ""));
+                        showTip();
                         check.setSelected(false);
                         return;
                     }
@@ -249,7 +257,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
         });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
                 isPreviewEggs(config.previewEggs, position, positionOffsetPixels);
             }
 
@@ -272,6 +281,37 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             public void onPageScrollStateChanged(int state) {
             }
         });
+    }
+
+    /**
+     * 文字提示一下
+     */
+    private void showTip() {
+        String toas;
+        if (config.mimeType == PictureMimeType.ofAll()) {
+            if (config.onlyOneMimeType) {
+                if (config.maxVideoNum>0){
+                    toas = getString(R.string.picture_message_classify_max_num,
+                                    config.maxSelectNum,config.maxVideoNum);
+                }else{
+                    toas = getString(R.string.picture_message_all_max_num,
+                            config.maxSelectNum + "");
+                }
+            } else {
+                toas = getString(R.string.picture_message_all_max_num,
+                        config.maxSelectNum + "");
+            }
+        } else if (config.mimeType == PictureMimeType.ofImage()) {
+            toas = getString(R.string.picture_message_max_num,
+                    config.maxSelectNum + "");
+        } else if (config.mimeType == PictureMimeType.ofVideo()) {
+            toas = getString(R.string.picture_video_max_num,
+                    config.maxVideoNum);
+        } else {
+            toas = getString(R.string.picture_message_all_max_num,
+                    config.maxSelectNum + "");
+        }
+        ToastManage.s(mContext, toas);
     }
 
     /**
@@ -471,8 +511,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
             if (config.minSelectNum > 0) {
                 if (size < config.minSelectNum && config.selectionMode == PictureConfig.MULTIPLE) {
                     boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
-                    String str = eqImg ? getString(R.string.picture_min_img_num, config.minSelectNum + "")
-                            : getString(R.string.picture_min_video_num, config.minSelectNum + "");
+                    String str = eqImg ? getString(R.string.picture_min_img_num,
+                            config.minSelectNum + "")
+                            : getString(R.string.picture_video_min_num, config.minSelectNum + "");
                     ToastManage.s(mContext, str);
                     return;
                 }
@@ -560,7 +601,9 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
      * @return 格式化的文件大小
      */
     public String fileSize(long size) {
-        if (size <= 0) return "0";
+        if (size <= 0) {
+            return "0";
+        }
         final String[] units = new String[]{"B", "kB", "MB", "GB", "TB"};
         int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
