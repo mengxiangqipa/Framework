@@ -121,7 +121,7 @@ android {
     signingConfigs {
         // your debug keystore
         debug {
-            storeFile file("AppFramework.jks")
+            storeFile file("jks/AppFramework.jks")
             storePassword "123456"
             keyAlias "com.demo.appframework"
             keyPassword "123456"
@@ -130,7 +130,7 @@ android {
         }
         release {
             try {
-                storeFile file("AppFramework.jks")
+                storeFile file("jks/AppFramework.jks")
                 storePassword "123456"
                 keyAlias "com.demo.appframework"
                 keyPassword "123456"
