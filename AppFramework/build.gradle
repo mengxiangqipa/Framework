@@ -3,6 +3,10 @@ apply plugin: 'org.greenrobot.greendao'//应用GreenDao数据库插件，不使�
 apply plugin: 'AndResGuard'//微信7zip压缩，资源混淆。。。v2签名会使得7zip压缩失效，如果你对apk大小有极致的要求，可以在signingConfigs中关闭v2签名
 apply plugin: 'walle'//美团多渠道打包
 
+//这个是打加固包
+apply from: 'reinforce_windows.gradle'
+apply from: 'reinforce_linux.gradle'
+
 android {
 
     walle {
