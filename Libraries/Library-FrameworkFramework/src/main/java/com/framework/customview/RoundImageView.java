@@ -36,26 +36,59 @@ import android.util.TypedValue;
 import com.framework.R;
 
 /**
+ * @author YobertJomi
  * -新圆角/圆形图片
  * https://github.com/SheHuan/RoundImageView
  */
 public class RoundImageView extends AppCompatImageView {
-    private Context context;
-
-    private boolean isCircle; // 是否显示为圆形，如果为圆形则设置的corner无效
-    private boolean isCoverSrc; // border、inner_border是否覆盖图片
-    private int borderWidth; // 边框宽度
-    private int borderColor = Color.WHITE; // 边框颜色
-    private int innerBorderWidth; // 内层边框宽度
-    private int innerBorderColor = Color.WHITE; // 内层边框充色
-
-    private int cornerRadius; // 统一设置圆角半径，优先级高于单独设置每个角的半径
-    private int cornerTopLeftRadius; // 左上角圆角半径
-    private int cornerTopRightRadius; // 右上角圆角半径
-    private int cornerBottomLeftRadius; // 左下角圆角半径
-    private int cornerBottomRightRadius; // 右下角圆角半径
-
-    private int maskColor; // 遮罩颜色
+    /**
+     * 是否显示为圆形，如果为圆形则设置的corner无效
+     */
+    private boolean isCircle;
+    /**
+     * border、inner_border是否覆盖图片
+     */
+    private boolean isCoverSrc;
+    /**
+     * 边框宽度
+     */
+    private int borderWidth;
+    /**
+     * 边框颜色
+     */
+    private int borderColor = Color.WHITE;
+    /**
+     * 内层边框宽度
+     */
+    private int innerBorderWidth;
+    /**
+     * 内层边框充色
+     */
+    private int innerBorderColor = Color.WHITE;
+    /**
+     * 统一设置圆角半径，优先级高于单独设置每个角的半径
+     */
+    private int cornerRadius;
+    /**
+     * 左上角圆角半径
+     */
+    private int cornerTopLeftRadius;
+    /**
+     * 右上角圆角半径
+     */
+    private int cornerTopRightRadius;
+    /**
+     * 左下角圆角半径
+     */
+    private int cornerBottomLeftRadius;
+    /**
+     * 右下角圆角半径
+     */
+    private int cornerBottomRightRadius;
+    /**
+     * 遮罩颜色
+     */
+    private int maskColor;
 
     private Xfermode xfermode;
 
@@ -66,12 +99,24 @@ public class RoundImageView extends AppCompatImageView {
     private float[] borderRadii;
     private float[] srcRadii;
 
-    private RectF srcRectF; // 图片占的矩形区域
-    private RectF borderRectF; // 边框的矩形区域
+    /**
+     * 图片占的矩形区域
+     */
+    private RectF srcRectF;
+    /**
+     * 边框的矩形区域
+     */
+    private RectF borderRectF;
 
     private Paint paint;
-    private Path path; // 用来裁剪图片的ptah
-    private Path srcPath; // 图片区域大小的path
+    /**
+     * 用来裁剪图片的ptah
+     */
+    private Path path;
+    /**
+     * 图片区域大小的path
+     */
+    private Path srcPath;
 
     public RoundImageView(Context context) {
         this(context, null);
@@ -83,9 +128,6 @@ public class RoundImageView extends AppCompatImageView {
 
     public RoundImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        this.context = context;
-
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundImageView, 0, 0);
         for (int i = 0; i < ta.getIndexCount(); i++) {
             int attr = ta.getIndex(i);
@@ -160,8 +202,6 @@ public class RoundImageView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         reInitParams();
-
-        canvas.restore();
         // 使用图形混合模式来显示指定区域的图片
         canvas.saveLayer(srcRectF, null, Canvas.ALL_SAVE_FLAG);
         if (!isCoverSrc) {
