@@ -1,8 +1,8 @@
 package com.library.adapter.widget.swipemenu;
 
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntDef;
+import androidx.annotation.IntRange;
 import android.widget.LinearLayout;
 
 import java.lang.annotation.Retention;

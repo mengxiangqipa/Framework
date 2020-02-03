@@ -1,7 +1,7 @@
 package com.library.adapter_recyclerview;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 /**
  * 可设置RecyclerView不可滚动（纵向）

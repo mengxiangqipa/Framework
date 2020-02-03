@@ -3,8 +3,8 @@ package com.demo.application;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
+import androidx.core.app.ActivityCompat;
+
 import android.util.Log;
 
 import com.demo.configs.InterfaceConfig;

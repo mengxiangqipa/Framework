@@ -57,9 +57,10 @@ public class KeepAliveClientUtil {
      * @param objectContent 写入内容
      * @throws Exception
      */
-    public void connect(final String host, final int port, final Context context, final Object objectContent) throws
+    public void connect(final String host, final int port, final Context context,
+                        final Object objectContent) throws
             Exception {
-        ThreadPoolUtil.getInstanceSingleTaskExecutor().submit(new Runnable() {
+        ThreadPoolUtil.getInstance().getInstanceSingleTaskExecutor().submit(new Runnable() {
             @Override
             public void run() {
                 Y.y("getInstanceSingleTaskExecutor进程：" + ProcessUtil.getInstance().getCurrentProcessName(context));
@@ -108,13 +109,15 @@ public class KeepAliveClientUtil {
      * @param HeartBeat     毫秒数
      * @throws Exception
      */
-    public void connectHeartBeat(final String host, final int port, final Context context, final Object
+    public void connectHeartBeat(final String host, final int port, final Context context,
+                                 final Object
             objectContent, final int HeartBeat) throws Exception {
 
-        ThreadPoolUtil.getInstanceSingleTaskExecutor().submit(new Runnable() {
+        ThreadPoolUtil.getInstance().getInstanceSingleTaskExecutor().submit(new Runnable() {
             @Override
             public void run() {
-//                Utils.showToast("线程名：" + Thread.currentThread().getName() + "线程id：" + Thread.currentThread().getId());
+//                Utils.showToast("线程名：" + Thread.currentThread().getName() + "线程id：" + Thread
+//                .currentThread().getId());
                 // 配置客户端NIO线程组
                 if (null == group) {
                     group = new NioEventLoopGroup();
@@ -135,8 +138,9 @@ public class KeepAliveClientUtil {
                     }
                     if (null == objectContent) {
                         channel.writeAndFlush("首次链接\n");
-                    } else
+                    } else {
                         channel.writeAndFlush(objectContent);
+                    }
                     Thread.sleep(HeartBeat);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -148,7 +152,7 @@ public class KeepAliveClientUtil {
     }
 
     public void disConnect() {
-        ThreadPoolUtil.getInstanceSingleTaskExecutor().submit(new Runnable() {
+        ThreadPoolUtil.getInstance().getInstanceSingleTaskExecutor().submit(new Runnable() {
             @Override
             public void run() {
                 if (null != bootstrap)//先释放bootstrap

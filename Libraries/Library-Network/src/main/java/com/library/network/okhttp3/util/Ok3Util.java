@@ -1,29 +1,16 @@
 package com.library.network.okhttp3.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.library.network.okhttp3.request.DownloadRequest;
 import com.library.network.okhttp3.request.StringRequest;
 import com.library.network.okhttp3.request.UploadFileRequest;
 import com.library.network.okhttp3.upload_dowload.ProgressResponseBody;
 
-import java.io.File;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Interceptor;

@@ -2,7 +2,7 @@ package com.framework.application;
 
 import android.app.Application;
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 //public class ProxyApplication extends Application {//主module未使用Tinker时继承Application 并修改FrameApplication--onCreate()
 public class ProxyApplication {

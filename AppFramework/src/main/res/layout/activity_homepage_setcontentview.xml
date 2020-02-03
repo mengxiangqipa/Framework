@@ -56,14 +56,14 @@
             android:layout_height="50dp"
             android:background="@drawable/ic_android_blue_24dp"/>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_heightPercent="20%sh"
             app:layout_widthPercent="100%">
 
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
         <ImageView
             android:id="@+id/ivGlide"
@@ -82,12 +82,12 @@
                  items that is outside of device viewport when it loads initially.
                  Wrapping "RecyclerView" with "RelativeLayout" fixes the issue on Marshmallow devices.
             -->
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
         </RelativeLayout>
 
 

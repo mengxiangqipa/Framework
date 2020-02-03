@@ -1,6 +1,6 @@
 package com.library.adapter.touch;
 
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 /**
  * @author YobertJomi

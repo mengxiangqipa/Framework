@@ -21,7 +21,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.multidex.MultiDex;
+import androidx.multidex.MultiDex;
 
 import com.framework2.tinker.Log.MyLogImp;
 import com.framework2.tinker.util.SampleApplicationContext;

@@ -1,7 +1,7 @@
 package com.demo.entity;
 
-import android.databinding.BaseObservable;
-import android.databinding.ObservableField;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.ObservableField;
 
 /**
  * dataBinding 的item项

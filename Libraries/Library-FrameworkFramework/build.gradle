@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
@@ -29,11 +29,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     api rootProject.ext.androidSupport.recyclerView
-    //appcompat-v7
+    /*appcompat-v7*/
     api rootProject.ext.androidSupport.appcompat_v7
 }
 

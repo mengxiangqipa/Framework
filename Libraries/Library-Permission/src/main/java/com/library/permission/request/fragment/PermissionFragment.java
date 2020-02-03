@@ -7,7 +7,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.library.permission.Constants;
 import com.library.permission.PermissionTools;
 import com.library.permission.bean.Permission;

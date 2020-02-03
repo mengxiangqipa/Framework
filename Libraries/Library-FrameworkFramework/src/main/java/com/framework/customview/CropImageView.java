@@ -30,7 +30,7 @@ import com.framework.R;
  * 使用2： mCropView.setImageBitmap(bitmap);
  * 使用3：Bitmap bitmap = mCropView.getCroppedBitmap();
  */
-public class CropImageView extends android.support.v7.widget.AppCompatImageView {
+public class CropImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     // Constants ///////////////////////////////////////////////////////////////////////////////////
 

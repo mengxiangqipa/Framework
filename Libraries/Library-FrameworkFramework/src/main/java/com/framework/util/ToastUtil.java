@@ -1,7 +1,7 @@
 package com.framework.util;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import android.text.TextUtils;
 import android.widget.Toast;
 

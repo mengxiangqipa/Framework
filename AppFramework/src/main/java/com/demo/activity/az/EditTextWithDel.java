@@ -18,7 +18,7 @@ import com.library.utils.ScreenUtils;
  * className EditTextWithDel
  * created at  2017/7/12  16:22
  */
-public class EditTextWithDel extends android.support.v7.widget.AppCompatEditText {
+public class EditTextWithDel extends androidx.appcompat.widget.AppCompatEditText {
     private Drawable imgLeft, imgRight;
 
     public EditTextWithDel(Context context) {

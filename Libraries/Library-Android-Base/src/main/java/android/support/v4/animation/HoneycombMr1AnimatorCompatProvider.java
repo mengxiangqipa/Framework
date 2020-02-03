@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package android.support.v4.animation;
+package androidx.core.animation;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
@@ -11,7 +11,7 @@ import android.animation.ValueAnimator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.TargetApi;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.View;
 
 @RequiresApi(12)
