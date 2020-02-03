@@ -28,8 +28,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    /*appcompat-v7*/
-    implementation rootProject.ext.androidSupport.appcompat_v7
+    /*appcompat*/
+    implementation rootProject.ext.androidX.appcompat
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

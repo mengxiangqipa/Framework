@@ -28,8 +28,8 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    /*appcompat-v7*/
-    api rootProject.ext.androidSupport.appcompat_v7
+    /*appcompat*/
+    api rootProject.ext.androidX.appcompat
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

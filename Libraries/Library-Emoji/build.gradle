@@ -33,8 +33,8 @@ dependencies {
     /*butterknife注解*/
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    /*appcompat-v7*/
-    implementation rootProject.ext.androidSupport.appcompat_v7
+    /*appcompat*/
+    implementation rootProject.ext.androidX.appcompat
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

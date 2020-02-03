@@ -26,8 +26,8 @@ dependencies {
     /*butterknife注解*/
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    /*appcompat-v7*/
-    api rootProject.ext.androidSupport.appcompat_v7
+    /*appcompat*/
+    api rootProject.ext.androidX.appcompat
     api project(':Libraries:Library-AndroidVideoCache')
 }
 

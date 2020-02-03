@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" filepath="$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" filepath="$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidX-Base/Library-AndroidX-Base.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidX-Base/Library-AndroidX-Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-CameraFilter/Library-CameraFilter.iml" filepath="$PROJECT_DIR$/Libraries/Library-CameraFilter/Library-CameraFilter.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Choose-Media/Library-Choose-Media.iml" filepath="$PROJECT_DIR$/Libraries/Library-Choose-Media/Library-Choose-Media.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-ClipPicView/Library-ClipPicView.iml" filepath="$PROJECT_DIR$/Libraries/Library-ClipPicView/Library-ClipPicView.iml" />

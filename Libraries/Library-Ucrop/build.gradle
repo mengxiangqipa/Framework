@@ -27,9 +27,9 @@ android {
 }
 
 dependencies {
-    implementation rootProject.ext.androidSupport.appcompat_v7
-    implementation rootProject.ext.androidSupport.recyclerView
-//    implementation "com.android.support:appcompat-v7:${cfgs.androidSupportVersion}"
+    implementation rootProject.ext.androidX.appcompat
+    implementation rootProject.ext.androidX.recyclerView
+//    implementation "com.android.support:appcompat:${cfgs.androidSupportVersion}"
 //    implementation "com.android.support:recyclerview-v7:${cfgs.androidSupportVersion}"
     implementation "com.github.bumptech.glide:glide:${cfgs.glide}"
 }

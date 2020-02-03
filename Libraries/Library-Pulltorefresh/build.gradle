@@ -22,8 +22,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation rootProject.ext.androidSupport.recyclerView
-    implementation rootProject.ext.androidSupport.support_v4
+    implementation rootProject.ext.androidX.recyclerView
+    implementation rootProject.ext.androidX.support_v4
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

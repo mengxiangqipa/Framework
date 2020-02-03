@@ -29,10 +29,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     /*recyclerView*/
-    api rootProject.ext.androidSupport.recyclerView
-    /*appcompat-v7*/
-    api rootProject.ext.androidSupport.appcompat_v7
-    api project(':Libraries:Library-Android-Base')
+    api rootProject.ext.androidX.recyclerView
+    /*appcompat*/
+    api rootProject.ext.androidX.appcompat
+    api rootProject.ext.androidX.support_v4
+    api rootProject.ext.androidX.cardview
+    api project(':Libraries:Library-AndroidX-Base')
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

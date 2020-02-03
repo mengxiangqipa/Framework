@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
-    /*appcompat-v7*/
-    api rootProject.ext.androidSupport.appcompat_v7
+    /*appcompat*/
+    api rootProject.ext.androidX.appcompat
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------
