@@ -6,9 +6,11 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -71,9 +73,8 @@ public class HorizontalDividerItemDecoration2 extends RecyclerView.ItemDecoratio
         }
     }
 
-    @SuppressWarnings("deprecation")
-    public void setColor(@NonNull Context context, @ColorRes int color) {
-        dividerPaint.setColor(context.getResources().getColor(color));
+    public void setColor(@ColorInt int color) {
+        dividerPaint.setColor(color);
     }
 
     public void setDividerHeightPx(@IntRange(from = 1) int dividerHeight) {
