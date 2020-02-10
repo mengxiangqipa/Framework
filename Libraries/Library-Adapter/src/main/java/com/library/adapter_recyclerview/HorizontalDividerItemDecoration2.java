@@ -73,8 +73,8 @@ public class HorizontalDividerItemDecoration2 extends RecyclerView.ItemDecoratio
         }
     }
 
-    public void setColor(@ColorInt int color) {
-        dividerPaint.setColor(color);
+    public void setColor(@NonNull Context context,@ColorRes int color) {
+        dividerPaint.setColor(ContextCompat.getColor(context,color));
     }
 
     public void setDividerHeightPx(@IntRange(from = 1) int dividerHeight) {
