@@ -3,13 +3,14 @@ package com.framework.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 /**
  * 键盘
@@ -69,12 +70,42 @@ public class KeyBoardUtil {
     }
 
     /**
+     * <p>
+     * 显示软键盘
+     * </p>
+     */
+    public void showSoftInputMethod(@NonNull Context context, EditText et) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != et) {
+            // 设置软键盘展开
+            imm.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    /**
+     * <p>
+     * 隐藏软键盘
+     * </p>
+     */
+    public void hideSoftInputMethod(@NonNull Context context, EditText et) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != et) {
+            // 设置软键盘展开
+            imm.hideSoftInputFromWindow(et.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    /**
      * 判断keyBoard是否显示
      *
      * @param rootView view.getRootView();
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull View rootView, final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull View rootView, final @IntRange(from = 0, to =
+            1920 * 2) int
             softKeyboardHeight) {
         Rect r = new Rect();
         rootView.getWindowVisibleDisplayFrame(r);
@@ -98,9 +129,11 @@ public class KeyBoardUtil {
      *
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to =
+            1920 * 2) int
             softKeyboardHeight) {
-        return isKeyboardShown((((Activity) context).getWindow().getDecorView()), softKeyboardHeight);
+        return isKeyboardShown((((Activity) context).getWindow().getDecorView()),
+                softKeyboardHeight);
     }
 
     private View rootView;//activity的根视图
