@@ -69,6 +69,35 @@ public class KeyBoardUtil {
     }
 
     /**
+     * <p>
+     * 显示软键盘
+     * </p>
+     */
+    public void showSoftInputMethod(@NonNull Context context, EditText et) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != et) {
+            // 设置软键盘展开
+            imm.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    /**
+     * <p>
+     * 隐藏软键盘
+     * </p>
+     */
+    public void hideSoftInputMethod(@NonNull Context context, EditText et) {
+        InputMethodManager imm = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (null != et) {
+            // 设置软键盘展开
+            imm.hideSoftInputFromWindow(et.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    /**
      * 判断keyBoard是否显示
      *
      * @param rootView view.getRootView();

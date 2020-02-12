@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
+
 /**
  * 简单RecyclerView的分割线 末项可绘制
  * ItewDecoration
@@ -70,7 +72,7 @@ public class HorizontalDividerItemDecoration2 extends RecyclerView.ItemDecoratio
 
     @SuppressWarnings("deprecation")
     public void setColor(@NonNull Context context, @ColorRes int color) {
-        dividerPaint.setColor(context.getResources().getColor(color));
+        dividerPaint.setColor(ContextCompat.getColor(context,color));
     }
 
     public void setDividerHeightPx(@IntRange(from = 1) int dividerHeight) {
