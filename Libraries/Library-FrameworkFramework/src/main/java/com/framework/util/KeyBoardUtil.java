@@ -3,11 +3,14 @@ package com.framework.util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
+import android.os.Build;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -203,5 +206,73 @@ public class KeyBoardUtil {
                                                 final @IntRange(from = 0, to = 1920 * 2) int halfSoftKeyboardHeight) {
         KeyBoardUtil softKeyBoardListener = new KeyBoardUtil(activity, halfSoftKeyboardHeight);
         softKeyBoardListener.setOnSoftKeyBoardChangeListener(onSoftKeyBoardChangeListener);
+    }
+
+    public interface OnNavigationChangedListener {
+        void onNavigationShow(int height);
+
+        void onNavigationHide(int height);
+    }
+
+    /**
+     * 虚拟导航栏显示/隐藏
+     *
+     * @param activity                    Activity
+     * @param onNavigationChangedListener OnNavigationChangedListener
+     */
+    public void setOnNavigationChangedListener(@NonNull final Activity activity,
+                                               final OnNavigationChangedListener onNavigationChangedListener) {
+        final View rootView=activity.getWindow().getDecorView();
+        if (onNavigationChangedListener == null||rootView == null ) {
+            return;
+        }
+        if (getRealHeight(activity) != getHeight(activity)) {
+            rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                int rootViewHeight;
+                @Override
+                public void onGlobalLayout() {
+                    int viewHeight = rootView.getHeight();
+                    if (rootViewHeight != viewHeight) {
+                        rootViewHeight = viewHeight;
+                        if (viewHeight == getRealHeight(activity)) {
+                            //隐藏虚拟按键
+                            onNavigationChangedListener.onNavigationHide(getRealHeight(activity)-getHeight(activity));
+                        } else {
+                            //显示虚拟按键
+                            onNavigationChangedListener.onNavigationShow(getRealHeight(activity)-getHeight(activity));
+                        }
+                    }
+                }
+            });
+        }else{
+            onNavigationChangedListener.onNavigationHide(getRealHeight(activity)-getHeight(activity));
+        }
+    }
+
+    /**
+     * 获取手机屏幕高度
+     */
+    private int getHeight(@NonNull Activity activity) {
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowManager =
+                (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
+    }
+
+    /**
+     * 获取屏幕真实高度（包括虚拟键盘）
+     */
+    private int getRealHeight(@NonNull Activity activity) {
+        WindowManager windowManager =
+                (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        DisplayMetrics dm = new DisplayMetrics();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            display.getRealMetrics(dm);
+        } else {
+            display.getMetrics(dm);
+        }
+        return dm.heightPixels;
     }
 }
