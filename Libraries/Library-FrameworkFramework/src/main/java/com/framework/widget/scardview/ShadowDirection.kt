@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview
+package com.framework.customview.scardview
 
 
 const val DIRECTION_LEFT = 1

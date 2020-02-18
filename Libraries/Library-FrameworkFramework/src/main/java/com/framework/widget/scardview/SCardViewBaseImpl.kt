@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview
+package com.framework.customview.scardview
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -22,7 +22,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
-import androidx.annotation.Nullable
+import android.support.annotation.Nullable
 
 open class SCardViewBaseImpl : SCardViewImpl {
 

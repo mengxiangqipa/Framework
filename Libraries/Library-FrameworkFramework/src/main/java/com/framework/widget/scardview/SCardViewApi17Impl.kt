@@ -14,13 +14,14 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview
+package com.framework.customview.scardview
 
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 
 internal class SCardViewApi17Impl : SCardViewBaseImpl() {
+
 
     override fun initStatic() {
         SRoundRectDrawableWithShadow.sRoundRectHelper = object : SRoundRectDrawableWithShadow.RoundRectHelper {

@@ -14,8 +14,12 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview
+package com.framework.customview.scardview
 
+/**
+ * Created by shilong
+ *  2018/9/29.
+ */
 const val NOLEFTCORNER = 1
 const val NORIGHTCORNER = 2
 const val NOTOPCORNER = 3

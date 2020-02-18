@@ -14,12 +14,12 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview
+package com.framework.customview.scardview
 
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import androidx.annotation.ColorInt
+import android.support.annotation.ColorInt
 
 
 internal interface SCardViewImpl {
