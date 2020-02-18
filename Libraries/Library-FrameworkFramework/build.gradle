@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -35,6 +37,7 @@ dependencies {
     api rootProject.ext.androidSupport.recyclerView
     //appcompat-v7
     api rootProject.ext.androidSupport.appcompat_v7
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 //生成jar包--自定义(会排出引用jar的class)
@@ -119,3 +122,6 @@ task aar {//AS3.0之后需要产生aar，直接在Teraminal里面输入 gradlew 
     //也可以在AS--Build下选择Make Module xxx
 }
 aar.dependsOn(build)
+repositories {
+    mavenCentral()
+}
