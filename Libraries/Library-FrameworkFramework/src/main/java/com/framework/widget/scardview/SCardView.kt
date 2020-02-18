@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview
+package com.framework.customview.scardview
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -22,11 +22,11 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.support.annotation.ColorInt
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
-import androidx.annotation.ColorInt
 import com.framework.R
 import kotlin.math.ceil
 import kotlin.math.sqrt

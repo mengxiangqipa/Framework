@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.framework.widget.scardview;
+package com.framework.customview.scardview;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
