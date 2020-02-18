@@ -186,4 +186,55 @@
         <attr name="simple_round_roundHeight" format="dimension" />
     </declare-styleable>
 
+
+    <attr name="cardViewStyle" format="reference" />
+    <declare-styleable name="SCardView">
+        <attr name="cardBackgroundColor" format="color" />
+        <attr name="cardCornerRadius" format="dimension" />
+        <attr name="cardElevation" format="dimension" />
+        <attr name="cardMaxElevation" format="dimension" />
+        <attr name="cardUseCompatPadding" format="boolean" />
+        <attr name="cardPreventCornerOverlap" format="boolean" />
+        <attr name="cardUseCornerArea" format="boolean" />
+        <attr name="contentPadding" format="dimension" />
+        <attr name="contentPaddingLeft" format="dimension" />
+        <attr name="contentPaddingRight" format="dimension" />
+        <attr name="contentPaddingTop" format="dimension" />
+        <attr name="contentPaddingBottom" format="dimension" />
+        <attr name="cardLightDirection">
+            <!-- 设置光源位置为左侧，阴影在右侧 -->
+            <enum name="left" value="1" />
+            <!-- 阴影在左侧-->
+            <enum name="right" value="2" />
+            <!-- 阴影在下部-->
+            <enum name="top" value="3" />
+            <!-- 阴影在上部 -->
+            <enum name="bottom" value="4" />
+            <!-- 阴影在右下角-->
+            <enum name="LT" value="5" />
+            <!-- 阴影在左下角-->
+            <enum name="RT" value="6" />
+            <!-- 阴影在右上角 -->
+            <enum name="LB" value="7" />
+            <!-- 阴影在左上角 -->
+            <enum name="RB" value="8" />
+            <!-- 光源位置在正上方 -->
+            <enum name="none" value="9" />
+        </attr>
+
+        <attr name="cardCornerVisibility">
+            <enum name="noLeftCorner" value="1" />
+            <enum name="noRightCorner" value="2" />
+            <enum name="noTopCorner" value="3" />
+            <enum name="noBottomCorner" value="4" />
+            <enum name="noLT_RBCorner" value="5" />
+            <enum name="noRT_LBCorner" value="6" />
+            <enum name="none" value="7" />
+        </attr>
+        <attr name="cardShadowStartColor" format="color" />
+        <attr name="cardShadowEndColor" format="color" />
+        <attr name="android:minWidth" />
+        <attr name="android:minHeight" />
+    </declare-styleable>
+
 </resources>
