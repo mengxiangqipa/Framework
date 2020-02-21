@@ -70,15 +70,28 @@ public class DateAndTimeUtil {
             e.printStackTrace();
             return "时间未知";
         }
+       return getDateDistance(timemillis);
+    }
+
+    /**
+     * 将时间戳转为代表"距现在多久之前"的字符串
+     *
+     * @param timeMillis 时间间隔
+     */
+    public String getDateDistance(long timeMillis) {
         StringBuilder sb = new StringBuilder();
-        if (0 == timemillis) {
+        if (0 == timeMillis) {
             return "";
         } else {
-            long time = System.currentTimeMillis() - (timemillis);
-            long mill = (long) Math.floor(time / 1000);// 秒前
-            long minute = (long) Math.floor(time / 60 / 1000.0f);// 分钟前
-            long hour = (long) Math.floor(time / 60 / 60 / 1000.0f);// 小时
-            long day = (long) Math.floor(time / 24 / 60 / 60 / 1000.0f);// 天前
+            long time = System.currentTimeMillis() - (timeMillis);
+            // 秒前
+            long mill = (long) Math.floor(time / 1000F);
+            // 分钟前
+            long minute = (long) Math.floor(time / 60F / 1000F);
+            // 小时
+            long hour = (long) Math.floor(time / 60F / 60F / 1000F);
+            // 天前
+            long day = (long) Math.floor(time / 24F / 60F / 60F / 1000F);
             if (day > 0) {
                 sb.append(day).append("天");
             } else if (hour > 0) {
