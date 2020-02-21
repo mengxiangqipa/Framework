@@ -70,6 +70,14 @@ public class DateAndTimeUtil {
             e.printStackTrace();
             return "时间未知";
         }
+        return getDateDistance(timemillis);
+    }
+
+    /**
+     * 将时间戳转为代表"距现在多久之前"的字符串
+     *
+     */
+    public String getDateDistance(long timemillis) {
         StringBuilder sb = new StringBuilder();
         if (0 == timemillis) {
             return "";
