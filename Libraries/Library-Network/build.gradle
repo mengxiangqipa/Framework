@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -34,4 +36,5 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     /*引用FrameworkFramework*/
     implementation project(':Libraries:Library-FrameworkFramework')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
