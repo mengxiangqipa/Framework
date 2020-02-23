@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -35,6 +37,7 @@ dependencies {
     implementation rootProject.ext.androidX.appcompat
     api files('libs/cameraFilterSdk.jar')
     api files('libs/picasso-2.4.0.jar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

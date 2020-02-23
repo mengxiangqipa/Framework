@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -32,6 +34,7 @@ dependencies {
 //    implementation "com.android.support:appcompat:${cfgs.androidSupportVersion}"
 //    implementation "com.android.support:recyclerview-v7:${cfgs.androidSupportVersion}"
     implementation "com.github.bumptech.glide:glide:${cfgs.glide}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------
