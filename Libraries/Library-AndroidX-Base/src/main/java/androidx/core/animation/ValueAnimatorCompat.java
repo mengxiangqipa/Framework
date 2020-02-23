@@ -14,12 +14,32 @@
  *   limitations under the License.
  */
 
-package com.framework.customview.scardview
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
 
-const val NOLEFTCORNER = 1
-const val NORIGHTCORNER = 2
-const val NOTOPCORNER = 3
-const val NOBOTTOMCORNER = 4
-const val NOLT_RBCORNER = 5
-const val NORT_LBCORNER = 6
-const val NONE = 7
+package androidx.core.animation;
+
+import android.view.View;
+
+import androidx.annotation.RestrictTo;
+import androidx.annotation.RestrictTo.Scope;
+
+@RestrictTo({Scope.LIBRARY_GROUP})
+public interface ValueAnimatorCompat {
+
+    void setTarget(View var1);
+
+    void addListener(AnimatorListenerCompat var1);
+
+    void setDuration(long var1);
+
+    void start();
+
+    void cancel();
+
+    void addUpdateListener(AnimatorUpdateListenerCompat var1);
+
+    float getAnimatedFraction();
+}

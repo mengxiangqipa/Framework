@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/Libraries/Library-Adapter" />
             <option value="$PROJECT_DIR$/Libraries/Library-Android-Base" />
             <option value="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache" />
+            <option value="$PROJECT_DIR$/Libraries/Library-AndroidX-Base" />
             <option value="$PROJECT_DIR$/Libraries/Library-CameraFilter" />
             <option value="$PROJECT_DIR$/Libraries/Library-Choose-Media" />
             <option value="$PROJECT_DIR$/Libraries/Library-ClipPicView" />

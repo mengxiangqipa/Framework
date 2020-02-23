@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -31,11 +29,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     /*recyclerView*/
-    api rootProject.ext.androidSupport.recyclerView
-    /*appcompat-v7*/
-    api rootProject.ext.androidSupport.appcompat_v7
-    api project(':Libraries:Library-Android-Base')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api rootProject.ext.androidX.recyclerView
+    /*appcompat*/
+    api rootProject.ext.androidX.appcompat
+    api rootProject.ext.androidX.support_v4
+    api rootProject.ext.androidX.cardview
+    api project(':Libraries:Library-AndroidX-Base')
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

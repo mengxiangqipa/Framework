@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 apply plugin: 'com.jakewharton.butterknife'//Butterknife注解插件，不使用Butterknife注解插件就删除 library时必须有
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
@@ -35,9 +33,8 @@ dependencies {
     /*butterknife注解*/
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    /*appcompat-v7*/
-    implementation rootProject.ext.androidSupport.appcompat_v7
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    /*appcompat*/
+    implementation rootProject.ext.androidX.appcompat
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

@@ -12,9 +12,9 @@ import android.view.View;
 
 @RestrictTo({Scope.LIBRARY_GROUP})
 public final class AnimatorCompatHelper {
-    private static final AnimatorProvider IMPL;
+    private static final androidx.core.animation.AnimatorProvider IMPL;
 
-    public static ValueAnimatorCompat emptyValueAnimator() {
+    public static androidx.core.animation.ValueAnimatorCompat emptyValueAnimator() {
         return IMPL.emptyValueAnimator();
     }
 
@@ -27,9 +27,9 @@ public final class AnimatorCompatHelper {
 
     static {
         if (VERSION.SDK_INT >= 12) {
-            IMPL = new HoneycombMr1AnimatorCompatProvider();
+            IMPL = new androidx.core.animation.HoneycombMr1AnimatorCompatProvider();
         } else {
-            IMPL = new GingerbreadAnimatorCompatProvider();
+            IMPL = new androidx.core.animation.GingerbreadAnimatorCompatProvider();
         }
     }
 }

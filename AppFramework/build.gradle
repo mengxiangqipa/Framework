@@ -242,7 +242,7 @@ dependencies {
     implementation files('libs/open_sdk_r5788_lite.jar')
 
     implementation project(':Libraries:Library-Adapter')
-    implementation project(':Libraries:Library-Android-Base')
+//    implementation project(':Libraries:Library-Android-Base')
     implementation project(':Libraries:Library-AndroidVideoCache')
     implementation project(':Libraries:Library-CameraFilter')
     implementation project(':Libraries:Library-Choose-Media')

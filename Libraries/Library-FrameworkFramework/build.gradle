@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -34,10 +34,11 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    api rootProject.ext.androidSupport.recyclerView
-    /*appcompat-v7*/
-    api rootProject.ext.androidSupport.appcompat_v7
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api rootProject.ext.androidX.recyclerView
+    /*appcompat*/
+    api rootProject.ext.androidX.appcompat
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 //生成jar包--自定义(会排出引用jar的class)

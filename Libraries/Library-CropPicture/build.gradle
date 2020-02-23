@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'//library上传到JitPack
 group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
@@ -40,9 +38,8 @@ android {
 
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    /*appcompat-v7*/
-    implementation rootProject.ext.androidSupport.appcompat_v7
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    /*appcompat*/
+    implementation rootProject.ext.androidX.appcompat
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

@@ -1,3 +1,19 @@
+/*
+ *  Copyright (c) 2020 YobertJomi
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
 //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by Fernflower decompiler)
@@ -18,10 +34,12 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
     GingerbreadAnimatorCompatProvider() {
     }
 
+    @Override
     public ValueAnimatorCompat emptyValueAnimator() {
         return new GingerbreadFloatValueAnimator();
     }
 
+    @Override
     public void clearInterpolator(View view) {
     }
 
@@ -35,6 +53,7 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
         private boolean mStarted = false;
         private boolean mEnded = false;
         private Runnable mLoopRunnable = new Runnable() {
+            @Override
             public void run() {
                 long dt = GingerbreadFloatValueAnimator.this.getTime() - GingerbreadFloatValueAnimator.this.mStartTime;
                 float fraction = (float) dt * 1.0F / (float) GingerbreadFloatValueAnimator.this.mDuration;
@@ -61,20 +80,24 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
             }
         }
 
+        @Override
         public void setTarget(View view) {
             this.mTarget = view;
         }
 
+        @Override
         public void addListener(AnimatorListenerCompat listener) {
             this.mListeners.add(listener);
         }
 
+        @Override
         public void setDuration(long duration) {
             if (!this.mStarted) {
                 this.mDuration = duration;
             }
         }
 
+        @Override
         public void start() {
             if (!this.mStarted) {
                 this.mStarted = true;
@@ -107,6 +130,7 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
             }
         }
 
+        @Override
         public void cancel() {
             if (!this.mEnded) {
                 this.mEnded = true;
@@ -118,10 +142,12 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
             }
         }
 
+        @Override
         public void addUpdateListener(AnimatorUpdateListenerCompat animatorUpdateListener) {
             this.mUpdateListeners.add(animatorUpdateListener);
         }
 
+        @Override
         public float getAnimatedFraction() {
             return this.mFraction;
         }

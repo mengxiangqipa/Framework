@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -13,6 +11,9 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 /**
  * 键盘
@@ -106,7 +107,8 @@ public class KeyBoardUtil {
      * @param rootView view.getRootView();
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull View rootView, final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull View rootView, final @IntRange(from = 0, to =
+            1920 * 2) int
             softKeyboardHeight) {
         Rect r = new Rect();
         rootView.getWindowVisibleDisplayFrame(r);
@@ -130,14 +132,19 @@ public class KeyBoardUtil {
      *
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to =
+            1920 * 2) int
             softKeyboardHeight) {
-        return isKeyboardShown((((Activity) context).getWindow().getDecorView()), softKeyboardHeight);
+        return isKeyboardShown((((Activity) context).getWindow().getDecorView()),
+                softKeyboardHeight);
     }
 
-    private View rootView;//activity的根视图
-    private int rootViewVisibleHeight;//纪录根视图的显示高度
+    //activity的根视图
+    private View rootView;
+    //纪录根视图的显示高度
+    private int rootViewVisibleHeight;
     private OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener;
+    private OnNavigationChangedListener onNavigationChangedListener;
 
     private KeyBoardUtil(Activity activity, final @IntRange(from = 0, to = 1920 * 2) int
             halfSoftKeyboardHeight) {
@@ -208,6 +215,7 @@ public class KeyBoardUtil {
         softKeyBoardListener.setOnSoftKeyBoardChangeListener(onSoftKeyBoardChangeListener);
     }
 
+
     public interface OnNavigationChangedListener {
         void onNavigationShow(int height);
 
@@ -222,7 +230,7 @@ public class KeyBoardUtil {
      */
     public void setOnNavigationChangedListener(@NonNull final Activity activity,
                                                final OnNavigationChangedListener onNavigationChangedListener) {
-        final View rootView=activity.getWindow().getDecorView();
+       final View rootView=activity.getWindow().getDecorView();
         if (onNavigationChangedListener == null||rootView == null ) {
             return;
         }

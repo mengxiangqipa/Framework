@@ -8,7 +8,7 @@ package androidx.core.animation;
 import android.view.View;
 
 interface AnimatorProvider {
-    ValueAnimatorCompat emptyValueAnimator();
+    androidx.core.animation.ValueAnimatorCompat emptyValueAnimator();
 
     void clearInterpolator(View var1);
 }

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 简单RecyclerView的分割线 末项可绘制
@@ -27,7 +29,7 @@ public class HorizontalDividerItemDecoration2 extends RecyclerView.ItemDecoratio
     @SuppressWarnings("deprecation")
     public HorizontalDividerItemDecoration2(@NonNull Context context) {
         dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(android.support.v7.appcompat.R.color.material_grey_600));
+        dividerPaint.setColor(context.getResources().getColor(androidx.appcompat.R.color.material_grey_600));
         dividerHeight = 1;
     }
 
@@ -71,9 +73,8 @@ public class HorizontalDividerItemDecoration2 extends RecyclerView.ItemDecoratio
         }
     }
 
-    @SuppressWarnings("deprecation")
-    public void setColor(@NonNull Context context, @ColorRes int color) {
-        dividerPaint.setColor(ContextCompat.getColor(context, color));
+    public void setColor(@NonNull Context context,@ColorRes int color) {
+        dividerPaint.setColor(ContextCompat.getColor(context,color));
     }
 
     public void setDividerHeightPx(@IntRange(from = 1) int dividerHeight) {
