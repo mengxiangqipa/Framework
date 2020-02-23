@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     //appcompat-v7
     implementation rootProject.ext.androidSupport.appcompat_v7
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------

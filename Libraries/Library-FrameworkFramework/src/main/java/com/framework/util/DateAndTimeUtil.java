@@ -83,10 +83,14 @@ public class DateAndTimeUtil {
             return "";
         } else {
             long time = System.currentTimeMillis() - (timemillis);
-            long mill = (long) Math.floor(time / 1000);// 秒前
-            long minute = (long) Math.floor(time / 60 / 1000.0f);// 分钟前
-            long hour = (long) Math.floor(time / 60 / 60 / 1000.0f);// 小时
-            long day = (long) Math.floor(time / 24 / 60 / 60 / 1000.0f);// 天前
+            // 秒前
+            long mill = (long) Math.floor(time / 1000);
+            // 分钟前
+            long minute = (long) Math.floor(time / 60 / 1000.0f);
+            // 小时
+            long hour = (long) Math.floor(time / 60 / 60 / 1000.0f);
+            // 天前
+            long day = (long) Math.floor(time / 24 / 60 / 60 / 1000.0f);
             if (day > 0) {
                 sb.append(day).append("天");
             } else if (hour > 0) {
