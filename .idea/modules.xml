@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/AppFramework/AppFramework.iml" filepath="$PROJECT_DIR$/AppFramework/AppFramework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Framework.iml" filepath="$PROJECT_DIR$/Framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Libraries.iml" filepath="$PROJECT_DIR$/Libraries/Libraries.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidX-Base/Libraries-Library-AndroidX-Base.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidX-Base/Libraries-Library-AndroidX-Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" filepath="$PROJECT_DIR$/Libraries/Library-Adapter/Library-Adapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" filepath="$PROJECT_DIR$/Libraries/Library-Android-Base/Library-Android-Base.iml" />
       <module fileurl="file://$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" filepath="$PROJECT_DIR$/Libraries/Library-AndroidVideoCache/Library-AndroidVideoCache.iml" />
