@@ -40,10 +40,12 @@ public class RegularUtil {
         if (TextUtils.isEmpty(email)) {
             return false;
         }
-//        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\" +
+//        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\
+//        .[a-zA-Z][a-zA-Z\\" +
 //                ".]*[a-zA-Z]$";
         //这个是一个企业级的程序里copy出来的
-        String strPattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+        String strPattern = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\" +
+                ".[a-zA-Z]+\\s*$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(email);
         return m.matches();
@@ -52,7 +54,8 @@ public class RegularUtil {
     /**
      * 验证号码的有效性
      * 正则：手机号（精确）
-     * <p>移动：134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188、198</p>
+     * <p>移动：134(0-8)、135、136、137、138、139、147、150、151、152、157、158、159、178、182、183、184、187、188、198
+     * </p>
      * <p>联通：130、131、132、145、155、156、175、176、185、186、166</p>
      * <p>电信：133、153、173、177、180、181、189、199</p>
      * <p>全球星：1349</p>
@@ -66,7 +69,8 @@ public class RegularUtil {
             return false;
         }
         Pattern p = Pattern
-                .compile("^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0,3,5-8])|(18[0-9])|166|198|199|147)\\d{8}$");
+                .compile("^((13[0-9])|(14[5,7])|(15[^4,\\D])|(17[0,3,5-8])|(18[0-9])" +
+                        "|166|198|199|147)\\d{8}$");
         Matcher m = p.matcher(mobile);
         return m.matches();
     }
@@ -180,7 +184,8 @@ public class RegularUtil {
         // (?<![a-zA-Z0-9])负向断言([0-9]{YZMLENGTH})前面不能有数字
         // (?![a-zA-Z0-9])断言([0-9]{YZMLENGTH})后面不能有数字出现
         //  获得数字字母组合
-        //    Pattern p = Pattern   .compile("(?<![a-zA-Z0-9])([a-zA-Z0-9]{" + YZMLENGTH + "})(?![a-zA-Z0-9])");
+        //    Pattern p = Pattern   .compile("(?<![a-zA-Z0-9])([a-zA-Z0-9]{" + YZMLENGTH + "})
+        //    (?![a-zA-Z0-9])");
 
         //  获得纯数字
         Pattern p = Pattern.compile("(?<![0-9])([0-9]{" + YZMLENGTH + "})(?![0-9])");
@@ -207,7 +212,8 @@ public class RegularUtil {
                     .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
             // 强：字母+数字+特殊字符
             Pattern p3 = Pattern
-                    .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*]+$)" +
+                    .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)" +
+                            "(?![a-zA-z!@#$%^&*]+$)" +
                             "(?![\\d!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
             Matcher m1 = p1.matcher(pwd);
             Matcher m2 = p2.matcher(pwd);
@@ -260,7 +266,8 @@ public class RegularUtil {
                 .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
         // 强：字母+数字+特殊字符
         Pattern p3 = Pattern
-                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)(?![a-zA-z!@#$%^&*]+$)" +
+                .compile("^(?![a-zA-z]+$)(?!\\d+$)(?![!@#$%^&*]+$)(?![a-zA-z\\d]+$)" +
+                        "(?![a-zA-z!@#$%^&*]+$)" +
                         "(?![\\d!@#$%^&*]+$)[a-zA-Z\\d!@#$%^&*]+$");
         Matcher m = p1.matcher(str);
         Matcher m1 = p1.matcher(str);
@@ -284,7 +291,8 @@ public class RegularUtil {
      * @return 是否含特殊字符
      */
     public boolean containsSpecialChar(String str) {
-        Pattern p = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？/：；\\\"]");
+        Pattern p = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\]" +
+                ".<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？/：；\\\"]");
         Matcher m = p.matcher(str);
         return m.matches();
     }
@@ -359,13 +367,17 @@ public class RegularUtil {
      */
     public boolean isSpecial(String str) {
         // 必填字母数字特殊字符(数字+大写或小写+特殊)
-        String regAll = "^(?![0-9]+$)(?![^0-9]+$)(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-zA-Z0-9]+$)[a-zA-Z0-9\\S]+$";
+        String regAll = "^(?![0-9]+$)(?![^0-9]+$)(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-zA-Z0-9]+$)" +
+                "[a-zA-Z0-9\\S]+$";
         //小写字母+大写字母+数字
-        String reg1 = "^(?![0-9]+$)(?![^0-9]+$)(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-z0-9]+$)(?![A-Z0-9]+$)[a-zA-Z0-9]+$";
+        String reg1 = "^(?![0-9]+$)(?![^0-9]+$)(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-z0-9]+$)" +
+                "(?![A-Z0-9]+$)[a-zA-Z0-9]+$";
         //特殊字符+大写字母+数字
-        String reg2 = "^(?![0-9]+$)(?![^0-9]+$)(?![A-Z]+$)(?![^A-Z]+$)(?![A-Z0-9]+$)(?![a-zA-Z0-9]+$)[A-Z0-9\\S]+$";
+        String reg2 = "^(?![0-9]+$)(?![^0-9]+$)(?![A-Z]+$)(?![^A-Z]+$)(?![A-Z0-9]+$)" +
+                "(?![a-zA-Z0-9]+$)[A-Z0-9\\S]+$";
         //特殊字符+小写字母+数字
-        String reg3 = "^(?![0-9]+$)(?![^0-9]+$)(?![a-z]+$)(?![^a-z]+$)(?![a-z0-9]+$)(?![a-zA-Z0-9]+$)[a-z0-9\\S]+$";
+        String reg3 = "^(?![0-9]+$)(?![^0-9]+$)(?![a-z]+$)(?![^a-z]+$)(?![a-z0-9]+$)" +
+                "(?![a-zA-Z0-9]+$)[a-z0-9\\S]+$";
         //特殊字符+小写字母+大写字母
         String reg4 = "^(?![a-zA-Z]+$)(?![^a-zA-Z]+$)(?![a-zA-Z0-9]+$)[a-zA-Z\\S]+$";
         Pattern p01 = Pattern.compile(reg1);
@@ -392,7 +404,8 @@ public class RegularUtil {
             return false;
         }
         // 定义判别用户身份证号的正则表达式（15位或者18位，最后一位可以为字母）
-        String regularExpression = "(^[1-9]\\d{5}(18|19|20)\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)" +
+        String regularExpression = "(^[1-9]\\d{5}(18|19|20)\\d{2}((0[1-9])|(10|11|12))(" +
+                "([0-2][1-9])|10|20|30|31)" +
                 "\\d{3}[0-9Xx]$)|" +
                 "(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}$)";
         //假设18位身份证号码:41000119910101123X  410001 19910101 123X
@@ -492,5 +505,18 @@ public class RegularUtil {
             luhmSum += k;
         }
         return (luhmSum % 10 == 0) ? '0' : (char) ((10 - luhmSum % 10) + '0');
+    }
+
+    /**
+     * 过滤汉字
+     */
+    public String filterChinese(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return "";
+        }
+        String regEx = "[^\u4E00-\u9FA5]";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher m = pattern.matcher(str);
+        return m.replaceAll("").trim();
     }
 }
