@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.demo.demo.R;
-import com.framework.customview.CustomCalendar;
+import com.framework.widget.CustomCalendar;
 
 import java.util.ArrayList;
 import java.util.List;

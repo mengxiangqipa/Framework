@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.framework.customview.OverScrollView
+        <com.framework.widget.OverScrollView
             android:id="@+id/overScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -198,7 +198,7 @@
                     android:textSize="@dimen/_14dp"/>
             </LinearLayout>
 
-        </com.framework.customview.OverScrollView>
+        </com.framework.widget.OverScrollView>
 
         <LinearLayout
             android:id="@+id/successLayout"
