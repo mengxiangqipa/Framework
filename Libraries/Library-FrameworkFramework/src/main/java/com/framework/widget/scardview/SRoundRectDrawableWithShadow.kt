@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package com.framework.customview.scardview
+package com.framework.widget.scardview
 
 import android.content.res.ColorStateList
 import android.content.res.Resources
