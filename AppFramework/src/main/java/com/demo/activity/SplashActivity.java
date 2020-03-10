@@ -22,7 +22,7 @@ import com.bumptech.glide.request.target.Target;
 import com.demo.commonWebview.CommonFullWebViewActivity;
 import com.demo.demo.R;
 import com.framework.application.ProxyApplication;
-import com.framework.customview.CustomADprogress;
+import com.framework.widget.CustomADprogress;
 import com.framework.util.ScreenUtil;
 import com.framework2.baseEvent.BaseOnClickListener;
 

@@ -14,7 +14,7 @@
         android:text="@string/open"
         android:visibility="gone"/>
 
-    <com.framework.customview.MultiDirectionSlidingDrawer
+    <com.framework.widget.MultiDirectionSlidingDrawer
         android:id="@+id/drawer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -31,5 +31,5 @@
             android:layout_width="wrap_content"
             android:layout_height="40px"
             android:src="@drawable/sliding_drawer_handle_bottom"/>
-    </com.framework.customview.MultiDirectionSlidingDrawer>
+    </com.framework.widget.MultiDirectionSlidingDrawer>
 </RelativeLayout>

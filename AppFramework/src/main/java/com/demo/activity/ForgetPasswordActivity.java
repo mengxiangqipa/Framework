@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.framework.customview.OverScrollView;
+import com.framework.widget.OverScrollView;
 import com.framework.security.RSAmethodInRaw;
 import com.framework.util.KeyBoardUtil;
 import com.framework.util.PreferencesHelper;

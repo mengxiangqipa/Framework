@@ -5,7 +5,7 @@
               android:fitsSystemWindows="true"
               android:orientation="vertical">
 
-    <com.framework.customview.clipview.ClipImageLayout
+    <com.framework.widget.clipview.ClipImageLayout
         android:id="@+id/clipImageLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
