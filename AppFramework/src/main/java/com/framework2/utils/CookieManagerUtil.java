@@ -6,7 +6,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
 import com.demo.configs.ConstantsME;
-import com.framework.security.AesUtils;
+import com.framework.security.AesUtil;
 import com.framework.security.Base64Coder;
 import com.framework.security.RSAmethodInRaw;
 import com.framework.util.PreferencesHelper;
@@ -56,7 +56,7 @@ public class CookieManagerUtil {
     public void saveCookie(Context context, String cookies) {
         if (!TextUtils.isEmpty(cookies)) {
             if (TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey))) {
-                PreferencesHelper.getInstance().putInfo(ConstantsME.aesKey, Base64Coder.encodeString(AesUtils
+                PreferencesHelper.getInstance().putInfo(ConstantsME.aesKey, Base64Coder.encodeString(AesUtil
                         .getInstance().generateKey()));
             }
             if (cookies.length() > 128) {
@@ -68,12 +68,12 @@ public class CookieManagerUtil {
                         sb.append(",,,,");
                     sb.append(Base64Coder.encodeString(cookiesWithRSA));
                 }
-                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt
+                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtil.getInstance().encrypt
                         (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
                                 sb.toString()));
             } else {
                 String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, cookies);
-                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtils.getInstance().encrypt
+                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtil.getInstance().encrypt
                         (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
                                 Base64Coder.encodeString(cookiesWithRSA)));
             }
@@ -91,7 +91,7 @@ public class CookieManagerUtil {
 
     public String decodeCookie(Context context, String cookies) {
         if (!TextUtils.isEmpty(cookies)) {
-            String tm = AesUtils.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance()
+            String tm = AesUtil.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance()
                     .getStringData(ConstantsME.aesKey)), cookies);
             if (!TextUtils.isEmpty(tm)) {
                 StringBuilder sb = new StringBuilder();
