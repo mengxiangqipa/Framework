@@ -29,6 +29,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author YobertJomi
+ * className PackageManagerUtil
+ * created at  2020/3/18  14:53
+ */
 public class PackageManagerUtil {
     private static volatile PackageManagerUtil instance;
 
@@ -149,7 +154,7 @@ public class PackageManagerUtil {
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 Uri uri = FileProvider.getUriForFile(context, TextUtils.isEmpty(authority) ?
                         context.getPackageName()
-                        + ".fileprovider" : authority, new File(apkPath));
+                                + ".fileprovider" : authority, new File(apkPath));
                 intent.setDataAndType(uri, "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -194,7 +199,7 @@ public class PackageManagerUtil {
                     //安装apk
                     PackageManagerUtil.getInstance().installApk(activity, apkPath,
                             TextUtils.isEmpty(authority) ?
-                            activity.getPackageName() + "" + ".fileprovider" : authority);
+                                    activity.getPackageName() + "" + ".fileprovider" : authority);
                     return true;
                 } else {
                     Y.y("installAPK---无权限 申请权限：");
@@ -284,7 +289,7 @@ public class PackageManagerUtil {
         try {
             CharSequence applicationLabel =
                     packageManager.getApplicationLabel(packageManager.getApplicationInfo
-                    (context.getPackageName(), 0));
+                            (context.getPackageName(), 0));
             return applicationLabel.toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

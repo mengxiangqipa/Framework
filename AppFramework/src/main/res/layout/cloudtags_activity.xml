@@ -25,7 +25,7 @@
     </RelativeLayout>
     >
 
-    <com.framework.customview.KeywordsFlow
+    <com.framework.widget.KeywordsFlow
         android:id="@+id/keywordsflow"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

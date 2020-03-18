@@ -8,7 +8,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.demo.demo.R;
-import com.framework.customview.MultiDirectionSlidingDrawer;
+import com.framework.widget.MultiDirectionSlidingDrawer;
 
 public class SlidingDrawerActivity extends Activity {
 

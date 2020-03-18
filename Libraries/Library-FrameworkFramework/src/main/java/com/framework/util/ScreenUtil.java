@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
-import androidx.annotation.ColorRes;
-import androidx.core.view.ViewCompat;
+import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -75,8 +77,8 @@ public class ScreenUtil {
     }
 
     public int dp2px(Context context, int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
-                .getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources().getDisplayMetrics());
     }
 
     /**
@@ -90,6 +92,28 @@ public class ScreenUtil {
     }
 
     /**
+     * sp值转换成px值
+     *
+     * @param spValue sp值
+     * @return px值
+     */
+    public int sp2px(@NonNull Context context, final float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
+    /**
+     * px值转换成sp值
+     *
+     * @param pxValue px值
+     * @return sp值
+     */
+    public int px2sp(@NonNull Context context, final float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
      * 获得状态栏的高度
      *
      * @return int
@@ -100,7 +124,8 @@ public class ScreenUtil {
         try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");
             Object object = clazz.newInstance();
-            int height = Integer.parseInt(clazz.getField("status_bar_height").get(object).toString());
+            int height =
+                    Integer.parseInt(clazz.getField("status_bar_height").get(object).toString());
             statusHeight = context.getResources().getDimensionPixelSize(height);
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,7 +152,8 @@ public class ScreenUtil {
             try {
                 localClass = Class.forName("com.android.internal.R$dimen");
                 Object localObject = localClass.newInstance();
-                int i5 = Integer.parseInt(localClass.getField("status_bar_height").get(localObject).toString());
+                int i5 =
+                        Integer.parseInt(localClass.getField("status_bar_height").get(localObject).toString());
                 statusHeight = activity.getResources().getDimensionPixelSize(i5);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -228,13 +254,15 @@ public class ScreenUtil {
     /**
      * 设置状态栏颜色
      */
-    public void setStatusBarTintColor(Activity activity, int colorResource, boolean StatusBarTintEnabled, boolean
-            NavigationBarTintEnabled) {
+    public void setStatusBarTintColor(Activity activity, int colorResource,
+                                      boolean StatusBarTintEnabled, boolean
+                                              NavigationBarTintEnabled) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(StatusBarTintEnabled);
-        tintManager.setNavigationBarTintEnabled(NavigationBarTintEnabled);
         // 设置一个颜色给系统栏
-        tintManager.setTintColor(colorResource);// 通知栏所需颜色
+        tintManager.setNavigationBarTintEnabled(NavigationBarTintEnabled);
+        // 通知栏所需颜色
+        tintManager.setTintColor(colorResource);
     }
 
     /**
@@ -243,19 +271,21 @@ public class ScreenUtil {
     public void setStatusBarTintAlpha(Activity activity, float alpha) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
-        tintManager.setTintAlpha(alpha);// 通知栏所需颜色
+        // 通知栏所需颜色
+        tintManager.setTintAlpha(alpha);
     }
 
     /**
      * 设置状态栏颜色
      */
-    public void setStatusBarTintDrawable(Activity activity,
+    public void setStatusBarTintDrawable(@NonNull Activity activity,
                                          int drawableRes) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         // 设置一个颜色给系统栏
-        tintManager.setTintDrawable(activity.getResources().getDrawable(drawableRes));// 通知栏所需drawable
+        tintManager.setTintDrawable(ContextCompat.getDrawable(activity, drawableRes));
+        // 通知栏所需drawable
     }
 
     /**
@@ -272,16 +302,20 @@ public class ScreenUtil {
      */
     public boolean setSystemUiColorDark(Activity activity, boolean dark) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (null == activity)
+            if (null == activity) {
                 return false;
+            }
             Window window = activity.getWindow();
-            if (null == window)
+            if (null == window) {
                 return false;
+            }
             try {
                 if (dark) {
                     //设置状态栏文字颜色及图标为深色
-                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    }
                 } else {
                     //设置状态栏文字颜色及图标为浅色
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -302,8 +336,9 @@ public class ScreenUtil {
      */
     public boolean setStatusBarColorTRANSPARENT(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (null == activity || null == activity.getWindow())
+            if (null == activity || null == activity.getWindow()) {
                 return false;
+            }
             Window window = activity.getWindow();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.setStatusBarColor(Color.TRANSPARENT);
@@ -325,7 +360,8 @@ public class ScreenUtil {
                     ViewGroup mContentView = activity.findViewById(Window.ID_ANDROID_CONTENT);
                     View mChildView = mContentView.getChildAt(0);
                     if (mChildView != null) {
-                        //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 预留出系统 View 的空间.
+                        //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View .
+                        // 预留出系统 View 的空间.
                         ViewCompat.setFitsSystemWindows(mChildView, true);
                     }
                     //底部导航栏
@@ -356,12 +392,13 @@ public class ScreenUtil {
     /**
      * 隐藏虚拟按键
      */
-    public void hideNavigationUIAndStatusBar(Activity activity) {
+    public void hideNavigationUiAndStatusBar(Activity activity) {
         if (activity == null) {
             return;
         }
         //隐藏虚拟按键，并且全屏
-        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+        // lower api
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
             View v = activity.getWindow().getDecorView();
             v.setSystemUiVisibility(View.GONE);
         } else if (Build.VERSION.SDK_INT >= 19) {
@@ -383,20 +420,22 @@ public class ScreenUtil {
         if (activity == null) {
             return;
         }
-        int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                | View.SYSTEM_UI_FLAG_FULLSCREEN; // hide status bar
-
-        if (android.os.Build.VERSION.SDK_INT >= 19) {
-            uiFlags |= View.SYSTEM_UI_FLAG_IMMERSIVE;//0x00001000; // SYSTEM_UI_FLAG_IMMERSIVE_STICKY: hide
-        } else {
-            uiFlags |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
-        }
-        try {
-            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
-        } catch (Exception e) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            if (android.os.Build.VERSION.SDK_INT >= 19) {
+                uiFlags |= View.SYSTEM_UI_FLAG_IMMERSIVE;//0x00001000; //
+                // SYSTEM_UI_FLAG_IMMERSIVE_STICKY: hide
+            } else {
+                uiFlags |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+            }
+            try {
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -416,11 +455,14 @@ public class ScreenUtil {
             int uiOptions;
             if (show) {
                 uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
+                decorView.setSystemUiVisibility(uiOptions);
             } else {
-                uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                    decorView.setSystemUiVisibility(uiOptions);
+                }
             }
-            decorView.setSystemUiVisibility(uiOptions);
         }
     }
 
@@ -435,15 +477,61 @@ public class ScreenUtil {
             return;
         }
         if (show) {
-            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            uiFlags |= 0x00001000;
-            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                uiFlags |= 0x00001000;
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            }
         } else {
-            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            uiFlags |= 0x00001000;
-            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                uiFlags |= 0x00001000;
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            }
+        }
+    }
+
+    public void setStatusBarVisible2(Activity activity, boolean show) {
+        if (activity == null) {
+            return;
+        }
+        if (show) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                uiFlags |= 0x00001000;
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            }
+        } else {
+            int uiFlags = 0;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                uiFlags = View.SYSTEM_UI_FLAG_FULLSCREEN;
+                uiFlags |= 0x00001000;
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            }
+        }
+    }
+
+    /**
+     * 透明状态栏
+     */
+    public void hideWindowStatusBar(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = activity.getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+    }
+
+    /**
+     * 全屏
+     */
+    public void fullWindow(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = activity.getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
 
@@ -453,22 +541,26 @@ public class ScreenUtil {
      * @param activity Activity
      * @param show     是否显示
      */
-    private void setSystemUIVisible(Activity activity, boolean show) {
+    private void setSystemUiVisible(Activity activity, boolean show) {
         if (activity == null) {
             return;
         }
         if (show) {
-            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            uiFlags |= 0x00001000;
-            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                uiFlags |= 0x00001000;
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            }
         } else {
-            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            uiFlags |= 0x00001000;
-            activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                uiFlags |= 0x00001000;
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+            }
         }
     }
 
