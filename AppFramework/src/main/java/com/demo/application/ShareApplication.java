@@ -68,8 +68,7 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
     }
 
     private void initFrameworkApplication() {
-        ProxyApplication frameApplication = new ProxyApplication();
-        frameApplication.onCreate(this);
+        ProxyApplication.onCreate(this);
     }
 
     /**

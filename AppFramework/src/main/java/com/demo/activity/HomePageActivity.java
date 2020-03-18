@@ -46,7 +46,8 @@ import com.demo.demo.R;
 import com.demo.entity.UpdateInfo;
 import com.demo.service.CheckUpdateService;
 import com.framework.application.ProxyApplication;
-import com.framework.widget.WholeNotification;
+import com.framework.security.AesUtil;
+import com.framework.security.Base64Coder;
 import com.framework.security.RSAutil;
 import com.framework.security.SecurityManagerUtil;
 import com.framework.util.DownLoadManagerUtils;
@@ -59,6 +60,7 @@ import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
 import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
+import com.framework.widget.WholeNotification;
 import com.framework2.dialog.UpdateDialog;
 import com.framework2.okhttp3.Ok3Util;
 import com.framework2.okhttp3.StringRequest;
@@ -160,16 +162,24 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
+        String ddd=Base64Coder.encodeString("我是encodeString");
+        Log.e("HomePageActivity enc:", ddd);
+        Log.e("HomePageActivity dec:", Base64Coder.decodeString(ddd));
+        Log.e("HomePageActivity Aes:", AesUtil.getInstance().generateKey());
         PreferencesUtil.getInstance().putString("test", "testvalue");
-        Log.d("HomePageActivity我是跨:", PreferencesUtil.getInstance().getString("test"));
+        Log.e("HomePageActivity我是跨进程:", PreferencesUtil.getInstance().getString("test"));
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
                 "test"));
         try {
-            SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec", "我是加密");
-            Log.e("HomePageActivity我是加密:", SecurityManagerUtil.getInstance().get(ProxyApplication.getProxyApplication(), "sec"));
-            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptData("18725618945"));
+            SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec",
+                    "我是加密");
+            Log.e("HomePageActivity我是加密:",
+                    SecurityManagerUtil.getInstance().get(ProxyApplication.getProxyApplication(),
+                            "sec"));
+            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptData(
+                    "18725618900"));
             Log.e("HomePageActivity",
-                    "decrypt-AA:" + RSAutil.getInstance().decryptData(RSAutil.getInstance().encryptData("18725618945")));
+                    "decrypt-AA:" + RSAutil.getInstance().decryptData(RSAutil.getInstance().encryptData("18725618900")));
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("HomePageActivity我是加密e:", e.getMessage());
@@ -195,23 +205,22 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         }
         StringRequest jsonRequest =
                 new StringRequest.Builder().url("http://www.baidu.com").postString_json
-                (jsonObject.toString())
-                .build(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e1) {
-                            e1.printStackTrace();
-                        }
-                        Y.y("JSONRequestonFailure:" + e.getMessage());
-                    }
+                        (jsonObject.toString())
+                        .build(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Y.y("JSONRequestonResponse:" + response.body().string());
-                    }
-                });
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+
+                            }
+                        });
 //        for (int i = 0; i < 500; i++)
         Ok3Util.getInstance().setBuilder(new OkHttpClient.Builder()
 //                .cookieJar(new CookiesManager(context))
@@ -221,7 +230,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         viewPager();
         Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)).load(
                 "http://img.my.csdn" +
-                ".net/uploads/201508/05/1438760757_3588.jpg")
+                        ".net/uploads/201508/05/1438760757_3588.jpg")
                 .into(ivGlide);
         Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
                 (DiskCacheStrategy.ALL)).load(R.drawable.gif).into(ivGif);
@@ -433,6 +442,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                             case "权限页面(APIGuide)":
                                 startActivity(PermissionApiGuideActivity.class);
                                 break;
+                            default:
+                                break;
                         }
                     }
                 });
@@ -490,7 +501,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         bodyBuilder.addFormDataPart("type", "1");
         bodyBuilder.addFormDataPart("file", apkFile.getName(),
                 RequestBody.create(MediaType.parse("video/mpeg"),
-                apkFile));
+                        apkFile));
         ProgressRequestBody progressRequestBody = new ProgressRequestBody(bodyBuilder.build(), new
                 ProgressRequestBody.ProgressListener() {
                     @Override
@@ -560,7 +571,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[]
-            grantResults) {
+                                                   grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Y.y("Homepage--onRequestPermissionsResult:" + requestCode);
         if (requestCode == RequestPermissionsUtil.PERMISSION_WRITE_READ_EXTERNAL_STORAGE) {
@@ -619,9 +630,9 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                         + this.getResources().getString(R.string.app_name));
                 wholeNotification =
                         new WholeNotification.Builder().setContext(HomePageActivity.this)
-                        .setView(view)
-                        .setMonitorTouch(true)
-                        .build();
+                                .setView(view)
+                                .setMonitorTouch(true)
+                                .build();
                 wholeNotification.show();
                 return false;
             } else {

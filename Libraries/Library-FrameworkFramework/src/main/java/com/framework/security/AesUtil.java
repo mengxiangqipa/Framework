@@ -18,36 +18,47 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * @author YobertJomi
- * className AesUtils
+ * className AesUtil
  * created at  2019/05/31  15:03
- * ① AesUtils.getProxyApplication().generateKey();
- * ② AesUtils.getProxyApplication().encrypt
- * ③ AesUtils.getProxyApplication().decrypt
+ * ① AesUtil.getProxyApplication().generateKey();
+ * ② AesUtil.getProxyApplication().encrypt
+ * ③ AesUtil.getProxyApplication().decrypt
  */
-public class AesUtils {
+public class AesUtil {
 
     private final static String HEX = "0123456789ABCDEF";
-    private static final String CBC_PKCS5_PADDING = "AES/CBC/PKCS5Padding";//AES是加密方式 CBC是工作模式 PKCS5Padding是填充模式
-    private static final String AES = "AES";//AES 加密
-    private static final String SHA1PRNG = "SHA1PRNG";//// SHA1PRNG 强随机种子算法, 要区别4.2以上版本的调用方法
+    /**
+     * AES是加密方式 CBC是工作模式 PKCS5Padding是填充模式
+     */
+    private static final String CBC_PKCS5_PADDING = "AES/CBC/PKCS5Padding";
+    /**
+     * AES 加密
+     */
+    private static final String AES = "AES";
+    /**
+     * SHA1PRNG 强随机种子算法, 要区别4.2以上版本的调用方法
+     */
+    private static final String SHA1PRNG = "SHA1PRNG";
     private static final int KEY_SIZE = 32;
-    private static volatile AesUtils singleton;
+    private static volatile AesUtil singleton;
 
-    private AesUtils() {
+    private AesUtil() {
     }
 
-    public static AesUtils getInstance() {
+    public static AesUtil getInstance() {
         if (singleton == null) {
-            synchronized (AesUtils.class) {
+            synchronized (AesUtil.class) {
                 if (singleton == null) {
-                    singleton = new AesUtils();
+                    singleton = new AesUtil();
                 }
             }
         }
         return singleton;
     }
 
-    // 对密钥进行处理
+    /**
+     * 对密钥进行处理
+     */
     @SuppressLint("DeletedProvider")
     private byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
@@ -56,7 +67,8 @@ public class AesUtils {
         // 在4.2以上版本中，SecureRandom获取方式发生了改变
         //android 9.0及以上版本废弃CryptoProvider
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//            return InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(new String(seed, StandardCharsets.ISO_8859_1)
+//            return InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(new String(seed,
+//            StandardCharsets.ISO_8859_1)
 //            .getBytes(StandardCharsets.ISO_8859_1), KEY_SIZE);
             return InsecureSHA1PRNGKeyDerivator.deriveInsecureKey(seed, KEY_SIZE);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -140,7 +152,8 @@ public class AesUtils {
     /**
      * 加密/解密
      */
-    private byte[] encryptDecrypt(String key, byte[] originalOrEncrypted, @AESType int encryptDecryptType) throws Exception {
+    private byte[] encryptDecrypt(String key, byte[] originalOrEncrypted,
+                                  @AESType int encryptDecryptType) throws Exception {
         byte[] raw;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             raw = getRawKey(key.getBytes(StandardCharsets.ISO_8859_1));
@@ -149,14 +162,18 @@ public class AesUtils {
         }
         SecretKeySpec skeySpec = new SecretKeySpec(raw, AES);
         Cipher cipher = Cipher.getInstance(CBC_PKCS5_PADDING);
-        cipher.init(encryptDecryptType, skeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
+        cipher.init(encryptDecryptType, skeySpec,
+                new IvParameterSpec(new byte[cipher.getBlockSize()]));
         return cipher.doFinal(originalOrEncrypted);
     }
 
-    //二进制转字符
+    /**
+     * 二进制转字符
+     */
     private String toHex(byte[] buf) {
-        if (buf == null)
+        if (buf == null) {
             return "";
+        }
         StringBuffer result = new StringBuffer(2 * buf.length);
         for (byte b : buf) {
             appendHex(result, b);
@@ -175,7 +192,8 @@ public class AesUtils {
     private static final class CryptoProvider extends Provider {
         CryptoProvider() {
             super("Crypto", 1.0, "HARMONY (SHA1 digest; SecureRandom; SHA1withDSA signature)");
-            put("SecureRandom.SHA1PRNG", "org.apache.harmony.security.provider.crypto.SHA1PRNG_SecureRandomImpl");
+            put("SecureRandom.SHA1PRNG", "org.apache.harmony.security.provider.crypto" +
+                    ".SHA1PRNG_SecureRandomImpl");
             put("SecureRandom.SHA1PRNG ImplementedIn", "Software");
         }
     }
@@ -196,12 +214,12 @@ public class AesUtils {
 //        Log.e("MainActivity", "AES加密前json数据长度 ---->" + jsonData.length());
 //
 //        //生成一个动态key
-//        String secretKey = AesUtils.generateKey();
+//        String secretKey = AesUtil.generateKey();
 //        Log.e("MainActivity", "AES动态secretKey ---->" + secretKey);
 //
 //        //AES加密
 //        long start = System.currentTimeMillis();
-//        String encryStr = AesUtils.encrypt(secretKey, jsonData);
+//        String encryStr = AesUtil.encrypt(secretKey, jsonData);
 //        long end = System.currentTimeMillis();
 //        Log.e("MainActivity", "AES加密耗时 cost time---->" + (end - start));
 //        Log.e("MainActivity", "AES加密后json数据 ---->" + encryStr);
@@ -209,7 +227,7 @@ public class AesUtils {
 //
 //        //AES解密
 //        start = System.currentTimeMillis();
-//        String decryStr = AesUtils.decrypt(secretKey, encryStr);
+//        String decryStr = AesUtil.decrypt(secretKey, encryStr);
 //        end = System.currentTimeMillis();
 //        Log.e("MainActivity", "AES解密耗时 cost time---->" + (end - start));
 //        Log.e("MainActivity", "AES解密后json数据 ---->" + decryStr);
