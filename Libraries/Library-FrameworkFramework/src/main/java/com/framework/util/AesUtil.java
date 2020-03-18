@@ -18,7 +18,6 @@ package com.framework.util;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.support.annotation.IntDef;
 import android.text.TextUtils;
 
 import com.framework.security.Base64Coder;
@@ -34,6 +33,8 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import androidx.annotation.IntDef;
 
 /**
  * @author YobertJomi
