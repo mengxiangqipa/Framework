@@ -18,7 +18,7 @@ public class PreferencesUtil {
     }
 
     private PreferencesUtil(Context context, String moduleName) {
-        this.moduleName = moduleName;
+        PreferencesUtil.moduleName = moduleName;
         preferencesHelper = new PreferencesHelper(context);
     }
 
