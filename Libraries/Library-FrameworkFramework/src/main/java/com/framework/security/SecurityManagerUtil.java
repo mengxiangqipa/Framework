@@ -40,6 +40,10 @@ public class SecurityManagerUtil {
         if (null == context || TextUtils.isEmpty(keyInSharedPreferences)) {
             return;
         }
+        if (TextUtils.isEmpty(value)) {
+            PreferencesUtil.getInstance().putString(keyInSharedPreferences, value);
+            return;
+        }
         if (!TextUtils.isEmpty(value)) {
             if (TextUtils.isEmpty(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY))) {
                 PreferencesUtil.getInstance().putString(FrameworkConstant.AES_KEY,
@@ -58,7 +62,7 @@ public class SecurityManagerUtil {
                 }
                 PreferencesUtil.getInstance().putString(keyInSharedPreferences,
                         AesUtil.getInstance().encrypt(Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY))
-                                        , sb.toString()));
+                                , sb.toString()));
             } else {
 //                String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, value);
                 String cookiesWithRSA = RSAutil.getInstance().encryptData(value);
