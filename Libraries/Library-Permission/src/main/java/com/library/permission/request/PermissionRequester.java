@@ -2,6 +2,7 @@ package com.library.permission.request;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+
 import com.library.permission.bean.Permission;
 import com.library.permission.bean.Special;
 import com.library.permission.callbcak.RequestPermissionListener;

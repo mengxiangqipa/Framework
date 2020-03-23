@@ -8,7 +8,8 @@
  *
  * https://opensource.org/licenses/BSD-3-Clause
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is
  * distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
@@ -61,7 +62,8 @@ public class TinkerMainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment
 // .getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
-                File fileDir = new File(getFilesDir().getAbsolutePath() + File.separator + "app_frameworkTemp");
+                File fileDir = new File(getFilesDir().getAbsolutePath() + File.separator +
+                        "app_frameworkTemp");
                 if (!fileDir.exists()) {
                     fileDir.mkdir();
                 }
@@ -90,7 +92,8 @@ public class TinkerMainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), file.getAbsolutePath());
+                TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(),
+                        file.getAbsolutePath());
             }
         });
 
@@ -107,7 +110,8 @@ public class TinkerMainActivity extends AppCompatActivity {
 //                TinkerLoadLibrary.loadArmLibrary(getApplicationContext(), "stlport_shared");
 
                 // #method 3, load tinker patch library directly
-//                TinkerInstaller.loadLibraryFromTinker(getApplicationContext(), "assets/x86", "stlport_shared");
+//                TinkerInstaller.loadLibraryFromTinker(getApplicationContext(), "assets/x86",
+//                "stlport_shared");
 
             }
         });
@@ -148,18 +152,22 @@ public class TinkerMainActivity extends AppCompatActivity {
         if (tinker.isTinkerLoaded()) {
             sb.append(String.format("[patch is loaded] \n"));
             sb.append(String.format("[buildConfig TINKER_ID] %s \n", BuildInfo.TINKER_ID));
-            sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n", BaseBuildInfo.BASE_TINKER_ID));
+            sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n",
+                    BaseBuildInfo.BASE_TINKER_ID));
 
             sb.append(String.format("[buildConfig MESSSAGE] %s \n", BuildInfo.MESSAGE));
-            sb.append(String.format("[TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName
+            sb.append(String.format("[TINKER_ID] %s \n",
+                    tinker.getTinkerLoadResultIfPresent().getPackageConfigByName
                     (ShareConstants.TINKER_ID)));
-            sb.append(String.format("[packageConfig patchMessage] %s \n", tinker.getTinkerLoadResultIfPresent()
+            sb.append(String.format("[packageConfig patchMessage] %s \n",
+                    tinker.getTinkerLoadResultIfPresent()
                     .getPackageConfigByName("patchMessage")));
             sb.append(String.format("[TINKER_ID Rom Space] %d k \n", tinker.getTinkerRomSpace()));
         } else {
             sb.append(String.format("[patch is not loaded] \n"));
             sb.append(String.format("[buildConfig TINKER_ID] %s \n", BuildInfo.TINKER_ID));
-            sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n", BaseBuildInfo.BASE_TINKER_ID));
+            sb.append(String.format("[buildConfig BASE_TINKER_ID] %s \n",
+                    BaseBuildInfo.BASE_TINKER_ID));
 
             sb.append(String.format("[buildConfig MESSSAGE] %s \n", BuildInfo.MESSAGE));
             sb.append(String.format("[TINKER_ID] %s \n", ShareTinkerInternals.getManifestTinkerID
@@ -171,7 +179,8 @@ public class TinkerMainActivity extends AppCompatActivity {
         v.setText(sb);
         v.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
         v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-        v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams
+        v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams
                 .WRAP_CONTENT));
         v.setTextColor(0xFF000000);
         v.setTypeface(Typeface.MONOSPACE);

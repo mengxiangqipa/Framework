@@ -213,7 +213,8 @@ public class UniversalRecyclerView extends RecyclerView {
     /**
      * Start drag a item.
      *
-     * @param viewHolder the ViewHolder to start dragging. It must be a direct child of RecyclerView.
+     * @param viewHolder the ViewHolder to start dragging. It must be a direct child of
+     *                   RecyclerView.
      */
     public void startDrag(ViewHolder viewHolder) {
         initializeItemTouchHelper();
@@ -251,7 +252,8 @@ public class UniversalRecyclerView extends RecyclerView {
         private UniversalRecyclerView mRecyclerView;
         private UniversalAdapter.OnItemClickListener mListener;
 
-        public ItemClickListener(UniversalRecyclerView recyclerView, UniversalAdapter.OnItemClickListener listener) {
+        public ItemClickListener(UniversalRecyclerView recyclerView,
+                                 UniversalAdapter.OnItemClickListener listener) {
             this.mRecyclerView = recyclerView;
             this.mListener = listener;
         }
@@ -268,7 +270,8 @@ public class UniversalRecyclerView extends RecyclerView {
      */
     public void setOnItemLongClickListener(UniversalAdapter.OnItemLongClickListener listener) {
         if (listener == null) return;
-        checkAdapterExist("Cannot set item long click listener, setAdapter has already been called.");
+        checkAdapterExist("Cannot set item long click listener, setAdapter has already been " +
+                "called.");
         this.mOnItemLongClickListener = new ItemLongClickListener(this, listener);
     }
 
@@ -304,7 +307,8 @@ public class UniversalRecyclerView extends RecyclerView {
      */
     public void setOnItemMenuClickListener(OnItemMenuClickListener listener) {
         if (listener == null) return;
-        checkAdapterExist("Cannot set menu item click listener, setAdapter has already been called.");
+        checkAdapterExist("Cannot set menu item click listener, setAdapter has already been " +
+                "called.");
         this.mOnItemMenuClickListener = new ItemMenuClickListener(this, listener);
     }
 
@@ -313,7 +317,8 @@ public class UniversalRecyclerView extends RecyclerView {
         private UniversalRecyclerView mRecyclerView;
         private OnItemMenuClickListener mListener;
 
-        public ItemMenuClickListener(UniversalRecyclerView recyclerView, OnItemMenuClickListener listener) {
+        public ItemMenuClickListener(UniversalRecyclerView recyclerView,
+                                     OnItemMenuClickListener listener) {
             this.mRecyclerView = recyclerView;
             this.mListener = listener;
         }
@@ -331,7 +336,8 @@ public class UniversalRecyclerView extends RecyclerView {
     public void setLayoutManager(LayoutManager layoutManager) {
         if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-            final GridLayoutManager.SpanSizeLookup spanSizeLookupHolder = gridLayoutManager.getSpanSizeLookup();
+            final GridLayoutManager.SpanSizeLookup spanSizeLookupHolder =
+                    gridLayoutManager.getSpanSizeLookup();
 
             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
@@ -579,7 +585,8 @@ public class UniversalRecyclerView extends RecyclerView {
                 }
             }
 
-            boolean touchMenuEnable = mSwipeItemMenuEnable && !mDisableSwipeItemMenuList.contains(touchPosition);
+            boolean touchMenuEnable =
+                    mSwipeItemMenuEnable && !mDisableSwipeItemMenuList.contains(touchPosition);
             if (touchView != null) {
                 touchView.setSwipeEnable(touchMenuEnable);
             }
@@ -712,12 +719,14 @@ public class UniversalRecyclerView extends RecyclerView {
                 dispatchLoadMore();
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
+            StaggeredGridLayoutManager staggeredGridLayoutManager =
+                    (StaggeredGridLayoutManager) layoutManager;
 
             int itemCount = layoutManager.getItemCount();
             if (itemCount <= 0) return;
 
-            int[] lastVisiblePositionArray = staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
+            int[] lastVisiblePositionArray =
+                    staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(null);
             int lastVisiblePosition = lastVisiblePositionArray[lastVisiblePositionArray.length - 1];
 
             if (itemCount == lastVisiblePosition + 1 &&
@@ -800,7 +809,8 @@ public class UniversalRecyclerView extends RecyclerView {
     /**
      * Called when data is loaded incorrectly.
      *
-     * @param errorCode    Error code, will be passed to the LoadView, you can according to it to customize the prompt
+     * @param errorCode    Error code, will be passed to the LoadView, you can according to it to
+     *                    customize the prompt
      *                     information.
      * @param errorMessage Error message.
      */

@@ -10,8 +10,8 @@ import com.library.mpandroidchart.charts.ScatterChart.ScatterShape;
 import com.library.mpandroidchart.data.Entry;
 import com.library.mpandroidchart.data.ScatterData;
 import com.library.mpandroidchart.data.ScatterDataSet;
-import com.library.mpandroidchart.interfaces.ScatterDataProvider;
 import com.library.mpandroidchart.highlight.Highlight;
+import com.library.mpandroidchart.interfaces.ScatterDataProvider;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.Utils;
 import com.library.mpandroidchart.utils.ViewPortHandler;
@@ -234,7 +234,8 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
 
                     Entry entry = entries.get(j / 2);
 
-                    drawValue(c, dataSet.getValueFormatter(), entry.getVal(), entry, i, positions[j],
+                    drawValue(c, dataSet.getValueFormatter(), entry.getVal(), entry, i,
+                            positions[j],
                             positions[j + 1] - shapeSize);
                 }
             }

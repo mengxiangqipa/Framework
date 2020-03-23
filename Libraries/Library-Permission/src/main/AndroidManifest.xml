@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.library.permission">
+    package="com.library.permission">
 
     <application>
         <provider
             android:name="com.library.permission.InitProvider"
             android:authorities="${applicationId}.permission.provider"
             android:exported="false"
-            android:multiprocess="true"/>
+            android:multiprocess="true" />
     </application>
 
 </manifest>

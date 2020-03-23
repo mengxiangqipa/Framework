@@ -113,7 +113,7 @@ android {
         buildConfigField "String", "PLATFORM", "\"all\""
     }
 
-    dexOptions{
+    dexOptions {
         javaMaxHeapSize "4G"
     }
 
@@ -201,7 +201,7 @@ android {
 
 ext {
     FrameworkVersion = '3.2.4'
-    FrameworkVersion_eventBus="3.2.4"
+    FrameworkVersion_eventBus = "3.2.4"
     TINKER_VERSION = '1.9.1'
 }
 
@@ -294,7 +294,9 @@ dependencies {
     /** tinker    */
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
-    annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+    annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") {
+        changing = true
+    }
 //    compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
     implementation("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
 

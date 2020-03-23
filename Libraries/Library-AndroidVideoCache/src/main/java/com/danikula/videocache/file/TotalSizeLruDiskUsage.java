@@ -3,7 +3,8 @@ package com.danikula.videocache.file;
 import java.io.File;
 
 /**
- * {@link DiskUsage} that uses LRU (Least Recently Used) strategy and trims cache size to max size if needed.
+ * {@link DiskUsage} that uses LRU (Least Recently Used) strategy and trims cache size to max
+ * size if needed.
  *
  * @author Alexey Danilov (danikula@gmail.com).
  */

@@ -50,7 +50,8 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param selectionMode PictureSelector Selection model and PictureConfig.MULTIPLE or PictureConfig.SINGLE
+     * @param selectionMode PictureSelector Selection model and PictureConfig.MULTIPLE or
+     *                      PictureConfig.SINGLE
      * @return
      */
     public PictureSelectionModel selectionMode(int selectionMode) {
@@ -180,11 +181,12 @@ public class PictureSelectionModel {
 
     /**
      * 只能选择一种类型文件
+     *
      * @param onlyOneMimeType PictureSelector min selection
      * @return
      */
     public PictureSelectionModel onlyOneMimeType(boolean onlyOneMimeType) {
-            selectionConfig.onlyOneMimeType = onlyOneMimeType;
+        selectionConfig.onlyOneMimeType = onlyOneMimeType;
         return this;
     }
 

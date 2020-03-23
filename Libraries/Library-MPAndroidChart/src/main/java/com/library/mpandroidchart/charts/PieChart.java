@@ -540,7 +540,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
     }
 
     /**
-     * Sets the amount of transparency the transparent circle should have 0 = fully transparent, 255 = fully opaque.
+     * Sets the amount of transparency the transparent circle should have 0 = fully transparent,
+     * 255 = fully opaque.
      * Default value is 100.
      *
      * @param alpha 0-255
@@ -598,7 +599,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
     }
 
     /**
-     * the rectangular radius of the bounding box for the center text, as a percentage of the pie hole
+     * the rectangular radius of the bounding box for the center text, as a percentage of the pie
+     * hole
      * default 1.f (100%)
      */
     public void setCenterTextRadiusPercent(float percent) {
@@ -606,7 +608,8 @@ public class PieChart extends PieRadarChartBase<PieData> {
     }
 
     /**
-     * the rectangular radius of the bounding box for the center text, as a percentage of the pie hole
+     * the rectangular radius of the bounding box for the center text, as a percentage of the pie
+     * hole
      * default 1.f (100%)
      */
     public float getCenterTextRadiusPercent() {

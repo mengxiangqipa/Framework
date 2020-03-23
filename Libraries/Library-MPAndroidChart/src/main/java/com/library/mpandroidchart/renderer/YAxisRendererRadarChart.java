@@ -82,14 +82,16 @@ public class YAxisRendererRadarChart extends YAxisRenderer {
             } else {
 
                 final double rawCount = yMin / interval;
-                double first = rawCount < 0.0 ? Math.floor(rawCount) * interval : Math.ceil(rawCount) * interval;
+                double first = rawCount < 0.0 ? Math.floor(rawCount) * interval :
+                        Math.ceil(rawCount) * interval;
 
                 if (first < yMin && mYAxis.isStartAtZeroEnabled()) {
                     // Force the first label to be at the 0 (or smallest negative value)
                     first = yMin;
                 }
 
-                if (first == 0.0) // Fix for IEEE negative zero case (Where value == -0.0, and 0.0 == -0.0)
+                if (first == 0.0) // Fix for IEEE negative zero case (Where value == -0.0, and 0
+                    // .0 == -0.0)
                     first = 0.0;
 
                 double last = Utils.nextUp(Math.floor(yMax / interval) * interval);

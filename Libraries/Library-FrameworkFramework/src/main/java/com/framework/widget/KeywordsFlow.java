@@ -66,7 +66,8 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener 
     private static Interpolator interpolator;
     private static AlphaAnimation animAlpha2Opaque;
     private static AlphaAnimation animAlpha2Transparent;
-    private static ScaleAnimation animScaleLarge2Normal, animScaleNormal2Large, animScaleZero2Normal,
+    private static ScaleAnimation animScaleLarge2Normal, animScaleNormal2Large,
+            animScaleZero2Normal,
             animScaleNormal2Zero;
     private OnClickListener itemClickListener;
     /**
@@ -120,7 +121,8 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener 
         random = new Random();
         vecKeywords = new Vector<String>(MAX);
         getViewTreeObserver().addOnGlobalLayoutListener(this);
-        interpolator = AnimationUtils.loadInterpolator(getContext(), android.R.anim.decelerate_interpolator);
+        interpolator = AnimationUtils.loadInterpolator(getContext(),
+                android.R.anim.decelerate_interpolator);
         animAlpha2Opaque = new AlphaAnimation(0.0f, 1.0f);
         animAlpha2Transparent = new AlphaAnimation(1.0f, 0.0f);
         animScaleLarge2Normal = new ScaleAnimation(2, 1, 2, 1);
@@ -211,7 +213,8 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener 
             // Log.d("ANDROID_LAB", "--------------------------width=" + width +   
             // " height=" + height + "  xItem=" + xItem   
             // + " yItem=" + yItem + "---------------------------");   
-            LinkedList<Integer> listX = new LinkedList<Integer>(), listY = new LinkedList<Integer>();
+            LinkedList<Integer> listX = new LinkedList<Integer>(), listY =
+                    new LinkedList<Integer>();
             for (int i = 0; i < size; i++) {
                 // 准备随机候选数，分别对应x/y轴位置   
                 listX.add(i * xItem);
@@ -332,23 +335,27 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener 
             animSet.addAnimation(animAlpha2Opaque);
             animSet.addAnimation(animScaleLarge2Normal);
             TranslateAnimation translate = new TranslateAnimation(
-                    (xy[IDX_X] + (xy[IDX_TXT_LENGTH] >> 1) - xCenter) << 1, 0, (xy[IDX_Y] - yCenter) << 1, 0);
+                    (xy[IDX_X] + (xy[IDX_TXT_LENGTH] >> 1) - xCenter) << 1, 0,
+                    (xy[IDX_Y] - yCenter) << 1, 0);
             animSet.addAnimation(translate);
         } else if (type == LOCATION_TO_OUTSIDE) {
             animSet.addAnimation(animAlpha2Transparent);
             animSet.addAnimation(animScaleNormal2Large);
             TranslateAnimation translate = new TranslateAnimation(0,
-                    (xy[IDX_X] + (xy[IDX_TXT_LENGTH] >> 1) - xCenter) << 1, 0, (xy[IDX_Y] - yCenter) << 1);
+                    (xy[IDX_X] + (xy[IDX_TXT_LENGTH] >> 1) - xCenter) << 1, 0,
+                    (xy[IDX_Y] - yCenter) << 1);
             animSet.addAnimation(translate);
         } else if (type == LOCATION_TO_CENTER) {
             animSet.addAnimation(animAlpha2Transparent);
             animSet.addAnimation(animScaleNormal2Zero);
-            TranslateAnimation translate = new TranslateAnimation(0, (-xy[IDX_X] + xCenter), 0, (-xy[IDX_Y] + yCenter));
+            TranslateAnimation translate = new TranslateAnimation(0, (-xy[IDX_X] + xCenter), 0,
+                    (-xy[IDX_Y] + yCenter));
             animSet.addAnimation(translate);
         } else if (type == CENTER_TO_LOCATION) {
             animSet.addAnimation(animAlpha2Opaque);
             animSet.addAnimation(animScaleZero2Normal);
-            TranslateAnimation translate = new TranslateAnimation((-xy[IDX_X] + xCenter), 0, (-xy[IDX_Y] + yCenter), 0);
+            TranslateAnimation translate = new TranslateAnimation((-xy[IDX_X] + xCenter), 0,
+                    (-xy[IDX_Y] + yCenter), 0);
             animSet.addAnimation(translate);
         }
         animSet.setDuration(animDuration);
@@ -391,7 +398,8 @@ public class KeywordsFlow extends FrameLayout implements OnGlobalLayoutListener 
         return result;
     }
 
-    private int[] randomXY(Random ran, LinkedList<Integer> listX, LinkedList<Integer> listY, int xItem) {
+    private int[] randomXY(Random ran, LinkedList<Integer> listX, LinkedList<Integer> listY,
+                           int xItem) {
         int[] arr = new int[4];
         arr[IDX_X] = listX.remove(ran.nextInt(listX.size()));
         arr[IDX_Y] = listY.remove(ran.nextInt(listY.size()));

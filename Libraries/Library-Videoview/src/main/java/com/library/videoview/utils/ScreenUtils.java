@@ -69,7 +69,8 @@ public class ScreenUtils {
     }
 
     public int dp2px(Context context, int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources()
                 .getDisplayMetrics());
     }
 
@@ -95,7 +96,8 @@ public class ScreenUtils {
         try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");
             Object object = clazz.newInstance();
-            int height = Integer.parseInt(clazz.getField("status_bar_height").get(object).toString());
+            int height =
+                    Integer.parseInt(clazz.getField("status_bar_height").get(object).toString());
             statusHeight = context.getResources().getDimensionPixelSize(height);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +124,8 @@ public class ScreenUtils {
             try {
                 localClass = Class.forName("com.android.internal.R$dimen");
                 Object localObject = localClass.newInstance();
-                int i5 = Integer.parseInt(localClass.getField("status_bar_height").get(localObject).toString());
+                int i5 =
+                        Integer.parseInt(localClass.getField("status_bar_height").get(localObject).toString());
                 statusHeight = activity.getResources().getDimensionPixelSize(i5);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -192,7 +195,8 @@ public class ScreenUtils {
     /**
      * 设置状态栏颜色
      */
-    public void setStatusBarTintColor(Activity activity, int colorResource, boolean StatusBarTintEnabled,
+    public void setStatusBarTintColor(Activity activity, int colorResource,
+                                      boolean StatusBarTintEnabled,
                                       boolean NavigationBarTintEnabled) {
         SystemBarTintManager tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(StatusBarTintEnabled);

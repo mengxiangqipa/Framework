@@ -23,6 +23,7 @@ public class RSAmethodInAssets {
         }
         return singleton;
     }
+
     /**
      * RSA数据加密
      *
@@ -50,7 +51,7 @@ public class RSAmethodInAssets {
      * @return
      */
     public String rsaDecrypt(Context context, String user) {
-        String phone ;
+        String phone;
         try {
             InputStream inPrivate = context.getResources().getAssets()
                     .open("pkcs8_rsa_private_key.pem");

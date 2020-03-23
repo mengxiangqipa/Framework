@@ -37,7 +37,8 @@ public class TBSCookieManagerUtil {
      * 同步一下cookie
      */
     public void synCookies(Context context, String url) {
-        String cookies = decodeCookie(context, PreferencesHelper.getInstance().getStringData(ConstantsME.cookies));
+        String cookies = decodeCookie(context,
+                PreferencesHelper.getInstance().getStringData(ConstantsME.cookies));
         if (!TextUtils.isEmpty(cookies)) {
             String[] cookie = cookies.split(";");
             CookieSyncManager.createInstance(context);
@@ -53,24 +54,28 @@ public class TBSCookieManagerUtil {
     public void saveCookie(Context context, String cookies) {
         if (!TextUtils.isEmpty(cookies)) {
             if (TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey))) {
-                PreferencesHelper.getInstance().putInfo(ConstantsME.aesKey, Base64Coder.encodeString(AesUtil
+                PreferencesHelper.getInstance().putInfo(ConstantsME.aesKey,
+                        Base64Coder.encodeString(AesUtil
                         .getInstance().generateKey()));
             }
             if (cookies.length() > 128) {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i * 128 < cookies.length(); i++) {
-                    String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, cookies.substring(i * 128, Math.min((i
+                    String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context,
+                            cookies.substring(i * 128, Math.min((i
                             + 1) * 128, cookies.length())));
                     if (i > 0)
                         sb.append(",,,,");
                     sb.append(Base64Coder.encodeString(cookiesWithRSA));
                 }
-                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtil.getInstance().encrypt
+                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies,
+                        AesUtil.getInstance().encrypt
                         (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
                                 sb.toString()));
             } else {
                 String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, cookies);
-                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies, AesUtil.getInstance().encrypt
+                PreferencesHelper.getInstance().putInfo(ConstantsME.cookies,
+                        AesUtil.getInstance().encrypt
                         (Base64Coder.decodeString(PreferencesHelper.getInstance().getStringData(ConstantsME.aesKey)),
                                 Base64Coder.encodeString(cookiesWithRSA)));
             }
@@ -88,7 +93,8 @@ public class TBSCookieManagerUtil {
 
     public String decodeCookie(Context context, String cookies) {
         if (!TextUtils.isEmpty(cookies)) {
-            String tm = AesUtil.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance()
+            String tm =
+                    AesUtil.getInstance().decrypt(Base64Coder.decodeString(PreferencesHelper.getInstance()
                     .getStringData(ConstantsME.aesKey)), cookies);
             if (!TextUtils.isEmpty(tm)) {
                 String cookie[] = tm.split(",,,,");
@@ -96,7 +102,8 @@ public class TBSCookieManagerUtil {
                 for (int i = 0; i < cookie.length; i++) {
                     String cookiesBase64decode = Base64Coder.decodeString(cookie[i]);
                     if (!TextUtils.isEmpty(cookiesBase64decode)) {
-                        sb.append(RSAmethodInRaw.getInstance().rsaDecrypt(context, cookiesBase64decode));
+                        sb.append(RSAmethodInRaw.getInstance().rsaDecrypt(context,
+                                cookiesBase64decode));
                     }
                 }
                 return sb.toString();

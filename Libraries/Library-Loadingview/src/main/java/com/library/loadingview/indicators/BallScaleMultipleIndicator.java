@@ -25,7 +25,8 @@ public class BallScaleMultipleIndicator extends Indicator {
         for (int i = 0; i < 3; i++) {
             paint.setAlpha(alphaInts[i]);
             canvas.scale(scaleFloats[i], scaleFloats[i], getWidth() / 2, getHeight() / 2);
-            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - circleSpacing, paint);
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2 - circleSpacing,
+                    paint);
         }
     }
 

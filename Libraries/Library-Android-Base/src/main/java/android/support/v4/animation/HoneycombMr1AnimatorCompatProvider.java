@@ -6,9 +6,9 @@
 package android.support.v4.animation;
 
 import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.TargetApi;
 import android.support.annotation.RequiresApi;
@@ -38,7 +38,8 @@ class HoneycombMr1AnimatorCompatProvider implements AnimatorProvider {
         final AnimatorListenerCompat mWrapped;
         final ValueAnimatorCompat mValueAnimatorCompat;
 
-        public AnimatorListenerCompatWrapper(AnimatorListenerCompat wrapped, ValueAnimatorCompat valueAnimatorCompat) {
+        public AnimatorListenerCompatWrapper(AnimatorListenerCompat wrapped,
+                                             ValueAnimatorCompat valueAnimatorCompat) {
             this.mWrapped = wrapped;
             this.mValueAnimatorCompat = valueAnimatorCompat;
         }

@@ -35,7 +35,6 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * author：luck
@@ -139,7 +138,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
                             if (PictureMimeType.isPictureType(localMedia.getPictureType()) == PictureMimeType.ofVideo()) {
                                 if (++videoCnt >= config.maxVideoNum) {
 //                                    String str =
-//                                            PicturePreviewActivity.this.getString(R.string.picture_video_max_num, config.maxVideoNum);
+//                                            PicturePreviewActivity.this.getString(R.string
+//                                            .picture_video_max_num, config.maxVideoNum);
 //                                    ToastManage.s(PicturePreviewActivity.this, str);
                                     showTip();
                                     return;
@@ -290,10 +290,10 @@ public class PicturePreviewActivity extends PictureBaseActivity implements
         String toas;
         if (config.mimeType == PictureMimeType.ofAll()) {
             if (config.onlyOneMimeType) {
-                if (config.maxVideoNum>0){
+                if (config.maxVideoNum > 0) {
                     toas = getString(R.string.picture_message_classify_max_num,
-                                    config.maxSelectNum,config.maxVideoNum);
-                }else{
+                            config.maxSelectNum, config.maxVideoNum);
+                } else {
                     toas = getString(R.string.picture_message_all_max_num,
                             config.maxSelectNum + "");
                 }

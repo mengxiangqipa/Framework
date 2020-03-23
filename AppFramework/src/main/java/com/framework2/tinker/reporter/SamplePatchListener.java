@@ -8,7 +8,8 @@
  *
  * https://opensource.org/licenses/BSD-3-Clause
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is
  * distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
@@ -35,7 +36,8 @@ public class SamplePatchListener extends DefaultPatchListener {
 
     public SamplePatchListener(Context context) {
         super(context);
-        maxMemory = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+        maxMemory =
+                ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
         TinkerLog.i(TAG, "application maxMemory:" + maxMemory);
     }
 
@@ -49,16 +51,19 @@ public class SamplePatchListener extends DefaultPatchListener {
      */
     public int patchCheck(String path, String patchMd5) {
 //        File patchFile = new File(path);
-//        TinkerLog.i(TAG, "receive a patch file: %s, file size:%d", path, SharePatchFileUtil.getFileOrDirectorySize
+//        TinkerLog.i(TAG, "receive a patch file: %s, file size:%d", path, SharePatchFileUtil
+//        .getFileOrDirectorySize
 //                (patchFile));
 //        int returnCode = super.patchCheck(path, patchMd5);
 //
 //        if (returnCode == ShareConstants.ERROR_PATCH_OK) {
-//            returnCode = Utils.checkForPatchRecover(NEW_PATCH_RESTRICTION_SPACE_SIZE_MIN, maxMemory);
+//            returnCode = Utils.checkForPatchRecover(NEW_PATCH_RESTRICTION_SPACE_SIZE_MIN,
+//            maxMemory);
 //        }
 //
 //        if (returnCode == ShareConstants.ERROR_PATCH_OK) {
-//            SharedPreferences sp = context.getSharedPreferences(ShareConstants.TINKER_SHARE_PREFERENCE_CONFIG,
+//            SharedPreferences sp = context.getSharedPreferences(ShareConstants
+//            .TINKER_SHARE_PREFERENCE_CONFIG,
 //                    Context.MODE_MULTI_PROCESS);
 //            //optional, only disable this patch file with md5
 //            int fastCrashCount = sp.getInt(patchMd5, 0);

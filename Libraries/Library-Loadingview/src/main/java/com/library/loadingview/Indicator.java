@@ -21,7 +21,8 @@ import java.util.HashMap;
 public abstract class Indicator extends Drawable implements Animatable {
 
     private static final Rect ZERO_BOUNDS_RECT = new Rect();
-    private HashMap<ValueAnimator, ValueAnimator.AnimatorUpdateListener> mUpdateListeners = new HashMap<>();
+    private HashMap<ValueAnimator, ValueAnimator.AnimatorUpdateListener> mUpdateListeners =
+            new HashMap<>();
     private ArrayList<ValueAnimator> mAnimators;
     private int alpha = 255;
     private Rect drawBounds = ZERO_BOUNDS_RECT;
@@ -151,7 +152,8 @@ public abstract class Indicator extends Drawable implements Animatable {
      *
      * @param updateListener updateListener
      */
-    public void addUpdateListener(ValueAnimator animator, ValueAnimator.AnimatorUpdateListener updateListener) {
+    public void addUpdateListener(ValueAnimator animator,
+                                  ValueAnimator.AnimatorUpdateListener updateListener) {
         mUpdateListeners.put(animator, updateListener);
     }
 

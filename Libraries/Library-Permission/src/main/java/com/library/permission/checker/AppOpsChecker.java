@@ -5,12 +5,12 @@ import android.app.AppOpsManager;
 import android.content.Context;
 import android.os.Binder;
 import android.os.Build;
+
 import com.library.permission.debug.PermissionDebug;
 
 import java.lang.reflect.Method;
 
 import static android.os.Build.VERSION_CODES.KITKAT;
-
 
 class AppOpsChecker implements PermissionChecker {
 
@@ -77,14 +77,16 @@ class AppOpsChecker implements PermissionChecker {
             return true;
         }
         try {
-            AppOpsManager manager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-            Method method = AppOpsManager.class.getDeclaredMethod("checkOp", int.class, int.class, String.class);
-            return 0 == (int) method.invoke(manager, op, Binder.getCallingUid(), context.getPackageName());
+            AppOpsManager manager =
+                    (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            Method method = AppOpsManager.class.getDeclaredMethod("checkOp", int.class, int.class
+                    , String.class);
+            return 0 == (int) method.invoke(manager, op, Binder.getCallingUid(),
+                    context.getPackageName());
         } catch (Exception e) {
             PermissionDebug.w(TAG, e.toString());
             e.printStackTrace();
         }
         return true;
     }
-
 }

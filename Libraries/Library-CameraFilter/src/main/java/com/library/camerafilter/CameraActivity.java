@@ -75,7 +75,8 @@ public class CameraActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_activity_camera);
         CameraManager.getInstance().addActivity(this);
 
@@ -110,7 +111,8 @@ public class CameraActivity extends BaseActivity {
         surfaceView.getHolder().addCallback(new SurfaceCallback());//为SurfaceView的句柄添加一个回调函数
 
         //设置相机界面,照片列表,以及拍照布局的高度(保证相机预览为正方形)
-        int PhotoAreaHeight = mScreenWidth / 4 - ScreenUtils.dp2px(this, 2) + ScreenUtils.dp2px(this, 4);
+        int PhotoAreaHeight =
+                mScreenWidth / 4 - ScreenUtils.dp2px(this, 2) + ScreenUtils.dp2px(this, 4);
 
         ViewGroup.LayoutParams layout = cameraGrid.getLayoutParams();
         layout.height = mScreenWidth;
@@ -120,7 +122,8 @@ public class CameraActivity extends BaseActivity {
         layout.height = mScreenHeight - mScreenWidth - PhotoAreaHeight;
 
         //添加系统相册内的图片
-         /*ArrayList<PhotoItem> sysPhotos = FileUtils.getInst().findPicsInDir(FileUtils.getInst().getSystemPhotoPath());
+         /*ArrayList<PhotoItem> sysPhotos = FileUtils.getInst().findPicsInDir(FileUtils.getInst()
+         .getSystemPhotoPath());
          int showNumber = sysPhotos.size() > photoNumber ? photoNumber : sysPhotos.size();
          for (int i = 0; i < showNumber; i++) {
              addPhoto(sysPhotos.get(showNumber - 1 - i));
@@ -246,12 +249,14 @@ public class CameraActivity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(focusIndex.getLayoutParams());
+                RelativeLayout.LayoutParams layout =
+                        new RelativeLayout.LayoutParams(focusIndex.getLayoutParams());
                 layout.setMargins((int) pointX - 60, (int) pointY - 60, 0, 0);
                 focusIndex.setLayoutParams(layout);
                 focusIndex.setVisibility(View.VISIBLE);
                 ScaleAnimation sa = new ScaleAnimation(3f, 1f, 3f, 1f,
-                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
+                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f, ScaleAnimation.RELATIVE_TO_SELF,
+                        0.5f);
                 sa.setDuration(800);
                 focusIndex.startAnimation(sa);
 
@@ -355,7 +360,8 @@ public class CameraActivity extends BaseActivity {
         }
 
         // 按照分辨率从大到小排序
-        List<Camera.Size> supportedPreviewResolutions = new ArrayList<Camera.Size>(rawSupportedSizes);
+        List<Camera.Size> supportedPreviewResolutions =
+                new ArrayList<Camera.Size>(rawSupportedSizes);
         Collections.sort(supportedPreviewResolutions, new Comparator<Camera.Size>() {
             @Override
             public int compare(Camera.Size a, Camera.Size b) {
@@ -426,7 +432,8 @@ public class CameraActivity extends BaseActivity {
 
     private Camera.Size findBestPictureResolution() {
         Camera.Parameters cameraParameters = cameraInst.getParameters();
-        List<Camera.Size> supportedPicResolutions = cameraParameters.getSupportedPictureSizes(); // 至少会返回一个值
+        List<Camera.Size> supportedPicResolutions = cameraParameters.getSupportedPictureSizes();
+        // 至少会返回一个值
 
         StringBuilder picResolutionSb = new StringBuilder();
         for (Camera.Size supportedPicResolution : supportedPicResolutions) {

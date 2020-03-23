@@ -56,7 +56,8 @@ public class FilterImageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_filter_image);
         showLeftIcon();
 
@@ -182,7 +183,8 @@ public class FilterImageActivity extends BaseActivity {
                     }
                 }, 200);
                 Filter_Effect_Info info = effect_list.get(arg2);
-                GPUImageFilter filter = ImageFilterTools.createFilterForType(mContext, info.getFilterType());
+                GPUImageFilter filter = ImageFilterTools.createFilterForType(mContext,
+                        info.getFilterType());
                 ((EfectFragment) fragments.get(current)).addEffect(filter);
             }
         });
@@ -307,7 +309,8 @@ public class FilterImageActivity extends BaseActivity {
                 if (mCameraSdkParameterInfo.is_net_path) {
 
                     Bundle b = new Bundle();
-                    b.putSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER, mCameraSdkParameterInfo);
+                    b.putSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER,
+                            mCameraSdkParameterInfo);
 
                     Intent intent = new Intent();
                     intent.putExtras(b);

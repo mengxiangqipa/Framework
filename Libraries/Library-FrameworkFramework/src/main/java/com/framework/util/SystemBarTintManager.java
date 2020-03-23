@@ -54,7 +54,8 @@ public class SystemBarTintManager {
         // navigation bar.
         // Used by the emulator.
         // See
-        // https://github.com/android/platform_frameworks_base/blob/master/policy/src/com/android/internal/policy
+        // https://github.com/android/platform_frameworks_base/blob/master/policy/src/com/android
+        // /internal/policy
         // /impl/PhoneWindowManager.java#L1076
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
@@ -91,7 +92,8 @@ public class SystemBarTintManager {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // check theme attrs
-            int[] attrs = {android.R.attr.windowTranslucentStatus, android.R.attr.windowTranslucentNavigation};
+            int[] attrs = {android.R.attr.windowTranslucentStatus,
+                    android.R.attr.windowTranslucentNavigation};
             TypedArray a = activity.obtainStyledAttributes(attrs);
             try {
                 mStatusBarAvailable = a.getBoolean(0, false);
@@ -325,7 +327,8 @@ public class SystemBarTintManager {
 
     private void setupStatusBarView(Context context, ViewGroup decorViewGroup) {
         mStatusBarTintView = new View(context);
-        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, mConfig.getStatusBarHeight());
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+                mConfig.getStatusBarHeight());
         params.gravity = Gravity.TOP;
         if (mNavBarAvailable && !mConfig.isNavigationAtBottom()) {
             params.rightMargin = mConfig.getNavigationBarWidth();
@@ -360,7 +363,8 @@ public class SystemBarTintManager {
 
         private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
         private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
-        private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
+        private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME =
+                "navigation_bar_height_landscape";
         private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
         private static final String SHOW_NAV_BAR_RES_NAME = "config_showNavigationBar";
 
@@ -374,9 +378,11 @@ public class SystemBarTintManager {
         private final boolean mInPortrait;
         private final float mSmallestWidthDp;
 
-        private SystemBarConfig(Activity activity, boolean translucentStatusBar, boolean traslucentNavBar) {
+        private SystemBarConfig(Activity activity, boolean translucentStatusBar,
+                                boolean traslucentNavBar) {
             Resources res = activity.getResources();
-            mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+            mInPortrait =
+                    (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
             mSmallestWidthDp = getSmallestWidthDp(activity);
             mStatusBarHeight = getInternalDimensionSize(res, STATUS_BAR_HEIGHT_RES_NAME);
             mActionBarHeight = getActionBarHeight(activity);
@@ -393,7 +399,8 @@ public class SystemBarTintManager {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 TypedValue tv = new TypedValue();
                 context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-                result = TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().getDisplayMetrics());
+                result = TypedValue.complexToDimensionPixelSize(tv.data,
+                        context.getResources().getDisplayMetrics());
             }
             return result;
         }
@@ -541,7 +548,8 @@ public class SystemBarTintManager {
          * @return The layout inset (in pixels).
          */
         public int getPixelInsetTop(boolean withActionBar) {
-            return (mTranslucentStatusBar ? mStatusBarHeight : 0) + (withActionBar ? mActionBarHeight : 0);
+            return (mTranslucentStatusBar ? mStatusBarHeight : 0) + (withActionBar ?
+                    mActionBarHeight : 0);
         }
 
         /**

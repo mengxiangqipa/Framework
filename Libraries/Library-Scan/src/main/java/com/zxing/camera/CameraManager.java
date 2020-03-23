@@ -216,7 +216,8 @@ public final class CameraManager {
         // Camera.setPreviewCallback() on 1.5 and earlier. For Donut and later, we need to use
         // the more efficient one shot callback, as the older one can swamp the system and cause it
         // to run out of memory. We can't use SDK_INT because it was introduced in the Donut SDK.
-        //useOneShotPreviewCallback = Integer.parseInt(Build.VERSION.SDK) > Build.VERSION_CODES.CUPCAKE;
+        //useOneShotPreviewCallback = Integer.parseInt(Build.VERSION.SDK) > Build.VERSION_CODES
+        // .CUPCAKE;
         useOneShotPreviewCallback = Integer.parseInt(Build.VERSION.SDK) > 3; // 3 = Cupcake
 
         previewCallback = new PreviewCallback(configManager, useOneShotPreviewCallback);
@@ -350,7 +351,8 @@ public final class CameraManager {
     }
 
     /**
-     * A single preview frame will be returned to the handler supplied. The data will arrive as byte[]
+     * A single preview frame will be returned to the handler supplied. The data will arrive as
+     * byte[]
      * in the message.obj field, with width and height encoded as message.arg1 and message.arg2,
      * respectively.
      *
@@ -429,14 +431,17 @@ public final class CameraManager {
             int leftOffset;
             int topOffset;
             if (null != viewfinderView) {
-                leftOffset = Math.max((viewfinderView.getWidth() - width) / 2, (screenResolution.x - width) / 2);
-                topOffset = Math.max((viewfinderView.getHeight() - height) / 2, (screenResolution.y - height) / 2);
+                leftOffset = Math.max((viewfinderView.getWidth() - width) / 2,
+                        (screenResolution.x - width) / 2);
+                topOffset = Math.max((viewfinderView.getHeight() - height) / 2,
+                        (screenResolution.y - height) / 2);
             } else {
                 leftOffset = (screenResolution.x - width) / 2;
                 topOffset = (screenResolution.y - height) / 2;
             }
             framingRect = new Rect(leftOffset, topOffset, viewfinderView != null ?
-                    (viewfinderView.getWidth() - leftOffset) : leftOffset + width, viewfinderView != null ?
+                    (viewfinderView.getWidth() - leftOffset) : leftOffset + width,
+                    viewfinderView != null ?
                     (viewfinderView.getHeight() - topOffset) : topOffset + height);
 //            framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
 //            framingRect = new Rect(360, 720, 720, 1080);
@@ -461,10 +466,14 @@ public final class CameraManager {
 //            Log.e("yy", "getFramingRectInPreview:" + rect.top);
 //            Log.e("yy", "getFramingRectInPreview:" + rect.right);
 //            Log.e("yy", "getFramingRectInPreview:" + rect.bottom);
-            rect.left = rect.left * (configManager.getScreenResolution().x) / viewfinderView.getWidth();
-            rect.top = rect.top * (configManager.getScreenResolution().y) / viewfinderView.getHeight();
-            rect.right = rect.right * (configManager.getScreenResolution().x) / viewfinderView.getWidth();
-            rect.bottom = rect.bottom * (configManager.getScreenResolution().y) / viewfinderView.getHeight();
+            rect.left =
+                    rect.left * (configManager.getScreenResolution().x) / viewfinderView.getWidth();
+            rect.top =
+                    rect.top * (configManager.getScreenResolution().y) / viewfinderView.getHeight();
+            rect.right =
+                    rect.right * (configManager.getScreenResolution().x) / viewfinderView.getWidth();
+            rect.bottom =
+                    rect.bottom * (configManager.getScreenResolution().y) / viewfinderView.getHeight();
 //            Log.e("yy", "getFramingRectInPreview--2:" + rect.left);
 //            Log.e("yy", "getFramingRectInPreview--2:" + rect.top);
 //            Log.e("yy", "getFramingRectInPreview--2:" + rect.right);

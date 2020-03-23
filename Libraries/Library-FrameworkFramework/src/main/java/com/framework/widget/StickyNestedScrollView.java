@@ -31,7 +31,8 @@ import java.util.List;
  * 注意：
  * 1. 要给需要sticky的View设置tab属性：android:tag="sticky";
  * 2. 也可以Java动态设置：view.setTag("sticky");
- * 3. 如果这个sticky的View是可点击的，那么tag为：android:tag="sticky-nonconstant"或者view.setTag("sticky-nonconstant");
+ * 3. 如果这个sticky的View是可点击的，那么tag为：android:tag="sticky-nonconstant"或者view.setTag
+ * ("sticky-nonconstant");
  */
 
 /**
@@ -51,7 +52,8 @@ public class StickyNestedScrollView extends NestedScrollView {
      */
     public static final String STICKY_TAG = "sticky";
     /**
-     * Flag for views that should stick and have non-constant drawing. e.g. Buttons, ProgressBars etc
+     * Flag for views that should stick and have non-constant drawing. e.g. Buttons, ProgressBars
+     * etc
      */
     public static final String FLAG_NONCONSTANT = "-nonconstant";
     /**
@@ -215,7 +217,8 @@ public class StickyNestedScrollView extends NestedScrollView {
             canvas.save();
             canvas.translate(getPaddingLeft() + stickyViewLeftOffset,
                     getScrollY() + stickyViewTopOffset + (clippingToPadding ? getPaddingTop() : 0));
-            canvas.clipRect(0, (clippingToPadding ? -stickyViewTopOffset : 0), getWidth() - stickyViewLeftOffset,
+            canvas.clipRect(0, (clippingToPadding ? -stickyViewTopOffset : 0),
+                    getWidth() - stickyViewLeftOffset,
                     currentlyStickingView.getHeight() + mShadowHeight + 1);
             if (mShadowDrawable != null) {
                 int left = 0;
@@ -246,7 +249,8 @@ public class StickyNestedScrollView extends NestedScrollView {
         if (redirectTouchesToStickyView) {
             redirectTouchesToStickyView = currentlyStickingView != null;
             if (redirectTouchesToStickyView) {
-                redirectTouchesToStickyView = ev.getY() <= (currentlyStickingView.getHeight() + stickyViewTopOffset) &&
+                redirectTouchesToStickyView =
+                        ev.getY() <= (currentlyStickingView.getHeight() + stickyViewTopOffset) &&
                         ev.getX() >= getLeftForViewRelativeOnlyChild(currentlyStickingView) &&
                         ev.getX() <= getRightForViewRelativeOnlyChild(currentlyStickingView);
             }
@@ -291,7 +295,8 @@ public class StickyNestedScrollView extends NestedScrollView {
         View viewThatShouldStick = null;
         View approachingView = null;
         for (View v : stickyViews) {
-            int viewTop = getTopForViewRelativeOnlyChild(v) - getScrollY() + (clippingToPadding ? 0 : getPaddingTop());
+            int viewTop = getTopForViewRelativeOnlyChild(v) - getScrollY() + (clippingToPadding ?
+                    0 : getPaddingTop());
             if (viewTop <= 0) {
                 if (viewThatShouldStick == null || viewTop >
                         (getTopForViewRelativeOnlyChild(viewThatShouldStick) - getScrollY() +
@@ -363,7 +368,8 @@ public class StickyNestedScrollView extends NestedScrollView {
     }
 
     /**
-     * Notify that the sticky attribute has been added or removed from one or more views in the View hierarchy
+     * Notify that the sticky attribute has been added or removed from one or more views in the
+     * View hierarchy
      */
     public void notifyStickyAttributeChanged() {
         notifyHierarchyChanged();

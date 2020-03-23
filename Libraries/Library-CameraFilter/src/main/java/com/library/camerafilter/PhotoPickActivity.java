@@ -72,7 +72,8 @@ public class PhotoPickActivity extends BaseActivity {
     private File mTmpFile;
     private HorizontalScrollView scrollview;
     private LinearLayout selectedImageLayout;
-    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallback = new LoaderManager.LoaderCallbacks<Cursor>() {
+    private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallback =
+            new LoaderManager.LoaderCallbacks<Cursor>() {
 
         private final String[] IMAGE_PROJECTION = {
                 MediaStore.Images.Media.DATA,
@@ -91,7 +92,8 @@ public class PhotoPickActivity extends BaseActivity {
             } else if (id == LOADER_CATEGORY) {
                 CursorLoader cursorLoader = new CursorLoader(mContext,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
-                        IMAGE_PROJECTION[0] + " like '%" + args.getString("path") + "%'", null, IMAGE_PROJECTION[2] +
+                        IMAGE_PROJECTION[0] + " like '%" + args.getString("path") + "%'", null,
+                        IMAGE_PROJECTION[2] +
                         " DESC");
                 return cursorLoader;
             }
@@ -109,9 +111,12 @@ public class PhotoPickActivity extends BaseActivity {
                     data.moveToFirst();
                     do {
 
-                        String path = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
-                        String name = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
-                        long dateTime = data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]));
+                        String path =
+                                data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
+                        String name =
+                                data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
+                        long dateTime =
+                                data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]));
                         int size = data.getInt(data.getColumnIndexOrThrow(IMAGE_PROJECTION[4]));
                         boolean show_flag = size > 1024 * 10; //是否大于10K
                         ImageInfo imageInfo = new ImageInfo(path, name, dateTime);
@@ -183,7 +188,8 @@ public class PhotoPickActivity extends BaseActivity {
 
         Intent intent = getIntent();
         try {
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) intent.getSerializableExtra(CameraSdkParameterInfo
+            mCameraSdkParameterInfo =
+                    (CameraSdkParameterInfo) intent.getSerializableExtra(CameraSdkParameterInfo
                     .EXTRA_PARAMETER);
             resultList = mCameraSdkParameterInfo.getImage_list();
         } catch (Exception e) {
@@ -264,9 +270,11 @@ public class PhotoPickActivity extends BaseActivity {
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                                 int totalItemCount) {
                 if (mTimeLineText.getVisibility() == View.VISIBLE) {
-                    int index = firstVisibleItem + 1 == view.getAdapter().getCount() ? view.getAdapter().getCount() -
+                    int index = firstVisibleItem + 1 == view.getAdapter().getCount() ?
+                            view.getAdapter().getCount() -
                             1 : firstVisibleItem + 1;
                     ImageInfo imageInfo = (ImageInfo) view.getAdapter().getItem(index);
                     if (imageInfo != null) {
@@ -305,7 +313,8 @@ public class PhotoPickActivity extends BaseActivity {
                 if (mImageAdapter.isShowCamera()) {
                     if (i == 0) {
                         if (mCameraSdkParameterInfo.getMax_image() == resultList.size()) {
-                            Toast.makeText(mContext, R.string.camerasdk_msg_amount_limit, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, R.string.camerasdk_msg_amount_limit,
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             showCameraAction();
                         }
@@ -352,7 +361,8 @@ public class PhotoPickActivity extends BaseActivity {
                     values.put(MediaStore.Images.Media.ORIENTATION, 0);
                     values.put(MediaStore.Images.Media.DATA, mTmpFile.getPath());
                     values.put(MediaStore.Images.Media.SIZE, mTmpFile.length());
-                    getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                    getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            values);
 
                     if (mCameraSdkParameterInfo.isSingle_mode()) {
                         resultList.clear();
@@ -387,7 +397,8 @@ public class PhotoPickActivity extends BaseActivity {
                 } else {
                     // 判断选择数量问题
                     if (mCameraSdkParameterInfo.getMax_image() == resultList.size()) {
-                        Toast.makeText(mContext, R.string.camerasdk_msg_amount_limit, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, R.string.camerasdk_msg_amount_limit,
+                                Toast.LENGTH_SHORT).show();
                         return;
                     }
                     resultList.add(imageInfo.path);
@@ -406,7 +417,8 @@ public class PhotoPickActivity extends BaseActivity {
     //预览选择的图片
     private void addImagePreview(final String path) {
         int mItemSize = 90;
-        ImageView imageView = (ImageView) LayoutInflater.from(PhotoPickActivity.this).inflate(R.layout
+        ImageView imageView =
+                (ImageView) LayoutInflater.from(PhotoPickActivity.this).inflate(R.layout
                 .camerasdk_list_item_image_view, selectedImageLayout, false);
         selectedImageLayout.addView(imageView);
         button_complate.setText("完成(" + resultList.size() + "/" + mCameraSdkParameterInfo.getMax_image() + ")");
@@ -460,7 +472,8 @@ public class PhotoPickActivity extends BaseActivity {
 
         View view = getLayoutInflater().inflate(R.layout.camerasdk_popup_folder, null);
         LinearLayout ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
-        ll_popup.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.camerasdk_push_up_in));
+        ll_popup.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.camerasdk_push_up_in));
 
         ListView lsv_folder = (ListView) view.findViewById(R.id.lsv_folder);
         lsv_folder.setAdapter(mFolderAdapter);
@@ -495,7 +508,8 @@ public class PhotoPickActivity extends BaseActivity {
                     public void run() {
                         mpopupWindow.dismiss();
                         if (index == 0) {
-                            getSupportLoaderManager().restartLoader(LOADER_ALL, null, mLoaderCallback);
+                            getSupportLoaderManager().restartLoader(LOADER_ALL, null,
+                                    mLoaderCallback);
                             mCategoryText.setText(R.string.camerasdk_album_all);
                             mImageAdapter.setShowCamera(mCameraSdkParameterInfo.isShow_camera());
                         } else {

@@ -55,7 +55,8 @@
 //        public void handleMessage(Message msg) {
 //            // 回弹速度随下拉距离moveDeltaY增大而增大
 //            MOVE_SPEED = (float) (5 + 15 * Math.tan(Math.PI / 2
-//                    / scrollViewWeakReference.get().getMeasuredHeight() * (pullDownY + Math.abs(pullUpY))));
+//                    / scrollViewWeakReference.get().getMeasuredHeight() * (pullDownY + Math.abs
+//                    (pullUpY))));
 //            if (pullDownY > 0)
 //                pullDownY -= MOVE_SPEED;
 //            else if (pullUpY < 0)
@@ -247,13 +248,15 @@
 //                hide();
 //                overScrollTrigger();
 //                if (mOverScrollTinyListener != null
-//                        && ((isCanPullDown() && canPullDownFromUserSet) || (isCanPullUp() && canPullUpFromUserSet))) {
+//                        && ((isCanPullDown() && canPullDownFromUserSet) || (isCanPullUp() &&
+//                        canPullUpFromUserSet))) {
 //                    mOverScrollTinyListener.scrollLoosen();
 //                }
 //                break;
 //            case MotionEvent.ACTION_CANCEL:
 //                if (mOverScrollTinyListener != null
-//                        && ((isCanPullDown() && canPullDownFromUserSet) || (isCanPullUp() && canPullUpFromUserSet))) {
+//                        && ((isCanPullDown() && canPullDownFromUserSet) || (isCanPullUp() &&
+//                        canPullUpFromUserSet))) {
 //                    mOverScrollTinyListener.scrollLoosen();
 //                }
 //                break;
@@ -296,7 +299,8 @@
 //                heightPadding = 0;
 //            }
 //            if (heightSize > height) {
-//                int myHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize - heightPadding, MeasureSpec
+//                int myHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize -
+//                heightPadding, MeasureSpec
 //                .EXACTLY);
 //                super.onMeasure(widthMeasureSpec, myHeightMeasureSpec);
 //            }

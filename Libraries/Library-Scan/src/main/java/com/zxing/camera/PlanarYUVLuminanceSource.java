@@ -37,10 +37,12 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
     private final int left;
     private final int top;
 
-    public PlanarYUVLuminanceSource(byte[] yuvData, int dataWidth, int dataHeight, int left, int top,
+    public PlanarYUVLuminanceSource(byte[] yuvData, int dataWidth, int dataHeight, int left,
+                                    int top,
                                     int width, int height) {
         super(width, height);
-//        Log.e("yy", "yuvData: " + yuvData.length + "    dataWidth:" + dataWidth + "    dataHeight:" + dataHeight +
+//        Log.e("yy", "yuvData: " + yuvData.length + "    dataWidth:" + dataWidth + "
+//        dataHeight:" + dataHeight +
 //        "    left:" + left + "    top:" + top + "    width:" + width + "    height:" + height);
 //        if (left + width > dataWidth || top + height > dataHeight){
 //            throw new IllegalArgumentException("Crop rectangle does not fit within image data.");
@@ -105,8 +107,10 @@ public final class PlanarYUVLuminanceSource extends LuminanceSource {
 
     @Override
     public LuminanceSource crop(int left, int top, int width, int height) {
-//        return new BufferedImageLuminanceSource(image, this.left + left, this.top + top, width, height);
-//        Log.e("yy", "LuminanceSource crop:" + "   yuvData:" + yuvData.length + "  left:" + left + "  top:" + top +
+//        return new BufferedImageLuminanceSource(image, this.left + left, this.top + top, width,
+//        height);
+//        Log.e("yy", "LuminanceSource crop:" + "   yuvData:" + yuvData.length + "  left:" + left
+//        + "  top:" + top +
 //        " width:" + width + " height:" + height);
         if (CameraManager.isOrientationPotrait()) {
             return new PlanarYUVLuminanceSource(yuvData, dataHeight, dataWidth, this.left + left,

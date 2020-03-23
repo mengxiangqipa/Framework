@@ -36,7 +36,8 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                               RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int itemPosition = parent.getChildAdapterPosition(view);
         if (parent.getAdapter() instanceof UniversalAdapter) {
@@ -78,7 +79,8 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
                 float top = view.getBottom();
                 float bottom = view.getBottom() + dividerHeight;
                 if ((type == TYPE.BOTH || type == TYPE.WITH_TOP) && i == 0) {
-                    c.drawRect(left, view.getTop() - dividerHeight, right, view.getTop(), dividerPaint);
+                    c.drawRect(left, view.getTop() - dividerHeight, right, view.getTop(),
+                            dividerPaint);
                 }
                 c.drawRect(left, top, right, bottom, dividerPaint);
             }

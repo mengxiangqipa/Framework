@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-          package="com.library.mpandroidchart">
+    package="com.library.mpandroidchart">
 
     <application
         android:allowBackup="true"

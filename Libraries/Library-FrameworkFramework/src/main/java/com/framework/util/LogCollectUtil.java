@@ -130,7 +130,8 @@ public class LogCollectUtil {
         java.text.SimpleDateFormat df = new java.text.SimpleDateFormat(
                 "yyyy_MM_dd HH:mm:ss:SSS");
         String dateTime = df.format(new Date(System.currentTimeMillis()));
-        String start = "记录开始时间:" + dateTime + "\n" + "    当前网络类型:" + NetworkUtil.getInstance().getNetworkState
+        String start =
+                "记录开始时间:" + dateTime + "\n" + "    当前网络类型:" + NetworkUtil.getInstance().getNetworkState
                 (context) + "       ";
         String end = "\n";
         writeFileToSD(start + txt + end);

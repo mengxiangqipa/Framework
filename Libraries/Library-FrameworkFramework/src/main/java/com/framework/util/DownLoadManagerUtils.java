@@ -41,7 +41,8 @@ public class DownLoadManagerUtils {
     private DownloadManager getDownloadManager(Context context) {
         if (null == downloadManager) {
             synchronized (DownLoadManagerUtils.class) {
-                downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                downloadManager =
+                        (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
             }
         }
         return downloadManager;
@@ -61,24 +62,30 @@ public class DownLoadManagerUtils {
      *
      * @param url      请求的下载url
      * @param fileName 下载的文件名  //例如:"我的歌声里.mp3"
-     * @ (destinationInExternalFilesDir)设置下载后文件存放的位置，不设置会存在data/data/com.android.provider.downloads/cache/下面，
+     * @ (destinationInExternalFilesDir)设置下载后文件存放的位置，不设置会存在data/data/com.android.provider
+     *                 .downloads/cache/下面，
      * 设置后存在sd上的Android/data/<包名>/files/下面。
      * 第2个参数是files下再建目录的目录名，第3个参数是文件名，如果第3个参数带路径，要确保路径存在，第2个参数路径随便写，会自己创建
      * 路径不存在要报错  应该是eg:Environment.DIRECTORY_DOWNLOADS
      *
      * <pre/>
      */
-    public int requestDownLoad(Context mContext, String url, String fileName, String notifyTitle, String appName) {
-        return requestDownLoad(mContext, url, 0, true, true, 1, Environment.DIRECTORY_DOWNLOADS, "", fileName,
+    public int requestDownLoad(Context mContext, String url, String fileName, String notifyTitle,
+                               String appName) {
+        return requestDownLoad(mContext, url, 0, true, true, 1, Environment.DIRECTORY_DOWNLOADS,
+                "", fileName,
                 notifyTitle, appName);
     }
 
-    public int requestDownLoad(Context mContext, String downLoadDir, String url, String fileName, String notifyTitle,
+    public int requestDownLoad(Context mContext, String downLoadDir, String url, String fileName,
+                               String notifyTitle,
                                String appName) {
-        return requestDownLoad(mContext, url, 0, true, true, 1, "", downLoadDir, fileName, notifyTitle, appName);
+        return requestDownLoad(mContext, url, 0, true, true, 1, "", downLoadDir, fileName,
+                notifyTitle, appName);
     }
 
-    public int requestDownLoad(Context mContext, String url, boolean hideNotification, String fileName, String
+    public int requestDownLoad(Context mContext, String url, boolean hideNotification,
+                               String fileName, String
             notifyTitle, String appName) {
         return requestDownLoad(mContext, url, hideNotification ? 0 : 1, true, true, 0, Environment
                 .DIRECTORY_DOWNLOADS, "", fileName, notifyTitle, appName);
@@ -96,8 +103,10 @@ public class DownLoadManagerUtils {
      * @param setAllowedOverRoaming          移动网络情况下是否允许漫游
      * @param notificationVisibility         在通知栏显示下载详情，比如百分比。
      *                                       0HIDDEN 1VISIBLE 2VISIBLE_NOTIFY_COMPLETED
-     *                                       3VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION default VISIBLE
-     * @param destinationInExternalFilesDir  设置下载后文件存放的位置，不设置会存在data/data/com.android.provider.downloads/cache/下面，
+     *                                       3VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION default
+     *                                       VISIBLE
+     * @param destinationInExternalFilesDir  设置下载后文件存放的位置，不设置会存在data/data/com.android.provider
+     *                                       .downloads/cache/下面，
      *                                       设置后存在sd上的Android/data/<包名>/files/下面。
      *                                       第2个参数是files下再建目录的目录名，第3个参数是文件名，如果第3个参数带路径，要确保路径存在，第2个参数路径随便写，会自己创建
      * @param destinationInExternalPublicDir 以sd卡路径为根路径,与上方法只有一个有效。第一个参数创建文件夹用的是mkdir,
@@ -105,10 +114,13 @@ public class DownLoadManagerUtils {
      *
      *                                       <pre/>
      */
-    public int requestDownLoad(Context mContext, String url, int netWorkType, boolean setVisibleInDownloadsUi,
+    public int requestDownLoad(Context mContext, String url, int netWorkType,
+                               boolean setVisibleInDownloadsUi,
                                boolean setAllowedOverRoaming,
-                               int notificationVisibility, String destinationInExternalPublicDir, String
-                                       destinationInExternalFilesDir, String fileName, String notifyTitle,
+                               int notificationVisibility, String destinationInExternalPublicDir,
+                               String
+                                       destinationInExternalFilesDir, String fileName,
+                               String notifyTitle,
                                String appName) {
         try {
             long filterById = PreferencesHelper.getInstance().getLongData(fileName);
@@ -188,7 +200,8 @@ public class DownLoadManagerUtils {
                 // 判断漫游
                 requestDownLoad.setAllowedOverRoaming(setAllowedOverRoaming);
                 requestDownLoad.setTitle(TextUtils.isEmpty(notifyTitle) ? "" : notifyTitle);
-                if (hasInstallableApk(mContext, !TextUtils.isEmpty(destinationInExternalFilesDir), tempPath, appName)) {
+                if (hasInstallableApk(mContext, !TextUtils.isEmpty(destinationInExternalFilesDir)
+                        , tempPath, appName)) {
                     return 100;
                 }
                 // 将下载请求放入队列
@@ -223,7 +236,8 @@ public class DownLoadManagerUtils {
             //			String path = null;
             if (c.moveToFirst()) {
                 status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
-                //				path = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                //				path = c.getString(c.getColumnIndex(DownloadManager
+                //				.COLUMN_LOCAL_URI));
                 c.close();
                 Y.y("queryDownloadStatus-de");
             }
@@ -271,7 +285,8 @@ public class DownLoadManagerUtils {
             if (PreferencesHelper.getInstance().getBooleanData(SDAvailable)) {
                 PackageManagerUtil.getInstance().installApk(context, path, authority);// SD卡可用
             } else {
-                File file = new File(Environment.getExternalStoragePublicDirectory("Download"), DownloadManager
+                File file = new File(Environment.getExternalStoragePublicDirectory("Download"),
+                        DownloadManager
                         .COLUMN_TITLE);
                 if (file.exists()) {
                     PackageManagerUtil.getInstance().installApk(context, file.getPath(), authority);
@@ -290,13 +305,15 @@ public class DownLoadManagerUtils {
      * @param tempPath 文件路径
      * @return 是否存在可以安装的apk, 返回true会自动安装
      */
-    public boolean hasInstallableApk(Context mContext, boolean innerDir, String tempPath, String apkName) {
+    public boolean hasInstallableApk(Context mContext, boolean innerDir, String tempPath,
+                                     String apkName) {
         Y.y("hasInstallableApk：" + tempPath);
         try {
             if (innerDir) {
                 tempPath = mContext.getExternalFilesDir(tempPath).getAbsolutePath();
             } else if (TextUtils.equals(tempPath, Environment.DIRECTORY_DOWNLOADS)) {
-                tempPath = Environment.getExternalStorageDirectory().getPath() + File.separator + tempPath;
+                tempPath =
+                        Environment.getExternalStorageDirectory().getPath() + File.separator + tempPath;
             }
             Y.y("hasInstallableApk：" + tempPath);
             File f = new File(tempPath);
@@ -306,23 +323,27 @@ public class DownLoadManagerUtils {
                     for (File file : files) {
                         //文件包含了apk
                         try {
-                            Y.y("hasInstallableApk：" + "file.isFile():" + file.isFile() + "  file.exists():" + file
+                            Y.y("hasInstallableApk：" + "file.isFile():" + file.isFile() + "  file" +
+                                    ".exists():" + file
                                     .exists() + "   getPackageName:" + mContext.getPackageName() + "  " +
                                     "otherPackageName:" + PackageManagerUtil.getInstance().getOtherApkPkgName
                                     (mContext, File.separator + File.separator + file.getPath()));
                             if (file != null && file.isFile() && file.exists() && !TextUtils.isEmpty(mContext
                                     .getPackageName())
                                     && TextUtils.equals(
-                                    PackageManagerUtil.getInstance().getOtherApkPkgName(mContext, File.separator +
+                                    PackageManagerUtil.getInstance().getOtherApkPkgName(mContext,
+                                            File.separator +
                                             File.separator + file.getPath()),
                                     mContext.getPackageName())) {
-                                if (PackageManagerUtil.getInstance().isApkCanInstall(mContext, File.separator + File
+                                if (PackageManagerUtil.getInstance().isApkCanInstall(mContext,
+                                        File.separator + File
                                         .separator + file.getPath())) {
                                     if (PackageManagerUtil.getInstance().getOtherApkVersionCode(mContext,
                                             File.separator + File.separator + file.getPath()) >= PackageManagerUtil
                                             .getInstance()
                                             .getCurrentApkVersionCode(mContext)) {
-                                        installAPK(mContext, File.separator + File.separator + file.getPath(),
+                                        installAPK(mContext,
+                                                File.separator + File.separator + file.getPath(),
                                                 mContext.getPackageName() + ".provider");
                                         return true;
                                     }
@@ -360,7 +381,8 @@ public class DownLoadManagerUtils {
                 PreferencesHelper.getInstance().putInfo(SDAvailable, true);
                 if (!TextUtils.isEmpty(destinationInExternalFilesDir)) {
                     // 完全定义的路径存在
-                    requestDownLoad.setDestinationInExternalFilesDir(mContext, destinationInExternalFilesDir, fileName);
+                    requestDownLoad.setDestinationInExternalFilesDir(mContext,
+                            destinationInExternalFilesDir, fileName);
                     tempPath = destinationInExternalFilesDir;
                 } else if (!TextUtils.isEmpty(destinationInExternalPublicDir)) {
                     // 非完全定义的路径不存在,则设置系统路径
@@ -378,7 +400,8 @@ public class DownLoadManagerUtils {
             }
         } catch (Exception e) {
             try {
-                requestDownLoad.setDestinationInExternalPublicDir(destinationInExternalPublicDir, fileName);
+                requestDownLoad.setDestinationInExternalPublicDir(destinationInExternalPublicDir,
+                        fileName);
                 tempPath = destinationInExternalPublicDir;
             } catch (Exception e2) {
                 Y.y("error:" + e.getMessage());

@@ -329,19 +329,23 @@ public class PullableListView2 extends ListView implements Pullable {
 
     @SuppressLint("NewApi")
     @Override
-    protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int
+    protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY,
+                                   int scrollRangeX, int
             scrollRangeY, int maxOverScrollX, int maxOverScrollY,
                                    boolean isTouchEvent) {
-        deltaY = (int) Math.abs(deltaY * Math.cos(Math.PI * (deltaY + scrollY) / mMaxYOverscrollDistance));
+        deltaY =
+                (int) Math.abs(deltaY * Math.cos(Math.PI * (deltaY + scrollY) / mMaxYOverscrollDistance));
         mScrollY = scrollY;
         isTouch = isTouchEvent;
-        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX,
+        return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY,
+                maxOverScrollX,
                 mMaxYOverscrollDistance, isTouchEvent);
     }
 
     @SuppressLint("NewApi")
     @Override
-    protected void onOverScrolled(int scrollX, final int scrollY, boolean clampedX, boolean clampedY) {
+    protected void onOverScrolled(int scrollX, final int scrollY, boolean clampedX,
+                                  boolean clampedY) {
         // TODO Auto-generated method stub
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
         if (!isTouch) {

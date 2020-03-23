@@ -35,14 +35,18 @@ public class BallZigZagIndicator extends Indicator {
         float startY = getWidth() / 6;
         for (int i = 0; i < 2; i++) {
             final int index = i;
-            ValueAnimator translateXAnim = ValueAnimator.ofFloat(startX, getWidth() - startX, getWidth() / 2, startX);
+            ValueAnimator translateXAnim = ValueAnimator.ofFloat(startX, getWidth() - startX,
+                    getWidth() / 2, startX);
             if (i == 1) {
-                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX, getWidth() / 2, getWidth() -
+                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX,
+                        getWidth() / 2, getWidth() -
                         startX);
             }
-            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, startY, getHeight() / 2, startY);
+            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, startY, getHeight() / 2,
+                    startY);
             if (i == 1) {
-                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY, getHeight() / 2,
+                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY
+                        , getHeight() / 2,
                         getHeight() - startY);
             }
 

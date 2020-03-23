@@ -23,11 +23,13 @@ public abstract class SwipeDeleteAdapter<D> extends UniversalAdapter<D> {
 
     private SwipeOpenViewHolder swipeOpenViewHolder;
 
-    public SwipeDeleteAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List<D> list) {
+    public SwipeDeleteAdapter(@NonNull Context context, @LayoutRes int layoutId,
+                              @Nullable List<D> list) {
         this(context, layoutId, list, null);
     }
 
-    public SwipeDeleteAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List<D> list,
+    public SwipeDeleteAdapter(@NonNull Context context, @LayoutRes int layoutId,
+                              @Nullable List<D> list,
                               SwipeOpenViewHolder swipeOpenViewHolder) {
         super(context, layoutId, list);
         this.swipeOpenViewHolder = swipeOpenViewHolder;
@@ -80,7 +82,8 @@ public abstract class SwipeDeleteAdapter<D> extends UniversalAdapter<D> {
             if (null != swipeOpenViewHolder) {
                 swipeOpenViewHolder.notifyStartOpen();
             } else {
-                itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.red_adapter));
+                itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),
+                        R.color.red_adapter));
             }
         }
 
@@ -89,7 +92,8 @@ public abstract class SwipeDeleteAdapter<D> extends UniversalAdapter<D> {
             if (null != swipeOpenViewHolder) {
                 swipeOpenViewHolder.notifyEndOpen();
             } else {
-                itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.blue_adapter));
+                itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),
+                        R.color.blue_adapter));
             }
         }
     }

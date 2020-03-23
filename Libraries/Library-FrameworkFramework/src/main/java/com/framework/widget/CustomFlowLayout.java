@@ -34,7 +34,8 @@ public class CustomFlowLayout extends LinearLayout {
      * 存储每一行的高度
      */
     private ArrayList<Integer> listLineHeight;
-    private ArrayList<CompoundButton> listCompoundButton = new ArrayList<CompoundButton>();//存储CompoundButton
+    private ArrayList<CompoundButton> listCompoundButton = new ArrayList<CompoundButton>();
+    //存储CompoundButton
     CustomOnCheckedChangeListener mOnCheckedChangeListener = new CustomOnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -100,7 +101,8 @@ public class CustomFlowLayout extends LinearLayout {
         //         记录当前行的view
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
-            //			Log.e("yy","自定义view lineWidth: " + lineWidth+ "    lineHeight:" + lineHeight);
+            //			Log.e("yy","自定义view lineWidth: " + lineWidth+ "    lineHeight:" +
+            //			lineHeight);
             View child = getChildAt(i);
             if ((child instanceof CheckBox || child instanceof RadioButton) && checkable) {
                 child.setId(10000 + i);
@@ -122,7 +124,8 @@ public class CustomFlowLayout extends LinearLayout {
                 // 重置行的宽高
                 lineWidth = 0;
                 lineHeight = childHeight + lp.topMargin + lp.bottomMargin;
-                //				Log.e("yy","自定义view lp.topMargin: " + lp.topMargin+ "    lp.bottomMargin:" + lp
+                //				Log.e("yy","自定义view lp.topMargin: " + lp.topMargin+ "    lp
+                //				.bottomMargin:" + lp
                 // .bottomMargin);
                 // 重置view的集合
                 listLineViews = new ArrayList<View>();
@@ -156,13 +159,15 @@ public class CustomFlowLayout extends LinearLayout {
                 MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
                 int cLeft = left + lp.leftMargin;
                 int cTop = top + lp.topMargin;
-//                Log.e("yy", "自定义view: " + (i + 1) + " 行" + (j + 1) + "列_  cTop:" + cTop + "     top:" + top);
+//                Log.e("yy", "自定义view: " + (i + 1) + " 行" + (j + 1) + "列_  cTop:" + cTop + "
+//                top:" + top);
                 int cRight = cLeft + child.getMeasuredWidth();
                 int cBottom = cTop + child.getMeasuredHeight();
                 // 进行子View进行布局
                 child.layout(cLeft, cTop, cRight, cBottom);
                 left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
-                //				Log.e("yy","自定义view: " + (i + 1) + " 行" + (j + 1) + "列_left:" +left);
+                //				Log.e("yy","自定义view: " + (i + 1) + " 行" + (j + 1) + "列_left:"
+                //				+left);
             }
             left = getPaddingLeft();//2016/11/18初始化左边时获取paddingLeft。。aaaaaaaaaa
             top += lineHeight;
@@ -216,7 +221,8 @@ public class CustomFlowLayout extends LinearLayout {
             }
         }
 //        Log.e("yy", "流失布局22:" + width);
-        setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width, modeHeight == MeasureSpec.EXACTLY
+        setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width,
+                modeHeight == MeasureSpec.EXACTLY
                 ? sizeHeight : height);
     }
 
@@ -271,7 +277,8 @@ public class CustomFlowLayout extends LinearLayout {
                 if ((getContext() instanceof OnCheckedChangeListener || onCheckedChangeListener != null) &&
                         compoundButton instanceof CheckBox) {
                     if (getContext() instanceof OnCheckedChangeListener) {
-                        ((OnCheckedChangeListener) getContext()).onCheckedChanged(position, b, compoundButton);
+                        ((OnCheckedChangeListener) getContext()).onCheckedChanged(position, b,
+                                compoundButton);
                     } else {
                         onCheckedChangeListener.onCheckedChanged(position, b, compoundButton);
                     }
@@ -292,7 +299,8 @@ public class CustomFlowLayout extends LinearLayout {
                         ((OnSingleCheckedChangeListener) getContext()).onSingleCheckedChanged(position, true,
                                 compoundButton);
                     } else {
-                        onSingleCheckedChangeListener.onSingleCheckedChanged(position, true, compoundButton);
+                        onSingleCheckedChangeListener.onSingleCheckedChanged(position, true,
+                                compoundButton);
                     }
                 } else if ((getContext() instanceof OnItemClickListener || onItemClickListener != null)) {
                     if (getContext() instanceof OnItemClickListener) {

@@ -86,7 +86,8 @@ public class TestRecyclerViewClassicalActivity extends AppCompatActivity impleme
             first = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             Dialog dialog = builder.create();
-            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
+            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader",
+                    "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -140,7 +141,8 @@ public class TestRecyclerViewClassicalActivity extends AppCompatActivity impleme
         recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewClassicalActivity.this, R.layout
                 .test_list_item_layout, items) {
             @Override
-            protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
+            protected void getItemView(UniversalViewHolder viewHolder, String item,
+                                       final int position) {
                 viewHolder.setText(R.id.tv, item);
                 viewHolder.getView(R.id.tv).setOnClickListener(new View.OnClickListener() {
                     @Override

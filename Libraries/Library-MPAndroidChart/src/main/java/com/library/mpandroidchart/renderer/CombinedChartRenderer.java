@@ -1,8 +1,5 @@
 package com.library.mpandroidchart.renderer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.graphics.Canvas;
 
 import com.library.mpandroidchart.animation.ChartAnimator;
@@ -11,6 +8,9 @@ import com.library.mpandroidchart.charts.CombinedChart.DrawOrder;
 import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.interfaces.BarLineScatterCandleBubbleDataProvider;
 import com.library.mpandroidchart.utils.ViewPortHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Renderer class that is responsible for rendering multiple different data-types.
@@ -22,21 +22,24 @@ public class CombinedChartRenderer extends DataRenderer {
      */
     protected List<DataRenderer> mRenderers;
 
-    public CombinedChartRenderer(CombinedChart chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
+    public CombinedChartRenderer(CombinedChart chart, ChartAnimator animator,
+                                 ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
 
         createRenderers(chart, animator, viewPortHandler);
     }
 
     /**
-     * Creates the renderers needed for this combined-renderer in the required order. Also takes the DrawOrder into
+     * Creates the renderers needed for this combined-renderer in the required order. Also takes
+     * the DrawOrder into
      * consideration.
      *
      * @param chart
      * @param animator
      * @param viewPortHandler
      */
-    protected void createRenderers(CombinedChart chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
+    protected void createRenderers(CombinedChart chart, ChartAnimator animator,
+                                   ViewPortHandler viewPortHandler) {
 
         mRenderers = new ArrayList<DataRenderer>();
 
@@ -59,7 +62,8 @@ public class CombinedChartRenderer extends DataRenderer {
                     break;
                 case CANDLE:
                     if (chart.getCandleData() != null)
-                        mRenderers.add(new CandleStickChartRenderer(chart, animator, viewPortHandler));
+                        mRenderers.add(new CandleStickChartRenderer(chart, animator,
+                                viewPortHandler));
                     break;
                 case SCATTER:
                     if (chart.getScatterData() != null)

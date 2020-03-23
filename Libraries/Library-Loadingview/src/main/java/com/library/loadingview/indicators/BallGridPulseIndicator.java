@@ -21,7 +21,8 @@ public class BallGridPulseIndicator extends Indicator {
 
     private int[] alphas = new int[]{ALPHA, ALPHA, ALPHA, ALPHA, ALPHA, ALPHA, ALPHA, ALPHA, ALPHA};
 
-    private float[] scaleFloats = new float[]{SCALE, SCALE, SCALE, SCALE, SCALE, SCALE, SCALE, SCALE, SCALE};
+    private float[] scaleFloats = new float[]{SCALE, SCALE, SCALE, SCALE, SCALE, SCALE, SCALE,
+            SCALE, SCALE};
 
     @Override
     public void draw(Canvas canvas, Paint paint) {

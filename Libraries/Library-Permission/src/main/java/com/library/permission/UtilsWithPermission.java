@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
+
 import com.library.permission.adapter.CheckPermissionAdapter;
 import com.library.permission.adapter.CheckPermissionWithRationaleAdapter;
 import com.library.permission.bean.Permission;
-
 
 public class UtilsWithPermission {
 
@@ -47,7 +47,8 @@ public class UtilsWithPermission {
                 new CheckPermissionAdapter() {
                     @Override
                     public void onPermissionGranted(Permission permission) {
-                        activity.startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI), requestCode);
+                        activity.startActivityForResult(new Intent(Intent.ACTION_PICK,
+                                ContactsContract.Contacts.CONTENT_URI), requestCode);
                     }
                 });
     }

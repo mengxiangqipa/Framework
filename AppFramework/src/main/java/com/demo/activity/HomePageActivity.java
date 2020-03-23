@@ -162,7 +162,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
-        String ddd=Base64Coder.encodeString("我是encodeString");
+        String ddd = Base64Coder.encodeString("我是encodeString");
         Log.e("HomePageActivity enc:", ddd);
         Log.e("HomePageActivity dec:", Base64Coder.decodeString(ddd));
         Log.e("HomePageActivity Aes:", AesUtil.getInstance().generateKey());

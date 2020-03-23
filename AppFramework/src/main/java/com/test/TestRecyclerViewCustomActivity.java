@@ -43,7 +43,8 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
                     public void handleMessage(Message msg) {
 //                        if (len % 2 == 0) {
 //                            // 千万别忘了告诉控件刷新完毕了哦！
-//                            pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.FAIL);
+//                            pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout
+//                            .FAIL);
 //                        } else {
                         pullToRefreshLayout.refreshFinish(BaseAbstractPullToRefreshLayout.SUCCEED);
 //                        }
@@ -139,10 +140,12 @@ public class TestRecyclerViewCustomActivity extends AppCompatActivity implements
         recyclerView.setCanPullDown(true);
         recyclerView.setCanPullUp(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewCustomActivity.this, R.layout
+        recyclerView.setAdapter(new UniversalAdapter<String>(TestRecyclerViewCustomActivity.this,
+                R.layout
                 .test_list_item_layout, items) {
             @Override
-            protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
+            protected void getItemView(UniversalViewHolder viewHolder, String item,
+                                       final int position) {
                 viewHolder.setText(R.id.tv, item);
                 viewHolder.getView(R.id.tv).setOnClickListener(new View.OnClickListener() {
                     @Override

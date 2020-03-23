@@ -104,7 +104,8 @@ public class CalendarActivity extends Activity {
                         calendar.nextMonth();
                     } else {
                         calendar.removeAllBgColor();
-                        calendar.setCalendarDayBgColor(dateFormat, R.drawable.calendar_date_focused);
+                        calendar.setCalendarDayBgColor(dateFormat,
+                                R.drawable.calendar_date_focused);
                         date = dateFormat;//最后返回给全局 date
                     }
                 }

@@ -32,17 +32,17 @@ import com.library.mpandroidchart.components.MarkerView;
 import com.library.mpandroidchart.data.ChartData;
 import com.library.mpandroidchart.data.DataSet;
 import com.library.mpandroidchart.data.Entry;
+import com.library.mpandroidchart.formatter.DefaultValueFormatter;
+import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.highlight.ChartHighlighter;
+import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.interfaces.ChartInterface;
 import com.library.mpandroidchart.listener.ChartTouchListener;
 import com.library.mpandroidchart.listener.OnChartGestureListener;
 import com.library.mpandroidchart.listener.OnChartValueSelectedListener;
 import com.library.mpandroidchart.renderer.DataRenderer;
 import com.library.mpandroidchart.renderer.LegendRenderer;
-import com.library.mpandroidchart.formatter.DefaultValueFormatter;
-import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.utils.Utils;
-import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.utils.ViewPortHandler;
 
 import java.io.File;
@@ -468,7 +468,8 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
                         getHeight() - mViewPortHandler.offsetBottom()
                                 - 10, mDescPaint);
             } else {
-                c.drawText(mDescription, mDescriptionPosition.x, mDescriptionPosition.y, mDescPaint);
+                c.drawText(mDescription, mDescriptionPosition.x, mDescriptionPosition.y,
+                        mDescPaint);
             }
         }
     }
@@ -1588,7 +1589,8 @@ public abstract class Chart<T extends ChartData<? extends DataSet<? extends Entr
         values.put(Images.Media.DATA, filePath);
         values.put(Images.Media.SIZE, size);
 
-        return getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values) == null
+        return getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI,
+                values) == null
                 ? false : true;
     }
 

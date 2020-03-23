@@ -118,7 +118,8 @@ public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshL
     private void initView(Context context) {
         Log.i("yy", "initView");
         // 初始化下拉布局
-        refreshView = LayoutInflater.from(getContext()).inflate(R.layout.allview_refresh_head_soft_classical, null,
+        refreshView =
+                LayoutInflater.from(getContext()).inflate(R.layout.allview_refresh_head_soft_classical, null,
                 false);
         pullDownView = refreshView.findViewById(R.id.pulldown_icon);
         refreshStateTextView = (TextView) refreshView.findViewById(R.id.tv_state);
@@ -126,7 +127,9 @@ public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshL
         refreshingView = refreshView.findViewById(R.id.refreshing_icon);
         refreshStateImageView = refreshView.findViewById(R.id.iv_state);
         // 初始化上拉布局
-        loadmoreView = LayoutInflater.from(getContext()).inflate(R.layout.allview_load_more_classical, null, false);
+        loadmoreView =
+                LayoutInflater.from(getContext()).inflate(R.layout.allview_load_more_classical,
+                        null, false);
         pullUpView = loadmoreView.findViewById(R.id.pullup_icon);
         loadStateTextView = (TextView) loadmoreView.findViewById(R.id.tv_loadstate);
         loadContentTextView = (TextView) loadmoreView.findViewById(R.id.tv_content);
@@ -226,7 +229,8 @@ public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshL
     /**
      * 下拉刷新完成
      *
-     * @param refreshResult BaseAbstractPullToRefreshLayout.SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
+     * @param refreshResult BaseAbstractPullToRefreshLayout
+     *                      .SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
      */
     @Override
     protected void refreshComplete(int refreshResult) {
@@ -266,7 +270,8 @@ public class SoftClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshL
     /**
      * 上拉刷新 完成
      *
-     * @param refreshResult BaseAbstractPullToRefreshLayout.SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
+     * @param refreshResult BaseAbstractPullToRefreshLayout
+     *                      .SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
      */
     @Override
     protected void loadMoreComplete(int refreshResult) {

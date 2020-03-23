@@ -50,19 +50,23 @@
 //        TextView tv_shop_name_right = (TextView) view.findViewById(R.id.tv_shop_name_right);
 //
 //        LinearLayout leftCompareLayout = (LinearLayout) view.findViewById(R.id.leftCompareLayout);
-//        LinearLayout rightCompareLayout = (LinearLayout) view.findViewById(R.id.rightCompareLayout);
+//        LinearLayout rightCompareLayout = (LinearLayout) view.findViewById(R.id
+//        .rightCompareLayout);
 //        ImageView iv_compare_left = (ImageView) view.findViewById(R.id.iv_compare_left);
 //        ImageView iv_compare_right = (ImageView) view.findViewById(R.id.iv_compare_right);
 //        TextView tv_compare_left = (TextView) view.findViewById(R.id.tv_compare_left);
 //        TextView tv_compare_right = (TextView) view.findViewById(R.id.tv_compare_right);
 //
 //        tv_title.setText(String.valueOf("销量Top" + (position % list.size() + 1)));
-//        tv_count.setText(String.valueOf("已售:" + list.get(position % list.size()).getAlreadySaleCount() + "台"));
+//        tv_count.setText(String.valueOf("已售:" + list.get(position % list.size())
+//        .getAlreadySaleCount() + "台"));
 //        tv_phone_name.setText(String.valueOf(list.get(position % list.size()).getPhoneName()));
 //        decimalFormat.applyPattern("0.00");
-//        tv_total_sale.setText(String.valueOf(decimalFormat.format(list.get(position % list.size()).getLastTotalSale
+//        tv_total_sale.setText(String.valueOf(decimalFormat.format(list.get(position % list.size
+//        ()).getLastTotalSale
 // ()) + "元"));
-//        tv_store_count.setText(String.valueOf(list.get(position % list.size()).getStoreCount() + "台"));
+//        tv_store_count.setText(String.valueOf(list.get(position % list.size()).getStoreCount()
+//        + "台"));
 //        tv_shop_name_left.setText(String.valueOf("京东售价"));
 //        tv_shop_name_right.setText(String.valueOf("本店售价"));
 //        tv_compare_left.setText(String.valueOf("京东比价"));
@@ -84,7 +88,8 @@
 //            }
 //        });
 //
-//        SimpleLineChart mSimpleLineChart = (SimpleLineChart) view.findViewById(R.id.simpleLineChart);
+//        SimpleLineChart mSimpleLineChart = (SimpleLineChart) view.findViewById(R.id
+//        .simpleLineChart);
 //        Calendar calendar = Calendar.getInstance();
 //        decimalFormat.applyPattern("00");
 //        String[] xItem = new String[5];

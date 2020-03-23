@@ -9,8 +9,6 @@ import com.library.mpandroidchart.components.YAxis.AxisDependency;
 import com.library.mpandroidchart.data.BarData;
 import com.library.mpandroidchart.data.BarDataSet;
 import com.library.mpandroidchart.data.BarEntry;
-import com.library.mpandroidchart.data.DataSet;
-import com.library.mpandroidchart.data.Entry;
 import com.library.mpandroidchart.highlight.BarHighlighter;
 import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.interfaces.BarDataProvider;
@@ -61,7 +59,8 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
         super.init();
 
         mRenderer = new BarChartRenderer(this, mAnimator, mViewPortHandler);
-        mXAxisRenderer = new XAxisRendererBarChart(mViewPortHandler, mXAxis, mLeftAxisTransformer, this);
+        mXAxisRenderer = new XAxisRendererBarChart(mViewPortHandler, mXAxis, mLeftAxisTransformer
+                , this);
 
         mHighlighter = new BarHighlighter(this);
 
@@ -84,7 +83,8 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
     }
 
     /**
-     * Returns the Highlight object (contains x-index and DataSet index) of the selected value at the given touch point
+     * Returns the Highlight object (contains x-index and DataSet index) of the selected value at
+     * the given touch point
      * inside the BarChart.
      *
      * @param x
@@ -102,7 +102,8 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
     }
 
     /**
-     * Returns the bounding box of the specified Entry in the specified DataSet. Returns null if the Entry could not be
+     * Returns the bounding box of the specified Entry in the specified DataSet. Returns null if
+     * the Entry could not be
      * found in the charts data.
      *
      * @param e
@@ -190,7 +191,8 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
     // }
 
     /**
-     * If set to true, a grey area is drawn behind each bar that indicates the maximum value. Enabling his will reduce
+     * If set to true, a grey area is drawn behind each bar that indicates the maximum value.
+     * Enabling his will reduce
      * performance by about 50%.
      *
      * @param enabled
@@ -241,7 +243,8 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
         float step = mData.getDataSetCount();
         float div = (step <= 1) ? 1 : step + mData.getGroupSpace();
 
-        float[] pts = new float[]{mViewPortHandler.contentRight(), mViewPortHandler.contentBottom()};
+        float[] pts = new float[]{mViewPortHandler.contentRight(),
+                mViewPortHandler.contentBottom()};
 
         getTransformer(AxisDependency.LEFT).pixelsToValue(pts);
         return (int) ((pts[0] >= getXChartMax()) ? getXChartMax() / div : (pts[0] / div));

@@ -27,7 +27,8 @@ public class BallSpinFadeLoaderIndicator extends Indicator {
         float radius = getWidth() / 10;
         for (int i = 0; i < 8; i++) {
             canvas.save();
-            Point point = circleAt(getWidth(), getHeight(), getWidth() / 2 - radius, i * (Math.PI / 4));
+            Point point = circleAt(getWidth(), getHeight(), getWidth() / 2 - radius,
+                    i * (Math.PI / 4));
             canvas.translate(point.x, point.y);
             canvas.scale(scaleFloats[i], scaleFloats[i]);
             paint.setAlpha(alphas[i]);

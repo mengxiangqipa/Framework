@@ -77,7 +77,8 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
         IndicatorDelegate indicator = new IndicatorDelegate();
         indicator.setCanPullDown(true);//设置是否能下拉
         indicator.setCanPullUp(false);//设置是否能上拉
-//        indicator.setLoadmoreDistcance(ScreenUtils.getProxyApplication().dip2px(getContext(), 86));//上拉距离px
+//        indicator.setLoadmoreDistcance(ScreenUtils.getProxyApplication().dip2px(getContext(),
+//        86));//上拉距离px
         indicator.setLoadmoreDistcance(ScreenUtil.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//上拉距离px
         indicator.setRefreshDistance(ScreenUtil.getInstance().getScreenHeightPx(getContext()) * 10 / 100);//下拉距离px
         indicator.setResistance(1f);//设置阻力系数，内部按正余弦变化，设置可能无效
@@ -87,7 +88,8 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
         indicator.setRollingTime(150);//从释放刷新到后面的时间
         indicator.setFixedMode(IndicatorDelegate.FixedMode.FixedHeaderHover);//设置中间内容区域固定
         setIndicatorDelegate(indicator);
-//        refreshView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//        refreshView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
+//        .OnGlobalLayoutListener() {
 //            @Override
 //            public void onGlobalLayout() {
 //                if (refreshView.getHeight() > 0)
@@ -101,21 +103,25 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
 
     private void initView(Context context) {
         // 初始化下拉布局
-        refreshView = LayoutInflater.from(getContext()).inflate(R.layout.custom_refresh_head, null, false);
+        refreshView = LayoutInflater.from(getContext()).inflate(R.layout.custom_refresh_head,
+                null, false);
         refreshStateTextView = (TextView) refreshView.findViewById(R.id.refreshStateTextView);
         refreshingView = (ImageView) refreshView.findViewById(R.id.refreshingView);
         circlesDrawable = new CirclesDrawable(context);
-//        int[] mColorSchemeColors = new int[]{Color.rgb(0xC9, 0x34, 0x37), Color.rgb(0x37, 0x5B, 0xF1), Color.rgb
+//        int[] mColorSchemeColors = new int[]{Color.rgb(0xC9, 0x34, 0x37), Color.rgb(0x37, 0x5B,
+//        0xF1), Color.rgb
 // (0xF7, 0xD2, 0x3E), Color.rgb(0x34, 0xA3, 0x50)};
         //0799FC B6DA53 E78E94 6FCD78
-        int[] mColorSchemeColors = new int[]{Color.rgb(0x07, 0x99, 0xFC), Color.rgb(0xB6, 0xDA, 0x53), Color.rgb
+        int[] mColorSchemeColors = new int[]{Color.rgb(0x07, 0x99, 0xFC), Color.rgb(0xB6, 0xDA,
+                0x53), Color.rgb
                 (0xE7, 0x8E, 0x96), Color.rgb(0x6F, 0xCD, 0x78)};
         circlesDrawable.setColorSchemeColors(mColorSchemeColors);
 //        circlesDrawable.start();
         refreshingView.setImageDrawable(circlesDrawable);
 
         // 初始化上拉布局
-        loadmoreView = LayoutInflater.from(getContext()).inflate(R.layout.custom_load_more, null, false);
+        loadmoreView = LayoutInflater.from(getContext()).inflate(R.layout.custom_load_more, null,
+                false);
         loadStateTextView = (TextView) loadmoreView.findViewById(R.id.loadStateTextView);
         loadingView = (ImageView) loadmoreView.findViewById(R.id.loadingView);
         circlesDrawableFooter = new CirclesDrawable(context);
@@ -200,7 +206,8 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
     /**
      * 下拉刷新完成
      *
-     * @param refreshResult BaseAbstractPullToRefreshLayout.SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
+     * @param refreshResult BaseAbstractPullToRefreshLayout
+     *                      .SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
      */
     @Override
     protected void refreshComplete(int refreshResult) {
@@ -237,7 +244,8 @@ public class CustomPullToRefreshLayout extends BaseAbstractPullToRefreshLayout i
     /**
      * 上拉刷新 完成
      *
-     * @param refreshResult BaseAbstractPullToRefreshLayout.SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
+     * @param refreshResult BaseAbstractPullToRefreshLayout
+     *                      .SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
      */
     @Override
     protected void loadMoreComplete(int refreshResult) {

@@ -46,7 +46,8 @@ class ProgressOutputStream extends OutputStream {
         } else {
             this.totalWritten += b.length;
         }
-        this.listener.onProgressChanged(this.totalWritten, this.total, (this.totalWritten * 1.0F) / this.total);
+        this.listener.onProgressChanged(this.totalWritten, this.total,
+                (this.totalWritten * 1.0F) / this.total);
     }
 
     @Override
@@ -57,7 +58,8 @@ class ProgressOutputStream extends OutputStream {
             return;
         }
         this.totalWritten++;
-        this.listener.onProgressChanged(this.totalWritten, this.total, (this.totalWritten * 1.0F) / this.total);
+        this.listener.onProgressChanged(this.totalWritten, this.total,
+                (this.totalWritten * 1.0F) / this.total);
     }
 
     @Override

@@ -96,7 +96,8 @@ public final class PictureSelector {
     public static List<LocalMedia> obtainMultipleResult(Intent data) {
         List<LocalMedia> result = new ArrayList<>();
         if (data != null) {
-            result = (List<LocalMedia>) data.getSerializableExtra(PictureConfig.EXTRA_RESULT_SELECTION);
+            result =
+                    (List<LocalMedia>) data.getSerializableExtra(PictureConfig.EXTRA_RESULT_SELECTION);
             if (result == null) {
                 result = new ArrayList<>();
             }
@@ -159,7 +160,8 @@ public final class PictureSelector {
      * @param medias
      * @param directory_path
      */
-    public void externalPicturePreview(int position, String directory_path, List<LocalMedia> medias) {
+    public void externalPicturePreview(int position, String directory_path,
+                                       List<LocalMedia> medias) {
         if (!DoubleUtils.isFastDoubleClick()) {
             Intent intent = new Intent(getActivity(), PictureExternalPreviewActivity.class);
             intent.putExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST, (Serializable) medias);

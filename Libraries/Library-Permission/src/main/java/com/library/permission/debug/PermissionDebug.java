@@ -2,7 +2,6 @@ package com.library.permission.debug;
 
 import android.util.Log;
 
-
 public class PermissionDebug {
 
     private static boolean isDebug = false;
@@ -44,5 +43,4 @@ public class PermissionDebug {
             Log.i(tag, msg);
         }
     }
-
 }

@@ -245,7 +245,8 @@ public class ImageHeaderParser {
 
             if (byteCount > 4) {
                 if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "Got byte count > 4, not orientation, continuing, formatCode=" + formatCode);
+                    Log.d(TAG,
+                            "Got byte count > 4, not orientation, continuing, formatCode=" + formatCode);
                 }
                 continue;
             }
@@ -375,7 +376,8 @@ public class ImageHeaderParser {
         }
     }
 
-    public static void copyExif(ExifInterface originalExif, int width, int height, String imageOutputPath) {
+    public static void copyExif(ExifInterface originalExif, int width, int height,
+                                String imageOutputPath) {
         String[] attributes = new String[]{
                 ExifInterface.TAG_APERTURE,
                 ExifInterface.TAG_DATETIME,

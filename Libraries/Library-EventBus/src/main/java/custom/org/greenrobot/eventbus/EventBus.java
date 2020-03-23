@@ -32,9 +32,12 @@ import java.util.logging.Level;
 /**
  * EventBus is a central publish/subscribe event system for Android. Events are posted
  * ({@link #post(Object, String)}) to the
- * bus, which delivers it to subscribers that have a matching handler method for the event type. To receive events,
- * subscribers must register themselves to the bus using {@link #register(Object)}. Once registered, subscribers
- * receive events until {@link #unregister(Object)} is called. Event handling methods must be annotated by
+ * bus, which delivers it to subscribers that have a matching handler method for the event type.
+ * To receive events,
+ * subscribers must register themselves to the bus using {@link #register(Object)}. Once
+ * registered, subscribers
+ * receive events until {@link #unregister(Object)} is called. Event handling methods must be
+ * annotated by
  * {@link Subscribe}, must be public, return nothing (void), and have exactly one parameter
  * (the event).
  *
@@ -56,7 +59,8 @@ public class EventBus {
     private final Map<Object, List<Class<?>>> typesBySubscriber;
     private final Map<Class<?>, Object> stickyEvents;
 
-    private final ThreadLocal<PostingThreadState> currentPostingThreadState = new ThreadLocal<PostingThreadState>() {
+    private final ThreadLocal<PostingThreadState> currentPostingThreadState =
+            new ThreadLocal<PostingThreadState>() {
         @Override
         protected PostingThreadState initialValue() {
             return new PostingThreadState();
@@ -109,7 +113,8 @@ public class EventBus {
     }
 
     /**
-     * Creates a new EventBus instance; each instance is a separate scope in which events are delivered. To use a
+     * Creates a new EventBus instance; each instance is a separate scope in which events are
+     * delivered. To use a
      * central bus, consider {@link #getDefault()}.
      */
     public EventBus() {
@@ -125,7 +130,8 @@ public class EventBus {
         mainThreadPoster = mainThreadSupport != null ? mainThreadSupport.createPoster(this) : null;
         backgroundPoster = new BackgroundPoster(this);
         asyncPoster = new AsyncPoster(this);
-        indexCount = builder.subscriberInfoIndexes != null ? builder.subscriberInfoIndexes.size() : 0;
+        indexCount = builder.subscriberInfoIndexes != null ?
+                builder.subscriberInfoIndexes.size() : 0;
         subscriberMethodFinder = new SubscriberMethodFinder(builder.subscriberInfoIndexes, builder
                 .strictMethodVerification, builder.ignoreGeneratedIndex);
         logSubscriberExceptions = builder.logSubscriberExceptions;
@@ -138,7 +144,8 @@ public class EventBus {
     }
 
     /**
-     * Registers the given subscriber to receive events. Subscribers must call {@link #unregister(Object)} once they
+     * Registers the given subscriber to receive events. Subscribers must call
+     * {@link #unregister(Object)} once they
      * are no longer interested in receiving events.
      * <p/>
      * Subscribers have event handling methods that must be annotated by {@link Subscribe}.
@@ -147,7 +154,8 @@ public class EventBus {
      */
     public void register(Object subscriber) {
         Class<?> subscriberClass = subscriber.getClass();
-        List<SubscriberMethod> subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);
+        List<SubscriberMethod> subscriberMethods =
+                subscriberMethodFinder.findSubscriberMethods(subscriberClass);
         synchronized (this) {
             for (SubscriberMethod subscriberMethod : subscriberMethods) {
                 subscribe(subscriber, subscriberMethod);
@@ -165,7 +173,8 @@ public class EventBus {
             subscriptionsByEventType.put(eventType, subscriptions);
         } else {
             if (subscriptions.contains(newSubscription)) {
-                throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event "
+                throw new EventBusException("Subscriber " + subscriber.getClass() + " already " +
+                        "registered to event "
                         + eventType);
             }
         }
@@ -190,35 +199,43 @@ public class EventBus {
                 // Existing sticky events of all subclasses of eventType have to be considered.
                 // Note: Iterating over all events may be inefficient with lots of sticky events,
                 // thus data structure should be changed to allow a more efficient lookup
-                // (e.g. an additional map storing sub classes of super classes: Class -> List<Class>).
+                // (e.g. an additional map storing sub classes of super classes: Class ->
+                // List<Class>).
                 Set<Map.Entry<Class<?>, Object>> entries = stickyEvents.entrySet();
                 for (Map.Entry<Class<?>, Object> entry : entries) {
                     Class<?> candidateEventType = entry.getKey();
                     if (eventType.isAssignableFrom(candidateEventType)) {
                         Object stickyEvent = entry.getValue();
-                        checkPostStickyEventToSubscription(newSubscription, stickyEvent, subscriberMethod.tag);//我修改
+                        checkPostStickyEventToSubscription(newSubscription, stickyEvent,
+                                subscriberMethod.tag);//我修改
                     }
                 }
             } else {
                 Object stickyEvent = stickyEvents.get(eventType);
-                checkPostStickyEventToSubscription(newSubscription, stickyEvent, subscriberMethod.tag);//我修改
+                checkPostStickyEventToSubscription(newSubscription, stickyEvent,
+                        subscriberMethod.tag);//我修改
             }
         }
     }
 
-    private void checkPostStickyEventToSubscription(Subscription newSubscription, Object stickyEvent, String tag) {
+    private void checkPostStickyEventToSubscription(Subscription newSubscription,
+                                                    Object stickyEvent, String tag) {
         //我修改
         if (stickyEvent != null) {
-            // If the subscriber is trying to abort the event, it will fail (event is not tracked in posting state)
+            // If the subscriber is trying to abort the event, it will fail (event is not tracked
+            // in posting state)
             // --> Strange corner case, which we don't take care of here.
-            postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper(), tag);
+            postToSubscription(newSubscription, stickyEvent,
+                    Looper.getMainLooper() == Looper.myLooper(), tag);
         }
     }
 
     /**
      * Checks if the current thread is running in the main thread.
-     * If there is no main thread support (e.g. non-Android), "true" is always returned. In that case MAIN thread
-     * subscribers are always called in posting thread, and BACKGROUND subscribers are always called from a background
+     * If there is no main thread support (e.g. non-Android), "true" is always returned. In that
+     * case MAIN thread
+     * subscribers are always called in posting thread, and BACKGROUND subscribers are always
+     * called from a background
      * poster.
      */
     private boolean isMainThread() {
@@ -230,8 +247,10 @@ public class EventBus {
     }
 
     //我修改
+
     /**
-     * Only updates subscriptionsByEventType, not typesBySubscriber! Caller must update typesBySubscriber.
+     * Only updates subscriptionsByEventType, not typesBySubscriber! Caller must update
+     * typesBySubscriber.
      */
     private void unsubscribeByEventType(Object subscriber, Class<?> eventType) {
         List<Subscription> subscriptions = subscriptionsByEventType.get(eventType);
@@ -260,7 +279,8 @@ public class EventBus {
             }
             typesBySubscriber.remove(subscriber);
         } else {
-            logger.log(Level.WARNING, "Subscriber to unregister was not registered before: " + subscriber.getClass());
+            logger.log(Level.WARNING,
+                    "Subscriber to unregister was not registered before: " + subscriber.getClass());
         }
     }
 
@@ -291,17 +311,20 @@ public class EventBus {
     }
 
     /**
-     * Called from a subscriber's event handling method, further event delivery will be canceled. Subsequent
+     * Called from a subscriber's event handling method, further event delivery will be canceled.
+     * Subsequent
      * subscribers
      * won't receive the event. Events are usually canceled by higher priority subscribers (see
-     * {@link Subscribe#priority()}). Canceling is restricted to event handling methods running in posting thread
+     * {@link Subscribe#priority()}). Canceling is restricted to event handling methods running
+     * in posting thread
      * {@link ThreadMode#POSTING}.
      */
     public void cancelEventDelivery(Object event) {
         PostingThreadState postingState = currentPostingThreadState.get();
         if (!postingState.isPosting) {
             throw new EventBusException(
-                    "This method may only be called from inside event handling methods on the posting thread");
+                    "This method may only be called from inside event handling methods on the " +
+                            "posting thread");
         } else if (event == null) {
             throw new EventBusException("Event may not be null");
         } else if (postingState.event != event) {
@@ -314,8 +337,10 @@ public class EventBus {
     }
 
     /**
-     * Posts the given event to the event bus and holds on to the event (because it is sticky). The most recent sticky
-     * event of an event's type is kept in memory for future access by subscribers using {@link Subscribe#sticky()}.
+     * Posts the given event to the event bus and holds on to the event (because it is sticky).
+     * The most recent sticky
+     * event of an event's type is kept in memory for future access by subscribers using
+     * {@link Subscribe#sticky()}.
      */
     public void postSticky(Object event, String tag)//我修改
     {
@@ -419,7 +444,8 @@ public class EventBus {
     }
 
     //我修改
-    private boolean postSingleEventForEventType(Object event, PostingThreadState postingState, Class<?> eventClass,
+    private boolean postSingleEventForEventType(Object event, PostingThreadState postingState,
+                                                Class<?> eventClass,
                                                 String tag) {
         CopyOnWriteArrayList<Subscription> subscriptions;
         synchronized (this) {
@@ -447,7 +473,8 @@ public class EventBus {
         return false;
     }
 
-    private void postToSubscription(Subscription subscription, Object event, boolean isMainThread,String tag) {
+    private void postToSubscription(Subscription subscription, Object event, boolean isMainThread
+            , String tag) {
         if (!TextUtils.isEmpty(tag) && TextUtils.equals(subscription.subscriberMethod.tag, tag)) {
             switch (subscription.subscriberMethod.threadMode) {
                 case POSTING:
@@ -464,7 +491,8 @@ public class EventBus {
                     if (mainThreadPoster != null) {
                         mainThreadPoster.enqueue(subscription, event);
                     } else {
-                        // temporary: technically not correct as poster not decoupled from subscriber
+                        // temporary: technically not correct as poster not decoupled from
+                        // subscriber
                         invokeSubscriber(subscription, event);
                     }
                     break;
@@ -485,7 +513,8 @@ public class EventBus {
     }
 
     /**
-     * Looks up all Class objects including super classes and interfaces. Should also work for interfaces.
+     * Looks up all Class objects including super classes and interfaces. Should also work for
+     * interfaces.
      */
     private static List<Class<?>> lookupAllEventTypes(Class<?> eventClass) {
         synchronized (eventTypesCache) {
@@ -517,9 +546,12 @@ public class EventBus {
     }
 
     /**
-     * Invokes the subscriber if the subscriptions is still active. Skipping subscriptions prevents race conditions
-     * between {@link #unregister(Object)} and event delivery. Otherwise the event might be delivered after the
-     * subscriber unregistered. This is particularly important for main thread delivery and registrations bound to the
+     * Invokes the subscriber if the subscriptions is still active. Skipping subscriptions
+     * prevents race conditions
+     * between {@link #unregister(Object)} and event delivery. Otherwise the event might be
+     * delivered after the
+     * subscriber unregistered. This is particularly important for main thread delivery and
+     * registrations bound to the
      * live cycle of an Activity or Fragment.
      */
     void invokeSubscriber(PendingPost pendingPost) {
@@ -541,14 +573,18 @@ public class EventBus {
         }
     }
 
-    private void handleSubscriberException(Subscription subscription, Object event, Throwable cause) {
+    private void handleSubscriberException(Subscription subscription, Object event,
+                                           Throwable cause) {
         if (event instanceof SubscriberExceptionEvent) {
             if (logSubscriberExceptions) {
-                // Don't send another SubscriberExceptionEvent to avoid infinite event recursion, just log
-                logger.log(Level.SEVERE, "SubscriberExceptionEvent subscriber " + subscription.subscriber.getClass()
+                // Don't send another SubscriberExceptionEvent to avoid infinite event recursion,
+                // just log
+                logger.log(Level.SEVERE,
+                        "SubscriberExceptionEvent subscriber " + subscription.subscriber.getClass()
                         + " threw an exception", cause);
                 SubscriberExceptionEvent exEvent = (SubscriberExceptionEvent) event;
-                logger.log(Level.SEVERE, "Initial event " + exEvent.causingEvent + " caused exception in "
+                logger.log(Level.SEVERE, "Initial event " + exEvent.causingEvent + " caused " +
+                        "exception in "
                         + exEvent.causingSubscriber, exEvent.throwable);
             }
         } else {
@@ -556,7 +592,8 @@ public class EventBus {
                 throw new EventBusException("Invoking subscriber failed", cause);
             }
             if (logSubscriberExceptions) {
-                logger.log(Level.SEVERE, "Could not dispatch event: " + event.getClass() + " to subscribing class "
+                logger.log(Level.SEVERE, "Could not dispatch event: " + event.getClass() + " to " +
+                        "subscribing class "
                         + subscription.subscriber.getClass(), cause);
             }
             if (sendSubscriberExceptionEvent) {
@@ -590,7 +627,8 @@ public class EventBus {
         return logger;
     }
 
-    // Just an idea: we could provide a callback to post() to be notified, an alternative would be events, of course...
+    // Just an idea: we could provide a callback to post() to be notified, an alternative would
+    // be events, of course...
     /* public */interface PostCallback {
         void onPostCompleted(List<SubscriberExceptionEvent> exceptionEvents);
     }

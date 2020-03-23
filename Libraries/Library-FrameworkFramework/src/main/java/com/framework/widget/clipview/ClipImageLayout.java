@@ -22,7 +22,8 @@ public class ClipImageLayout extends RelativeLayout {
         this.lp = new LayoutParams(-1, -1);
         this.addView(this.mZoomImageView, this.lp);
         this.addView(this.mClipImageView, this.lp);
-        this.mHorizontalPadding = (int) TypedValue.applyDimension(1, (float) this.mHorizontalPadding, this
+        this.mHorizontalPadding = (int) TypedValue.applyDimension(1,
+                (float) this.mHorizontalPadding, this
                 .getResources().getDisplayMetrics());
         this.mZoomImageView.setHorizontalPadding(this.mHorizontalPadding);
         this.mClipImageView.setHorizontalPadding(this.mHorizontalPadding);
@@ -38,7 +39,8 @@ public class ClipImageLayout extends RelativeLayout {
 
     public void setHorizontalPadding(int mHorizontalPadding) {
         this.mHorizontalPadding = mHorizontalPadding;
-        mHorizontalPadding = (int) TypedValue.applyDimension(1, (float) mHorizontalPadding, this.getResources()
+        mHorizontalPadding = (int) TypedValue.applyDimension(1, (float) mHorizontalPadding,
+                this.getResources()
                 .getDisplayMetrics());
         this.mZoomImageView.setHorizontalPadding(mHorizontalPadding);
         if (this.mClipImageView != null) {

@@ -231,14 +231,16 @@ public class ScreenShotUtil {
     }
 
     private void createVirtualEnvironment(Context mContext) {
-        mMediaProjectionManager1 = (MediaProjectionManager) mContext.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+        mMediaProjectionManager1 =
+                (MediaProjectionManager) mContext.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
         mWindowManager1 = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         windowWidth = mWindowManager1.getDefaultDisplay().getWidth();
         windowHeight = mWindowManager1.getDefaultDisplay().getHeight();
         metrics = new DisplayMetrics();
         mWindowManager1.getDefaultDisplay().getMetrics(metrics);
         mScreenDensity = metrics.densityDpi;
-        mImageReader = ImageReader.newInstance(windowWidth, windowHeight, 0x1, 2); //ImageFormat.RGB_565
+        mImageReader = ImageReader.newInstance(windowWidth, windowHeight, 0x1, 2); //ImageFormat
+        // .RGB_565
         Y.y("prepared the virtual environment");
     }
 
@@ -276,7 +278,8 @@ public class ScreenShotUtil {
         }
         if (null == mMediaProjection) {
             Y.y("virtualDisplay:" + 3);
-            mMediaProjection = mMediaProjectionManager1.getMediaProjection(mResultCode, mResultData);
+            mMediaProjection = mMediaProjectionManager1.getMediaProjection(mResultCode,
+                    mResultData);
         }
         Y.y("windowWidth:" + windowWidth);
         Y.y("windowHeight:" + windowHeight);
@@ -284,7 +287,8 @@ public class ScreenShotUtil {
         Y.y("mImageReader.getSurface()==null:" + (mImageReader.getSurface() == null));
         Y.y("mMediaProjection==null:" + (mMediaProjection == null));
         mVirtualDisplay = mMediaProjection.createVirtualDisplay("screen-mirror1",
-                windowWidth, windowHeight, mScreenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                windowWidth, windowHeight, mScreenDensity,
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 mImageReader.getSurface(), null, null);
         Y.y("virtual displayed");
     }
@@ -321,7 +325,8 @@ public class ScreenShotUtil {
             int rowStride = planes[0].getRowStride();
             int rowPadding = rowStride - pixelStride * width;
             Y.y("startCaptureAndSave" + "6");
-            Bitmap bitmap = Bitmap.createBitmap(width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_4444);
+            Bitmap bitmap = Bitmap.createBitmap(width + rowPadding / pixelStride, height,
+                    Bitmap.Config.ARGB_4444);
             Y.y("startCaptureAndSave" + "7");
             bitmap.copyPixelsFromBuffer(buffer);
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height);

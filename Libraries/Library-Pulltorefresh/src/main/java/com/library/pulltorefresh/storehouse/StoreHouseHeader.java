@@ -160,8 +160,10 @@ public class StoreHouseHeader extends View {
         mItemList.clear();
         for (int i = 0; i < pointList.size(); i++) {
             float[] line = pointList.get(i);
-            PointF startPoint = new PointF(LocalDisplay.dp2px(line[0]) * mScale, LocalDisplay.dp2px(line[1]) * mScale);
-            PointF endPoint = new PointF(LocalDisplay.dp2px(line[2]) * mScale, LocalDisplay.dp2px(line[3]) * mScale);
+            PointF startPoint = new PointF(LocalDisplay.dp2px(line[0]) * mScale,
+                    LocalDisplay.dp2px(line[1]) * mScale);
+            PointF endPoint = new PointF(LocalDisplay.dp2px(line[2]) * mScale,
+                    LocalDisplay.dp2px(line[3]) * mScale);
 
             drawWidth = Math.max(drawWidth, startPoint.x);
             drawWidth = Math.max(drawWidth, endPoint.x);
@@ -169,7 +171,8 @@ public class StoreHouseHeader extends View {
             drawHeight = Math.max(drawHeight, startPoint.y);
             drawHeight = Math.max(drawHeight, endPoint.y);
 
-            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, mTextColor, mLineWidth);
+            StoreHouseBarItem item = new StoreHouseBarItem(i, startPoint, endPoint, mTextColor,
+                    mLineWidth);
             item.resetPosition(mHorizontalRandomness);
             mItemList.add(item);
         }
@@ -233,7 +236,8 @@ public class StoreHouseHeader extends View {
                     if (progress <= startPadding) {
                         realProgress = 0;
                     } else {
-                        realProgress = Math.min(1, (progress - startPadding) / mInternalAnimationFactor);
+                        realProgress = Math.min(1,
+                                (progress - startPadding) / mInternalAnimationFactor);
                     }
                     offsetX += storeHouseBarItem.translationX * (1 - realProgress);
                     offsetY += -mDropHeight * (1 - realProgress);

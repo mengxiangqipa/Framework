@@ -172,7 +172,8 @@ public class ThreadPoolUtil {
         if (null == scheduledTaskExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == scheduledTaskExecutor) {
-                    scheduledTaskExecutor = Executors.newScheduledThreadPool(nThreads);// 一个可以按指定时间可周期性的执行的线程池
+                    scheduledTaskExecutor = Executors.newScheduledThreadPool(nThreads);//
+                    // 一个可以按指定时间可周期性的执行的线程池
                 }
             }
         }
@@ -188,7 +189,8 @@ public class ThreadPoolUtil {
         if (null == scheduledTaskExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == scheduledTaskExecutor) {
-                    scheduledTaskExecutor = Executors.newScheduledThreadPool(3);// 一个可以按指定时间可周期性的执行的线程池
+                    scheduledTaskExecutor = Executors.newScheduledThreadPool(3);//
+                    // 一个可以按指定时间可周期性的执行的线程池
                 }
             }
         }

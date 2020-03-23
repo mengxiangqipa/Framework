@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="#e0000000"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e0000000"
+    android:orientation="vertical">
 
     <View
         android:id="@+id/v_state_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@mipmap/ic_launcher"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -42,7 +42,7 @@
                 android:text="这里显示标题"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_content"
@@ -52,7 +52,7 @@
                 android:lines="1"
                 android:text="这里显示内容"
                 android:textColor="#ffffff"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
 

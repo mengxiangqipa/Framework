@@ -402,7 +402,8 @@ public class ViewServer implements Runnable {
      */
     public void run() {
         try {
-            mServer = new ServerSocket(mPort, VIEW_SERVER_MAX_CONNECTIONS, InetAddress.getLocalHost());
+            mServer = new ServerSocket(mPort, VIEW_SERVER_MAX_CONNECTIONS,
+                    InetAddress.getLocalHost());
         } catch (Exception e) {
             Log.w(LOG_TAG, "Starting ServerSocket error: ", e);
         }

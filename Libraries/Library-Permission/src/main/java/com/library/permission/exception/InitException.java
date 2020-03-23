@@ -1,6 +1,5 @@
 package com.library.permission.exception;
 
-
 public class InitException extends IllegalStateException {
 
     public InitException() {

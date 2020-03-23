@@ -68,13 +68,15 @@ public class ResultActivity extends BaseActivity {
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(new File(getIntent().getData().getPath()).getAbsolutePath(), options);
+        BitmapFactory.decodeFile(new File(getIntent().getData().getPath()).getAbsolutePath(),
+                options);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getString(R.string.format_crop_result_d_d, options.outWidth, options.outHeight));
+            actionBar.setTitle(getString(R.string.format_crop_result_d_d, options.outWidth,
+                    options.outHeight));
         }
     }
 
@@ -98,7 +100,8 @@ public class ResultActivity extends BaseActivity {
      * Callback received when a permissions request has been completed.
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[]
             grantResults) {
         switch (requestCode) {
             case REQUEST_STORAGE_WRITE_ACCESS_PERMISSION:
@@ -127,7 +130,8 @@ public class ResultActivity extends BaseActivity {
                     Log.e(TAG, imageUri.toString(), e);
                 }
             } else {
-                Toast.makeText(ResultActivity.this, getString(R.string.toast_unexpected_error), Toast.LENGTH_SHORT)
+                Toast.makeText(ResultActivity.this, getString(R.string.toast_unexpected_error),
+                        Toast.LENGTH_SHORT)
                         .show();
             }
         }
@@ -136,7 +140,8 @@ public class ResultActivity extends BaseActivity {
     private void copyFileToDownloads(Uri croppedFileUri) throws Exception {
         String downloadsDirectoryPath = Environment.getExternalStoragePublicDirectory(Environment
                 .DIRECTORY_DOWNLOADS).getAbsolutePath();
-        String filename = String.format("%d_%s", Calendar.getInstance().getTimeInMillis(), croppedFileUri
+        String filename = String.format("%d_%s", Calendar.getInstance().getTimeInMillis(),
+                croppedFileUri
                 .getLastPathSegment());
 
         File saveFile = new File(downloadsDirectoryPath, filename);

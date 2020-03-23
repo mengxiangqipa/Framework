@@ -100,7 +100,8 @@ public class TasksCompletedView extends View {
             oval.top = (mYCenter - mRingRadius);
             oval.right = mRingRadius * 2 + (mXCenter - mRingRadius);
             oval.bottom = mRingRadius * 2 + (mYCenter - mRingRadius);
-            canvas.drawArc(oval, -90, ((float) mProgress / mTotalProgress) * 360, false, mRingPaint); //
+            canvas.drawArc(oval, -90, ((float) mProgress / mTotalProgress) * 360, false,
+                    mRingPaint); //
 //			canvas.drawCircle(mXCenter, mYCenter, mRadius + mStrokeWidth / 2, mRingPaint);
             String txt = mProgress + "%";
             mTxtWidth = mTextPaint.measureText(txt, 0, txt.length());

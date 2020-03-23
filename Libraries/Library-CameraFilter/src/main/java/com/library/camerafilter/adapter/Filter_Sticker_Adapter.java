@@ -41,7 +41,8 @@ public class Filter_Sticker_Adapter extends BaseAdapter {
                     HandlerBody mBody = (HandlerBody) msg.obj;
                     File file = new File(mBody.mSticker.getLocal_path());
                     mBody.holder.pro_bar.setVisibility(View.GONE);
-                    mBody.holder.img.setImageBitmap(ImageFilterUtil.decodeFile(file, ImageFilterUtil.getscreenwidth
+                    mBody.holder.img.setImageBitmap(ImageFilterUtil.decodeFile(file,
+                            ImageFilterUtil.getscreenwidth
                             (mContext)));
                     break;
             }

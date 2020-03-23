@@ -36,8 +36,10 @@ class GingerbreadAnimatorCompatProvider implements AnimatorProvider {
         private boolean mEnded = false;
         private Runnable mLoopRunnable = new Runnable() {
             public void run() {
-                long dt = GingerbreadFloatValueAnimator.this.getTime() - GingerbreadFloatValueAnimator.this.mStartTime;
-                float fraction = (float) dt * 1.0F / (float) GingerbreadFloatValueAnimator.this.mDuration;
+                long dt =
+                        GingerbreadFloatValueAnimator.this.getTime() - GingerbreadFloatValueAnimator.this.mStartTime;
+                float fraction =
+                        (float) dt * 1.0F / (float) GingerbreadFloatValueAnimator.this.mDuration;
                 if (fraction > 1.0F || GingerbreadFloatValueAnimator.this.mTarget.getParent() == null) {
                     fraction = 1.0F;
                 }

@@ -114,7 +114,9 @@ public class StoreHousePullToRefreshLayout extends BaseAbstractPullToRefreshLayo
                 header.stopLoading();
 
                 //
-                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.allview_empty_view, null);
+                View inflate =
+                        LayoutInflater.from(getContext()).inflate(R.layout.allview_empty_view,
+                                null);
                 inflate.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
                 inflate.setMinimumHeight(LocalDisplay.getScreenHeightPixels(getContext()));
                 setOnClickEmptyViewListener(this);//先设置监听器，再addview
@@ -150,16 +152,19 @@ public class StoreHousePullToRefreshLayout extends BaseAbstractPullToRefreshLayo
         header = new StoreHouseHeader(getContext());
         header.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
         header.setMinimumHeight((int) indicator.getRefreshDistance());
-        //		header.setPadding(0, (int)(indicator.getRefreshDistance()/3), 0, (int)(indicator.getRefreshDistance()
+        //		header.setPadding(0, (int)(indicator.getRefreshDistance()/3), 0, (int)(indicator
+        //		.getRefreshDistance()
         // /3));
         header.initWithString("Loading");
         //		header.initWithString("Ultra PTR");
         //		header.initWithPointList(getPointList());//加载中
         RelativeLayout relativeLayout = new RelativeLayout(getContext());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
+        RelativeLayout.LayoutParams params =
+                new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
                 .MATCH_PARENT);
         relativeLayout.setLayoutParams(params);
-        RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
+        RelativeLayout.LayoutParams params2 =
+                new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
                 .WRAP_CONTENT);
         relativeLayout.setBackgroundColor(getResources().getColor(R.color.lib_ptr_black));
         params2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -172,12 +177,14 @@ public class StoreHousePullToRefreshLayout extends BaseAbstractPullToRefreshLayo
         footer = new StoreHouseHeader(getContext());
         footer.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
         footer.setMinimumHeight((int) indicator.getRefreshDistance());
-        //		footer.setPadding(0, (int)indicator.getRefreshDistance()/3, 0, (int)indicator.getRefreshDistance()/3);
+        //		footer.setPadding(0, (int)indicator.getRefreshDistance()/3, 0, (int)indicator
+        //		.getRefreshDistance()/3);
         footer.initWithString("More");
         //		header.initWithString("Ultra PTR");
         //		header.initWithPointList(getPointList());//加载中
         RelativeLayout relativeLayout = new RelativeLayout(getContext());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
+        RelativeLayout.LayoutParams params =
+                new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams
                 .MATCH_PARENT);
         relativeLayout.setBackgroundColor(getResources().getColor(R.color.lib_ptr_black));
         //		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

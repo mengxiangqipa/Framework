@@ -70,7 +70,8 @@ public class RequestPermissionsUtil {
      * @param permissions new String{ Manifest.permission.ACCESS_COARSE_LOCATION }
      * @return false 需要申请权限，true已有权限
      */
-    public boolean checkPermissionsThenRequest(Activity activity, String[] permissions, int requestCode) {
+    public boolean checkPermissionsThenRequest(Activity activity, String[] permissions,
+                                               int requestCode) {
         if (null != permissions) {
             for (String permission : permissions) {
                 if (ActivityCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -112,14 +113,18 @@ public class RequestPermissionsUtil {
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= 9) {// 2.3（ApiLevel 9）以上，使用SDK提供的接口
             localIntent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            localIntent.setData(Uri.fromParts("package", TextUtils.isEmpty(packageName) ? context.getPackageName() :
+            localIntent.setData(Uri.fromParts("package", TextUtils.isEmpty(packageName) ?
+                    context.getPackageName() :
                     packageName, null));
         } else if (Build.VERSION.SDK_INT <= 8) {// 2.3以下，使用非公开的接口（API9查看InstalledAppDetails源码）
-            // 2.2和2.1中，InstalledAppDetails使用的APP_PKG_NAME不同。pkg(2.2 API8)/com.android.settings.ApplicationPkgName
+            // 2.2和2.1中，InstalledAppDetails使用的APP_PKG_NAME不同。pkg(2.2 API8)/com.android.settings
+            // .ApplicationPkgName
             // (2.1 API7及以下)
             localIntent.setAction(Intent.ACTION_VIEW);
-            localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
-            localIntent.putExtra(Build.VERSION.SDK_INT == 8 ? "pkg" : "com.android.settings.ApplicationPkgName",
+            localIntent.setClassName("com.android.settings", "com.android.settings" +
+                    ".InstalledAppDetails");
+            localIntent.putExtra(Build.VERSION.SDK_INT == 8 ? "pkg" : "com.android.settings" +
+                            ".ApplicationPkgName",
                     TextUtils.isEmpty(packageName) ? context.getPackageName() : packageName);
         }
         context.startActivity(localIntent);
@@ -173,7 +178,8 @@ public class RequestPermissionsUtil {
      * @param context
      * @param cls
      */
-    public void toggleNotificationListenerService(Context context, Class<? extends NotificationListenerService> cls) {
+    public void toggleNotificationListenerService(Context context, Class<?
+            extends NotificationListenerService> cls) {
         PackageManager pm = context.getPackageManager();
         pm.setComponentEnabledSetting(new ComponentName(context, cls),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
@@ -214,7 +220,8 @@ public class RequestPermissionsUtil {
 
             appOpsClass = Class.forName(AppOpsManager.class.getName());
 
-            Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE, String
+            Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE,
+                    Integer.TYPE, String
                     .class);
 
             Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);

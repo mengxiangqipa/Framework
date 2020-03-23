@@ -76,10 +76,12 @@ class ProxyCache {
     }
 
     private synchronized void readSourceAsync() throws ProxyCacheException {
-        boolean readingInProgress = sourceReaderThread != null && sourceReaderThread.getState() != Thread.State
+        boolean readingInProgress =
+                sourceReaderThread != null && sourceReaderThread.getState() != Thread.State
                 .TERMINATED;
         if (!stopped && !cache.isCompleted() && !readingInProgress) {
-            sourceReaderThread = new Thread(new SourceReaderRunnable(), "Source reader for " + source);
+            sourceReaderThread = new Thread(new SourceReaderRunnable(),
+                    "Source reader for " + source);
             sourceReaderThread.start();
         }
     }

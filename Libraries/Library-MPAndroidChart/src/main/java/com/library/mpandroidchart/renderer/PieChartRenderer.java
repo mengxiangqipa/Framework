@@ -12,7 +12,6 @@ import android.text.Layout;
 import android.text.SpannableString;
 import android.text.StaticLayout;
 import android.text.TextPaint;
-import android.util.Log;
 
 import com.library.mpandroidchart.animation.ChartAnimator;
 import com.library.mpandroidchart.charts.LineChart;
@@ -20,9 +19,9 @@ import com.library.mpandroidchart.charts.PieChart;
 import com.library.mpandroidchart.data.Entry;
 import com.library.mpandroidchart.data.PieData;
 import com.library.mpandroidchart.data.PieDataSet;
+import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.utils.Utils;
-import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.utils.ViewPortHandler;
 
 import java.util.List;
@@ -336,7 +335,8 @@ public class PieChartRenderer extends DataRenderer {
             float layoutHeight = mCenterTextLayout.getHeight();
 
             c.save();
-            c.translate(boundingRect.left, boundingRect.top + (boundingRect.height() - layoutHeight) / 2.f);
+            c.translate(boundingRect.left,
+                    boundingRect.top + (boundingRect.height() - layoutHeight) / 2.f);
             mCenterTextLayout.draw(c);
             c.restore();
 
@@ -359,7 +359,8 @@ public class PieChartRenderer extends DataRenderer {
 //
 //                float linespacing = maxlineheight * 0.25f;
 //
-//                float totalheight = maxlineheight * lines.length - linespacing * (lines.length - 1);
+//                float totalheight = maxlineheight * lines.length - linespacing * (lines.length
+//                - 1);
 //
 //                int cnt = lines.length;
 //
@@ -487,7 +488,8 @@ public class PieChartRenderer extends DataRenderer {
     }
 
     /**
-     * Releases the drawing bitmap. This should be called when {@link LineChart#onDetachedFromWindow()}.
+     * Releases the drawing bitmap. This should be called when
+     * {@link LineChart#onDetachedFromWindow()}.
      */
     public void releaseBitmap() {
         if (mDrawBitmap != null) {

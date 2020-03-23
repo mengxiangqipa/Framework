@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#f2f2f2"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
 
-    <include layout="@layout/camerasdk_actionbar"/>
+    <include layout="@layout/camerasdk_actionbar" />
 
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:text="@string/select_mode"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/choice_mode"
@@ -38,14 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
-                android:text="@string/mode_multi"/>
+                android:text="@string/mode_multi" />
 
             <RadioButton
                 android:id="@+id/single"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
-                android:text="@string/mode_single"/>
+                android:text="@string/mode_single" />
         </RadioGroup>
 
 
@@ -61,7 +61,7 @@
                 android:text="@string/max_select_amount"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/request_num"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:hint="@string/hint_default_amount"
-                android:inputType="number"/>
+                android:inputType="number" />
 
         </LinearLayout>
 
@@ -81,7 +81,7 @@
             android:text="@string/enable_camera"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/show_camera"
@@ -95,14 +95,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
-                android:text="@string/yes"/>
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/no_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
-                android:text="@string/no"/>
+                android:text="@string/no" />
 
         </RadioGroup>
 
@@ -113,7 +113,7 @@
             android:text="@string/enable_croper"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/rg_crop"
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
-                android:text="@string/yes"/>
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/crop_no"
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
                 android:checked="true"
-                android:text="@string/no"/>
+                android:text="@string/no" />
 
         </RadioGroup>
 
@@ -146,7 +146,7 @@
             android:text="@string/enable_filter"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/rg_filter"
@@ -160,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
-                android:text="@string/yes"/>
+                android:text="@string/yes" />
 
             <RadioButton
                 android:id="@+id/filter_no"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
                 android:checked="true"
-                android:text="@string/no"/>
+                android:text="@string/no" />
 
         </RadioGroup>
 
@@ -177,7 +177,7 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/choose"/>
+            android:text="@string/choose" />
 
 
     </LinearLayout>

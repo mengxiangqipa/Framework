@@ -21,7 +21,8 @@ public abstract class MultiUniversalAdapter<D> extends UniversalAdapter<D> imple
 
     @Override
     public int initItemViewType(int position) {
-        return getMultiItemViewType(position, null != getDataList() ? getDataList().get(position) : null);
+        return getMultiItemViewType(position, null != getDataList() ?
+                getDataList().get(position) : null);
     }
 
     @Override

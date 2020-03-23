@@ -30,7 +30,8 @@ public abstract class LineScatterCandleRadarDataSet<T extends Entry> extends Bar
     }
 
     /**
-     * Enables / disables the horizontal highlight-indicator. If disabled, the indicator is not drawn.
+     * Enables / disables the horizontal highlight-indicator. If disabled, the indicator is not
+     * drawn.
      *
      * @param enabled
      */

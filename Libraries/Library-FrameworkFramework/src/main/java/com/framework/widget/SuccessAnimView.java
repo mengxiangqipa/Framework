@@ -166,7 +166,8 @@ public class SuccessAnimView extends View {
                 } else if (mProgress - 100 <= 100) {
                     //+-mStrokeWidth/2 补偿
                     canvas.drawLine(mXCenter - mRingRadius / 2, mYCenter,
-                            mXCenter + mStrokeWidth * 5 / 14, mYCenter + mRingRadius / 2 + mStrokeWidth *  5 / 14,
+                            mXCenter + mStrokeWidth * 5 / 14,
+                            mYCenter + mRingRadius / 2 + mStrokeWidth * 5 / 14,
                             mRingPaint);
 //                    float endX = mXCenter + 2 * mRingRadius / 3;
 //                    float endY = mYCenter - mRingRadius / 3;
@@ -177,7 +178,8 @@ public class SuccessAnimView extends View {
             }
             if (!TextUtils.isEmpty(text)) {
                 mTxtWidth = mTextPaint.measureText(text, 0, text.length());
-                canvas.drawText(text, mXCenter - mTxtWidth / 2, mYCenter + mTxtHeight / 4, mTextPaint);
+                canvas.drawText(text, mXCenter - mTxtWidth / 2, mYCenter + mTxtHeight / 4,
+                        mTextPaint);
             }
         }
     }

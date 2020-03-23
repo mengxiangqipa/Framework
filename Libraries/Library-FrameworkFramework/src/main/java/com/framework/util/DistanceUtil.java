@@ -50,7 +50,8 @@ public class DistanceUtil {
      *
      * @return 返回单位米；
      */
-    public double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
+    public double getDistance(double longitude1, double latitude1, double longitude2,
+                              double latitude2) {
         try {
             if (null == String.valueOf(longitude1)
                     || "".equals(String.valueOf(longitude1)))

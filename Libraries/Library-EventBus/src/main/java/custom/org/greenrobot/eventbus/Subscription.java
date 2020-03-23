@@ -19,7 +19,8 @@ final class Subscription {
     final Object subscriber;
     final SubscriberMethod subscriberMethod;
     /**
-     * Becomes false as soon as {@link EventBus#unregister(Object)} is called, which is checked by queued event delivery
+     * Becomes false as soon as {@link EventBus#unregister(Object)} is called, which is checked
+     * by queued event delivery
      * {@link EventBus#invokeSubscriber(PendingPost)} to prevent race conditions.
      */
     volatile boolean active;

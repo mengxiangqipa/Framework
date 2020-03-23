@@ -1,6 +1,5 @@
 package com.library.permission.callbcak;
 
-
 import com.library.permission.bean.Special;
 
 public interface SpecialPermissionListener {
@@ -19,5 +18,4 @@ public interface SpecialPermissionListener {
      * @param permission 权限实体类
      */
     void onDenied(Special permission);
-
 }

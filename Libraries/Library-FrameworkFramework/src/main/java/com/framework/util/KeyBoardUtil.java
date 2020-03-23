@@ -106,7 +106,8 @@ public class KeyBoardUtil {
      * @param rootView view.getRootView();
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull View rootView, final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull View rootView, final @IntRange(from = 0, to =
+            1920 * 2) int
             softKeyboardHeight) {
         Rect r = new Rect();
         rootView.getWindowVisibleDisplayFrame(r);
@@ -130,9 +131,11 @@ public class KeyBoardUtil {
      *
      * @return boolean
      */
-    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to = 1920 * 2) int
+    public boolean isKeyboardShown(final @NonNull Context context, final @IntRange(from = 0, to =
+            1920 * 2) int
             softKeyboardHeight) {
-        return isKeyboardShown((((Activity) context).getWindow().getDecorView()), softKeyboardHeight);
+        return isKeyboardShown((((Activity) context).getWindow().getDecorView()),
+                softKeyboardHeight);
     }
 
     private View rootView;//activity的根视图
@@ -222,13 +225,14 @@ public class KeyBoardUtil {
      */
     public void setOnNavigationChangedListener(@NonNull final Activity activity,
                                                final OnNavigationChangedListener onNavigationChangedListener) {
-        final View rootView=activity.getWindow().getDecorView();
-        if (onNavigationChangedListener == null||rootView == null ) {
+        final View rootView = activity.getWindow().getDecorView();
+        if (onNavigationChangedListener == null || rootView == null) {
             return;
         }
         if (getRealHeight(activity) != getHeight(activity)) {
             rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 int rootViewHeight;
+
                 @Override
                 public void onGlobalLayout() {
                     int viewHeight = rootView.getHeight();
@@ -236,16 +240,16 @@ public class KeyBoardUtil {
                         rootViewHeight = viewHeight;
                         if (viewHeight == getRealHeight(activity)) {
                             //隐藏虚拟按键
-                            onNavigationChangedListener.onNavigationHide(getRealHeight(activity)-getHeight(activity));
+                            onNavigationChangedListener.onNavigationHide(getRealHeight(activity) - getHeight(activity));
                         } else {
                             //显示虚拟按键
-                            onNavigationChangedListener.onNavigationShow(getRealHeight(activity)-getHeight(activity));
+                            onNavigationChangedListener.onNavigationShow(getRealHeight(activity) - getHeight(activity));
                         }
                     }
                 }
             });
-        }else{
-            onNavigationChangedListener.onNavigationHide(getRealHeight(activity)-getHeight(activity));
+        } else {
+            onNavigationChangedListener.onNavigationHide(getRealHeight(activity) - getHeight(activity));
         }
     }
 

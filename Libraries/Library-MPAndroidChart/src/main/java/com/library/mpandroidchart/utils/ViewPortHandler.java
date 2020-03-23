@@ -6,7 +6,8 @@ import android.graphics.RectF;
 import android.view.View;
 
 /**
- * Class that contains information about the charts current viewport settings, including offsets, scale & translation
+ * Class that contains information about the charts current viewport settings, including offsets,
+ * scale & translation
  * levels, ...
  *
  * @author Philipp Jahoda

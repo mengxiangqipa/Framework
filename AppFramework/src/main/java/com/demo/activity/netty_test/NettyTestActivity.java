@@ -6,10 +6,10 @@ import android.widget.Button;
 import com.demo.activity.BaseAbsSlideFinishActivity;
 import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
-import com.framework.widget.CustomTextSwitcher;
-import com.framework.widget.OverScrollView;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
+import com.framework.widget.CustomTextSwitcher;
+import com.framework.widget.OverScrollView;
 import com.framework2.netty.KeepAliveClientUtil;
 import com.framework2.netty.NettyInfo;
 
@@ -32,7 +32,6 @@ public class NettyTestActivity extends BaseAbsSlideFinishActivity {
     OverScrollView overScrollView;
     private String host = "192.168.0.101";
     private int port = 8090;
-
 
     @Override
     public void onSlideClose() {

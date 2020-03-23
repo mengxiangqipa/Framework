@@ -2,7 +2,6 @@ package com.framework.security;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.framework.config.FrameworkConstant;
 import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
@@ -54,10 +53,12 @@ public class SecurityManagerUtil {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i * 128 < value.length(); i++) {
 //                    String cookiesWithRSA =
-//                            RSAutil.getInstance().encryptData(value.substring(i * 128, Math.min((i +
+//                            RSAutil.getInstance().encryptData(value.substring(i * 128, Math.min
+//                            ((i +
 //                                    1) * 128, value.length())));
                     String cookiesWithRSA =
-                            RSAmethodInRaw.getInstance().rsaEncrypt(context,value.substring(i * 128, Math.min((i +
+                            RSAmethodInRaw.getInstance().rsaEncrypt(context,
+                                    value.substring(i * 128, Math.min((i +
                                     1) * 128, value.length())));
                     if (i > 0) {
                         sb.append(",,,,");
@@ -92,7 +93,7 @@ public class SecurityManagerUtil {
                     String cookiesBase64decode = Base64Coder.decodeString(s);
                     if (!TextUtils.isEmpty(cookiesBase64decode)) {
                         sb.append(RSAmethodInRaw.getInstance().rsaDecrypt(context,
-                        cookiesBase64decode));
+                                cookiesBase64decode));
 //                        sb.append(RSAutil.getInstance().decryptData(cookiesBase64decode));
                     }
                 }

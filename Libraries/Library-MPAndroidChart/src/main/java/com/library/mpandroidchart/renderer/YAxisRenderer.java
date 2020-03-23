@@ -42,8 +42,10 @@ public class YAxisRenderer extends AxisRenderer {
         // zoom / contentrect bounds)
         if (mViewPortHandler.contentWidth() > 10 && !mViewPortHandler.isFullyZoomedOutY()) {
 
-            PointD p1 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(), mViewPortHandler.contentTop());
-            PointD p2 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(), mViewPortHandler.contentBottom());
+            PointD p1 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(),
+                    mViewPortHandler.contentTop());
+            PointD p2 = mTrans.getValuesByTouchPoint(mViewPortHandler.contentLeft(),
+                    mViewPortHandler.contentBottom());
 
             if (!mYAxis.isInverted()) {
                 yMin = (float) p2.y;
@@ -59,7 +61,8 @@ public class YAxisRenderer extends AxisRenderer {
     }
 
     /**
-     * Sets up the y-axis labels. Computes the desired number of labels between the two given extremes. Unlike the
+     * Sets up the y-axis labels. Computes the desired number of labels between the two given
+     * extremes. Unlike the
      * papareXLabels() method, this method needs to be called upon every refresh of the view.
      *
      * @return
@@ -214,10 +217,12 @@ public class YAxisRenderer extends AxisRenderer {
         mAxisLinePaint.setStrokeWidth(mYAxis.getAxisLineWidth());
 
         if (mYAxis.getAxisDependency() == AxisDependency.LEFT) {
-            c.drawLine(mViewPortHandler.contentLeft(), mViewPortHandler.contentTop(), mViewPortHandler.contentLeft(),
+            c.drawLine(mViewPortHandler.contentLeft(), mViewPortHandler.contentTop(),
+                    mViewPortHandler.contentLeft(),
                     mViewPortHandler.contentBottom(), mAxisLinePaint);
         } else {
-            c.drawLine(mViewPortHandler.contentRight(), mViewPortHandler.contentTop(), mViewPortHandler.contentRight(),
+            c.drawLine(mViewPortHandler.contentRight(), mViewPortHandler.contentTop(),
+                    mViewPortHandler.contentRight(),
                     mViewPortHandler.contentBottom(), mAxisLinePaint);
         }
     }

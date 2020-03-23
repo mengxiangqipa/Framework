@@ -43,7 +43,8 @@ class ProgressInputStream extends InputStream {
         }
         if (read >= 0) {
             this.totalRead++;
-            this.listener.onProgressChanged(this.totalRead, this.total, (this.totalRead * 1.0F) / this.total);
+            this.listener.onProgressChanged(this.totalRead, this.total,
+                    (this.totalRead * 1.0F) / this.total);
         }
         return read;
     }
@@ -57,7 +58,8 @@ class ProgressInputStream extends InputStream {
         }
         if (read >= 0) {
             this.totalRead += read;
-            this.listener.onProgressChanged(this.totalRead, this.total, (this.totalRead * 1.0F) / this.total);
+            this.listener.onProgressChanged(this.totalRead, this.total,
+                    (this.totalRead * 1.0F) / this.total);
         }
         return read;
     }

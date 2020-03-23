@@ -22,7 +22,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 
-public class ClipZoomImageView extends AppCompatImageView implements OnScaleGestureListener, OnTouchListener,
+public class ClipZoomImageView extends AppCompatImageView implements OnScaleGestureListener,
+        OnTouchListener,
         OnGlobalLayoutListener {
     private static final String TAG = ClipZoomImageView.class.getSimpleName();
     public static float SCALE_MAX = 4.0F;
@@ -94,7 +95,8 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
                     scaleFactor = SCALE_MAX / scale;
                 }
 
-                this.mScaleMatrix.postScale(scaleFactor, scaleFactor, detector.getFocusX(), detector.getFocusY());
+                this.mScaleMatrix.postScale(scaleFactor, scaleFactor, detector.getFocusX(),
+                        detector.getFocusY());
                 this.checkBorder();
                 this.setImageMatrix(this.mScaleMatrix);
             }
@@ -202,7 +204,8 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
                 return;
             }
 
-            this.mVerticalPadding = (this.getHeight() - (this.getWidth() - 2 * this.mHorizontalPadding)) / 2;
+            this.mVerticalPadding =
+                    (this.getHeight() - (this.getWidth() - 2 * this.mHorizontalPadding)) / 2;
             int width = this.getWidth();
             int height = this.getHeight();
             int dw = d.getIntrinsicWidth();
@@ -220,16 +223,20 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
 
             if (dw < this.getWidth() - this.mHorizontalPadding * 2 && dh < this.getHeight() - this.mVerticalPadding *
                     2) {
-                float scaleW = ((float) this.getWidth() * 1.0F - (float) (this.mHorizontalPadding * 2)) / (float) dw;
-                float scaleH = ((float) this.getHeight() * 1.0F - (float) (this.mVerticalPadding * 2)) / (float) dh;
+                float scaleW =
+                        ((float) this.getWidth() * 1.0F - (float) (this.mHorizontalPadding * 2)) / (float) dw;
+                float scaleH =
+                        ((float) this.getHeight() * 1.0F - (float) (this.mVerticalPadding * 2)) / (float) dh;
                 scale = Math.max(scaleW, scaleH);
             }
 
             this.initScale = scale;
             SCALE_MID = this.initScale * 2.0F;
             SCALE_MAX = this.initScale * 4.0F;
-            this.mScaleMatrix.postTranslate((float) ((width - dw) / 2), (float) ((height - dh) / 2));
-            this.mScaleMatrix.postScale(scale, scale, (float) (this.getWidth() / 2), (float) (this.getHeight() / 2));
+            this.mScaleMatrix.postTranslate((float) ((width - dw) / 2),
+                    (float) ((height - dh) / 2));
+            this.mScaleMatrix.postScale(scale, scale, (float) (this.getWidth() / 2),
+                    (float) (this.getHeight() / 2));
             this.setImageMatrix(this.mScaleMatrix);
             this.once = false;
         }
@@ -239,7 +246,8 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
         Bitmap bitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         this.draw(canvas);
-        return Bitmap.createBitmap(bitmap, this.mHorizontalPadding, this.mVerticalPadding, this.getWidth() - 2 * this
+        return Bitmap.createBitmap(bitmap, this.mHorizontalPadding, this.mVerticalPadding,
+                this.getWidth() - 2 * this
                 .mHorizontalPadding, this.getWidth() - 2 * this.mHorizontalPadding);
     }
 
@@ -249,7 +257,8 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
         float deltaY = 0.0F;
         int width = this.getWidth();
         int height = this.getHeight();
-        Log.e(TAG, "rect.width() =  " + rect.width() + " , width - 2 * mHorizontalPadding =" + (width - 2 * this
+        Log.e(TAG,
+                "rect.width() =  " + rect.width() + " , width - 2 * mHorizontalPadding =" + (width - 2 * this
                 .mHorizontalPadding));
         if ((double) rect.width() + 0.01D >= (double) (width - 2 * this.mHorizontalPadding)) {
             if (rect.left > (float) this.mHorizontalPadding) {
@@ -287,7 +296,8 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             DisplayMetrics outMetrics = new DisplayMetrics();
             wm.getDefaultDisplay().getMetrics(outMetrics);
-            this.mHorizontalPadding = (outMetrics.widthPixels - (int) TypedValue.applyDimension(1, (float) mWidth,
+            this.mHorizontalPadding = (outMetrics.widthPixels - (int) TypedValue.applyDimension(1
+                    , (float) mWidth,
                     this.getResources().getDisplayMetrics())) / 2;
             if (this.mHorizontalPadding <= 0) {
                 this.mHorizontalPadding = 0;
@@ -315,14 +325,16 @@ public class ClipZoomImageView extends AppCompatImageView implements OnScaleGest
         }
 
         public void run() {
-            ClipZoomImageView.this.mScaleMatrix.postScale(this.tmpScale, this.tmpScale, this.x, this.y);
+            ClipZoomImageView.this.mScaleMatrix.postScale(this.tmpScale, this.tmpScale, this.x,
+                    this.y);
             ClipZoomImageView.this.checkBorder();
             ClipZoomImageView.this.setImageMatrix(ClipZoomImageView.this.mScaleMatrix);
             float currentScale = ClipZoomImageView.this.getScale();
             if ((this.tmpScale <= 1.0F || currentScale >= this.mTargetScale) && (this.tmpScale >= 1.0F || this
                     .mTargetScale >= currentScale)) {
                 float deltaScale = this.mTargetScale / currentScale;
-                ClipZoomImageView.this.mScaleMatrix.postScale(deltaScale, deltaScale, this.x, this.y);
+                ClipZoomImageView.this.mScaleMatrix.postScale(deltaScale, deltaScale, this.x,
+                        this.y);
                 ClipZoomImageView.this.checkBorder();
                 ClipZoomImageView.this.setImageMatrix(ClipZoomImageView.this.mScaleMatrix);
                 ClipZoomImageView.this.isAutoScale = false;

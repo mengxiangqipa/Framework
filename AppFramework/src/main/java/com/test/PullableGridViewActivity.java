@@ -53,8 +53,10 @@ public class PullableGridViewActivity extends AppCompatActivity {
         gridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PullableGridViewActivity.this, "LongClick on " + parent.getAdapter().getItemId
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                           long id) {
+                Toast.makeText(PullableGridViewActivity.this,
+                        "LongClick on " + parent.getAdapter().getItemId
                         (position), Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -63,7 +65,8 @@ public class PullableGridViewActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PullableGridViewActivity.this, " Click on " + parent.getAdapter().getItemId(position),
+                Toast.makeText(PullableGridViewActivity.this,
+                        " Click on " + parent.getAdapter().getItemId(position),
                         Toast.LENGTH_SHORT).show();
             }
         });

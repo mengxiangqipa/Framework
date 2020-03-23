@@ -1,8 +1,6 @@
 package com.library.permission.callbcak;
 
-
 import com.library.permission.bean.Permission;
-
 
 public interface RequestPermissionListener {
 
@@ -12,5 +10,4 @@ public interface RequestPermissionListener {
      * @param permissions 封装权限的数组
      */
     void onPermissionResult(Permission[] permissions);
-
 }

@@ -13,8 +13,8 @@ import com.library.mpandroidchart.charts.LineChart;
 import com.library.mpandroidchart.data.Entry;
 import com.library.mpandroidchart.data.LineData;
 import com.library.mpandroidchart.data.LineDataSet;
-import com.library.mpandroidchart.interfaces.LineDataProvider;
 import com.library.mpandroidchart.highlight.Highlight;
+import com.library.mpandroidchart.interfaces.LineDataProvider;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.ViewPortHandler;
 
@@ -576,7 +576,8 @@ public class LineChartRenderer extends LineScatterCandleRadarRenderer {
     }
 
     /**
-     * Releases the drawing bitmap. This should be called when {@link LineChart#onDetachedFromWindow()}.
+     * Releases the drawing bitmap. This should be called when
+     * {@link LineChart#onDetachedFromWindow()}.
      */
     public void releaseBitmap() {
         if (mDrawBitmap != null) {

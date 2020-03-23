@@ -24,13 +24,13 @@ import com.library.mpandroidchart.data.BarLineScatterCandleBubbleDataSet;
 import com.library.mpandroidchart.data.Entry;
 import com.library.mpandroidchart.data.filter.Approximator;
 import com.library.mpandroidchart.highlight.ChartHighlighter;
+import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.interfaces.BarLineScatterCandleBubbleDataProvider;
 import com.library.mpandroidchart.jobs.MoveViewJob;
 import com.library.mpandroidchart.listener.BarLineChartTouchListener;
 import com.library.mpandroidchart.listener.OnDrawListener;
 import com.library.mpandroidchart.renderer.XAxisRenderer;
 import com.library.mpandroidchart.renderer.YAxisRenderer;
-import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.utils.PointD;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.Utils;
@@ -166,7 +166,8 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
         mHighlighter = new ChartHighlighter(this);
 
-        mChartTouchListener = new BarLineChartTouchListener(this, mViewPortHandler.getMatrixTouch());
+        mChartTouchListener = new BarLineChartTouchListener(this,
+                mViewPortHandler.getMatrixTouch());
 
         mGridBackgroundPaint = new Paint();
         mGridBackgroundPaint.setStyle(Style.FILL);
@@ -394,7 +395,8 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
                 mAxisLeft.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisLeft.getAxisMaxValue()) ?
                         mAxisLeft.getAxisMaxValue() : (maxLeft + topSpaceLeft));
             } else {
-                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at
+                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for
+                // negative/positive at
                 // the same time)
                 mAxisLeft.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisLeft.getAxisMinValue()) ?
                         mAxisLeft.getAxisMinValue() : (minLeft - bottomSpaceLeft));
@@ -403,9 +405,11 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
             }
         } else {
             // Use the values as they are
-            mAxisLeft.mAxisMinimum = !Float.isNaN(mAxisLeft.getAxisMinValue()) ? mAxisLeft.getAxisMinValue() :
+            mAxisLeft.mAxisMinimum = !Float.isNaN(mAxisLeft.getAxisMinValue()) ?
+                    mAxisLeft.getAxisMinValue() :
                     (minLeft - bottomSpaceLeft);
-            mAxisLeft.mAxisMaximum = !Float.isNaN(mAxisLeft.getAxisMaxValue()) ? mAxisLeft.getAxisMaxValue() :
+            mAxisLeft.mAxisMaximum = !Float.isNaN(mAxisLeft.getAxisMaxValue()) ?
+                    mAxisLeft.getAxisMaxValue() :
                     (maxLeft + topSpaceLeft);
         }
 
@@ -421,7 +425,8 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
                 mAxisRight.mAxisMaximum = Math.max(0.f, !Float.isNaN(mAxisRight.getAxisMaxValue()) ?
                         mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight));
             } else {
-                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at
+                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for
+                // negative/positive at
                 // the same time)
                 mAxisRight.mAxisMinimum = Math.min(0.f, !Float.isNaN(mAxisRight.getAxisMinValue()) ?
                         mAxisRight.getAxisMinValue() : (minRight - bottomSpaceRight));
@@ -429,9 +434,11 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
                         mAxisRight.getAxisMaxValue() : (maxRight + topSpaceRight));
             }
         } else {
-            mAxisRight.mAxisMinimum = !Float.isNaN(mAxisRight.getAxisMinValue()) ? mAxisRight.getAxisMinValue() :
+            mAxisRight.mAxisMinimum = !Float.isNaN(mAxisRight.getAxisMinValue()) ?
+                    mAxisRight.getAxisMinValue() :
                     (minRight - bottomSpaceRight);
-            mAxisRight.mAxisMaximum = !Float.isNaN(mAxisRight.getAxisMaxValue()) ? mAxisRight.getAxisMaxValue() :
+            mAxisRight.mAxisMaximum = !Float.isNaN(mAxisRight.getAxisMaxValue()) ?
+                    mAxisRight.getAxisMaxValue() :
                     (maxRight + topSpaceRight);
         }
 
@@ -1250,7 +1257,8 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
      * @param y
      * @return
      */
-    public BarLineScatterCandleBubbleDataSet<? extends Entry> getDataSetByTouchPoint(float x, float y) {
+    public BarLineScatterCandleBubbleDataSet<? extends Entry> getDataSetByTouchPoint(float x,
+                                                                                     float y) {
         Highlight h = getHighlightByTouchPoint(x, y);
         if (h != null) {
             return mData.getDataSetByIndex(h.getDataSetIndex());

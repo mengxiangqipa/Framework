@@ -13,7 +13,8 @@ import android.os.Message;
  * className DownLoadObserver
  * created at  2016/9/26  16:13
  * 在下载之后调用
- * getContentResolver().registerContentObserver(Uri.parse("content://downloads/"), true, new DownLoadObserver(new
+ * getContentResolver().registerContentObserver(Uri.parse("content://downloads/"), true, new
+ * DownLoadObserver(new
  * Handler(),VodActivity.this,id));
  * 用了这个就可以不用广播监听完成了
  */
@@ -37,7 +38,8 @@ public class DownLoadObserver extends ContentObserver {
         super.onChange(selfChange);
         //实例化查询类，这里需要一个刚刚的downid
         DownloadManager.Query query = new DownloadManager.Query().setFilterById(downId);
-        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager downloadManager =
+                (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         //这个就是数据库查询啦
         Cursor cursor = downloadManager.query(query);
         int mDownload_so_far = 0;
@@ -46,7 +48,8 @@ public class DownLoadObserver extends ContentObserver {
         while (cursor.moveToNext()) {
             mDownload_so_far = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager
                     .COLUMN_BYTES_DOWNLOADED_SO_FAR));
-            mDownload_all = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+            mDownload_all =
+                    cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
             path = cursor.getString(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_LOCAL_URI));
         }
         int mProgress = 0;

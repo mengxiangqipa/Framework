@@ -27,9 +27,12 @@ public class NotificationUtil extends ContextWrapper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void createNotificationChannel(String notificationchannelId, String notificationchanneName) {
-        NotificationChannel channel = new NotificationChannel(TextUtils.isEmpty(notificationchannelId) ?
-                NOTIFICATIONCHANNEL_ID : notificationchannelId, TextUtils.isEmpty(notificationchanneName) ?
+    public void createNotificationChannel(String notificationchannelId,
+                                          String notificationchanneName) {
+        NotificationChannel channel =
+                new NotificationChannel(TextUtils.isEmpty(notificationchannelId) ?
+                NOTIFICATIONCHANNEL_ID : notificationchannelId,
+                        TextUtils.isEmpty(notificationchanneName) ?
                 NOTIFICATIONCHANNEL_NAME : notificationchanneName,
                 NotificationManager.IMPORTANCE_HIGH);
         channel.enableVibration(true);
@@ -48,7 +51,8 @@ public class NotificationUtil extends ContextWrapper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Notification.Builder getChannelNotification(Context context, Intent intent, String title, String content,
+    public Notification.Builder getChannelNotification(Context context, Intent intent,
+                                                       String title, String content,
                                                        String notificationchanneId,
                                                        boolean api26OnlyAlertOnce) {
         if (context == null) {
@@ -57,7 +61,8 @@ public class NotificationUtil extends ContextWrapper {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
         Notification.Builder notificationBuilder = new Notification.Builder(getApplicationContext(),
-                TextUtils.isEmpty(notificationchanneId) ? NOTIFICATIONCHANNEL_ID : notificationchanneId);
+                TextUtils.isEmpty(notificationchanneId) ? NOTIFICATIONCHANNEL_ID :
+                        notificationchanneId);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//悬挂式Notification，5.0后显示
             notificationBuilder.setCategory(NotificationCompat.CATEGORY_MESSAGE);
             notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
@@ -80,13 +85,15 @@ public class NotificationUtil extends ContextWrapper {
                 .setAutoCancel(true);
     }
 
-    public NotificationCompat.Builder getNotification_25(Context context, Intent intent, String title, String content) {
+    public NotificationCompat.Builder getNotification_25(Context context, Intent intent,
+                                                         String title, String content) {
         if (context == null) {
             return null;
         }
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(getApplicationContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
             // 关联PendingIntent

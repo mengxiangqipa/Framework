@@ -75,7 +75,8 @@ public class EmojiDetailActivity extends BaseActivity {
     private Fragment fragment_6;
     private Fragment fragment_7;
     private Fragment fragment_8;
-    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+    private ViewPager.OnPageChangeListener onPageChangeListener =
+            new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -162,7 +163,8 @@ public class EmojiDetailActivity extends BaseActivity {
                     list.add(fragment_6);
                     list.add(fragment_7);
                     list.add(fragment_8);
-                    emojiAdapter = new CommonPagerAdapter(EmojiDetailActivity.this, getSupportFragmentManager(),
+                    emojiAdapter = new CommonPagerAdapter(EmojiDetailActivity.this,
+                            getSupportFragmentManager(),
                             list, titles);
                     emojiViewPager.setAdapter(emojiAdapter);
                     emojiViewPager.addOnPageChangeListener(onPageChangeListener);
@@ -184,7 +186,8 @@ public class EmojiDetailActivity extends BaseActivity {
             for (int i = 0; i < lenth; i++) {
                 TextView textView;
                 int margin = ScreenUtil.getInstance().dip2px(this, 5);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtil.getInstance().dip2px
+                LinearLayout.LayoutParams params =
+                        new LinearLayout.LayoutParams(ScreenUtil.getInstance().dip2px
                         (this, 8), ScreenUtil.getInstance().dip2px(this, 8));
                 if (i == 0) {
                     textView = new TextView(this);

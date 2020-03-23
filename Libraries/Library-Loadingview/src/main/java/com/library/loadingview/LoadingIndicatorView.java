@@ -72,7 +72,8 @@ public class LoadingIndicatorView extends View {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public LoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public LoadingIndicatorView(Context context, AttributeSet attrs, int defStyleAttr,
+                                int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, R.style.LoadingIndicatorView);
     }
@@ -84,15 +85,19 @@ public class LoadingIndicatorView extends View {
         mMinHeight = 24;
         mMaxHeight = 48;
 
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.LoadingIndicatorView, defStyleAttr,
+        final TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.LoadingIndicatorView, defStyleAttr,
                 defStyleRes);
 
         mMinWidth = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minWidth, mMinWidth);
         mMaxWidth = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxWidth, mMaxWidth);
-        mMinHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minHeight, mMinHeight);
-        mMaxHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxHeight, mMaxHeight);
+        mMinHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_minHeight,
+                mMinHeight);
+        mMaxHeight = a.getDimensionPixelSize(R.styleable.LoadingIndicatorView_maxHeight,
+                mMaxHeight);
         String indicatorName = a.getString(R.styleable.LoadingIndicatorView_indicatorName);
-        mIndicatorColor = a.getColor(R.styleable.LoadingIndicatorView_indicatorColor, getResources().getColor(R.color
+        mIndicatorColor = a.getColor(R.styleable.LoadingIndicatorView_indicatorColor,
+                getResources().getColor(R.color
                 .colorAccent));
         setIndicator(indicatorName);
         if (mIndicator == null) {
@@ -123,7 +128,8 @@ public class LoadingIndicatorView extends View {
             }
 
             mIndicator = d;
-            //need to set indicator color again if you didn't specified when you update the indicator .
+            //need to set indicator color again if you didn't specified when you update the
+            // indicator .
             setIndicatorColor(mIndicatorColor);
             if (d != null) {
                 d.setCallback(this);
@@ -284,7 +290,8 @@ public class LoadingIndicatorView extends View {
             final int scrollX = getScrollX() + getPaddingLeft();
             final int scrollY = getScrollY() + getPaddingTop();
 
-            invalidate(dirty.left + scrollX, dirty.top + scrollY, dirty.right + scrollX, dirty.bottom + scrollY);
+            invalidate(dirty.left + scrollX, dirty.top + scrollY, dirty.right + scrollX,
+                    dirty.bottom + scrollY);
         } else {
             super.invalidateDrawable(dr);
         }

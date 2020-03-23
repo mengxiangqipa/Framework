@@ -8,7 +8,8 @@
  *
  * https://opensource.org/licenses/BSD-3-Clause
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is
  * distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
@@ -52,10 +53,12 @@ public class SampleResultService extends DefaultTinkerResultService {
             @Override
             public void run() {
                 if (result.isSuccess) {
-                    Toast.makeText(getApplicationContext(), "patch success, please restart process", Toast
+                    Toast.makeText(getApplicationContext(), "patch success, please restart " +
+                            "process", Toast
                             .LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "patch fail, please check reason", Toast.LENGTH_LONG)
+                    Toast.makeText(getApplicationContext(), "patch fail, please check reason",
+                            Toast.LENGTH_LONG)
                             .show();
                 }
             }
@@ -75,7 +78,8 @@ public class SampleResultService extends DefaultTinkerResultService {
                     //we can wait process at background, such as onAppBackground
                     //or we can restart when the screen off
                     TinkerLog.i(TAG, "tinker wait screen to restart process");
-                    new Utils.ScreenState(getApplicationContext(), new Utils.ScreenState.IOnScreenOff() {
+                    new Utils.ScreenState(getApplicationContext(),
+                            new Utils.ScreenState.IOnScreenOff() {
                         @Override
                         public void onScreenOff() {
                             restartProcess();

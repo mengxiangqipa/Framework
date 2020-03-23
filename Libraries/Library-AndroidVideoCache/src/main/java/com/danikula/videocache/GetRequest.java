@@ -18,7 +18,8 @@ import static com.danikula.videocache.Preconditions.checkNotNull;
  */
 class GetRequest {
 
-    private static final Pattern RANGE_HEADER_PATTERN = Pattern.compile("[R,r]ange:[ ]?bytes=(\\d*)-");
+    private static final Pattern RANGE_HEADER_PATTERN = Pattern.compile("[R,r]ange:[ ]?bytes=" +
+            "(\\d*)-");
     private static final Pattern URL_PATTERN = Pattern.compile("GET /(.*) HTTP");
 
     public final String uri;

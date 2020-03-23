@@ -31,7 +31,8 @@ public class PercentFormatter implements ValueFormatter, YAxisValueFormatter {
 
     // ValueFormatter
     @Override
-    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+    public String getFormattedValue(float value, Entry entry, int dataSetIndex,
+                                    ViewPortHandler viewPortHandler) {
         return mFormat.format(value) + " %";
     }
 

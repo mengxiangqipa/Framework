@@ -12,8 +12,8 @@ import com.library.mpandroidchart.buffer.BarBuffer;
 import com.library.mpandroidchart.data.BarData;
 import com.library.mpandroidchart.data.BarDataSet;
 import com.library.mpandroidchart.data.BarEntry;
-import com.library.mpandroidchart.interfaces.BarDataProvider;
 import com.library.mpandroidchart.highlight.Highlight;
+import com.library.mpandroidchart.interfaces.BarDataProvider;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.Utils;
 import com.library.mpandroidchart.utils.ViewPortHandler;
@@ -198,8 +198,10 @@ public class BarChartRenderer extends DataRenderer {
                 // calculate the correct offset depending on the draw position of
                 // the value
                 float valueTextHeight = Utils.calcTextHeight(mValuePaint, "8");
-                posOffset = (drawValueAboveBar ? -valueOffsetPlus : valueTextHeight + valueOffsetPlus);
-                negOffset = (drawValueAboveBar ? valueTextHeight + valueOffsetPlus : -valueOffsetPlus);
+                posOffset = (drawValueAboveBar ? -valueOffsetPlus :
+                        valueTextHeight + valueOffsetPlus);
+                negOffset = (drawValueAboveBar ? valueTextHeight + valueOffsetPlus :
+                        -valueOffsetPlus);
 
                 if (isInverted) {
                     posOffset = -posOffset - valueTextHeight;
@@ -252,8 +254,10 @@ public class BarChartRenderer extends DataRenderer {
                                     || !mViewPortHandler.isInBoundsLeft(valuePoints[j]))
                                 continue;
 
-                            drawValue(c, dataSet.getValueFormatter(), entry.getVal(), entry, i, valuePoints[j],
-                                    valuePoints[j + 1] + (entry.getVal() >= 0 ? posOffset : negOffset));
+                            drawValue(c, dataSet.getValueFormatter(), entry.getVal(), entry, i,
+                                    valuePoints[j],
+                                    valuePoints[j + 1] + (entry.getVal() >= 0 ? posOffset :
+                                            negOffset));
 
                             // draw stack values
                         } else {
@@ -294,7 +298,8 @@ public class BarChartRenderer extends DataRenderer {
                                         || !mViewPortHandler.isInBoundsLeft(x))
                                     continue;
 
-                                drawValue(c, dataSet.getValueFormatter(), vals[k / 2], entry, i, x, y);
+                                drawValue(c, dataSet.getValueFormatter(), vals[k / 2], entry, i,
+                                        x, y);
                             }
                         }
                     }
@@ -366,7 +371,8 @@ public class BarChartRenderer extends DataRenderer {
 
                     float[] values = new float[9];
                     trans.getPixelToValueMatrix().getValues(values);
-                    final float xToYRel = Math.abs(values[Matrix.MSCALE_Y] / values[Matrix.MSCALE_X]);
+                    final float xToYRel =
+                            Math.abs(values[Matrix.MSCALE_Y] / values[Matrix.MSCALE_X]);
 
                     final float arrowWidth = set.getBarSpace() / 2.f;
                     final float arrowHeight = arrowWidth * xToYRel;

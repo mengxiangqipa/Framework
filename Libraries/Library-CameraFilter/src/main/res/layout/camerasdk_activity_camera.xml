@@ -1,14 +1,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="#ffffff">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <!-- 显示预览图形 -->
 
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:gravity="bottom"
@@ -33,7 +33,7 @@
                 android:layout_height="80dp"
                 android:layout_centerInParent="true"
                 android:clickable="true"
-                android:src="@drawable/camera_trigger"/>
+                android:src="@drawable/camera_trigger" />
 
             <ImageView
                 android:id="@+id/back"
@@ -43,7 +43,7 @@
                 android:layout_centerVertical="true"
                 android:padding="5dp"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/camera_back"/>
+                android:src="@drawable/camera_back" />
 
             <ImageView
                 android:id="@+id/next"
@@ -54,7 +54,7 @@
                 android:padding="5dp"
                 android:src="@drawable/camera_library"
                 android:layout_marginRight="20dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY" />
         </RelativeLayout>
 
 
@@ -65,8 +65,7 @@
             android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:background="@android:color/white"
-            android:layout_above="@id/panel_take_photo">
-        </LinearLayout>
+            android:layout_above="@id/panel_take_photo"></LinearLayout>
 
 
         <RelativeLayout
@@ -84,7 +83,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:src="@drawable/camera_flash_off"/>
+                android:src="@drawable/camera_flash_off" />
 
             <ImageView
                 android:id="@+id/change"
@@ -95,7 +94,7 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingRight="10dp"
-                android:src="@drawable/camera_flip"/>
+                android:src="@drawable/camera_flip" />
 
         </RelativeLayout>
 
@@ -104,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/photo_area"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true" />
 
         <View
             android:id="@+id/focus_index"
@@ -112,7 +111,7 @@
             android:layout_height="40dp"
             android:layout_above="@id/photo_area"
             android:background="@drawable/camerasdk_cam_focus"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </FrameLayout>

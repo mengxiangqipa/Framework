@@ -29,7 +29,8 @@ public class ProgressHelper {
      * @param progressListener 进度回调监听
      * @return 带进度的请求体，使用此请求体进行请求
      */
-    public static RequestBody withProgress(RequestBody requestBody, ProgressListener progressListener) {
+    public static RequestBody withProgress(RequestBody requestBody,
+                                           ProgressListener progressListener) {
         if (requestBody == null) {
             throw new IllegalArgumentException("requestBody == null");
         }
@@ -46,7 +47,8 @@ public class ProgressHelper {
      * @param progressListener 进度回调监听
      * @return 带进度的响应体，使用此响应体进行响应数据的读取
      */
-    public static ResponseBody withProgress(ResponseBody responseBody, ProgressListener progressListener) {
+    public static ResponseBody withProgress(ResponseBody responseBody,
+                                            ProgressListener progressListener) {
         if (responseBody == null) {
             throw new IllegalArgumentException("responseBody == null");
         }

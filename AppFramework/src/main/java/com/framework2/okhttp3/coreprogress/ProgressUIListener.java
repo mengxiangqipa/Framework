@@ -88,7 +88,8 @@ public abstract class ProgressUIListener extends ProgressListener {
      * @param percent    百分比
      * @param speed      速度 bytes/ms
      */
-    public final void onProgressChanged(long numBytes, long totalBytes, float percent, float speed) {
+    public final void onProgressChanged(long numBytes, long totalBytes, float percent,
+                                        float speed) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             onUIProgressChanged(numBytes, totalBytes, percent, speed);
             return;
@@ -146,7 +147,8 @@ public abstract class ProgressUIListener extends ProgressListener {
      * @param percent    百分比
      * @param speed      速度 bytes/ms
      */
-    public abstract void onUIProgressChanged(long numBytes, long totalBytes, float percent, float speed);
+    public abstract void onUIProgressChanged(long numBytes, long totalBytes, float percent,
+                                             float speed);
 
     /**
      * 进度开始

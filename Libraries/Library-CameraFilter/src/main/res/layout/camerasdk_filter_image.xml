@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/camerasdk_main_bg">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/camerasdk_main_bg">
 
-    <include layout="@layout/camerasdk_actionbar"/>
+    <include layout="@layout/camerasdk_actionbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -22,9 +22,9 @@
             android:id="@+id/viewpager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
-        <include layout="@layout/camerasdk_loading"/>
+        <include layout="@layout/camerasdk_loading" />
 
     </FrameLayout>
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:max="100"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/content_container"
@@ -48,7 +48,7 @@
             android:id="@+id/effect_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
 
 
         <com.muzhi.camerasdk.library.views.HorizontalListView
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -73,31 +73,31 @@
             android:id="@+id/txt_effect"
             android:text="@string/camerasdk_tab_filter"
             style="@style/camerasdk_tab_text"
-            android:drawableTop="@drawable/cameramsdk_ic_tab_filter"/>
+            android:drawableTop="@drawable/cameramsdk_ic_tab_filter" />
 
         <TextView
             android:id="@+id/txt_sticker"
             android:text="@string/camerasdk_tab_sticker"
             style="@style/camerasdk_tab_text"
-            android:drawableTop="@drawable/camerasdk_ic_tab_stichers"/>
+            android:drawableTop="@drawable/camerasdk_ic_tab_stichers" />
 
         <TextView
             android:id="@+id/txt_cropper"
             android:text="@string/camerasdk_tab_cropper"
             style="@style/camerasdk_tab_text"
-            android:drawableTop="@drawable/camerasdk_ic_tab_crop"/>
+            android:drawableTop="@drawable/camerasdk_ic_tab_crop" />
 
         <TextView
             android:id="@+id/txt_graffiti"
             android:text="@string/camerasdk_tab_graffiti"
             style="@style/camerasdk_tab_text"
-            android:drawableTop="@drawable/camerasdk_ic_tab_edit"/>
+            android:drawableTop="@drawable/camerasdk_ic_tab_edit" />
 
         <TextView
             android:id="@+id/txt_enhance"
             android:text="@string/camerasdk_tab_enhance"
             style="@style/camerasdk_tab_text"
-            android:drawableTop="@drawable/camerasdk_ic_tab_edit"/>
+            android:drawableTop="@drawable/camerasdk_ic_tab_edit" />
 
 
     </LinearLayout>

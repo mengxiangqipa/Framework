@@ -3,10 +3,10 @@ package com.library.permission.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
 import com.library.permission.SoulPermission;
 import com.library.permission.bean.Permission;
 import com.library.permission.callbcak.CheckRequestPermissionListener;
-
 
 public abstract class CheckPermissionAdapter implements CheckRequestPermissionListener {
 

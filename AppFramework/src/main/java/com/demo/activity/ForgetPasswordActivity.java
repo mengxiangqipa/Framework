@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.framework.widget.OverScrollView;
 import com.framework.security.RSAmethodInRaw;
 import com.framework.util.KeyBoardUtil;
 import com.framework.util.PreferencesHelper;
@@ -22,6 +21,7 @@ import com.framework.util.RegularUtil;
 import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
+import com.framework.widget.OverScrollView;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
 import com.framework2.utils.CustomLoadingDialogUtils;
@@ -113,12 +113,14 @@ public class ForgetPasswordActivity extends BaseActivity {
                 etPhone.setText(phone);
                 etPhone.setSelection(phone.length());
                 etPhone.requestFocus();
-                KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+                KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                        etPhone, false);
             } else if (!TextUtils.isEmpty(getIntent().getStringExtra(ConstantsME.PHONE))) {
                 etPhone.setText(getIntent().getStringExtra(ConstantsME.PHONE));
                 etPhone.setSelection(getIntent().getStringExtra(ConstantsME.PHONE).length());
                 etPhone.requestFocus();
-                KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+                KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                        etPhone, false);
             }
         }
     }
@@ -141,25 +143,32 @@ public class ForgetPasswordActivity extends BaseActivity {
             case R.id.tv_captcha:
                 if (null == etPhone.getText()
                         || "".equals(etPhone.getText().toString())) {
-                    PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this, "请输入你的手机号码!");
+                    PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this,
+                            "请输入你的手机号码!");
                     etPhone.requestFocus();
-                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this
+                            , etPhone, false);
                 } else if (!RegularUtil.getInstance().isMobileNO(etPhone.getText().toString())) {
-                    PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this, "请输入正确的手机号码!");
+                    PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this,
+                            "请输入正确的手机号码!");
                     etPhone.requestFocus();
-                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this
+                            , etPhone, false);
                 } else {
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.getInstance().rsaEncrypt(this,
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP,
+                            RSAmethodInRaw.getInstance().rsaEncrypt(this,
                             etPhone.getText().toString()));
                     PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System
                             .currentTimeMillis());
                     myCountDownTimer.start();
-                    CustomLoadingDialogUtils.getInstance().showDialog(ForgetPasswordActivity.this, "正在获取验证码");
+                    CustomLoadingDialogUtils.getInstance().showDialog(ForgetPasswordActivity.this
+                            , "正在获取验证码");
                     requestCaptcha();
                 }
                 break;
             case R.id.tv_sure:
-                KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, true);
+                KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                        etPhone, true);
                 if (isLegal(etPhone, etPassword, etCaptcha)) {
                     if (TextUtils.isEmpty(verifyKey)) {
                         ToastUtil.getInstance().showToast("请先获取验证码");
@@ -181,7 +190,8 @@ public class ForgetPasswordActivity extends BaseActivity {
      * 请求获取验证码
      */
     private void requestCaptcha() {
-//        HttpUtil.getProxyApplication().requestMobileVerify(InterfaceConfig.captcha, 2, etPhone.getText().toString(),
+//        HttpUtil.getProxyApplication().requestMobileVerify(InterfaceConfig.captcha, 2, etPhone
+//        .getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
@@ -195,8 +205,10 @@ public class ForgetPasswordActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "获取验证码失败" : msg);
-//                        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.captcha_last_clicked, 0L);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ?
+//                        "获取验证码失败" : msg);
+//                        PreferencesHelper.getProxyApplication().putInfo(ConstantsME
+//                        .captcha_last_clicked, 0L);
 //                        if (null != myCountDownTimer)
 //                            myCountDownTimer.cancel();
 //                        tvCaptcha.setText("重新获取");
@@ -210,7 +222,8 @@ public class ForgetPasswordActivity extends BaseActivity {
      * 请求重置密码
      */
     private void requestResetPwd(@NonNull String verifyKey) {
-//        HttpUtil.getProxyApplication().requestForgetPwd(InterfaceConfig.forgetPwd, etPhone.getText().toString(), etPassword
+//        HttpUtil.getProxyApplication().requestForgetPwd(InterfaceConfig.forgetPwd, etPhone
+//        .getText().toString(), etPassword
 // .getText().toString(), verifyKey, etCaptcha.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
@@ -223,7 +236,8 @@ public class ForgetPasswordActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "找回密码失败" : msg);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ?
+//                        "找回密码失败" : msg);
 //                    }
 //                });
     }
@@ -255,22 +269,26 @@ public class ForgetPasswordActivity extends BaseActivity {
         if (TextUtils.isEmpty(etPhone.getText())) {
             PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this, "请输入你的手机号码!");
             etPhone.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                    etPhone, false);
             return false;
         } else if (!RegularUtil.getInstance().isMobileNO(etPhone.getText().toString())) {
             PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this, "请输入正确的手机号码!");
             etPhone.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                    etPhone, false);
             return false;
         } else if (TextUtils.isEmpty(et_password.getText())) {
             PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this, "请输入密码!");
             et_password.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                    etPhone, false);
             return false;
         } else if (TextUtils.isEmpty(et_captcha.getText())) {
             PicToastUtil.getInstance().showPicToast(ForgetPasswordActivity.this, "请输入验证码!");
             et_captcha.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this, etPhone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(ForgetPasswordActivity.this,
+                    etPhone, false);
             return false;
         }
         return true;

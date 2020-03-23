@@ -80,7 +80,8 @@ public class OSutil {
     public String getIMSI(Context context) {
         if (null == context)
             return "NoContext";
-        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager manager =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
                 .PERMISSION_GRANTED) {
             return "NoPermission";
@@ -101,9 +102,11 @@ public class OSutil {
     public String getTelphoneNumber(Context context) {
         if (null == context)
             return "NoContext";
-        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager manager =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) != PackageManager
-                .PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE)
+                .PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             return "NoPermission";
         }
@@ -113,7 +116,8 @@ public class OSutil {
     public String getIMEI(Context context) {
         if (null == context)
             return "NoContext";
-        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager manager =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
                 .PERMISSION_GRANTED) {
             return "NoPermission";
@@ -124,7 +128,8 @@ public class OSutil {
     public String getSimSerialNumber(Context context) {
         if (null == context)
             return "NoContext";
-        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager manager =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager
                 .PERMISSION_GRANTED) {
             return "NoPermission";
@@ -199,12 +204,14 @@ public class OSutil {
     public String getIPV4(Context context) {
         if (null == context)
             return "NoContext";
-        NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE))
+        NetworkInfo info =
+                ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE))
                 .getActiveNetworkInfo();
         if (info != null && info.isConnected()) {
             if (info.getType() == ConnectivityManager.TYPE_MOBILE) {//当前使用2G/3G/4G网络
                 try {
-                    for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en
+                    for (Enumeration<NetworkInterface> en =
+                         NetworkInterface.getNetworkInterfaces(); en
                             .hasMoreElements(); ) {
                         NetworkInterface intf = en.nextElement();
                         for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr
@@ -218,7 +225,8 @@ public class OSutil {
                 } catch (Exception e) {
                 }
             } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
-                WifiManager wifiManager = (WifiManager) (context.getApplicationContext()).getSystemService(Context
+                WifiManager wifiManager =
+                        (WifiManager) (context.getApplicationContext()).getSystemService(Context
                         .WIFI_SERVICE);
                 WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                 String ipAddress = intIP2StringIP(wifiInfo.getIpAddress());//得到IPV4地址
@@ -246,7 +254,8 @@ public class OSutil {
             return "no_context";
         }
         String strNetworkType = "";
-        ConnectivityManager connectivityManager = (ConnectivityManager) (context).getSystemService(Context
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) (context).getSystemService(Context
                 .CONNECTIVITY_SERVICE);
         //如果当前没有网络
         if (null == connectivityManager) {
@@ -383,7 +392,8 @@ public class OSutil {
             }
             in.close();
             double div = 1000 * 1000;
-            return BigDecimal.valueOf(Double.parseDouble(result) / div).setScale(1, BigDecimal.ROUND_HALF_UP)
+            return BigDecimal.valueOf(Double.parseDouble(result) / div).setScale(1,
+                    BigDecimal.ROUND_HALF_UP)
                     .floatValue();
         } catch (Exception ex) {
             return 0f;
@@ -406,7 +416,8 @@ public class OSutil {
             }
             in.close();
             double div = 1000 * 1000;
-            return BigDecimal.valueOf(Double.parseDouble(result) / div).setScale(1, BigDecimal.ROUND_HALF_UP)
+            return BigDecimal.valueOf(Double.parseDouble(result) / div).setScale(1,
+                    BigDecimal.ROUND_HALF_UP)
                     .floatValue();
         } catch (Exception ex) {
             return 0f;
@@ -423,7 +434,8 @@ public class OSutil {
             String text = br.readLine();
             result = text.trim();
             double div = 1000 * 1000;
-            return BigDecimal.valueOf(Double.parseDouble(result) / div).setScale(1, BigDecimal.ROUND_HALF_UP)
+            return BigDecimal.valueOf(Double.parseDouble(result) / div).setScale(1,
+                    BigDecimal.ROUND_HALF_UP)
                     .floatValue();
         } catch (Exception e) {
             return 0f;

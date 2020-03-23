@@ -39,13 +39,14 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
     public abstract void onSlideClose();
 
     public abstract int[] initPrimeryColor();
+
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _onCreate();
         ForbidAndroidPhideAPIdialog.getInstance().closeAndroidPdialog();
-        ScreenUtil.getInstance().setSystemUiColorDark(this,true);
+        ScreenUtil.getInstance().setSystemUiColorDark(this, true);
         int primary = getResources().getColor(R.color.black);
         int secondary = getResources().getColor(R.color.black);
         EventBus.getDefault().register(this);
@@ -129,7 +130,8 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
      * 返回主页，这个会clearHistoryTasks，并新建HomepageActivity
      */
     public void goBackHomepage(boolean shouldRefresh) {
-        Intent intent = new Intent(BaseAbsSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent
+        Intent intent =
+                new Intent(BaseAbsSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent
                 .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(ConstantsME.CITY, shouldRefresh);
         startActivity(intent);
@@ -148,7 +150,8 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
 //        ResetConstantUtil.getProxyApplication().clearUserLoginInfo();
 //        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, "");
 //        startActivity(new Intent(BaseActivity.this,
-//                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+//                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+//                .FLAG_ACTIVITY_NEW_TASK));
 //        finish();
     }
 

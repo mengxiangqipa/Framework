@@ -59,7 +59,8 @@ import butterknife.OnClick;
  */
 public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlayer.OnPreparedListener, MediaPlayer
         .OnInfoListener, MediaPlayer.OnCompletionListener,
-        MediaPlayer.OnErrorListener, View.OnTouchListener, Animator.AnimatorListener, SeekBar.OnSeekBarChangeListener {
+        MediaPlayer.OnErrorListener, View.OnTouchListener, Animator.AnimatorListener,
+        SeekBar.OnSeekBarChangeListener {
     private final int UPDATE_VIDEO_SEEKBAR = 1000;
     @BindView(R2.id.errorText)
     TextView errorText;
@@ -206,7 +207,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initView() {
         final ViewGroup viewGroup = null;
-        View view = LayoutInflater.from(context).inflate(R.layout.base_videoview_with_ui, viewGroup);
+        View view = LayoutInflater.from(context).inflate(R.layout.base_videoview_with_ui,
+                viewGroup);
         ButterKnife.bind(this, view);
 
         videoPlayImg.setVisibility(GONE);
@@ -233,8 +235,10 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
      * 初始化音量和亮度
      */
     private void initVolumeAndBrightness() {
-        initVolume = AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC);
-        maximumVolume = AudioManagerUtil.getInstance().getStreamMaxVolume(context, AudioManager.STREAM_MUSIC);
+        initVolume = AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                AudioManager.STREAM_MUSIC);
+        maximumVolume = AudioManagerUtil.getInstance().getStreamMaxVolume(context,
+                AudioManager.STREAM_MUSIC);
         maximumBrightness = 255;
     }
 
@@ -310,13 +314,16 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
         animation = true;
         float curY = videoControllerLayout.getY();
         ObjectAnimator animator = ObjectAnimator.ofFloat(videoControllerLayout, "y", curY,
-                showVideoController ? curY - videoControllerLayout.getMeasuredHeight() : curY + videoControllerLayout
+                showVideoController ? curY - videoControllerLayout.getMeasuredHeight() :
+                        curY + videoControllerLayout
                         .getMeasuredHeight());
         animator.setDuration(200);
 
         float curTitleY = videoTitleController.getY();
-        ObjectAnimator animatorTitleController = ObjectAnimator.ofFloat(videoTitleController, "y", curTitleY,
-                showVideoController ? curTitleY + videoTitleController.getMeasuredHeight() : curTitleY -
+        ObjectAnimator animatorTitleController = ObjectAnimator.ofFloat(videoTitleController, "y"
+                , curTitleY,
+                showVideoController ? curTitleY + videoTitleController.getMeasuredHeight() :
+                        curTitleY -
                         videoTitleController.getMeasuredHeight());
         animatorTitleController.setDuration(200);
         if (videoControllerLayout.getVisibility() == VISIBLE) {
@@ -368,7 +375,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     public void onPrepared(MediaPlayer mp) {
         duration = customFullScreenVideoView.getDuration();
         int[] time = getMinuteAndSecond(duration);
-        videoTotalTimeText.setText(String.format(Locale.getDefault(), "%02d:%02d", time[0], time[1]));
+        videoTotalTimeText.setText(String.format(Locale.getDefault(), "%02d:%02d", time[0],
+                time[1]));
         formatTotalTime = String.format(Locale.getDefault(), "%02d:%02d", time[0], time[1]);
         seekBarVideo.setMax(duration);
         progressBar.setVisibility(View.GONE);
@@ -506,7 +514,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
             touchStatusProgressBar.setMax(duration);
             touchStatusProgressBar.setProgress(position);
             int[] time = getMinuteAndSecond(position);
-            touchStatusTime.setText(String.format(Locale.getDefault(), "%02d:%02d/%s", time[0], time[1],
+            touchStatusTime.setText(String.format(Locale.getDefault(), "%02d:%02d/%s", time[0],
+                    time[1],
                     formatTotalTime));
         }
     }
@@ -517,12 +526,14 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     private void showTouchViewHorizantalByPercent(int currentProgress) {
         if (currentProgress >= 0) {
             touchStatusView.setVisibility(View.VISIBLE);
-            touchStatusImg.setImageResource(currentProgress >= lastProgess ? R.mipmap.ic_fast_forward_white_24dp : R
+            touchStatusImg.setImageResource(currentProgress >= lastProgess ?
+                    R.mipmap.ic_fast_forward_white_24dp : R
                     .mipmap.ic_fast_rewind_white_24dp);
             touchStatusProgressBar.setMax(duration);
             touchStatusProgressBar.setProgress(currentProgress);
             int[] time = getMinuteAndSecond(currentProgress);
-            touchStatusTime.setText(String.format(Locale.getDefault(), "%02d:%02d/%s", time[0], time[1],
+            touchStatusTime.setText(String.format(Locale.getDefault(), "%02d:%02d/%s", time[0],
+                    time[1],
                     formatTotalTime));
         }
     }
@@ -541,7 +552,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
             touchLastY = currentY;
             if (rightScreen) {//右边显示音量
                 touchStatusImg.setImageResource(R.mipmap.icon_volume_one);
-                int currentVolume = AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager
+                int currentVolume = AudioManagerUtil.getInstance().getStreamCurrentVolume(context
+                        , AudioManager
                         .STREAM_MUSIC);
                 if (lastVolume == 0) {
                     lastVolume = initVolume;
@@ -549,12 +561,15 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
                 boolean shouldAdd = false;
                 if (deltaY <= -touchStepVolume && currentVolume < lastVolume + Math.abs(deltaY) / touchStepVolume) {
                     shouldAdd = true;
-                    AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context, AudioManager.STREAM_MUSIC);
+                    AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context,
+                            AudioManager.STREAM_MUSIC);
                 } else if (deltaY >= touchStepVolume && currentVolume > lastVolume - Math.abs(deltaY) /
                         touchStepVolume) {
-                    AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context, AudioManager.STREAM_MUSIC);
+                    AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context,
+                            AudioManager.STREAM_MUSIC);
                 }
-                lastVolume = AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC);
+                lastVolume = AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                        AudioManager.STREAM_MUSIC);
                 if (lastVolume < maximumVolume && lastVolume == currentVolume && shouldAdd) {
                     AudioManagerUtil.getInstance().simulationVolumeRAISE();
                 }
@@ -569,10 +584,12 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
                 }
                 touchStatusProgressBar.setMax(maximumVolume);
                 touchStatusProgressBar.setProgress(lastVolume);
-                touchStatusTime.setText(String.format(Locale.getDefault(), "%d%%", lastVolume * 100 / maximumVolume));
+                touchStatusTime.setText(String.format(Locale.getDefault(), "%d%%",
+                        lastVolume * 100 / maximumVolume));
             } else {//左边显示亮度
                 touchStatusImg.setImageResource(R.mipmap.icon_brightness);
-                boolean hasSettingPermission = ScreenBrightnessUtil.getInstance().hasSettingsPermission(context);
+                boolean hasSettingPermission =
+                        ScreenBrightnessUtil.getInstance().hasSettingsPermission(context);
                 if (!hasSettingPermission) {
                     //无权限，先暂停播放，再弹出提示框，授权更改设置
                     if (dialog == null) {
@@ -592,7 +609,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 pausePlay();
-                                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, Uri.parse
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                                        Uri.parse
                                         ("package:" + context.getPackageName()));
                                 context.startActivity(intent);
                             }
@@ -602,10 +620,12 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
                     if (!dialog.isShowing())
                         dialog.show();
                 } else {//有权限读取亮度
-                    int currentBrightness = ScreenBrightnessUtil.getInstance().getCurrentBrightness((Activity) context);
+                    int currentBrightness =
+                            ScreenBrightnessUtil.getInstance().getCurrentBrightness((Activity) context);
                     if (-1 == initBrightness) {
                         initBrightness = currentBrightness;
-                        isAutomaticBrightness = ScreenBrightnessUtil.getInstance().isAutomaticScreenBrightness(
+                        isAutomaticBrightness =
+                                ScreenBrightnessUtil.getInstance().isAutomaticScreenBrightness(
                                 (Activity) context);
                     }
                     if (lastBrightness == 0) {
@@ -616,20 +636,24 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
                         //增加亮度
                         if (ScreenBrightnessUtil.getInstance().isAutomaticScreenBrightness((Activity) context))
                             ScreenBrightnessUtil.getInstance().closeAutomaticScreenBrightness((Activity) context, true);
-                        ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context, lastBrightness +
+                        ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context,
+                                lastBrightness +
                                 (int) Math.abs(deltaY) / touchStepBrightness);
                     } else if (deltaY >= -touchStepBrightness && currentBrightness > lastBrightness - Math.abs
                             (deltaY) / touchStepBrightness) {
                         //减少亮度
                         if (ScreenBrightnessUtil.getInstance().isAutomaticScreenBrightness((Activity) context))
                             ScreenBrightnessUtil.getInstance().closeAutomaticScreenBrightness((Activity) context, true);
-                        ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context, lastBrightness -
+                        ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context,
+                                lastBrightness -
                                 (int) Math.abs(deltaY) / touchStepBrightness);
                     }
-                    lastBrightness = ScreenBrightnessUtil.getInstance().getCurrentBrightness((Activity) context);
+                    lastBrightness =
+                            ScreenBrightnessUtil.getInstance().getCurrentBrightness((Activity) context);
                     touchStatusProgressBar.setMax(maximumBrightness);
                     touchStatusProgressBar.setProgress(lastBrightness);
-                    touchStatusTime.setText(String.format(Locale.getDefault(), "%d%%", lastBrightness * 100 /
+                    touchStatusTime.setText(String.format(Locale.getDefault(), "%d%%",
+                            lastBrightness * 100 /
                             maximumBrightness));
                 }
             }
@@ -756,7 +780,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
 
     public void setFullScreen() {
         screen_status_img.setImageResource(R.mipmap.icon_exit_fullscreen);
-        this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, screenWidth));
+        this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                screenWidth));
         customFullScreenVideoView.requestLayout();
         ((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
@@ -764,7 +789,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
 
     public void setNormalScreen() {
         screen_status_img.setImageResource(R.mipmap.icon_enter_fullscreen);
-        this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, selfHeight));
+        this.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                selfHeight));
         customFullScreenVideoView.requestLayout();
         ((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
@@ -799,17 +825,22 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
      * activity里面调用恢复 已调整的音量和亮度
      */
     public void resumeVolumAndBrightness() {
-        while (lastVolume != AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC))
-            if (lastVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager
+        while (lastVolume != AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                AudioManager.STREAM_MUSIC))
+            if (lastVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                    AudioManager
                     .STREAM_MUSIC)) {
-                AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context, AudioManager.STREAM_MUSIC);
+                AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context,
+                        AudioManager.STREAM_MUSIC);
             } else {
-                AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context, AudioManager.STREAM_MUSIC);
+                AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context,
+                        AudioManager.STREAM_MUSIC);
             }
         if (ScreenBrightnessUtil.getInstance().hasSettingsPermission(context)) {
             if (lastBrightness > 0) {
                 ScreenBrightnessUtil.getInstance().closeAutomaticScreenBrightness((Activity) context, true);
-                ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context, lastBrightness);
+                ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context,
+                        lastBrightness);
             }
         }
     }
@@ -818,16 +849,21 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
      * activity里面调用恢复之前的音量和亮度
      */
     public void resetVolumAndBrightness() {
-        while (initVolume != AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager.STREAM_MUSIC))
-            if (initVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context, AudioManager
+        while (initVolume != AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                AudioManager.STREAM_MUSIC))
+            if (initVolume > AudioManagerUtil.getInstance().getStreamCurrentVolume(context,
+                    AudioManager
                     .STREAM_MUSIC)) {
-                AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context, AudioManager.STREAM_MUSIC);
+                AudioManagerUtil.getInstance().adjustStreamVolumeRAISE(context,
+                        AudioManager.STREAM_MUSIC);
             } else {
-                AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context, AudioManager.STREAM_MUSIC);
+                AudioManagerUtil.getInstance().adjustStreamVolumeLOWER(context,
+                        AudioManager.STREAM_MUSIC);
             }
         if (ScreenBrightnessUtil.getInstance().hasSettingsPermission(context)) {
             if (initBrightness > 0) {
-                ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context, initBrightness);
+                ScreenBrightnessUtil.getInstance().setScreenBritness((Activity) context,
+                        initBrightness);
                 ScreenBrightnessUtil.getInstance().closeAutomaticScreenBrightness((Activity) context,
                         !isAutomaticBrightness);
             }
@@ -838,7 +874,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (!fromUser) {//这个是handler自动更新进度
             int[] time = getMinuteAndSecond(progress);
-            videoCurTimeText.setText(String.format(Locale.getDefault(), "%02d:%02d", time[0], time[1]));
+            videoCurTimeText.setText(String.format(Locale.getDefault(), "%02d:%02d", time[0],
+                    time[1]));
         } else {//用户手指触摸 改变进度
             timeMillisACTION_UP = System.currentTimeMillis();
             showTouchViewHorizantalByPercent(progress);
@@ -854,7 +891,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-//        Log.e("yy", "onStopTrackingTouch:" + seekBarVideo.getProgress() + "        max:" + seekBarVideo.getMax());
+//        Log.e("yy", "onStopTrackingTouch:" + seekBarVideo.getProgress() + "        max:" +
+//        seekBarVideo.getMax());
         touchStatusView.setVisibility(View.GONE);
         onStartTrackingTouch = false;
         customFullScreenVideoView.seekTo(seekBarVideo.getProgress());
@@ -887,7 +925,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
         videoPlayImg.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R2.id.videoPauseBtn, R2.id.screen_status_btn, R2.id.videoPlayImg, R2.id.backImg, R2.id.videoError,
+    @OnClick({R2.id.videoPauseBtn, R2.id.screen_status_btn, R2.id.videoPlayImg, R2.id.backImg,
+            R2.id.videoError,
             R2.id.viewBox})
     public void onViewClicked(View view) {
         timeMillisACTION_UP = System.currentTimeMillis();
@@ -901,7 +940,8 @@ public class BaseCustomVideoViewWithUI extends FrameLayout implements MediaPlaye
         } else if (i == R.id.screen_status_btn) {//底部栏 屏幕全屏/非全屏切换
             ((Activity) context).setRequestedOrientation(getResources().getConfiguration().orientation ==
                     Configuration.ORIENTATION_LANDSCAPE
-                    ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT : ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    ? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT :
+                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else if (i == R.id.videoPlayImg) {//播放
             startPlay();
         } else if (i == R.id.backImg) {//顶部栏返回

@@ -99,7 +99,8 @@ public class UCrop {
      * @param width  max cropped image width
      * @param height max cropped image height
      */
-    public UCrop withMaxResultSize(@IntRange(from = 100) int width, @IntRange(from = 100) int height) {
+    public UCrop withMaxResultSize(@IntRange(from = 100) int width,
+                                   @IntRange(from = 100) int height) {
         mCropOptionsBundle.putInt(EXTRA_MAX_SIZE_X, width);
         mCropOptionsBundle.putInt(EXTRA_MAX_SIZE_Y, height);
         return this;
@@ -164,7 +165,8 @@ public class UCrop {
      * @param fragment    Fragment to receive result
      * @param requestCode requestCode for result
      */
-    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment, int requestCode) {
+    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment
+            , int requestCode) {
         fragment.startActivityForResult(getIntent(context), requestCode);
     }
 
@@ -234,13 +236,15 @@ public class UCrop {
      */
     public static class Options {
 
-        public static final String EXTRA_COMPRESSION_FORMAT_NAME = EXTRA_PREFIX + ".CompressionFormatName";
+        public static final String EXTRA_COMPRESSION_FORMAT_NAME = EXTRA_PREFIX +
+                ".CompressionFormatName";
         public static final String EXTRA_COMPRESSION_QUALITY = EXTRA_PREFIX + ".CompressionQuality";
 
         public static final String EXTRA_ALLOWED_GESTURES = EXTRA_PREFIX + ".AllowedGestures";
 
         public static final String EXTRA_MAX_BITMAP_SIZE = EXTRA_PREFIX + ".MaxBitmapSize";
-        public static final String EXTRA_MAX_SCALE_MULTIPLIER = EXTRA_PREFIX + ".MaxScaleMultiplier";
+        public static final String EXTRA_MAX_SCALE_MULTIPLIER = EXTRA_PREFIX +
+                ".MaxScaleMultiplier";
         public static final String EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION = EXTRA_PREFIX +
                 ".ImageToCropBoundsAnimDuration";
 
@@ -249,26 +253,35 @@ public class UCrop {
 
         public static final String EXTRA_SHOW_CROP_FRAME = EXTRA_PREFIX + ".ShowCropFrame";
         public static final String EXTRA_CROP_FRAME_COLOR = EXTRA_PREFIX + ".CropFrameColor";
-        public static final String EXTRA_CROP_FRAME_STROKE_WIDTH = EXTRA_PREFIX + ".CropFrameStrokeWidth";
+        public static final String EXTRA_CROP_FRAME_STROKE_WIDTH = EXTRA_PREFIX +
+                ".CropFrameStrokeWidth";
 
         public static final String EXTRA_SHOW_CROP_GRID = EXTRA_PREFIX + ".ShowCropGrid";
         public static final String EXTRA_CROP_GRID_ROW_COUNT = EXTRA_PREFIX + ".CropGridRowCount";
-        public static final String EXTRA_CROP_GRID_COLUMN_COUNT = EXTRA_PREFIX + ".CropGridColumnCount";
+        public static final String EXTRA_CROP_GRID_COLUMN_COUNT = EXTRA_PREFIX +
+                ".CropGridColumnCount";
         public static final String EXTRA_CROP_GRID_COLOR = EXTRA_PREFIX + ".CropGridColor";
-        public static final String EXTRA_CROP_GRID_STROKE_WIDTH = EXTRA_PREFIX + ".CropGridStrokeWidth";
+        public static final String EXTRA_CROP_GRID_STROKE_WIDTH = EXTRA_PREFIX +
+                ".CropGridStrokeWidth";
 
         public static final String EXTRA_TOOL_BAR_COLOR = EXTRA_PREFIX + ".ToolbarColor";
         public static final String EXTRA_STATUS_BAR_COLOR = EXTRA_PREFIX + ".StatusBarColor";
-        public static final String EXTRA_UCROP_COLOR_WIDGET_ACTIVE = EXTRA_PREFIX + ".UcropColorWidgetActive";
+        public static final String EXTRA_UCROP_COLOR_WIDGET_ACTIVE = EXTRA_PREFIX +
+                ".UcropColorWidgetActive";
 
-        public static final String EXTRA_UCROP_WIDGET_COLOR_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarWidgetColor";
-        public static final String EXTRA_UCROP_TITLE_TEXT_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarTitleText";
-        public static final String EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE = EXTRA_PREFIX + ".UcropToolbarCancelDrawable";
-        public static final String EXTRA_UCROP_WIDGET_CROP_DRAWABLE = EXTRA_PREFIX + ".UcropToolbarCropDrawable";
+        public static final String EXTRA_UCROP_WIDGET_COLOR_TOOLBAR = EXTRA_PREFIX +
+                ".UcropToolbarWidgetColor";
+        public static final String EXTRA_UCROP_TITLE_TEXT_TOOLBAR = EXTRA_PREFIX +
+                ".UcropToolbarTitleText";
+        public static final String EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE = EXTRA_PREFIX +
+                ".UcropToolbarCancelDrawable";
+        public static final String EXTRA_UCROP_WIDGET_CROP_DRAWABLE = EXTRA_PREFIX +
+                ".UcropToolbarCropDrawable";
 
         public static final String EXTRA_UCROP_LOGO_COLOR = EXTRA_PREFIX + ".UcropLogoColor";
 
-        public static final String EXTRA_HIDE_BOTTOM_CONTROLS = EXTRA_PREFIX + ".HideBottomControls";
+        public static final String EXTRA_HIDE_BOTTOM_CONTROLS = EXTRA_PREFIX +
+                ".HideBottomControls";
         public static final String EXTRA_FREE_STYLE_CROP = EXTRA_PREFIX + ".FreeStyleCrop";
 
         public static final String EXTRA_CUT_CROP = EXTRA_PREFIX + ".cuts";
@@ -277,7 +290,8 @@ public class UCrop {
 
         public static final String EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT = EXTRA_PREFIX +
                 ".AspectRatioSelectedByDefault";
-        public static final String EXTRA_ASPECT_RATIO_OPTIONS = EXTRA_PREFIX + ".AspectRatioOptions";
+        public static final String EXTRA_ASPECT_RATIO_OPTIONS = EXTRA_PREFIX +
+                ".AspectRatioOptions";
 
         public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX +
                 ".UcropRootViewBackgroundColor";
@@ -318,11 +332,13 @@ public class UCrop {
         public void setAllowedGestures(@UCropActivity.GestureTypes int tabScale,
                                        @UCropActivity.GestureTypes int tabRotate,
                                        @UCropActivity.GestureTypes int tabAspectRatio) {
-            mOptionBundle.putIntArray(EXTRA_ALLOWED_GESTURES, new int[]{tabScale, tabRotate, tabAspectRatio});
+            mOptionBundle.putIntArray(EXTRA_ALLOWED_GESTURES, new int[]{tabScale, tabRotate,
+                    tabAspectRatio});
         }
 
         /**
-         * This method sets multiplier that is used to calculate max image scale from min image scale.
+         * This method sets multiplier that is used to calculate max image scale from min image
+         * scale.
          *
          * @param maxScaleMultiplier - (minScale * maxScaleMultiplier) = maxScale
          */
@@ -340,7 +356,8 @@ public class UCrop {
         }
 
         /**
-         * Setter for max size for both width and height of bitmap that will be decoded from an input Uri and used in
+         * Setter for max size for both width and height of bitmap that will be decoded from an
+         * input Uri and used in
          * the view.
          *
          * @param maxBitmapSize - size in pixels
@@ -449,7 +466,8 @@ public class UCrop {
         }
 
         /**
-         * @param color - desired resolved color of the active and selected widget (default is orange) and progress
+         * @param color - desired resolved color of the active and selected widget (default is
+         *              orange) and progress
          *              wheel middle line
          */
         public void setActiveWidgetColor(@ColorInt int color) {
@@ -457,7 +475,8 @@ public class UCrop {
         }
 
         /**
-         * @param color - desired resolved color of Toolbar text and buttons (default is darker orange)
+         * @param color - desired resolved color of Toolbar text and buttons (default is darker
+         *              orange)
          */
         public void setToolbarWidgetColor(@ColorInt int color) {
             mOptionBundle.putInt(EXTRA_UCROP_WIDGET_COLOR_TOOLBAR, color);
@@ -522,13 +541,15 @@ public class UCrop {
         /**
          * Pass an ordered list of desired aspect ratios that should be available for a user.
          *
-         * @param selectedByDefault - index of aspect ratio option that is selected by default (starts with 0).
+         * @param selectedByDefault - index of aspect ratio option that is selected by default
+         *                          (starts with 0).
          * @param aspectRatio       - list of aspect ratio options that are available to user
          */
         public void setAspectRatioOptions(int selectedByDefault, AspectRatio... aspectRatio) {
             if (selectedByDefault > aspectRatio.length) {
                 throw new IllegalArgumentException(String.format(Locale.US,
-                        "Index [selectedByDefault = %d] cannot be higher than aspect ratio options count [count = %d].",
+                        "Index [selectedByDefault = %d] cannot be higher than aspect ratio " +
+                                "options count [count = %d].",
                         selectedByDefault, aspectRatio.length));
             }
             mOptionBundle.putInt(EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT, selectedByDefault);

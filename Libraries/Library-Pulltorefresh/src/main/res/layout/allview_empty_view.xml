@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/lib_ptr_white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lib_ptr_white">
 
     <ImageView
         android:id="@+id/iv_loading"
@@ -10,7 +10,7 @@
         android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/tv_loadstate"/>
+        android:layout_toLeftOf="@+id/tv_loadstate" />
 
     <TextView
         android:id="@+id/tv_empty"
@@ -20,6 +20,6 @@
         android:layout_centerVertical="true"
         android:text="没有数据，点击刷新"
         android:textColor="@color/lib_ptr_colorAccent"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
 
 </RelativeLayout>

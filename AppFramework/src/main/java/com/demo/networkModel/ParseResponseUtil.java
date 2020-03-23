@@ -38,7 +38,8 @@ public class ParseResponseUtil {
 //    public boolean isSuccess(final BaseActivity baseActivity, String response) {
 //        if (JSONParseUtil.getProxyApplication().optBoolean(response, "success")) {
 //            return true;
-//        } else if (response.contains("获取用户信息失败") || response.contains("重新登录") || response.contains("未登录") ||
+//        } else if (response.contains("获取用户信息失败") || response.contains("重新登录") || response
+//        .contains("未登录") ||
 // response.contains("未登陆") || response.contains("登录已失效")) {
 //            if (null != baseActivity) {
 //                CustomProgressDialogUtils.dismissProcessDialog();

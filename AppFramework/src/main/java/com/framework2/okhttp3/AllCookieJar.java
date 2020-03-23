@@ -40,7 +40,8 @@ public class AllCookieJar implements CookieJar {
 
     @Override
     public List<Cookie> loadForRequest(HttpUrl httpUrl) {
-        String decodeCookie = CookieManagerUtil.getInstance().decodeCookie(context, PreferencesHelper.getInstance()
+        String decodeCookie = CookieManagerUtil.getInstance().decodeCookie(context,
+                PreferencesHelper.getInstance()
                 .getStringData(ConstantsME.cookies));
         if (!TextUtils.isEmpty(decodeCookie)) {
             List<Cookie> cookies = new ArrayList<>();

@@ -37,21 +37,27 @@ public class BallTrianglePathIndicator extends Indicator {
         float startY = getWidth() / 5;
         for (int i = 0; i < 3; i++) {
             final int index = i;
-            ValueAnimator translateXAnim = ValueAnimator.ofFloat(getWidth() / 2, getWidth() - startX, startX,
+            ValueAnimator translateXAnim = ValueAnimator.ofFloat(getWidth() / 2,
+                    getWidth() - startX, startX,
                     getWidth() / 2);
             if (i == 1) {
-                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX, getWidth() / 2, getWidth() -
+                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX,
+                        getWidth() / 2, getWidth() -
                         startX);
             } else if (i == 2) {
-                translateXAnim = ValueAnimator.ofFloat(startX, getWidth() / 2, getWidth() - startX, startX);
+                translateXAnim = ValueAnimator.ofFloat(startX, getWidth() / 2,
+                        getWidth() - startX, startX);
             }
-            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, getHeight() - startY, getHeight() - startY,
+            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, getHeight() - startY,
+                    getHeight() - startY,
                     startY);
             if (i == 1) {
-                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY, startY, getHeight
+                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY
+                        , startY, getHeight
                         () - startY);
             } else if (i == 2) {
-                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, startY, getHeight() - startY, getHeight
+                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, startY,
+                        getHeight() - startY, getHeight
                         () - startY);
             }
 

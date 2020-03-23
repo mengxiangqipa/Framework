@@ -7,7 +7,7 @@
         android:interpolator="@android:anim/accelerate_interpolator"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toDegrees="360"/>
+        android:toDegrees="360" />
 
 </set><!--
 fromDegrees开始时的角度

@@ -44,7 +44,8 @@ public class InputMethodLayout extends RelativeLayout {
             //获取当前界面可视部分
             ((Activity) getContext()).getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
             //获取屏幕的高度
-            int screenHeight = ((Activity) getContext()).getWindow().getDecorView().getRootView().getHeight();
+            int screenHeight =
+                    ((Activity) getContext()).getWindow().getDecorView().getRootView().getHeight();
             //此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
             int heightDifference = screenHeight - r.bottom;
             keyboardSateChange(heightDifference > 0 ? KEYBOARD_STATE_SHOW : KEYBOARD_STATE_HIDE);

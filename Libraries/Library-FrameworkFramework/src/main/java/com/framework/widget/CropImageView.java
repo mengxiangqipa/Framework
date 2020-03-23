@@ -210,8 +210,10 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView 
 
     // Handle styleable ////////////////////////////////////////////////////////////////////////////
 
-    private void handleStyleable(Context context, AttributeSet attrs, int defStyle, float mDensity) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropImageView, defStyle, 0);
+    private void handleStyleable(Context context, AttributeSet attrs, int defStyle,
+                                 float mDensity) {
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropImageView, defStyle
+                , 0);
         Drawable drawable;
         mCropMode = CropMode.RATIO_1_1;
         try {
@@ -244,14 +246,17 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView 
             }
             setGuideShowMode(mGuideShowMode);
             setHandleShowMode(mHandleShowMode);
-            mHandleSize = ta.getDimensionPixelSize(R.styleable.CropImageView_handleSize, (int) (HANDLE_SIZE_IN_DP *
+            mHandleSize = ta.getDimensionPixelSize(R.styleable.CropImageView_handleSize,
+                    (int) (HANDLE_SIZE_IN_DP *
                     mDensity));
             mTouchPadding = ta.getDimensionPixelSize(R.styleable.CropImageView_touchPadding, 0);
             mMinFrameSize = ta.getDimensionPixelSize(R.styleable.CropImageView_minFrameSize, (int)
                     (MIN_FRAME_SIZE_IN_DP * mDensity));
-            mFrameStrokeWeight = ta.getDimensionPixelSize(R.styleable.CropImageView_frameStrokeWeight, (int)
+            mFrameStrokeWeight =
+                    ta.getDimensionPixelSize(R.styleable.CropImageView_frameStrokeWeight, (int)
                     (FRAME_STROKE_WEIGHT_IN_DP * mDensity));
-            mGuideStrokeWeight = ta.getDimensionPixelSize(R.styleable.CropImageView_guideStrokeWeight, (int)
+            mGuideStrokeWeight =
+                    ta.getDimensionPixelSize(R.styleable.CropImageView_guideStrokeWeight, (int)
                     (GUIDE_STROKE_WEIGHT_IN_DP * mDensity));
             mIsCropEnabled = ta.getBoolean(R.styleable.CropImageView_cropEnabled, true);
         } catch (Exception e) {
@@ -269,10 +274,14 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView 
         mPaintTransparent.setColor(mOverlayColor);
         mPaintTransparent.setStyle(Paint.Style.FILL);
 
-        canvas.drawRect(mImageRect.left, mImageRect.top, mImageRect.right, mFrameRect.top, mPaintTransparent);
-        canvas.drawRect(mImageRect.left, mFrameRect.bottom, mImageRect.right, mImageRect.bottom, mPaintTransparent);
-        canvas.drawRect(mImageRect.left, mFrameRect.top, mFrameRect.left, mFrameRect.bottom, mPaintTransparent);
-        canvas.drawRect(mFrameRect.right, mFrameRect.top, mImageRect.right, mFrameRect.bottom, mPaintTransparent);
+        canvas.drawRect(mImageRect.left, mImageRect.top, mImageRect.right, mFrameRect.top,
+                mPaintTransparent);
+        canvas.drawRect(mImageRect.left, mFrameRect.bottom, mImageRect.right, mImageRect.bottom,
+                mPaintTransparent);
+        canvas.drawRect(mImageRect.left, mFrameRect.top, mFrameRect.left, mFrameRect.bottom,
+                mPaintTransparent);
+        canvas.drawRect(mFrameRect.right, mFrameRect.top, mImageRect.right, mFrameRect.bottom,
+                mPaintTransparent);
 
         mPaintFrame.setAntiAlias(true);
         mPaintFrame.setFilterBitmap(true);
@@ -280,7 +289,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView 
         mPaintFrame.setColor(mFrameColor);
         mPaintFrame.setStrokeWidth(mFrameStrokeWeight);
 
-        canvas.drawRect(mFrameRect.left, mFrameRect.top, mFrameRect.right, mFrameRect.bottom, mPaintFrame);
+        canvas.drawRect(mFrameRect.left, mFrameRect.top, mFrameRect.right, mFrameRect.bottom,
+                mPaintFrame);
 
         if (mShowGuide) {
             mPaintFrame.setColor(mGuideColor);
@@ -1159,7 +1169,8 @@ public class CropImageView extends android.support.v7.widget.AppCompatImageView 
     }
 
     public enum CropMode {
-        RATIO_FIT_IMAGE(0), RATIO_4_3(1), RATIO_3_4(2), RATIO_1_1(3), RATIO_16_9(4), RATIO_9_16(5), RATIO_FREE(6),
+        RATIO_FIT_IMAGE(0), RATIO_4_3(1), RATIO_3_4(2), RATIO_1_1(3), RATIO_16_9(4),
+        RATIO_9_16(5), RATIO_FREE(6),
         RATIO_CUSTOM(7);
         private final int ID;
 

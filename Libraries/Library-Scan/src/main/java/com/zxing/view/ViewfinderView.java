@@ -240,14 +240,16 @@ public final class ViewfinderView extends View {
                 if (slideTop >= frame.bottom - 4) {//修改 slideTop >= frame.bottom
                     slideTop = frame.top;
                 }
-//			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right -
+//			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2,
+//			frame.right -
 //			MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
 
 //                lineRect.left = frame.left;
 //                lineRect.right = frame.right;
 //                lineRect.top = slideTop;
 //                lineRect.bottom = slideTop + 18;
-//                canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.mipmap.qrcode_scan_line_test)))
+//                canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.mipmap
+//                .qrcode_scan_line_test)))
 //                .getBitmap(), null, lineRect, paint);
                 lineRect.left = frame.left + 20;
                 lineRect.right = frame.right - 20;
@@ -260,7 +262,8 @@ public final class ViewfinderView extends View {
 //			paint.setTextSize(TEXT_SIZE * density);
 //			paint.setAlpha(0x40);
 //			paint.setTypeface(Typeface.create("System", Typeface.BOLD));
-//			canvas.drawText(getResources().getString(R.string.scan_text), frame.left, (float) (frame.bottom + (float)
+//			canvas.drawText(getResources().getString(R.string.scan_text), frame.left, (float)
+//			(frame.bottom + (float)
 //			TEXT_PADDING_TOP *density), paint);
 
                 paint.setColor(textColor);
@@ -270,9 +273,11 @@ public final class ViewfinderView extends View {
                 // 这里取消掉了 绘制文字
                 String text = getResources().getString(R.string.scan_text);
                 float textWidth = paint.measureText(text);
-//                canvas.drawText(text, (width - textWidth) / 2, (frame.bottom + (float) TEXT_PADDING_TOP * density),
+//                canvas.drawText(text, (width - textWidth) / 2, (frame.bottom + (float)
+//                TEXT_PADDING_TOP * density),
 //                paint);
-//                canvas.drawText(text, frame.left+((frame.right- frame.left)- textWidth) / 2, (frame.bottom +
+//                canvas.drawText(text, frame.left+((frame.right- frame.left)- textWidth) / 2,
+//                (frame.bottom +
 //                (float) TEXT_PADDING_TOP * density), paint);
                 canvas.drawText(text, (width - textWidth) / 2,
                         (frame.bottom + (float) ScreenUtil.getInstance().dip2px(getContext(), 30)), paint);

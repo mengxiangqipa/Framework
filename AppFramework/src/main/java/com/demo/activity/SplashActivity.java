@@ -22,8 +22,8 @@ import com.bumptech.glide.request.target.Target;
 import com.demo.commonWebview.CommonFullWebViewActivity;
 import com.demo.demo.R;
 import com.framework.application.ProxyApplication;
-import com.framework.widget.CustomADprogress;
 import com.framework.util.ScreenUtil;
+import com.framework.widget.CustomADprogress;
 import com.framework2.baseEvent.BaseOnClickListener;
 
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(100*30);
+                    Thread.sleep(100 * 30);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -95,7 +95,8 @@ public class SplashActivity extends BaseActivity {
      * 倒计时广告
      */
     private void requestCountDownAD() {
-        String adUrl = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1366794914,754127294&fm=26&gp=0.jpg";
+        String adUrl = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1366794914," +
+                "754127294&fm=26&gp=0.jpg";
         String jumpUrl = "https://www.baidu.com/index.php?tn=06074089_7_pg";
         int maxShowTime = 5;
         if (!TextUtils.isEmpty(adUrl)) {
@@ -117,13 +118,16 @@ public class SplashActivity extends BaseActivity {
                     .addListener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model,
-                                                    Target<Drawable> target, boolean isFirstResource) {
+                                                    Target<Drawable> target,
+                                                    boolean isFirstResource) {
                             return false;
                         }
 
                         @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
-                                                       DataSource dataSource, boolean isFirstResource) {
+                        public boolean onResourceReady(Drawable resource, Object model,
+                                                       Target<Drawable> target,
+                                                       DataSource dataSource,
+                                                       boolean isFirstResource) {
                             autoJump = false;
                             relaAD.setVisibility(View.VISIBLE);
                             showCountDown(finalDurativeTimeMillis1);
@@ -134,7 +138,8 @@ public class SplashActivity extends BaseActivity {
                                         destroyExecutorService(futures.get(jobID));
                                         Bundle aboutBundle = new Bundle();
                                         aboutBundle.putString(CommonFullWebViewActivity.TITLE, "");
-                                        aboutBundle.putString(CommonFullWebViewActivity.URL, jumpUrl);
+                                        aboutBundle.putString(CommonFullWebViewActivity.URL,
+                                                jumpUrl);
                                         aboutBundle.putBoolean(CommonFullWebViewActivity.SHOWRIGHT, false);
                                         Intent intent = new Intent(SplashActivity.this,
                                                 CommonFullWebViewActivity.class);

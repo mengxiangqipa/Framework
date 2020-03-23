@@ -56,7 +56,8 @@ public class SliderPanel extends FrameLayout {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            boolean edgeCase = !mConfig.isEdgeOnly() || mDragHelper.isEdgeTouched(mEdgePosition, pointerId);
+            boolean edgeCase = !mConfig.isEdgeOnly() || mDragHelper.isEdgeTouched(mEdgePosition,
+                    pointerId);
             return child.getId() == mDecorView.getId() && edgeCase;
         }
 
@@ -136,7 +137,8 @@ public class SliderPanel extends FrameLayout {
     private ViewDragHelper.Callback mRightCallback = new ViewDragHelper.Callback() {
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            boolean edgeCase = !mConfig.isEdgeOnly() || mDragHelper.isEdgeTouched(mEdgePosition, pointerId);
+            boolean edgeCase = !mConfig.isEdgeOnly() || mDragHelper.isEdgeTouched(mEdgePosition,
+                    pointerId);
             return child.getId() == mDecorView.getId() && edgeCase;
         }
 
@@ -462,7 +464,8 @@ public class SliderPanel extends FrameLayout {
     private ViewDragHelper.Callback mHorizontalCallback = new ViewDragHelper.Callback() {
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            boolean edgeCase = !mConfig.isEdgeOnly() || mDragHelper.isEdgeTouched(mEdgePosition, pointerId);
+            boolean edgeCase = !mConfig.isEdgeOnly() || mDragHelper.isEdgeTouched(mEdgePosition,
+                    pointerId);
             return child.getId() == mDecorView.getId() && edgeCase;
         }
 
@@ -771,7 +774,8 @@ public class SliderPanel extends FrameLayout {
      * @param percent dimming percentage
      */
     public void applyScrim(float percent) {
-        float alpha = (percent * (mConfig.getScrimStartAlpha() - mConfig.getScrimEndAlpha())) + mConfig
+        float alpha =
+                (percent * (mConfig.getScrimStartAlpha() - mConfig.getScrimEndAlpha())) + mConfig
                 .getScrimEndAlpha();
         mDimView.setAlpha(alpha);
     }

@@ -9,10 +9,10 @@ import com.library.mpandroidchart.buffer.HorizontalBarBuffer;
 import com.library.mpandroidchart.data.BarData;
 import com.library.mpandroidchart.data.BarDataSet;
 import com.library.mpandroidchart.data.BarEntry;
+import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.interfaces.BarDataProvider;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.Utils;
-import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.utils.ViewPortHandler;
 
 import java.util.List;
@@ -139,19 +139,23 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
 
                         BarEntry e = entries.get(j / 2);
                         float val = e.getVal();
-                        String formattedValue = formatter.getFormattedValue(val, e, i, mViewPortHandler);
+                        String formattedValue = formatter.getFormattedValue(val, e, i,
+                                mViewPortHandler);
 
                         // calculate the correct offset depending on the draw position of the value
                         float valueTextWidth = Utils.calcTextWidth(mValuePaint, formattedValue);
-                        posOffset = (drawValueAboveBar ? valueOffsetPlus : -(valueTextWidth + valueOffsetPlus));
-                        negOffset = (drawValueAboveBar ? -(valueTextWidth + valueOffsetPlus) : valueOffsetPlus);
+                        posOffset = (drawValueAboveBar ? valueOffsetPlus :
+                                -(valueTextWidth + valueOffsetPlus));
+                        negOffset = (drawValueAboveBar ? -(valueTextWidth + valueOffsetPlus) :
+                                valueOffsetPlus);
 
                         if (isInverted) {
                             posOffset = -posOffset - valueTextWidth;
                             negOffset = -negOffset - valueTextWidth;
                         }
 
-                        drawValue(c, formattedValue, valuePoints[j] + (val >= 0 ? posOffset : negOffset),
+                        drawValue(c, formattedValue, valuePoints[j] + (val >= 0 ? posOffset :
+                                        negOffset),
                                 valuePoints[j + 1] + halfTextHeight);
                     }
 
@@ -179,12 +183,16 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
                                 continue;
 
                             float val = e.getVal();
-                            String formattedValue = formatter.getFormattedValue(val, e, i, mViewPortHandler);
+                            String formattedValue = formatter.getFormattedValue(val, e, i,
+                                    mViewPortHandler);
 
-                            // calculate the correct offset depending on the draw position of the value
+                            // calculate the correct offset depending on the draw position of the
+                            // value
                             float valueTextWidth = Utils.calcTextWidth(mValuePaint, formattedValue);
-                            posOffset = (drawValueAboveBar ? valueOffsetPlus : -(valueTextWidth + valueOffsetPlus));
-                            negOffset = (drawValueAboveBar ? -(valueTextWidth + valueOffsetPlus) : valueOffsetPlus);
+                            posOffset = (drawValueAboveBar ? valueOffsetPlus :
+                                    -(valueTextWidth + valueOffsetPlus));
+                            negOffset = (drawValueAboveBar ? -(valueTextWidth + valueOffsetPlus)
+                                    : valueOffsetPlus);
 
                             if (isInverted) {
                                 posOffset = -posOffset - valueTextWidth;
@@ -222,12 +230,17 @@ public class HorizontalBarChartRenderer extends BarChartRenderer {
                             for (int k = 0; k < transformed.length; k += 2) {
 
                                 float val = vals[k / 2];
-                                String formattedValue = formatter.getFormattedValue(val, e, i, mViewPortHandler);
+                                String formattedValue = formatter.getFormattedValue(val, e, i,
+                                        mViewPortHandler);
 
-                                // calculate the correct offset depending on the draw position of the value
-                                float valueTextWidth = Utils.calcTextWidth(mValuePaint, formattedValue);
-                                posOffset = (drawValueAboveBar ? valueOffsetPlus : -(valueTextWidth + valueOffsetPlus));
-                                negOffset = (drawValueAboveBar ? -(valueTextWidth + valueOffsetPlus) : valueOffsetPlus);
+                                // calculate the correct offset depending on the draw position of
+                                // the value
+                                float valueTextWidth = Utils.calcTextWidth(mValuePaint,
+                                        formattedValue);
+                                posOffset = (drawValueAboveBar ? valueOffsetPlus :
+                                        -(valueTextWidth + valueOffsetPlus));
+                                negOffset = (drawValueAboveBar ?
+                                        -(valueTextWidth + valueOffsetPlus) : valueOffsetPlus);
 
                                 if (isInverted) {
                                     posOffset = -posOffset - valueTextWidth;

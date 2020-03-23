@@ -90,7 +90,8 @@ public class EglUtils {
     private static int getMaxTextureEgl10() {
         EGL10 egl = (EGL10) javax.microedition.khronos.egl.EGLContext.getEGL();
 
-        javax.microedition.khronos.egl.EGLDisplay dpy = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+        javax.microedition.khronos.egl.EGLDisplay dpy =
+                egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
         int[] vers = new int[2];
         egl.eglInitialize(dpy, vers);
 
@@ -100,7 +101,8 @@ public class EglUtils {
                 EGL10.EGL_SURFACE_TYPE, EGL10.EGL_PBUFFER_BIT,
                 EGL10.EGL_NONE
         };
-        javax.microedition.khronos.egl.EGLConfig[] configs = new javax.microedition.khronos.egl.EGLConfig[1];
+        javax.microedition.khronos.egl.EGLConfig[] configs =
+                new javax.microedition.khronos.egl.EGLConfig[1];
         int[] numConfig = new int[1];
         egl.eglChooseConfig(dpy, configAttr, configs, 1, numConfig);
         if (numConfig[0] == 0) {
@@ -113,13 +115,15 @@ public class EglUtils {
                 EGL10.EGL_HEIGHT, 64,
                 EGL10.EGL_NONE
         };
-        javax.microedition.khronos.egl.EGLSurface surf = egl.eglCreatePbufferSurface(dpy, config, surfAttr);
+        javax.microedition.khronos.egl.EGLSurface surf = egl.eglCreatePbufferSurface(dpy, config,
+                surfAttr);
         final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;  // missing in EGL10
         int[] ctxAttrib = {
                 EGL_CONTEXT_CLIENT_VERSION, 1,
                 EGL10.EGL_NONE
         };
-        javax.microedition.khronos.egl.EGLContext ctx = egl.eglCreateContext(dpy, config, EGL10.EGL_NO_CONTEXT,
+        javax.microedition.khronos.egl.EGLContext ctx = egl.eglCreateContext(dpy, config,
+                EGL10.EGL_NO_CONTEXT,
                 ctxAttrib);
         egl.eglMakeCurrent(dpy, surf, surf, ctx);
         int[] maxSize = new int[1];

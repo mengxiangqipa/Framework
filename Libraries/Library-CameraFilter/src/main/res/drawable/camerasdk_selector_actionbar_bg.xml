@@ -3,7 +3,7 @@
     <item android:state_pressed="true">
         <shape>
             <!-- <solid android:color="@color/camerasdk_action_bar_press"/> -->
-            <solid android:color="@color/camerasdk_action_bar"/>
+            <solid android:color="@color/camerasdk_action_bar" />
         </shape>
     </item>
     <!-- <item>

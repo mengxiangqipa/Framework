@@ -1,9 +1,9 @@
 package com.library.permission.checker;
 
 import android.content.Context;
+
 import com.library.permission.PermissionTools;
 import com.library.permission.bean.Special;
-
 
 public class CheckerFactory {
 

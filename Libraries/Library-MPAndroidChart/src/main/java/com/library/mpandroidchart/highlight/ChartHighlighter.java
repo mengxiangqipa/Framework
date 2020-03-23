@@ -1,13 +1,13 @@
 package com.library.mpandroidchart.highlight;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.library.mpandroidchart.components.YAxis;
 import com.library.mpandroidchart.data.DataSet;
 import com.library.mpandroidchart.interfaces.BarLineScatterCandleBubbleDataProvider;
 import com.library.mpandroidchart.utils.SelectionDetail;
 import com.library.mpandroidchart.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Philipp Jahoda on 21/07/15.
@@ -76,7 +76,8 @@ public class ChartHighlighter<T extends BarLineScatterCandleBubbleDataProvider> 
         float leftdist = Utils.getMinimumDistance(valsAtIndex, y, YAxis.AxisDependency.LEFT);
         float rightdist = Utils.getMinimumDistance(valsAtIndex, y, YAxis.AxisDependency.RIGHT);
 
-        YAxis.AxisDependency axis = leftdist < rightdist ? YAxis.AxisDependency.LEFT : YAxis.AxisDependency.RIGHT;
+        YAxis.AxisDependency axis = leftdist < rightdist ? YAxis.AxisDependency.LEFT :
+                YAxis.AxisDependency.RIGHT;
 
         int dataSetIndex = Utils.getClosestDataSetIndex(valsAtIndex, y, axis);
 

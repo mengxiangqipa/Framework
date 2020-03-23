@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -126,7 +125,8 @@ public class NetworkUtil {
      */
     public int getNetworkState(Context context) {
         //获取系统的网络服务
-        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //如果当前没有网络
         if (null == connManager)

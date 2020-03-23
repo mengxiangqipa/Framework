@@ -38,7 +38,8 @@ public class ProxyCacheUtils {
     static void assertBuffer(byte[] buffer, long offset, int length) {
         checkNotNull(buffer, "Buffer must be not null!");
         checkArgument(offset >= 0, "Data offset must be positive!");
-        checkArgument(length >= 0 && length <= buffer.length, "Length must be in range [0..buffer.length]");
+        checkArgument(length >= 0 && length <= buffer.length, "Length must be in range [0..buffer" +
+                ".length]");
     }
 
     static String preview(byte[] data, int length) {

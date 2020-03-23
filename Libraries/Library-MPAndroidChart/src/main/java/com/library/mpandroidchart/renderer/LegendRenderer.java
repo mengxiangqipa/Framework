@@ -248,7 +248,8 @@ public class LegendRenderer extends Renderer {
 
                     if (posX == originPosX && legendPosition == Legend.LegendPosition.BELOW_CHART_CENTER && lineIndex < calculatedLineSizes.length) {
                         posX += (direction == Legend.LegendDirection.RIGHT_TO_LEFT ?
-                                calculatedLineSizes[lineIndex].width : -calculatedLineSizes[lineIndex].width) / 2.f;
+                                calculatedLineSizes[lineIndex].width :
+                                -calculatedLineSizes[lineIndex].width) / 2.f;
                         lineIndex++;
                     }
 
@@ -267,7 +268,8 @@ public class LegendRenderer extends Renderer {
 
                     if (!isStacked) {
                         if (drawingForm)
-                            posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -formToTextSpace :
+                            posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ?
+                                    -formToTextSpace :
                                     formToTextSpace;
 
                         if (direction == Legend.LegendDirection.RIGHT_TO_LEFT)
@@ -278,9 +280,11 @@ public class LegendRenderer extends Renderer {
                         if (direction == Legend.LegendDirection.LEFT_TO_RIGHT)
                             posX += calculatedLabelSizes[i].width;
 
-                        posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -xEntrySpace : xEntrySpace;
+                        posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -xEntrySpace
+                                : xEntrySpace;
                     } else
-                        posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -stackSpace : stackSpace;
+                        posX += direction == Legend.LegendDirection.RIGHT_TO_LEFT ? -stackSpace :
+                                stackSpace;
                 }
             }
             break;
@@ -298,7 +302,8 @@ public class LegendRenderer extends Renderer {
 
                 if (legendPosition == Legend.LegendPosition.PIECHART_CENTER) {
                     posX = mViewPortHandler.getChartWidth() / 2f
-                            + (direction == Legend.LegendDirection.LEFT_TO_RIGHT ? -mLegend.mTextWidthMax / 2f
+                            + (direction == Legend.LegendDirection.LEFT_TO_RIGHT ?
+                            -mLegend.mTextWidthMax / 2f
                             : mLegend.mTextWidthMax / 2f);
                     posY = mViewPortHandler.getChartHeight() / 2f - mLegend.mNeededHeight / 2f
                             + mLegend.getYOffset();

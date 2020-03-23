@@ -4,13 +4,16 @@ import android.graphics.Paint;
 
 import com.library.mpandroidchart.formatter.DefaultValueFormatter;
 import com.library.mpandroidchart.formatter.DefaultYAxisValueFormatter;
-import com.library.mpandroidchart.utils.Utils;
 import com.library.mpandroidchart.formatter.YAxisValueFormatter;
+import com.library.mpandroidchart.utils.Utils;
 
 /**
- * Class representing the y-axis labels settings and its entries. Only use the setter methods to modify it. Do not
- * access public variables directly. Be aware that not all features the YLabels class provides are suitable for the
- * RadarChart. Customizations that affect the value range of the axis need to be applied before setting data for the
+ * Class representing the y-axis labels settings and its entries. Only use the setter methods to
+ * modify it. Do not
+ * access public variables directly. Be aware that not all features the YLabels class provides
+ * are suitable for the
+ * RadarChart. Customizations that affect the value range of the axis need to be applied before
+ * setting data for the
  * chart.
  *
  * @author Philipp Jahoda
@@ -163,7 +166,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * set this to true to enable drawing the top y-label entry. Disabling this can be helpful when the top y-label and
+     * set this to true to enable drawing the top y-label entry. Disabling this can be helpful
+     * when the top y-label and
      * left x-label interfere with each other. default: true
      *
      * @param enabled
@@ -173,13 +177,16 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware that this number is not
+     * sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware
+     * that this number is not
      * fixed (if force == false) and can only be approximated.
      *
      * @param count the number of y-axis labels that sould be displayed
-     * @param force if enabled, the set label count will be forced, meaning that the exact specified count of labels
+     * @param force if enabled, the set label count will be forced, meaning that the exact
+     *              specified count of labels
      *              will
-     *              be drawn and evenly distributed alongside the axis - this might cause labels to have uneven values
+     *              be drawn and evenly distributed alongside the axis - this might cause labels
+     *              to have uneven values
      */
     public void setLabelCount(int count, boolean force) {
 
@@ -211,7 +218,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * If enabled, the YLabels will only show the minimum and maximum value of the chart. This will ignore/override the
+     * If enabled, the YLabels will only show the minimum and maximum value of the chart. This
+     * will ignore/override the
      * set label count.
      *
      * @param enabled
@@ -230,7 +238,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * If this is set to true, the y-axis is inverted which means that low values are on top of the chart, high values
+     * If this is set to true, the y-axis is inverted which means that low values are on top of
+     * the chart, high values
      * on bottom.
      *
      * @param enabled
@@ -271,8 +280,10 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Set a custom minimum value for this axis. If set, this value will not be calculated automatically depending on
-     * the provided data. Use resetAxisMinValue() to undo this. Do not forget to call setStartAtZero(false) if you use
+     * Set a custom minimum value for this axis. If set, this value will not be calculated
+     * automatically depending on
+     * the provided data. Use resetAxisMinValue() to undo this. Do not forget to call
+     * setStartAtZero(false) if you use
      * this method. Otherwise, the axis-minimum value will still be forced to 0.
      *
      * @param min
@@ -282,7 +293,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * By calling this method, any custom minimum value that has been previously set is reseted, and the calculation is
+     * By calling this method, any custom minimum value that has been previously set is reseted,
+     * and the calculation is
      * done automatically.
      */
     public void resetAxisMinValue() {
@@ -294,7 +306,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Set a custom maximum value for this axis. If set, this value will not be calculated automatically depending on
+     * Set a custom maximum value for this axis. If set, this value will not be calculated
+     * automatically depending on
      * the provided data. Use resetAxisMaxValue() to undo this.
      *
      * @param max
@@ -304,7 +317,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * By calling this method, any custom maximum value that has been previously set is reseted, and the calculation is
+     * By calling this method, any custom maximum value that has been previously set is reseted,
+     * and the calculation is
      * done automatically.
      */
     public void resetAxisMaxValue() {
@@ -379,7 +393,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Returns the formatted y-label at the specified index. This will either use the auto-formatter or the custom
+     * Returns the formatted y-label at the specified index. This will either use the
+     * auto-formatter or the custom
      * formatter (if one is set).
      *
      * @param index
@@ -394,8 +409,10 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * Sets the formatter to be used for formatting the axis labels. If no formatter is set, the chart will
-     * automatically determine a reasonable formatting (concerning decimals) for all the values that are drawn inside
+     * Sets the formatter to be used for formatting the axis labels. If no formatter is set, the
+     * chart will
+     * automatically determine a reasonable formatting (concerning decimals) for all the values
+     * that are drawn inside
      * the chart. Use chart.getDefaultValueFormatter() to use the formatter calculated by the chart.
      *
      * @param f
@@ -422,7 +439,8 @@ public class YAxis extends AxisBase {
     }
 
     /**
-     * If this component has no YAxisValueFormatter or is only equipped with the default one (no custom set), return
+     * If this component has no YAxisValueFormatter or is only equipped with the default one (no
+     * custom set), return
      * true.
      *
      * @return

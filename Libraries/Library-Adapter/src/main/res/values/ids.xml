@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="UniversalAdapterTagView" type="id"/>
-    <item name="UniversalAdapterTagPosition" type="id"/>
+    <item name="UniversalAdapterTagView" type="id" />
+    <item name="UniversalAdapterTagPosition" type="id" />
 </resources>

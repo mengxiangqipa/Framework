@@ -94,9 +94,11 @@ public class FaceShadeView extends View {
                 R.styleable.FaceShadeView_marginTop,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         0, getResources().getDisplayMetrics()));// 默认为0dp
-        ringColor = a.getColor(R.styleable.FaceShadeView_ringColor, getResources().getColor(android.R.color.black));
+        ringColor = a.getColor(R.styleable.FaceShadeView_ringColor,
+                getResources().getColor(android.R.color.black));
         thicknessWidth = a.getDimensionPixelSize(R.styleable.FaceShadeView_thicknessWidth,
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()));
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0,
+                        getResources().getDisplayMetrics()));
         // 默认为0dp
         a.recycle();
     }
@@ -113,7 +115,8 @@ public class FaceShadeView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 //将绘制操作保存到新的图层，因为图像合成是很昂贵的操作，将用到硬件加速，这里将图像合成的处理放到离屏缓存中进行
-//        int saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), bgPaint, Canvas.ALL_SAVE_FLAG);
+//        int saveCount = canvas.saveLayer(0, 0, getWidth(), getHeight(), bgPaint, Canvas
+//        .ALL_SAVE_FLAG);
         // draw内圆环
         mPaintTemp.setColor(mBorderInsideColor);
         bgPaint.setColor(Color.parseColor("#ffffff"));

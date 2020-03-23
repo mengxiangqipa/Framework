@@ -39,9 +39,11 @@ public class PullableExpandableListViewActivity extends AppCompatActivity {
         expandableListView.setOnChildClickListener(new OnChildClickListener() {
 
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition,
+                                        int childPosition, long
                     id) {
-                Toast.makeText(PullableExpandableListViewActivity.this, " Click on group " + groupPosition + " item "
+                Toast.makeText(PullableExpandableListViewActivity.this,
+                        " Click on group " + groupPosition + " item "
                         + childPosition, Toast.LENGTH_SHORT)
                         .show();
                 return true;
@@ -50,8 +52,10 @@ public class PullableExpandableListViewActivity extends AppCompatActivity {
         expandableListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PullableExpandableListViewActivity.this, "LongClick on " + parent.getAdapter()
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                           long id) {
+                Toast.makeText(PullableExpandableListViewActivity.this,
+                        "LongClick on " + parent.getAdapter()
                         .getItemId(position), Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -59,7 +63,8 @@ public class PullableExpandableListViewActivity extends AppCompatActivity {
         expandableListView.setOnGroupClickListener(new OnGroupClickListener() {
 
             @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition,
+                                        long id) {
                 if (parent.isGroupExpanded(groupPosition)) {
                     // 如果展开则关闭
                     parent.collapseGroup(groupPosition);
@@ -127,7 +132,8 @@ public class PullableExpandableListViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
+                                 ViewGroup parent) {
             View view = LayoutInflater.from(context).inflate(R.layout.test_list_item_layout, null);
             TextView tv = (TextView) view.findViewById(R.id.tv);
             tv.setText(groupsStrings[groupPosition]);
@@ -135,7 +141,8 @@ public class PullableExpandableListViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
+                                 View convertView,
                                  ViewGroup parent) {
             View view = LayoutInflater.from(context).inflate(R.layout.test_list_item_layout, null);
             TextView tv = (TextView) view.findViewById(R.id.tv);

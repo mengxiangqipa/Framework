@@ -132,7 +132,8 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
                 mYAxis.mAxisMaximum = Math.max(0.f, !Float.isNaN(mYAxis.getAxisMaxValue()) ?
                         mYAxis.getAxisMaxValue() : (maxLeft + topSpaceLeft));
             } else {
-                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for negative/positive at
+                // Stick the minimum to 0.0 or less, and maximum to 0.0 or more (startAtZero for
+                // negative/positive at
                 // the same time)
                 mYAxis.mAxisMinimum = Math.min(0.f, !Float.isNaN(mYAxis.getAxisMinValue()) ?
                         mYAxis.getAxisMinValue() : (minLeft - bottomSpaceLeft));
@@ -141,9 +142,11 @@ public class RadarChart extends PieRadarChartBase<RadarData> {
             }
         } else {
             // Use the values as they are
-            mYAxis.mAxisMinimum = !Float.isNaN(mYAxis.getAxisMinValue()) ? mYAxis.getAxisMinValue() :
+            mYAxis.mAxisMinimum = !Float.isNaN(mYAxis.getAxisMinValue()) ?
+                    mYAxis.getAxisMinValue() :
                     (minLeft - bottomSpaceLeft);
-            mYAxis.mAxisMaximum = !Float.isNaN(mYAxis.getAxisMaxValue()) ? mYAxis.getAxisMaxValue() :
+            mYAxis.mAxisMaximum = !Float.isNaN(mYAxis.getAxisMaxValue()) ?
+                    mYAxis.getAxisMaxValue() :
                     (maxLeft + topSpaceLeft);
         }
 

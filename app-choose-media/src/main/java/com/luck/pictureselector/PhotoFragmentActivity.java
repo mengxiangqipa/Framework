@@ -56,5 +56,4 @@ public class PhotoFragmentActivity extends AppCompatActivity {
             }
         });
     }
-
 }

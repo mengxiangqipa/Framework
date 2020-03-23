@@ -85,7 +85,8 @@ public class BitmapUtil {
         Bitmap bitmap;
         int dstWidth = bitmapSrc.getWidth();
         int dstHeight = bitmapSrc.getHeight();
-        bitmap = Bitmap.createScaledBitmap(bitmapSrc, (int) (dstWidth * xScale), (int) (dstHeight * yScale), false);
+        bitmap = Bitmap.createScaledBitmap(bitmapSrc, (int) (dstWidth * xScale),
+                (int) (dstHeight * yScale), false);
         return bitmap;
     }
 

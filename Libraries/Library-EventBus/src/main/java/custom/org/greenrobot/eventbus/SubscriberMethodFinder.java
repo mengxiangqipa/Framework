@@ -15,9 +15,6 @@
  */
 package custom.org.greenrobot.eventbus;
 
-import custom.org.greenrobot.eventbus.meta.SubscriberInfo;
-import custom.org.greenrobot.eventbus.meta.SubscriberInfoIndex;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -26,17 +23,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import custom.org.greenrobot.eventbus.meta.SubscriberInfo;
+import custom.org.greenrobot.eventbus.meta.SubscriberInfoIndex;
+
 class SubscriberMethodFinder {
     /*
-     * In newer class files, compilers may add methods. Those are called bridge or synthetic methods.
-     * EventBus must ignore both. There modifiers are not public but defined in the Java class file format:
+     * In newer class files, compilers may add methods. Those are called bridge or synthetic
+     * methods.
+     * EventBus must ignore both. There modifiers are not public but defined in the Java class
+     * file format:
      * http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.6-200-A.1
      */
     private static final int BRIDGE = 0x40;
     private static final int SYNTHETIC = 0x1000;
 
-    private static final int MODIFIERS_IGNORE = Modifier.ABSTRACT | Modifier.STATIC | BRIDGE | SYNTHETIC;
-    private static final Map<Class<?>, List<SubscriberMethod>> METHOD_CACHE = new ConcurrentHashMap<>();
+    private static final int MODIFIERS_IGNORE =
+            Modifier.ABSTRACT | Modifier.STATIC | BRIDGE | SYNTHETIC;
+    private static final Map<Class<?>, List<SubscriberMethod>> METHOD_CACHE =
+            new ConcurrentHashMap<>();
 
     private List<SubscriberInfoIndex> subscriberInfoIndexes;
     private final boolean strictMethodVerification;
@@ -45,7 +49,8 @@ class SubscriberMethodFinder {
     private static final int POOL_SIZE = 4;
     private static final FindState[] FIND_STATE_POOL = new FindState[POOL_SIZE];
 
-    SubscriberMethodFinder(List<SubscriberInfoIndex> subscriberInfoIndexes, boolean strictMethodVerification,
+    SubscriberMethodFinder(List<SubscriberInfoIndex> subscriberInfoIndexes,
+                           boolean strictMethodVerification,
                            boolean ignoreGeneratedIndex) {
         this.subscriberInfoIndexes = subscriberInfoIndexes;
         this.strictMethodVerification = strictMethodVerification;
@@ -71,7 +76,8 @@ class SubscriberMethodFinder {
         }
         if (subscriberMethods.isEmpty()) {
             throw new EventBusException("Subscriber " + subscriberClass
-                    + " and its super classes have no public methods with the @Subscribe annotation");
+                    + " and its super classes have no public methods with the @Subscribe " +
+                    "annotation");
         } else {
             METHOD_CACHE.put(subscriberClass, subscriberMethods);
             return subscriberMethods;
@@ -168,10 +174,12 @@ class SubscriberMethodFinder {
     private void findUsingReflectionInSingleClass(FindState findState) {
         Method[] methods;
         try {
-            // This is faster than getMethods, especially when subscribers are fat classes like Activities
+            // This is faster than getMethods, especially when subscribers are fat classes like
+            // Activities
             methods = findState.clazz.getDeclaredMethods();
         } catch (Throwable th) {
-            // Workaround for java.lang.NoClassDefFoundError, see https://github.com/greenrobot/EventBus/issues/149
+            // Workaround for java.lang.NoClassDefFoundError, see https://github
+            // .com/greenrobot/EventBus/issues/149
             methods = findState.clazz.getMethods();
             findState.skipSuperClasses = true;
         }
@@ -186,19 +194,22 @@ class SubscriberMethodFinder {
                         if (findState.checkAdd(method, eventType)) {
                             findState.subscriberMethods.add(new SubscriberMethod(method, eventType,
                                     subscribeAnnotation.threadMode(),
-                                    subscribeAnnotation.priority(), subscribeAnnotation.sticky(), subscribeAnnotation
+                                    subscribeAnnotation.priority(), subscribeAnnotation.sticky(),
+                                    subscribeAnnotation
                                     .tag()));//我修改
                         }
                     }
                 } else if (strictMethodVerification && method.isAnnotationPresent(Subscribe.class)) {
-                    String methodName = method.getDeclaringClass().getName() + "." + method.getName();
+                    String methodName =
+                            method.getDeclaringClass().getName() + "." + method.getName();
                     throw new EventBusException("@Subscribe method " + methodName +
                             "must have exactly 1 parameter but has " + parameterTypes.length);
                 }
             } else if (strictMethodVerification && method.isAnnotationPresent(Subscribe.class)) {
                 String methodName = method.getDeclaringClass().getName() + "." + method.getName();
                 throw new EventBusException(methodName +
-                        " is a illegal @Subscribe method: must be public, non-static, and non-abstract");
+                        " is a illegal @Subscribe method: must be public, non-static, and " +
+                        "non-abstract");
             }
         }
     }
@@ -236,7 +247,8 @@ class SubscriberMethodFinder {
         }
 
         boolean checkAdd(Method method, Class<?> eventType) {
-            // 2 level check: 1st level with event type only (fast), 2nd level with complete signature when required.
+            // 2 level check: 1st level with event type only (fast), 2nd level with complete
+            // signature when required.
             // Usually a subscriber doesn't have methods listening to the same event type.
             Object existing = anyMethodByEventType.put(eventType, method);
             if (existing == null) {

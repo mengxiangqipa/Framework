@@ -32,7 +32,9 @@ public class RentalsSunHeaderView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = mDrawable.getTotalDragDistance() * 5 / 4;
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height + getPaddingTop() + getPaddingBottom(), MeasureSpec
+        heightMeasureSpec =
+                MeasureSpec.makeMeasureSpec(height + getPaddingTop() + getPaddingBottom(),
+                        MeasureSpec
                 .EXACTLY);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

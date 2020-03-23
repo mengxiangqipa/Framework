@@ -31,7 +31,8 @@ public interface SwipeOpenViewHolder {
      * This will be the view at the RIGHT/END of the holder when horizontal swiping is supported,
      * and will be BOTTOM/DOWN when vertical swiping is supported.
      *
-     * @return the width (if horizontal swiping) or height (if vertical swiping) of the view to reveal,
+     * @return the width (if horizontal swiping) or height (if vertical swiping) of the view to
+     * reveal,
      * Return 0 if you want to return to a closed position after every swipe in that direciton
      */
     float getEndHiddenViewSize();
@@ -41,21 +42,24 @@ public interface SwipeOpenViewHolder {
      * This will be the view at the LEFT/START of the holder when horizontal swiping is supported,
      * and will be TOP/UP when vertical swiping is supported.
      *
-     * @return the width (if horizontal swiping) or height (if vertical swiping) of the view to reveal.
+     * @return the width (if horizontal swiping) or height (if vertical swiping) of the view to
+     * reveal.
      * Return 0 if you want to return to a closed position after every swipe in that direciton
      */
     float getStartHiddenViewSize();
 
     /**
      * Notify the SwipeOpenHolder that the START view has become visible from a swipe.
-     * Ex: This could be used to set a background color to the underlying view so that it matches your
+     * Ex: This could be used to set a background color to the underlying view so that it matches
+     * your
      * hidden view during an over-swipe
      */
     void notifyStartOpen();
 
     /**
      * Notify the SwipeOpenHolder that the END View has become visible from a swipe
-     * Ex: This could be used to set a background color to the underlying view so that it matches your
+     * Ex: This could be used to set a background color to the underlying view so that it matches
+     * your
      * hidden view during an over-swipe
      */
     void notifyEndOpen();

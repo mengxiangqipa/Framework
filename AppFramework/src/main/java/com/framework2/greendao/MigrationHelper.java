@@ -21,7 +21,8 @@ import java.util.List;
  */
 public class MigrationHelper {
 
-    private static final String CONVERSION_CLASS_NOT_FOUND_EXCEPTION = "MIGRATION HELPER - CLASS DOESN'T MATCH WITH " +
+    private static final String CONVERSION_CLASS_NOT_FOUND_EXCEPTION = "MIGRATION HELPER - CLASS " +
+            "DOESN'T MATCH WITH " +
             "THE CURRENT PARAMETERS";
 
     private static volatile MigrationHelper instance;
@@ -163,7 +164,8 @@ public class MigrationHelper {
             return "boolean";
         }
         /////////////////////////////////////添加--修改
-        Exception exception = new Exception(CONVERSION_CLASS_NOT_FOUND_EXCEPTION.concat(" - Class: ").concat(type
+        Exception exception = new Exception(CONVERSION_CLASS_NOT_FOUND_EXCEPTION.concat(" - " +
+                "Class: ").concat(type
                 .toString()));
         exception.printStackTrace();
         throw exception;

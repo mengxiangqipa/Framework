@@ -230,7 +230,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         // 解决调用 notifyItemChanged 闪烁问题,取消默认动画
         ((SimpleItemAnimator) picture_recycler.getItemAnimator())
                 .setSupportsChangeAnimations(false);
-        mediaLoader = new LocalMediaLoader(this, config.mimeType, config.isGif, config.videoMaxSecond,
+        mediaLoader = new LocalMediaLoader(this, config.mimeType, config.isGif,
+                config.videoMaxSecond,
                 config.videoMinSecond);
         rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Observer<Boolean>() {
@@ -369,7 +370,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     public void startOpenCamera() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-            int type = config.mimeType == PictureConfig.TYPE_ALL ? PictureConfig.TYPE_IMAGE : config.mimeType;
+            int type = config.mimeType == PictureConfig.TYPE_ALL ? PictureConfig.TYPE_IMAGE :
+                    config.mimeType;
             File cameraFile = PictureFileUtils.createCameraFile(this,
                     type,
                     outputCameraPath, config.suffixType);
@@ -481,7 +483,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             bundle.putSerializable(PictureConfig.EXTRA_SELECT_LIST, (Serializable) selectedImages);
             bundle.putBoolean(PictureConfig.EXTRA_BOTTOM_PREVIEW, true);
             startActivity(PicturePreviewActivity.class, bundle,
-                    config.selectionMode == PictureConfig.SINGLE ? UCrop.REQUEST_CROP : UCropMulti.REQUEST_MULTI_CROP);
+                    config.selectionMode == PictureConfig.SINGLE ? UCrop.REQUEST_CROP :
+                            UCropMulti.REQUEST_MULTI_CROP);
             overridePendingTransition(R.anim.a5, 0);
         }
 
@@ -494,7 +497,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
             if (config.minSelectNum > 0 && config.selectionMode == PictureConfig.MULTIPLE) {
                 if (size < config.minSelectNum) {
-                    String str = eqImg ? getString(R.string.picture_min_img_num, config.minSelectNum)
+                    String str = eqImg ? getString(R.string.picture_min_img_num,
+                            config.minSelectNum)
                             : getString(R.string.picture_video_min_num, config.minSelectNum);
                     ToastManage.s(mContext, str);
                     return;
@@ -797,7 +801,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 // image
                 List<LocalMedia> selectedImages = adapter.getSelectedImages();
                 ImagesObservable.getInstance().saveLocalMedia(previewImages);
-                bundle.putSerializable(PictureConfig.EXTRA_SELECT_LIST, (Serializable) selectedImages);
+                bundle.putSerializable(PictureConfig.EXTRA_SELECT_LIST,
+                        (Serializable) selectedImages);
                 bundle.putInt(PictureConfig.EXTRA_POSITION, position);
                 startActivity(PicturePreviewActivity.class, bundle,
                         config.selectionMode == PictureConfig.SINGLE ? UCrop.REQUEST_CROP :
@@ -855,7 +860,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             if (numComplete) {
                 picture_tv_ok.setText(getString
                         (R.string.picture_done_front_num, selectImages.size(),
-                                config.selectionMode == PictureConfig.SINGLE ? 1 : config.maxSelectNum));
+                                config.selectionMode == PictureConfig.SINGLE ? 1 :
+                                        config.maxSelectNum));
             } else {
                 if (!anim) {
                     picture_tv_img_num.startAnimation(animation);
@@ -937,7 +943,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     }
                     // on take photo success
                     final File file = new File(cameraPath);
-                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                            Uri.fromFile(file)));
                     String toType = PictureMimeType.fileToType(file);
                     if (config.mimeType != PictureMimeType.ofAudio()) {
                         int degree = PictureFileUtils.readPictureDegree(file.getAbsolutePath());
@@ -989,8 +996,10 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                             List<LocalMedia> selectedImages = adapter.getSelectedImages();
                             // 没有到最大选择量 才做默认选中刚拍好的
                             if (selectedImages.size() < config.maxSelectNum) {
-                                pictureType = selectedImages.size() > 0 ? selectedImages.get(0).getPictureType() : "";
-                                boolean toEqual = PictureMimeType.mimeToEqual(pictureType, media.getPictureType());
+                                pictureType = selectedImages.size() > 0 ?
+                                        selectedImages.get(0).getPictureType() : "";
+                                boolean toEqual = PictureMimeType.mimeToEqual(pictureType,
+                                        media.getPictureType());
                                 // 类型相同或还没有选中才加进选中集合中
                                 if (toEqual || selectedImages.size() == 0) {
                                     if (selectedImages.size() < config.maxSelectNum) {

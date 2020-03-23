@@ -35,7 +35,8 @@ final class HttpProxyCacheServerClients {
         this.uiCacheListener = new UiListenerHandler(url, listeners);
     }
 
-    public void processRequest(GetRequest request, Socket socket) throws ProxyCacheException, IOException {
+    public void processRequest(GetRequest request, Socket socket) throws ProxyCacheException,
+            IOException {
         startProcessRequest();
         try {
             clientsCount.incrementAndGet();
@@ -79,7 +80,8 @@ final class HttpProxyCacheServerClients {
     }
 
     private HttpProxyCache newHttpProxyCache() throws ProxyCacheException {
-        HttpUrlSource source = new HttpUrlSource(url, config.sourceInfoStorage, config.headerInjector);
+        HttpUrlSource source = new HttpUrlSource(url, config.sourceInfoStorage,
+                config.headerInjector);
         FileCache cache = new FileCache(config.generateCacheFile(url), config.diskUsage);
         HttpProxyCache httpProxyCache = new HttpProxyCache(source, cache);
         httpProxyCache.registerCacheListener(uiCacheListener);

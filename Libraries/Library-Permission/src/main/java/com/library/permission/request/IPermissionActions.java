@@ -1,12 +1,12 @@
 package com.library.permission.request;
 
 import android.annotation.TargetApi;
+
 import com.library.permission.bean.Special;
 import com.library.permission.callbcak.RequestPermissionListener;
 import com.library.permission.callbcak.SpecialPermissionListener;
 
 import static android.os.Build.VERSION_CODES.M;
-
 
 public interface IPermissionActions {
 
@@ -19,7 +19,6 @@ public interface IPermissionActions {
     @TargetApi(M)
     void requestPermissions(String[] permissions, RequestPermissionListener listener);
 
-
     /**
      * 请求特殊权限
      *
@@ -27,5 +26,4 @@ public interface IPermissionActions {
      * @param listener   回调
      */
     void requestSpecialPermission(Special permission, SpecialPermissionListener listener);
-
 }

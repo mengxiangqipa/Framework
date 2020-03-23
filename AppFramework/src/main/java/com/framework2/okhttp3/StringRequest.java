@@ -39,7 +39,8 @@ public class StringRequest {
                 if (builder == null) {
                     builder = new StringRequest.Builder()
 //                            .addHeader("biuoo-from", "android").
-//                            addHeader(ConstantsME.token, PreferencesHelper.getProxyApplication().getStringData(ConstantsME
+//                            addHeader(ConstantsME.token, PreferencesHelper.getProxyApplication
+//                            ().getStringData(ConstantsME
 // .token))
 //                            .addHeader("accept", "application/json")
 //                            .addHeader("content-type", "application/json")
@@ -116,7 +117,8 @@ public class StringRequest {
 
         public Builder put_json(String json) {
             if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+                RequestBody body = RequestBody.create(MediaType.parse("application/json; " +
+                        "charset=utf-8"), json);
                 requstBuilder.put(body);
             }
             return this;
@@ -124,7 +126,8 @@ public class StringRequest {
 
         public Builder put_x_www(String json) {
             if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), json);
+                RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form" +
+                        "-urlencoded"), json);
                 requstBuilder.put(body);
             }
             return this;
@@ -132,7 +135,8 @@ public class StringRequest {
 
         public Builder postString_json(String json) {
             if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+                RequestBody body = RequestBody.create(MediaType.parse("application/json; " +
+                        "charset=utf-8"), json);
                 requstBuilder.post(body);
             }
             return this;
@@ -140,7 +144,8 @@ public class StringRequest {
 
         public Builder postString_x_www(String json) {
             if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), json);
+                RequestBody body = RequestBody.create(MediaType.parse("application/x-www-form" +
+                        "-urlencoded"), json);
                 requstBuilder.post(body);
             }
             return this;

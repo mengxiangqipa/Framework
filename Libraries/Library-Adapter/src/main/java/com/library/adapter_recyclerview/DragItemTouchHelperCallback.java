@@ -25,7 +25,8 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private DragFlag dragFlag = DragFlag.UP_DOWN;
     private int swipeFlag = 0;
 
-    public DragItemTouchHelperCallback(@NonNull Context context, @Nullable DragAdapter swipeAdapter) {
+    public DragItemTouchHelperCallback(@NonNull Context context,
+                                       @Nullable DragAdapter swipeAdapter) {
         this.swipeAdapter = swipeAdapter;
         this.context = context;
         this.moveDismissHelper = swipeAdapter;
@@ -60,7 +61,8 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
         // Enable drag up and down and right swipe in right direction
         int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
         if (dragFlag == DragFlag.ALL_DIRECTION) {
-            dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            dragFlags =
+                    ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
         } else if (dragFlag == DragFlag.UP_DOWN) {
             dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
         } else if (dragFlag == DragFlag.NONE) {
@@ -71,19 +73,24 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
         if (viewHolder == null || viewHolder.getLayoutPosition() < swipeAdapter.getHeaderCount()
                 || viewHolder.getLayoutPosition() >= swipeAdapter.getHeaderCount() + swipeAdapter.getDataItemCount())
             swipeFlags = 0;
-        // final int swipeFlags =  ItemTouchHelper.END | ItemTouchHelper.START; Enable swipe in both direction
+        // final int swipeFlags =  ItemTouchHelper.END | ItemTouchHelper.START; Enable swipe in
+        // both direction
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
     @Override
-    public long getAnimationDuration(RecyclerView recyclerView, int animationType, float animateDx, float animateDy) {
-        // return animationType == ItemTouchHelper.ANIMATION_TYPE_DRAG ? DEFAULT_DRAG_ANIMATION_DURATION :
+    public long getAnimationDuration(RecyclerView recyclerView, int animationType,
+                                     float animateDx, float animateDy) {
+        // return animationType == ItemTouchHelper.ANIMATION_TYPE_DRAG ?
+        // DEFAULT_DRAG_ANIMATION_DURATION :
         // DEFAULT_SWIPE_ANIMATION_DURATION;
-        return animationType == ItemTouchHelper.ANIMATION_TYPE_DRAG ? DEFAULT_DRAG_ANIMATION_DURATION : 350;
+        return animationType == ItemTouchHelper.ANIMATION_TYPE_DRAG ?
+                DEFAULT_DRAG_ANIMATION_DURATION : 350;
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source,
+                          RecyclerView.ViewHolder target) {
         if (source.getItemViewType() != target.getItemViewType()) {
             return false;
         }
@@ -101,7 +108,8 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public void onChildDraw(final Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX,
+    public void onChildDraw(final Canvas c, RecyclerView recyclerView,
+                            RecyclerView.ViewHolder viewHolder, float dX,
                             float dY, int actionState,
                             boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -115,12 +123,15 @@ public class DragItemTouchHelperCallback extends ItemTouchHelper.Callback {
                 p.setColor(ContextCompat.getColor(context, R.color.red_adapter));
 
                 // Draw Rect with varying right side, equal to displacement dX
-                c.drawRect((float) itemView.getLeft() + ScreenUtils.getInstance().dip2px(context, 0), (float)
+                c.drawRect((float) itemView.getLeft() + ScreenUtils.getInstance().dip2px(context,
+                        0), (float)
                                 itemView.getTop(),
-                        dX + ScreenUtils.getInstance().dip2px(context, 0), (float) itemView.getBottom(), p);
+                        dX + ScreenUtils.getInstance().dip2px(context, 0),
+                        (float) itemView.getBottom(), p);
 
                 // Set the image icon for right swipe
-                c.drawBitmap(bitmap, (float) itemView.getLeft() + ScreenUtils.getInstance().dip2px(context, 16),
+                c.drawBitmap(bitmap,
+                        (float) itemView.getLeft() + ScreenUtils.getInstance().dip2px(context, 16),
                         (float) itemView.getTop() + ((float) itemView.getBottom() - (float) itemView.getTop() -
                                 bitmap.getHeight()) / 2, p);
 

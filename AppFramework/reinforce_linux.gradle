@@ -57,7 +57,7 @@ def buildChannelApks() {
         channelsPath.mkdir()
     }
     exec {
-        commandLine 'sh','-c','java -jar ' + reinforce_plugin_path + '/lib/walle-cli-all.jar batch -f ' + chanel_config_path + ' ' +  reinforce_apk_name + ' ' + channel_apks_path
+        commandLine 'sh', '-c', 'java -jar ' + reinforce_plugin_path + '/lib/walle-cli-all.jar batch -f ' + chanel_config_path + ' ' + reinforce_apk_name + ' ' + channel_apks_path
     }
     println('编译多渠道包成功，生成的渠道包路径:' + channelsPath.getAbsolutePath())
 }
@@ -87,7 +87,7 @@ def renameReinforceApk() {
  * 注释：使用360加固加固Release包
  */
 def reinforceApk() {
-    println('开始进行加固操作,当前路径:'+new File(".").getAbsolutePath())
+    println('开始进行加固操作,当前路径:' + new File(".").getAbsolutePath())
     File releaseApk = new File('app/build/outputs/apk/release/app-release.apk')
     if (!releaseApk.exists()) {
         throw new FileNotFoundException('Release包不存在，无法进行加固操作')
@@ -99,13 +99,13 @@ def reinforceApk() {
         reinforcePath.mkdir()
     }
     exec {
-        commandLine 'sh','-c', "java -jar /home/360jiagu/jiagu/jiagu.jar -login " +  reinforce_plugin_name + " " +  reinforce_plugin_passward
+        commandLine 'sh', '-c', "java -jar /home/360jiagu/jiagu/jiagu.jar -login " + reinforce_plugin_name + " " + reinforce_plugin_passward
     }
     exec {
-        commandLine 'sh','-c', "java -jar /home/360jiagu/jiagu/jiagu.jar -importsign " + key_store_path + " " + key_store_passward + " " + alias + " " + alias_passward
+        commandLine 'sh', '-c', "java -jar /home/360jiagu/jiagu/jiagu.jar -importsign " + key_store_path + " " + key_store_passward + " " + alias + " " + alias_passward
     }
     exec {
-        commandLine 'sh','-c', "java -jar /home/360jiagu/jiagu/jiagu.jar -jiagu " + releasePath + " " +  reinforce_apk_path + " -autosign"
+        commandLine 'sh', '-c', "java -jar /home/360jiagu/jiagu/jiagu.jar -jiagu " + releasePath + " " + reinforce_apk_path + " -autosign"
     }
     println('加固操作结束，加固包路径' + reinforcePath.getAbsolutePath())
 }

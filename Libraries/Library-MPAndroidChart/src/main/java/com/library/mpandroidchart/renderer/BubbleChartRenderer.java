@@ -9,8 +9,8 @@ import com.library.mpandroidchart.data.BubbleData;
 import com.library.mpandroidchart.data.BubbleDataSet;
 import com.library.mpandroidchart.data.BubbleEntry;
 import com.library.mpandroidchart.data.Entry;
-import com.library.mpandroidchart.interfaces.BubbleDataProvider;
 import com.library.mpandroidchart.highlight.Highlight;
+import com.library.mpandroidchart.interfaces.BubbleDataProvider;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.Utils;
 import com.library.mpandroidchart.utils.ViewPortHandler;
@@ -84,7 +84,8 @@ public class BubbleChartRenderer extends DataRenderer {
 
         // calcualte the full width of 1 step on the x-axis
         final float maxBubbleWidth = Math.abs(sizeBuffer[2] - sizeBuffer[0]);
-        final float maxBubbleHeight = Math.abs(mViewPortHandler.contentBottom() - mViewPortHandler.contentTop());
+        final float maxBubbleHeight =
+                Math.abs(mViewPortHandler.contentBottom() - mViewPortHandler.contentTop());
         final float referenceSize = Math.min(maxBubbleHeight, maxBubbleWidth);
 
         for (int j = minx; j < maxx; j++) {
@@ -95,7 +96,8 @@ public class BubbleChartRenderer extends DataRenderer {
             pointBuffer[1] = (float) (entry.getVal()) * phaseY;
             trans.pointValuesToPixel(pointBuffer);
 
-            float shapeHalf = getShapeSize(entry.getSize(), dataSet.getMaxSize(), referenceSize) / 2f;
+            float shapeHalf =
+                    getShapeSize(entry.getSize(), dataSet.getMaxSize(), referenceSize) / 2f;
 
             if (!mViewPortHandler.isInBoundsTop(pointBuffer[1] + shapeHalf)
                     || !mViewPortHandler.isInBoundsBottom(pointBuffer[1] - shapeHalf))
@@ -221,14 +223,16 @@ public class BubbleChartRenderer extends DataRenderer {
 
             // calcualte the full width of 1 step on the x-axis
             final float maxBubbleWidth = Math.abs(sizeBuffer[2] - sizeBuffer[0]);
-            final float maxBubbleHeight = Math.abs(mViewPortHandler.contentBottom() - mViewPortHandler.contentTop());
+            final float maxBubbleHeight =
+                    Math.abs(mViewPortHandler.contentBottom() - mViewPortHandler.contentTop());
             final float referenceSize = Math.min(maxBubbleHeight, maxBubbleWidth);
 
             pointBuffer[0] = (float) (entry.getXIndex() - minx) * phaseX + (float) minx;
             pointBuffer[1] = (float) (entry.getVal()) * phaseY;
             trans.pointValuesToPixel(pointBuffer);
 
-            float shapeHalf = getShapeSize(entry.getSize(), dataSet.getMaxSize(), referenceSize) / 2f;
+            float shapeHalf =
+                    getShapeSize(entry.getSize(), dataSet.getMaxSize(), referenceSize) / 2f;
 
             if (!mViewPortHandler.isInBoundsTop(pointBuffer[1] + shapeHalf)
                     || !mViewPortHandler.isInBoundsBottom(pointBuffer[1] - shapeHalf))

@@ -39,7 +39,8 @@ public class BitmapLoadUtils {
 
     public static Bitmap transformBitmap(@NonNull Bitmap bitmap, @NonNull Matrix transformMatrix) {
         try {
-            Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),
+            Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                    bitmap.getHeight(),
                     transformMatrix, true);
             if (!bitmap.sameAs(converted)) {
                 bitmap = converted;
@@ -50,7 +51,8 @@ public class BitmapLoadUtils {
         return bitmap;
     }
 
-    public static int calculateInSampleSize(@NonNull BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    public static int calculateInSampleSize(@NonNull BitmapFactory.Options options, int reqWidth,
+                                            int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
@@ -119,7 +121,8 @@ public class BitmapLoadUtils {
 
     /**
      * This method calculates maximum size of both width and height of bitmap.
-     * It is twice the device screen diagonal for default implementation (extra quality to zoom image).
+     * It is twice the device screen diagonal for default implementation (extra quality to zoom
+     * image).
      * Size cannot exceed max texture size.
      *
      * @return - max bitmap size in pixels.
@@ -145,7 +148,8 @@ public class BitmapLoadUtils {
 
         // Check for max texture size via Canvas
         Canvas canvas = new Canvas();
-        final int maxCanvasSize = Math.min(canvas.getMaximumBitmapWidth(), canvas.getMaximumBitmapHeight());
+        final int maxCanvasSize = Math.min(canvas.getMaximumBitmapWidth(),
+                canvas.getMaximumBitmapHeight());
         if (maxCanvasSize > 0) {
             maxBitmapSize = Math.min(maxBitmapSize, maxCanvasSize);
         }
@@ -162,7 +166,8 @@ public class BitmapLoadUtils {
 
     @SuppressWarnings("ConstantConditions")
     public static void close(@Nullable Closeable c) {
-        if (c != null && c instanceof Closeable) { // java.lang.IncompatibleClassChangeError: interface not implemented
+        if (c != null && c instanceof Closeable) { // java.lang.IncompatibleClassChangeError:
+            // interface not implemented
             try {
                 c.close();
             } catch (IOException e) {

@@ -58,7 +58,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
     private int initHeaderKey = 0;
     private int initFooterKey = 0;
 
-    public UniversalAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List<D> list) {
+    public UniversalAdapter(@NonNull Context context, @LayoutRes int layoutId,
+                            @Nullable List<D> list) {
         this.context = context;
         this.layoutId = layoutId;
         this.list = list;
@@ -78,7 +79,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         } else {
             itemView = initItemView(viewType);
             if (null == itemView)
-                itemView = LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false);
+                itemView = LayoutInflater.from(context).inflate(initLayoutId(viewType), parent,
+                        false);
             preDealItemView(itemView);
         }
         return createUniversalViewHolder(itemView);
@@ -91,7 +93,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         if (position >= headersSparseArray.size() && position < headersSparseArray.size() + list.size()) {
             position = position - headersSparseArray.size();
             if (null != mOnItemClickListener) {
-                ((UniversalViewHolder) holder).setOnItemClickListenerWithTag(onClickListener, position);
+                ((UniversalViewHolder) holder).setOnItemClickListenerWithTag(onClickListener,
+                        position);
             }
             if (null != mOnItemLongClickListener) {
                 ((UniversalViewHolder) holder).setOnItemLongClickListenerWithTag(onLongClickListener, position);
@@ -102,14 +105,17 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemCount() {
-        return headersSparseArray.size() + footerSparseArray.size() + (list == null ? 0 : list.size());
+        return headersSparseArray.size() + footerSparseArray.size() + (list == null ? 0 :
+                list.size());
     }
 
     @Override
     public int getItemViewType(int position) {
-        return position < headersSparseArray.size() ? VIEW_TYPE_HEADER + headersSparseArray.keyAt(position)
+        return position < headersSparseArray.size() ?
+                VIEW_TYPE_HEADER + headersSparseArray.keyAt(position)
                 : (position >= headersSparseArray.size() + list.size()
-                ? VIEW_TYPE_FOODER + footerSparseArray.keyAt(position - headersSparseArray.size() - list.size())
+                ?
+                VIEW_TYPE_FOODER + footerSparseArray.keyAt(position - headersSparseArray.size() - list.size())
                 : initItemViewType(position - headersSparseArray.size()));
     }
 
@@ -230,7 +236,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
                 notifyItemRemoved(index + headersSparseArray.size());
             }
             if (itemCount > 0 && list.size() - index > 0)//==0时表示删除最后一项，无需刷新数据
-                notifyItemRangeChanged(index + headersSparseArray.size(), Math.min(itemCount, list.size() - index));
+                notifyItemRangeChanged(index + headersSparseArray.size(), Math.min(itemCount,
+                        list.size() - index));
         }
     }
 
@@ -283,7 +290,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         if (index >= 0) {
             headersSparseArray.removeAt(index);
             notifyItemRemoved(index);
-            //notifyItemRangeChanged刷新会触发onCreateViewHolder，headerView，footerView是用sparseArray存储，在onCreateViewHolder
+            //notifyItemRangeChanged刷新会触发onCreateViewHolder，headerView，footerView是用sparseArray
+            // 存储，在onCreateViewHolder
             // 只能取出一次，
             // 而LayoutInflater.from(context).inflate(initLayoutId(viewType), parent, false)
             // 每次都是新view，所以不能调用刷新header，footer
@@ -470,7 +478,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
                     if (getItemViewType(position) >= VIEW_TYPE_HEADER) {
                         return gridLayoutManager.getSpanCount();
                     } else {
-                        return resetSpanSizeLookup(position, gridLayoutManager.getSpanCount(), getItemViewType
+                        return resetSpanSizeLookup(position, gridLayoutManager.getSpanCount(),
+                                getItemViewType
                                 (position));
                     }
                 }
@@ -495,7 +504,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         if (isHeader(position) || isFooter(position)) {
             ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
             if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
-                StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+                StaggeredGridLayoutManager.LayoutParams p =
+                        (StaggeredGridLayoutManager.LayoutParams) lp;
                 p.setFullSpan(true);
             }
         }
@@ -612,7 +622,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
          * @param scaleType ScaleType
          * @return ViewHolder
          */
-        public UniversalViewHolder setScaleType(@IdRes int viewId, @NonNull ImageView.ScaleType scaleType) {
+        public UniversalViewHolder setScaleType(@IdRes int viewId,
+                                                @NonNull ImageView.ScaleType scaleType) {
             ImageView view = getView(viewId);
             if (view != null)
                 view.setScaleType(scaleType);
@@ -626,7 +637,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
          * @param drawableId drawableId
          * @return ViewHolder
          */
-        public UniversalViewHolder setImageResource(@IdRes int viewId, @DrawableRes int drawableId) {
+        public UniversalViewHolder setImageResource(@IdRes int viewId,
+                                                    @DrawableRes int drawableId) {
             ImageView view = getView(viewId);
             if (null != view)
                 view.setImageResource(drawableId);
@@ -661,7 +673,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             return this;
         }
 
-        public UniversalViewHolder setOnClickListener(@IdRes int viewId, @NonNull View.OnClickListener
+        public UniversalViewHolder setOnClickListener(@IdRes int viewId,
+                                                      @NonNull View.OnClickListener
                 onClickListener) {
             View view = getView(viewId);
             if (null != view)
@@ -694,7 +707,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             return this;
         }
 
-        public UniversalViewHolder setOnTouchListener(@IdRes int viewId, @NonNull View.OnTouchListener
+        public UniversalViewHolder setOnTouchListener(@IdRes int viewId,
+                                                      @NonNull View.OnTouchListener
                 onTouchListener) {
             View view = getView(viewId);
             if (null != view)

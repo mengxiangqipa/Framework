@@ -1,6 +1,5 @@
 package com.library.permission.checker;
 
-
 public interface PermissionChecker {
 
     /**

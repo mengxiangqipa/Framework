@@ -87,7 +87,8 @@ public class TestListviewClassicalActivity extends AppCompatActivity implements 
             first = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             Dialog dialog = builder.create();
-            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
+            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader",
+                    "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -138,8 +139,10 @@ public class TestListviewClassicalActivity extends AppCompatActivity implements 
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestListviewClassicalActivity.this, "LongClick on " + parent.getAdapter().getItemId
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                           long id) {
+                Toast.makeText(TestListviewClassicalActivity.this,
+                        "LongClick on " + parent.getAdapter().getItemId
                         (position), Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -148,7 +151,8 @@ public class TestListviewClassicalActivity extends AppCompatActivity implements 
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestListviewClassicalActivity.this, " Click on " + parent.getAdapter().getItemId
+                Toast.makeText(TestListviewClassicalActivity.this,
+                        " Click on " + parent.getAdapter().getItemId
                         (position), Toast.LENGTH_SHORT).show();
             }
         });

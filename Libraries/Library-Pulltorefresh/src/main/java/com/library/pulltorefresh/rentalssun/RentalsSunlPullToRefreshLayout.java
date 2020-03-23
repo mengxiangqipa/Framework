@@ -50,7 +50,8 @@ public class RentalsSunlPullToRefreshLayout extends BaseAbstractPullToRefreshLay
         indicator.setResistanceTime(500);//设置释放回滚的时间
         indicator.setMonitorFinishScroll(true);//刷新完成时监控回滚状态
         indicator.setRollingTime(200);//从释放刷新到后面的时间
-        indicator.setFixedMode(IndicatorDelegate.FixedMode.FixedNothing);//设置中间内容区域固定 //太阳升起用于固定header
+        indicator.setFixedMode(IndicatorDelegate.FixedMode.FixedNothing);//设置中间内容区域固定
+        // 太阳升起用于固定header
         // 效果不好，header，footer有缩放效果
         setIndicatorDelegate(indicator);
     }
@@ -76,26 +77,32 @@ public class RentalsSunlPullToRefreshLayout extends BaseAbstractPullToRefreshLay
                 footer.changeStateInit();
                 break;
             case MOVING_TO_REFRESH_HEIGHT:
-                header.changeStateMoving((int) deltaY, deltaY / indicator.getRefreshDistance() * 1f);
+                header.changeStateMoving((int) deltaY,
+                        deltaY / indicator.getRefreshDistance() * 1f);
                 break;
             case MOVING_TO_ONLOADING_HEIGHT:
-                footer.changeStateMoving((int) deltaY, deltaY / indicator.getRefreshDistance() * 1f);
+                footer.changeStateMoving((int) deltaY,
+                        deltaY / indicator.getRefreshDistance() * 1f);
                 break;
             case RELEASE_TO_REFRESH:
                 // 释放刷新状态
-                header.changeStateMoving((int) deltaY, deltaY / indicator.getRefreshDistance() * 1f);
+                header.changeStateMoving((int) deltaY,
+                        deltaY / indicator.getRefreshDistance() * 1f);
                 break;
             case REFRESHING:
                 // 正在刷新状态
-                header.changeStateOnRefreshing((int) deltaY, deltaY / indicator.getRefreshDistance() * 1f);
+                header.changeStateOnRefreshing((int) deltaY,
+                        deltaY / indicator.getRefreshDistance() * 1f);
                 break;
             case RELEASE_TO_LOAD:
                 // 释放加载状态
-                footer.changeStateMoving((int) deltaY, deltaY / indicator.getRefreshDistance() * 1f);
+                footer.changeStateMoving((int) deltaY,
+                        deltaY / indicator.getRefreshDistance() * 1f);
                 break;
             case LOADING:
                 // 正在加载状态
-                footer.changeStateOnRefreshing((int) deltaY, deltaY / indicator.getRefreshDistance() * 1f);
+                footer.changeStateOnRefreshing((int) deltaY,
+                        deltaY / indicator.getRefreshDistance() * 1f);
                 break;
         }
     }
@@ -113,7 +120,9 @@ public class RentalsSunlPullToRefreshLayout extends BaseAbstractPullToRefreshLay
                 // 刷新失败
                 header.changeStateFinish();
                 //
-                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.allview_empty_view, null);
+                View inflate =
+                        LayoutInflater.from(getContext()).inflate(R.layout.allview_empty_view,
+                                null);
                 inflate.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
                 inflate.setMinimumHeight(LocalDisplay.getScreenHeightPixels(getContext()));
                 setOnClickEmptyViewListener(this);//先设置监听器，再addview
@@ -158,7 +167,8 @@ public class RentalsSunlPullToRefreshLayout extends BaseAbstractPullToRefreshLay
         footer.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
         footer.setMinimumHeight((int) indicator.getRefreshDistance());
         RelativeLayout relativeLayout = new RelativeLayout(getContext());
-        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         relativeLayout.setLayoutParams(params);
         relativeLayout.addView(footer, params);

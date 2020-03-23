@@ -66,6 +66,7 @@ public class LoadingFooter extends RelativeLayout {
 
     /**
      * 需要在setState之后调用 才能生效
+     *
      * @param color color
      */
     public void setIndicatorColor(@ColorInt int color) {
@@ -85,6 +86,7 @@ public class LoadingFooter extends RelativeLayout {
 
     /**
      * 需要在setState之后调用 才能生效
+     *
      * @param height px
      */
     public void setIndicatorWidth(int height) {
@@ -93,6 +95,7 @@ public class LoadingFooter extends RelativeLayout {
 
     /**
      * 需要在setState之后调用 才能生效
+     *
      * @param height px
      */
     public void setIndicatorHeight(int height) {
@@ -150,7 +153,8 @@ public class LoadingFooter extends RelativeLayout {
                     ViewStub viewStub = (ViewStub) findViewById(R.id.loading_viewstub);
                     mLoadingView = viewStub.inflate();
 
-                    mLoadingProgress = (LoadingIndicatorView) mLoadingView.findViewById(R.id.loading_progress);
+                    mLoadingProgress =
+                            (LoadingIndicatorView) mLoadingView.findViewById(R.id.loading_progress);
                     mLoadingText = (TextView) mLoadingView.findViewById(R.id.loading_text);
                 } else {
                     mLoadingView.setVisibility(VISIBLE);
@@ -159,7 +163,8 @@ public class LoadingFooter extends RelativeLayout {
                 mLoadingView.setVisibility(showView ? VISIBLE : GONE);
 
                 mLoadingProgress.setVisibility(View.VISIBLE);
-                mLoadingText.setText(TextUtils.isEmpty(loadingHint) ? getResources().getString(R.string
+                mLoadingText.setText(TextUtils.isEmpty(loadingHint) ?
+                        getResources().getString(R.string
                         .footer_loading) : loadingHint);
 
                 break;
@@ -183,7 +188,8 @@ public class LoadingFooter extends RelativeLayout {
                 }
 
                 mTheEndView.setVisibility(showView ? VISIBLE : GONE);
-                mNoMoreText.setText(TextUtils.isEmpty(noMoreHint) ? getResources().getString(R.string.footer_end) :
+                mNoMoreText.setText(TextUtils.isEmpty(noMoreHint) ?
+                        getResources().getString(R.string.footer_end) :
                         noMoreHint);
                 break;
             case NetWorkError:
@@ -199,7 +205,8 @@ public class LoadingFooter extends RelativeLayout {
                 if (mNetworkErrorView == null) {
                     ViewStub viewStub = (ViewStub) findViewById(R.id.network_error_viewstub);
                     mNetworkErrorView = viewStub.inflate();
-                    mNoNetWorkText = (TextView) mNetworkErrorView.findViewById(R.id.network_error_text);
+                    mNoNetWorkText =
+                            (TextView) mNetworkErrorView.findViewById(R.id.network_error_text);
                 } else {
                     mNetworkErrorView.setVisibility(VISIBLE);
                 }

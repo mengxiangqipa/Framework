@@ -5,10 +5,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 
 import com.library.mpandroidchart.components.YAxis.AxisDependency;
-import com.library.mpandroidchart.utils.ColorTemplate;
 import com.library.mpandroidchart.formatter.DefaultValueFormatter;
-import com.library.mpandroidchart.utils.Utils;
 import com.library.mpandroidchart.formatter.ValueFormatter;
+import com.library.mpandroidchart.utils.ColorTemplate;
+import com.library.mpandroidchart.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

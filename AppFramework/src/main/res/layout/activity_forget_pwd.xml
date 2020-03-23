@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/_excessive"
@@ -10,7 +9,7 @@
     <com.framework2.customviews.TitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50dp"/>
+        android:layout_height="@dimen/_50dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -57,7 +56,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:gravity="center"
-                                android:src="@mipmap/ic_reg_login_account"/>
+                                android:src="@mipmap/ic_reg_login_account" />
 
                             <EditText
                                 android:id="@+id/et_phone"
@@ -70,14 +69,14 @@
                                 android:textColor="@color/_black"
                                 android:textColorHint="@color/_txt_hint"
                                 android:textCursorDrawable="@null"
-                                android:textSize="@dimen/_14dp"/>
+                                android:textSize="@dimen/_14dp" />
 
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
-                            android:background="@color/gray"/>
+                            android:background="@color/gray" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -93,7 +92,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:gravity="center"
                                 android:src="@mipmap/ic_reg_login_pwd"
-                                android:textSize="@dimen/_14dp"/>
+                                android:textSize="@dimen/_14dp" />
 
                             <EditText
                                 android:id="@+id/et_password"
@@ -106,14 +105,14 @@
                                 android:paddingLeft="10dp"
                                 android:textColor="@color/_black"
                                 android:textColorHint="@color/_txt_hint"
-                                android:textSize="@dimen/_14dp"/>
+                                android:textSize="@dimen/_14dp" />
 
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1px"
-                            android:background="@color/gray"/>
+                            android:background="@color/gray" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -127,7 +126,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:gravity="center"
                                 android:src="@mipmap/ic_reg_login_pwd"
-                                android:textSize="@dimen/_14dp"/>
+                                android:textSize="@dimen/_14dp" />
 
                             <EditText
                                 android:id="@+id/et_captcha"
@@ -141,14 +140,14 @@
                                 android:textColor="@color/_black"
                                 android:textColorHint="@color/_txt_hint"
                                 android:textCursorDrawable="@null"
-                                android:textSize="@dimen/_14dp"/>
+                                android:textSize="@dimen/_14dp" />
 
                             <View
                                 android:layout_width="1px"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="@dimen/_8dp"
                                 android:layout_marginBottom="@dimen/_8dp"
-                                android:background="@color/gray"/>
+                                android:background="@color/gray" />
 
                             <TextView
                                 android:id="@+id/tv_captcha"
@@ -164,7 +163,7 @@
                                 android:paddingBottom="10dp"
                                 android:text="获取验证码"
                                 android:textColor="@color/color_selector_txt"
-                                android:textSize="@dimen/_12dp"/>
+                                android:textSize="@dimen/_12dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -185,7 +184,7 @@
                     android:padding="10dp"
                     android:text="确定"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_14dp"/>
+                    android:textSize="@dimen/_14dp" />
             </LinearLayout>
 
         </com.framework.widget.OverScrollView>
@@ -203,7 +202,7 @@
                 android:layout_width="@dimen/_50dp"
                 android:layout_height="@dimen/_50dp"
                 android:layout_marginTop="@dimen/_50dp"
-                android:src="@mipmap/icon_success"/>
+                android:src="@mipmap/icon_success" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -211,7 +210,7 @@
                 android:layout_marginTop="@dimen/_15dp"
                 android:text="修改成功"
                 android:textColor="@color/_black"
-                android:textSize="@dimen/_18dp"/>
+                android:textSize="@dimen/_18dp" />
 
             <TextView
                 android:id="@+id/tv_back"
@@ -227,7 +226,7 @@
                 android:padding="10dp"
                 android:text="返回登录"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_14dp"/>
+                android:textSize="@dimen/_14dp" />
 
             <TextView
                 android:id="@+id/tv_exist"
@@ -236,7 +235,7 @@
                 android:layout_marginTop="@dimen/_15dp"
                 android:text="5S后返回登录页面"
                 android:textColor="@color/_black_light"
-                android:textSize="@dimen/_14dp"/>
+                android:textSize="@dimen/_14dp" />
         </LinearLayout>
     </RelativeLayout>
 

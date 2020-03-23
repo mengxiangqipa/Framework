@@ -82,25 +82,33 @@ public abstract class BaseAbstractFaceFragment<T> extends Fragment {
     @SuppressWarnings("unchecked")
     private void initRecyclerView() {
         //第一种，简单的颜色，高度,水平分割线
-//        HorizontalDividerItemDecoration horizontalDividerItemDecoration = new HorizontalDividerItemDecoration
+//        HorizontalDividerItemDecoration horizontalDividerItemDecoration = new
+//        HorizontalDividerItemDecoration
 // (mContext);
 //        horizontalDividerItemDecoration.setColor(mContext, R.color.library_emoji_white);
-//        horizontalDividerItemDecoration.setDividerHeightPx(ScreenUtils.getInstance().dip2px(mContext, 10));
-        GridDividerItemDecoration2 gridDividerItemDecoration2 = new GridDividerItemDecoration2(mContext);
+//        horizontalDividerItemDecoration.setDividerHeightPx(ScreenUtils.getInstance().dip2px
+//        (mContext, 10));
+        GridDividerItemDecoration2 gridDividerItemDecoration2 =
+                new GridDividerItemDecoration2(mContext);
         gridDividerItemDecoration2.setCanDraw(false);
         ColorDrawable colorDrawable = new ColorDrawable();
         colorDrawable.setColor(mContext.getResources().getColor(R.color.red_adapter));
-//        colorDrawable.setBounds(new Rect(0, 0, ScreenUtils.getInstance().dp2px(getContext(), 3), ScreenUtils
+//        colorDrawable.setBounds(new Rect(0, 0, ScreenUtils.getInstance().dp2px(getContext(), 3)
+//        , ScreenUtils
 // .getInstance().dp2px(getContext(), 3)));
-        colorDrawable.setBounds(0, 0, ScreenUtils.getInstance().dp2px(getContext(), 10), ScreenUtils.getInstance()
+        colorDrawable.setBounds(0, 0, ScreenUtils.getInstance().dp2px(getContext(), 10),
+                ScreenUtils.getInstance()
                 .dp2px(getContext(), 10));
 //        gridDividerItemDecoration2.setDrawable(colorDrawable);
-//        gridDividerItemDecoration2.setDrawable(getResources().getDrawable(R.drawable.gradient_griditem_emoji));
-//        FrameLayout.LayoutParams params= (FrameLayout.LayoutParams) recyclerView.getLayoutParams();
+//        gridDividerItemDecoration2.setDrawable(getResources().getDrawable(R.drawable
+//        .gradient_griditem_emoji));
+//        FrameLayout.LayoutParams params= (FrameLayout.LayoutParams) recyclerView
+//        .getLayoutParams();
 //        int _50=ScreenUtils.getInstance().dip2px(getContext(),50);
 //        params.setMargins(_50,_50,_50,_50);
 //        recyclerView.setLayoutParams(params);
-        recyclerView.setPadding(ScreenUtils.getInstance().dp2px(getContext(), 10), ScreenUtils.getInstance().dp2px
+        recyclerView.setPadding(ScreenUtils.getInstance().dp2px(getContext(), 10),
+                ScreenUtils.getInstance().dp2px
                         (getContext(), 10),
                 ScreenUtils.getInstance().dp2px(getContext(), 10), 0);
         recyclerView.addItemDecoration(gridDividerItemDecoration2);

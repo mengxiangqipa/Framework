@@ -22,7 +22,8 @@ import com.library.mpandroidchart.utils.TransformerHorizontalBarChart;
 import com.library.mpandroidchart.utils.Utils;
 
 /**
- * BarChart with horizontal bar orientation. In this implementation, x- and y-axis are switched, meaning the YAxis class
+ * BarChart with horizontal bar orientation. In this implementation, x- and y-axis are switched,
+ * meaning the YAxis class
  * represents the horizontal values and the XAxis class represents the vertical values.
  *
  * @author Philipp Jahoda
@@ -51,9 +52,12 @@ public class HorizontalBarChart extends BarChart {
         mRenderer = new HorizontalBarChartRenderer(this, mAnimator, mViewPortHandler);
         mHighlighter = new HorizontalBarHighlighter(this);
 
-        mAxisRendererLeft = new YAxisRendererHorizontalBarChart(mViewPortHandler, mAxisLeft, mLeftAxisTransformer);
-        mAxisRendererRight = new YAxisRendererHorizontalBarChart(mViewPortHandler, mAxisRight, mRightAxisTransformer);
-        mXAxisRenderer = new XAxisRendererHorizontalBarChart(mViewPortHandler, mXAxis, mLeftAxisTransformer, this);
+        mAxisRendererLeft = new YAxisRendererHorizontalBarChart(mViewPortHandler, mAxisLeft,
+                mLeftAxisTransformer);
+        mAxisRendererRight = new YAxisRendererHorizontalBarChart(mViewPortHandler, mAxisRight,
+                mRightAxisTransformer);
+        mXAxisRenderer = new XAxisRendererHorizontalBarChart(mViewPortHandler, mXAxis,
+                mLeftAxisTransformer, this);
     }
 
     @Override
@@ -144,7 +148,7 @@ public class HorizontalBarChart extends BarChart {
             Log.i(LOG_TAG,
                     "offsetLeft: " + offsetLeft + ", offsetTop: " + offsetTop + ", offsetRight: " + offsetRight + ", " +
                             "offsetBottom: "
-                    + offsetBottom);
+                            + offsetBottom);
             Log.i(LOG_TAG, "Content: " + mViewPortHandler.getContentRect().toString());
         }
 
@@ -154,8 +158,10 @@ public class HorizontalBarChart extends BarChart {
 
     @Override
     protected void prepareValuePxMatrix() {
-        mRightAxisTransformer.prepareMatrixValuePx(mAxisRight.mAxisMinimum, mAxisRight.mAxisRange, mDeltaX, mXChartMin);
-        mLeftAxisTransformer.prepareMatrixValuePx(mAxisLeft.mAxisMinimum, mAxisLeft.mAxisRange, mDeltaX, mXChartMin);
+        mRightAxisTransformer.prepareMatrixValuePx(mAxisRight.mAxisMinimum, mAxisRight.mAxisRange
+                , mDeltaX, mXChartMin);
+        mLeftAxisTransformer.prepareMatrixValuePx(mAxisLeft.mAxisMinimum, mAxisLeft.mAxisRange,
+                mDeltaX, mXChartMin);
     }
 
     @Override
@@ -211,7 +217,8 @@ public class HorizontalBarChart extends BarChart {
     }
 
     /**
-     * Returns the Highlight object (contains x-index and DataSet index) of the selected value at the given touch point
+     * Returns the Highlight object (contains x-index and DataSet index) of the selected value at
+     * the given touch point
      * inside the BarChart.
      *
      * @param x

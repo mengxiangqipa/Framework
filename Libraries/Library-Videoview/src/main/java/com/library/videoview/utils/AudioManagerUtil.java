@@ -44,7 +44,8 @@ public class AudioManagerUtil {
      * @param context                                   上下文
      * @param streamType_AudioManager_STREAM_VOICE_CALL AudioManager.STREAM_VOICE_CALL
      */
-    public int getStreamCurrentVolume(Context context, int streamType_AudioManager_STREAM_VOICE_CALL) {
+    public int getStreamCurrentVolume(Context context,
+                                      int streamType_AudioManager_STREAM_VOICE_CALL) {
         if (null == mAudioManager) {
             mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         }
@@ -55,14 +56,16 @@ public class AudioManagerUtil {
      * @param context                                   上下文
      * @param streamType_AudioManager_STREAM_VOICE_CALL AudioManager.STREAM_VOICE_CALL
      */
-    public void adjustStreamVolumeRAISE(Context context, int streamType_AudioManager_STREAM_VOICE_CALL) {
+    public void adjustStreamVolumeRAISE(Context context,
+                                        int streamType_AudioManager_STREAM_VOICE_CALL) {
         if (null == mAudioManager) {
             mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         }
         //        mAudioManager.adjustStreamVolume(streamType_AudioManager_STREAM_VOICE_CALL,
         //                AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND
         //                        | AudioManager.FLAG_SHOW_UI);
-        mAudioManager.adjustStreamVolume(streamType_AudioManager_STREAM_VOICE_CALL, AudioManager.ADJUST_RAISE,
+        mAudioManager.adjustStreamVolume(streamType_AudioManager_STREAM_VOICE_CALL,
+                AudioManager.ADJUST_RAISE,
                 AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
     }
 
@@ -70,14 +73,16 @@ public class AudioManagerUtil {
      * parm context
      * parm streamType AudioManager.STREAM_VOICE_CALL
      */
-    public void adjustStreamVolumeLOWER(Context context, int streamType_AudioManager_STREAM_VOICE_CALL) {
+    public void adjustStreamVolumeLOWER(Context context,
+                                        int streamType_AudioManager_STREAM_VOICE_CALL) {
         if (null == mAudioManager) {
             mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         }
         //        mAudioManager.adjustStreamVolume(streamType_AudioManager_STREAM_VOICE_CALL,
         //                AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND
         //                        | AudioManager.FLAG_SHOW_UI);
-        mAudioManager.adjustStreamVolume(streamType_AudioManager_STREAM_VOICE_CALL, AudioManager.ADJUST_LOWER,
+        mAudioManager.adjustStreamVolume(streamType_AudioManager_STREAM_VOICE_CALL,
+                AudioManager.ADJUST_LOWER,
                 AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
     }
 

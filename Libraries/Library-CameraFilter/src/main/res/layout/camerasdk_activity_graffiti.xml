@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/layout_root"
-              android:orientation="vertical"
-              android:background="@color/camerasdk_main_bg"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:id="@+id/layout_root"
+    android:orientation="vertical"
+    android:background="@color/camerasdk_main_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include layout="@layout/camerasdk_actionbar"/>
+    <include layout="@layout/camerasdk_actionbar" />
 
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:id="@+id/drawView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <RelativeLayout
@@ -42,7 +42,7 @@
                 android:id="@+id/brush_view_color"
                 android:clickable="true"
                 android:layout_width="35dip"
-                android:layout_height="35dip"/>
+                android:layout_height="35dip" />
 
             <SeekBar
                 android:id="@+id/seekBar1"
@@ -51,7 +51,7 @@
                 android:max="10"
                 android:progress="5"
                 android:background="@android:color/transparent"
-                android:thumb="@drawable/camerasdk_icon_seek_thumb"/>
+                android:thumb="@drawable/camerasdk_icon_seek_thumb" />
 
         </LinearLayout>
 
@@ -62,7 +62,7 @@
             android:max="10"
             android:progress="5"
             android:thumb="@drawable/camerasdk_icon_seek_thumb"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -79,14 +79,14 @@
             android:checked="true"
             style="@style/camerasdk_radio_button"
             android:text="画笔"
-            android:drawableTop="@drawable/camerasdk_selector_graffiti_brush"/>
+            android:drawableTop="@drawable/camerasdk_selector_graffiti_brush" />
 
         <RadioButton
             android:id="@+id/button_eraser"
             style="@style/camerasdk_radio_button"
             android:text="橡皮擦"
             android:drawableTop="@drawable/camerasdk_selector_graffiti_eraser"
-            android:layout_marginLeft="100dip"/>
+            android:layout_marginLeft="100dip" />
 
 
     </RadioGroup>

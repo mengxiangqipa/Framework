@@ -13,7 +13,8 @@ import com.library.mpandroidchart.utils.ViewPortHandler;
 public abstract class LineScatterCandleRadarRenderer extends DataRenderer {
 
     /**
-     * path that is used for drawing highlight-lines (drawLines(...) cannot be used because of dashes)
+     * path that is used for drawing highlight-lines (drawLines(...) cannot be used because of
+     * dashes)
      */
     private Path mHighlightLinePath = new Path();
 

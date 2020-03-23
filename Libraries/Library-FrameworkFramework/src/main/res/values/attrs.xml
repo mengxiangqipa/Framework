@@ -2,35 +2,35 @@
 <resources>
 
     <!--广告Progress进度##圆半径-->
-    <attr name="radius" format="dimension"/>
+    <attr name="radius" format="dimension" />
     <!--广告Progress进度##圆环厚度-->
-    <attr name="strokeWidth" format="dimension"/>
+    <attr name="strokeWidth" format="dimension" />
     <!-- 广告Progress进度####圆形（实心）颜色-->
-    <attr name="circleColor" format="color"/>
+    <attr name="circleColor" format="color" />
     <!-- 广告Progress进度####圆环颜色-->
-    <attr name="ringColor" format="color"/>
+    <attr name="ringColor" format="color" />
     <!-- 广告progress进度圆####环背景颜色-->
-    <attr name="bgRingColor" format="color"/>
+    <attr name="bgRingColor" format="color" />
     <!-- 广告progress进度圆####圆环进度值-->
-    <attr name="progress" format="float"/>
+    <attr name="progress" format="float" />
     <!-- 广告progress进度圆####是否绘制背景圆环-->
-    <attr name="drawBgCircleRing" format="boolean"/>
+    <attr name="drawBgCircleRing" format="boolean" />
     <!-- 广告progress进度圆####圆环中心文字-->
-    <attr name="text" format="string"/>
+    <attr name="text" format="string" />
     <!-- 广告progress进度圆####圆环中心文字颜色-->
-    <attr name="textColor" format="color"/>
+    <attr name="textColor" format="color" />
     <!-- 广告progress进度圆####圆环中心文字颜色-->
-    <attr name="textSize_" format="dimension"/>
+    <attr name="textSize_" format="dimension" />
 
     <!--圆形图片-->
     <declare-styleable name="CustomRoundImageView">
-        <attr name="borderRadius_new" format="dimension"/>
+        <attr name="borderRadius_new" format="dimension" />
         <attr name="type_new">
-            <enum name="circle" value="0"/>
-            <enum name="round" value="1"/>
+            <enum name="circle" value="0" />
+            <enum name="round" value="1" />
         </attr>
-        <attr name="mBorderThicknessInside" format="dimension"/>
-        <attr name="mBorderInsideColor" format="color"/>
+        <attr name="mBorderThicknessInside" format="dimension" />
+        <attr name="mBorderInsideColor" format="color" />
         <!--是否 校验圆形时宽高，即圆形时取宽高小值-->
         <attr name="customRoundImageView_checkCircleMinWH" format="boolean" />
         <!--是否 校验圆形时宽高，即圆形时取宽高小值-->
@@ -39,129 +39,129 @@
 
     <!--4方向抽屉-->
     <declare-styleable name="MultiDirectionSlidingDrawer">
-        <attr name="handle" format="reference"/>
-        <attr name="content" format="reference"/>
+        <attr name="handle" format="reference" />
+        <attr name="content" format="reference" />
         <attr name="direction">
-            <enum name="rightToLeft" value="0"/>
-            <enum name="bottomToTop" value="1"/>
-            <enum name="leftToRight" value="2"/>
-            <enum name="topToBottom" value="3"/>
+            <enum name="rightToLeft" value="0" />
+            <enum name="bottomToTop" value="1" />
+            <enum name="leftToRight" value="2" />
+            <enum name="topToBottom" value="3" />
         </attr>
-        <attr name="bottomOffset" format="dimension"/>
-        <attr name="topOffset" format="dimension"/>
-        <attr name="allowSingleTap" format="boolean"/>
-        <attr name="animateOnClick" format="boolean"/>
+        <attr name="bottomOffset" format="dimension" />
+        <attr name="topOffset" format="dimension" />
+        <attr name="allowSingleTap" format="boolean" />
+        <attr name="animateOnClick" format="boolean" />
     </declare-styleable>
 
     <!-- 截图 -->
     <declare-styleable name="CropImageView">
-        <attr name="imgSrc" format="reference"/>
+        <attr name="imgSrc" format="reference" />
         <attr name="cropMode">
-            <enum name="ratio_fit_image" value="0"/>
-            <enum name="ratio_4_3" value="1"/>
-            <enum name="ratio_3_4" value="2"/>
-            <enum name="ratio_1_1" value="3"/>
-            <enum name="ratio_16_9" value="4"/>
-            <enum name="ratio_9_16" value="5"/>
-            <enum name="ratio_free" value="6"/>
-            <enum name="ratio_custom" value="7"/>
+            <enum name="ratio_fit_image" value="0" />
+            <enum name="ratio_4_3" value="1" />
+            <enum name="ratio_3_4" value="2" />
+            <enum name="ratio_1_1" value="3" />
+            <enum name="ratio_16_9" value="4" />
+            <enum name="ratio_9_16" value="5" />
+            <enum name="ratio_free" value="6" />
+            <enum name="ratio_custom" value="7" />
         </attr>
-        <attr name="backgroundColor" format="color"/>
-        <attr name="overlayColor" format="color"/>
-        <attr name="frameColor" format="color"/>
-        <attr name="handleColor" format="color"/>
-        <attr name="guideColor" format="color"/>
+        <attr name="backgroundColor" format="color" />
+        <attr name="overlayColor" format="color" />
+        <attr name="frameColor" format="color" />
+        <attr name="handleColor" format="color" />
+        <attr name="guideColor" format="color" />
         <attr name="guideShowMode">
-            <enum name="show_always" value="1"/>
-            <enum name="show_on_touch" value="2"/>
-            <enum name="not_show" value="3"/>
+            <enum name="show_always" value="1" />
+            <enum name="show_on_touch" value="2" />
+            <enum name="not_show" value="3" />
         </attr>
         <attr name="handleShowMode">
-            <enum name="show_always" value="1"/>
-            <enum name="show_on_touch" value="2"/>
-            <enum name="not_show" value="3"/>
+            <enum name="show_always" value="1" />
+            <enum name="show_on_touch" value="2" />
+            <enum name="not_show" value="3" />
         </attr>
-        <attr name="handleSize" format="dimension"/>
-        <attr name="touchPadding" format="dimension"/>
-        <attr name="minFrameSize" format="dimension"/>
-        <attr name="frameStrokeWeight" format="dimension"/>
-        <attr name="guideStrokeWeight" format="dimension"/>
-        <attr name="cropEnabled" format="boolean"/>
+        <attr name="handleSize" format="dimension" />
+        <attr name="touchPadding" format="dimension" />
+        <attr name="minFrameSize" format="dimension" />
+        <attr name="frameStrokeWeight" format="dimension" />
+        <attr name="guideStrokeWeight" format="dimension" />
+        <attr name="cropEnabled" format="boolean" />
     </declare-styleable>
 
     <!--任务完成进度-->
     <declare-styleable name="TasksCompletedView">
         <!--圆半径-->
-        <attr name="radius"/>
+        <attr name="radius" />
         <!--圆环厚度-->
-        <attr name="strokeWidth"/>
+        <attr name="strokeWidth" />
         <!-- 圆形（实心）颜色-->
-        <attr name="circleColor"/>
+        <attr name="circleColor" />
         <!-- 圆环颜色-->
-        <attr name="ringColor"/>
+        <attr name="ringColor" />
     </declare-styleable>
 
     <!--文件菜单展开-->
     <declare-styleable name="FoldingMenu">
-        <attr name="foldNumber" format="integer"/>
+        <attr name="foldNumber" format="integer" />
     </declare-styleable>
 
 
     <!--广告progress进度-->
     <declare-styleable name="CustomADprogress">
         <!--圆半径-->
-        <attr name="radius"/>
+        <attr name="radius" />
         <!--圆环厚度-->
-        <attr name="strokeWidth"/>
+        <attr name="strokeWidth" />
         <!-- 圆形（实心）颜色-->
-        <attr name="circleColor"/>
+        <attr name="circleColor" />
         <!-- 圆环颜色-->
-        <attr name="ringColor"/>
+        <attr name="ringColor" />
         <!-- 圆环背景颜色-->
-        <attr name="bgRingColor"/>
+        <attr name="bgRingColor" />
         <!-- 圆环进度值-->
-        <attr name="progress"/>
+        <attr name="progress" />
         <!-- 是否绘制背景圆环-->
-        <attr name="drawBgCircleRing"/>
+        <attr name="drawBgCircleRing" />
         <!-- 圆环中心文字-->
-        <attr name="text"/>
+        <attr name="text" />
         <!-- 圆环中心文字颜色-->
-        <attr name="textColor"/>
+        <attr name="textColor" />
         <!-- 圆环中心文字颜色-->
-        <attr name="textSize_"/>
+        <attr name="textSize_" />
     </declare-styleable>
 
 
     <declare-styleable name="SuccessAnimView">
         <!--圆半径-->
-        <attr name="radius"/>
+        <attr name="radius" />
         <!--圆环厚度-->
-        <attr name="strokeWidth"/>
+        <attr name="strokeWidth" />
         <!-- 圆形（实心）颜色-->
-        <attr name="circleColor"/>
+        <attr name="circleColor" />
         <!-- 圆环颜色-->
-        <attr name="ringColor"/>
+        <attr name="ringColor" />
         <!-- 圆环背景颜色-->
-        <attr name="bgRingColor"/>
+        <attr name="bgRingColor" />
         <!-- 圆环进度值-->
-        <attr name="progress"/>
+        <attr name="progress" />
         <!-- 是否绘制背景圆环-->
-        <attr name="drawBgCircleRing"/>
+        <attr name="drawBgCircleRing" />
         <!-- 圆环中心文字-->
-        <attr name="text"/>
+        <attr name="text" />
         <!-- 圆环中心文字颜色-->
-        <attr name="textColor"/>
+        <attr name="textColor" />
         <!-- 圆环中心文字颜色-->
-        <attr name="textSize_"/>
+        <attr name="textSize_" />
     </declare-styleable>
 
 
     <!--人脸遮罩-->
     <declare-styleable name="FaceShadeView">
-        <attr name="radius"/>
-        <attr name="marginTop" format="dimension"/>
-        <attr name="thicknessWidth" format="dimension"/>
-        <attr name="ringColor"/>
+        <attr name="radius" />
+        <attr name="marginTop" format="dimension" />
+        <attr name="thicknessWidth" format="dimension" />
+        <attr name="ringColor" />
     </declare-styleable>
 
     <!--新圆角/圆形图片-->

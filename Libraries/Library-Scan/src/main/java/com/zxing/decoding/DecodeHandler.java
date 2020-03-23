@@ -96,7 +96,8 @@ final class DecodeHandler extends Handler {
         width = height;
         height = tmp;
         // 构造基于平面的YUV亮度源，即包含二维码区域的数据源
-        PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(rotatedData, width, height);
+        PlanarYUVLuminanceSource source = CameraManager.get().buildLuminanceSource(rotatedData,
+                width, height);
         // 构造二值图像比特流，使用HybridBinarizer算法解析数据源
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
         try {
@@ -114,15 +115,18 @@ final class DecodeHandler extends Handler {
         if (rawResult != null) {
             long end = System.currentTimeMillis();
             Log.e("yy", "Found barcode (" + (end - start) + " ms):\n" + rawResult.toString());
-            Message message = Message.obtain(activity.getCaptureActivityHandler(), R.id.decode_succeeded,
+            Message message = Message.obtain(activity.getCaptureActivityHandler(),
+                    R.id.decode_succeeded,
                     new Result[]{rawResult});
             Bundle bundle = new Bundle();
-            bundle.putParcelable(DecodeThread.BARCODE_BITMAP, source.renderCroppedGreyscaleBitmap());
+            bundle.putParcelable(DecodeThread.BARCODE_BITMAP,
+                    source.renderCroppedGreyscaleBitmap());
             message.setData(bundle);
             //Log.d(TAG, "Sending decode succeeded message...");
             message.sendToTarget();
         } else {
-            Message message = Message.obtain(activity.getCaptureActivityHandler(), R.id.decode_failed);
+            Message message = Message.obtain(activity.getCaptureActivityHandler(),
+                    R.id.decode_failed);
             message.sendToTarget();
         }
     }
@@ -160,7 +164,8 @@ final class DecodeHandler extends Handler {
         width = height;
         height = tmp;
         // 构造基于平面的YUV亮度源，即包含二维码区域的数据源
-        PlanarYUVLuminanceSource multipleSource = CameraManager.get().buildLuminanceSource(rotatedData, width, height);
+        PlanarYUVLuminanceSource multipleSource =
+                CameraManager.get().buildLuminanceSource(rotatedData, width, height);
         // 构造二值图像比特流，使用HybridBinarizer算法解析数据源
         BinaryBitmap multipleBinaryBitmap = new BinaryBitmap(new HybridBinarizer(multipleSource));
 
@@ -170,7 +175,8 @@ final class DecodeHandler extends Handler {
                     new GenericMultipleBarcodeReader(multiFormatReader);
             results = genericMultipleBarcodeReader.decodeMultiple(multipleBinaryBitmap);
             if (results != null) {
-                Log.e("yy", "Found barcode_s(" + (System.currentTimeMillis() - start) + " ms):\n" + results.toString());
+                Log.e("yy",
+                        "Found barcode_s(" + (System.currentTimeMillis() - start) + " ms):\n" + results.toString());
                 Log.e("yy", "Found barcode_s_length:(" + results.length);
                 for (int i = 0; i < results.length; i++) {
                     Result result = results[i];
@@ -188,14 +194,18 @@ final class DecodeHandler extends Handler {
         }
         if (results != null) {
             long end = System.currentTimeMillis();
-//            Log.e("yy", "results_Found barcode (" + (end - start) + " ms):\n" + results.toString());
-            Message message = Message.obtain(activity.getCaptureActivityHandler(), R.id.decode_succeeded, results);
+//            Log.e("yy", "results_Found barcode (" + (end - start) + " ms):\n" + results
+//            .toString());
+            Message message = Message.obtain(activity.getCaptureActivityHandler(),
+                    R.id.decode_succeeded, results);
             Bundle bundle = new Bundle();
-            bundle.putParcelable(DecodeThread.BARCODE_BITMAP, multipleSource.renderCroppedGreyscaleBitmap());
+            bundle.putParcelable(DecodeThread.BARCODE_BITMAP,
+                    multipleSource.renderCroppedGreyscaleBitmap());
             message.setData(bundle);
             message.sendToTarget();
         } else {
-            Message message = Message.obtain(activity.getCaptureActivityHandler(), R.id.decode_failed);
+            Message message = Message.obtain(activity.getCaptureActivityHandler(),
+                    R.id.decode_failed);
             message.sendToTarget();
         }
     }

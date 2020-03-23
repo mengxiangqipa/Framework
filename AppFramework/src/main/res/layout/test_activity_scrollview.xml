@@ -1,7 +1,7 @@
 <com.library.pulltorefresh.classical.ClassicalPullToRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                                  android:id="@+id/refresh_view"
-                                                                  android:layout_width="match_parent"
-                                                                  android:layout_height="match_parent">
+    android:id="@+id/refresh_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.library.pulltorefresh.pullableview.PullableScrollView
         android:layout_width="match_parent"
@@ -21,32 +21,32 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/h"/>
+                    android:background="@drawable/h" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/i"/>
+                    android:background="@drawable/i" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/j"/>
+                    android:background="@drawable/j" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/k"/>
+                    android:background="@drawable/k" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/l"/>
+                    android:background="@drawable/l" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/m"/>
+                    android:background="@drawable/m" />
             </LinearLayout>
         </RelativeLayout>
     </com.library.pulltorefresh.pullableview.PullableScrollView>

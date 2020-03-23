@@ -45,7 +45,8 @@ public class CropperImageActivity extends BaseActivity {
             if (msg.what == 0x111) {
                 bar.setVisibility(View.GONE);
 
-                //String path=ImageUtils.saveAsBitmap(CropperImageActivity.this, itbmp, Constants.folderName);
+                //String path=ImageUtils.saveAsBitmap(CropperImageActivity.this, itbmp, Constants
+                // .folderName);
                 //itbmp.recycle();
                 Constants.bitmap = itbmp;
 
@@ -55,7 +56,8 @@ public class CropperImageActivity extends BaseActivity {
                     list.add(path);
 					mCameraSdkParameterInfo.setImage_list(list);*/
 
-                    b.putSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER, mCameraSdkParameterInfo);
+                    b.putSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER,
+                            mCameraSdkParameterInfo);
                     Intent intent = new Intent(mContext, FilterImageActivity.class);
                     intent.putExtras(b);
                     startActivity(intent);
@@ -76,7 +78,8 @@ public class CropperImageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_activity_crop_image);
         showLeftIcon();
         setActionBarTitle("裁剪图片");
@@ -86,7 +89,8 @@ public class CropperImageActivity extends BaseActivity {
 
         Bundle b = getIntent().getExtras();
         try {
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo
+            mCameraSdkParameterInfo =
+                    (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo
                     .EXTRA_PARAMETER);
             imageList = mCameraSdkParameterInfo.getImage_list();
             position = mCameraSdkParameterInfo.getPosition();

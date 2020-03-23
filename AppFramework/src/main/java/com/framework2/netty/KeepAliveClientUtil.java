@@ -57,7 +57,8 @@ public class KeepAliveClientUtil {
      * @param objectContent 写入内容
      * @throws Exception
      */
-    public void connect(final String host, final int port, final Context context, final Object objectContent) throws
+    public void connect(final String host, final int port, final Context context,
+                        final Object objectContent) throws
             Exception {
         ThreadPoolUtil.getInstanceSingleTaskExecutor().submit(new Runnable() {
             @Override
@@ -108,13 +109,15 @@ public class KeepAliveClientUtil {
      * @param HeartBeat     毫秒数
      * @throws Exception
      */
-    public void connectHeartBeat(final String host, final int port, final Context context, final Object
+    public void connectHeartBeat(final String host, final int port, final Context context,
+                                 final Object
             objectContent, final int HeartBeat) throws Exception {
 
         ThreadPoolUtil.getInstanceSingleTaskExecutor().submit(new Runnable() {
             @Override
             public void run() {
-//                Utils.showToast("线程名：" + Thread.currentThread().getName() + "线程id：" + Thread.currentThread().getId());
+//                Utils.showToast("线程名：" + Thread.currentThread().getName() + "线程id：" + Thread
+//                .currentThread().getId());
                 // 配置客户端NIO线程组
                 if (null == group) {
                     group = new NioEventLoopGroup();

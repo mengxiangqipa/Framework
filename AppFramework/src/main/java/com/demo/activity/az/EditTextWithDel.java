@@ -66,7 +66,8 @@ public class EditTextWithDel extends android.support.v7.widget.AppCompatEditText
             setCompoundDrawablesWithIntrinsicBounds(imgLeft, null, null, null);
         } else {
             int marginRight = ScreenUtils.getInstance().dip2px(getContext(), 10);
-            imgRight.setBounds(-marginRight, 0, ScreenUtils.getInstance().dip2px(getContext(), 20) - marginRight,
+            imgRight.setBounds(-marginRight, 0, ScreenUtils.getInstance().dip2px(getContext(),
+                    20) - marginRight,
                     ScreenUtils.getInstance().dip2px(getContext(), 20));
             setCompoundDrawables(imgLeft, null, imgRight, null);
 //            setCompoundDrawablesWithIntrinsicBounds(imgLeft, null, imgRight, null);

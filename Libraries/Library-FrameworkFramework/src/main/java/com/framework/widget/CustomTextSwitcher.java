@@ -49,7 +49,8 @@ public class CustomTextSwitcher extends TextSwitcher implements
 //        int textSize = array.getDimensionPixelSize(0 /* index */, -1 /* default size */);
 //        array.recycle();
 
-//        TypedArray a = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.TextView);
+//        TypedArray a = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable
+//        .TextView);
 //        TypedArray a = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.textSize});
 //        mHeight = a.getDimension(android.R.attr.textSize, 36);
 //        a.recycle();
@@ -92,7 +93,8 @@ public class CustomTextSwitcher extends TextSwitcher implements
         if (customView != null) {
             return customView;
         }
-        LayoutParams parmas = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams parmas = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
         parmas.gravity = Gravity.CENTER;
         TextView t = new TextView(mContext);
         t.setGravity(Gravity.CENTER);
@@ -149,7 +151,8 @@ public class CustomTextSwitcher extends TextSwitcher implements
         private float mCenterY;
         private Camera mCamera;
 
-        public Rotate3dAnimation(float fromDegrees, float toDegrees, boolean turnIn, boolean turnUp) {
+        public Rotate3dAnimation(float fromDegrees, float toDegrees, boolean turnIn,
+                                 boolean turnUp) {
             mFromDegrees = fromDegrees;
             mToDegrees = toDegrees;
             mTurnIn = turnIn;

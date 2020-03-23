@@ -111,7 +111,8 @@ public class LoadingDialog extends RelativeLayout {
                     ViewStub viewStub = (ViewStub) findViewById(R.id.loading_viewstub);
                     mLoadingView = viewStub.inflate();
 
-                    mLoadingProgress = (LoadingIndicatorView) mLoadingView.findViewById(R.id.loading_progress);
+                    mLoadingProgress =
+                            (LoadingIndicatorView) mLoadingView.findViewById(R.id.loading_progress);
                 } else {
                     mLoadingView.setVisibility(VISIBLE);
                 }
@@ -141,7 +142,8 @@ public class LoadingDialog extends RelativeLayout {
                 }
 
                 mTheEndView.setVisibility(showView ? VISIBLE : GONE);
-                mNoMoreText.setText(TextUtils.isEmpty(noMoreHint) ? getResources().getString(R.string.footer_end) :
+                mNoMoreText.setText(TextUtils.isEmpty(noMoreHint) ?
+                        getResources().getString(R.string.footer_end) :
                         noMoreHint);
                 break;
             case NetWorkError:
@@ -157,13 +159,15 @@ public class LoadingDialog extends RelativeLayout {
                 if (mNetworkErrorView == null) {
                     ViewStub viewStub = (ViewStub) findViewById(R.id.network_error_viewstub);
                     mNetworkErrorView = viewStub.inflate();
-                    mNoNetWorkText = (TextView) mNetworkErrorView.findViewById(R.id.network_error_text);
+                    mNoNetWorkText =
+                            (TextView) mNetworkErrorView.findViewById(R.id.network_error_text);
                 } else {
                     mNetworkErrorView.setVisibility(VISIBLE);
                 }
 
                 mNetworkErrorView.setVisibility(showView ? VISIBLE : GONE);
-                mNoNetWorkText.setText(TextUtils.isEmpty(noNetWorkHint) ? getResources().getString(R.string
+                mNoNetWorkText.setText(TextUtils.isEmpty(noNetWorkHint) ?
+                        getResources().getString(R.string
                         .footer_network_error) : noNetWorkHint);
 
                 break;

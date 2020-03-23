@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 
-import com.library.mpandroidchart.utils.ColorTemplate;
 import com.library.mpandroidchart.formatter.DefaultFillFormatter;
 import com.library.mpandroidchart.formatter.FillFormatter;
+import com.library.mpandroidchart.utils.ColorTemplate;
 import com.library.mpandroidchart.utils.Utils;
 
 import java.util.ArrayList;

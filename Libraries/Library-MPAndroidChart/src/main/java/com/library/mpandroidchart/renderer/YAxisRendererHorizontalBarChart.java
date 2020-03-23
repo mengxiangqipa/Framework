@@ -6,7 +6,6 @@ import android.graphics.Paint.Align;
 import android.graphics.Path;
 
 import com.library.mpandroidchart.components.LimitLine;
-import com.library.mpandroidchart.components.LimitLine.LimitLabelPosition;
 import com.library.mpandroidchart.components.YAxis;
 import com.library.mpandroidchart.components.YAxis.AxisDependency;
 import com.library.mpandroidchart.components.YAxis.YAxisLabelPosition;
@@ -239,22 +238,26 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
 
                     final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
                     mLimitLinePaint.setTextAlign(Align.LEFT);
-                    c.drawText(label, pts[0] + xOffset, mViewPortHandler.contentTop() + yOffset + labelLineHeight,
+                    c.drawText(label, pts[0] + xOffset,
+                            mViewPortHandler.contentTop() + yOffset + labelLineHeight,
                             mLimitLinePaint);
                 } else if (position == LimitLine.LimitLabelPosition.RIGHT_BOTTOM) {
 
                     mLimitLinePaint.setTextAlign(Align.LEFT);
-                    c.drawText(label, pts[0] + xOffset, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
+                    c.drawText(label, pts[0] + xOffset,
+                            mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
                 } else if (position == LimitLine.LimitLabelPosition.LEFT_TOP) {
 
                     mLimitLinePaint.setTextAlign(Align.RIGHT);
                     final float labelLineHeight = Utils.calcTextHeight(mLimitLinePaint, label);
-                    c.drawText(label, pts[0] - xOffset, mViewPortHandler.contentTop() + yOffset + labelLineHeight,
+                    c.drawText(label, pts[0] - xOffset,
+                            mViewPortHandler.contentTop() + yOffset + labelLineHeight,
                             mLimitLinePaint);
                 } else {
 
                     mLimitLinePaint.setTextAlign(Align.RIGHT);
-                    c.drawText(label, pts[0] - xOffset, mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
+                    c.drawText(label, pts[0] - xOffset,
+                            mViewPortHandler.contentBottom() - yOffset, mLimitLinePaint);
                 }
             }
         }

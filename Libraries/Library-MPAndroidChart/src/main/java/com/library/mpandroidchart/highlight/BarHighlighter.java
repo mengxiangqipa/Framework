@@ -85,7 +85,8 @@ public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
     }
 
     /**
-     * This method creates the Highlight object that also indicates which value of a stacked BarEntry has been selected.
+     * This method creates the Highlight object that also indicates which value of a stacked
+     * BarEntry has been selected.
      *
      * @param old          the old highlight object before looking for stacked values
      * @param set
@@ -94,7 +95,8 @@ public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
      * @param yValue
      * @return
      */
-    protected Highlight getStackedHighlight(Highlight old, BarDataSet set, int xIndex, int dataSetIndex,
+    protected Highlight getStackedHighlight(Highlight old, BarDataSet set, int xIndex,
+                                            int dataSetIndex,
                                             double yValue) {
 
         BarEntry entry = set.getEntryForXIndex(xIndex);
@@ -110,7 +112,8 @@ public class BarHighlighter extends ChartHighlighter<BarDataProvider> {
     }
 
     /**
-     * Returns the index of the closest value inside the values array / ranges (stacked barchart) to the value given as
+     * Returns the index of the closest value inside the values array / ranges (stacked barchart)
+     * to the value given as
      * a parameter.
      *
      * @param ranges

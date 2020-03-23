@@ -92,11 +92,13 @@ public abstract class Utils {
         if (mMetrics == null) {
 
             Log.e("MPChartLib-Utils",
-                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils" +
+                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before" +
+                            " calling Utils" +
                             ".convertDpToPixel(...). Otherwise conversion does not take place.");
             return dp;
             // throw new IllegalStateException(
-            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils
+            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before
+            // calling Utils
             // .convertDpToPixel(...).");
         }
 
@@ -117,11 +119,13 @@ public abstract class Utils {
         if (mMetrics == null) {
 
             Log.e("MPChartLib-Utils",
-                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils" +
+                    "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before" +
+                            " calling Utils" +
                             ".convertPixelsToDp(...). Otherwise conversion does not take place.");
             return px;
             // throw new IllegalStateException(
-            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before calling Utils
+            // "Utils NOT INITIALIZED. You need to call Utils.init(...) at least once before
+            // calling Utils
             // .convertPixelsToDp(...).");
         }
 
@@ -192,7 +196,8 @@ public abstract class Utils {
 
     /**
      * Formats the given number to the given number of decimals, and returns the
-     * number as a string, maximum 35 characters. If thousands are separated, the separating character is a dot (".").
+     * number as a string, maximum 35 characters. If thousands are separated, the separating
+     * character is a dot (".").
      *
      * @param number
      * @param digitCount
@@ -213,7 +218,8 @@ public abstract class Utils {
      * @param separateChar      a caracter to be paced between the "thousands"
      * @return
      */
-    public static String formatNumber(float number, int digitCount, boolean separateThousands, char separateChar) {
+    public static String formatNumber(float number, int digitCount, boolean separateThousands,
+                                      char separateChar) {
 
         char[] out = new char[35];
 
@@ -568,19 +574,23 @@ public abstract class Utils {
 
     public static FSize getSizeOfRotatedRectangleByDegrees(FSize rectangleSize, float degrees) {
         final float radians = degrees * FDEG2RAD;
-        return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height, radians);
+        return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height,
+                radians);
     }
 
     public static FSize getSizeOfRotatedRectangleByRadians(FSize rectangleSize, float radians) {
-        return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height, radians);
+        return getSizeOfRotatedRectangleByRadians(rectangleSize.width, rectangleSize.height,
+                radians);
     }
 
-    public static FSize getSizeOfRotatedRectangleByDegrees(float rectangleWidth, float rectangleHeight, float degrees) {
+    public static FSize getSizeOfRotatedRectangleByDegrees(float rectangleWidth,
+                                                           float rectangleHeight, float degrees) {
         final float radians = degrees * FDEG2RAD;
         return getSizeOfRotatedRectangleByRadians(rectangleWidth, rectangleHeight, radians);
     }
 
-    public static FSize getSizeOfRotatedRectangleByRadians(float rectangleWidth, float rectangleHeight, float radians) {
+    public static FSize getSizeOfRotatedRectangleByRadians(float rectangleWidth,
+                                                           float rectangleHeight, float radians) {
         return new FSize(
                 Math.abs(rectangleWidth * (float) Math.cos(radians)) + Math.abs(rectangleHeight * (float) Math.sin(radians)),
                 Math.abs(rectangleWidth * (float) Math.sin(radians)) + Math.abs(rectangleHeight * (float) Math.cos(radians))

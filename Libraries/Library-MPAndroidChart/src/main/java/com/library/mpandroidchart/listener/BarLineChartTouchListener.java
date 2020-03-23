@@ -26,7 +26,8 @@ import com.library.mpandroidchart.utils.ViewPortHandler;
  * @author Philipp Jahoda
  */
 public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBase<?
-        extends BarLineScatterCandleBubbleData<? extends BarLineScatterCandleBubbleDataSet<? extends Entry>>>> {
+        extends BarLineScatterCandleBubbleData<? extends BarLineScatterCandleBubbleDataSet<?
+        extends Entry>>>> {
 
     /**
      * the original touch-matrix from the chart
@@ -64,7 +65,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
     private PointF mDecelerationVelocity = new PointF();
 
     public BarLineChartTouchListener(BarLineChartBase<? extends BarLineScatterCandleBubbleData<?
-            extends BarLineScatterCandleBubbleDataSet<? extends Entry>>> chart, Matrix touchMatrix) {
+            extends BarLineScatterCandleBubbleDataSet<? extends Entry>>> chart,
+                                     Matrix touchMatrix) {
         super(chart);
         this.mMatrix = touchMatrix;
     }
@@ -190,7 +192,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
                         mDecelerationCurrentPoint = new PointF(event.getX(), event.getY());
                         mDecelerationVelocity = new PointF(velocityX, velocityY);
 
-                        Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to fire, recommended
+                        Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to
+                        // fire, recommended
                         // for this by Google
                     }
                 }
@@ -502,7 +505,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
 
             PointF trans = getTrans(e.getX(), e.getY());
 
-            mChart.zoom(mChart.isScaleXEnabled() ? 1.4f : 1f, mChart.isScaleYEnabled() ? 1.4f : 1f, trans.x, trans.y);
+            mChart.zoom(mChart.isScaleXEnabled() ? 1.4f : 1f, mChart.isScaleYEnabled() ? 1.4f :
+                    1f, trans.x, trans.y);
 
             if (mChart.isLogEnabled())
                 Log.i("BarlineChartTouch", "Double-Tap, Zooming In, x: " + trans.x + ", y: "
@@ -606,7 +610,8 @@ public class BarLineChartTouchListener extends ChartTouchListener<BarLineChartBa
         mDecelerationLastTime = currentTime;
 
         if (Math.abs(mDecelerationVelocity.x) >= 0.01 || Math.abs(mDecelerationVelocity.y) >= 0.01)
-            Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to fire, recommended for this by
+            Utils.postInvalidateOnAnimation(mChart); // This causes computeScroll to fire,
+            // recommended for this by
             // Google
         else {
             // Range might have changed, which means that Y-axis labels

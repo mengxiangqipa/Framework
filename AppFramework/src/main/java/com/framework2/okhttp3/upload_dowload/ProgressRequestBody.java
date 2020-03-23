@@ -41,10 +41,12 @@ public class ProgressRequestBody extends RequestBody {
             mRequestBody.writeTo(sink);
             return;
         }
-//        BufferedSink progressSink = Okio.buffer(Okio.sink(((BufferedSink)writeTo1(sink)).outputStream()));
+//        BufferedSink progressSink = Okio.buffer(Okio.sink(((BufferedSink)writeTo1(sink))
+//        .outputStream()));
 //        BufferedSink progressSink = Okio.buffer(writeTo1(sink));
 
-        ProgressOutputStream progressOutputStream = new ProgressOutputStream(sink.outputStream(), progressListener,
+        ProgressOutputStream progressOutputStream = new ProgressOutputStream(sink.outputStream(),
+                progressListener,
                 contentLength());
         BufferedSink progressSink = Okio.buffer(Okio.sink(progressOutputStream));
         mRequestBody.writeTo(progressSink);
@@ -59,7 +61,8 @@ public class ProgressRequestBody extends RequestBody {
             public void write(Buffer source, long byteCount) throws IOException {
                 super.write(source, byteCount);
                 totalWritedBytes += byteCount;
-                progressListener.update(totalWritedBytes, contentLength(), totalWritedBytes == contentLength());
+                progressListener.update(totalWritedBytes, contentLength(),
+                        totalWritedBytes == contentLength());
             }
         };
     }

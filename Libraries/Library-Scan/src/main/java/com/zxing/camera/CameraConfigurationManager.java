@@ -84,11 +84,13 @@ final class CameraConfigurationManager {
             screenResolution = new Point(CameraManager.getViewfinderScreenWidth(),
                     CameraManager.getViewfinderScreenHeight());
         } else if (CameraManager.getFrameWidth() > 0 && CameraManager.getFrameHeight() > 0) {
-//            screenResolution = new Point(CameraManager.getFrameWidth(), CameraManager.getFrameHeight());
+//            screenResolution = new Point(CameraManager.getFrameWidth(), CameraManager
+//            .getFrameHeight());
             int width = Math.max(CameraManager.getFrameWidth(), CameraManager.getFrameHeight());
             screenResolution = new Point(width, width * display.getHeight() / display.getWidth());
         } else if (CameraManager.getMaxFrameWidth() > 0 && CameraManager.getMaxFrameHeight() > 0) {
-            int width = Math.max(CameraManager.getMaxFrameWidth(), CameraManager.getMaxFrameHeight());
+            int width = Math.max(CameraManager.getMaxFrameWidth(),
+                    CameraManager.getMaxFrameHeight());
             screenResolution = new Point(width, width * display.getHeight() / display.getWidth());
         } else if (null != viewfinderView) {
             int width = viewfinderView.getWidth();
@@ -177,7 +179,8 @@ final class CameraConfigurationManager {
         return cameraResolution;
     }
 
-    private static Point findBestPreviewSizeValue(CharSequence previewSizeValueString, Point screenResolution) {
+    private static Point findBestPreviewSizeValue(CharSequence previewSizeValueString,
+                                                  Point screenResolution) {
         int bestX = 0;
         int bestY = 0;
         int diff = Integer.MAX_VALUE;
@@ -328,7 +331,8 @@ final class CameraConfigurationManager {
     protected void setDisplayOrientation(Camera camera, int angle) {
         Method downPolymorphic;
         try {
-            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[]{int.class});
+            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation",
+                    new Class[]{int.class});
             if (downPolymorphic != null)
                 downPolymorphic.invoke(camera, new Object[]{angle});
         } catch (Exception e1) {

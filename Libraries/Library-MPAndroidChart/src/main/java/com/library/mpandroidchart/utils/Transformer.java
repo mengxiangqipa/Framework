@@ -119,7 +119,8 @@ public class Transformer {
     public float[] generateTransformedValuesBubble(List<? extends Entry> entries,
                                                    float phaseX, float phaseY, int from, int to) {
 
-        final int count = (int) Math.ceil(to - from) * 2; // (int) Math.ceil((to - from) * phaseX) * 2;
+        final int count = (int) Math.ceil(to - from) * 2; // (int) Math.ceil((to - from) *
+        // phaseX) * 2;
 
         float[] valuePoints = new float[count];
 
@@ -240,7 +241,8 @@ public class Transformer {
      * @return
      */
     public float[] generateTransformedValuesHorizontalBarChart(List<? extends Entry> entries,
-                                                               int dataSet, BarData bd, float phaseY) {
+                                                               int dataSet, BarData bd,
+                                                               float phaseY) {
 
         float[] valuePoints = new float[entries.size() * 2];
 

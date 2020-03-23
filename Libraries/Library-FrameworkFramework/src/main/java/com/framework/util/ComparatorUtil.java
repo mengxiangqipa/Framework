@@ -36,7 +36,8 @@ public class ComparatorUtil {
      * @param attrName 属性名
      * @return ArrayList<Object>
      */
-    public ArrayList<Object> sortByStringAttr(ArrayList<Object> list, String attrName, SortType sortType) {
+    public ArrayList<Object> sortByStringAttr(ArrayList<Object> list, String attrName,
+                                              SortType sortType) {
         Collections.sort(list, new ComparatorString(attrName, sortType));
         return list;
     }
@@ -57,7 +58,8 @@ public class ComparatorUtil {
      * @param attrName 属性名
      * @return ArrayList
      */
-    public ArrayList<Object> sortByIntAttr(ArrayList<Object> list, String attrName, SortType sortType) {
+    public ArrayList<Object> sortByIntAttr(ArrayList<Object> list, String attrName,
+                                           SortType sortType) {
         Collections.sort(list, new ComparatorInt(attrName, sortType));
         return list;
     }
@@ -69,7 +71,8 @@ public class ComparatorUtil {
      * @param attrName 属性名
      * @return ArrayList
      */
-    public ArrayList<Object> sortByDoubleAttr(ArrayList<Object> list, String attrName, SortType sortType) {
+    public ArrayList<Object> sortByDoubleAttr(ArrayList<Object> list, String attrName,
+                                              SortType sortType) {
         Collections.sort(list, new ComparatorDouble(attrName, sortType));
         return list;
     }
