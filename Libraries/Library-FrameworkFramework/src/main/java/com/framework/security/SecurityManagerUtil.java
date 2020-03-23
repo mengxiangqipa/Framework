@@ -2,6 +2,7 @@ package com.framework.security;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.framework.config.FrameworkConstant;
 import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
@@ -52,8 +53,11 @@ public class SecurityManagerUtil {
             if (value.length() > 128) {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i * 128 < value.length(); i++) {
+//                    String cookiesWithRSA =
+//                            RSAutil.getInstance().encryptData(value.substring(i * 128, Math.min((i +
+//                                    1) * 128, value.length())));
                     String cookiesWithRSA =
-                            RSAutil.getInstance().encryptData(value.substring(i * 128, Math.min((i +
+                            RSAmethodInRaw.getInstance().rsaEncrypt(context,value.substring(i * 128, Math.min((i +
                                     1) * 128, value.length())));
                     if (i > 0) {
                         sb.append(",,,,");
@@ -64,8 +68,8 @@ public class SecurityManagerUtil {
                         AesUtil.getInstance().encrypt(Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY))
                                 , sb.toString()));
             } else {
-//                String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, value);
-                String cookiesWithRSA = RSAutil.getInstance().encryptData(value);
+                String cookiesWithRSA = RSAmethodInRaw.getInstance().rsaEncrypt(context, value);
+//                String cookiesWithRSA = RSAutil.getInstance().encryptData(value);
                 PreferencesUtil.getInstance().putString(keyInSharedPreferences,
                         AesUtil.getInstance().encrypt
                                 (Base64Coder.decodeString(PreferencesUtil.getInstance().getString(FrameworkConstant.AES_KEY)),
@@ -87,9 +91,9 @@ public class SecurityManagerUtil {
                 for (String s : tm.split(",,,,")) {
                     String cookiesBase64decode = Base64Coder.decodeString(s);
                     if (!TextUtils.isEmpty(cookiesBase64decode)) {
-//                        sb.append(RSAmethodInRaw.getInstance().rsaDecrypt(context,
-//                        cookiesBase64decode));
-                        sb.append(RSAutil.getInstance().decryptData(cookiesBase64decode));
+                        sb.append(RSAmethodInRaw.getInstance().rsaDecrypt(context,
+                        cookiesBase64decode));
+//                        sb.append(RSAutil.getInstance().decryptData(cookiesBase64decode));
                     }
                 }
                 return sb.toString();

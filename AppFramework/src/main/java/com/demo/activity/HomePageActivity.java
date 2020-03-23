@@ -170,6 +170,9 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         Log.e("HomePageActivity我是跨进程:", PreferencesUtil.getInstance().getString("test"));
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
                 "test"));
+        String cookiesWithRSA = RSAutil.getInstance().encryptData("123456");
+        String cookiesWithRSAAAA = RSAutil.getInstance().decryptData(cookiesWithRSA);
+        Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRSAAAA);
         try {
             SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec",
                     "我是加密");
