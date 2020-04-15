@@ -190,6 +190,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         ToastUtil.getInstance().showToast("我是跨进程数据操作--加密：" + SecurityManagerUtil.getInstance().get(this, "sec"));
         serviceIntent = new Intent(this, CheckUpdateService.class);
         startService(serviceIntent);
+
         //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this,
         //		progressHandler, false);//检查版本更新
         JSONObject jsonObject = new JSONObject();

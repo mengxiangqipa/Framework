@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -101,12 +102,14 @@ public final class RSAutil {
 
     /**
      * 简单加密字符串（公钥传入）
+     *
      */
     public String encryptData(String data, String publicKey) {
         try {
-            byte[] encodeByte = encryptData(data.getBytes(), getPublicKey(publicKey.getBytes()));
+            byte[] encodeByte = encryptData(data.getBytes(),
+                    getPublicKey(Base64Utils.decode(publicKey)));
             if (null != encodeByte) {
-                return Base64Coder.encodeLines(encodeByte);
+                return Base64Coder.encodeLines(encodeByte) ;
             } else {
                 return null;
             }
@@ -118,11 +121,12 @@ public final class RSAutil {
 
     /**
      * 简单解密密字符串（私钥传入）
+     *
      */
     public String decryptData(String data, String privateKey) {
         try {
-            byte[] decryptByte = decryptData(Base64Coder.decode(data),
-                    getPrivateKey(privateKey.getBytes()));
+            byte[] decryptByte = decryptData(Base64Coder.decodeLines(data),
+                    getPrivateKey(Base64Utils.decode(privateKey)));
             if (null != decryptByte) {
                 return new String(decryptByte);
             } else {
