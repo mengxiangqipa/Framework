@@ -99,11 +99,12 @@ public final class RSAutil {
             return null;
         }
     }
+
     /**
      * {{@link #decryptData(byte[], Key, boolean)}}
      */
     public byte[] decryptData(byte[] encryptedData, java.security.Key key) {
-        return decryptData(encryptedData, key, true);
+        return decryptData(encryptedData, key, false);
     }
 
     /**
@@ -129,9 +130,18 @@ public final class RSAutil {
      * 简单加密字符串（公钥传入）
      */
     public String encryptData(String data, String publicKey) {
+        return encryptData(data, publicKey, false);
+    }
+
+    /**
+     * 简单加密字符串（公钥传入）
+     *
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     */
+    public String encryptData(String data, String publicKey, boolean stable) {
         try {
             byte[] encodeByte = encryptData(data.getBytes(),
-                    getPublicKey(Base64Utils.decode(publicKey)));
+                    getPublicKey(Base64Utils.decode(publicKey)),stable);
             if (null != encodeByte) {
                 return Base64Coder.encodeLines(encodeByte);
             } else {
@@ -147,9 +157,18 @@ public final class RSAutil {
      * 简单解密密字符串（私钥传入）
      */
     public String decryptData(String data, String privateKey) {
+        return decryptData(data, privateKey, false);
+    }
+
+    /**
+     * 简单解密密字符串（私钥传入）
+     *
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     */
+    public String decryptData(String data, String privateKey, boolean stable) {
         try {
             byte[] decryptByte = decryptData(Base64Coder.decodeLines(data),
-                    getPrivateKey(Base64Utils.decode(privateKey)));
+                    getPrivateKey(Base64Utils.decode(privateKey)), stable);
             if (null != decryptByte) {
                 return new String(decryptByte);
             } else {
