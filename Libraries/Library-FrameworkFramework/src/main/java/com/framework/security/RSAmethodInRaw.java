@@ -36,7 +36,7 @@ public class RSAmethodInRaw {
             InputStream inPublic = context.getResources().openRawResource(R.raw.rsa_public_key);
             PublicKey publicKey = RSAutil.getInstance().loadPublicKey(inPublic);
             // 加密
-            byte[] encryptByte = RSAutil.getInstance().encryptData(data.getBytes(), publicKey);
+            byte[] encryptByte = RSAutil.getInstance().encryptData(data.getBytes(), publicKey,true);
             return new String(Base64Coder.encode(encryptByte));
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +57,7 @@ public class RSAmethodInRaw {
                     context.getResources().openRawResource(R.raw.pkcs8_rsa_private_key);
             PrivateKey privateKey = RSAutil.getInstance().loadPrivateKey(inPrivate);
             byte[] decryptByte1 = RSAutil.getInstance().decryptData(
-                    Base64Coder.decode(data), privateKey);
+                    Base64Coder.decode(data), privateKey,true);
             phone = new String(decryptByte1);
         } catch (Exception e) {
             e.printStackTrace();
