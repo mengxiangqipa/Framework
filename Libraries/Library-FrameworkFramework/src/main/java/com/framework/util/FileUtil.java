@@ -110,6 +110,13 @@ public class FileUtil {
     }
 
     /**
+     * 文件是否存在
+     */
+    public boolean exists(String path, String fileName) {
+        return new File(path, fileName).exists();
+    }
+
+    /**
      * 存储文本数据
      *
      * @param context  程序上下文
