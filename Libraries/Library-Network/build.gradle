@@ -29,11 +29,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //ok3网络请求
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'com.squareup.okhttp3:okhttp:4.8.0'
     //引用FrameworkFramework
     implementation project(':Libraries:Library-FrameworkFramework')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

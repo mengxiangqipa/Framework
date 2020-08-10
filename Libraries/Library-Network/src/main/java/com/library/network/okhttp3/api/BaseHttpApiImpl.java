@@ -44,8 +44,11 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @param data     JSONObject
      * @param callback ICallback
      */
-    public void doPostStringRequest(final Context context, final String url, final Map<String, String> headers,
-                                    final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
+    @Override
+    public void doPostStringRequest(final Context context, final String url, final Map<String,
+            String> headers,
+                                    final JSONObject data, final boolean callBackOnUiThread,
+                                    final ICallback callback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != callback) {
@@ -76,7 +79,9 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
     /**
      * @see #doPostStringRequest(Context, String, Map, JSONObject, boolean, ICallback)
      */
-    public void doPostStringRequest(final Context context, final String url, final Map<String, String> headers,
+    @Override
+    public void doPostStringRequest(final Context context, final String url, final Map<String,
+            String> headers,
                                     final JSONObject data, final ICallback callback) {
         doPostStringRequest(context, url, headers, data, true, callback);
     }
@@ -90,14 +95,20 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @param jsonObject          JSONObject
      * @param uploadFilesCallback UploadFilesCallback
      */
-    public void doPostUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
-                                         final JSONObject jsonObject, final boolean callBackOnUiThread,
-                                         final String[] filePaths, final String[] addFormDataPartNames,
-                                         final long filesMaxLenth, final UploadFilesCallback uploadFilesCallback) {
+    @Override
+    public void doPostUploadFilesRequest(final Context context, final String url,
+                                         final Map<String, String> headers,
+                                         final JSONObject jsonObject,
+                                         final boolean callBackOnUiThread,
+                                         final String[] filePaths,
+                                         final String[] addFormDataPartNames,
+                                         final long filesMaxLenth,
+                                         final UploadFilesCallback uploadFilesCallback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != uploadFilesCallback) {
-                uploadFilesCallback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception("网络未连接，请检查你的网络"));
+                uploadFilesCallback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception(
+                        "网络未连接，请检查你的网络"));
             }
             return;
         }
@@ -109,7 +120,8 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
         }
         if (filePaths == null) {
             if (null != uploadFilesCallback) {
-                uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_DIR, new Exception("文件路径异常"));
+                uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_DIR, new Exception(
+                        "文件路径异常"));
             }
             return;
         }
@@ -139,7 +151,8 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                 }
                 if (totalFileBytes > upload_filesize_limit) {
                     if (null != uploadFilesCallback) {
-                        uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_LIMIT, new Exception("文件大小超过"
+                        uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_LIMIT,
+                                new Exception("文件大小超过"
                                 + upload_filesize_limit / 1024 / 1024 + "MB"));
                     }
                     return;
@@ -149,7 +162,8 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
         for (int i = 0; i < filePaths.length; i++) {
             File file = new File(filePaths[i]);
             bodyBuilder.addFormDataPart(
-                    TextUtils.isEmpty(addFormDataPartNames[i]) ? "file" + (i + 1) : addFormDataPartNames[i],
+                    TextUtils.isEmpty(addFormDataPartNames[i]) ? "file" + (i + 1) :
+                            addFormDataPartNames[i],
                     file.getName(),
                     RequestBody.create(
                             MediaType.parse("application/octet-stream"), file));
@@ -175,11 +189,15 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @see #doPostUploadFilesRequest(Context, String, Map, JSONObject, boolean, String[], String[], long,
      * UploadFilesCallback)
      */
-    public void doPostUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
+    @Override
+    public void doPostUploadFilesRequest(final Context context, final String url,
+                                         final Map<String, String> headers,
                                          final JSONObject jsonObject, final String[] filePaths,
-                                         final String[] addFormDataPartNames, final long filesMaxLenth,
+                                         final String[] addFormDataPartNames,
+                                         final long filesMaxLenth,
                                          final UploadFilesCallback uploadFilesCallback) {
-        doPostUploadFilesRequest(context, url, headers, jsonObject, true, filePaths, addFormDataPartNames,
+        doPostUploadFilesRequest(context, url, headers, jsonObject, true, filePaths,
+                addFormDataPartNames,
                 filesMaxLenth, uploadFilesCallback);
     }
 
@@ -193,15 +211,20 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @param offsetBytes          断点偏移量，默认为0
      * @param downloadFileCallback DownloadFilesResponse
      */
-    public void doPostDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
-                                          final JSONObject jsonObject, final String destinationFilePath,
+    @Override
+    public void doPostDownloadFileRequest(final Context context, final String url,
+                                          final Map<String, String> headers,
+                                          final JSONObject jsonObject,
+                                          final String destinationFilePath,
                                           final String fileName, final long offsetBytes,
-                                          final boolean callBackOnUiThread, final DownloadFileCallback
+                                          final boolean callBackOnUiThread,
+                                          final DownloadFileCallback
                                                   downloadFileCallback) {
         if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != downloadFileCallback) {
-                downloadFileCallback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception("网络未连接，请检查你的网络"));
+                downloadFileCallback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception(
+                        "网络未连接，请检查你的网络"));
             }
             return;
         }
@@ -212,14 +235,18 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             return;
         }
         if (TextUtils.isEmpty(destinationFilePath)) {
-            if (null != downloadFileCallback)
-                downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILEPATH_DESTINATION, new Exception
+            if (null != downloadFileCallback) {
+                downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILEPATH_DESTINATION,
+                        new Exception
                         ("存储文件路径为空"));
+            }
             return;
         }
         if (TextUtils.isEmpty(fileName)) {
-            if (null != downloadFileCallback)
-                downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILE_NAME, new Exception("存储文件名为空"));
+            if (null != downloadFileCallback) {
+                downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILE_NAME, new Exception(
+                        "存储文件名为空"));
+            }
             return;
         }
         File dirFile = new File(destinationFilePath);
@@ -229,9 +256,11 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             e1.printStackTrace();
         }
         if (!dirFile.exists()) {
-            if (null != downloadFileCallback)
-                downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILEPATH_DESTINATION, new Exception
+            if (null != downloadFileCallback) {
+                downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILEPATH_DESTINATION,
+                        new Exception
                         ("目标文件夹不存在"));
+            }
             return;
         }
         DownloadRequest downloadRequest = new DownloadRequest.Builder()
@@ -251,12 +280,16 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @see #doPostDownloadFileRequest(Context, String, Map, JSONObject, String, String, long, boolean,
      * DownloadFileCallback)
      */
-    public void doPostDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
+    @Override
+    public void doPostDownloadFileRequest(final Context context, final String url,
+                                          final Map<String, String> headers,
                                           final JSONObject jsonObject,
                                           final String destinationFilePath, final
-                                          String fileName, final long offsetBytes, final DownloadFileCallback
+                                          String fileName, final long offsetBytes,
+                                          final DownloadFileCallback
                                                   downloadFileCallback) {
-        doPostDownloadFileRequest(context, url, headers, jsonObject, destinationFilePath, fileName, offsetBytes,
+        doPostDownloadFileRequest(context, url, headers, jsonObject, destinationFilePath,
+                fileName, offsetBytes,
                 true, downloadFileCallback);
     }
 }
