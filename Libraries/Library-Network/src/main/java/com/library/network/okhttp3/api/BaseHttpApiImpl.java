@@ -41,14 +41,16 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      *
      * @param context  Context
      * @param url      String
+     * @param method   String  POST/GET
      * @param data     JSONObject
      * @param callback ICallback
      */
     @Override
-    public void doPostStringRequest(final Context context, final String url, final Map<String,
-            String> headers,
-                                    final JSONObject data, final boolean callBackOnUiThread,
-                                    final ICallback callback) {
+    public void doStringRequest(final Context context, final String url, final String method,
+                                final Map<String,
+                                        String> headers,
+                                final JSONObject data, final boolean callBackOnUiThread,
+                                final ICallback callback) {
         if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != callback) {
@@ -68,7 +70,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                     .url(url)
                     .isReturnBody(false)
                     .callBackOnUiThread(callBackOnUiThread)
-                    .postString_json(data == null||data.length()<=0 ? "" : data.toString())
+                    .postString_json(data == null || data.length() <= 0 ? "" : data.toString())
                     .build(callback);
             Ok3Util.getInstance().addToRequestQueueAsynchoronous(stringRequest);
         } catch (Exception e) {
@@ -77,13 +79,13 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
     }
 
     /**
-     * @see #doPostStringRequest(Context, String, Map, JSONObject, boolean, ICallback)
+     * @see #doStringRequest(Context, String, String, Map, JSONObject, boolean, ICallback)
      */
     @Override
-    public void doPostStringRequest(final Context context, final String url, final Map<String,
-            String> headers,
-                                    final JSONObject data, final ICallback callback) {
-        doPostStringRequest(context, url, headers, data, true, callback);
+    public void doStringRequest(final Context context, final String url, final String method,
+                                final Map<String, String> headers,
+                                final JSONObject data, final ICallback callback) {
+        doStringRequest(context, url, method, headers, data, true, callback);
     }
 
     /**
@@ -92,18 +94,19 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @param context             Context
      * @param filePaths           String[]
      * @param url                 String
+     * @param method              String POST/GET
      * @param jsonObject          JSONObject
      * @param uploadFilesCallback UploadFilesCallback
      */
     @Override
-    public void doPostUploadFilesRequest(final Context context, final String url,
-                                         final Map<String, String> headers,
-                                         final JSONObject jsonObject,
-                                         final boolean callBackOnUiThread,
-                                         final String[] filePaths,
-                                         final String[] addFormDataPartNames,
-                                         final long filesMaxLenth,
-                                         final UploadFilesCallback uploadFilesCallback) {
+    public void doUploadFilesRequest(final Context context, final String url, final String method,
+                                     final Map<String, String> headers,
+                                     final JSONObject jsonObject,
+                                     final boolean callBackOnUiThread,
+                                     final String[] filePaths,
+                                     final String[] addFormDataPartNames,
+                                     final long filesMaxLenth,
+                                     final UploadFilesCallback uploadFilesCallback) {
         if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != uploadFilesCallback) {
@@ -153,7 +156,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                     if (null != uploadFilesCallback) {
                         uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_LIMIT,
                                 new Exception("文件大小超过"
-                                + upload_filesize_limit / 1024 / 1024 + "MB"));
+                                        + upload_filesize_limit / 1024 / 1024 + "MB"));
                     }
                     return;
                 }
@@ -186,17 +189,17 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
     }
 
     /**
-     * @see #doPostUploadFilesRequest(Context, String, Map, JSONObject, boolean, String[], String[], long,
+     * @see #doUploadFilesRequest(Context, String, String, Map, JSONObject, boolean, String[], String[], long,
      * UploadFilesCallback)
      */
     @Override
-    public void doPostUploadFilesRequest(final Context context, final String url,
-                                         final Map<String, String> headers,
-                                         final JSONObject jsonObject, final String[] filePaths,
-                                         final String[] addFormDataPartNames,
-                                         final long filesMaxLenth,
-                                         final UploadFilesCallback uploadFilesCallback) {
-        doPostUploadFilesRequest(context, url, headers, jsonObject, true, filePaths,
+    public void doUploadFilesRequest(final Context context, final String url, final String method,
+                                     final Map<String, String> headers,
+                                     final JSONObject jsonObject, final String[] filePaths,
+                                     final String[] addFormDataPartNames,
+                                     final long filesMaxLenth,
+                                     final UploadFilesCallback uploadFilesCallback) {
+        doUploadFilesRequest(context, url, method, headers, jsonObject, true, filePaths,
                 addFormDataPartNames,
                 filesMaxLenth, uploadFilesCallback);
     }
@@ -205,6 +208,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * 断点下载文件
      *
      * @param url                  url
+     * @param method               String POST/GET
      * @param jsonObject           JSONObject
      * @param destinationFilePath  保存的文件路径
      * @param fileName             String
@@ -212,7 +216,8 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @param downloadFileCallback DownloadFilesResponse
      */
     @Override
-    public void doPostDownloadFileRequest(final Context context, final String url,
+    public void doDownloadFileRequest(final Context context, final String url,
+                                          final String method,
                                           final Map<String, String> headers,
                                           final JSONObject jsonObject,
                                           final String destinationFilePath,
@@ -238,7 +243,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             if (null != downloadFileCallback) {
                 downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILEPATH_DESTINATION,
                         new Exception
-                        ("存储文件路径为空"));
+                                ("存储文件路径为空"));
             }
             return;
         }
@@ -259,7 +264,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             if (null != downloadFileCallback) {
                 downloadFileCallback.onFail(ResultCode.ERROR_DOWNLOAD_FILEPATH_DESTINATION,
                         new Exception
-                        ("目标文件夹不存在"));
+                                ("目标文件夹不存在"));
             }
             return;
         }
@@ -277,19 +282,17 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
     }
 
     /**
-     * @see #doPostDownloadFileRequest(Context, String, Map, JSONObject, String, String, long, boolean,
+     * @see #doDownloadFileRequest(Context, String, String, Map, JSONObject, String, String, long, boolean,
      * DownloadFileCallback)
      */
     @Override
-    public void doPostDownloadFileRequest(final Context context, final String url,
-                                          final Map<String, String> headers,
-                                          final JSONObject jsonObject,
-                                          final String destinationFilePath, final
-                                          String fileName, final long offsetBytes,
-                                          final DownloadFileCallback
-                                                  downloadFileCallback) {
-        doPostDownloadFileRequest(context, url, headers, jsonObject, destinationFilePath,
-                fileName, offsetBytes,
-                true, downloadFileCallback);
+    public void doDownloadFileRequest(final Context context, final String url, final String method,
+                                      final Map<String, String> headers,
+                                      final JSONObject jsonObject,
+                                      final String destinationFilePath, final
+                                      String fileName, final long offsetBytes,
+                                      final DownloadFileCallback downloadFileCallback) {
+        doDownloadFileRequest(context, url, method, headers, jsonObject, destinationFilePath,
+                fileName, offsetBytes, true, downloadFileCallback);
     }
 }
