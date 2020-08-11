@@ -68,7 +68,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                     .url(url)
                     .isReturnBody(false)
                     .callBackOnUiThread(callBackOnUiThread)
-                    .postString_json(data == null ? "" : data.toString())
+                    .postString_json(data == null||data.length()<=0 ? "" : data.toString())
                     .build(callback);
             Ok3Util.getInstance().addToRequestQueueAsynchoronous(stringRequest);
         } catch (Exception e) {
