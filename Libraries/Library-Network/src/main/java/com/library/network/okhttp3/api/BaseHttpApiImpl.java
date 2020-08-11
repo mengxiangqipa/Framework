@@ -49,7 +49,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             String> headers,
                                     final JSONObject data, final boolean callBackOnUiThread,
                                     final ICallback callback) {
-        if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
+        if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != callback) {
                 callback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception("网络未连接，请检查你的网络"));
@@ -104,7 +104,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                                          final String[] addFormDataPartNames,
                                          final long filesMaxLenth,
                                          final UploadFilesCallback uploadFilesCallback) {
-        if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
+        if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != uploadFilesCallback) {
                 uploadFilesCallback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception(
@@ -220,7 +220,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                                           final boolean callBackOnUiThread,
                                           final DownloadFileCallback
                                                   downloadFileCallback) {
-        if (NetworkUtil.getInstance().isNetworkAvailable(context)) {
+        if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != downloadFileCallback) {
                 downloadFileCallback.onFail(ResultCode.ERROR_NETWORK_NONE, new Exception(
