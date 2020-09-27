@@ -213,13 +213,15 @@ public class StringRequest extends AbstractCallback {
         }
 
         public Builder postString_json(String json) {
-            if (!TextUtils.isEmpty(json)) {
-                this.params = json;
-                RequestBody body = RequestBody.create(
-                        MediaType.parse("application/json; charset=utf-8"),
-                        json);
-                requstBuilder.post(body);
-            }
+            this.params = json;
+
+            RequestBody body = RequestBody.create(
+                    TextUtils.isEmpty(json) ? null :
+                            MediaType.parse("application/json; charset=utf-8"),
+                    TextUtils.isEmpty(json) ? "" : json);
+            requstBuilder.post(body);
+//            //post空可以用下面这个
+//            requstBuilder.post(custom.okhttp3.internal.Util.EMPTY_REQUEST);
             return this;
         }
 
