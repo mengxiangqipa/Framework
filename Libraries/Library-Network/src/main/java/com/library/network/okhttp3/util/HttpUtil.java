@@ -46,24 +46,44 @@ public class HttpUtil {
         return singleton;
     }
 
-    public void postStringRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                  final String data, final boolean callBackOnUiThread, final ICallback callback) {
+        httpAPI.doStringHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, data, callBackOnUiThread, callback);
+    }
+
+    public void postStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                  final String data, final ICallback callback) {
+        postStringHttpRequest(context, url, headers, data, true, callback);
+    }
+
+    public void postJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
                                     final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
-        httpAPI.doStringRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, data, callBackOnUiThread, callback);
+        httpAPI.doJsonHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, data, callBackOnUiThread, callback);
     }
 
-    public void postStringRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
                                     final JSONObject data, final ICallback callback) {
-        postStringRequest(context, url, headers, data, true, callback);
+        postJsonHttpRequest(context, url, headers, data, true, callback);
     }
 
-    public void getStringRequest(final Context context, final String url, final Map<String, String> headers,
-                                  final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
-        httpAPI.doStringRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_GET.getMethod(), headers, data, callBackOnUiThread, callback);
+    public void getStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                      final String data, final boolean callBackOnUiThread, final ICallback callback) {
+        httpAPI.doStringHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_GET.getMethod(), headers, data, callBackOnUiThread, callback);
     }
 
-    public void getStringRequest(final Context context, final String url, final Map<String, String> headers,
-                                  final JSONObject data, final ICallback callback) {
-        getStringRequest(context, url, headers, data, true, callback);
+    public void getStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                      final String data, final ICallback callback) {
+        postStringHttpRequest(context, url, headers, data, true, callback);
+    }
+
+    public void getJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                    final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
+        httpAPI.doJsonHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_GET.getMethod(), headers, data, callBackOnUiThread, callback);
+    }
+
+    public void getJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                    final JSONObject data, final ICallback callback) {
+        getJsonHttpRequest(context, url, headers, data, true, callback);
     }
 
     public void postUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,

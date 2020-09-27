@@ -46,11 +46,10 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * @param callback ICallback
      */
     @Override
-    public void doStringRequest(final Context context, final String url, final String method,
-                                final Map<String,
-                                        String> headers,
-                                final JSONObject data, final boolean callBackOnUiThread,
-                                final ICallback callback) {
+    public void doStringHttpRequest(final Context context, final String url, final String method,
+                                    final Map<String, String> headers,
+                                    final String data, final boolean callBackOnUiThread,
+                                    final ICallback callback) {
         if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != callback) {
@@ -65,13 +64,24 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             return;
         }
         try {
-            StringRequest stringRequest = new StringRequest.Builder()
-                    .addHeaders(headers)
-                    .url(url)
-                    .isReturnBody(false)
-                    .callBackOnUiThread(callBackOnUiThread)
-                    .postString_json(data == null || data.length() <= 0 ? "" : data.toString())
-                    .build(callback);
+            StringRequest stringRequest;
+            if (method.equals(HttpMethodEnum.HTTP_METHOD_GET.getMethod())) {
+                stringRequest = new StringRequest.Builder()
+                        .addHeaders(headers)
+                        .url(url)
+                        .isReturnBody(false)
+                        .callBackOnUiThread(callBackOnUiThread)
+                        .get(data)
+                        .build(callback);
+            } else {
+                stringRequest = new StringRequest.Builder()
+                        .addHeaders(headers)
+                        .url(url)
+                        .isReturnBody(false)
+                        .callBackOnUiThread(callBackOnUiThread)
+                        .postString_json(TextUtils.isEmpty(data) ? "" : data)
+                        .build(callback);
+            }
             Ok3Util.getInstance().addToRequestQueueAsynchoronous(stringRequest);
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,13 +89,31 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
     }
 
     /**
-     * @see #doStringRequest(Context, String, String, Map, JSONObject, boolean, ICallback)
+     * @see #doStringHttpRequest(Context, String, String, Map, String, boolean, ICallback)
      */
     @Override
-    public void doStringRequest(final Context context, final String url, final String method,
-                                final Map<String, String> headers,
-                                final JSONObject data, final ICallback callback) {
-        doStringRequest(context, url, method, headers, data, true, callback);
+    public void doStringHttpRequest(final Context context, final String url, final String method,
+                                    final Map<String, String> headers,
+                                    final String data, final ICallback callback) {
+        doStringHttpRequest(context, url, method, headers, data, true, callback);
+    }
+
+    @Override
+    public void doJsonHttpRequest(Context context, String url, String method,
+                                  Map<String, String> headers, JSONObject data,
+                                  boolean callBackOnUiThread, ICallback callback) {
+        doStringHttpRequest(context, url, method,
+                headers, (data == null || data.length() <= 0) ? "" : data.toString(),
+                callBackOnUiThread, callback);
+    }
+
+    @Override
+    public void doJsonHttpRequest(Context context, String url, String method,
+                                  Map<String, String> headers, JSONObject data,
+                                  ICallback callback) {
+        doStringHttpRequest(context, url, method,
+                headers, (data == null || data.length() <= 0) ? "" : data.toString(), true,
+                callback);
     }
 
     /**
@@ -217,14 +245,14 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      */
     @Override
     public void doDownloadFileRequest(final Context context, final String url,
-                                          final String method,
-                                          final Map<String, String> headers,
-                                          final JSONObject jsonObject,
-                                          final String destinationFilePath,
-                                          final String fileName, final long offsetBytes,
-                                          final boolean callBackOnUiThread,
-                                          final DownloadFileCallback
-                                                  downloadFileCallback) {
+                                      final String method,
+                                      final Map<String, String> headers,
+                                      final JSONObject jsonObject,
+                                      final String destinationFilePath,
+                                      final String fileName, final long offsetBytes,
+                                      final boolean callBackOnUiThread,
+                                      final DownloadFileCallback
+                                              downloadFileCallback) {
         if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
             autoTryCount.set(0);
             if (null != downloadFileCallback) {

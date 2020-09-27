@@ -43,17 +43,38 @@ public interface BaseHttpAPI {
      * @param data     JSONObject
      * @param callback ICallback
      */
-    void doStringRequest(final Context context, final String url, final String method,
+    void doStringHttpRequest(final Context context, final String url, final String method,
                          final Map<String, String> headers,
-                         final JSONObject data, final boolean callBackOnUiThread,
+                         final String data, final boolean callBackOnUiThread,
                          final ICallback callback);
 
     /**
-     * @see #doStringRequest(Context, String, String, Map, JSONObject, boolean, ICallback)
+     * @see #doStringHttpRequest(Context, String, String, Map, String, boolean, ICallback)
      */
-    void doStringRequest(final Context context, final String url, final String method,
+    void doStringHttpRequest(final Context context, final String url, final String method,
                          final Map<String, String> headers,
-                         final JSONObject data, final ICallback callback);
+                         final String data, final ICallback callback);
+
+    /**
+     * 简单封装结合业务通用post请求
+     *
+     * @param context  Context
+     * @param url      String
+     * @param method   String POST/GET
+     * @param data     JSONObject
+     * @param callback ICallback
+     */
+    void doJsonHttpRequest(final Context context, final String url, final String method,
+                             final Map<String, String> headers,
+                             final JSONObject data, final boolean callBackOnUiThread,
+                             final ICallback callback);
+
+    /**
+     * @see #doStringHttpRequest(Context, String, String, Map, JSONObject, boolean, ICallback)
+     */
+    void doJsonHttpRequest(final Context context, final String url, final String method,
+                             final Map<String, String> headers,
+                             final JSONObject data, final ICallback callback);
 
     /**
      * 上传文件

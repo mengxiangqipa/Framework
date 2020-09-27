@@ -182,6 +182,12 @@ public class StringRequest extends AbstractCallback {
             return this;
         }
 
+        public Builder get(String data) {
+            requstBuilder.url(baseUrl+data);
+            requstBuilder.get();
+            return this;
+        }
+
         public Builder delete() {
             requstBuilder.delete();
             return this;
