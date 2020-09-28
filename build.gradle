@@ -19,7 +19,7 @@ buildscript {
         classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2'
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.15'//微信7zip压缩，资源混淆。。
 //        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"//gradle.properties
-        classpath 'com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1'
+        classpath 'com.tencent.tinker:tinker-patch-gradle-plugin:1.9.13.2'
 
         //这个是JitPack插件 上传自己的library需要
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
