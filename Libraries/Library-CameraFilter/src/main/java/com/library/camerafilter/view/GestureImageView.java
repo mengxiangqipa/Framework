@@ -2,7 +2,7 @@ package com.library.camerafilter.view;
 
 import android.content.Context;
 import android.graphics.Matrix;
-import android.support.v4.view.GestureDetectorCompat;
+import androidx.core.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -12,7 +12,7 @@ import android.view.ViewConfiguration;
 /**
  * 支持手势的ImageView
  */
-public class GestureImageView extends android.support.v7.widget.AppCompatImageView {
+public class GestureImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     private static final String TAG = "GestureImageView";
     // 最大缩放比例

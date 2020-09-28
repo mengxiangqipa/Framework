@@ -5,9 +5,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +18,9 @@ import com.library.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -42,6 +42,8 @@ public abstract class BaseAbstractFaceFragment<T> extends Fragment {
                 case 10086:
                     requestData();
                     break;
+                default:
+                    break;
             }
         }
     };
@@ -61,10 +63,11 @@ public abstract class BaseAbstractFaceFragment<T> extends Fragment {
         mContext = getActivity();
     }
 
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        if (view == null)
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_emoji_recyclerview, container, false);
+        }
         unbinder = ButterKnife.bind(this, view);
         if (!hasInit) {
             hasInit = true;
@@ -98,7 +101,7 @@ public abstract class BaseAbstractFaceFragment<T> extends Fragment {
 // .getInstance().dp2px(getContext(), 3)));
         colorDrawable.setBounds(0, 0, ScreenUtils.getInstance().dp2px(getContext(), 10),
                 ScreenUtils.getInstance()
-                .dp2px(getContext(), 10));
+                        .dp2px(getContext(), 10));
 //        gridDividerItemDecoration2.setDrawable(colorDrawable);
 //        gridDividerItemDecoration2.setDrawable(getResources().getDrawable(R.drawable
 //        .gradient_griditem_emoji));

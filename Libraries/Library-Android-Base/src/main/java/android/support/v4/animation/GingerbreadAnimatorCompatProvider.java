@@ -3,10 +3,10 @@
 // (powered by Fernflower decompiler)
 //
 
-package android.support.v4.animation;
+package androidx.core.animation;
 
 import android.annotation.TargetApi;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.view.View;
 
 import java.util.ArrayList;

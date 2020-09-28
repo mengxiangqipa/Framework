@@ -12,7 +12,7 @@ import android.os.Parcelable;
 import android.os.StatFs;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

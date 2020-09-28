@@ -1,6 +1,6 @@
 package com.library.permission.request.fragment;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.library.permission.bean.Special;
 import com.library.permission.callbcak.RequestPermissionListener;
 import com.library.permission.debug.PermissionDebug;

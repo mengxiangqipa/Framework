@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.library.adapter.R;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 简单RecyclerView的分割线 末项可绘制
@@ -31,7 +34,7 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
     @SuppressWarnings("deprecation")
     public HorizontaItemDecoration(@NonNull Context context) {
         dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(android.support.v7.appcompat.R.color.material_grey_600));
+        dividerPaint.setColor(context.getResources().getColor(R.color.material_grey_600));
         dividerHeight = 1;
     }
 
@@ -74,8 +77,9 @@ public class HorizontaItemDecoration extends RecyclerView.ItemDecoration {
             for (int i = 0; i < childCount; i++) {
                 View view = parent.getChildAt(i);
                 int position = parent.getChildAdapterPosition(view);
-                if (adapter.isHeader(position) || adapter.isFooter(position))
+                if (adapter.isHeader(position) || adapter.isFooter(position)) {
                     continue;
+                }
                 float top = view.getBottom();
                 float bottom = view.getBottom() + dividerHeight;
                 if ((type == TYPE.BOTH || type == TYPE.WITH_TOP) && i == 0) {

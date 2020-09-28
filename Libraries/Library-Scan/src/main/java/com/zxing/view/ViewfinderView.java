@@ -23,7 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 import android.util.AttributeSet;
 import android.view.View;
 

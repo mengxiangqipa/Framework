@@ -1,6 +1,6 @@
 package com.library.adapter_recyclerview;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 
 /**
  * recyclerView--adapter的多类型type

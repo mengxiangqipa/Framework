@@ -2,7 +2,7 @@ package com.framework.security;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.text.TextUtils;
 
 import java.nio.charset.Charset;

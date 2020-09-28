@@ -1,6 +1,6 @@
 package com.library.network.okhttp3.util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.library.network.okhttp3.request.DownloadRequest;
 import com.library.network.okhttp3.request.StringRequest;

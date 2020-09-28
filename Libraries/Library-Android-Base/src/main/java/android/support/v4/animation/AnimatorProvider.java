@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package android.support.v4.animation;
+package androidx.core.animation;
 
 import android.view.View;
 

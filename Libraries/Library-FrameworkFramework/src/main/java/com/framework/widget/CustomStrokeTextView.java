@@ -20,7 +20,7 @@ import com.framework.R;
  * @author Administrator
  * </pre>
  */
-public class CustomStrokeTextView extends android.support.v7.widget.AppCompatTextView {
+public class CustomStrokeTextView extends androidx.appcompat.widget.AppCompatTextView {
     /**
      * 镂空宽度
      */

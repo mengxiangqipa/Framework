@@ -208,7 +208,7 @@ ext {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.13'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
 
     //ok3网络请求
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
@@ -229,8 +229,8 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
 
     //cardview
-    implementation 'com.android.support:cardview-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     //    //自定义library
     implementation files('libs/ClipPicView_noSource.jar')
@@ -301,7 +301,7 @@ dependencies {
     implementation("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
 
     //支持multidex
-    api 'com.android.support:multidex:1.0.3'
+    api 'androidx.multidex:multidex:2.0.0'
 
     /** tinker    */
     implementation files('libs/pinyin4j-2.5.0.jar')

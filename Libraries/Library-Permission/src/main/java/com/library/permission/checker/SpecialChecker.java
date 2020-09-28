@@ -3,7 +3,7 @@ package com.library.permission.checker;
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.library.permission.bean.Special;
 import com.library.permission.debug.PermissionDebug;

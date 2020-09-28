@@ -3,7 +3,7 @@ package com.library.permission.checker;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 import static android.os.Build.VERSION_CODES.M;
 

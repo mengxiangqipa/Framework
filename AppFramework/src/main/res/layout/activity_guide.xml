@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false">
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hardwareAccelerated="true">
 
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
     <RelativeLayout
         android:id="@+id/dotsLayout"

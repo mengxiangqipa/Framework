@@ -1,7 +1,7 @@
 package com.test;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.demo.demo.R;
 import com.library.pulltorefresh.classical.ClassicalPullToRefreshLayout;

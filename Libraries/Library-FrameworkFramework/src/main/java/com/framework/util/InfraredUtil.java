@@ -3,7 +3,7 @@ package com.framework.util;
 import android.content.Context;
 import android.hardware.ConsumerIrManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * 红外控制类

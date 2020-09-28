@@ -1,6 +1,6 @@
 package com.library.adapter.touch;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author YobertJomi

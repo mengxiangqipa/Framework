@@ -19,7 +19,7 @@ package com.framework.widget.scardview
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 
 
 internal interface SCardViewImpl {

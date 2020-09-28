@@ -25,7 +25,7 @@ import com.libray.camerafilter.R;
  *
  * @author Administrator
  */
-public class CropImageView extends android.support.v7.widget.AppCompatImageView {
+public class CropImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     // Constants ///////////////////////////////////////////////////////////////////////////////////
 

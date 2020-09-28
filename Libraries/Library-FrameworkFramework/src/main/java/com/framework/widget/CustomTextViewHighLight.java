@@ -13,7 +13,7 @@ import android.util.AttributeSet;
  * className CustomTextViewHighLight
  * created at  2017/9/12  10:30
  */
-public class CustomTextViewHighLight extends android.support.v7.widget.AppCompatTextView {
+public class CustomTextViewHighLight extends androidx.appcompat.widget.AppCompatTextView {
     private LinearGradient mLinearGradient;
     private Matrix mGradientMatrix;
     private Paint mPaint;

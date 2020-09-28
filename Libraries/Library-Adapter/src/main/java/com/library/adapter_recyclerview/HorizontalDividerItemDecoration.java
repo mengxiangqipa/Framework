@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import com.library.adapter.R;
 
 /**
  * 简单RecyclerView的分割线
@@ -26,7 +28,7 @@ public class HorizontalDividerItemDecoration extends RecyclerView.ItemDecoration
     @SuppressWarnings("deprecation")
     public HorizontalDividerItemDecoration(@NonNull Context context) {
         dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(android.support.v7.appcompat.R.color.material_grey_600));
+        dividerPaint.setColor(context.getResources().getColor(R.color.material_grey_600));
         dividerHeight = 1;
     }
 

@@ -17,7 +17,7 @@
 package com.framework.util;
 
 import android.os.SystemClock;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.MotionEvent;
 
 /**
