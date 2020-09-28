@@ -5,6 +5,7 @@
 
     <!--android:icon="@drawable/ic_android_blue_24dp"-->
     <application
+        android:hardwareAccelerated="true"
         android:name="com.demo.application.ShareApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,12 +30,12 @@
             android:name="com.testactivity.ScanActivity"
             android:configChanges="orientation|screenSize|screenLayout"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
         <activity
             android:name="com.demo.activity.SplashActivity"
             android:configChanges="orientation|screenSize|screenLayout"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
 
         <activity android:name="com.demo.activity.az.AzActivity" />
 

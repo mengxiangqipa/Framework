@@ -300,10 +300,14 @@
     }
     -keep class **$Properties
     #滤镜
-    -keep class com.muzhi.camerasdk.**{*;}
     -keep class com.mdroid.**{*;}
+    -keep class com.muzhi.camerasdk.**{*;}
     -keep class com.library.camerafilter.**{*;}
-    -keep class com.muzhi.camerasdk.library.filter.OpenGlUtils.**{*;}
+    -keep class android.opengl.**{*;}
+    -keep class uk.so.**{*;}
+    -keep class com.squareup.picasso.**{*;}
+    -keep class android.opengl.**{*;}
+    -keep class android.opengl.GLSurfaceView{*;}
     #防止这个类混淆出错 com.asiainfo.andcampus.util.TabLayoutIndicatorUtil(android.support.design.widget.TabLayout用了反射
     -keep public class  android.support.design.**{*;}
     -keep public class com.framework2.tinker.app.**{*;}#用了反射
@@ -330,6 +334,9 @@
     #keep eventbus<<------------------------------
     #keep eventbus<<------------------------------
 
+    #keep 拼音
+    -keep class com.hp.hpl.**{*;}
+    -keep class net.sourceforge.**{*;}
 
 
 
