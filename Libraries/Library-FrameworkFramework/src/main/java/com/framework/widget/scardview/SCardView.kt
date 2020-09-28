@@ -27,6 +27,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
+import androidx.annotation.RequiresApi
 import com.framework.R
 import kotlin.math.ceil
 import kotlin.math.sqrt
@@ -163,8 +164,10 @@ class SCardView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Fra
         }
         IMPL.initStatic()
 
-        IMPL.initialize(mCardViewDelegate, context, backgroundColor, radius,
-                elevation, maxElevation, direction, cardCornerVisibility, shadowStartColor, shadowEndColor)
+        if (backgroundColor != null) {
+            IMPL.initialize(mCardViewDelegate, context, backgroundColor, radius,
+                    elevation, maxElevation, direction, cardCornerVisibility, shadowStartColor, shadowEndColor)
+        }
     }
 
 
@@ -258,10 +261,12 @@ class SCardView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Fra
         super.onMeasure(updateWidthMeasureSpec, updateHeightMeasureSpec)
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         layoutChildren(left, top, right, bottom, false /* no force left gravity */)
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun layoutChildren(left: Int, top: Int, right: Int, bottom: Int, forceLeftGravity: Boolean) {
         val count = childCount
         val bg = IMPL.getShadowBackground(mCardViewDelegate) as SRoundRectDrawableWithShadow

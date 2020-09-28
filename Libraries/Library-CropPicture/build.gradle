@@ -6,7 +6,7 @@ group = 'com.github.mengxiangqipa'//替换成你的Github的用户名
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion

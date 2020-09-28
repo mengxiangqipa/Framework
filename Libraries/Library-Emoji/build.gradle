@@ -33,8 +33,8 @@ dependencies {
     })
     api project(':Libraries:Library-Adapter')
     //butterknife注解
-    implementation 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     //appcompat-v7
     implementation rootProject.ext.androidSupport.appcompat_v7
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

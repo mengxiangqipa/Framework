@@ -68,6 +68,12 @@ android {
         jumboMode = true
     }
 
+    //指定jdk版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         vectorDrawables.useSupportLibrary = true//兼容vectorDrawable
         applicationId "com.demo.demo"
@@ -208,7 +214,7 @@ ext {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.13'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 
     //ok3网络请求
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
@@ -217,8 +223,8 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
 
     //butterknife注解
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
     //glide加载图片
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
@@ -230,7 +236,7 @@ dependencies {
 
     //cardview
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
     //    //自定义library
     implementation files('libs/ClipPicView_noSource.jar')

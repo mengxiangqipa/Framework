@@ -1,7 +1,7 @@
 ext {
 
-    compileSdkVersion = 28        //android-compileSdkVersion
-    buildToolsVersion = "28.0.3"  //android-buildToolsVersion
+    compileSdkVersion = 29        //android-compileSdkVersion
+    buildToolsVersion = "29.0.3"  //android-buildToolsVersion
 
     minSdkVersion = 14            //android-defaultConfig-minSdkVersion
     targetSdkVersion = 22         //android-defaultConfig-targetSdkVersion
@@ -25,7 +25,7 @@ ext {
 
     cfgs = [
             compileSdkVersion    : 28,
-            buildToolsVersion    : "28.0.3",
+            buildToolsVersion    : "29.0.3",
             minSdkVersion        : 14,
             targetSdkVersion     : 22,
             versionCode          : 10,
