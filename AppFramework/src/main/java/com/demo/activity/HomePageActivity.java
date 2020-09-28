@@ -170,8 +170,9 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         Log.e("HomePageActivity我是跨进程:", PreferencesUtil.getInstance().getString("test"));
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
                 "test"));
-        String cookiesWithRSA = RSAutil.getInstance().encryptData("123456");
-        String cookiesWithRSAAAA = RSAutil.getInstance().decryptData(cookiesWithRSA);
+        String cookiesWithRSA = RSAutil.getInstance().encryptDataByGenenalPublicKey("123456");
+        String cookiesWithRSAAAA =
+                RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRSA);
         Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRSAAAA);
         try {
             SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec",
@@ -179,10 +180,11 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
             Log.e("HomePageActivity我是加密:",
                     SecurityManagerUtil.getInstance().get(ProxyApplication.getProxyApplication(),
                             "sec"));
-            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptData(
+            Log.e("HomePageActivity",
+                    "encrypt-AA:" + RSAutil.getInstance().encryptDataByGenenalPublicKey(
                     "18725618900"));
             Log.e("HomePageActivity",
-                    "decrypt-AA:" + RSAutil.getInstance().decryptData(RSAutil.getInstance().encryptData("18725618900")));
+                    "decrypt-AA:" + RSAutil.getInstance().decryptDataByGenenalPrivateKey(RSAutil.getInstance().encryptDataByGenenalPublicKey("18725618900")));
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("HomePageActivity我是加密e:", e.getMessage());
@@ -619,6 +621,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         }
     }
 
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Y.y("再按一次:" + System.currentTimeMillis());
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
