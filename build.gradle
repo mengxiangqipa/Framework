@@ -17,7 +17,7 @@ buildscript {
         //Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
         //AS3.0之后Butterknife 版本为8.4.0 高版本异常
         classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2'
-        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.8'//微信7zip压缩，资源混淆。。
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.15'//微信7zip压缩，资源混淆。。
 //        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"//gradle.properties
         classpath 'com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1'
 
