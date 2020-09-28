@@ -13,6 +13,7 @@ import android.os.Message;
 import android.os.Process;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,8 @@ import com.demo.commonWebview.DetachedProcessCommonFullWebViewActivity;
 import com.demo.configs.ConstantsME;
 import com.demo.configs.EventBusTag;
 import com.demo.demo.R;
+import com.demo.demo.databinding.ActivityHomepageBinding;
+import com.demo.entity.DataBindingItem;
 import com.demo.entity.UpdateInfo;
 import com.demo.service.CheckUpdateService;
 import com.framework.application.ProxyApplication;
@@ -73,6 +76,7 @@ import com.library.adapter_recyclerview.HorizontalDividerItemDecoration2;
 import com.library.adapter_recyclerview.UniversalAdapter;
 import com.library.androidvideocache.Utils;
 import com.test.MainActivity;
+import com.test.MyHandlers;
 import com.testactivity.ScanActivity;
 
 import org.json.JSONException;
@@ -153,11 +157,9 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     public void _onCreate() {
         setContentView(R.layout.activity_homepage_setcontentview);
         ButterKnife.bind(this);
-        //        		ActivityHomepageBinding viewDataBinding = DataBindingUtil.inflate
-        //        		(LayoutInflater.from(this), R
-        // .layout.activity_homepage, null, true);
-//        ActivityHomepageBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout
-//        .activity_homepage);
+//       ActivityHomepageBinding viewDataBinding = DataBindingUtil.inflate
+//       (LayoutInflater.from(this), R.layout.activity_homepage, null, true);
+//        ActivityHomepageBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_homepage);
 //        DataBindingItem item = new DataBindingItem();
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
@@ -170,19 +172,19 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         Log.e("HomePageActivity我是跨进程:", PreferencesUtil.getInstance().getString("test"));
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
                 "test"));
-        String cookiesWithRSA = RSAutil.getInstance().encryptData("123456");
-        String cookiesWithRSAAAA = RSAutil.getInstance().decryptData(cookiesWithRSA);
-        Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRSAAAA);
+        String cookiesWithRsa = RSAutil.getInstance().encryptDataByGenenalPublicKey("123456");
+        String cookiesWithRsaAbs = RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRsa);
+        Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRsaAbs);
         try {
             SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec",
                     "我是加密");
             Log.e("HomePageActivity我是加密:",
                     SecurityManagerUtil.getInstance().get(ProxyApplication.getProxyApplication(),
                             "sec"));
-            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptData(
+            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptDataByGenenalPublicKey(
                     "18725618900"));
             Log.e("HomePageActivity",
-                    "decrypt-AA:" + RSAutil.getInstance().decryptData(RSAutil.getInstance().encryptData("18725618900")));
+                    "decrypt-AA:" + RSAutil.getInstance().decryptDataByGenenalPrivateKey(RSAutil.getInstance().encryptDataByGenenalPublicKey("18725618900")));
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("HomePageActivity我是加密e:", e.getMessage());
@@ -310,8 +312,13 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                     public void onClick(View v) {
                         switch (str) {
                             case "刷新测试":
-                                EventBus.getDefault().post("我的", "test2");
-                                startActivity(MainActivity.class);
+//                                EventBus.getDefault().post("我的", "test2");
+//                                startActivity(MainActivity.class);
+
+                                String cookiesWithRsa = RSAutil.getInstance().encryptDataByGenenalPublicKey("123456");
+                                Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRsa);
+                                String cookiesWithRsaAbs = RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRsa);
+                                Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRsaAbs);
                                 break;
                             case "Tinker测试":
                                 startActivity(TinkerMainActivity.class);
@@ -619,6 +626,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         }
     }
 
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Y.y("再按一次:" + System.currentTimeMillis());
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {

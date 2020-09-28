@@ -287,8 +287,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     private boolean isLegal(EditText et_phone, EditText et_password, EditText et_captcha) {
-        if (null == et_phone || null == et_password)
+        if (null == et_phone || null == et_password) {
             return false;
+        }
         if (TextUtils.isEmpty(et_phone.getText())) {
             PicToastUtil.getInstance().showPicToast(LoginActivity.this, "请输入你的手机号码!");
             et_phone.requestFocus();
@@ -337,8 +338,9 @@ public class LoginActivity extends BaseActivity {
                         etLoginPhone, true);
                 Bundle forgetBundle = new Bundle();
                 if (!TextUtils.isEmpty(etLoginPhone.getText()) && RegularUtil.getInstance().isMobileNO(etLoginPhone
-                        .getText().toString()))
+                        .getText().toString())) {
                     forgetBundle.putString(ConstantsME.PHONE, etLoginPhone.getText().toString());
+                }
                 startActivityForResult(ForgetPasswordActivity.class, forgetBundle,
                         IntentCode.login);
                 break;
@@ -358,8 +360,9 @@ public class LoginActivity extends BaseActivity {
                         etLoginPhone, true);
                 Bundle bundle = new Bundle();
                 if (!TextUtils.isEmpty(etLoginPhone.getText()) && RegularUtil.getInstance().isMobileNO(etLoginPhone
-                        .getText().toString()))
+                        .getText().toString())) {
                     bundle.putString(ConstantsME.PHONE, etLoginPhone.getText().toString());
+                }
                 startActivityForResult(RegisterActivity.class, bundle, IntentCode.login);
                 break;
             default:
@@ -413,6 +416,7 @@ public class LoginActivity extends BaseActivity {
         CustomLoadingDialogUtils.getInstance().dismissDialog();
         Y.y("微信登录：" + "getResult:" + code);
         new Thread() {// 开启工作线程进行网络请求
+            @Override
             public void run() {
                 String path = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
                         + WCHAT_APP_ID
@@ -555,7 +559,7 @@ public class LoginActivity extends BaseActivity {
 
     private void showBindingPop(final int type, String phone, final String openId,
                                 final String pwd, final String
-            captcha) {
+                                        captcha) {
 //        CustomProgressDialogUtils.dismissProcessDialog();
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED |
 //        WindowManager
@@ -669,7 +673,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void requestThirdLoginCheckBinding(final int type, final String openId,
                                                final String imgUrl, final String
-            nick) {
+                                                       nick) {
 //        HttpUtil.getProxyApplication().requestThirdLoginCheckBinding(InterfaceConfig
 //        .thirdLoginCheckBinding, type, openId,
 // nick, imgUrl,
@@ -746,7 +750,8 @@ public class LoginActivity extends BaseActivity {
      */
     private void requestThirdLoginBindPhone(final int type, final String openId,
                                             final String phone, final String
-            mobileValidVoucher, final String moblieVerifyCode, final String password) {
+                                                    mobileValidVoucher,
+                                            final String moblieVerifyCode, final String password) {
 //        HttpUtil.getProxyApplication().requestThirdLoginBindPhone(InterfaceConfig
 //        .thirdLoginBindPhone, type, openId, phone,
 // mobileValidVoucher, moblieVerifyCode, password,

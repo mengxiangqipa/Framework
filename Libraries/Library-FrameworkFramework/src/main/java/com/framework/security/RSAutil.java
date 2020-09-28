@@ -129,8 +129,8 @@ public final class RSAutil {
     /**
      * 简单加密字符串（公钥传入）
      */
-    public String encryptData(String data, String publicKey) {
-        return encryptData(data, publicKey, false);
+    public String encryptDataByPublicKey(String data, String publicKey) {
+        return encryptDataByPublicKey(data, publicKey, false);
     }
 
     /**
@@ -138,10 +138,10 @@ public final class RSAutil {
      *
      * @param stable 加解密中间串是否是固定的，默认不固定
      */
-    public String encryptData(String data, String publicKey, boolean stable) {
+    public String encryptDataByPublicKey(String data, String publicKey, boolean stable) {
         try {
             byte[] encodeByte = encryptData(data.getBytes(),
-                    getPublicKey(Base64Utils.decode(publicKey)),stable);
+                    getPublicKey(Base64Utils.decode(publicKey)), stable);
             if (null != encodeByte) {
                 return Base64Coder.encodeLines(encodeByte);
             } else {
@@ -156,8 +156,8 @@ public final class RSAutil {
     /**
      * 简单解密密字符串（私钥传入）
      */
-    public String decryptData(String data, String privateKey) {
-        return decryptData(data, privateKey, false);
+    public String decryptDataByPrivateKey(String data, String privateKey) {
+        return decryptDataByPrivateKey(data, privateKey, false);
     }
 
     /**
@@ -165,7 +165,7 @@ public final class RSAutil {
      *
      * @param stable 加解密中间串是否是固定的，默认不固定
      */
-    public String decryptData(String data, String privateKey, boolean stable) {
+    public String decryptDataByPrivateKey(String data, String privateKey, boolean stable) {
         try {
             byte[] decryptByte = decryptData(Base64Coder.decodeLines(data),
                     getPrivateKey(Base64Utils.decode(privateKey)), stable);
@@ -181,9 +181,63 @@ public final class RSAutil {
     }
 
     /**
+     * 简单加密字符串（私钥传入）
+     */
+    public String encryptDataByPrivateKey(String data, String privateKey) {
+        return encryptDataByPrivateKey(data, privateKey, false);
+    }
+
+    /**
+     * 简单加密字符串（私钥传入）
+     *
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     */
+    public String encryptDataByPrivateKey(String data, String privateKey, boolean stable) {
+        try {
+            byte[] encodeByte = encryptData(data.getBytes(),
+                    getPrivateKey(Base64Utils.decode(privateKey)), stable);
+            if (null != encodeByte) {
+                return Base64Coder.encodeLines(encodeByte);
+            } else {
+                return null;
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 简单解密密字符串（公钥传入）
+     */
+    public String decryptDataByPublicKey(String data, String publicKey) {
+        return decryptDataByPublicKey(data, publicKey, false);
+    }
+
+    /**
+     * 简单解密密字符串（公钥传入）
+     *
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     */
+    public String decryptDataByPublicKey(String data, String publicKey, boolean stable) {
+        try {
+            byte[] decryptByte = decryptData(Base64Coder.decodeLines(data),
+                    getPublicKey(Base64Utils.decode(publicKey)), stable);
+            if (null != decryptByte) {
+                return new String(decryptByte);
+            } else {
+                return null;
+            }
+        } catch (Exception var3) {
+            var3.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * 简单加密字符串（公私钥自动生成）
      */
-    public String encryptData(String data) {
+    public String encryptDataByGenenalPublicKey(String data) {
         try {
             if (rsaPublicKey == null) {
                 generateRSAKeyPair();
@@ -203,12 +257,12 @@ public final class RSAutil {
     /**
      * 简单解密密字符串（公私钥自动生成）
      */
-    public String decryptData(String data) {
+    public String decryptDataByGenenalPrivateKey(String data) {
         try {
             if (rsaPrivateKey == null) {
                 generateRSAKeyPair();
             }
-            byte[] decryptByte = decryptData(Base64Coder.decode(data), rsaPrivateKey);
+            byte[] decryptByte = decryptData(Base64Coder.decode(data), rsaPrivateKey, true);
             if (null != decryptByte) {
                 return new String(decryptByte);
             } else {
