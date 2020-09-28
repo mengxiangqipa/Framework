@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/transparent_white"
-             android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="播放"
             android:textColor="@color/tab_color_false"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:layout_centerVertical="true"
                 android:text="00:00"
                 android:textColor="@color/tab_color_false"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
 
             <SeekBar
@@ -57,7 +57,7 @@
                 android:minHeight="4.0dp"
                 android:progressDrawable="@drawable/picture_layer_progress"
                 android:thumb="@drawable/picture_sb_thumb"
-                android:thumbOffset="0dp"/>
+                android:thumbOffset="0dp" />
 
             <!--显示总进度-->
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_toRightOf="@+id/musicSeekBar"
                 android:text="00:00"
                 android:textColor="@color/tab_color_false"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
         </RelativeLayout>
 
@@ -89,7 +89,7 @@
                 android:gravity="center"
                 android:text="@string/picture_play_audio"
                 android:textColor="@color/white"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_Stop"
@@ -101,7 +101,7 @@
                 android:gravity="center"
                 android:text="@string/picture_stop_audio"
                 android:textColor="@color/white"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_Quit"
@@ -114,7 +114,7 @@
                 android:gravity="center"
                 android:text="@string/picture_quit_audio"
                 android:textColor="@color/white"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

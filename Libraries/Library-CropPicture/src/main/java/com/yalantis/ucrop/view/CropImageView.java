@@ -135,7 +135,8 @@ public class CropImageView extends TransformImageView {
         }
 
         if (targetAspectRatio == SOURCE_IMAGE_ASPECT_RATIO) {
-            mTargetAspectRatio = drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
+            mTargetAspectRatio =
+                    drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight();
         } else {
             mTargetAspectRatio = targetAspectRatio;
         }
@@ -264,11 +265,13 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * If image doesn't fill the crop bounds it must be translated and scaled properly to fill those.
+     * If image doesn't fill the crop bounds it must be translated and scaled properly to fill
+     * those.
      * <p/>
      * Therefore this method calculates delta X, Y and scale values and passes them to the
      * {@link WrapCropBoundsRunnable} which animates image.
-     * Scale value must be calculated only if image won't fill the crop bounds after it's translated to the
+     * Scale value must be calculated only if image won't fill the crop bounds after it's
+     * translated to the
      * crop bounds rectangle center. Using temporary variables this method checks this case.
      */
     public void setImageToWrapCropBounds(boolean animate) {
@@ -285,10 +288,12 @@ public class CropImageView extends TransformImageView {
             mTempMatrix.reset();
             mTempMatrix.setTranslate(deltaX, deltaY);
 
-            final float[] tempCurrentImageCorners = Arrays.copyOf(mCurrentImageCorners, mCurrentImageCorners.length);
+            final float[] tempCurrentImageCorners = Arrays.copyOf(mCurrentImageCorners,
+                    mCurrentImageCorners.length);
             mTempMatrix.mapPoints(tempCurrentImageCorners);
 
-            boolean willImageWrapCropBoundsAfterTranslate = isImageWrapCropBounds(tempCurrentImageCorners);
+            boolean willImageWrapCropBoundsAfterTranslate =
+                    isImageWrapCropBounds(tempCurrentImageCorners);
 
             if (willImageWrapCropBoundsAfterTranslate) {
                 final float[] imageIndents = calculateImageIndents();
@@ -300,7 +305,8 @@ public class CropImageView extends TransformImageView {
                 mTempMatrix.setRotate(getCurrentAngle());
                 mTempMatrix.mapRect(tempCropRect);
 
-                final float[] currentImageSides = RectUtils.getRectSidesFromCorners(mCurrentImageCorners);
+                final float[] currentImageSides =
+                        RectUtils.getRectSidesFromCorners(mCurrentImageCorners);
 
                 deltaScale = Math.max(tempCropRect.width() / currentImageSides[0],
                         tempCropRect.height() / currentImageSides[1]);
@@ -309,12 +315,14 @@ public class CropImageView extends TransformImageView {
 
             if (animate) {
                 post(mWrapCropBoundsRunnable = new WrapCropBoundsRunnable(
-                        CropImageView.this, mImageToWrapCropBoundsAnimDuration, currentX, currentY, deltaX, deltaY,
+                        CropImageView.this, mImageToWrapCropBoundsAnimDuration, currentX,
+                        currentY, deltaX, deltaY,
                         currentScale, deltaScale, willImageWrapCropBoundsAfterTranslate));
             } else {
                 postTranslate(deltaX, deltaY);
                 if (!willImageWrapCropBoundsAfterTranslate) {
-                    zoomInImage(currentScale + deltaScale, mCropRect.centerX(), mCropRect.centerY());
+                    zoomInImage(currentScale + deltaScale, mCropRect.centerX(),
+                            mCropRect.centerY());
                 }
             }
         }
@@ -326,13 +334,15 @@ public class CropImageView extends TransformImageView {
      * Third, depending on delta (its sign) put them or zero inside an array.
      * Fourth, using Matrix, rotate back those points (indents).
      *
-     * @return - the float array of image indents (4 floats) - in this order [left, top, right, bottom]
+     * @return - the float array of image indents (4 floats) - in this order [left, top, right,
+     * bottom]
      */
     private float[] calculateImageIndents() {
         mTempMatrix.reset();
         mTempMatrix.setRotate(-getCurrentAngle());
 
-        float[] unrotatedImageCorners = Arrays.copyOf(mCurrentImageCorners, mCurrentImageCorners.length);
+        float[] unrotatedImageCorners = Arrays.copyOf(mCurrentImageCorners,
+                mCurrentImageCorners.length);
         float[] unrotatedCropBoundsCorners = RectUtils.getCornersFromRect(mCropRect);
 
         mTempMatrix.mapPoints(unrotatedImageCorners);
@@ -427,7 +437,8 @@ public class CropImageView extends TransformImageView {
     }
 
     /**
-     * This method changes image scale (animating zoom for given duration), related to given center (x,y).
+     * This method changes image scale (animating zoom for given duration), related to given
+     * center (x,y).
      *
      * @param scale      - target scale
      * @param centerX    - scale center X
@@ -461,8 +472,10 @@ public class CropImageView extends TransformImageView {
      * @param drawableHeight - image height
      */
     private void calculateImageScaleBounds(float drawableWidth, float drawableHeight) {
-        float widthScale = Math.min(mCropRect.width() / drawableWidth, mCropRect.width() / drawableHeight);
-        float heightScale = Math.min(mCropRect.height() / drawableHeight, mCropRect.height() / drawableWidth);
+        float widthScale = Math.min(mCropRect.width() / drawableWidth,
+                mCropRect.width() / drawableHeight);
+        float heightScale = Math.min(mCropRect.height() / drawableHeight,
+                mCropRect.height() / drawableWidth);
 
         mMinScale = Math.min(widthScale, heightScale);
         mMaxScale = mMinScale * mMaxScaleMultiplier;
@@ -499,9 +512,11 @@ public class CropImageView extends TransformImageView {
      */
     @SuppressWarnings("deprecation")
     protected void processStyledAttributes(@NonNull TypedArray a) {
-        float targetAspectRatioX = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_x,
+        float targetAspectRatioX =
+                Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_x,
                 DEFAULT_ASPECT_RATIO));
-        float targetAspectRatioY = Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_y,
+        float targetAspectRatioY =
+                Math.abs(a.getFloat(R.styleable.ucrop_UCropView_ucrop_aspect_ratio_y,
                 DEFAULT_ASPECT_RATIO));
 
         if (targetAspectRatioX == SOURCE_IMAGE_ASPECT_RATIO || targetAspectRatioY == SOURCE_IMAGE_ASPECT_RATIO) {
@@ -566,7 +581,8 @@ public class CropImageView extends TransformImageView {
                 cropImageView.postTranslate(newX - (cropImageView.mCurrentImageCenter[0] - mOldX),
                         newY - (cropImageView.mCurrentImageCenter[1] - mOldY));
                 if (!mWillBeImageInBoundsAfterTranslate) {
-                    cropImageView.zoomInImage(mOldScale + newScale, cropImageView.mCropRect.centerX(),
+                    cropImageView.zoomInImage(mOldScale + newScale,
+                            cropImageView.mCropRect.centerX(),
                             cropImageView.mCropRect.centerY());
                 }
                 if (!cropImageView.isImageWrapCropBounds()) {

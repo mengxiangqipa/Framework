@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/loading_view"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <com.library.loadingview.LoadingIndicatorView
         android:id="@+id/loading_progress"
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dp_4"
-        app:indicatorColor="@color/colorAccent"/>
+        app:indicatorColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/loading_text"
@@ -22,5 +22,5 @@
         android:layout_marginLeft="@dimen/dp_4"
         android:text="@string/footer_loading"
         android:textColor="@color/colorAccent"
-        android:textSize="@dimen/sp_14"/>
+        android:textSize="@dimen/sp_14" />
 </LinearLayout>

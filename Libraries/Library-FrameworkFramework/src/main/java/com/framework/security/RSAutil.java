@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -31,7 +32,8 @@ import javax.crypto.Cipher;
  * created at  2017/3/13  12:04
  */
 public final class RSAutil {
-    private static String RSA = "RSA";
+    private final static String RSA = "RSA";
+    private final static String RSA_ECB_PKCS1PADDING = "RSA/ECB/PKCS1Padding";
 
     private static volatile RSAutil singleton;
 
@@ -73,11 +75,23 @@ public final class RSAutil {
     }
 
     /**
-     * 公钥加密私钥机密或私钥加密公钥解密
+     * {{@link #encryptData(byte[], Key, boolean)}}
      */
     public byte[] encryptData(byte[] data, java.security.Key key) {
+        return encryptData(data, key, true);
+    }
+
+    /**
+     * 公钥加密私钥机密或私钥加密公钥解密
+     *
+     * @param data   待加密的  byte[] data
+     * @param key    java.security.Key 公私钥
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     * @return byte[]
+     */
+    public byte[] encryptData(byte[] data, java.security.Key key, boolean stable) {
         try {
-            Cipher e = Cipher.getInstance(RSA);
+            Cipher e = Cipher.getInstance(stable ? RSA : RSA_ECB_PKCS1PADDING);
             e.init(Cipher.ENCRYPT_MODE, key);
             return e.doFinal(data);
         } catch (Exception var3) {
@@ -87,11 +101,24 @@ public final class RSAutil {
     }
 
     /**
-     * 公钥加密私钥机密或私钥加密公钥解密
+     * {{@link #decryptData(byte[], Key, boolean)}}
      */
     public byte[] decryptData(byte[] encryptedData, java.security.Key key) {
+        return decryptData(encryptedData, key, false);
+    }
+
+    /**
+     * 公钥加密私钥机密或私钥加密公钥解密
+     * <p>
+     *
+     * @param encryptedData 已加密的数据  byte[] encryptedData
+     * @param key           java.security.Key 公私钥
+     * @param stable        加解密中间串是否是固定的，默认不固定
+     * @return byte[]
+     */
+    public byte[] decryptData(byte[] encryptedData, java.security.Key key, boolean stable) {
         try {
-            Cipher e = Cipher.getInstance(RSA);
+            Cipher e = Cipher.getInstance(stable ? RSA : RSA_ECB_PKCS1PADDING);
             e.init(Cipher.DECRYPT_MODE, key);
             return e.doFinal(encryptedData);
         } catch (Exception var3) {
@@ -103,8 +130,18 @@ public final class RSAutil {
      * 简单加密字符串（公钥传入）
      */
     public String encryptData(String data, String publicKey) {
+        return encryptData(data, publicKey, false);
+    }
+
+    /**
+     * 简单加密字符串（公钥传入）
+     *
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     */
+    public String encryptData(String data, String publicKey, boolean stable) {
         try {
-            byte[] encodeByte = encryptData(data.getBytes(), getPublicKey(publicKey.getBytes()));
+            byte[] encodeByte = encryptData(data.getBytes(),
+                    getPublicKey(Base64Utils.decode(publicKey)),stable);
             if (null != encodeByte) {
                 return Base64Coder.encodeLines(encodeByte);
             } else {
@@ -120,9 +157,18 @@ public final class RSAutil {
      * 简单解密密字符串（私钥传入）
      */
     public String decryptData(String data, String privateKey) {
+        return decryptData(data, privateKey, false);
+    }
+
+    /**
+     * 简单解密密字符串（私钥传入）
+     *
+     * @param stable 加解密中间串是否是固定的，默认不固定
+     */
+    public String decryptData(String data, String privateKey, boolean stable) {
         try {
-            byte[] decryptByte = decryptData(Base64Coder.decode(data),
-                    getPrivateKey(privateKey.getBytes()));
+            byte[] decryptByte = decryptData(Base64Coder.decodeLines(data),
+                    getPrivateKey(Base64Utils.decode(privateKey)), stable);
             if (null != decryptByte) {
                 return new String(decryptByte);
             } else {

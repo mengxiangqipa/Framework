@@ -23,10 +23,12 @@ public class ReloginUtil {
 //        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.cookies, "");
 //        Intent intent;
 //        if (DebugConfig.TBSx5) {
-//            intent = new Intent(context, LoginTBSWebViewActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+//            intent = new Intent(context, LoginTBSWebViewActivity.class).setFlags(Intent
+//            .FLAG_ACTIVITY_CLEAR_TASK |
 // Intent.FLAG_ACTIVITY_NEW_TASK);
 //        } else {
-//            intent = new Intent(context, LoginWebViewActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+//            intent = new Intent(context, LoginWebViewActivity.class).setFlags(Intent
+//            .FLAG_ACTIVITY_CLEAR_TASK |
 // Intent.FLAG_ACTIVITY_NEW_TASK);
 //        }
 //        intent.putExtra(ConstantsME.url, RealInterfaceConfig.getRealBaseServerUrl()

@@ -50,7 +50,8 @@ public class HttpUrlSource implements Source {
         this(url, sourceInfoStorage, new EmptyHeadersInjector());
     }
 
-    public HttpUrlSource(String url, SourceInfoStorage sourceInfoStorage, HeaderInjector headerInjector) {
+    public HttpUrlSource(String url, SourceInfoStorage sourceInfoStorage,
+                         HeaderInjector headerInjector) {
         this.sourceInfoStorage = checkNotNull(sourceInfoStorage);
         this.headerInjector = checkNotNull(headerInjector);
         SourceInfo sourceInfo = sourceInfoStorage.get(url);
@@ -78,16 +79,19 @@ public class HttpUrlSource implements Source {
             connection = openConnection(offset, -1);
             String mime = connection.getContentType();
             inputStream = new BufferedInputStream(connection.getInputStream(), DEFAULT_BUFFER_SIZE);
-            long length = readSourceAvailableBytes(connection, offset, connection.getResponseCode());
+            long length = readSourceAvailableBytes(connection, offset,
+                    connection.getResponseCode());
             this.sourceInfo = new SourceInfo(sourceInfo.url, length, mime);
             this.sourceInfoStorage.put(sourceInfo.url, sourceInfo);
         } catch (IOException e) {
-            throw new ProxyCacheException("Error opening connection for " + sourceInfo.url + " with offset " +
+            throw new ProxyCacheException("Error opening connection for " + sourceInfo.url + " " +
+                    "with offset " +
                     offset, e);
         }
     }
 
-    private long readSourceAvailableBytes(HttpURLConnection connection, long offset, int responseCode) throws
+    private long readSourceAvailableBytes(HttpURLConnection connection, long offset,
+                                          int responseCode) throws
             IOException {
         long contentLength = getContentLength(connection);
         return responseCode == HTTP_OK ? contentLength
@@ -108,7 +112,8 @@ public class HttpUrlSource implements Source {
                 String message = "Wait... but why? WTF!? " +
                         "Really shouldn't happen any more after fixing https://github" +
                         ".com/danikula/AndroidVideoCache/issues/43. " +
-                        "If you read it on your device log, please, notify me danikula@gmail.com or create issue here" +
+                        "If you read it on your device log, please, notify me danikula@gmail.com " +
+                        "or create issue here" +
                         " " +
                         "https://github.com/danikula/AndroidVideoCache/issues.";
                 throw new RuntimeException(message, e);
@@ -124,12 +129,14 @@ public class HttpUrlSource implements Source {
     @Override
     public int read(byte[] buffer) throws ProxyCacheException {
         if (inputStream == null) {
-            throw new ProxyCacheException("Error reading data from " + sourceInfo.url + ": connection is absent!");
+            throw new ProxyCacheException("Error reading data from " + sourceInfo.url + ": " +
+                    "connection is absent!");
         }
         try {
             return inputStream.read(buffer, 0, buffer.length);
         } catch (InterruptedIOException e) {
-            throw new InterruptedProxyCacheException("Reading source " + sourceInfo.url + " is interrupted", e);
+            throw new InterruptedProxyCacheException("Reading source " + sourceInfo.url + " is " +
+                    "interrupted", e);
         } catch (IOException e) {
             throw new ProxyCacheException("Error reading data from " + sourceInfo.url, e);
         }
@@ -157,7 +164,8 @@ public class HttpUrlSource implements Source {
         }
     }
 
-    private HttpURLConnection openConnection(long offset, int timeout) throws IOException, ProxyCacheException {
+    private HttpURLConnection openConnection(long offset, int timeout) throws IOException,
+            ProxyCacheException {
         HttpURLConnection connection;
         boolean redirected;
         int redirectCount = 0;
@@ -174,7 +182,8 @@ public class HttpUrlSource implements Source {
                 connection.setReadTimeout(timeout);
             }
             int code = connection.getResponseCode();
-            redirected = code == HTTP_MOVED_PERM || code == HTTP_MOVED_TEMP || code == HTTP_SEE_OTHER;
+            redirected =
+                    code == HTTP_MOVED_PERM || code == HTTP_MOVED_TEMP || code == HTTP_SEE_OTHER;
             if (redirected) {
                 url = connection.getHeaderField("Location");
                 redirectCount++;

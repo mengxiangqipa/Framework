@@ -87,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cb_crop.setOnCheckedChangeListener(this);
         cb_crop_circular.setOnCheckedChangeListener(this);
         cb_compress.setOnCheckedChangeListener(this);
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(MainActivity.this, 4, GridLayoutManager.VERTICAL, false);
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(MainActivity.this, 4,
+                GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         adapter = new GridImageAdapter(MainActivity.this, onAddPicClickListener);
         adapter.setList(selectList);
@@ -103,7 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     switch (mediaType) {
                         case 1:
                             // 预览图片 可自定长按保存路径
-                            //PictureSelector.create(MainActivity.this).themeStyle(themeId).externalPicturePreview(position, "/custom_file", selectList);
+                            //PictureSelector.create(MainActivity.this).themeStyle(themeId)
+                            // .externalPicturePreview(position, "/custom_file", selectList);
                             PictureSelector.create(MainActivity.this).themeStyle(themeId).openExternalPreview(position, selectList);
                             break;
                         case 2:
@@ -144,17 +146,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete() {
             }
         });
-
     }
 
-    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+    private GridImageAdapter.onAddPicClickListener onAddPicClickListener =
+            new GridImageAdapter.onAddPicClickListener() {
         @Override
         public void onAddPicClick() {
             boolean mode = cb_mode.isChecked();
             if (mode) {
                 // 进入相册 以下是例子：不需要的api可以不写
                 PictureSelector.create(MainActivity.this)
-                        .openGallery(chooseMode)// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        .openGallery(chooseMode)// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频
+                        // .ofVideo()、音频.ofAudio()
                         .theme(themeId)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
                         .maxSelectNum(maxSelectNum)// 最大图片选择数量
                         .minSelectNum(1)// 最小选择数量
@@ -176,7 +179,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //.compressSavePath(getPath())//压缩图片保存地址
                         //.sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
                         .glideOverride(160, 160)// glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
-                        .withAspectRatio(aspect_ratio_x, aspect_ratio_y)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+                        .withAspectRatio(aspect_ratio_x, aspect_ratio_y)// 裁剪比例 如16:9 3:2 3:4 1:1
+                        // 可自定义
                         .hideBottomControls(cb_hide.isChecked() ? false : true)// 是否显示uCrop工具栏，默认不显示
                         .isGif(cb_isGif.isChecked())// 是否显示gif图片
                         .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
@@ -190,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        .videoMinSecond(10)
                         //.previewEggs(false)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
                         //.cropCompressQuality(90)// 裁剪压缩质量 默认100
-                        .totalFileMaxLenth(200*1024*1024L)
+                        .totalFileMaxLenth(200 * 1024 * 1024L)
                         .minimumCompressSize(100)// 小于100kb的图片不压缩
                         //.cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效
                         //.rotateEnabled(true) // 裁剪是否可旋转图片
@@ -217,7 +221,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .enableCrop(cb_crop.isChecked())// 是否裁剪
                         .compress(cb_compress.isChecked())// 是否压缩
                         .glideOverride(160, 160)// glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
-                        .withAspectRatio(aspect_ratio_x, aspect_ratio_y)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+                        .withAspectRatio(aspect_ratio_x, aspect_ratio_y)// 裁剪比例 如16:9 3:2 3:4 1:1
+                        // 可自定义
                         .hideBottomControls(cb_hide.isChecked() ? false : true)// 是否显示uCrop工具栏，默认不显示
                         .isGif(cb_isGif.isChecked())// 是否显示gif图片
                         .freeStyleCropEnabled(cb_styleCrop.isChecked())// 裁剪框是否可拖拽
@@ -238,7 +243,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
             }
         }
-
     };
 
     @Override

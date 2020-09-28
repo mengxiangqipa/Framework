@@ -23,8 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.framework.util.Y;
-
 public class BlueToothConnectReceiver extends BroadcastReceiver {
 
     private OnBleConnectListener onBleConnectListener;
@@ -107,7 +105,6 @@ public class BlueToothConnectReceiver extends BroadcastReceiver {
         void onConnect(BluetoothDevice device);
 
         void onDisConnect(BluetoothDevice device);
-
     }
 
     public void setOnBleConnectListener(OnBleConnectListener onBleConnectListener) {

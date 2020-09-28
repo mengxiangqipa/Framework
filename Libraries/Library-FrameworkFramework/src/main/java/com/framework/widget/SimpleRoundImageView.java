@@ -57,8 +57,10 @@ public class SimpleRoundImageView extends AppCompatImageView {
 
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SimpleRoundImageView);
-            roundWidth = a.getDimensionPixelSize(R.styleable.SimpleRoundImageView_simple_round_roundWidth, roundWidth);
-            roundHeight = a.getDimensionPixelSize(R.styleable.SimpleRoundImageView_simple_round_roundWidth, roundHeight);
+            roundWidth =
+                    a.getDimensionPixelSize(R.styleable.SimpleRoundImageView_simple_round_roundWidth, roundWidth);
+            roundHeight =
+                    a.getDimensionPixelSize(R.styleable.SimpleRoundImageView_simple_round_roundWidth, roundHeight);
             a.recycle();
         } else {
             float density = context.getResources().getDisplayMetrics().density;
@@ -144,7 +146,7 @@ public class SimpleRoundImageView extends AppCompatImageView {
         canvas.drawPath(path, paint);
     }
 
-    public void setRadius(int width, int height){
+    public void setRadius(int width, int height) {
         this.roundWidth = width;
         this.roundHeight = height;
         invalidate();

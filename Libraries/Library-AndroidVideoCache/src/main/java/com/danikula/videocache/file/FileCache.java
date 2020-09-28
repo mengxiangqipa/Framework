@@ -33,7 +33,8 @@ public class FileCache implements Cache {
             File directory = file.getParentFile();
             Files.makeDir(directory);
             boolean completed = file.exists();
-            this.file = completed ? file : new File(file.getParentFile(), file.getName() + TEMP_POSTFIX);
+            this.file = completed ? file : new File(file.getParentFile(),
+                    file.getName() + TEMP_POSTFIX);
             this.dataFile = new RandomAccessFile(this.file, completed ? "r" : "rw");
         } catch (IOException e) {
             throw new ProxyCacheException("Error using file " + file + " as disc cache", e);
@@ -55,8 +56,10 @@ public class FileCache implements Cache {
             dataFile.seek(offset);
             return dataFile.read(buffer, 0, length);
         } catch (IOException e) {
-            String format = "Error reading %d bytes with offset %d from file[%d bytes] to buffer[%d bytes]";
-            throw new ProxyCacheException(String.format(format, length, offset, available(), buffer.length), e);
+            String format = "Error reading %d bytes with offset %d from file[%d bytes] to " +
+                    "buffer[%d bytes]";
+            throw new ProxyCacheException(String.format(format, length, offset, available(),
+                    buffer.length), e);
         }
     }
 
@@ -64,7 +67,8 @@ public class FileCache implements Cache {
     public synchronized void append(byte[] data, int length) throws ProxyCacheException {
         try {
             if (isCompleted()) {
-                throw new ProxyCacheException("Error append cache: cache file " + file + " is completed!");
+                throw new ProxyCacheException("Error append cache: cache file " + file + " is " +
+                        "completed!");
             }
             dataFile.seek(available());
             dataFile.write(data, 0, length);
@@ -91,7 +95,8 @@ public class FileCache implements Cache {
         }
 
         close();
-        String fileName = file.getName().substring(0, file.getName().length() - TEMP_POSTFIX.length());
+        String fileName = file.getName().substring(0,
+                file.getName().length() - TEMP_POSTFIX.length());
         File completedFile = new File(file.getParentFile(), fileName);
         boolean renamed = file.renameTo(completedFile);
         if (!renamed) {
@@ -112,7 +117,8 @@ public class FileCache implements Cache {
     }
 
     /**
-     * Returns file to be used fo caching. It may as original file passed in constructor as some temp file for not
+     * Returns file to be used fo caching. It may as original file passed in constructor as some
+     * temp file for not
      * completed cache.
      *
      * @return file for caching.

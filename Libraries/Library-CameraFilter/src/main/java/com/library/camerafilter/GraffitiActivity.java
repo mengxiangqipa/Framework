@@ -55,7 +55,8 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.camerasdk_activity_graffiti);
         showLeftIcon();
         setActionBarTitle("涂鸦");
@@ -161,16 +162,20 @@ public class GraffitiActivity extends BaseActivity implements OnSeekBarChangeLis
     private void initBrush() {
         Options option = new Options();
         option.inSampleSize = brush_progress;
-        Bitmap paintBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.camerasdk_brush, option);
-        casualWaterUtil.creatDrawPainter(DrawAttribute.DrawStatus.PEN_WATER, paintBitmap, brush_color);
+        Bitmap paintBitmap = BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.camerasdk_brush, option);
+        casualWaterUtil.creatDrawPainter(DrawAttribute.DrawStatus.PEN_WATER, paintBitmap,
+                brush_color);
     }
 
     //定义橡皮擦
     private void initEraser() {
         Options option = new Options();
         option.inSampleSize = eraser_progress;
-        Bitmap paintBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.camerasdk_eraser, option);
-        casualWaterUtil.creatDrawPainter(DrawAttribute.DrawStatus.PEN_ERASER, paintBitmap, 0xffadb8bd);
+        Bitmap paintBitmap = BitmapFactory.decodeResource(getResources(),
+                R.drawable.camerasdk_eraser, option);
+        casualWaterUtil.creatDrawPainter(DrawAttribute.DrawStatus.PEN_ERASER, paintBitmap,
+                0xffadb8bd);
     }
 
     /**

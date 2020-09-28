@@ -45,7 +45,8 @@ public class OverScrollView extends ScrollView {
         @Override
         public void handleMessage(Message msg) {
             // 回弹速度随下拉距离moveDeltaY增大而增大
-            MOVE_SPEED = (float) (5 + 15 * Math.tan(Math.PI / 2 / getMeasuredHeight() * (pullDownY + Math.abs
+            MOVE_SPEED =
+                    (float) (5 + 15 * Math.tan(Math.PI / 2 / getMeasuredHeight() * (pullDownY + Math.abs
                     (pullUpY))));
             if (pullDownY > 0)
                 pullDownY -= MOVE_SPEED;
@@ -231,7 +232,8 @@ public class OverScrollView extends ScrollView {
                 heightPadding = 0;
             }
             if (heightSize > height) {
-                int myHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize - heightPadding, MeasureSpec.EXACTLY);
+                int myHeightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize - heightPadding,
+                        MeasureSpec.EXACTLY);
                 super.onMeasure(widthMeasureSpec, myHeightMeasureSpec);
             }
         }
@@ -245,7 +247,8 @@ public class OverScrollView extends ScrollView {
             isLayout = true;
         }
 
-        pullableView.layout(0, (int) (pullDownY + pullUpY), pullableView.getMeasuredWidth(), (int) (pullDownY +
+        pullableView.layout(0, (int) (pullDownY + pullUpY), pullableView.getMeasuredWidth(),
+                (int) (pullDownY +
                 pullUpY) + pullableView.getMeasuredHeight());
     }
 

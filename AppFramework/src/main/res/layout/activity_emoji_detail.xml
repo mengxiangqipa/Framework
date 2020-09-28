@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/_excessive"
@@ -16,7 +15,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/spaceline"/>
+            android:background="@color/spaceline" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +27,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/spaceline"/>
+                android:background="@color/spaceline" />
 
             <com.library.percent.PercentLinearLayout
                 android:id="@+id/bottomComment"
@@ -42,7 +41,7 @@
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:padding="10dp"
-                    android:src="@drawable/selector_send_input"/>
+                    android:src="@drawable/selector_send_input" />
 
                 <EditText
                     android:id="@+id/etComment"
@@ -56,7 +55,7 @@
                     android:minHeight="50dp"
                     android:paddingLeft="15dp"
                     android:textColor="@color/_black"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tvSend"
@@ -67,13 +66,13 @@
                     android:padding="10dp"
                     android:text="发送"
                     android:textColor="@color/_blue"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </com.library.percent.PercentLinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/spaceline"/>
+                android:background="@color/spaceline" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -102,8 +101,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="15dp"
                         android:gravity="center"
-                        android:orientation="horizontal">
-                    </LinearLayout>
+                        android:orientation="horizontal"></LinearLayout>
 
                 </RelativeLayout>
 
@@ -125,7 +123,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/emoji_ic_bb_expression_icon"/>
+                            android:src="@drawable/emoji_ic_bb_expression_icon" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -139,7 +137,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/emoji_ic_default_expression_icon"/>
+                            android:src="@drawable/emoji_ic_default_expression_icon" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>

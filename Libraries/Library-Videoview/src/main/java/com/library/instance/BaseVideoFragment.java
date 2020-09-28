@@ -30,7 +30,8 @@ import butterknife.Unbinder;
  * created at  2017/9/5  10:32
  * <p>
  * Bundle bundle=new Bundle();
- * bundle.putString(BaseVideoFragment.URL,"http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc
+ * bundle.putString(BaseVideoFragment.URL,"http://112.253.22
+ * .157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc
  * .yinyuetai" +
  * ".com/D046015255134077DDB3ACA0D7E68D45.flv");
  * bundle.putString(BaseVideoFragment.TITLE,"我是title");
@@ -87,7 +88,8 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
         if (!hasInit) {
             hasInit = true;
             if (getArguments().getInt(HEIGHT) > 0) {//设置高度播放高度
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams params =
+                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         getArguments().getInt(HEIGHT));
                 baseCustomVideoViewWithUI.setLayoutParams(params);
             }
@@ -114,7 +116,8 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
             if (getArguments().getBoolean(AUTO_PLAY)) {//是否自动播放
                 baseCustomVideoViewWithUI.autoPlay(true);
                 if (getArguments().getBoolean(WITH_CACHE)) {
-                    HttpProxyCacheServer proxy = HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
+                    HttpProxyCacheServer proxy =
+                            HttpProxyCacheServerUtil.getInstance().getProxy(getContext());
                     proxy.registerCacheListener(this, getArguments().getString(URL));
                     String proxyUrl = proxy.getProxyUrl(getArguments().getString(URL));
                     baseCustomVideoViewWithUI.showFullScreen(false);
@@ -154,7 +157,8 @@ public class BaseVideoFragment extends Fragment implements CacheListener {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             baseCustomVideoViewWithUI.setFullScreen();
         } else {
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout
+//            .LayoutParams
 // .MATCH_PARENT, ScreenUtils.getInstance().getStatusBarHeightPx(VideoViewPlayingActivity.this));
 //            titleTemp.setLayoutParams(layoutParams);
             baseCustomVideoViewWithUI.setNormalScreen();

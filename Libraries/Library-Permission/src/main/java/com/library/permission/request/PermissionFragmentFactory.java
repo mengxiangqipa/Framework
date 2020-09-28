@@ -1,12 +1,11 @@
 package com.library.permission.request;
 
 import android.app.Activity;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+
 import com.library.permission.request.fragment.PermissionFragment;
 import com.library.permission.request.fragment.PermissionSupportFragment;
-
-
 
 class PermissionFragmentFactory {
 
@@ -15,8 +14,10 @@ class PermissionFragmentFactory {
     static IPermissionActions create(Activity activity) {
         IPermissionActions action;
         if (activity instanceof FragmentActivity) {
-            FragmentManager supportFragmentManager = ((FragmentActivity) activity).getSupportFragmentManager();
-            PermissionSupportFragment permissionSupportFragment = (PermissionSupportFragment) supportFragmentManager.findFragmentByTag(FRAGMENT_TAG);
+            FragmentManager supportFragmentManager =
+                    ((FragmentActivity) activity).getSupportFragmentManager();
+            PermissionSupportFragment permissionSupportFragment =
+                    (PermissionSupportFragment) supportFragmentManager.findFragmentByTag(FRAGMENT_TAG);
             if (null == permissionSupportFragment) {
                 permissionSupportFragment = new PermissionSupportFragment();
                 supportFragmentManager.beginTransaction()
@@ -26,7 +27,8 @@ class PermissionFragmentFactory {
             action = permissionSupportFragment;
         } else {
             android.app.FragmentManager fragmentManager = activity.getFragmentManager();
-            PermissionFragment permissionFragment = (PermissionFragment) fragmentManager.findFragmentByTag(FRAGMENT_TAG);
+            PermissionFragment permissionFragment =
+                    (PermissionFragment) fragmentManager.findFragmentByTag(FRAGMENT_TAG);
             if (null == permissionFragment) {
                 permissionFragment = new PermissionFragment();
                 activity.getFragmentManager().beginTransaction()

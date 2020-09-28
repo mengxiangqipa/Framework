@@ -127,7 +127,8 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @SuppressWarnings("deprecation")
-    public SectionItemDecoration setBottomDividerColor(@NonNull Context context, @ColorRes int color) {
+    public SectionItemDecoration setBottomDividerColor(@NonNull Context context,
+                                                       @ColorRes int color) {
         if (null != dividerPaint) {
             dividerPaint.setColor(context.getResources().getColor(color));
         }
@@ -234,7 +235,8 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                               RecyclerView.State state) {
         UniversalAdapter adapter = (UniversalAdapter) parent.getAdapter();
         int position = parent.getChildAdapterPosition(view);
         String sectionId = callback.getSectionId(position - adapter.getHeaderCount());
@@ -273,7 +275,8 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
             position = position - adapter.getHeaderCount();
             preSectionId = currentSectionId;
             currentSectionId = callback.getSectionId(position);
-            if (TextUtils.isEmpty(currentSectionId) || TextUtils.equals(currentSectionId, preSectionId))
+            if (TextUtils.isEmpty(currentSectionId) || TextUtils.equals(currentSectionId,
+                    preSectionId))
                 continue;
             String title = callback.getSectionTitle(position);
             if (TextUtils.isEmpty(title))
@@ -291,15 +294,19 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
             }
             //textY - sectionHeight决定了悬浮栏绘制的高度和位置
             c.drawRect(left, textY - sectionHeight, right, textY, backgroundPaint);
-            c.drawText(title, left + textLeftMargin, (2 * textY - sectionHeight - fontMetrics.top - fontMetrics
+            c.drawText(title, left + textLeftMargin,
+                    (2 * textY - sectionHeight - fontMetrics.top - fontMetrics
                     .bottom) / 2, textPaint);
             if (sectionDividerMode == TOP || sectionDividerMode == BOTH) {
-                c.drawLine(left+sectionTopDividerLeftMargin,textY - sectionHeight,right-sectionTopDividerRightMargin,textY - sectionHeight,dividerPaint);
+                c.drawLine(left + sectionTopDividerLeftMargin, textY - sectionHeight,
+                        right - sectionTopDividerRightMargin, textY - sectionHeight, dividerPaint);
             }
             if (sectionDividerMode == BOTTOM || sectionDividerMode == BOTH) {
-                c.drawLine(left+sectionBottomDividerLeftMargin,textY,right-sectionBottomDividerRightMargin,textY,dividerPaint);
+                c.drawLine(left + sectionBottomDividerLeftMargin, textY,
+                        right - sectionBottomDividerRightMargin, textY, dividerPaint);
             }
-            //(targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2    字体基准线
+            //(targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2
+            // 字体基准线
         }
     }
 

@@ -15,5 +15,4 @@ public enum Special {
      * 允许安装未知权限
      */
     UNKNOWN_APP_SOURCES
-
 }

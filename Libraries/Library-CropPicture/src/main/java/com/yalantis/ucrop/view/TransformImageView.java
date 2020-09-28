@@ -22,7 +22,8 @@ import com.yalantis.ucrop.util.RectUtils;
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  * <p/>
- * This class provides base logic to setup the image, transform it with matrix (move, scale, rotate),
+ * This class provides base logic to setup the image, transform it with matrix (move, scale,
+ * rotate),
  * and methods to get current matrix state.
  */
 public class TransformImageView extends ImageView {
@@ -98,7 +99,8 @@ public class TransformImageView extends ImageView {
      * Setter for {@link #mMaxBitmapSize} value.
      * Be sure to call it before {@link #setImageURI(Uri)} or other image setters.
      *
-     * @param maxBitmapSize - max size for both width and height of bitmap that will be used in the view.
+     * @param maxBitmapSize - max size for both width and height of bitmap that will be used in
+     *                      the view.
      */
     public void setMaxBitmapSize(int maxBitmapSize) {
         mMaxBitmapSize = maxBitmapSize;
@@ -129,7 +131,8 @@ public class TransformImageView extends ImageView {
     }
 
     /**
-     * This method takes an Uri as a parameter, then calls method to decode it into Bitmap with specified size.
+     * This method takes an Uri as a parameter, then calls method to decode it into Bitmap with
+     * specified size.
      *
      * @param imageUri - image Uri
      * @throws Exception - can throw exception if having problems with decoding Uri or OOM.
@@ -137,12 +140,14 @@ public class TransformImageView extends ImageView {
     public void setImageUri(@NonNull Uri imageUri, @Nullable Uri outputUri) throws Exception {
         int maxBitmapSize = getMaxBitmapSize();
 
-        BitmapLoadUtils.decodeBitmapInBackground(getContext(), imageUri, outputUri, maxBitmapSize, maxBitmapSize,
+        BitmapLoadUtils.decodeBitmapInBackground(getContext(), imageUri, outputUri, maxBitmapSize
+                , maxBitmapSize,
                 new BitmapLoadCallback() {
 
                     @Override
                     public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo,
-                                               @NonNull String imageInputPath, @Nullable String imageOutputPath) {
+                                               @NonNull String imageInputPath,
+                                               @Nullable String imageOutputPath) {
                         mImageInputPath = imageInputPath;
                         mImageOutputPath = imageOutputPath;
                         mExifInfo = exifInfo;
@@ -324,7 +329,8 @@ public class TransformImageView extends ImageView {
         float y = getMatrixValue(matrix, Matrix.MTRANS_Y);
         float rScale = getMatrixScale(matrix);
         float rAngle = getMatrixAngle(matrix);
-        Log.d(TAG, logPrefix + ": matrix: { x: " + x + ", y: " + y + ", scale: " + rScale + ", angle: " + rAngle + " " +
+        Log.d(TAG, logPrefix + ": matrix: { x: " + x + ", y: " + y + ", scale: " + rScale + ", " +
+                "angle: " + rAngle + " " +
                 "}");
     }
 

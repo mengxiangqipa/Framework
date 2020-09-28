@@ -3,13 +3,13 @@ package com.library.permission.checker;
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
-import androidx.core.app.NotificationManagerCompat;
+import android.support.v4.app.NotificationManagerCompat;
+
 import com.library.permission.bean.Special;
 import com.library.permission.debug.PermissionDebug;
 
 import static android.os.Build.VERSION_CODES.M;
 import static android.os.Build.VERSION_CODES.O;
-
 
 public class SpecialChecker implements PermissionChecker {
 

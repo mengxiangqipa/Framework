@@ -15,7 +15,8 @@ import android.util.AttributeSet;
 public class CustomGridLayoutManager extends GridLayoutManager {
     private boolean isScrollEnabled = true;
 
-    public CustomGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CustomGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr,
+                                   int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -23,7 +24,8 @@ public class CustomGridLayoutManager extends GridLayoutManager {
         super(context, spanCount);
     }
 
-    public CustomGridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
+    public CustomGridLayoutManager(Context context, int spanCount, int orientation,
+                                   boolean reverseLayout) {
         super(context, spanCount, orientation, reverseLayout);
     }
 

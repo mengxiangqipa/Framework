@@ -42,7 +42,8 @@ public class ImageGridAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.showCamera = showCamera;
         this.mode_single = mode_single;
-        mItemLayoutParams = new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, GridView.LayoutParams
+        mItemLayoutParams = new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT,
+                GridView.LayoutParams
                 .MATCH_PARENT);
     }
 

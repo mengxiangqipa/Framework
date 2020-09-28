@@ -73,8 +73,10 @@ public class TitleView extends FrameLayout {
             public void onClick(View v) {
                 if (tv_right.getVisibility() != VISIBLE) {
                     showRightMarkIcon(false);
-//                    GohomePopupWindowUtil.getProxyApplication().showGohomePopupWindow(getContext(), iv_right.getVisibility
-// () == VISIBLE && PreferencesHelper.getProxyApplication().getBooleanData(ConstantsME.hasNewMessage), TitleView.this);
+//                    GohomePopupWindowUtil.getProxyApplication().showGohomePopupWindow
+//                    (getContext(), iv_right.getVisibility
+// () == VISIBLE && PreferencesHelper.getProxyApplication().getBooleanData(ConstantsME
+// .hasNewMessage), TitleView.this);
                 }
             }
         });

@@ -32,7 +32,8 @@ public class CandleBodyBuffer extends AbstractBuffer<CandleEntry> {
         for (int i = mFrom; i < size; i++) {
 
             CandleEntry e = entries.get(i);
-            addBody(e.getXIndex() - 0.5f + mBodySpace, e.getClose() * phaseY, e.getXIndex() + 0.5f - mBodySpace,
+            addBody(e.getXIndex() - 0.5f + mBodySpace, e.getClose() * phaseY,
+                    e.getXIndex() + 0.5f - mBodySpace,
                     e.getOpen() * phaseY);
         }
 

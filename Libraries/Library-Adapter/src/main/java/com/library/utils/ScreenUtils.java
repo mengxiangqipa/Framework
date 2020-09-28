@@ -61,7 +61,8 @@ public class ScreenUtils {
     }
 
     public int dp2px(Context context, int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources()
                 .getDisplayMetrics());
     }
 
@@ -86,7 +87,8 @@ public class ScreenUtils {
         try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");
             Object object = clazz.newInstance();
-            int height = Integer.parseInt(clazz.getField("status_bar_height").get(object).toString());
+            int height =
+                    Integer.parseInt(clazz.getField("status_bar_height").get(object).toString());
             statusHeight = context.getResources().getDimensionPixelSize(height);
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,17 +17,15 @@
 package com.framework.util;
 
 import android.os.SystemClock;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 
 /**
  * 简单视图工具类
- *     @author YobertJomi
- *     className WidgetUtil
- *     created at  2019/10/20  11:31
+ *
+ * @author YobertJomi
+ * className WidgetUtil
+ * created at  2019/10/20  11:31
  */
 public class WidgetUtil {
     private static volatile WidgetUtil singleton;

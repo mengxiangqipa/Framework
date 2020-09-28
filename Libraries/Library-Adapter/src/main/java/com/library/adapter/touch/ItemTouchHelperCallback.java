@@ -69,7 +69,8 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder targetViewHolder) {
+    public int getMovementFlags(RecyclerView recyclerView,
+                                RecyclerView.ViewHolder targetViewHolder) {
         if (onItemMovementListener != null) {
             int dragFlags = onItemMovementListener.onDragFlags(recyclerView, targetViewHolder);
             int swipeFlags = onItemMovementListener.onSwipeFlags(recyclerView, targetViewHolder);
@@ -79,12 +80,14 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             if (layoutManager instanceof GridLayoutManager) {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
                 if (linearLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL) {
-                    int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+                    int dragFlags =
+                            ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
                             ItemTouchHelper.RIGHT;
                     int swipeFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
                     return makeMovementFlags(dragFlags, swipeFlags);
                 } else {
-                    int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
+                    int dragFlags =
+                            ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |
                             ItemTouchHelper.RIGHT;
                     int swipeFlags = ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
                     return makeMovementFlags(dragFlags, swipeFlags);
@@ -106,7 +109,8 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY,
+    public void onChildDraw(Canvas c, RecyclerView recyclerView,
+                            RecyclerView.ViewHolder viewHolder, float dX, float dY,
                             int actionState, boolean isCurrentlyActive) {
         // 判断当前是否是swipe方式：侧滑。
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
@@ -127,7 +131,8 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView arg0, RecyclerView.ViewHolder srcHolder, RecyclerView.ViewHolder targetHolder) {
+    public boolean onMove(RecyclerView arg0, RecyclerView.ViewHolder srcHolder,
+                          RecyclerView.ViewHolder targetHolder) {
         if (onItemMoveListener != null) {
             // 回调刷新数据及界面。
             return onItemMoveListener.onItemMove(srcHolder, targetHolder);
@@ -153,7 +158,8 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         super.clearView(recyclerView, viewHolder);
         if (onItemStateChangedListener != null) {
-            onItemStateChangedListener.onSelectedChanged(viewHolder, OnItemStateChangedListener.ACTION_STATE_IDLE);
+            onItemStateChangedListener.onSelectedChanged(viewHolder,
+                    OnItemStateChangedListener.ACTION_STATE_IDLE);
         }
     }
 }

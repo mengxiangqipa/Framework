@@ -57,12 +57,15 @@ public class ScreenBrightnessUtil {
      *
      * @param activity activity
      */
-    public void closeAutomaticScreenBrightness(Activity activity, boolean closeAutomaticScreenBrightness) {
+    public void closeAutomaticScreenBrightness(Activity activity,
+                                               boolean closeAutomaticScreenBrightness) {
         if (closeAutomaticScreenBrightness) {
-            Settings.System.putInt(activity.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings
+            Settings.System.putInt(activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE, Settings
                     .System.SCREEN_BRIGHTNESS_MODE_MANUAL);
         } else {
-            Settings.System.putInt(activity.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings
+            Settings.System.putInt(activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE, Settings
                     .System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
         }
     }
@@ -70,7 +73,8 @@ public class ScreenBrightnessUtil {
     public int getCurrentBrightness(Activity activity) {
         //        获取当前亮度,获取失败则返回255
         try {
-            return Settings.System.getInt(activity.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+            return Settings.System.getInt(activity.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
@@ -97,6 +101,7 @@ public class ScreenBrightnessUtil {
         //0到1,调整亮度暗到全亮
         lp.screenBrightness = brightness / 255f;
         activity.getWindow().setAttributes(lp);
-        Settings.System.putInt(activity.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness);
+        Settings.System.putInt(activity.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+                brightness);
     }
 }

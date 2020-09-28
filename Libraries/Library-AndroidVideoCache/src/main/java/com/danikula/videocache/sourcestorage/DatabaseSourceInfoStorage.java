@@ -23,7 +23,8 @@ class DatabaseSourceInfoStorage extends SQLiteOpenHelper implements SourceInfoSt
     private static final String COLUMN_URL = "url";
     private static final String COLUMN_LENGTH = "length";
     private static final String COLUMN_MIME = "mime";
-    private static final String[] ALL_COLUMNS = new String[]{COLUMN_ID, COLUMN_URL, COLUMN_LENGTH, COLUMN_MIME};
+    private static final String[] ALL_COLUMNS = new String[]{COLUMN_ID, COLUMN_URL, COLUMN_LENGTH
+            , COLUMN_MIME};
     private static final String CREATE_SQL =
             "CREATE TABLE " + TABLE + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
@@ -53,7 +54,8 @@ class DatabaseSourceInfoStorage extends SQLiteOpenHelper implements SourceInfoSt
         checkNotNull(url);
         Cursor cursor = null;
         try {
-            cursor = getReadableDatabase().query(TABLE, ALL_COLUMNS, COLUMN_URL + "=?", new String[]{url}, null,
+            cursor = getReadableDatabase().query(TABLE, ALL_COLUMNS, COLUMN_URL + "=?",
+                    new String[]{url}, null,
                     null, null);
             return cursor == null || !cursor.moveToFirst() ? null : convert(cursor);
         } finally {
@@ -70,7 +72,8 @@ class DatabaseSourceInfoStorage extends SQLiteOpenHelper implements SourceInfoSt
         boolean exist = sourceInfoFromDb != null;
         ContentValues contentValues = convert(sourceInfo);
         if (exist) {
-            getWritableDatabase().update(TABLE, contentValues, COLUMN_URL + "=?", new String[]{url});
+            getWritableDatabase().update(TABLE, contentValues, COLUMN_URL + "=?",
+                    new String[]{url});
         } else {
             getWritableDatabase().insert(TABLE, null, contentValues);
         }

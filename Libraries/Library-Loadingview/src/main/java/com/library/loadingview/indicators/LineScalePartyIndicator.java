@@ -28,7 +28,8 @@ public class LineScalePartyIndicator extends Indicator {
             canvas.save();
             canvas.translate((2 + i * 2) * translateX - translateX / 2, translateY);
             canvas.scale(scaleFloats[i], scaleFloats[i]);
-            RectF rectF = new RectF(-translateX / 2, -getHeight() / 2.5f, translateX / 2, getHeight() / 2.5f);
+            RectF rectF = new RectF(-translateX / 2, -getHeight() / 2.5f, translateX / 2,
+                    getHeight() / 2.5f);
             canvas.drawRoundRect(rectF, 5, 5, paint);
             canvas.restore();
         }

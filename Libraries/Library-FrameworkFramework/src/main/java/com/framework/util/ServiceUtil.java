@@ -36,7 +36,8 @@ public class ServiceUtil {
      * @param context
      * @return
      */
-    public List<ActivityManager.RunningServiceInfo> getRunningServices(Context context, int maxNum) {
+    public List<ActivityManager.RunningServiceInfo> getRunningServices(Context context,
+                                                                       int maxNum) {
 
         ActivityManager activityManager;
         try {
@@ -77,7 +78,8 @@ public class ServiceUtil {
                 return false;
             }
             for (ActivityManager.RunningServiceInfo runningServiceInfo : serviceTasks) {
-//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid + "   " +
+//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid +
+//                "   " +
 // runningServiceInfo.clientPackage);
                 if (processName.equals(runningServiceInfo.process)) {
                     return true;
@@ -107,7 +109,8 @@ public class ServiceUtil {
                 return null;
             }
             for (ActivityManager.RunningServiceInfo runningServiceInfo : serviceTasks) {
-//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid + "   " +
+//                Y.y("获取服务是否存在：" + runningServiceInfo.process + "   " + runningServiceInfo.pid +
+//                "   " +
 // runningServiceInfo.clientPackage);
                 if (processName.equals(runningServiceInfo.process)) {
 //                    runningServiceInfo.

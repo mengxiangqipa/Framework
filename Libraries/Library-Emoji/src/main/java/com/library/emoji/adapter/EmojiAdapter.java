@@ -24,7 +24,8 @@ public class EmojiAdapter extends UniversalAdapter<Integer> {
     private Context context;
     private OnClickedEmoji onClickedEmoji;
 
-    public EmojiAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List list, OnClickedEmoji
+    public EmojiAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List list,
+                        OnClickedEmoji
             onClickedEmoji) {
         super(context, layoutId, list);
         this.context = context;
@@ -35,8 +36,10 @@ public class EmojiAdapter extends UniversalAdapter<Integer> {
     protected void getItemView(UniversalViewHolder viewHolder, final Integer info, int position) {
         ImageView imageView = viewHolder.getView(R.id.iv);
         RelativeLayout relativeRoot = viewHolder.getView(R.id.relativeRoot);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams((ScreenUtils.getInstance()
-                .getScreenWidthPx(context) - ScreenUtils.getInstance().dp2px(context, 20)) / 7, RelativeLayout
+        RelativeLayout.LayoutParams layoutParams =
+                new RelativeLayout.LayoutParams((ScreenUtils.getInstance()
+                .getScreenWidthPx(context) - ScreenUtils.getInstance().dp2px(context, 20)) / 7,
+                        RelativeLayout
                 .LayoutParams.WRAP_CONTENT);
         relativeRoot.setLayoutParams(layoutParams);
         imageView.setImageResource(info);

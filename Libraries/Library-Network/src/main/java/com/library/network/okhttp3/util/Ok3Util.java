@@ -86,11 +86,13 @@ public final class Ok3Util {
         if (null == defaultBuilder && !hasBuilder) {
 //            X509TrustManager xtm = new X509TrustManager() {
 //                @Override
-//                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//                public void checkClientTrusted(X509Certificate[] chain, String authType) throws
+//                CertificateException {
 //                }
 //
 //                @Override
-//                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//                public void checkServerTrusted(X509Certificate[] chain, String authType) throws
+//                CertificateException {
 //                }
 //
 //                @Override
@@ -138,7 +140,8 @@ public final class Ok3Util {
      *
      * @param request Request
      */
-    public ResponseBody addToRequestQueueSynchronized(boolean concurrence, @NonNull Request request) {
+    public ResponseBody addToRequestQueueSynchronized(boolean concurrence,
+                                                      @NonNull Request request) {
         try {
             mOkHttpClient = getOkHttpClient();
             mOkHttpClient.dispatcher().setMaxRequestsPerHost(
@@ -167,7 +170,8 @@ public final class Ok3Util {
      *
      * @param request Request
      */
-    public void addToRequestQueueAsynchoronous(boolean concurrence, @NonNull Request request, Callback callback) {
+    public void addToRequestQueueAsynchoronous(boolean concurrence, @NonNull Request request,
+                                               Callback callback) {
         try {
             mOkHttpClient = getOkHttpClient();
             mOkHttpClient.dispatcher().setMaxRequestsPerHost(
@@ -209,7 +213,8 @@ public final class Ok3Util {
                     Response originalResponse = chain.proceed(chain.request());
                     return originalResponse
                             .newBuilder()
-                            .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                            .body(new ProgressResponseBody(originalResponse.body(),
+                                    progressListener))
                             .build();
                 }
             };
@@ -255,7 +260,8 @@ public final class Ok3Util {
      *
      * @param stringRequest 自己封装的Ok3 的Request
      */
-    public ResponseBody addToRequestQueueSynchronized(boolean concurrence, StringRequest stringRequest) {
+    public ResponseBody addToRequestQueueSynchronized(boolean concurrence,
+                                                      StringRequest stringRequest) {
         return addToRequestQueueSynchronized(concurrence, stringRequest.getRequest());
     }
 
@@ -321,7 +327,8 @@ public final class Ok3Util {
      *
      * @param uploadFileRequest UploadFileRequest
      */
-    public ResponseBody addToRequestQueueSynchronized(boolean concurrence, UploadFileRequest uploadFileRequest) {
+    public ResponseBody addToRequestQueueSynchronized(boolean concurrence,
+                                                      UploadFileRequest uploadFileRequest) {
         return addToRequestQueueSynchronized(concurrence, uploadFileRequest.getRequest());
     }
 
@@ -342,8 +349,10 @@ public final class Ok3Util {
      *
      * @param uploadFileRequest UploadFileRequest
      */
-    public void addToRequestQueueAsynchoronous(boolean concurrence, UploadFileRequest uploadFileRequest) {
-        addToRequestQueueAsynchoronous(concurrence, uploadFileRequest.getRequest(), uploadFileRequest);
+    public void addToRequestQueueAsynchoronous(boolean concurrence,
+                                               UploadFileRequest uploadFileRequest) {
+        addToRequestQueueAsynchoronous(concurrence, uploadFileRequest.getRequest(),
+                uploadFileRequest);
     }
 
     /**
@@ -362,7 +371,8 @@ public final class Ok3Util {
      *
      * @param downloadRequest DownloadRequest
      */
-    public ResponseBody addToRequestQueueSynchronized(boolean concurrence, DownloadRequest downloadRequest) {
+    public ResponseBody addToRequestQueueSynchronized(boolean concurrence,
+                                                      DownloadRequest downloadRequest) {
         return addToRequestQueueSynchronized(concurrence, downloadRequest.getRequest());
     }
 
@@ -383,7 +393,8 @@ public final class Ok3Util {
      *
      * @param downloadRequest DownloadRequest
      */
-    public void addToRequestQueueAsynchoronous(boolean concurrence, DownloadRequest downloadRequest) {
+    public void addToRequestQueueAsynchoronous(boolean concurrence,
+                                               DownloadRequest downloadRequest) {
         addToRequestQueueAsynchoronous(concurrence, downloadRequest.getRequest(), downloadRequest);
     }
 
@@ -407,8 +418,9 @@ public final class Ok3Util {
         if (null != request) {
             List<Call> calls = getOkHttpClient().dispatcher().runningCalls();
             for (Call call : calls) {
-                if (call.request().toString().equals(request.toString()))
+                if (call.request().toString().equals(request.toString())) {
                     call.cancel();
+                }
             }
         }
     }

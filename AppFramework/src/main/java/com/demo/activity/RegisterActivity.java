@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.framework.widget.OverScrollView;
 import com.framework.security.RSAmethodInRaw;
 import com.framework.util.KeyBoardUtil;
 import com.framework.util.PreferencesHelper;
@@ -24,6 +23,7 @@ import com.framework.util.RegularUtil;
 import com.framework.util.ScreenUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
+import com.framework.widget.OverScrollView;
 import com.framework2.baseEvent.BaseOnClickListener;
 import com.framework2.customviews.TitleView;
 import com.framework2.utils.CustomLoadingDialogUtils;
@@ -92,12 +92,14 @@ public class RegisterActivity extends BaseActivity {
                 et_register_phone.setText(phone);
                 et_register_phone.setSelection(phone.length());
                 et_register_phone.requestFocus();
-                KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, false);
+                KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this,
+                        et_register_phone, false);
             } else if (!TextUtils.isEmpty(getIntent().getStringExtra(ConstantsME.PHONE))) {
                 et_register_phone.setText(getIntent().getStringExtra(ConstantsME.PHONE));
                 et_register_phone.setSelection(getIntent().getStringExtra(ConstantsME.PHONE).length());
                 et_register_phone.requestFocus();
-                KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, false);
+                KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this,
+                        et_register_phone, false);
             }
         }
     }
@@ -124,7 +126,8 @@ public class RegisterActivity extends BaseActivity {
 
         tv_protocol = (TextView) findViewById(R.id.tv_protocol);
         SpannableString spannableString = new SpannableString(getString(R.string.protocol));
-        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color._blue)), 14, spannableString
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color._blue)),
+                14, spannableString
                 .length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_protocol.setText(spannableString);
     }
@@ -136,29 +139,35 @@ public class RegisterActivity extends BaseActivity {
                         || "".equals(et_register_phone.getText().toString())) {
                     PicToastUtil.getInstance().showPicToast(RegisterActivity.this, "请输入你的手机号码!");
                     et_register_phone.requestFocus();
-                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, false);
+                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this,
+                            et_register_phone, false);
                 } else if (!RegularUtil.getInstance().isMobileNO(et_register_phone.getText().toString())) {
                     PicToastUtil.getInstance().showPicToast(RegisterActivity.this, "请输入正确的手机号码!");
                     et_register_phone.requestFocus();
-                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, false);
+                    KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this,
+                            et_register_phone, false);
                 } else {
-                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP, RSAmethodInRaw.getInstance().rsaEncrypt(this,
+                    PreferencesHelper.getInstance().putInfo(ConstantsME.PHONE_TEMP,
+                            RSAmethodInRaw.getInstance().rsaEncrypt(this,
                             et_register_phone.getText().toString()));
                     PreferencesHelper.getInstance().putInfo(ConstantsME.captcha_last_clicked, System
                             .currentTimeMillis());
                     myCountDownTimer.start();
-                    CustomLoadingDialogUtils.getInstance().showDialog(RegisterActivity.this, "获取验证码");
+                    CustomLoadingDialogUtils.getInstance().showDialog(RegisterActivity.this,
+                            "获取验证码");
                     requestCaptcha();
                 }
                 break;
             case R.id.tv_sure:
 //                verifyKey="test";
-                KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_register_phone, true);
+                KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this,
+                        et_register_phone, true);
                 if (isLegal(et_register_phone, et_register_password, et_register_captcha)) {
                     if (TextUtils.isEmpty(verifyKey)) {
                         ToastUtil.getInstance().showToast("请先获取验证码");
                     } else {
-                        CustomLoadingDialogUtils.getInstance().showDialog(RegisterActivity.this, "正在注册");
+                        CustomLoadingDialogUtils.getInstance().showDialog(RegisterActivity.this,
+                                "正在注册");
                         requestRegister(verifyKey);
                     }
                 }
@@ -175,7 +184,8 @@ public class RegisterActivity extends BaseActivity {
      * 请求获取验证码
      */
     private void requestCaptcha() {
-//        HttpUtil.getProxyApplication().requestMobileVerify(InterfaceConfig.captcha, 1, et_register_phone.getText().toString(),
+//        HttpUtil.getProxyApplication().requestMobileVerify(InterfaceConfig.captcha, 1,
+//        et_register_phone.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
 //                    public void onSuccess(String... s) {
@@ -189,8 +199,10 @@ public class RegisterActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "获取验证码失败" : msg);
-//                        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.captcha_last_clicked, 0L);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ?
+//                        "获取验证码失败" : msg);
+//                        PreferencesHelper.getProxyApplication().putInfo(ConstantsME
+//                        .captcha_last_clicked, 0L);
 //                        if (null != myCountDownTimer)
 //                            myCountDownTimer.cancel();
 //                        tv_captcha.setText("重新获取");
@@ -205,7 +217,8 @@ public class RegisterActivity extends BaseActivity {
      */
 
     private void requestRegister(@NonNull String verifyKey) {
-//        HttpUtil.getProxyApplication().requestRegister(InterfaceConfig.register, et_register_phone.getText().toString(),
+//        HttpUtil.getProxyApplication().requestRegister(InterfaceConfig.register,
+//        et_register_phone.getText().toString(),
 // et_register_password.getText().toString(),verifyKey, et_register_captcha.getText().toString(),
 //                new HttpUtil.OnRequestResult<String>() {
 //                    @Override
@@ -218,7 +231,8 @@ public class RegisterActivity extends BaseActivity {
 //                    @Override
 //                    public void onFail(int code, String msg) {
 //                        CustomProgressDialogUtils.dismissProcessDialog();
-//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ? "注册失败" : msg);
+//                        ToastUtil.getProxyApplication().showToast(TextUtils.isEmpty(msg) ?
+//                        "注册失败" : msg);
 //                    }
 //                });
     }
@@ -250,22 +264,26 @@ public class RegisterActivity extends BaseActivity {
         if (TextUtils.isEmpty(et_phone.getText())) {
             PicToastUtil.getInstance().showPicToast(RegisterActivity.this, "请输入你的手机号码!");
             et_phone.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone,
+                    false);
             return false;
         } else if (!RegularUtil.getInstance().isMobileNO(et_phone.getText().toString())) {
             PicToastUtil.getInstance().showPicToast(RegisterActivity.this, "请输入正确的手机号码!");
             et_phone.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone,
+                    false);
             return false;
         } else if (TextUtils.isEmpty(et_password.getText())) {
             PicToastUtil.getInstance().showPicToast(RegisterActivity.this, "请输入密码!");
             et_password.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone,
+                    false);
             return false;
         } else if (TextUtils.isEmpty(et_captcha.getText())) {
             PicToastUtil.getInstance().showPicToast(RegisterActivity.this, "请输入验证码!");
             et_captcha.requestFocus();
-            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone, false);
+            KeyBoardUtil.getInstance().isCloseSoftInputMethod(RegisterActivity.this, et_phone,
+                    false);
             return false;
         }
         return true;

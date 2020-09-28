@@ -27,7 +27,8 @@ public class Y {
             return;
         }
         try {
-            String pathName = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
+            String pathName =
+                    Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
                     "AppFramework" + File.separator + "logs"
                     + File.separator;
             String fileName = "log.txt";

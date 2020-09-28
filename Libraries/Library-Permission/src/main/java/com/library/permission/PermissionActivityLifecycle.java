@@ -3,14 +3,13 @@ package com.library.permission;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import com.library.permission.exception.InitException;
+
 import com.library.permission.debug.PermissionDebug;
 import com.library.permission.exception.ContainerStatusException;
+import com.library.permission.exception.InitException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class PermissionActivityLifecycle implements Application.ActivityLifecycleCallbacks {
 
@@ -33,7 +32,8 @@ public class PermissionActivityLifecycle implements Application.ActivityLifecycl
         for (int i = activities.size() - 1; i >= 0; i--) {
             Activity activity = activities.get(i);
             if (PermissionTools.isActivityAvailable(activity)) {
-                PermissionDebug.d(TAG, "top available activity is :" + activity.getClass().getSimpleName());
+                PermissionDebug.d(TAG,
+                        "top available activity is :" + activity.getClass().getSimpleName());
                 return activity;
             }
         }

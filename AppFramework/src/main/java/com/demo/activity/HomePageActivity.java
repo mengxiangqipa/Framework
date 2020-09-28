@@ -162,7 +162,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
-        String ddd=Base64Coder.encodeString("我是encodeString");
+        String ddd = Base64Coder.encodeString("我是encodeString");
         Log.e("HomePageActivity enc:", ddd);
         Log.e("HomePageActivity dec:", Base64Coder.decodeString(ddd));
         Log.e("HomePageActivity Aes:", AesUtil.getInstance().generateKey());
@@ -170,6 +170,9 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         Log.e("HomePageActivity我是跨进程:", PreferencesUtil.getInstance().getString("test"));
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
                 "test"));
+        String cookiesWithRSA = RSAutil.getInstance().encryptData("123456");
+        String cookiesWithRSAAAA = RSAutil.getInstance().decryptData(cookiesWithRSA);
+        Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRSAAAA);
         try {
             SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec",
                     "我是加密");
@@ -187,6 +190,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         ToastUtil.getInstance().showToast("我是跨进程数据操作--加密：" + SecurityManagerUtil.getInstance().get(this, "sec"));
         serviceIntent = new Intent(this, CheckUpdateService.class);
         startService(serviceIntent);
+
         //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this,
         //		progressHandler, false);//检查版本更新
         JSONObject jsonObject = new JSONObject();

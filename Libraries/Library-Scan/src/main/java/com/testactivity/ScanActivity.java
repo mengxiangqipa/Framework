@@ -53,7 +53,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 getResources().getColor(android.R.color.white));
         setContentView(R.layout.activity_scan);
 //        initView();
-        hasCameraPermission = !(RequestPermissionsUtil.getInstance().checkPermissionsThenRequest(this, new
+        hasCameraPermission =
+                !(RequestPermissionsUtil.getInstance().checkPermissionsThenRequest(this, new
                 String[]{Manifest.permission.CAMERA}, RequestPermissionsUtil.PERMISSION_CAMERA));
         if (hasCameraPermission) {
             initParametersThenAutoFocus();
@@ -67,7 +68,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[]
             grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == RequestPermissionsUtil.PERMISSION_CAMERA) {
@@ -80,7 +82,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 initCamera(surfaceHolder);
             } else {
                 ToastUtil.getInstance().showToast("相机权限未开启，请手动开启");
-                RequestPermissionsUtil.getInstance().showInstalledAppDetailSettingIntent(this, getPackageName());
+                RequestPermissionsUtil.getInstance().showInstalledAppDetailSettingIntent(this,
+                        getPackageName());
             }
         }
     }
@@ -110,20 +113,24 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
         viewfinderView.setCornerThickness(ScreenUtil.getInstance().dip2px(this, 3));
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
-//        CameraManager.setMaxFrameWidth(ScreenUtils.getProxyApplication().getScreenWidthPx(this) - 2 * ScreenUtils
+//        CameraManager.setMaxFrameWidth(ScreenUtils.getProxyApplication().getScreenWidthPx(this)
+//        - 2 * ScreenUtils
 // .getProxyApplication().dip2px(this, 50));//设置取景框最大宽度
-//        CameraManager.setMaxFrameHeight(ScreenUtils.getProxyApplication().dip2px(this, 40));//设置取景框最大高度
+//        CameraManager.setMaxFrameHeight(ScreenUtils.getProxyApplication().dip2px(this, 40));
+// 设置取景框最大高度
 //        CameraManager.setViewfinderScreenWidth(CameraManager.getMaxFrameWidth());
 //        CameraManager.setViewfinderScreenHeight(CameraManager.getMaxFrameHeight());
 
-        int topOffset = (int) (ScreenUtil.getInstance().getScreenHeightPx(this) * 0.18);//TODO 0.18=ConstantsME
+        int topOffset = (int) (ScreenUtil.getInstance().getScreenHeightPx(this) * 0.18);//TODO 0
+        // .18=ConstantsME
         // .scanMarginTopFloat
         int leftOffset = ScreenUtil.getInstance().dip2px(this, 40);
         int width =
                 ScreenUtil.getInstance().getScreenWidthPx(this) - 2 * ScreenUtil.getInstance().dip2px(this, 50);
         //设置取景框最大宽度
         int height = width / 3;
-        Rect framingRect = new Rect(leftOffset, topOffset, ScreenUtil.getInstance().getScreenWidthPx(this) -
+        Rect framingRect = new Rect(leftOffset, topOffset,
+                ScreenUtil.getInstance().getScreenWidthPx(this) -
                 leftOffset,
                 topOffset + height);
         CameraManager.setDecodeMultiple(false);
@@ -243,7 +250,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //        }
 
         if (captureActivityHandler == null) {
-            captureActivityHandler = new CaptureActivityHandler(this, decodeFormats, characterSet, true);
+            captureActivityHandler = new CaptureActivityHandler(this, decodeFormats, characterSet
+                    , true);
         }
         return true;
     }
@@ -316,7 +324,8 @@ public class ScanActivity extends AppCompatActivity implements SurfaceHolder.Cal
     /**
      * When the beep has finished playing, rewind to queue up another one.
      */
-    private final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
+    private final MediaPlayer.OnCompletionListener beepListener =
+            new MediaPlayer.OnCompletionListener() {
         public void onCompletion(MediaPlayer mediaPlayer) {
             mediaPlayer.seekTo(0);
         }

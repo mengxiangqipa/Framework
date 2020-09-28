@@ -18,6 +18,8 @@ package com.framework.security;
  * Multi-licensed: EPL / LGPL / GPL / AL / BSD.
  */
 
+import android.text.TextUtils;
+
 /**
  * @Title: Base64Coder.java
  * @Description: TODO
@@ -84,6 +86,9 @@ public class Base64Coder {
      * @return A String containing the Base64 encoded data, broken into lines.
      */
     public static String encodeLines(byte[] in) {
+        if (null == in) {
+            return null;
+        }
         return encodeLines(in, 0, in.length, 76, systemLineSeparator);
     }
 
@@ -184,6 +189,9 @@ public class Base64Coder {
      * @throws IllegalArgumentException If the input is not valid Base64 encoded data.
      */
     public static String decodeString(String s) {
+        if (TextUtils.isEmpty(s)) {
+            return s;
+        }
         return new String(decode(s));
     }
 
@@ -198,6 +206,9 @@ public class Base64Coder {
      * @throws IllegalArgumentException If the input is not valid Base64 encoded data.
      */
     public static byte[] decodeLines(String s) {
+        if (TextUtils.isEmpty(s)) {
+            return null;
+        }
         char[] buf = new char[s.length() + 3];
         int p = 0;
         for (int ip = 0; ip < s.length(); ip++) {

@@ -24,8 +24,10 @@ final class StorageUtils {
     private static final String INDIVIDUAL_DIR_NAME = "video-cache";
 
     /**
-     * Returns individual application cache directory (for only video caching from Proxy). Cache directory will be
-     * created on SD card <i>("/Android/data/[app_package_name]/cache/video-cache")</i> if card is mounted .
+     * Returns individual application cache directory (for only video caching from Proxy). Cache
+     * directory will be
+     * created on SD card <i>("/Android/data/[app_package_name]/cache/video-cache")</i> if card
+     * is mounted .
      * Else - Android defines cache directory on device's file system.
      *
      * @param context Application context
@@ -38,7 +40,8 @@ final class StorageUtils {
 
     /**
      * Returns application cache directory. Cache directory will be created on SD card
-     * <i>("/Android/data/[app_package_name]/cache")</i> (if card is mounted and app has appropriate permission) or
+     * <i>("/Android/data/[app_package_name]/cache")</i> (if card is mounted and app has
+     * appropriate permission) or
      * on device's file system depending incoming parameters.
      *
      * @param context        Application context
@@ -70,7 +73,8 @@ final class StorageUtils {
     }
 
     private static File getExternalCacheDir(Context context) {
-        File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data");
+        File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"),
+                "data");
         File appCacheDir = new File(new File(dataDir, context.getPackageName()), "cache");
         if (!appCacheDir.exists()) {
             if (!appCacheDir.mkdirs()) {

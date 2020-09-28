@@ -66,17 +66,23 @@ public class TestRecyclerViewSwipeActivity extends AppCompatActivity {
     UniversalAdapter<String> adapter1;
     Class[] clss = new Class[]{BallBeatIndicator.class, BallClipRotateIndicator.class,
             BallClipRotateMultipleIndicator.class,
-            BallClipRotatePulseIndicator.class, BallGridBeatIndicator.class, BallGridPulseIndicator.class,
+            BallClipRotatePulseIndicator.class, BallGridBeatIndicator.class,
+            BallGridPulseIndicator.class,
             BallPulseIndicator.class,
-            BallPulseRiseIndicator.class, BallPulseSyncIndicator.class, BallRotateIndicator.class, BallScaleIndicator
+            BallPulseRiseIndicator.class, BallPulseSyncIndicator.class, BallRotateIndicator.class
+            , BallScaleIndicator
             .class, BallScaleMultipleIndicator.class,
-            BallScaleRippleIndicator.class, BallScaleRippleMultipleIndicator.class, BallSpinFadeLoaderIndicator
+            BallScaleRippleIndicator.class, BallScaleRippleMultipleIndicator.class,
+            BallSpinFadeLoaderIndicator
             .class, BallTrianglePathIndicator.class,
-            BallZigZagDeflectIndicator.class, BallZigZagIndicator.class, CubeTransitionIndicator.class,
+            BallZigZagDeflectIndicator.class, BallZigZagIndicator.class,
+            CubeTransitionIndicator.class,
             LineScaleIndicator.class, LineScalePartyIndicator.class,
-            LineScalePulseOutIndicator.class, LineScalePulseOutRapidIndicator.class, LineSpinFadeLoaderIndicator
+            LineScalePulseOutIndicator.class, LineScalePulseOutRapidIndicator.class,
+            LineSpinFadeLoaderIndicator
             .class, PacmanIndicator.class,
-            SemiCircleSpinIndicator.class, SquareSpinIndicator.class, TriangleSkewSpinIndicator.class,};
+            SemiCircleSpinIndicator.class, SquareSpinIndicator.class,
+            TriangleSkewSpinIndicator.class,};
     List<String> dataList;
 
     @SuppressWarnings("deprecation")
@@ -90,13 +96,15 @@ public class TestRecyclerViewSwipeActivity extends AppCompatActivity {
         // 如果你没有设置setHasFixedSized没有设置的代价将会是非常昂贵的。因为RecyclerView会需要而外计算每个item的size，
         recyclerView.setHasFixedSize(true);
         //第一种，简单的颜色，高度,水平分割线
-        HorizontalDividerItemDecoration horizontalDividerItemDecoration = new HorizontalDividerItemDecoration
+        HorizontalDividerItemDecoration horizontalDividerItemDecoration =
+                new HorizontalDividerItemDecoration
                 (TestRecyclerViewSwipeActivity.this);
         horizontalDividerItemDecoration.setColor(this, R.color.share_texttoast_color);
         horizontalDividerItemDecoration.setDividerHeightPx(1);
         //recyclerView.addItemDecoration(horizontalDividerItemDecoration);
         //第二种，这个是系统提供的，可以设置图片,水平分割线
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(TestRecyclerViewSwipeActivity.this,
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(TestRecyclerViewSwipeActivity.this,
                 DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.shape_horizontal_divider));
         //recyclerView.addItemDecoration(dividerItemDecoration);
@@ -141,7 +149,8 @@ public class TestRecyclerViewSwipeActivity extends AppCompatActivity {
             items.add("我是： " + i);
         }
 
-        //	recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        //	recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,
+        //	StaggeredGridLayoutManager.VERTICAL));
         //		recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -149,7 +158,8 @@ public class TestRecyclerViewSwipeActivity extends AppCompatActivity {
         for (int i = 0; i < items.size(); i++) {
             dataList.add(items.get(i));
         }
-        //		recyclerView.addItemDecoration(new SectionItemDecoration(new SectionItemDecoration.SectionCallBack()
+        //		recyclerView.addItemDecoration(new SectionItemDecoration(new SectionItemDecoration
+        //		.SectionCallBack()
         //		{
         //			//返回标记id (即每一项对应的标志性的字符串)
         //			@Override
@@ -180,7 +190,8 @@ public class TestRecyclerViewSwipeActivity extends AppCompatActivity {
         //					return "";
         //				}
         //			}
-        //		}).setTextSize(40f).setBackgroudColor(TestRecyclerViewSwipeActivity.this, R.color.color_ic_laucher)
+        //		}).setTextSize(40f).setBackgroudColor(TestRecyclerViewSwipeActivity.this, R.color
+        //		.color_ic_laucher)
         // .setTextLeftMargin(40).setSectionHeight(100)
         //				.setTextColor(TestRecyclerViewSwipeActivity.this, R.color.white));
 
@@ -205,7 +216,8 @@ public class TestRecyclerViewSwipeActivity extends AppCompatActivity {
         adapter1 = new UniversalAdapter<String>(TestRecyclerViewSwipeActivity.this, R.layout
                 .test_list_item_swipe_layout, items) {
             @Override
-            protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
+            protected void getItemView(UniversalViewHolder viewHolder, String item,
+                                       final int position) {
 
                 //这句话关掉IOS阻塞式交互效果 并依次打开左滑右滑
                 ((SwipeMenuView) viewHolder.itemView).setIos(false).setLeftSwipe(position % 2 == 0);

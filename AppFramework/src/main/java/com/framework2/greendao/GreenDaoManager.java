@@ -113,7 +113,8 @@ public class GreenDaoManager<T> {
      * @return boolean 是否成功
      */
     @SuppressWarnings("unchecked")
-    public boolean insertEntityList(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull List<T> list) {
+    public boolean insertEntityList(@NonNull Context context, @NonNull Class<T> entityClass,
+                                    @NonNull List<T> list) {
         if (list.isEmpty()) {
             return false;
         }
@@ -153,7 +154,8 @@ public class GreenDaoManager<T> {
      * @return boolean 是否成功
      */
     @SuppressWarnings("unchecked")
-    public boolean deleteEntityList(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull List<T> list) {
+    public boolean deleteEntityList(@NonNull Context context, @NonNull Class<T> entityClass,
+                                    @NonNull List<T> list) {
         if (list.isEmpty())
             return false;
         initDaoMasterAndDaoSession(context);
@@ -211,7 +213,8 @@ public class GreenDaoManager<T> {
      * @return boolean 是否成功
      */
     @SuppressWarnings("unchecked")
-    public boolean updateEntityList(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull List<T> list) {
+    public boolean updateEntityList(@NonNull Context context, @NonNull Class<T> entityClass,
+                                    @NonNull List<T> list) {
         initDaoMasterAndDaoSession(context);
         AbstractDao<T, ?> dao = (AbstractDao<T, ?>) daoSession.getDao(entityClass);
         try {
@@ -245,7 +248,8 @@ public class GreenDaoManager<T> {
      * @param property       UserDao.Properties.Age
      */
     @SuppressWarnings("unchecked")
-    public List<T> queryEntityListWithCondition(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull
+    public List<T> queryEntityListWithCondition(@NonNull Context context,
+                                                @NonNull Class<T> entityClass, @NonNull
             WhereCondition whereCondition,
                                                 @Nullable Property property) {
         initDaoMasterAndDaoSession(context);
@@ -262,7 +266,8 @@ public class GreenDaoManager<T> {
         }
     }
 
-    public List<T> queryEntityListWithCondition(@NonNull Context context, @NonNull Class<T> entityClass, @NonNull
+    public List<T> queryEntityListWithCondition(@NonNull Context context,
+                                                @NonNull Class<T> entityClass, @NonNull
             WhereCondition whereCondition) {
         return queryEntityListWithCondition(context, entityClass, whereCondition, null);
     }

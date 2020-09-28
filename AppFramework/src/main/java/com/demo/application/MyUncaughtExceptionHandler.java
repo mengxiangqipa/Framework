@@ -34,11 +34,14 @@ class MyUncaughtExceptionHandler implements UncaughtExceptionHandler {
                 Log.e("yy", "error : ", e);
             }
             Intent intent = new Intent(application.getApplicationContext(), HomePageActivity.class);
-            PendingIntent restartIntent = PendingIntent.getActivity(application.getApplicationContext(), 0, intent,
+            PendingIntent restartIntent =
+                    PendingIntent.getActivity(application.getApplicationContext(), 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             // 退出程序
-            AlarmManager alarmManager = (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 500, restartIntent); // 500ms钟后重启应用
+            AlarmManager alarmManager =
+                    (AlarmManager) application.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 500, restartIntent);
+            // 500ms钟后重启应用
             ActivityTaskUtil.getInstance().exit();
         }
     }

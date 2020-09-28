@@ -127,7 +127,8 @@ public class SwipeMenuView extends ViewGroup {
         int childCount = getChildCount();
 
         //add by 2016 08 11 为了子View的高，可以matchParent(参考的FrameLayout 和LinearLayout的Horizontal)
-        final boolean measureMatchParentChildren = MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY;
+        final boolean measureMatchParentChildren =
+                MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY;
         boolean isNeedMeasureChildHeight = false;
 
         for (int i = 0; i < childCount; i++) {
@@ -149,7 +150,8 @@ public class SwipeMenuView extends ViewGroup {
                 }
             }
         }
-        setMeasuredDimension(getPaddingLeft() + getPaddingRight() + contentWidth, mHeight + getPaddingTop() +
+        setMeasuredDimension(getPaddingLeft() + getPaddingRight() + contentWidth,
+                mHeight + getPaddingTop() +
                 getPaddingBottom());//宽度取第一个Item(Content)的宽度
         mLimit = mRightMenuWidths * 4 / 10;//滑动判断的临界值
         //Log.d(TAG, "onMeasure() called with: " + "mRightMenuWidths = [" + mRightMenuWidths);
@@ -174,7 +176,8 @@ public class SwipeMenuView extends ViewGroup {
         // Pretend that the linear layout has an exact size. This is the measured height of
         // ourselves. The measured height should be the max height of the children, changed
         // to accommodate the heightMeasureSpec from the parent
-        int uniformMeasureSpec = MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.EXACTLY);
+        int uniformMeasureSpec = MeasureSpec.makeMeasureSpec(getMeasuredHeight(),
+                MeasureSpec.EXACTLY);
         //以父布局高度构建一个Exactly的测量参数
         for (int i = 0; i < count; ++i) {
             final View child = getChildAt(i);
@@ -202,16 +205,19 @@ public class SwipeMenuView extends ViewGroup {
             View childView = getChildAt(i);
             if (childView.getVisibility() != GONE) {
                 if (i == 0) {//第一个子View是内容 宽度设置为全屏
-                    childView.layout(left, getPaddingTop(), left + childView.getMeasuredWidth(), getPaddingTop() +
+                    childView.layout(left, getPaddingTop(), left + childView.getMeasuredWidth(),
+                            getPaddingTop() +
                             childView.getMeasuredHeight());
                     left = left + childView.getMeasuredWidth();
                 } else {
                     if (isLeftSwipe) {
-                        childView.layout(left, getPaddingTop(), left + childView.getMeasuredWidth(), getPaddingTop()
+                        childView.layout(left, getPaddingTop(),
+                                left + childView.getMeasuredWidth(), getPaddingTop()
                                 + childView.getMeasuredHeight());
                         left = left + childView.getMeasuredWidth();
                     } else {
-                        childView.layout(right - childView.getMeasuredWidth(), getPaddingTop(), right, getPaddingTop
+                        childView.layout(right - childView.getMeasuredWidth(), getPaddingTop(),
+                                right, getPaddingTop
                                 () + childView.getMeasuredHeight());
                         right = right - childView.getMeasuredWidth();
                     }
@@ -241,7 +247,8 @@ public class SwipeMenuView extends ViewGroup {
                         if (mViewCache != this) {
                             mViewCache.smoothClose();
                             mViewCache = null;
-                            iosInterceptFlag = isIos;//add by 2016 09 11 ，IOS模式开启的话，且当前有侧滑菜单的View，且不是自己的，就该拦截事件咯。
+                            iosInterceptFlag = isIos;//add by 2016 09 11
+                            // ，IOS模式开启的话，且当前有侧滑菜单的View，且不是自己的，就该拦截事件咯。
                         }
                         //只要有一个侧滑菜单处于打开状态， 就不给外层布局上下滑动了
                         getParent().requestDisallowInterceptTouchEvent(true);
@@ -256,7 +263,8 @@ public class SwipeMenuView extends ViewGroup {
                     }
                     float gap = mLastP.x - ev.getRawX();
                     //为了在水平滑动中禁止父类ListView等再竖直滑动
-                    if (Math.abs(gap) > 10 || Math.abs(getScrollX()) > 10) {//2016 09 29 修改此处，使屏蔽父布局滑动更加灵敏，
+                    if (Math.abs(gap) > 10 || Math.abs(getScrollX()) > 10) {//2016 09 29
+                        // 修改此处，使屏蔽父布局滑动更加灵敏，
                         getParent().requestDisallowInterceptTouchEvent(true);
                     }
                     //如果scroller还没有滑动结束 停止滑动动画
@@ -385,7 +393,8 @@ public class SwipeMenuView extends ViewGroup {
         if (mCloseAnim != null && mCloseAnim.isRunning()) {
             mCloseAnim.cancel();
         }
-        mExpandAnim = ValueAnimator.ofInt(getScrollX(), isLeftSwipe ? mRightMenuWidths : -mRightMenuWidths);
+        mExpandAnim = ValueAnimator.ofInt(getScrollX(), isLeftSwipe ? mRightMenuWidths :
+                -mRightMenuWidths);
         mExpandAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

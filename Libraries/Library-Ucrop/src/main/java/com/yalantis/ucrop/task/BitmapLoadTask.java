@@ -34,7 +34,8 @@ import java.net.URL;
 
 /**
  * Creates and returns a Bitmap for a given Uri(String url).
- * inSampleSize is calculated based on requiredWidth property. However can be adjusted if OOM occurs.
+ * inSampleSize is calculated based on requiredWidth property. However can be adjusted if OOM
+ * occurs.
  * If any EXIF config is found - bitmap is transformed properly.
  */
 public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapWorkerResult> {
@@ -101,18 +102,21 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         if (parcelFileDescriptor != null) {
             fileDescriptor = parcelFileDescriptor.getFileDescriptor();
         } else {
-            return new BitmapWorkerResult(new NullPointerException("ParcelFileDescriptor was null for given Uri: [" + mInputUri + "]"));
+            return new BitmapWorkerResult(new NullPointerException("ParcelFileDescriptor was null" +
+                    " for given Uri: [" + mInputUri + "]"));
         }
 
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
         if (options.outWidth == -1 || options.outHeight == -1) {
-            return new BitmapWorkerResult(new IllegalArgumentException("Bounds for bitmap could not be retrieved from" +
+            return new BitmapWorkerResult(new IllegalArgumentException("Bounds for bitmap could " +
+                    "not be retrieved from" +
                     " the Uri: [" + mInputUri + "]"));
         }
 
-        options.inSampleSize = BitmapLoadUtils.calculateInSampleSize(options, mRequiredWidth, mRequiredHeight);
+        options.inSampleSize = BitmapLoadUtils.calculateInSampleSize(options, mRequiredWidth,
+                mRequiredHeight);
         options.inJustDecodeBounds = false;
 
         Bitmap decodeSampledBitmap = null;
@@ -120,7 +124,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         boolean decodeAttemptSuccess = false;
         while (!decodeAttemptSuccess) {
             try {
-                decodeSampledBitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
+                decodeSampledBitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor, null,
+                        options);
                 decodeAttemptSuccess = true;
             } catch (OutOfMemoryError error) {
                 Log.e(TAG, "doInBackground: BitmapFactory.decodeFileDescriptor: ", error);
@@ -129,7 +134,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         }
 
         if (decodeSampledBitmap == null) {
-            return new BitmapWorkerResult(new IllegalArgumentException("Bitmap could not be decoded from the Uri: [" + mInputUri + "]"));
+            return new BitmapWorkerResult(new IllegalArgumentException("Bitmap could not be " +
+                    "decoded from the Uri: [" + mInputUri + "]"));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -150,7 +156,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
             matrix.postScale(exifTranslation, 1);
         }
         if (!matrix.isIdentity()) {
-            return new BitmapWorkerResult(BitmapLoadUtils.transformBitmap(decodeSampledBitmap, matrix), exifInfo);
+            return new BitmapWorkerResult(BitmapLoadUtils.transformBitmap(decodeSampledBitmap,
+                    matrix), exifInfo);
         }
 
         return new BitmapWorkerResult(decodeSampledBitmap, exifInfo);
@@ -251,7 +258,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
         mInputUri = mOutputUri;
     }
 
-//    private void downloadFile(@NonNull Uri inputUri, @Nullable Uri outputUri) throws NullPointerException,
+//    private void downloadFile(@NonNull Uri inputUri, @Nullable Uri outputUri) throws
+//    NullPointerException,
 //    IOException {
 //        Log.d(TAG, "downloadFile");
 //
@@ -295,7 +303,8 @@ public class BitmapLoadTask extends AsyncTask<Void, Void, BitmapLoadTask.BitmapW
     @Override
     protected void onPostExecute(@NonNull BitmapWorkerResult result) {
         if (result.mBitmapWorkerException == null) {
-            mBitmapLoadCallback.onBitmapLoaded(result.mBitmapResult, result.mExifInfo, mInputUri.getPath(),
+            mBitmapLoadCallback.onBitmapLoaded(result.mBitmapResult, result.mExifInfo,
+                    mInputUri.getPath(),
                     (mOutputUri == null) ? null : mOutputUri.getPath());
         } else {
             mBitmapLoadCallback.onFailure(result.mBitmapWorkerException);

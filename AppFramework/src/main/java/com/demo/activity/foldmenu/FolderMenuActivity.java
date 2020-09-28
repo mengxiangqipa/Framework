@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.demo.demo.R;
+import com.framework.util.Y;
 import com.framework.widget.foldermenu.FoldingLayout;
 import com.framework.widget.foldermenu.OnFoldListener;
-import com.framework.util.Y;
 
 public class FolderMenuActivity extends Activity {
 
@@ -25,8 +25,10 @@ public class FolderMenuActivity extends Activity {
     private String TAG_ITEM = "service_item";
     private View mBottomView;
     private LinearLayout mTrafficLayout, mLifeLayout, mMedicalLayout, mLiveLayout, mPublicLayout;
-    private RelativeLayout mTrafficBarLayout, mLifeBarLayout, mMedicalBarLayout, mLiveBarLayout, mPublicBarLayout;
-    private FoldingLayout mTrafficFoldingLayout, mLifeFoldingLayout, mMedicalFoldingLayout, mLiveFoldingLayout,
+    private RelativeLayout mTrafficBarLayout, mLifeBarLayout, mMedicalBarLayout, mLiveBarLayout,
+            mPublicBarLayout;
+    private FoldingLayout mTrafficFoldingLayout, mLifeFoldingLayout, mMedicalFoldingLayout,
+            mLiveFoldingLayout,
             mPublicFoldingLayout;
     private int mNumberOfFolds = 3;
 
@@ -137,7 +139,8 @@ public class FolderMenuActivity extends Activity {
 //        mPublicFoldingLayout.setFoldFactor(1.0f);
     }
 
-    private void handleAnimation(final View bar, final FoldingLayout foldingLayout, View parent, final View
+    private void handleAnimation(final View bar, final FoldingLayout foldingLayout, View parent,
+                                 final View
             nextParent) {
 
         final ImageView arrow = (ImageView) parent.findViewWithTag(TAG_ARROW);
@@ -175,14 +178,16 @@ public class FolderMenuActivity extends Activity {
     private void resetMarginToTop(View view, float foldFactor, View nextParent) {
 
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) nextParent.getLayoutParams();
-        lp.topMargin = (int) (-view.getMeasuredHeight() * foldFactor) + dp2px(FolderMenuActivity.this, 10);
+        lp.topMargin =
+                (int) (-view.getMeasuredHeight() * foldFactor) + dp2px(FolderMenuActivity.this, 10);
         nextParent.setLayoutParams(lp);
     }
 
     private void setMarginToTop(float foldFactor, View nextParent) {
 
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) nextParent.getLayoutParams();
-        lp.topMargin = (int) (-dp2px(FolderMenuActivity.this, 135) * foldFactor) + dp2px(FolderMenuActivity.this, 10);
+        lp.topMargin =
+                (int) (-dp2px(FolderMenuActivity.this, 135) * foldFactor) + dp2px(FolderMenuActivity.this, 10);
         nextParent.setLayoutParams(lp);
     }
 

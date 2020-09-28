@@ -89,31 +89,38 @@ public class HttpProxyCacheServer {
     }
 
     /**
-     * Returns url that wrap original url and should be used for client (MediaPlayer, ExoPlayer, etc).
+     * Returns url that wrap original url and should be used for client (MediaPlayer, ExoPlayer,
+     * etc).
      * <p>
-     * If file for this url is fully cached (it means method {@link #isCached(String)} returns {@code true})
+     * If file for this url is fully cached (it means method {@link #isCached(String)} returns
+     * {@code true})
      * then file:// uri to cached file will be returned.
      * <p>
-     * Calling this method has same effect as calling {@link #getProxyUrl(String, boolean)} with 2nd parameter set to
+     * Calling this method has same effect as calling {@link #getProxyUrl(String, boolean)} with
+     * 2nd parameter set to
      * {@code true}.
      *
      * @param url a url to file that should be cached.
-     * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file otherwise.
+     * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file
+     * otherwise.
      */
     public String getProxyUrl(String url) {
         return getProxyUrl(url, true);
     }
 
     /**
-     * Returns url that wrap original url and should be used for client (MediaPlayer, ExoPlayer, etc).
+     * Returns url that wrap original url and should be used for client (MediaPlayer, ExoPlayer,
+     * etc).
      * <p>
      * If parameter {@code allowCachedFileUri} is {@code true} and file for this url is fully cached
-     * (it means method {@link #isCached(String)} returns {@code true}) then file:// uri to cached file will be
+     * (it means method {@link #isCached(String)} returns {@code true}) then file:// uri to
+     * cached file will be
      * returned.
      *
      * @param url                a url to file that should be cached.
      * @param allowCachedFileUri {@code true} if allow to return file:// uri if url is fully cached
-     * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file otherwise (if {@code
+     * @return a wrapped by proxy url if file is not fully cached or url pointed to cache file
+     * otherwise (if {@code
      * allowCachedFileUri} is {@code true}).
      */
     public String getProxyUrl(String url, boolean allowCachedFileUri) {
@@ -194,7 +201,8 @@ public class HttpProxyCacheServer {
     }
 
     private String appendToProxyUrl(String url) {
-        return String.format(Locale.US, "http://%s:%d/%s", PROXY_HOST, port, ProxyCacheUtils.encode(url));
+        return String.format(Locale.US, "http://%s:%d/%s", PROXY_HOST, port,
+                ProxyCacheUtils.encode(url));
     }
 
     private File getCacheFile(String url) {
@@ -244,7 +252,8 @@ public class HttpProxyCacheServer {
                 clients.processRequest(request, socket);
             }
         } catch (SocketException e) {
-            // There is no way to determine that client closed connection http://stackoverflow.com/a/10241044/999458
+            // There is no way to determine that client closed connection http://stackoverflow
+            // .com/a/10241044/999458
             // So just to prevent log flooding don't log stacktrace
             LOG.debug("Closing socket… Socket is closed by client.");
         } catch (ProxyCacheException | IOException e) {
@@ -288,7 +297,8 @@ public class HttpProxyCacheServer {
                 socket.shutdownInput();
             }
         } catch (SocketException e) {
-            // There is no way to determine that client closed connection http://stackoverflow.com/a/10241044/999458
+            // There is no way to determine that client closed connection http://stackoverflow
+            // .com/a/10241044/999458
             // So just to prevent log flooding don't log stacktrace
             LOG.debug("Releasing input stream… Socket is closed by client.");
         } catch (IOException e) {
@@ -302,7 +312,8 @@ public class HttpProxyCacheServer {
                 socket.shutdownOutput();
             }
         } catch (IOException e) {
-            LOG.warn("Failed to close socket on proxy side: {}. It seems client have already closed connection.", e
+            LOG.warn("Failed to close socket on proxy side: {}. It seems client have already " +
+                    "closed connection.", e
                     .getMessage());
         }
     }
@@ -346,7 +357,8 @@ public class HttpProxyCacheServer {
          * Overrides default cache folder to be used for caching files.
          * <p>
          * By default AndroidVideoCache uses
-         * '/Android/data/[app_package_name]/cache/video-cache/' if card is mounted and app has appropriate permission
+         * '/Android/data/[app_package_name]/cache/video-cache/' if card is mounted and app has
+         * appropriate permission
          * or 'video-cache' subdirectory in default application's cache directory otherwise.
          * </p>
          * <b>Note</b> directory must be used <b>only</b> for AndroidVideoCache files.
@@ -432,7 +444,8 @@ public class HttpProxyCacheServer {
         }
 
         private Config buildConfig() {
-            return new Config(cacheRoot, fileNameGenerator, diskUsage, sourceInfoStorage, headerInjector);
+            return new Config(cacheRoot, fileNameGenerator, diskUsage, sourceInfoStorage,
+                    headerInjector);
         }
     }
 

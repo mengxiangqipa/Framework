@@ -28,7 +28,8 @@ import java.lang.reflect.Method;
  * but, classes which allow access to this function still exist on some devices.
  * This therefore proceeds through a great deal of reflection.
  * <p>
- * See <a href="http://almondmendoza.com/2009/01/05/changing-the-screen-brightness-programatically/">
+ * See
+ * <a href="http://almondmendoza.com/2009/01/05/changing-the-screen-brightness-programatically/">
  * http://almondmendoza.com/2009/01/05/changing-the-screen-brightness-programatically/</a> and
  * <a href="http://code.google.com/p/droidled/source/browse/trunk/src/com/droidled/demo/DroidLED.java">
  * http://code.google.com/p/droidled/source/browse/trunk/src/com/droidled/demo/DroidLED.java</a>.
@@ -75,7 +76,8 @@ final class FlashlightManager {
             return null;
         }
 
-        Method asInterfaceMethod = maybeGetMethod(iHardwareServiceStubClass, "asInterface", IBinder.class);
+        Method asInterfaceMethod = maybeGetMethod(iHardwareServiceStubClass, "asInterface",
+                IBinder.class);
         if (asInterfaceMethod == null) {
             return null;
         }

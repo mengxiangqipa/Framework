@@ -78,7 +78,8 @@ public class TBScommonWebviewFragment extends Fragment {
             containerLayout.addView(view);
             unbinder = ButterKnife.bind(this, containerLayout);
 
-            TBSCookieManagerUtil.getInstance().synCookies(getActivity(), null == getArguments() ? RealInterfaceConfig
+            TBSCookieManagerUtil.getInstance().synCookies(getActivity(), null == getArguments() ?
+                    RealInterfaceConfig
                     .getRealBaseServerUrl() : getArguments().getString(ConstantsME.url));
             initWebViewSetting();
             loadUrl(null == getArguments() ? null : getArguments().getString(ConstantsME.url));
@@ -108,7 +109,8 @@ public class TBScommonWebviewFragment extends Fragment {
         webSettings.setAppCacheEnabled(true);
 //下面3句添加后webview滑动不顺畅
 //        webSettings.setDatabaseEnabled(true);
-//        String dir = getActivity().getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+//        String dir = getActivity().getApplicationContext().getDir("database", Context
+//        .MODE_PRIVATE).getPath();
 //        webSettings.setDatabasePath(dir);
 
         //多窗口
@@ -153,7 +155,8 @@ public class TBScommonWebviewFragment extends Fragment {
             onLoading.setVisibility(View.VISIBLE);
             progress.setVisibility(View.VISIBLE);
             emptyLayout.setVisibility(View.GONE);
-            webView.loadUrl(!TextUtils.isEmpty(url) ? url : "http://www.baidu.com");//http://www.baidu.com
+            webView.loadUrl(!TextUtils.isEmpty(url) ? url : "http://www.baidu.com");//http://www
+            // .baidu.com
             //如果不设置WebViewClient，请求会跳转系统浏览器
             webView.setWebViewClient(new WebViewClient() {
 
@@ -162,10 +165,12 @@ public class TBScommonWebviewFragment extends Fragment {
                     //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES
                     // .LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
-                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
+                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn
+                    // .net/questions/178242
                     Y.y("shouldOverrideUrlLoading111:" + url);
                     CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                    String cookie =
+                            cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
                             InterfaceConfig.jsCLickLogin);
                     if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
                         Y.y("fragment111-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
@@ -173,13 +178,17 @@ public class TBScommonWebviewFragment extends Fragment {
                         TBSCookieManagerUtil.getInstance().saveCookie(getActivity(), cookie);
                     }
 
-//                    if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-//                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+//                    if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() +
+//                    InterfaceConfig.webMain)
+//                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl()
+//                            + InterfaceConfig
 // .webKPIdetail)) {
-//                        TBSCookieManagerUtil.getProxyApplication().synCookies(getActivity(), RealInterfaceConfig
+//                        TBSCookieManagerUtil.getProxyApplication().synCookies(getActivity(),
+//                        RealInterfaceConfig
 // .getRealBaseServerUrl());
 //                    }
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url,
+                            RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(mContext);
                         return true;
                     }
@@ -190,14 +199,16 @@ public class TBScommonWebviewFragment extends Fragment {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
-                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
+                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn
+                    // .net/questions/178242
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
                     }
                     String url = request.getUrl().toString();
                     Y.y("shouldOverrideUrlLoading222:" + url);
                     CookieManager cookieManager = CookieManager.getInstance();
-                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+                    String cookie =
+                            cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
                             InterfaceConfig.jsCLickLogin);
                     Y.y("fragment222-shouldOverrideUrlLoading成功后保存的cookie：" + cookie);
                     if (!TextUtils.isEmpty(cookie) && cookie.contains(";")) {
@@ -205,17 +216,21 @@ public class TBScommonWebviewFragment extends Fragment {
                         TBSCookieManagerUtil.getInstance().saveCookie(getActivity(), cookie);
                     }
 
-                    if (TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
-                            || TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
+                    if (TextUtils.equals(url,
+                            RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig.webMain)
+                            || TextUtils.equals(url,
+                            RealInterfaceConfig.getRealBaseServerUrl() + InterfaceConfig
                             .webKPIdetail)) {
                         ToastUtil.getInstance().showToast("start:" + cookie);
-                        TBSCookieManagerUtil.getInstance().synCookies(getActivity(), RealInterfaceConfig
+                        TBSCookieManagerUtil.getInstance().synCookies(getActivity(),
+                                RealInterfaceConfig
                                 .getRealBaseServerUrl());
                         Y.y("end:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl()));
                         Y.y("end2:" + cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
                                 InterfaceConfig.webMain));
                     }
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url,
+                            RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(mContext);
                         return true;
                     }
@@ -226,13 +241,15 @@ public class TBScommonWebviewFragment extends Fragment {
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
-                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url, RealInterfaceConfig.getRealBaseServerUrl())) {
+                    if (!TextUtils.isEmpty(url) && TextUtils.equals(url,
+                            RealInterfaceConfig.getRealBaseServerUrl())) {
                         ReloginUtil.getInstance().gotoLogin(mContext);
                     }
                 }
 
 //                @Override
-//                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//                public void onReceivedError(WebView view, WebResourceRequest request,
+//                WebResourceError error) {
 //                    super.onReceivedError(view, request, error);
 ////                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 ////                        request.getUrl();
@@ -246,7 +263,8 @@ public class TBScommonWebviewFragment extends Fragment {
 //                }
 
                 @Override
-                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                public void onReceivedSslError(WebView view, SslErrorHandler handler,
+                                               SslError error) {
                     super.onReceivedSslError(view, handler, error);
                     handler.proceed(); // 接受所有证书
                 }

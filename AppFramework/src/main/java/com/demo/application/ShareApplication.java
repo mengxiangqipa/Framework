@@ -3,8 +3,7 @@ package com.demo.application;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Handler;
-import androidx.core.app.ActivityCompat;
-
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.demo.configs.InterfaceConfig;
@@ -59,7 +58,7 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
      */
     private void initMTAchannel() {
         String channel = WalleChannelReader.getChannel(this.getApplicationContext());
-        Log.e("yy","channel:"+channel);
+        Log.e("yy", "channel:" + channel);
 //        if (!TextUtils.isEmpty(channel)) {
 //            StatConfig.setInstallChannel(getApplicationContext(), channel);
 //        } else {
@@ -76,7 +75,8 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
      */
     private void initDefaultUncaughtExceptionHandler() {
         // 设置该MyUncaughtExceptionHandler为程序的默认处理器
-        MyUncaughtExceptionHandler myUncaughtExceptionHandler = new MyUncaughtExceptionHandler(this);
+        MyUncaughtExceptionHandler myUncaughtExceptionHandler =
+                new MyUncaughtExceptionHandler(this);
         Thread.setDefaultUncaughtExceptionHandler(myUncaughtExceptionHandler);
     }
 }

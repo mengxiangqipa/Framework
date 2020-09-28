@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/getsource"
@@ -11,7 +11,7 @@
         android:padding="16dp"
         android:text="获取源码：http://blog.csdn.net/zhongkejingwang?viewmode=list"
         android:textColor="#000000"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/tablayout"
@@ -28,7 +28,7 @@
             android:gravity="center"
             android:text="tab1"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:text="tab2"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
@@ -48,7 +48,7 @@
             android:gravity="center"
             android:text="tab3"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:text="tab4"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <com.library.pulltorefresh.classical.ClassicalPullToRefreshLayout
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:divider="@color/gray"
-            android:dividerHeight="1dp"/>
+            android:dividerHeight="1dp" />
 
     </com.library.pulltorefresh.classical.ClassicalPullToRefreshLayout>
 

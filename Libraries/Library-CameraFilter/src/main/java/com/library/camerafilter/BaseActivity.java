@@ -46,7 +46,8 @@ public abstract class BaseActivity extends FragmentActivity {
 
     public void setActionBarTitle(String s) {
         if (mActionBarTitle == null) {
-            mActionBarTitle = (TextView) findViewById(MResource.getIdRes(mContext, "camerasdk_actionbar_title"));
+            mActionBarTitle = (TextView) findViewById(MResource.getIdRes(mContext,
+                    "camerasdk_actionbar_title"));
         }
         mActionBarTitle.setText(s);
     }

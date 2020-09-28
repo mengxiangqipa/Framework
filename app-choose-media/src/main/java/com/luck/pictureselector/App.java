@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
 
-
 /**
  * author：luck
  * project：PictureSelector

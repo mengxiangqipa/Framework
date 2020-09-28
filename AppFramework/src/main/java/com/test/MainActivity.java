@@ -36,13 +36,14 @@ public class MainActivity extends BaseAbsSlideFinishActivity {
 
     @Override
     public int[] initPrimeryColor() {
-        return new int[]{R.color.colorPrimary,R.color.colorPrimaryDark};
+        return new int[]{R.color.colorPrimary, R.color.colorPrimaryDark};
     }
 
     @Override
     public void _onCreate() {
         setContentView(R.layout.test_activity_main);
-        BaseAbstractPullToRefreshLayout pull = ((BaseAbstractPullToRefreshLayout) findViewById(R.id.refresh_view));
+        BaseAbstractPullToRefreshLayout pull =
+                ((BaseAbstractPullToRefreshLayout) findViewById(R.id.refresh_view));
         pull.setOnRefreshListener(new MyListener2());
         //		pull.setPullDownContentText("欲速则不达");
         //		pull.setPullUpContentText("宁静以致远");
@@ -89,8 +90,10 @@ public class MainActivity extends BaseAbsSlideFinishActivity {
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, " LongClick on " + parent.getAdapter().getItemId(position), Toast
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                           long id) {
+                Toast.makeText(MainActivity.this,
+                        " LongClick on " + parent.getAdapter().getItemId(position), Toast
                         .LENGTH_SHORT).show();
                 return true;
             }
@@ -142,10 +145,12 @@ public class MainActivity extends BaseAbsSlideFinishActivity {
                         it.setClass(MainActivity.this, TestRecyclerViewSoftClassicalActivity.class);
                         break;
                     case 13:
-                        it.setClass(MainActivity.this, TestRecyclerViewAutoLoadClassicalActivity.class);
+                        it.setClass(MainActivity.this,
+                                TestRecyclerViewAutoLoadClassicalActivity.class);
                         break;
                     case 14:
-                        it.setClass(MainActivity.this, TestRecyclerViewAutoLoadClassicalSwipeActivity.class);
+                        it.setClass(MainActivity.this,
+                                TestRecyclerViewAutoLoadClassicalSwipeActivity.class);
                         break;
                     case 15:
                         it.setClass(MainActivity.this, TestRecyclerViewDragActivity.class);

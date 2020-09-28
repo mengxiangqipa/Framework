@@ -5,13 +5,12 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.library.permission.debug.PermissionDebug;
 
-
 public class InitProvider extends ContentProvider {
-
 
     @Override
     public boolean onCreate() {
@@ -22,7 +21,8 @@ public class InitProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s, @Nullable String[] strings1, @Nullable String s1) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s,
+                        @Nullable String[] strings1, @Nullable String s1) {
         return null;
     }
 
@@ -31,7 +31,6 @@ public class InitProvider extends ContentProvider {
     public String getType(@NonNull Uri uri) {
         return null;
     }
-
 
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
@@ -44,7 +43,8 @@ public class InitProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s
+            , @Nullable String[] strings) {
         return 0;
     }
 }

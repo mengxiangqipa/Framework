@@ -17,7 +17,8 @@ public interface XAxisValueFormatter {
      *
      * @param original        the original x-axis label to be drawn
      * @param index           the x-index that is currently being drawn
-     * @param viewPortHandler provides information about the current chart state (scale, translation, ...)
+     * @param viewPortHandler provides information about the current chart state (scale,
+     *                        translation, ...)
      * @return
      */
     String getXValue(String original, int index, ViewPortHandler viewPortHandler);

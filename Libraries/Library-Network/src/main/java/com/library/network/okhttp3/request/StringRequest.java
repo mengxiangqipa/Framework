@@ -8,6 +8,7 @@ import com.library.network.okhttp3.callback.ICallback;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -47,6 +48,7 @@ public class StringRequest extends AbstractCallback {
         return new StringRequest.Builder(this);
     }
 
+    @Override
     public Request getRequest() {
         return request;
     }
@@ -55,6 +57,7 @@ public class StringRequest extends AbstractCallback {
         return callback;
     }
 
+    @Override
     public String getRequestType() {
         return "STRING";
     }
@@ -179,6 +182,12 @@ public class StringRequest extends AbstractCallback {
             return this;
         }
 
+        public Builder get(String data) {
+            requstBuilder.url(baseUrl+data);
+            requstBuilder.get();
+            return this;
+        }
+
         public Builder delete() {
             requstBuilder.delete();
             return this;
@@ -204,13 +213,15 @@ public class StringRequest extends AbstractCallback {
         }
 
         public Builder postString_json(String json) {
-            if (!TextUtils.isEmpty(json)) {
-                this.params = json;
-                RequestBody body = RequestBody.create(
-                        MediaType.parse("application/json; charset=utf-8"),
-                        json);
-                requstBuilder.post(body);
-            }
+            this.params = json;
+
+            RequestBody body = RequestBody.create(
+                    TextUtils.isEmpty(json) ? null :
+                            MediaType.parse("application/json; charset=utf-8"),
+                    TextUtils.isEmpty(json) ? "" : json);
+            requstBuilder.post(body);
+//            //post空可以用下面这个
+//            requstBuilder.post(custom.okhttp3.internal.Util.EMPTY_REQUEST);
             return this;
         }
 
@@ -251,6 +262,23 @@ public class StringRequest extends AbstractCallback {
                 for (String key : mapParams.keySet()) {
                     try {
                         builder.add(key, mapParams.get(key));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            FormBody formBody = builder.build();
+            requstBuilder.post(formBody);
+            return this;
+        }
+
+        public Builder post(JSONObject jsonParams) {
+            FormBody.Builder builder = new FormBody.Builder();
+            if (null != jsonParams) {
+                for (Iterator<String> it = jsonParams.keys(); it.hasNext(); ) {
+                    String key = it.next();
+                    try {
+                        builder.add(key, jsonParams.optString(key));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

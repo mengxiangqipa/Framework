@@ -96,7 +96,8 @@ public class Util {
             len = (int) file.length();
         }
 
-        Log.d(TAG, "readFromFile : offset = " + offset + " len = " + len + " offset + len = " + (offset + len));
+        Log.d(TAG,
+                "readFromFile : offset = " + offset + " len = " + len + " offset + len = " + (offset + len));
 
         if (offset < 0) {
             Log.e(TAG, "readFromFile invalid offset:" + offset);
@@ -125,7 +126,8 @@ public class Util {
         return b;
     }
 
-    public static Bitmap extractThumbNail(final String path, final int height, final int width, final boolean crop) {
+    public static Bitmap extractThumbNail(final String path, final int height, final int width,
+                                          final boolean crop) {
 //        Assert.assertTrue(path != null && !path.equals("") && height > 0 && width > 0);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -170,7 +172,8 @@ public class Util {
 
             options.inJustDecodeBounds = false;
 
-            Log.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" +
+            Log.i(TAG,
+                    "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" +
                     options.outHeight + ", sample=" + options.inSampleSize);
             Bitmap bm = BitmapFactory.decodeFile(path, options);
             if (bm == null) {
@@ -186,7 +189,8 @@ public class Util {
             }
 
             if (crop) {
-                final Bitmap cropped = Bitmap.createBitmap(bm, (bm.getWidth() - width) >> 1, (bm.getHeight() -
+                final Bitmap cropped = Bitmap.createBitmap(bm, (bm.getWidth() - width) >> 1,
+                        (bm.getHeight() -
                         height) >> 1, width, height);
                 if (cropped == null) {
                     return bm;

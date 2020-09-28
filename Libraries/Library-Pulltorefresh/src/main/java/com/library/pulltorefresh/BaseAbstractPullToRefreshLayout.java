@@ -184,7 +184,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                 MOVE_SPEED = indicatorDelegate.getMOVE_SPEED();
             } else {
                 // 回弹速度随下拉距离moveDeltaY增大而增大
-                MOVE_SPEED = (float) (8 + 5 * Math.tan(Math.PI / 2 / getMeasuredHeight() * (pullDownY + Math.abs
+                MOVE_SPEED =
+                        (float) (8 + 5 * Math.tan(Math.PI / 2 / getMeasuredHeight() * (pullDownY + Math.abs
                         (pullUpY))));
             }
             if (!isTouch)//取消timer的情况
@@ -220,7 +221,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                 else if (pullUpY < 0)
                     pullUpY += MOVE_SPEED;
             }
-            //Log.e("yy", "autoRefresh:" + autoRefresh + "    state:" + state + "  pullDownY:" + pullDownY + "
+            //Log.e("yy", "autoRefresh:" + autoRefresh + "    state:" + state + "  pullDownY:" +
+            // pullDownY + "
             // pullUp:" + pullUpY + "   isTouch:" + isTouch);
             ///////////{以下为回滚时监听
             if (state != REFRESHING && state != LOADING && (indicatorDelegate.isMonitorFinishScroll() || state !=
@@ -235,7 +237,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                     changeState(MOVING_TO_ONLOADING_HEIGHT, -pullUpY);
                 else if (pullDownY <= 0 && pullUpY >= 0)
                     changeState(INIT, 0);
-            } else if (!indicatorDelegate.isMonitorFinishScroll() && state == DONE) {//特殊处理不监听完成滚动&&状态完成，上下拉值为0
+            } else if (!indicatorDelegate.isMonitorFinishScroll() && state == DONE) {
+                //特殊处理不监听完成滚动&&状态完成，上下拉值为0
                 if (pullDownY <= 0 && pullUpY >= 0)
                     changeState(INIT, 0);
             }
@@ -314,7 +317,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
      * 初始化设置参数
      */
     private void initIndicator() {
-        indicatorDelegate = null == getIndicatorDelegate() ? new IndicatorDelegate() : getIndicatorDelegate();
+        indicatorDelegate = null == getIndicatorDelegate() ? new IndicatorDelegate() :
+                getIndicatorDelegate();
         refreshDist = indicatorDelegate.getRefreshDistance();//获取下拉距离
         loadmoreDist = indicatorDelegate.getLoadmoreDistcance();//获取上拉距离
         radio = indicatorDelegate.getResistance();//获取拉动阻力系数
@@ -323,14 +327,16 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
     }
 
     private void hideScroll() {
-        int period = (int) (indicatorDelegate.getMOVE_SPEED() * indicatorDelegate.getResistanceTime() /
+        int period =
+                (int) (indicatorDelegate.getMOVE_SPEED() * indicatorDelegate.getResistanceTime() /
                 (indicatorDelegate.getRefreshDistance()));
         period = Math.max(period, 1);
         timer.schedule(indicatorDelegate.isChangeMoveSpeed() ? period : 5);
     }
 
     public void hide() {
-        int period = (int) (indicatorDelegate.getMOVE_SPEED() * indicatorDelegate.getRollingTime() / Math.max(5, Math
+        int period =
+                (int) (indicatorDelegate.getMOVE_SPEED() * indicatorDelegate.getRollingTime() / Math.max(5, Math
                 .abs(pullDownY) + Math.abs(pullUpY)));
         period = Math.max(period, 1);
         timer.schedule(indicatorDelegate.isChangeMoveSpeed() ? period : 5);
@@ -502,15 +508,18 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                     return super.dispatchTouchEvent(ev);
                 }
                 boolean isPullable = contentView instanceof Pullable;
-                //Log.e("yy", "ACTION_MOVE:" +" canPullDownFromSet:"+canPullDownFromSet+"  isPullable:"+isPullable+"
-                // canPullDown():"+ ((Pullable) contentView).canPullDown()+"  canPullDown:"+canPullDown+"
+                //Log.e("yy", "ACTION_MOVE:" +" canPullDownFromSet:"+canPullDownFromSet+"
+                // isPullable:"+isPullable+"
+                // canPullDown():"+ ((Pullable) contentView).canPullDown()+"
+                // canPullDown:"+canPullDown+"
                 // state:"+state);
                 if (mEvents == 0) {
                     if (indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeaderHover && (state ==
                             REFRESHING || state == LOADING))
                         break;
                     if (canPullDownFromSet && (!isPullable || ((isPullable) && ((Pullable) contentView).canPullDown()
-                    )) && canPullDown && state != LOADING) { //人工设置可下拉&&【(不继承Pullable||(继承Pullable &&view可下拉))
+                    )) && canPullDown && state != LOADING) { //人工设置可下拉&&【(不继承Pullable||
+                        // (继承Pullable &&view可下拉))
                         // 】&&下拉条件满足&&不是上拉加载状态
                         // 可以下拉，正在加载时不能下拉
                         // 对实际滑动距离做缩小，造成用力拉的感觉
@@ -526,7 +535,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                             isTouch = true;
                         }
                     } else if (canPullUpFromSet && (!isPullable || (isPullable && ((Pullable) contentView).canPullUp
-                            ())) && canPullUp && state != REFRESHING) {//人工设置可上拉&&【(不继承Pullable||(继承Pullable
+                            ())) && canPullUp && state != REFRESHING) {//人工设置可上拉&&【(不继承Pullable||
+                        // (继承Pullable
                         // &&view可上拉))】&&上拉条件满足&&不是下拉刷新状态
                         // 可以上拉，正在刷新时不能上拉
                         // 对实际滑动距离做缩小，造成用力拉的感觉
@@ -549,7 +559,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                 lastY = ev.getY();
                 // 根据下拉距离改变比例
                 radio = (float) (2 + 2 * Math.tan(Math.PI / 2 / getMeasuredHeight() * (pullDownY + Math.abs(pullUpY))));
-                //Log.e("yy", "ACTION_MOVE:" + lastY+"__pullDownY:"+pullDownY+"__pullUpY:"+pullUpY+"   state:"+state);
+                //Log.e("yy", "ACTION_MOVE:" +
+                // lastY+"__pullDownY:"+pullDownY+"__pullUpY:"+pullUpY+"   state:"+state);
                 requestLayout();//刷新布局 调用onLayout()
                 // TODO: 2017/1/10 正在上拉刷新的时候不能下拉刷新,同理正在下拉刷新的时候不能上拉刷新，如需要可以修改
                 if (pullDownY > 0 && pullDownY <= refreshDist && (state == INIT || state == RELEASE_TO_REFRESH ||
@@ -649,7 +660,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
         int refreshViewRight = distance - refreshView.getMeasuredHeight();
         int loadmoreViewTop = distance + contentView.getMeasuredHeight();
         int loadmoreViewBottom = loadmoreViewTop + loadmoreView.getMeasuredHeight();
-//        Log.e("yy","onLayout:pullDownY"+pullDownY+"  是否:"+(pullDownY >= refreshDist - MOVE_SPEED / 2 && pullDownY
+//        Log.e("yy","onLayout:pullDownY"+pullDownY+"  是否:"+(pullDownY >= refreshDist -
+//        MOVE_SPEED / 2 && pullDownY
 // <= refreshDist + MOVE_SPEED / 2)+"   refreshView.getBottom():"+refreshView.getBottom());
         if (refreshView != null
                 && ((!(indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeaderHover && state ==
@@ -657,15 +669,20 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                 2))))
                 || refreshView.getBottom() < pullDownY)//下拉头部
         {
-            refreshView.layout(0, indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ? 0 :
+            refreshView.layout(0,
+                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ?
+                            0 :
                             refreshViewRight,
                     refreshView.getMeasuredWidth(),
-                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ? refreshView
+                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ?
+                            refreshView
                             .getMeasuredHeight() : distance);
 //            Log.e("yy","dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         }
         if (emptyView == null)//中间内容区域
-            contentView.layout(0, indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedContent ? 0 :
+            contentView.layout(0,
+                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedContent
+                            ? 0 :
                             (distance), contentView.getMeasuredWidth(),
                     (indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedContent ||
                             (indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeaderHover &&
@@ -675,17 +692,23 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
                 LOADING
                 && (-pullUpY >= loadmoreDist - MOVE_SPEED / 2 && -pullUpY <= loadmoreDist + MOVE_SPEED / 2)))
         )//上拉头部
-            loadmoreView.layout(0, indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ? 0 :
+            loadmoreView.layout(0,
+                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ?
+                            0 :
                             loadmoreViewTop,
                     loadmoreView.getMeasuredWidth(),
-                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ? contentView
+                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedHeader ?
+                            contentView
                             .getMeasuredHeight() : loadmoreViewBottom);
         if (emptyView != null)//空view
-            emptyView.layout(0, indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedContent ? 0 :
+            emptyView.layout(0,
+                    indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedContent
+                            ? 0 :
                             distance, emptyView.getMeasuredWidth(),
                     (indicatorDelegate.getFixedMode() == IndicatorDelegate.FixedMode.FixedContent ? 0 : distance) +
                             emptyView.getMeasuredHeight());
-//				Log.e("yy", "onLayout" + "  top:" + t + "  right:" + r + " bottom:" + b + "__pullDownY:" + pullDownY +
+//				Log.e("yy", "onLayout" + "  top:" + t + "  right:" + r + " bottom:" + b +
+//				"__pullDownY:" + pullDownY +
 // "__pullUpY:" + pullUpY
 //						+ "__contentView.getMeasuredHeight():" + contentView.getMeasuredHeight());
     }
@@ -720,14 +743,16 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
     /**
      * 完成刷新操作，显示刷新结果。注意：刷新完成后一定要调用这个方法
      *
-     * @param refreshResult BaseAbstractPullToRefreshLayout.SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
+     * @param refreshResult BaseAbstractPullToRefreshLayout
+     *                      .SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
      */
     protected abstract void refreshComplete(int refreshResult);
 
     /**
      * 加载完毕，显示加载结果。注意：加载完成后一定要调用这个方法
      *
-     * @param refreshResult BaseAbstractPullToRefreshLayout.SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
+     * @param refreshResult BaseAbstractPullToRefreshLayout
+     *                      .SUCCEED代表成功，BaseAbstractPullToRefreshLayout.FAIL代表失败
      */
     protected abstract void loadMoreComplete(int refreshResult);
 
@@ -813,7 +838,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
      */
     public void autoRefresh(@IntRange(from = 10, to = 100000) long timeMillis) {
         indicatorDelegate.setAutoRefreshTimemillis(timeMillis);
-        int period = (int) (indicatorDelegate.getMOVE_SPEED() * timeMillis / (indicatorDelegate.getRefreshDistance()));
+        int period =
+                (int) (indicatorDelegate.getMOVE_SPEED() * timeMillis / (indicatorDelegate.getRefreshDistance()));
         period = Math.max(period, 1);
         timer.schedule(indicatorDelegate.isChangeMoveSpeed() ? period : 50, true);
     }
@@ -828,7 +854,8 @@ public abstract class BaseAbstractPullToRefreshLayout extends RelativeLayout {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        //Log.e("yy", "onScrollChanged:" + "  left:" + l + "  top:" + t + "  oldleft:" + oldl + "  oldtop:" + oldt);
+        //Log.e("yy", "onScrollChanged:" + "  left:" + l + "  top:" + t + "  oldleft:" + oldl + "
+        // oldtop:" + oldt);
     }
 
     /**

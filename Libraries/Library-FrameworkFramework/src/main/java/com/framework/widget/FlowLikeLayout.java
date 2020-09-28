@@ -179,7 +179,8 @@ public class FlowLikeLayout extends RelativeLayout {
     private ValueAnimator generateCurveAnimation(View target) {
         CurveEvaluator evaluator = new CurveEvaluator(generateCTRLPointF(1), generateCTRLPointF(2));
         ValueAnimator valueAnimator = ValueAnimator.ofObject(evaluator,
-                new PointF((mViewWidth - mPicWidth) / 2, mViewHeight - mChildViewHeight - mPicHeight),
+                new PointF((mViewWidth - mPicWidth) / 2,
+                        mViewHeight - mChildViewHeight - mPicHeight),
                 new PointF((mViewWidth) / 2 + (mRandom.nextBoolean() ? 1 : -1) * mRandom.nextInt(100), 0));
         valueAnimator.setDuration(3000);
         valueAnimator.addUpdateListener(new CurveUpdateLister(target));
@@ -234,9 +235,11 @@ public class FlowLikeLayout extends RelativeLayout {
                     + (float) Math.pow(fraction, 3) * endValue.y;
 
             // 二阶贝塞儿曲线
-//            resultPointF.x = (float) Math.pow(leftTime, 2) * startValue.x + 2 * fraction * leftTime * ctrlPointF1.x
+//            resultPointF.x = (float) Math.pow(leftTime, 2) * startValue.x + 2 * fraction *
+//            leftTime * ctrlPointF1.x
 //                    + ((float) Math.pow(fraction, 2)) * endValue.x;
-//            resultPointF.y = (float) Math.pow(leftTime, 2) * startValue.y + 2 * fraction * leftTime * ctrlPointF1.y
+//            resultPointF.y = (float) Math.pow(leftTime, 2) * startValue.y + 2 * fraction *
+//            leftTime * ctrlPointF1.y
 //                    + ((float) Math.pow(fraction, 2)) * endValue.y;
 
             return resultPointF;

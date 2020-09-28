@@ -47,7 +47,8 @@ class ProgressRequestBody extends RequestBody {
             mRequestBody.writeTo(sink);
             return;
         }
-        ProgressOutputStream progressOutputStream = new ProgressOutputStream(sink.outputStream(), progressListener,
+        ProgressOutputStream progressOutputStream = new ProgressOutputStream(sink.outputStream(),
+                progressListener,
                 contentLength());
         BufferedSink progressSink = Okio.buffer(Okio.sink(progressOutputStream));
         mRequestBody.writeTo(progressSink);

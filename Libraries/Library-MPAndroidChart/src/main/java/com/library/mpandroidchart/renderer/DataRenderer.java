@@ -9,9 +9,9 @@ import android.graphics.Paint.Style;
 import com.library.mpandroidchart.animation.ChartAnimator;
 import com.library.mpandroidchart.data.DataSet;
 import com.library.mpandroidchart.data.Entry;
+import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.utils.Utils;
-import com.library.mpandroidchart.formatter.ValueFormatter;
 import com.library.mpandroidchart.utils.ViewPortHandler;
 
 /**
@@ -138,9 +138,11 @@ public abstract class DataRenderer extends Renderer {
      * @param x            position
      * @param y            position
      */
-    public void drawValue(Canvas c, ValueFormatter formatter, float value, Entry entry, int dataSetIndex, float x,
+    public void drawValue(Canvas c, ValueFormatter formatter, float value, Entry entry,
+                          int dataSetIndex, float x,
                           float y) {
-        c.drawText(formatter.getFormattedValue(value, entry, dataSetIndex, mViewPortHandler), x, y, mValuePaint);
+        c.drawText(formatter.getFormattedValue(value, entry, dataSetIndex, mViewPortHandler), x,
+                y, mValuePaint);
     }
 
     /**

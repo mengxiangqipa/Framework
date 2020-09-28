@@ -46,7 +46,8 @@ public class Utils {
         if (file.exists()) {
             boolean isDeleted = file.delete();
             if (!isDeleted) {
-                throw new IOException(String.format("File %s can't be deleted", file.getAbsolutePath()));
+                throw new IOException(String.format("File %s can't be deleted",
+                        file.getAbsolutePath()));
             }
         }
     }

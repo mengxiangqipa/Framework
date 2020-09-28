@@ -97,7 +97,8 @@ public class AzActivity extends AppCompatActivity {
 //            public void onItemClick(AdapterView<?> parent, View view,
 //                                    int position, long id) {
 //                tvTitle.setText(((ContactSortModel) adapter.getItem(position - 1)).getName());
-//                Toast.makeText(getApplication(), ((ContactSortModel) adapter.getItem(position)).getName(), Toast
+//                Toast.makeText(getApplication(), ((ContactSortModel) adapter.getItem(position))
+//                .getName(), Toast
 // .LENGTH_SHORT).show();
 //            }
 //        });

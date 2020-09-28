@@ -75,7 +75,8 @@ public class InfraredUtil {
      *
      * @param context Context
      */
-    public void transmit(final @NonNull Context context, final int carrierFrequency, final int[] pattern) {
+    public void transmit(final @NonNull Context context, final int carrierFrequency,
+                         final int[] pattern) {
         //如果sdk版本大于4.4才进行是否有红外的功能
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null == consumerIrManager) {
             //获取红外管理器,调用系统API  CONSUMER_IR_SERVICE红外的API
@@ -100,7 +101,8 @@ public class InfraredUtil {
         }
         int maxFrequency = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null != consumerIrManager) {
-            ConsumerIrManager.CarrierFrequencyRange[] carrierFrequencyRange = consumerIrManager.getCarrierFrequencies();
+            ConsumerIrManager.CarrierFrequencyRange[] carrierFrequencyRange =
+                    consumerIrManager.getCarrierFrequencies();
             if (null != carrierFrequencyRange) {
                 for (ConsumerIrManager.CarrierFrequencyRange range : carrierFrequencyRange) {
                     if (null != range)
@@ -124,7 +126,8 @@ public class InfraredUtil {
         }
         int minFrequency = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && null != consumerIrManager) {
-            ConsumerIrManager.CarrierFrequencyRange[] carrierFrequencyRange = consumerIrManager.getCarrierFrequencies();
+            ConsumerIrManager.CarrierFrequencyRange[] carrierFrequencyRange =
+                    consumerIrManager.getCarrierFrequencies();
             if (null != carrierFrequencyRange) {
                 for (ConsumerIrManager.CarrierFrequencyRange range : carrierFrequencyRange) {
                     if (null != range)

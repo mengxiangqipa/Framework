@@ -61,6 +61,7 @@ public abstract class Renderer {
         int subLow = (low % xAxisModulus == 0) ? xAxisModulus : 0;
 
         mMinX = Math.max((low / xAxisModulus) * (xAxisModulus) - subLow, 0);
-        mMaxX = Math.min((high / xAxisModulus) * (xAxisModulus) + xAxisModulus, (int) dataProvider.getXChartMax());
+        mMaxX = Math.min((high / xAxisModulus) * (xAxisModulus) + xAxisModulus,
+                (int) dataProvider.getXChartMax());
     }
 }

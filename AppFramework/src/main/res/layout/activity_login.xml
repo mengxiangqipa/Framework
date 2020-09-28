@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.framework.widget.OverScrollView
         android:id="@+id/overScrollView"
@@ -11,8 +11,7 @@
         android:background="@color/white"
         android:scrollbars="none">
 
-        <com.library.percent.PercentLinearLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.library.percent.PercentLinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -26,7 +25,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/launcher_icon"
                 app:layout_heightPercent="20%sw"
-                app:layout_widthPercent="20%sw"/>
+                app:layout_widthPercent="20%sw" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,7 +37,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="50sp"
                 android:textStyle="bold"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
 
             <LinearLayout
@@ -63,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
-                        android:src="@mipmap/ic_reg_login_account"/>
+                        android:src="@mipmap/ic_reg_login_account" />
 
                     <EditText
                         android:id="@+id/etLoginPhone"
@@ -76,14 +75,14 @@
                         android:paddingLeft="10dp"
                         android:textColor="@color/_black"
                         android:textColorHint="@color/_txt_hint"
-                        android:textSize="14dp"/>
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -97,7 +96,7 @@
                         android:layout_marginLeft="20dp"
                         android:gravity="center"
                         android:src="@mipmap/ic_reg_login_pwd"
-                        android:textSize="14dp"/>
+                        android:textSize="14dp" />
 
                     <EditText
                         android:id="@+id/etLoginPassword"
@@ -111,7 +110,7 @@
                         android:paddingLeft="10dp"
                         android:textColor="@color/_black"
                         android:textColorHint="@color/_txt_hint"
-                        android:textSize="14dp"/>
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/tv_forget_pwd"
@@ -124,7 +123,7 @@
                         android:paddingRight="10dp"
                         android:text="@string/forgetPwd"
                         android:textColor="@color/_black_light"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -142,7 +141,7 @@
                 android:padding="10dp"
                 android:text="登录"
                 android:textColor="@color/white"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/tv_register"
@@ -158,7 +157,7 @@
                 android:padding="10dp"
                 android:text="注册"
                 android:textColor="@color/_blue"
-                android:textSize="@dimen/_14dp"/>
+                android:textSize="@dimen/_14dp" />
 
 
         </com.library.percent.PercentLinearLayout>
@@ -183,21 +182,21 @@
                 android:layout_height="1px"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_weight="1"
-                android:background="@color/spaceline"/>
+                android:background="@color/spaceline" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="第三方授权登录"
                 android:textColor="@color/default_text_delivery"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="1px"
                 android:layout_marginRight="@dimen/_10dp"
                 android:layout_weight="1"
-                android:background="@color/spaceline"/>
+                android:background="@color/spaceline" />
         </LinearLayout>
 
         <LinearLayout
@@ -217,7 +216,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@mipmap/icon_wchat"/>
+                    android:src="@mipmap/icon_wchat" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -228,7 +227,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="微信登录"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -241,7 +240,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@mipmap/icon_qq"/>
+                    android:src="@mipmap/icon_qq" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -251,7 +250,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="QQ登录"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </LinearLayout>

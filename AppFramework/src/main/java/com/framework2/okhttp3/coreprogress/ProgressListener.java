@@ -54,7 +54,8 @@ public abstract class ProgressListener implements ProgressCallback {
      * @param percent    百分比
      * @param speed      速度 bytes/ms
      */
-    public abstract void onProgressChanged(long numBytes, long totalBytes, float percent, float speed);
+    public abstract void onProgressChanged(long numBytes, long totalBytes, float percent,
+                                           float speed);
 
     /**
      * 进度开始

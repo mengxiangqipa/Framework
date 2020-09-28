@@ -31,7 +31,8 @@ public class ClipImageBorderView extends View {
         super(context, attrs, defStyle);
         this.mBorderColor = Color.parseColor("#FFFFFF");
         this.mBorderWidth = 1;
-        this.mBorderWidth = (int) TypedValue.applyDimension(1, (float) this.mBorderWidth, this.getResources()
+        this.mBorderWidth = (int) TypedValue.applyDimension(1, (float) this.mBorderWidth,
+                this.getResources()
                 .getDisplayMetrics());
         this.mPaint = new Paint();
         this.mPaint.setAntiAlias(true);
@@ -42,7 +43,8 @@ public class ClipImageBorderView extends View {
             WindowManager wm = (WindowManager) context.getSystemService("window");
             DisplayMetrics outMetrics = new DisplayMetrics();
             wm.getDefaultDisplay().getMetrics(outMetrics);
-            this.mHorizontalPadding = (outMetrics.widthPixels - (int) TypedValue.applyDimension(1, (float) mWidth,
+            this.mHorizontalPadding = (outMetrics.widthPixels - (int) TypedValue.applyDimension(1
+                    , (float) mWidth,
                     this.getResources().getDisplayMetrics())) / 2;
             if (this.mHorizontalPadding <= 0) {
                 this.mHorizontalPadding = 0;
@@ -56,18 +58,24 @@ public class ClipImageBorderView extends View {
         this.mVerticalPadding = (this.getHeight() - this.mWidth) / 2;
         this.mPaint.setColor(Color.parseColor("#aa000000"));
         this.mPaint.setStyle(Style.FILL);
-        canvas.drawRect(0.0F, 0.0F, (float) this.mHorizontalPadding, (float) this.getHeight(), this.mPaint);
-        canvas.drawRect((float) (this.getWidth() - this.mHorizontalPadding), 0.0F, (float) this.getWidth(), (float)
+        canvas.drawRect(0.0F, 0.0F, (float) this.mHorizontalPadding, (float) this.getHeight(),
+                this.mPaint);
+        canvas.drawRect((float) (this.getWidth() - this.mHorizontalPadding), 0.0F,
+                (float) this.getWidth(), (float)
                 this.getHeight(), this.mPaint);
-        canvas.drawRect((float) this.mHorizontalPadding, 0.0F, (float) (this.getWidth() - this.mHorizontalPadding),
+        canvas.drawRect((float) this.mHorizontalPadding, 0.0F,
+                (float) (this.getWidth() - this.mHorizontalPadding),
                 (float) this.mVerticalPadding, this.mPaint);
-        canvas.drawRect((float) this.mHorizontalPadding, (float) (this.getHeight() - this.mVerticalPadding), (float)
+        canvas.drawRect((float) this.mHorizontalPadding,
+                (float) (this.getHeight() - this.mVerticalPadding), (float)
                 (this.getWidth() - this.mHorizontalPadding), (float) this.getHeight(), this.mPaint);
         this.mPaint.setColor(this.mBorderColor);
         this.mPaint.setStrokeWidth((float) this.mBorderWidth);
         this.mPaint.setStyle(Style.STROKE);
-        canvas.drawRect((float) this.mHorizontalPadding, (float) this.mVerticalPadding, (float) (this.getWidth() -
-                this.mHorizontalPadding), (float) (this.getHeight() - this.mVerticalPadding), this.mPaint);
+        canvas.drawRect((float) this.mHorizontalPadding, (float) this.mVerticalPadding,
+                (float) (this.getWidth() -
+                this.mHorizontalPadding), (float) (this.getHeight() - this.mVerticalPadding),
+                this.mPaint);
     }
 
     public void setHorizontalPadding(int mHorizontalPadding) {

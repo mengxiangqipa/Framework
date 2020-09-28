@@ -79,7 +79,8 @@ public class CropSampleActivity extends BaseActivity {
                 if (selectedUri != null) {
                     startCropActivity(data.getData());
                 } else {
-                    Toast.makeText(CropSampleActivity.this, R.string.toast_cannot_retrieve_selected_image, Toast
+                    Toast.makeText(CropSampleActivity.this,
+                            R.string.toast_cannot_retrieve_selected_image, Toast
                             .LENGTH_SHORT).show();
                 }
             } else if (requestCode == UCrop.REQUEST_CROP) {
@@ -95,7 +96,8 @@ public class CropSampleActivity extends BaseActivity {
      * Callback received when a permissions request has been completed.
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[]
             grantResults) {
         switch (requestCode) {
             case REQUEST_STORAGE_READ_ACCESS_PERMISSION:
@@ -122,14 +124,16 @@ public class CropSampleActivity extends BaseActivity {
                 Random random = new Random();
                 int minSizePixels = 800;
                 int maxSizePixels = 2400;
-                startCropActivity(Uri.parse(String.format(Locale.getDefault(), "https://unsplash.it/%d/%d/?random",
+                startCropActivity(Uri.parse(String.format(Locale.getDefault(), "https://unsplash" +
+                                ".it/%d/%d/?random",
                         minSizePixels + random.nextInt(maxSizePixels - minSizePixels),
                         minSizePixels + random.nextInt(maxSizePixels - minSizePixels))));
             }
         });
 
         mRadioGroupAspectRatio = ((RadioGroup) findViewById(R.id.radio_group_aspect_ratio));
-        mRadioGroupCompressionSettings = ((RadioGroup) findViewById(R.id.radio_group_compression_settings));
+        mRadioGroupCompressionSettings =
+                ((RadioGroup) findViewById(R.id.radio_group_compression_settings));
         mCheckBoxMaxSize = ((CheckBox) findViewById(R.id.checkbox_max_size));
         mEditTextRatioX = ((EditText) findViewById(R.id.edit_text_ratio_x));
         mEditTextRatioY = ((EditText) findViewById(R.id.edit_text_ratio_y));
@@ -151,11 +155,13 @@ public class CropSampleActivity extends BaseActivity {
         });
         mRadioGroupCompressionSettings.check(R.id.radio_jpeg);
         mSeekBarQuality.setProgress(UCropActivity.DEFAULT_COMPRESS_QUALITY);
-        mTextViewQuality.setText(String.format(getString(R.string.format_quality_d), mSeekBarQuality.getProgress()));
+        mTextViewQuality.setText(String.format(getString(R.string.format_quality_d),
+                mSeekBarQuality.getProgress()));
         mSeekBarQuality.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mTextViewQuality.setText(String.format(getString(R.string.format_quality_d), progress));
+                mTextViewQuality.setText(String.format(getString(R.string.format_quality_d),
+                        progress));
             }
 
             @Override
@@ -172,7 +178,8 @@ public class CropSampleActivity extends BaseActivity {
 
     private void pickFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
                     getString(R.string.permission_read_storage_rationale),
@@ -182,7 +189,8 @@ public class CropSampleActivity extends BaseActivity {
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intent, getString(R.string.label_select_picture)),
+            startActivityForResult(Intent.createChooser(intent,
+                    getString(R.string.label_select_picture)),
                     REQUEST_SELECT_PICTURE);
         }
     }
@@ -252,7 +260,8 @@ public class CropSampleActivity extends BaseActivity {
     }
 
     /**
-     * Sometimes you want to adjust more options, it's done via {@link com.yalantis.ucrop.UCrop.Options} class.
+     * Sometimes you want to adjust more options, it's done via
+     * {@link com.yalantis.ucrop.UCrop.Options} class.
      *
      * @param uCrop - ucrop builder instance
      * @return - ucrop builder instance
@@ -315,7 +324,8 @@ public class CropSampleActivity extends BaseActivity {
         options.setAspectRatioOptions(1,
             new AspectRatio("WOW", 1, 2),
             new AspectRatio("MUCH", 3, 4),
-            new AspectRatio("RATIO", CropImageView.DEFAULT_ASPECT_RATIO, CropImageView.DEFAULT_ASPECT_RATIO),
+            new AspectRatio("RATIO", CropImageView.DEFAULT_ASPECT_RATIO, CropImageView
+            .DEFAULT_ASPECT_RATIO),
             new AspectRatio("SO", 16, 9),
             new AspectRatio("ASPECT", 1, 1));
 
@@ -329,7 +339,8 @@ public class CropSampleActivity extends BaseActivity {
         if (resultUri != null) {
             ResultActivity.startWithUri(CropSampleActivity.this, resultUri);
         } else {
-            Toast.makeText(CropSampleActivity.this, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT)
+            Toast.makeText(CropSampleActivity.this, R.string.toast_cannot_retrieve_cropped_image,
+                    Toast.LENGTH_SHORT)
                     .show();
         }
     }
@@ -341,7 +352,8 @@ public class CropSampleActivity extends BaseActivity {
             Log.e(TAG, "handleCropError: ", cropError);
             Toast.makeText(CropSampleActivity.this, cropError.getMessage(), Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(CropSampleActivity.this, R.string.toast_unexpected_error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(CropSampleActivity.this, R.string.toast_unexpected_error,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

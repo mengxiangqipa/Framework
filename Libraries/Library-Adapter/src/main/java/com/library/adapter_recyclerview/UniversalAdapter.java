@@ -2,6 +2,19 @@ package com.library.adapter_recyclerview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.CallSuper;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +28,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.CallSuper;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.IdRes;
-import androidx.annotation.IntDef;
-import androidx.annotation.IntRange;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.collection.SparseArrayCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 /**
  * recyclerView的adapter
@@ -79,10 +78,9 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             itemView = footerSparseArray.get(viewType % VIEW_TYPE_FOODER);
         } else {
             itemView = initItemView(viewType);
-            if (null == itemView) {
+            if (null == itemView)
                 itemView = LayoutInflater.from(context).inflate(initLayoutId(viewType), parent,
                         false);
-            }
             preDealItemView(itemView);
         }
         return createUniversalViewHolder(itemView);
@@ -217,9 +215,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
             list.add(d);
             notifyItemInserted(headersSparseArray.size());
         }
-        if (itemCount > 0 && itemCount <= list.size() - index + 1) {
+        if (itemCount > 0 && itemCount <= list.size() - index + 1)
             notifyItemRangeChanged(index + headersSparseArray.size(), itemCount);
-        }
     }
 
     public void deleteData(int index) {
@@ -238,11 +235,9 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
                 list.remove(index);
                 notifyItemRemoved(index + headersSparseArray.size());
             }
-            //==0时表示删除最后一项，无需刷新数据
-            if (itemCount > 0 && list.size() - index > 0) {
+            if (itemCount > 0 && list.size() - index > 0)//==0时表示删除最后一项，无需刷新数据
                 notifyItemRangeChanged(index + headersSparseArray.size(), Math.min(itemCount,
                         list.size() - index));
-            }
         }
     }
 
@@ -485,7 +480,7 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
                     } else {
                         return resetSpanSizeLookup(position, gridLayoutManager.getSpanCount(),
                                 getItemViewType
-                                        (position));
+                                (position));
                     }
                 }
             });
@@ -596,9 +591,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
 
         public UniversalViewHolder setVisibl1e(@IdRes int viewId, @Visibility int visible) {
             View view = getView(viewId);
-            if (view != null) {
+            if (view != null)
                 view.setVisibility(visible);
-            }
             return UniversalViewHolder.this;
         }
 
@@ -611,17 +605,15 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
          */
         public UniversalViewHolder setText(@IdRes int viewId, @Nullable CharSequence text) {
             TextView view = getView(viewId);
-            if (view != null) {
+            if (view != null)
                 view.setText(text);
-            }
             return UniversalViewHolder.this;
         }
 
         public UniversalViewHolder setTextColor(@IdRes int viewId, @ColorInt int color) {
             TextView view = getView(viewId);
-            if (view != null) {
+            if (view != null)
                 view.setTextColor(color);
-            }
             return UniversalViewHolder.this;
         }
 
@@ -633,9 +625,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         public UniversalViewHolder setScaleType(@IdRes int viewId,
                                                 @NonNull ImageView.ScaleType scaleType) {
             ImageView view = getView(viewId);
-            if (view != null) {
+            if (view != null)
                 view.setScaleType(scaleType);
-            }
             return this;
         }
 
@@ -649,9 +640,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
         public UniversalViewHolder setImageResource(@IdRes int viewId,
                                                     @DrawableRes int drawableId) {
             ImageView view = getView(viewId);
-            if (null != view) {
+            if (null != view)
                 view.setImageResource(drawableId);
-            }
             return this;
         }
 
@@ -664,9 +654,8 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
          */
         public UniversalViewHolder setImageBitmap(@IdRes int viewId, @NonNull Bitmap bm) {
             ImageView view = getView(viewId);
-            if (null != view) {
+            if (null != view)
                 view.setImageBitmap(bm);
-            }
             return this;
         }
 
@@ -679,27 +668,17 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
          */
         public UniversalViewHolder setBackGroundColor(@IdRes int viewId, @ColorInt int color) {
             View view = getView(viewId);
-            if (null != view) {
+            if (null != view)
                 view.setBackgroundColor(color);
-            }
-            return this;
-        }
-
-        public UniversalViewHolder setBackgroundResource(@IdRes int viewId, @DrawableRes int resid) {
-            View view = getView(viewId);
-            if (null != view) {
-                view.setBackgroundResource(resid);
-            }
             return this;
         }
 
         public UniversalViewHolder setOnClickListener(@IdRes int viewId,
                                                       @NonNull View.OnClickListener
-                                                              onClickListener) {
+                onClickListener) {
             View view = getView(viewId);
-            if (null != view) {
+            if (null != view)
                 view.setOnClickListener(onClickListener);
-            }
             return this;
         }
 
@@ -730,11 +709,10 @@ public abstract class UniversalAdapter<D> extends RecyclerView.Adapter<RecyclerV
 
         public UniversalViewHolder setOnTouchListener(@IdRes int viewId,
                                                       @NonNull View.OnTouchListener
-                                                              onTouchListener) {
+                onTouchListener) {
             View view = getView(viewId);
-            if (null != view) {
+            if (null != view)
                 view.setOnTouchListener(onTouchListener);
-            }
             return this;
         }
         //在这里添加其他方法

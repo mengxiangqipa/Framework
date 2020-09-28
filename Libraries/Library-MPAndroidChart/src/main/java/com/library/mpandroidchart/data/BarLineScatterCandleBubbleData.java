@@ -7,7 +7,8 @@ import java.util.List;
  *
  * @author Philipp Jahoda
  */
-public abstract class BarLineScatterCandleBubbleData<T extends BarLineScatterCandleBubbleDataSet<? extends Entry>>
+public abstract class BarLineScatterCandleBubbleData<T extends BarLineScatterCandleBubbleDataSet<
+        ? extends Entry>>
         extends ChartData<T> {
 
     public BarLineScatterCandleBubbleData() {

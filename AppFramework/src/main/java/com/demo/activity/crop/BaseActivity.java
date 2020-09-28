@@ -35,7 +35,8 @@ public class BaseActivity extends AppCompatActivity {
      * If the permission has been denied previously, a Dialog will prompt the user to grant the
      * permission, otherwise it is requested directly.
      */
-    protected void requestPermission(final String permission, String rationale, final int requestCode) {
+    protected void requestPermission(final String permission, String rationale,
+                                     final int requestCode) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
             showAlertDialog(getString(R.string.permission_title_rationale), rationale,
                     new DialogInterface.OnClickListener() {

@@ -3,11 +3,11 @@
 
     <size
         android:width="10dp"
-        android:height="10dp"/>
-    <corners android:radius="10px"/>
+        android:height="10dp" />
+    <corners android:radius="10px" />
     <gradient
         android:centerColor="#ff00ff00"
         android:endColor="#ff0000ff"
         android:startColor="#ffff0000"
-        android:type="linear"/>
+        android:type="linear" />
 </shape>

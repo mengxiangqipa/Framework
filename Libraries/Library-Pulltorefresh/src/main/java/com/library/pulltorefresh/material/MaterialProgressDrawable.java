@@ -149,7 +149,8 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     private void setSizeParameters(double progressCircleWidth, double progressCircleHeight,
-                                   double centerRadius, double strokeWidth, float arrowWidth, float arrowHeight) {
+                                   double centerRadius, double strokeWidth, float arrowWidth,
+                                   float arrowHeight) {
         final Ring ring = mRing;
         final DisplayMetrics metrics = mResources.getDisplayMetrics();
         final float screenDensity = metrics.density;
@@ -173,7 +174,8 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         if (Build.VERSION.SDK_INT >= 11) {
             mParent.setLayerType(View.LAYER_TYPE_SOFTWARE, mShadow.getPaint());
         }
-        mShadow.getPaint().setShadowLayer(mShadowRadius, shadowXOffset, shadowYOffset, KEY_SHADOW_COLOR);
+        mShadow.getPaint().setShadowLayer(mShadowRadius, shadowXOffset, shadowYOffset,
+                KEY_SHADOW_COLOR);
     }
 
     /**
@@ -489,7 +491,8 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
             mCirclePaint.setColor(mBackgroundColor);
             mCirclePaint.setAlpha(mAlpha);
 
-            c.drawCircle(bounds.exactCenterX(), bounds.exactCenterY(), bounds.width() / 2, mCirclePaint);
+            c.drawCircle(bounds.exactCenterX(), bounds.exactCenterY(), bounds.width() / 2,
+                    mCirclePaint);
 
             final RectF arcBounds = mTempBounds;
             arcBounds.set(bounds);

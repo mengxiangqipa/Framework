@@ -43,7 +43,8 @@ public class BallClipRotatePulseIndicator extends Indicator {
         //draw two arc
         float[] startAngles = new float[]{225, 45};
         for (int i = 0; i < 2; i++) {
-            RectF rectF = new RectF(-x + circleSpacing, -y + circleSpacing, x - circleSpacing, y - circleSpacing);
+            RectF rectF = new RectF(-x + circleSpacing, -y + circleSpacing, x - circleSpacing,
+                    y - circleSpacing);
             canvas.drawArc(rectF, startAngles[i], 90, false, paint);
         }
     }

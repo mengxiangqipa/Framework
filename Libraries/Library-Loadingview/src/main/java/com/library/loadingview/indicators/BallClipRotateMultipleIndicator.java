@@ -36,7 +36,8 @@ public class BallClipRotateMultipleIndicator extends Indicator {
         //draw two big arc
         float[] bStartAngles = new float[]{135, -45};
         for (int i = 0; i < 2; i++) {
-            RectF rectF = new RectF(-x + circleSpacing, -y + circleSpacing, x - circleSpacing, y - circleSpacing);
+            RectF rectF = new RectF(-x + circleSpacing, -y + circleSpacing, x - circleSpacing,
+                    y - circleSpacing);
             canvas.drawArc(rectF, bStartAngles[i], 90, false, paint);
         }
 
@@ -47,7 +48,8 @@ public class BallClipRotateMultipleIndicator extends Indicator {
         //draw two small arc
         float[] sStartAngles = new float[]{225, 45};
         for (int i = 0; i < 2; i++) {
-            RectF rectF = new RectF(-x / 1.8f + circleSpacing, -y / 1.8f + circleSpacing, x / 1.8f - circleSpacing, y
+            RectF rectF = new RectF(-x / 1.8f + circleSpacing, -y / 1.8f + circleSpacing,
+                    x / 1.8f - circleSpacing, y
                     / 1.8f - circleSpacing);
             canvas.drawArc(rectF, sStartAngles[i], 90, false, paint);
         }

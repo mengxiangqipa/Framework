@@ -37,7 +37,8 @@ public class Fragment_guide_3 extends Fragment implements GestureDetector.OnGest
         gestureDetectorCompat = new GestureDetectorCompat(mContext, this);
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         if (null == view) {
             myContainer = new LinearLayout(mContext);
             view = inflater.inflate(R.layout.fragment_guide_3, container, false);

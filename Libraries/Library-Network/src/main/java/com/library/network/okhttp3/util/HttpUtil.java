@@ -46,47 +46,77 @@ public class HttpUtil {
         return singleton;
     }
 
-    public void doPostStringRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                  final String data, final boolean callBackOnUiThread, final ICallback callback) {
+        httpAPI.doStringHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, data, callBackOnUiThread, callback);
+    }
+
+    public void postStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                  final String data, final ICallback callback) {
+        postStringHttpRequest(context, url, headers, data, true, callback);
+    }
+
+    public void postJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
                                     final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
-        httpAPI.doPostStringRequest(context, url, headers, data, callBackOnUiThread, callback);
+        httpAPI.doJsonHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, data, callBackOnUiThread, callback);
     }
 
-    public void doPostStringRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
                                     final JSONObject data, final ICallback callback) {
-        doPostStringRequest(context, url, headers, data, true, callback);
+        postJsonHttpRequest(context, url, headers, data, true, callback);
     }
 
-    public void doPostUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
+    public void getStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                      final String data, final boolean callBackOnUiThread, final ICallback callback) {
+        httpAPI.doStringHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_GET.getMethod(), headers, data, callBackOnUiThread, callback);
+    }
+
+    public void getStringHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                      final String data, final ICallback callback) {
+        postStringHttpRequest(context, url, headers, data, true, callback);
+    }
+
+    public void getJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                    final JSONObject data, final boolean callBackOnUiThread, final ICallback callback) {
+        httpAPI.doJsonHttpRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_GET.getMethod(), headers, data, callBackOnUiThread, callback);
+    }
+
+    public void getJsonHttpRequest(final Context context, final String url, final Map<String, String> headers,
+                                    final JSONObject data, final ICallback callback) {
+        getJsonHttpRequest(context, url, headers, data, true, callback);
+    }
+
+    public void postUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
                                          final JSONObject jsonObject, final boolean callBackOnUiThread,
                                          final String[] filePaths, final String[] addFormDataPartNames,
                                          final long filesMaxLenth, final UploadFilesCallback uploadFilesCallback) {
-        httpAPI.doPostUploadFilesRequest(context, url, headers, jsonObject, callBackOnUiThread, filePaths,
+        httpAPI.doUploadFilesRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, jsonObject, callBackOnUiThread, filePaths,
                 addFormDataPartNames, filesMaxLenth, uploadFilesCallback);
     }
 
-    public void doPostUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
                                          final JSONObject jsonObject, final String[] filePaths,
                                          final String[] addFormDataPartNames, final long filesMaxLenth,
                                          final UploadFilesCallback uploadFilesCallback) {
-        doPostUploadFilesRequest(context, url, headers, jsonObject, true, filePaths,
+        postUploadFilesRequest(context, url, headers, jsonObject, true, filePaths,
                 addFormDataPartNames, filesMaxLenth, uploadFilesCallback);
     }
 
-    public void doPostDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
                                           final JSONObject jsonObject, final String destinationFilePath,
                                           final String fileName, final long offsetBytes,
                                           final boolean callBackOnUiThread, final DownloadFileCallback
                                                   downloadFileCallback) {
-        httpAPI.doPostDownloadFileRequest(context, url, headers, jsonObject, destinationFilePath, fileName, offsetBytes,
+        httpAPI.doDownloadFileRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, jsonObject, destinationFilePath, fileName, offsetBytes,
                 callBackOnUiThread, downloadFileCallback);
     }
 
-    public void doPostDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
+    public void postDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
                                           final JSONObject jsonObject, final String destinationFilePath,
                                           final String fileName, final long offsetBytes,
                                           final DownloadFileCallback
                                                   downloadFileCallback) {
-        doPostDownloadFileRequest(context, url, headers, jsonObject, destinationFilePath, fileName, offsetBytes,
+        postDownloadFileRequest(context, url, headers, jsonObject, destinationFilePath, fileName, offsetBytes,
                 true, downloadFileCallback);
     }
 }

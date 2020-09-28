@@ -1,8 +1,6 @@
 package com.library.permission.callbcak;
 
-
 import com.library.permission.bean.Permission;
-
 
 public interface CheckRequestPermissionListener {
 

@@ -42,7 +42,6 @@ public interface Logger {
             return ANDROID_LOG_AVAILABLE;
         }
 
-
         private final String tag;
 
         public AndroidLogger(String tag) {
@@ -98,7 +97,6 @@ public interface Logger {
             // TODO Replace logged method with caller method
             logger.log(level, msg, th);
         }
-
     }
 
     public static class SystemOutLogger implements Logger {
@@ -113,7 +111,5 @@ public interface Logger {
             System.out.println("[" + level + "] " + msg);
             th.printStackTrace(System.out);
         }
-
     }
-
 }

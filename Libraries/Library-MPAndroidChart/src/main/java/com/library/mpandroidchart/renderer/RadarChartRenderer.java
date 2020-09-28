@@ -144,10 +144,12 @@ public class RadarChartRenderer extends LineScatterCandleRadarRenderer {
 
                 Entry entry = entries.get(j);
 
-                PointF p = Utils.getPosition(center, (entry.getVal() - mChart.getYChartMin()) * factor,
+                PointF p = Utils.getPosition(center,
+                        (entry.getVal() - mChart.getYChartMin()) * factor,
                         sliceangle * j + mChart.getRotationAngle());
 
-                drawValue(c, dataSet.getValueFormatter(), entry.getVal(), entry, i, p.x, p.y - yoffset);
+                drawValue(c, dataSet.getValueFormatter(), entry.getVal(), entry, i, p.x,
+                        p.y - yoffset);
             }
         }
     }

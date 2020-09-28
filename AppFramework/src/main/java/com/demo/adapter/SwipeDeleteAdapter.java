@@ -24,7 +24,8 @@ import java.util.List;
 
 public abstract class SwipeDeleteAdapter<D> extends UniversalAdapter<D> {
 
-    public SwipeDeleteAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List<D> list) {
+    public SwipeDeleteAdapter(@NonNull Context context, @LayoutRes int layoutId,
+                              @Nullable List<D> list) {
         super(context, layoutId, list);
     }
 
@@ -68,7 +69,8 @@ public abstract class SwipeDeleteAdapter<D> extends UniversalAdapter<D> {
 
         @Override
         public void notifyEndOpen() {
-            itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.blue));
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),
+                    R.color.blue));
         }
     }
 }

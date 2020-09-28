@@ -1,6 +1,5 @@
 package com.library.mpandroidchart.formatter;
 
-import com.library.mpandroidchart.data.LineData;
 import com.library.mpandroidchart.data.LineDataSet;
 import com.library.mpandroidchart.interfaces.LineDataProvider;
 

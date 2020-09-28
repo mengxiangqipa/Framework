@@ -29,7 +29,8 @@ public class BallClipRotateIndicator extends Indicator {
         canvas.translate(x, y);
         canvas.scale(scaleFloat, scaleFloat);
         canvas.rotate(degrees);
-        RectF rectF = new RectF(-x + circleSpacing, -y + circleSpacing, 0 + x - circleSpacing, 0 + y - circleSpacing);
+        RectF rectF = new RectF(-x + circleSpacing, -y + circleSpacing, 0 + x - circleSpacing,
+                0 + y - circleSpacing);
         canvas.drawArc(rectF, -45, 270, false, paint);
     }
 

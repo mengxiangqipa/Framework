@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relative_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,7 +32,7 @@
                 android:id="@+id/tv_dot1"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:background="@drawable/shape_dot1"/>
+                android:background="@drawable/shape_dot1" />
 
             <TextView
                 android:id="@+id/tv_dot2"
@@ -41,20 +40,20 @@
                 android:layout_height="8dp"
                 android:layout_marginLeft="13dp"
                 android:layout_marginRight="13dp"
-                android:background="@drawable/shape_dot1"/>
+                android:background="@drawable/shape_dot1" />
 
             <TextView
                 android:id="@+id/tv_dot3"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:background="@drawable/shape_dot1"/>
+                android:background="@drawable/shape_dot1" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_dot_dynamic"
             android:layout_width="8dp"
             android:layout_height="8dp"
-            android:background="@drawable/shape_dot2"/>
+            android:background="@drawable/shape_dot2" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -64,8 +63,7 @@
         android:background="@mipmap/splash"
         android:visibility="gone">
 
-        <com.library.percent.PercentLinearLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.library.percent.PercentLinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/linear_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +85,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_heightPercent="10%w"
-                app:layout_widthPercent="30%w"/>
+                app:layout_widthPercent="30%w" />
         </com.library.percent.PercentLinearLayout>
     </RelativeLayout>
 </RelativeLayout>

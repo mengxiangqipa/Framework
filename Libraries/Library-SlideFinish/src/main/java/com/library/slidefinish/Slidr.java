@@ -38,13 +38,16 @@ public class Slidr {
      * and allows for the statusbar to transition between colors
      *
      * @param activity        the activity to attach the slider to
-     * @param statusBarColor1 the primaryDark status bar color of the interface that this will slide back to
-     * @param statusBarColor2 the primaryDark status bar color of the activity this is attaching to that will transition
+     * @param statusBarColor1 the primaryDark status bar color of the interface that this will
+     *                        slide back to
+     * @param statusBarColor2 the primaryDark status bar color of the activity this is attaching
+     *                        to that will transition
      *                        back to the statusBarColor1 color
      * @return a {@link com.library.slidefinish.model.SlidrInterface} that allows
      * the user to lock/unlock the sliding mechanism for whatever purpose.
      */
-    public static SlidrInterface attach(final Activity activity, final int statusBarColor1, final int statusBarColor2
+    public static SlidrInterface attach(final Activity activity, final int statusBarColor1,
+                                        final int statusBarColor2
             , final SlidrConfig config) {
 
         // Setup the slider panel and attach it to the decor
@@ -88,7 +91,8 @@ public class Slidr {
                 // Interpolate the statusbar color
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         statusBarColor1 != -1 && statusBarColor2 != -1) {
-                    int newColor = (int) mEvaluator.evaluate(percent, statusBarColor1, statusBarColor2);
+                    int newColor = (int) mEvaluator.evaluate(percent, statusBarColor1,
+                            statusBarColor2);
                     activity.getWindow().setStatusBarColor(newColor);
                 }
             }
@@ -99,7 +103,8 @@ public class Slidr {
     }
 
     /**
-     * Attach a slider mechanism to an activity based on the passed {@link com.library.slidefinish.model.SlidrConfig}
+     * Attach a slider mechanism to an activity based on the passed
+     * {@link com.library.slidefinish.model.SlidrConfig}
      *
      * @param activity the activity to attach the slider to
      * @param config   the slider configuration to make

@@ -42,7 +42,8 @@ public class ToastUtil {
                 @Override
                 public void run() {
                     try {
-                        Toast.makeText(ProxyApplication.getProxyApplication(), message, toastLong ? Toast.LENGTH_LONG :
+                        Toast.makeText(ProxyApplication.getProxyApplication(), message,
+                                toastLong ? Toast.LENGTH_LONG :
                                 Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();

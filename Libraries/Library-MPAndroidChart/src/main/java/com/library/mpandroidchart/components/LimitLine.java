@@ -3,7 +3,6 @@ package com.library.mpandroidchart.components;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 
 import com.library.mpandroidchart.utils.Utils;
 

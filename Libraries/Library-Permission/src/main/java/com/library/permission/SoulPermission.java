@@ -11,10 +11,15 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.util.Log;
+
 import com.library.permission.bean.Permission;
 import com.library.permission.bean.Permissions;
 import com.library.permission.bean.Special;
-import com.library.permission.callbcak.*;
+import com.library.permission.callbcak.CheckRequestPermissionListener;
+import com.library.permission.callbcak.CheckRequestPermissionsListener;
+import com.library.permission.callbcak.CheckStatusCallBack;
+import com.library.permission.callbcak.RequestPermissionListener;
+import com.library.permission.callbcak.SpecialPermissionListener;
 import com.library.permission.checker.CheckerFactory;
 import com.library.permission.debug.PermissionDebug;
 import com.library.permission.request.PermissionRequester;
@@ -24,7 +29,6 @@ import java.util.List;
 
 import static android.os.Build.VERSION_CODES.KITKAT;
 import static android.os.Build.VERSION_CODES.O;
-
 
 public class SoulPermission {
 
@@ -37,7 +41,6 @@ public class SoulPermission {
     private static boolean alreadyInit;
 
     private PermissionActivityLifecycle lifecycle;
-
 
     /**
      * 获取 Permission 对象
@@ -127,8 +130,10 @@ public class SoulPermission {
      * @param listener       请求之后的回调
      * @see #checkAndRequestPermissions
      */
-    public void checkAndRequestPermission(@NonNull final String permissionName, @NonNull final CheckRequestPermissionListener listener) {
-        checkAndRequestPermissions(Permissions.build(permissionName), new CheckRequestPermissionsListener() {
+    public void checkAndRequestPermission(@NonNull final String permissionName,
+                                          @NonNull final CheckRequestPermissionListener listener) {
+        checkAndRequestPermissions(Permissions.build(permissionName),
+                new CheckRequestPermissionsListener() {
             @Override
             public void onAllPermissionGranted(com.library.permission.bean.Permission[] allPermissions) {
                 listener.onPermissionGranted(allPermissions[0]);
@@ -145,14 +150,18 @@ public class SoulPermission {
      * 多个权限的检查与申请
      * 在敏感操作前，先检查权限和请求权限，当完成操作后可做后续的事情
      *
-     * @param permissions 多个权限的申请  Permissions.build(Manifest.permission.CALL_PHONE,Manifest.permission.CAMERA)
+     * @param permissions 多个权限的申请  Permissions.build(Manifest.permission.CALL_PHONE,Manifest
+     *                    .permission.CAMERA)
      * @param listener    请求之后的回调
      */
-    public void checkAndRequestPermissions(@NonNull Permissions permissions, @NonNull final CheckRequestPermissionsListener listener) {
+    public void checkAndRequestPermissions(@NonNull Permissions permissions,
+                                           @NonNull final CheckRequestPermissionsListener listener) {
         //check permission first
-        com.library.permission.bean.Permission[] checkResult = checkPermissions(permissions.getPermissionsString());
+        com.library.permission.bean.Permission[] checkResult =
+                checkPermissions(permissions.getPermissionsString());
         //get refused permissions
-        final com.library.permission.bean.Permission[] refusedPermissionList = filterRefusedPermissions(checkResult);
+        final com.library.permission.bean.Permission[] refusedPermissionList =
+                filterRefusedPermissions(checkResult);
         // all permissions ok
         if (refusedPermissionList.length == 0) {
             PermissionDebug.d(TAG, "all permissions ok");
@@ -166,7 +175,6 @@ public class SoulPermission {
             PermissionDebug.d(TAG, "some permission refused but can not request");
             listener.onPermissionDenied(refusedPermissionList);
         }
-
     }
 
     /**
@@ -176,7 +184,8 @@ public class SoulPermission {
      *                 {@link Special }
      * @param listener 请求回调
      */
-    public void checkAndRequestPermission(@NonNull Special special, @NonNull SpecialPermissionListener listener) {
+    public void checkAndRequestPermission(@NonNull Special special,
+                                          @NonNull SpecialPermissionListener listener) {
         boolean permissionResult = checkSpecialPermission(special);
         if (permissionResult) {
             listener.onGranted(special);
@@ -311,7 +320,8 @@ public class SoulPermission {
         callBack.onStatusOk(activity);
     }
 
-    private void requestPermissions(final Permissions permissions, final CheckRequestPermissionsListener listener) {
+    private void requestPermissions(final Permissions permissions,
+                                    final CheckRequestPermissionsListener listener) {
         checkStatusBeforeDoSomething(new CheckStatusCallBack() {
             @Override
             public void onStatusOk(Activity activity) {
@@ -325,7 +335,8 @@ public class SoulPermission {
         });
     }
 
-    private void requestRuntimePermission(final Activity activity, final com.library.permission.bean.Permission[] permissionsToRequest, final CheckRequestPermissionsListener listener) {
+    private void requestRuntimePermission(final Activity activity,
+                                          final com.library.permission.bean.Permission[] permissionsToRequest, final CheckRequestPermissionsListener listener) {
         PermissionDebug.d(TAG, "start to request permissions size= " + permissionsToRequest.length);
         new PermissionRequester(activity)
                 .withPermission(permissionsToRequest)
@@ -343,14 +354,16 @@ public class SoulPermission {
                             PermissionDebug.d(TAG, "all permission are request ok");
                             listener.onAllPermissionGranted(permissionsToRequest);
                         } else {
-                            PermissionDebug.d(TAG, "some permission are refused size=" + refusedListAfterRequest.size());
+                            PermissionDebug.d(TAG,
+                                    "some permission are refused size=" + refusedListAfterRequest.size());
                             listener.onPermissionDenied(PermissionTools.convert(refusedListAfterRequest));
                         }
                     }
                 });
     }
 
-    private void requestSpecialPermission(final Special specialPermission, final SpecialPermissionListener listener) {
+    private void requestSpecialPermission(final Special specialPermission,
+                                          final SpecialPermissionListener listener) {
         checkStatusBeforeDoSomething(new CheckStatusCallBack() {
             @Override
             public void onStatusOk(Activity activity) {

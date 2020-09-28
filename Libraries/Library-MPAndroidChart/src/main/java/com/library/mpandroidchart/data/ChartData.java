@@ -4,8 +4,8 @@ import android.graphics.Typeface;
 import android.util.Log;
 
 import com.library.mpandroidchart.components.YAxis.AxisDependency;
-import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.formatter.ValueFormatter;
+import com.library.mpandroidchart.highlight.Highlight;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -193,7 +193,8 @@ public abstract class ChartData<T extends DataSet<? extends Entry>> {
                     .getYVals()
                     .size() > mXVals.size()) {
                 throw new IllegalArgumentException(
-                        "One or more of the DataSet Entry arrays are longer than the x-values array of this ChartData" +
+                        "One or more of the DataSet Entry arrays are longer than the x-values " +
+                                "array of this ChartData" +
                                 " object.");
             }
         }

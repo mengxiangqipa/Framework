@@ -54,8 +54,10 @@ public class PullableListViewActivity extends AppCompatActivity implements OnLoa
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PullableListViewActivity.this, "LongClick on " + parent.getAdapter().getItemId
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position,
+                                           long id) {
+                Toast.makeText(PullableListViewActivity.this,
+                        "LongClick on " + parent.getAdapter().getItemId
                         (position), Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -64,7 +66,8 @@ public class PullableListViewActivity extends AppCompatActivity implements OnLoa
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(PullableListViewActivity.this, " Click on " + parent.getAdapter().getItemId(position),
+                Toast.makeText(PullableListViewActivity.this,
+                        " Click on " + parent.getAdapter().getItemId(position),
                         Toast.LENGTH_SHORT).show();
             }
         });

@@ -4,7 +4,7 @@
     <string name="picture_take_picture">拍摄</string>
     <string name="picture_rule">不能同时选择图片或视频</string>
     <string name="picture_message_max_num">最多可以选择%1$s张图片</string>
-    <string name="picture_message_all_max_num">最多可以选择%1$s张图片或视频</string>
+    <string name="picture_message_all_max_num">最多可以选择%1$s张图片或一个视频</string>
     <string name="picture_message_classify_max_num">最多可以选择%1$d张图片或%2$d个视频</string>
     <string name="picture_video_min_num">视频最低选择不能少于%1$s个</string>
     <string name="picture_video_max_num">最多可以选择%1$d个视频</string>

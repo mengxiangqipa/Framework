@@ -55,7 +55,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener,
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.activity_main, container, false);
         }
@@ -97,7 +98,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener,
         cb_crop.setOnCheckedChangeListener(this);
         cb_crop_circular.setOnCheckedChangeListener(this);
         cb_compress.setOnCheckedChangeListener(this);
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false);
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(getActivity(), 4,
+                GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         adapter = new GridImageAdapter(getActivity(), onAddPicClickListener);
         adapter.setList(selectList);
@@ -127,7 +129,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener,
         });
     }
 
-    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+    private GridImageAdapter.onAddPicClickListener onAddPicClickListener =
+            new GridImageAdapter.onAddPicClickListener() {
         @Override
         public void onAddPicClick() {
             boolean mode = cb_mode.isChecked();
@@ -138,7 +141,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener,
                         .theme(themeId)
                         .maxSelectNum(maxSelectNum)
                         .minSelectNum(1)
-                        .selectionMode(cb_choose_mode.isChecked() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
+                        .selectionMode(cb_choose_mode.isChecked() ? PictureConfig.MULTIPLE :
+                                PictureConfig.SINGLE)
                         .previewImage(cb_preview_img.isChecked())
                         .previewVideo(cb_preview_video.isChecked())
                         .enablePreviewAudio(cb_preview_audio.isChecked()) // 是否可播放音频
@@ -164,7 +168,8 @@ public class PhotoFragment extends Fragment implements View.OnClickListener,
                         .theme(themeId)
                         .maxSelectNum(maxSelectNum)
                         .minSelectNum(1)
-                        .selectionMode(cb_choose_mode.isChecked() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
+                        .selectionMode(cb_choose_mode.isChecked() ? PictureConfig.MULTIPLE :
+                                PictureConfig.SINGLE)
                         .previewImage(cb_preview_img.isChecked())
                         .previewVideo(cb_preview_video.isChecked())
                         .enablePreviewAudio(cb_preview_audio.isChecked()) // 是否可播放音频

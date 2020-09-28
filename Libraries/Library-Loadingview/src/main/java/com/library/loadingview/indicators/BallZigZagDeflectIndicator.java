@@ -19,16 +19,20 @@ public class BallZigZagDeflectIndicator extends BallZigZagIndicator {
         float startY = getWidth() / 6;
         for (int i = 0; i < 2; i++) {
             final int index = i;
-            ValueAnimator translateXAnim = ValueAnimator.ofFloat(startX, getWidth() - startX, startX, getWidth() -
+            ValueAnimator translateXAnim = ValueAnimator.ofFloat(startX, getWidth() - startX,
+                    startX, getWidth() -
                     startX, startX);
             if (i == 1) {
-                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX, getWidth() - startX, startX,
+                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX,
+                        getWidth() - startX, startX,
                         getWidth() - startX);
             }
-            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, startY, getHeight() - startY, getHeight() -
+            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, startY,
+                    getHeight() - startY, getHeight() -
                     startY, startY);
             if (i == 1) {
-                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY, startY, startY,
+                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY
+                        , startY, startY,
                         getHeight() - startY);
             }
 

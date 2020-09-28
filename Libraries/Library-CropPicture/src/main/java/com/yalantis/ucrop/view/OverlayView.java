@@ -26,7 +26,8 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  * <p/>
- * This view is used for drawing the overlay on top of the image. It may have frame, crop guidelines and dimmed area.
+ * This view is used for drawing the overlay on top of the image. It may have frame, crop
+ * guidelines and dimmed area.
  * This must have LAYER_TYPE_SOFTWARE to draw itself properly.
  */
 public class OverlayView extends View {
@@ -75,7 +76,8 @@ public class OverlayView extends View {
     {
         mTouchPointThreshold =
                 getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_corner_touch_threshold);
-        mCropRectMinSize = getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_min_size);
+        mCropRectMinSize =
+                getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_min_size);
         mCropRectCornerTouchAreaLineLength =
                 getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_rect_corner_touch_area_line_length);
     }
@@ -108,7 +110,8 @@ public class OverlayView extends View {
 
     @Deprecated
     /***
-     * Please use the new method {@link #getFreestyleCropMode() getFreestyleCropMode} method as we have more than 1
+     * Please use the new method {@link #getFreestyleCropMode() getFreestyleCropMode} method as
+     * we have more than 1
      * freestyle crop mode.
      */
     public boolean isFreestyleCropEnabled() {
@@ -117,11 +120,13 @@ public class OverlayView extends View {
 
     @Deprecated
     /***
-     * Please use the new method {@link #setFreestyleCropMode setFreestyleCropMode} method as we have more than 1
+     * Please use the new method {@link #setFreestyleCropMode setFreestyleCropMode} method as we
+     * have more than 1
      * freestyle crop mode.
      */
     public void setFreestyleCropEnabled(boolean freestyleCropEnabled) {
-        mFreestyleCropMode = freestyleCropEnabled ? FREESTYLE_CROP_MODE_ENABLE : FREESTYLE_CROP_MODE_DISABLE;
+        mFreestyleCropMode = freestyleCropEnabled ? FREESTYLE_CROP_MODE_ENABLE :
+                FREESTYLE_CROP_MODE_DISABLE;
     }
 
     @FreestyleMode
@@ -164,7 +169,8 @@ public class OverlayView extends View {
     /**
      * Setter for {@link #mShowCropFrame} variable.
      *
-     * @param showCropFrame - set to true if you want to see a crop frame rectangle on top of an image
+     * @param showCropFrame - set to true if you want to see a crop frame rectangle on top of an
+     *                      image
      */
     public void setShowCropFrame(boolean showCropFrame) {
         mShowCropFrame = showCropFrame;
@@ -462,7 +468,8 @@ public class OverlayView extends View {
 
         if (mCircleDimmedLayer) { // Draw 1px stroke to fix antialias
             canvas.drawCircle(mCropViewRect.centerX(), mCropViewRect.centerY(),
-                    Math.min(mCropViewRect.width(), mCropViewRect.height()) / 2.f, mDimmedStrokePaint);
+                    Math.min(mCropViewRect.width(), mCropViewRect.height()) / 2.f,
+                    mDimmedStrokePaint);
         }
     }
 
@@ -511,11 +518,13 @@ public class OverlayView extends View {
             canvas.save();
 
             mTempRect.set(mCropViewRect);
-            mTempRect.inset(mCropRectCornerTouchAreaLineLength, -mCropRectCornerTouchAreaLineLength);
+            mTempRect.inset(mCropRectCornerTouchAreaLineLength,
+                    -mCropRectCornerTouchAreaLineLength);
             canvas.clipRect(mTempRect, Region.Op.DIFFERENCE);
 
             mTempRect.set(mCropViewRect);
-            mTempRect.inset(-mCropRectCornerTouchAreaLineLength, mCropRectCornerTouchAreaLineLength);
+            mTempRect.inset(-mCropRectCornerTouchAreaLineLength,
+                    mCropRectCornerTouchAreaLineLength);
             canvas.clipRect(mTempRect, Region.Op.DIFFERENCE);
 
             canvas.drawRect(mCropViewRect, mCropFrameCornersPaint);
@@ -539,10 +548,12 @@ public class OverlayView extends View {
         mDimmedStrokePaint.setStrokeWidth(1);
 
         initCropFrameStyle(a);
-        mShowCropFrame = a.getBoolean(R.styleable.ucrop_UCropView_ucrop_show_frame, DEFAULT_SHOW_CROP_FRAME);
+        mShowCropFrame = a.getBoolean(R.styleable.ucrop_UCropView_ucrop_show_frame,
+                DEFAULT_SHOW_CROP_FRAME);
 
         initCropGridStyle(a);
-        mShowCropGrid = a.getBoolean(R.styleable.ucrop_UCropView_ucrop_show_grid, DEFAULT_SHOW_CROP_GRID);
+        mShowCropGrid = a.getBoolean(R.styleable.ucrop_UCropView_ucrop_show_grid,
+                DEFAULT_SHOW_CROP_GRID);
     }
 
     /**
@@ -550,7 +561,8 @@ public class OverlayView extends View {
      */
     @SuppressWarnings("deprecation")
     private void initCropFrameStyle(@NonNull TypedArray a) {
-        int cropFrameStrokeSize = a.getDimensionPixelSize(R.styleable.ucrop_UCropView_ucrop_frame_stroke_size,
+        int cropFrameStrokeSize =
+                a.getDimensionPixelSize(R.styleable.ucrop_UCropView_ucrop_frame_stroke_size,
                 getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_frame_stoke_width));
         int cropFrameColor = a.getColor(R.styleable.ucrop_UCropView_ucrop_frame_color,
                 getResources().getColor(R.color.ucrop_color_default_crop_frame));
@@ -568,20 +580,23 @@ public class OverlayView extends View {
      */
     @SuppressWarnings("deprecation")
     private void initCropGridStyle(@NonNull TypedArray a) {
-        int cropGridStrokeSize = a.getDimensionPixelSize(R.styleable.ucrop_UCropView_ucrop_grid_stroke_size,
+        int cropGridStrokeSize =
+                a.getDimensionPixelSize(R.styleable.ucrop_UCropView_ucrop_grid_stroke_size,
                 getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_grid_stoke_width));
         int cropGridColor = a.getColor(R.styleable.ucrop_UCropView_ucrop_grid_color,
                 getResources().getColor(R.color.ucrop_color_default_crop_grid));
         mCropGridPaint.setStrokeWidth(cropGridStrokeSize);
         mCropGridPaint.setColor(cropGridColor);
 
-        mCropGridRowCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_row_count, DEFAULT_CROP_GRID_ROW_COUNT);
+        mCropGridRowCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_row_count,
+                DEFAULT_CROP_GRID_ROW_COUNT);
         mCropGridColumnCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_column_count,
                 DEFAULT_CROP_GRID_COLUMN_COUNT);
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({FREESTYLE_CROP_MODE_DISABLE, FREESTYLE_CROP_MODE_ENABLE, FREESTYLE_CROP_MODE_ENABLE_WITH_PASS_THROUGH})
+    @IntDef({FREESTYLE_CROP_MODE_DISABLE, FREESTYLE_CROP_MODE_ENABLE,
+            FREESTYLE_CROP_MODE_ENABLE_WITH_PASS_THROUGH})
     public @interface FreestyleMode {
     }
 }

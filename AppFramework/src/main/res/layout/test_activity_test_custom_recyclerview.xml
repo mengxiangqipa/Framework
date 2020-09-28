@@ -1,8 +1,8 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:fitsSystemWindows="true">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.test.customrefresh.CustomPullToRefreshLayout
         android:id="@+id/refresh_view"
@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
     </com.test.customrefresh.CustomPullToRefreshLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

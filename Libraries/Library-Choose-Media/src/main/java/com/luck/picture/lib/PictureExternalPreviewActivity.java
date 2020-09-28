@@ -83,7 +83,8 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         viewPager = (PreviewViewPager) findViewById(R.id.preview_pager);
         position = getIntent().getIntExtra(PictureConfig.EXTRA_POSITION, 0);
         directory_path = getIntent().getStringExtra(PictureConfig.DIRECTORY_PATH);
-        images = (List<LocalMedia>) getIntent().getSerializableExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST);
+        images =
+                (List<LocalMedia>) getIntent().getSerializableExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST);
         left_back.setOnClickListener(this);
         initViewPageAdapterData();
     }
@@ -95,7 +96,8 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         viewPager.setCurrentItem(position);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 
@@ -206,7 +208,8 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
                                 }
 
                                 @Override
-                                public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                                public void onResourceReady(Bitmap resource, Transition<?
+                                        super Bitmap> transition) {
                                     dismissDialog();
                                     if (eqLongImg) {
                                         displayLongPic(resource, longImg);
@@ -247,7 +250,8 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
                                         if (aBoolean) {
                                             showDownLoadDialog(path);
                                         } else {
-                                            ToastManage.s(mContext, getString(R.string.picture_jurisdiction));
+                                            ToastManage.s(mContext,
+                                                    getString(R.string.picture_jurisdiction));
                                         }
                                     }
 
@@ -315,13 +319,16 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
                 } else {
                     // 有可能本地图片
                     try {
-                        String dirPath = PictureFileUtils.createDir(PictureExternalPreviewActivity.this,
+                        String dirPath =
+                                PictureFileUtils.createDir(PictureExternalPreviewActivity.this,
                                 System.currentTimeMillis() + ".png", directory_path);
                         PictureFileUtils.copyFile(path, dirPath);
-                        ToastManage.s(mContext, getString(R.string.picture_save_success) + "\n" + dirPath);
+                        ToastManage.s(mContext,
+                                getString(R.string.picture_save_success) + "\n" + dirPath);
                         dismissDialog();
                     } catch (IOException e) {
-                        ToastManage.s(mContext, getString(R.string.picture_save_error) + "\n" + e.getMessage());
+                        ToastManage.s(mContext,
+                                getString(R.string.picture_save_error) + "\n" + e.getMessage());
                         dismissDialog();
                         e.printStackTrace();
                     }

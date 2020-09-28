@@ -57,7 +57,8 @@ public class GestureImageView extends androidx.appcompat.widget.AppCompatImageVi
 
         mImageMatrix = new Matrix();
 
-        mScaleGesture = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+        mScaleGesture = new ScaleGestureDetector(context,
+                new ScaleGestureDetector.SimpleOnScaleGestureListener() {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
                 float factor = detector.getScaleFactor();
@@ -67,7 +68,8 @@ public class GestureImageView extends androidx.appcompat.widget.AppCompatImageVi
             }
         });
 
-        mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener() {
+        mGestureDetector = new GestureDetectorCompat(context,
+                new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 mImageMatrix.postScale(1.f, 1.f, mCenterX, mCenterY);
@@ -76,7 +78,8 @@ public class GestureImageView extends androidx.appcompat.widget.AppCompatImageVi
             }
 
             @Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+                                    float distanceY) {
                 //mImageMatrix.setTranslate(0, 0);
                 //setImageMatrix(mImageMatrix);
                 return true;

@@ -58,7 +58,8 @@ public class PreviewActivity extends BaseActivity {
         ImagePagerAdapter sAdapter;
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo
+            mCameraSdkParameterInfo =
+                    (CameraSdkParameterInfo) b.getSerializable(CameraSdkParameterInfo
                     .EXTRA_PARAMETER);
             resultList = mCameraSdkParameterInfo.getImage_list();
             position = mCameraSdkParameterInfo.getPosition();
@@ -123,7 +124,8 @@ public class PreviewActivity extends BaseActivity {
         finish();
     }
 
-    //*************************************** Adapter  *************************************************//
+    //*************************************** Adapter
+    // *************************************************//
 
     class ImagePagerAdapter extends PagerAdapter {
 

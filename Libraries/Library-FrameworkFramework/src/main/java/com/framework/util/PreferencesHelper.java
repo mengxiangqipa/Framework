@@ -25,7 +25,8 @@ public class PreferencesHelper {
             synchronized (PreferencesHelper.class) {
                 if (mPreferencesHelper == null) {
                     mPreferencesHelper = new PreferencesHelper();
-                    mSharedPreferences = ProxyApplication.getProxyApplication().getSharedPreferences(Config
+                    mSharedPreferences =
+                            ProxyApplication.getProxyApplication().getSharedPreferences(Config
                             .SHAREPREFERENCES_NAME, mode);
                 }
             }

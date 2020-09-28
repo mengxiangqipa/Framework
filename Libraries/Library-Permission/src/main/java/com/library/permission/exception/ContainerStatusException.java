@@ -1,6 +1,5 @@
 package com.library.permission.exception;
 
-
 public class ContainerStatusException extends IllegalStateException {
 
     public ContainerStatusException() {

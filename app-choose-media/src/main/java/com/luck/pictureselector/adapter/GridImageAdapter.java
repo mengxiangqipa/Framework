@@ -157,7 +157,8 @@ public class GridImageAdapter extends
             }
             // 图片
             if (media.isCompressed()) {
-                Log.i("compress image result:", new File(media.getCompressPath()).length() / 1024 + "k");
+                Log.i("compress image result:",
+                        new File(media.getCompressPath()).length() / 1024 + "k");
                 Log.i("压缩地址::", media.getCompressPath());
             }
 

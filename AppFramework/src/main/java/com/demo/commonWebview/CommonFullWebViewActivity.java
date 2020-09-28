@@ -86,7 +86,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_common_webview_with_titlebar);
         ButterKnife.bind(this);
         ScreenUtil.getInstance().setTranslucentStatus(this, true);
-        ScreenUtil.getInstance().setStatusBarTintColor(this, getResources().getColor(R.color.white));
+        ScreenUtil.getInstance().setStatusBarTintColor(this,
+                getResources().getColor(R.color.white));
         ScreenUtil.getInstance().setSystemUiColorDark(this, true);
         initView();
         initWebViewSetting();
@@ -140,7 +141,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
 
 //下面3句添加后webview滑动不顺畅
 //        webSettings.setDatabaseEnabled(true);
-//        String dir = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+//        String dir = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE)
+//        .getPath();
 //        webSettings.setDatabasePath(dir);
 
         //多窗口
@@ -183,7 +185,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                     //该方法在Build.VERSION_CODES.LOLLIPOP以前有效，从Build.VERSION_CODES
                     // .LOLLIPOP起，建议使用shouldOverrideUrlLoading(WebView, WebResourceRequest)} instead
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
-                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
+                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn
+                    // .net/questions/178242
 //                    view.loadUrl(url);
 //                    return true;
                     String tag = "tel:";
@@ -203,7 +206,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址），均交给webView自己处理，这也是此方法的默认处理
-                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn.net/questions/178242
+                    //返回true，说明你自己想根据url，做新的跳转，比如在判断url符合条件的情况下，我想让webView加载http://ask.csdn
+                    // .net/questions/178242
                     String url = request.getUrl().toString();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         String tag = "tel:";
@@ -228,13 +232,15 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                public void onReceivedSslError(WebView view, SslErrorHandler handler,
+                                               SslError error) {
 //                    super.onReceivedSslError(view, handler, error);
                     handler.proceed(); // 接受所有证书
                 }
 
                 //                @Override
-//                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//                public void onReceivedError(WebView view, WebResourceRequest request,
+//                WebResourceError error) {
 //                    super.onReceivedError(view, request, error);
 ////                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 ////                        request.getUrl();
@@ -248,11 +254,13 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
 //                }
                 public void onPageFinished(WebView view, String url) {
 //                    CookieManager cookieManager = CookieManager.getProxyApplication();
-//                    String cookie = cookieManager.getCookie(RealInterfaceConfig.getRealBaseServerUrl() +
+//                    String cookie = cookieManager.getCookie(RealInterfaceConfig
+//                    .getRealBaseServerUrl() +
 // InterfaceConfig.jsCLickLogin);
 //                    if (!TextUtils.isEmpty(cookie)) {
 //                        cookieManager.removeAllCookie();
-//                        CookieManagerUtil.getProxyApplication().saveCookie(CommonWebViewActivity.this, cookie);
+//                        CookieManagerUtil.getProxyApplication().saveCookie
+//                        (CommonWebViewActivity.this, cookie);
 //                    }
                     super.onPageFinished(view, url);
                     if (!webView.getSettings().getLoadsImagesAutomatically()) {
@@ -292,7 +300,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback
+                public void onGeolocationPermissionsShowPrompt(String origin,
+                                                               GeolocationPermissions.Callback
                         callback) {
                     callback.invoke(origin, true, true);
                     super.onGeolocationPermissionsShowPrompt(origin, callback);
@@ -317,7 +326,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                     takePic();
                 }
 
-                public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+                public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType,
+                                            String capture) {
                     mUploadMessage = uploadMsg;
                     takePic();
                 }
@@ -371,7 +381,7 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
     private void goBack() {
         if (null != webView && webView.canGoBack()) {
             webView.goBack();
-        }else{
+        } else {
             finish();
         }
     }
@@ -434,7 +444,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[]
             grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
@@ -484,7 +495,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
                 onActivityResultAboveL(requestCode, resultCode, data);
             } else if (mUploadMessage != null) {
                 if (result != null) {
-                    String path = FileUtil.getInstance().getRealFilePath(getApplicationContext(), result);
+                    String path = FileUtil.getInstance().getRealFilePath(getApplicationContext(),
+                            result);
                     Uri uri = Uri.fromFile(new File(path));
                     mUploadMessage
                             .onReceiveValue(uri);
@@ -534,13 +546,15 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
     }
 
     private void takePic() {
-        File imageStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        File imageStorageDir =
+                new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                 , "IOV");
         // Create the storage directory if it does not exist
         if (!imageStorageDir.exists()) {
             imageStorageDir.mkdirs();
         }
-        File file = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) +
+        File file =
+                new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) +
                 ".jpg");
         imageUri = Uri.fromFile(file);
 
@@ -560,7 +574,8 @@ public class CommonFullWebViewActivity extends AppCompatActivity {
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("image/*");
         Intent chooserIntent = Intent.createChooser(i, "Image Chooser");
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                cameraIntents.toArray(new Parcelable[]{}));
         startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
     }
 }

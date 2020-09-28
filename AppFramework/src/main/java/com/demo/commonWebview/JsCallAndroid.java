@@ -74,7 +74,8 @@ public class JsCallAndroid {
     }
 
     private void goBack() {
-        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(), RealInterfaceConfig
+        if (null != webView && webView.canGoBack() && !TextUtils.equals(webView.getUrl(),
+                RealInterfaceConfig
                 .getRealBaseServerUrl() + InterfaceConfig.webMain)) {
             webView.goBack();
         } else {

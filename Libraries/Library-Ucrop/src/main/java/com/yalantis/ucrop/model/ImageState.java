@@ -12,7 +12,8 @@ public class ImageState {
 
     private float mCurrentScale, mCurrentAngle;
 
-    public ImageState(RectF cropRect, RectF currentImageRect, float currentScale, float currentAngle) {
+    public ImageState(RectF cropRect, RectF currentImageRect, float currentScale,
+                      float currentAngle) {
         mCropRect = cropRect;
         mCurrentImageRect = currentImageRect;
         mCurrentScale = currentScale;

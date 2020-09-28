@@ -171,7 +171,8 @@ public class Legend extends ComponentBase {
     }
 
     /**
-     * This method sets the automatically computed colors for the legend. Use setCustom(...) to set custom colors.
+     * This method sets the automatically computed colors for the legend. Use setCustom(...) to
+     * set custom colors.
      *
      * @param colors
      */
@@ -180,7 +181,8 @@ public class Legend extends ComponentBase {
     }
 
     /**
-     * This method sets the automatically computed labels for the legend. Use setCustom(...) to set custom labels.
+     * This method sets the automatically computed labels for the legend. Use setCustom(...) to
+     * set custom labels.
      *
      * @param labels
      */

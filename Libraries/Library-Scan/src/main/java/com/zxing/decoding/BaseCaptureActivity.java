@@ -48,7 +48,8 @@ package com.zxing.decoding;//package com.zxing.decoding;
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager
+//        .LayoutParams.FLAG_FULLSCREEN);
 //        setContentView(R.layout.zxing_base_scan);
 //        viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 //        viewfinderView.setShowRandomCircle(true);
@@ -105,7 +106,8 @@ package com.zxing.decoding;//package com.zxing.decoding;
 //        super.onDestroy();
 //    }
 //
-//    private void initCamera(SurfaceHolder surfaceHolder, @NonNull ViewfinderView viewfinderView, boolean
+//    private void initCamera(SurfaceHolder surfaceHolder, @NonNull ViewfinderView
+//    viewfinderView, boolean
 //    cameraAutoFocus) {
 //        try {
 //            CameraManager.get().openDriver(surfaceHolder,viewfinderView);

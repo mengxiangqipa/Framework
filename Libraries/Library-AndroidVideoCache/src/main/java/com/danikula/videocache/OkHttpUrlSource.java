@@ -66,12 +66,14 @@ public class OkHttpUrlSource implements Source {
         try {
             Response response = openConnection(offset, -1);
             String mime = response.header("Content-Type");
-            this.inputStream = new BufferedInputStream(response.body().byteStream(), DEFAULT_BUFFER_SIZE);
+            this.inputStream = new BufferedInputStream(response.body().byteStream(),
+                    DEFAULT_BUFFER_SIZE);
             long length = readSourceAvailableBytes(response, offset, response.code());
             this.sourceInfo = new SourceInfo(sourceInfo.url, length, mime);
             this.sourceInfoStorage.put(sourceInfo.url, sourceInfo);
         } catch (IOException e) {
-            throw new ProxyCacheException("Error opening okHttpClient for " + sourceInfo.url + " with offset " +
+            throw new ProxyCacheException("Error opening okHttpClient for " + sourceInfo.url + " " +
+                    "with offset " +
                     offset, e);
         }
     }
@@ -103,12 +105,14 @@ public class OkHttpUrlSource implements Source {
     @Override
     public int read(byte[] buffer) throws ProxyCacheException {
         if (inputStream == null) {
-            throw new ProxyCacheException("Error reading data from " + sourceInfo.url + ": okHttpClient is absent!");
+            throw new ProxyCacheException("Error reading data from " + sourceInfo.url + ": " +
+                    "okHttpClient is absent!");
         }
         try {
             return inputStream.read(buffer, 0, buffer.length);
         } catch (InterruptedIOException e) {
-            throw new InterruptedProxyCacheException("Reading source " + sourceInfo.url + " is interrupted", e);
+            throw new InterruptedProxyCacheException("Reading source " + sourceInfo.url + " is " +
+                    "interrupted", e);
         } catch (IOException e) {
             throw new ProxyCacheException("Error reading data from " + sourceInfo.url, e);
         }
@@ -128,7 +132,8 @@ public class OkHttpUrlSource implements Source {
             inputStream = response.body().byteStream();
             this.sourceInfo = new SourceInfo(sourceInfo.url, length, mime);
             this.sourceInfoStorage.put(sourceInfo.url, sourceInfo);
-//            VideoCacheLog.info(TAG, "Content info for `" + sourceInfo.url + "`: mime: " + mime + ", content-length:
+//            VideoCacheLog.info(TAG, "Content info for `" + sourceInfo.url + "`: mime: " + mime
+//            + ", content-length:
 // " + length);
         } catch (IOException e) {
 //            VideoCacheLog.error(TAG, "Error fetching info from " + sourceInfo.url, e);
@@ -175,7 +180,8 @@ public class OkHttpUrlSource implements Source {
         return response;
     }
 
-    private Response openConnection(long offset, int timeout) throws IOException, ProxyCacheException {
+    private Response openConnection(long offset, int timeout) throws IOException,
+            ProxyCacheException {
         if (timeout > 0) {
 //            okHttpClient.setConnectTimeout(timeout, TimeUnit.MILLISECONDS);
 //            okHttpClient.setReadTimeout(timeout, TimeUnit.MILLISECONDS);
@@ -186,7 +192,8 @@ public class OkHttpUrlSource implements Source {
         String newUrl = this.sourceInfo.url;
         int redirectCount = 0;
         do {
-//            VideoCacheLog.debug(TAG, "Open connection" + (offset > 0 ? " with offset " + offset : "") + " to " +
+//            VideoCacheLog.debug(TAG, "Open connection" + (offset > 0 ? " with offset " + offset
+//            : "") + " to " +
 // sourceInfo.url);
             Request.Builder requestBuilder = new Request.Builder()
                     .get()

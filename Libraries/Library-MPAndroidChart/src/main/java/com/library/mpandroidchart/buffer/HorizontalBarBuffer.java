@@ -6,7 +6,8 @@ import java.util.List;
 
 public class HorizontalBarBuffer extends BarBuffer {
 
-    public HorizontalBarBuffer(int size, float groupspace, int dataSetCount, boolean containsStacks) {
+    public HorizontalBarBuffer(int size, float groupspace, int dataSetCount,
+                               boolean containsStacks) {
         super(size, groupspace, dataSetCount, containsStacks);
     }
 

@@ -19,14 +19,16 @@ public class FullyGridLayoutManager extends GridLayoutManager {
         super(context, spanCount);
     }
 
-    public FullyGridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
+    public FullyGridLayoutManager(Context context, int spanCount, int orientation,
+                                  boolean reverseLayout) {
         super(context, spanCount, orientation, reverseLayout);
     }
 
     private int[] mMeasuredDimension = new int[2];
 
     @Override
-    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec
+            , int heightSpec) {
         final int widthMode = View.MeasureSpec.getMode(widthSpec);
         final int heightMode = View.MeasureSpec.getMode(heightSpec);
         final int widthSize = View.MeasureSpec.getSize(widthSpec);
@@ -85,7 +87,8 @@ public class FullyGridLayoutManager extends GridLayoutManager {
             try {
                 View view = recycler.getViewForPosition(0);
                 if (view != null) {
-                    RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
+                    RecyclerView.LayoutParams p =
+                            (RecyclerView.LayoutParams) view.getLayoutParams();
                     int childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec,
                             getPaddingLeft() + getPaddingRight(), p.width);
                     int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec,

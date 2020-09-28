@@ -80,17 +80,23 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
     UniversalAdapter<String> adapter1;
     Class[] clss = new Class[]{BallBeatIndicator.class, BallClipRotateIndicator.class,
             BallClipRotateMultipleIndicator.class,
-            BallClipRotatePulseIndicator.class, BallGridBeatIndicator.class, BallGridPulseIndicator.class,
+            BallClipRotatePulseIndicator.class, BallGridBeatIndicator.class,
+            BallGridPulseIndicator.class,
             BallPulseIndicator.class,
-            BallPulseRiseIndicator.class, BallPulseSyncIndicator.class, BallRotateIndicator.class, BallScaleIndicator
+            BallPulseRiseIndicator.class, BallPulseSyncIndicator.class, BallRotateIndicator.class
+            , BallScaleIndicator
             .class, BallScaleMultipleIndicator.class,
-            BallScaleRippleIndicator.class, BallScaleRippleMultipleIndicator.class, BallSpinFadeLoaderIndicator
+            BallScaleRippleIndicator.class, BallScaleRippleMultipleIndicator.class,
+            BallSpinFadeLoaderIndicator
             .class, BallTrianglePathIndicator.class,
-            BallZigZagDeflectIndicator.class, BallZigZagIndicator.class, CubeTransitionIndicator.class,
+            BallZigZagDeflectIndicator.class, BallZigZagIndicator.class,
+            CubeTransitionIndicator.class,
             LineScaleIndicator.class, LineScalePartyIndicator.class,
-            LineScalePulseOutIndicator.class, LineScalePulseOutRapidIndicator.class, LineSpinFadeLoaderIndicator
+            LineScalePulseOutIndicator.class, LineScalePulseOutRapidIndicator.class,
+            LineSpinFadeLoaderIndicator
             .class, PacmanIndicator.class,
-            SemiCircleSpinIndicator.class, SquareSpinIndicator.class, TriangleSkewSpinIndicator.class,};
+            SemiCircleSpinIndicator.class, SquareSpinIndicator.class,
+            TriangleSkewSpinIndicator.class,};
     List<String> dataList;
 
     @SuppressWarnings("deprecation")
@@ -139,7 +145,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
         recyclerView.setHasFixedSize(true);
         recyclerView.setCanPullUp(true);
         //第一种，简单的颜色，高度,水平分割线
-        HorizontalDividerItemDecoration horizontalDividerItemDecoration = new HorizontalDividerItemDecoration(
+        HorizontalDividerItemDecoration horizontalDividerItemDecoration =
+                new HorizontalDividerItemDecoration(
                 TestRecyclerViewAutoLoadClassicalSwipeActivity.this);
         horizontalDividerItemDecoration.setColor(this, R.color.share_texttoast_color);
         horizontalDividerItemDecoration.setDividerHeightPx(1);
@@ -171,7 +178,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
             first = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             Dialog dialog = builder.create();
-            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
+            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader",
+                    "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -245,7 +253,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
 
         recyclerView.setCanPullDown(false);//设置不能下拉时拖拽正常
         recyclerView.setCanPullUp(false);
-        //				recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager
+        //				recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,
+        //				StaggeredGridLayoutManager
         // .VERTICAL));
         //				recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -280,7 +289,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
                     return "";
                 }
             }
-        }).setTextSize(40f).setBackgroudColor(TestRecyclerViewAutoLoadClassicalSwipeActivity.this, R.color
+        }).setTextSize(40f).setBackgroudColor(TestRecyclerViewAutoLoadClassicalSwipeActivity.this
+                , R.color
                 .color_ic_laucher).setTextLeftMargin(40)
                 .setSectionHeight(100).setTextColor(TestRecyclerViewAutoLoadClassicalSwipeActivity.this, R.color
                         .white));
@@ -303,20 +313,24 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
         footer.setNoNetWorkHint("网络不给力啊，点击再试一次吧");
         footer.setState(LoadingFooter.State.Loading);
         footer.setProgressStyle(BallClipRotateIndicator.class);
-        //				adapter1 = new UniversalAdapter<String>(TestRecyclerViewAutoLoadClassicalSwipeActivity.this, R
+        //				adapter1 = new UniversalAdapter<String>
+        //				(TestRecyclerViewAutoLoadClassicalSwipeActivity.this, R
         // .layout.test_list_item_layout, items)
         //				{
         //					@Override
-        //					protected void getItemView(UniversalViewHolder viewHolder, String item, final int position)
+        //					protected void getItemView(UniversalViewHolder viewHolder, String
+        //					item, final int position)
         //					{
         //						if (position < clss.length)
         //						{
-        //							viewHolder.setText(R.id.tv, position + "   " + clss[position].getSimpleName());
+        //							viewHolder.setText(R.id.tv, position + "   " + clss[position]
+        //							.getSimpleName());
         //						} else
         //						{
         //							viewHolder.setText(R.id.tv, item);
         //						}
-        //						viewHolder.getView(R.id.tv).setOnClickListener(new View.OnClickListener()
+        //						viewHolder.getView(R.id.tv).setOnClickListener(new View
+        //						.OnClickListener()
         //						{
         //							@Override
         //							public void onClick(View v)
@@ -326,7 +340,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
         //									initFooterView(clss[position], "我是动态");
         //									adapter1.removeAllFooterView();
         //									adapter1.addFooterViewAfterSetAdapter(footerView);
-        //									ToastUtil.getProxyApplication().showToast("recyclerView的点击:" + clss[position]);
+        //									ToastUtil.getProxyApplication().showToast
+        //									("recyclerView的点击:" + clss[position]);
         //									Y.y("items.size:" + items.size());
         //									if (items.size() > 50)
         //									{
@@ -346,7 +361,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
         //						});
         //					}
         //				};
-        adapter1 = new DragAdapter<String>(this, R.layout.test_list_item_layout, items, new DragAdapter
+        adapter1 = new DragAdapter<String>(this, R.layout.test_list_item_layout, items,
+                new DragAdapter
                 .OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
@@ -355,15 +371,19 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
         }) {
 
             @Override
-            public void onItemSelected_(Context context, SwipeViewHolder viewHolder, int realPosition) {
-                viewHolder.setBackGroundColor(R.id.tv, ContextCompat.getColor(context, R.color.colorAccent));
+            public void onItemSelected_(Context context, SwipeViewHolder viewHolder,
+                                        int realPosition) {
+                viewHolder.setBackGroundColor(R.id.tv, ContextCompat.getColor(context,
+                        R.color.colorAccent));
                 viewHolder.setTextColor(R.id.tv, ContextCompat.getColor(context, R.color.white));
                 Y.y("onItemSelected_:" + realPosition + "   :");
             }
 
             @Override
-            public void onItemClear_(Context context, SwipeViewHolder viewHolder, int realPosition) {
-                viewHolder.setBackGroundColor(R.id.tv, ContextCompat.getColor(context, R.color.white));
+            public void onItemClear_(Context context, SwipeViewHolder viewHolder,
+                                     int realPosition) {
+                viewHolder.setBackGroundColor(R.id.tv, ContextCompat.getColor(context,
+                        R.color.white));
                 viewHolder.setTextColor(R.id.tv, ContextCompat.getColor(context, R.color.black));
                 Y.y("onItemClear_:" + realPosition + "   :");
             }
@@ -379,7 +399,8 @@ public class TestRecyclerViewAutoLoadClassicalSwipeActivity extends AppCompatAct
             }
 
             @Override
-            protected void getItemView(final UniversalViewHolder viewHolder, String item, final int position) {
+            protected void getItemView(final UniversalViewHolder viewHolder, String item,
+                                       final int position) {
                 if (position < clss.length) {
                     viewHolder.setText(R.id.tv, position + "   " + clss[position].getSimpleName());
                 } else {

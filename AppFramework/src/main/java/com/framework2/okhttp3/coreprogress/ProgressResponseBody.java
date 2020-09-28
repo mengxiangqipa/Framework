@@ -48,7 +48,8 @@ class ProgressResponseBody extends ResponseBody {
         if (progressListener == null) {
             return responseBody.source();
         }
-        ProgressInputStream progressInputStream = new ProgressInputStream(responseBody.source().inputStream(),
+        ProgressInputStream progressInputStream =
+                new ProgressInputStream(responseBody.source().inputStream(),
                 progressListener, contentLength());
         progressSource = Okio.buffer(Okio.source(progressInputStream));
         return progressSource;

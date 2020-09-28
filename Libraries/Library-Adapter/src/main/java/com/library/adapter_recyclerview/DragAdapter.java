@@ -22,7 +22,8 @@ public abstract class DragAdapter<D> extends UniversalAdapter<D> implements Drag
         .ItemTouchMoveDismissHelper {
     private OnStartDragListener onStartDragListener;
 
-    public DragAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List<D> list, @NonNull
+    public DragAdapter(@NonNull Context context, @LayoutRes int layoutId, @Nullable List<D> list,
+                       @NonNull
             OnStartDragListener onStartDragListener) {
         super(context, layoutId, list);
         this.onStartDragListener = onStartDragListener;
@@ -31,12 +32,14 @@ public abstract class DragAdapter<D> extends UniversalAdapter<D> implements Drag
     /**
      * item被选中
      */
-    public abstract void onItemSelected_(Context context, SwipeViewHolder viewHolder, int realPosition);
+    public abstract void onItemSelected_(Context context, SwipeViewHolder viewHolder,
+                                         int realPosition);
 
     /**
      * item取消选中
      */
-    public abstract void onItemClear_(Context context, SwipeViewHolder viewHolder, int realPosition);
+    public abstract void onItemClear_(Context context, SwipeViewHolder viewHolder,
+                                      int realPosition);
 
     /**
      * item消失
@@ -57,7 +60,8 @@ public abstract class DragAdapter<D> extends UniversalAdapter<D> implements Drag
      */
     @Override
     public void onItemDismiss(int position) {
-        onItemDismiss_(getContext(), isHeader(position) || isFooter(position) ? -2 : position - getHeaderCount());
+        onItemDismiss_(getContext(), isHeader(position) || isFooter(position) ? -2 :
+                position - getHeaderCount());
     }
 
     @Override
@@ -69,7 +73,8 @@ public abstract class DragAdapter<D> extends UniversalAdapter<D> implements Drag
         //		{
         //			//这个是表示从fromPositionReal位置与toPositionReal这个   交换位置
         //			Collections.swap(getDataList(), fromPositionReal, toPositionReal);
-        //			notifyItemRangeChanged(Math.min(fromPosition, toPosition), Math.abs(fromPosition - toPosition));
+        //			notifyItemRangeChanged(Math.min(fromPosition, toPosition), Math.abs
+        //			(fromPosition - toPosition));
         //		}
         //这个是表示从fromPositionReal位置移动到toPositionReal这个位置
         if (fromPositionReal < toPositionReal) {

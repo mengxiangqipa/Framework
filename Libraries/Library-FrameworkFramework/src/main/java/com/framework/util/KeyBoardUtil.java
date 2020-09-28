@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -11,9 +13,6 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
 
 /**
  * 键盘
@@ -139,12 +138,9 @@ public class KeyBoardUtil {
                 softKeyboardHeight);
     }
 
-    //activity的根视图
-    private View rootView;
-    //纪录根视图的显示高度
-    private int rootViewVisibleHeight;
+    private View rootView;//activity的根视图
+    private int rootViewVisibleHeight;//纪录根视图的显示高度
     private OnSoftKeyBoardChangeListener onSoftKeyBoardChangeListener;
-    private OnNavigationChangedListener onNavigationChangedListener;
 
     private KeyBoardUtil(Activity activity, final @IntRange(from = 0, to = 1920 * 2) int
             halfSoftKeyboardHeight) {
@@ -215,7 +211,6 @@ public class KeyBoardUtil {
         softKeyBoardListener.setOnSoftKeyBoardChangeListener(onSoftKeyBoardChangeListener);
     }
 
-
     public interface OnNavigationChangedListener {
         void onNavigationShow(int height);
 
@@ -230,13 +225,14 @@ public class KeyBoardUtil {
      */
     public void setOnNavigationChangedListener(@NonNull final Activity activity,
                                                final OnNavigationChangedListener onNavigationChangedListener) {
-       final View rootView=activity.getWindow().getDecorView();
-        if (onNavigationChangedListener == null||rootView == null ) {
+        final View rootView = activity.getWindow().getDecorView();
+        if (onNavigationChangedListener == null || rootView == null) {
             return;
         }
         if (getRealHeight(activity) != getHeight(activity)) {
             rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 int rootViewHeight;
+
                 @Override
                 public void onGlobalLayout() {
                     int viewHeight = rootView.getHeight();
@@ -244,16 +240,16 @@ public class KeyBoardUtil {
                         rootViewHeight = viewHeight;
                         if (viewHeight == getRealHeight(activity)) {
                             //隐藏虚拟按键
-                            onNavigationChangedListener.onNavigationHide(getRealHeight(activity)-getHeight(activity));
+                            onNavigationChangedListener.onNavigationHide(getRealHeight(activity) - getHeight(activity));
                         } else {
                             //显示虚拟按键
-                            onNavigationChangedListener.onNavigationShow(getRealHeight(activity)-getHeight(activity));
+                            onNavigationChangedListener.onNavigationShow(getRealHeight(activity) - getHeight(activity));
                         }
                     }
                 }
             });
-        }else{
-            onNavigationChangedListener.onNavigationHide(getRealHeight(activity)-getHeight(activity));
+        } else {
+            onNavigationChangedListener.onNavigationHide(getRealHeight(activity) - getHeight(activity));
         }
     }
 

@@ -94,7 +94,8 @@ public class Highlight {
     }
 
     /**
-     * Returns the range of values the selected value of a stacked bar is in. (this is only relevant for
+     * Returns the range of values the selected value of a stacked bar is in. (this is only
+     * relevant for
      * stacked-barchart)
      *
      * @return

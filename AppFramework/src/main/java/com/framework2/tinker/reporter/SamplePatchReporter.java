@@ -8,7 +8,8 @@
  *
  * https://opensource.org/licenses/BSD-3-Clause
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is
+ * Unless required by applicable law or agreed to in writing, software distributed under the
+ * License is
  * distributed on an "AS IS" basis, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
@@ -73,13 +74,15 @@ public class SamplePatchReporter extends DefaultPatchReporter {
     }
 
     @Override
-    public void onPatchTypeExtractFail(File patchFile, File extractTo, String filename, int fileType) {
+    public void onPatchTypeExtractFail(File patchFile, File extractTo, String filename,
+                                       int fileType) {
         super.onPatchTypeExtractFail(patchFile, extractTo, filename, fileType);
         SampleTinkerReport.onApplyExtractFail(fileType);
     }
 
     @Override
-    public void onPatchVersionCheckFail(File patchFile, SharePatchInfo oldPatchInfo, String patchFileVersion) {
+    public void onPatchVersionCheckFail(File patchFile, SharePatchInfo oldPatchInfo,
+                                        String patchFileVersion) {
         super.onPatchVersionCheckFail(patchFile, oldPatchInfo, patchFileVersion);
         SampleTinkerReport.onApplyVersionCheckFail();
     }

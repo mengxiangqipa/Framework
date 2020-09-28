@@ -74,7 +74,8 @@ public class CustomADprogress extends View {
         mRingColor = typeArray.getColor(R.styleable.CustomADprogress_ringColor, 0xFFFFFFFF);
         mbgRingColor = typeArray.getColor(R.styleable.CustomADprogress_bgRingColor, 0xFFFFFFFF);
         mProgress = typeArray.getFloat(R.styleable.CustomADprogress_progress, 0F);
-        drawBgCircleRing = typeArray.getBoolean(R.styleable.CustomADprogress_drawBgCircleRing, true);
+        drawBgCircleRing = typeArray.getBoolean(R.styleable.CustomADprogress_drawBgCircleRing,
+                true);
         text = typeArray.getString(R.styleable.CustomADprogress_text);
         mTextColor = typeArray.getColor(R.styleable.CustomADprogress_textColor, 0xFFFFFFFF);
         textSize = typeArray.getDimension(R.styleable.CustomADprogress_textSize_, 14);
@@ -144,7 +145,8 @@ public class CustomADprogress extends View {
 
             if (!TextUtils.isEmpty(text)) {
                 mTxtWidth = mTextPaint.measureText(text, 0, text.length());
-                canvas.drawText(text, mXCenter - mTxtWidth / 2, mYCenter + mTxtHeight / 4, mTextPaint);
+                canvas.drawText(text, mXCenter - mTxtWidth / 2, mYCenter + mTxtHeight / 4,
+                        mTextPaint);
             }
         }
     }

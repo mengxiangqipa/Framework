@@ -23,7 +23,8 @@ public class SectionAdapter extends UniversalAdapter<ContactSortModel> {
     }
 
     @Override
-    protected void getItemView(UniversalViewHolder viewHolder, ContactSortModel item, int position) {
+    protected void getItemView(UniversalViewHolder viewHolder, ContactSortModel item,
+                               int position) {
         try {
             viewHolder.setText(R.id.tvTitle, item.getName());
         } catch (Exception e) {

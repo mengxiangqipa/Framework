@@ -35,7 +35,8 @@ public class CheckUpdateService extends Service {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (ActivityTaskUtil.getInstance().isTopActivity(CheckUpdateService.this, HomePageActivity.class.getName()))
+            if (ActivityTaskUtil.getInstance().isTopActivity(CheckUpdateService.this,
+                    HomePageActivity.class.getName()))
                 requestUpdate();
         }
     };
@@ -88,7 +89,8 @@ public class CheckUpdateService extends Service {
                             UpdateInfo updateInfo = new UpdateInfo();
                             updateInfo.setVersion(TextUtils.isEmpty(t[1]) ? "版本号未知" : t[1]);
                             updateInfo.setUpdateContent(TextUtils.isEmpty(t[2]) ? "版本号未知" : t[2]);
-                            updateInfo.setDownLoadUrl(TextUtils.isEmpty(t[3]) ? "http://www.baidu.com" : t[3]);
+                            updateInfo.setDownLoadUrl(TextUtils.isEmpty(t[3]) ? "http://www.baidu" +
+                                    ".com" : t[3]);
                             EventBus.getDefault().post(updateInfo, EventBusTag.updateDialog);
                         }
                     }

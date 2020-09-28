@@ -16,7 +16,8 @@ public class LineSpinFadeLoaderIndicator extends BallSpinFadeLoaderIndicator {
         float radius = getWidth() / 10;
         for (int i = 0; i < 8; i++) {
             canvas.save();
-            Point point = circleAt(getWidth(), getHeight(), getWidth() / 2.5f - radius, i * (Math.PI / 4));
+            Point point = circleAt(getWidth(), getHeight(), getWidth() / 2.5f - radius,
+                    i * (Math.PI / 4));
             canvas.translate(point.x, point.y);
             canvas.scale(scaleFloats[i], scaleFloats[i]);
             canvas.rotate(i * 45);

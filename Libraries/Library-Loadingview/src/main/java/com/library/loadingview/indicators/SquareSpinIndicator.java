@@ -44,7 +44,8 @@ public class SquareSpinIndicator extends Indicator {
         mMatrix.postTranslate(centerX(), centerY());
         canvas.concat(mMatrix);
 
-        canvas.drawRect(new RectF(getWidth() / 5, getHeight() / 5, getWidth() * 4 / 5, getHeight() * 4 / 5), paint);
+        canvas.drawRect(new RectF(getWidth() / 5, getHeight() / 5, getWidth() * 4 / 5,
+                getHeight() * 4 / 5), paint);
     }
 
     @Override

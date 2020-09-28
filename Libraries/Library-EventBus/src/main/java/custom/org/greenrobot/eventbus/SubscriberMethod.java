@@ -33,7 +33,8 @@ public class SubscriberMethod {
     String tag;
 
     //我修改的  添加tag
-    public SubscriberMethod(Method method, Class<?> eventType, ThreadMode threadMode, int priority, boolean sticky,
+    public SubscriberMethod(Method method, Class<?> eventType, ThreadMode threadMode,
+                            int priority, boolean sticky,
                             String tag) {
         this.method = method;
         this.threadMode = threadMode;
@@ -51,7 +52,8 @@ public class SubscriberMethod {
             checkMethodString();
             SubscriberMethod otherSubscriberMethod = (SubscriberMethod) other;
             otherSubscriberMethod.checkMethodString();
-            // Don't use method.equals because of http://code.google.com/p/android/issues/detail?id=7811#c6
+            // Don't use method.equals because of http://code.google
+            // .com/p/android/issues/detail?id=7811#c6
             return methodString.equals(otherSubscriberMethod.methodString);
         } else {
             return false;

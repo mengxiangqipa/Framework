@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/ucrop_photobox"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:id="@+id/ucrop_photobox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:text="@string/ucrop_label_edit_photo"
             android:textColor="@color/ucrop_color_toolbar_widget"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,7 +42,7 @@
             android:id="@+id/ucrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0"/>
+            android:alpha="0" />
 
     </FrameLayout>
 

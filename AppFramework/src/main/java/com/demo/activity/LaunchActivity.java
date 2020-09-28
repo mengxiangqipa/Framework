@@ -64,10 +64,12 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         PreferencesHelper.getInstance().putInfo(ConstantsME.fromLauncher, true);
         ActivityTaskUtil.getInstance().addActivity(this);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
+//        .LayoutParams.FLAG_FULLSCREEN);
 
         if (PreferencesHelper.getInstance().getBooleanData(ConstantsME.NOTFIRSTIN)) {
-            if (!TextUtils.isEmpty(RSAmethodInRaw.getInstance().rsaDecrypt(this, PreferencesHelper.getInstance().getStringData
+            if (!TextUtils.isEmpty(RSAmethodInRaw.getInstance().rsaDecrypt(this,
+                    PreferencesHelper.getInstance().getStringData
                     (ConstantsME.PHONE)))
                     && !TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.token))
                     && PreferencesHelper.getInstance().getBooleanData(ConstantsME.LOGINED)
@@ -113,7 +115,8 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         listFragments.add(fragment_guide_1);
         listFragments.add(fragment_guide_2);
         listFragments.add(fragment_guide_3);
-        GuideFragmentPagerAdapter adapter = new GuideFragmentPagerAdapter(getSupportFragmentManager(), listFragments);
+        GuideFragmentPagerAdapter adapter =
+                new GuideFragmentPagerAdapter(getSupportFragmentManager(), listFragments);
         //viewPager.setPageTransformer(true, new MyPageTransformer());
         viewPager.setOffscreenPageLimit(1);
         viewPager.setAdapter(adapter);
@@ -121,11 +124,14 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         final int _21dp = ScreenUtil.getInstance().dip2px(this, 21);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //                Y.y("onPageScrolled:" + position + "   " + positionOffsetPixels + "    " +
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
+                //                Y.y("onPageScrolled:" + position + "   " + positionOffsetPixels
+                //                + "    " +
                 // positionOffset + "          " + ViewHelper.getTranslationX(tv_dot_dynamic));
                 if (currentPosition == position && oldPosition == position) {
-                    //                    ViewHelper.setTranslationX(tv_dot_dynamic, currentPosition * _21dp +
+                    //                    ViewHelper.setTranslationX(tv_dot_dynamic,
+                    //                    currentPosition * _21dp +
                     // positionOffsetPixels * _21dp / screenWidth);
                     tvDotDynamic.setTranslationX(currentPosition * _21dp + positionOffsetPixels * _21dp / screenWidth);
                 }
@@ -138,7 +144,8 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
                 }
                 //                if (count >= 3) {
                 //                    PreferenceHelper.setInfo(ConstantsME.NOTFIRSTIN, true);
-                //                    startActivity(new Intent(LaunchActivity.this, SplashActivity.class));
+                //                    startActivity(new Intent(LaunchActivity.this,
+                //                    SplashActivity.class));
                 //                    finish();
                 //                }
             }

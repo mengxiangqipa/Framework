@@ -55,7 +55,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
     private int mCroppedImageWidth, mCroppedImageHeight;
     private int cropOffsetX, cropOffsetY;
 
-    public BitmapCropTask(@NonNull Context context, @Nullable Bitmap viewBitmap, @NonNull ImageState imageState,
+    public BitmapCropTask(@NonNull Context context, @Nullable Bitmap viewBitmap,
+                          @NonNull ImageState imageState,
                           @NonNull CropParameters cropParameters,
                           @Nullable BitmapCropCallback cropCallback) {
 
@@ -128,7 +129,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
         // Rotate if needed
         if (mCurrentAngle != 0) {
             Matrix tempMatrix = new Matrix();
-            tempMatrix.setRotate(mCurrentAngle, mViewBitmap.getWidth() / 2, mViewBitmap.getHeight() / 2);
+            tempMatrix.setRotate(mCurrentAngle, mViewBitmap.getWidth() / 2,
+                    mViewBitmap.getHeight() / 2);
 
             Bitmap rotatedBitmap = Bitmap.createBitmap(mViewBitmap, 0, 0, mViewBitmap.getWidth(),
                     mViewBitmap.getHeight(),
@@ -152,7 +154,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
             saveImage(Bitmap.createBitmap(mViewBitmap, cropOffsetX, cropOffsetY, mCroppedImageWidth,
                     mCroppedImageHeight));
             if (mCompressFormat.equals(Bitmap.CompressFormat.JPEG)) {
-                ImageHeaderParser.copyExif(originalExif, mCroppedImageWidth, mCroppedImageHeight, mImageOutputPath);
+                ImageHeaderParser.copyExif(originalExif, mCroppedImageWidth, mCroppedImageHeight,
+                        mImageOutputPath);
             }
             return true;
         } else {
@@ -169,7 +172,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
 
         OutputStream outputStream = null;
         try {
-            outputStream = context.getContentResolver().openOutputStream(Uri.fromFile(new File(mImageOutputPath)));
+            outputStream =
+                    context.getContentResolver().openOutputStream(Uri.fromFile(new File(mImageOutputPath)));
             croppedBitmap.compress(mCompressFormat, mCompressQuality, outputStream);
             croppedBitmap.recycle();
         } finally {
@@ -178,7 +182,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
     }
 
     /**
-     * Check whether an image should be cropped at all or just file can be copied to the destination path.
+     * Check whether an image should be cropped at all or just file can be copied to the
+     * destination path.
      * For each 1000 pixels there is one pixel of error due to matrix calculations etc.
      *
      * @param width  - crop area width
@@ -200,7 +205,8 @@ public class BitmapCropTask extends AsyncTask<Void, Void, Throwable> {
         if (mCropCallback != null) {
             if (t == null) {
                 Uri uri = Uri.fromFile(new File(mImageOutputPath));
-                mCropCallback.onBitmapCropped(uri, cropOffsetX, cropOffsetY, mCroppedImageWidth, mCroppedImageHeight);
+                mCropCallback.onBitmapCropped(uri, cropOffsetX, cropOffsetY, mCroppedImageWidth,
+                        mCroppedImageHeight);
             } else {
                 mCropCallback.onCropFailure(t);
             }

@@ -113,13 +113,8 @@ android {
         buildConfigField "String", "PLATFORM", "\"all\""
     }
 
-    dexOptions{
+    dexOptions {
         javaMaxHeapSize "4G"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
@@ -205,44 +200,44 @@ android {
 }
 
 ext {
-    FrameworkVersion = '3.2.4'
-    FrameworkVersion_eventBus="3.2.4"
+    FrameworkVersion = '3.8.1'
+    FrameworkVersion_eventBus = "3.8.1"
     TINKER_VERSION = '1.9.1'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.13'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 
     //ok3网络请求
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
 
     //GreenDao数据库插件，不使用GreenDao数据库，将其删除
     implementation 'org.greenrobot:greendao:3.2.2'
 
-    /*butterknife注解*/
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    //butterknife注解
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //glide加载图片
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     //jsoup java抓包html
     implementation 'org.jsoup:jsoup:1.11.3'
 
     //cardview
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
 
     //    //自定义library
     implementation files('libs/ClipPicView_noSource.jar')
     implementation files('libs/open_sdk_r5788_lite.jar')
 
     implementation project(':Libraries:Library-Adapter')
-//    implementation project(':Libraries:Library-Android-Base')
+    implementation project(':Libraries:Library-Android-Base')
     implementation project(':Libraries:Library-AndroidVideoCache')
     implementation project(':Libraries:Library-CameraFilter')
     implementation project(':Libraries:Library-Choose-Media')
@@ -299,12 +294,14 @@ dependencies {
     /** tinker    */
     //gradle 3.0.0的一定要使用如下的依赖
     implementation("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
-    annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
+    annotationProcessor("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") {
+        changing = true
+    }
 //    compileOnly("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
     implementation("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
 
     //支持multidex
-    api 'androidx.multidex:multidex:2.0.0'
+    api 'com.android.support:multidex:1.0.3'
 
     /** tinker    */
     implementation files('libs/pinyin4j-2.5.0.jar')

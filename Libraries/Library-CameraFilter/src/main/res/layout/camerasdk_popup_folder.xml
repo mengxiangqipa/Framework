@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/root_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:clipToPadding="true"
-                android:background="@android:color/transparent">
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:background="@android:color/transparent">
 
 
     <LinearLayout
@@ -30,7 +30,7 @@
             android:verticalSpacing="3dp"
             android:horizontalSpacing="5dp"
             android:stretchMode="columnWidth"
-            android:gravity="center"/>
+            android:gravity="center" />
 
         <!-- <View  android:layout_height="1px"/> -->
 

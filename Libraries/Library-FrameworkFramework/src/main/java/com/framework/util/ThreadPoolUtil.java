@@ -1,18 +1,11 @@
 package com.framework.util;
 
-import android.text.TextUtils;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author YobertJomi
@@ -65,6 +58,14 @@ public class ThreadPoolUtil {
      */
     private boolean isClick = false;
 
+    //    ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
+//    scheduledThreadPool.schedule(new Runnable() {
+//
+//        @Override
+//        public void run() {
+//            System.out.println("delay 3 seconds");
+//        }
+//    }, 3, TimeUnit.SECONDS);
     public static ThreadPoolUtil getInstance() {
         if (null == instance) {
             synchronized (ThreadPoolUtil.class) {
@@ -76,68 +77,42 @@ public class ThreadPoolUtil {
         return instance;
     }
 
-    public ExecutorService getInstanceSingleTaskExecutor() {
-        return getInstanceSingleTaskExecutor("", false);
-    }
-
     /**
      * 每次只执行一个线程任务的线程池
      * 限制最大线程数的线程池 一个
      * Executors.newSingleThreadExecutor()
      */
-    public ExecutorService getInstanceSingleTaskExecutor(String threadName, boolean daemon) {
+    public static ExecutorService getInstanceSingleTaskExecutor() {
         if (null == singleTaskExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == singleTaskExecutor) {
-                    // 每次只执行一个线程任务的线程池
-                    singleTaskExecutor =
-                            Executors.newSingleThreadExecutor(new CustomThreadFactory(threadName,
-                                    daemon));
+                    singleTaskExecutor = Executors.newSingleThreadExecutor();// 每次只执行一个线程任务的线程池
                 }
             }
         }
         return singleTaskExecutor;
     }
 
-    public ExecutorService getInstance2SingleTaskExecutor() {
-        return getInstance2SingleTaskExecutor("", false);
-    }
-
-    public ExecutorService getInstance2SingleTaskExecutor(String threadName, boolean daemon) {
+    public static ExecutorService getInstance2SingleTaskExecutor() {
         if (null == singleTaskExecutor2) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == singleTaskExecutor2) {
-                    // 每次只执行一个线程任务的线程池
-                    singleTaskExecutor2 =
-                            Executors.newSingleThreadExecutor(new CustomThreadFactory(threadName,
-                                    daemon));
-                    ;
+                    singleTaskExecutor2 = Executors.newSingleThreadExecutor();// 每次只执行一个线程任务的线程池
                 }
             }
         }
         return singleTaskExecutor2;
     }
 
-    public ExecutorService getInstance3SingleTaskExecutor() {
-        return getInstance3SingleTaskExecutor("", false);
-    }
-
-    public ExecutorService getInstance3SingleTaskExecutor(String threadName, boolean daemon) {
+    public static ExecutorService getInstance3SingleTaskExecutor() {
         if (null == singleTaskExecutor3) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == singleTaskExecutor3) {
-                    // 每次只执行一个线程任务的线程池
-                    singleTaskExecutor3 =
-                            Executors.newSingleThreadExecutor(new CustomThreadFactory(threadName,
-                            daemon));
+                    singleTaskExecutor3 = Executors.newSingleThreadExecutor();// 每次只执行一个线程任务的线程池
                 }
             }
         }
         return singleTaskExecutor3;
-    }
-
-    public ExecutorService getInstanceLimitedTaskExecutor(int nThreads) {
-        return getInstanceLimitedTaskExecutor(nThreads, "", false);
     }
 
     /**
@@ -145,17 +120,11 @@ public class ThreadPoolUtil {
      * 限制最大线程数的线程池 nThreads
      * Executors.newFixedThreadPool(3)
      */
-    public ExecutorService getInstanceLimitedTaskExecutor(int nThreads, String threadName,
-                                                          boolean daemon) {
+    public static ExecutorService getInstanceLimitedTaskExecutor(int nThreads) {
         if (null == limitedTaskExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == limitedTaskExecutor) {
-                    // 限制线程池大小为3的线程池
-//                    limitedTaskExecutor = Executors.newFixedThreadPool(nThreads);
-                    limitedTaskExecutor = new ThreadPoolExecutor(nThreads, nThreads,
-                            0L, TimeUnit.MILLISECONDS,
-                            new LinkedBlockingQueue<Runnable>(),
-                            new CustomThreadFactory(threadName, daemon));
+                    limitedTaskExecutor = Executors.newFixedThreadPool(nThreads);// 限制线程池大小为3的线程池
                 }
             }
         }
@@ -167,12 +136,15 @@ public class ThreadPoolUtil {
      * 限制最大线程数的线程池3
      * Executors.newFixedThreadPool(3)
      */
-    public ExecutorService getInstanceLimitedTaskExecutor() {
-        return getInstanceLimitedTaskExecutor(3, "", false);
-    }
-
-    public static ExecutorService getInstanceAllTaskExecutor() {
-        return getInstanceAllTaskExecutor(2, 64, "", false);
+    public static ExecutorService getInstanceLimitedTaskExecutor() {
+        if (null == limitedTaskExecutor) {
+            synchronized (ThreadPoolUtil.class) {
+                if (null == limitedTaskExecutor) {
+                    limitedTaskExecutor = Executors.newFixedThreadPool(3);// 限制线程池大小为3的线程池
+                }
+            }
+        }
+        return limitedTaskExecutor;
     }
 
     /**
@@ -180,25 +152,15 @@ public class ThreadPoolUtil {
      * 没有限制最大线程数的线程池
      * Executors.newCachedThreadPool()
      */
-    public static ExecutorService getInstanceAllTaskExecutor(int corePoolSize,
-                                                             int maximumPoolSize,
-                                                             String threadName, boolean daemon) {
+    public static ExecutorService getInstanceAllTaskExecutor() {
         if (null == allTaskExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == allTaskExecutor) {
-                    // 一个没有限制最大线程数的线程池
-//                    allTaskExecutor = Executors.newCachedThreadPool();
-                    allTaskExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
-                            60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(),
-                            new CustomThreadFactory(threadName, daemon));
+                    allTaskExecutor = Executors.newCachedThreadPool(); // 一个没有限制最大线程数的线程池
                 }
             }
         }
         return allTaskExecutor;
-    }
-
-    public static ScheduledExecutorService getInstanceScheduledTaskExecutor(int corePoolSize) {
-        return getInstanceScheduledTaskExecutor(corePoolSize, "", false);
     }
 
     /**
@@ -206,16 +168,12 @@ public class ThreadPoolUtil {
      * 限制最大线程数的线程池 nThreads
      * Executors.newScheduledThreadPool(3)
      */
-    public static ScheduledExecutorService getInstanceScheduledTaskExecutor(int corePoolSize,
-                                                                            String threadName,
-                                                                            boolean daemon) {
+    public static ScheduledExecutorService getInstanceScheduledTaskExecutor(int nThreads) {
         if (null == scheduledTaskExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == scheduledTaskExecutor) {
+                    scheduledTaskExecutor = Executors.newScheduledThreadPool(nThreads);//
                     // 一个可以按指定时间可周期性的执行的线程池
-//                    scheduledTaskExecutor = Executors.newScheduledThreadPool(nThreads);
-                    scheduledTaskExecutor = new ScheduledThreadPoolExecutor(corePoolSize,
-                            new CustomThreadFactory(threadName, daemon));
                 }
             }
         }
@@ -228,28 +186,30 @@ public class ThreadPoolUtil {
      * Executors.newScheduledThreadPool(3)
      */
     public static ScheduledExecutorService getInstanceScheduledTaskExecutor() {
-        return getInstanceScheduledTaskExecutor(3, "", false);
+        if (null == scheduledTaskExecutor) {
+            synchronized (ThreadPoolUtil.class) {
+                if (null == scheduledTaskExecutor) {
+                    scheduledTaskExecutor = Executors.newScheduledThreadPool(3);//
+                    // 一个可以按指定时间可周期性的执行的线程池
+                }
+            }
+        }
+        return scheduledTaskExecutor;
     }
 
     /**
      * 创建一个可在指定时间里执行任务的线程池，亦可重复执行（不同之处：使用工程模式）
      * 限制最大线程数的线程池 nThreads
-     * Executors.newFixedThreadPool(3,new CustomThreadFactory())
+     * Executors.newFixedThreadPool(3,new MyThreadFactory())
      */
-    public static ExecutorService getInstanceScheduledTaskFactoryExecutor(int nThreads,
-                                                                          String threadName,
-                                                                          boolean daemon) {
+    public static ExecutorService getInstanceScheduledTaskFactoryExecutor(int nThreads) {
         if (null == scheduledTaskFactoryExecutor) {
             synchronized (ThreadPoolUtil.class) {
                 if (null == scheduledTaskFactoryExecutor) {
-                    // 按指定工厂模式来执行的线程池
-//                    scheduledTaskFactoryExecutor = Executors.newFixedThreadPool(nThreads,
-//                            new CustomThreadFactory(threadName, daemon));
-                    // 按指定工厂模式来执行的线程池
-                    scheduledTaskFactoryExecutor = new ThreadPoolExecutor(nThreads, nThreads,
-                            0L, TimeUnit.MILLISECONDS,
-                            new LinkedBlockingQueue<Runnable>(),
-                            new CustomThreadFactory(threadName, daemon));
+                    scheduledTaskFactoryExecutor = Executors.newFixedThreadPool(nThreads,
+                            new MyThreadFactory());// 按指定工厂模式来执行的线程池
+//                    scheduledTaskFactoryExecutor = Executors.newFixedThreadPool(3,
+//                            threadFactory);// 按指定工厂模式来执行的线程池
                 }
             }
         }
@@ -259,10 +219,20 @@ public class ThreadPoolUtil {
     /**
      * 创建一个可在指定时间里执行任务的线程池，亦可重复执行（不同之处：使用工程模式）
      * 限制最大线程数的线程池 默认为3
-     * Executors.newFixedThreadPool(3,new CustomThreadFactory())
+     * Executors.newFixedThreadPool(3,new MyThreadFactory())
      */
     public static ExecutorService getInstanceScheduledTaskFactoryExecutor() {
-        return getInstanceScheduledTaskFactoryExecutor(3, "", false);
+        if (null == scheduledTaskFactoryExecutor) {
+            synchronized (ThreadPoolUtil.class) {
+                if (null == scheduledTaskFactoryExecutor) {
+                    scheduledTaskFactoryExecutor = Executors.newFixedThreadPool(3,
+                            new MyThreadFactory());// 按指定工厂模式来执行的线程池
+//                    scheduledTaskFactoryExecutor = Executors.newFixedThreadPool(3,
+//                            threadFactory);// 按指定工厂模式来执行的线程池
+                }
+            }
+        }
+        return scheduledTaskFactoryExecutor;
     }
 
     /**
@@ -272,20 +242,25 @@ public class ThreadPoolUtil {
      *               return  Future<T>;
      */
     public static <T> Future<T> submit(Runnable task, T result) {
-        if (null != singleTaskExecutor) {
-            return singleTaskExecutor.submit(task, result);
+        if (null == singleTaskExecutor) {
+            Future<T> future = singleTaskExecutor.submit(task, result);
+            return future;
         }
-        if (null != limitedTaskExecutor) {
-            return limitedTaskExecutor.submit(task, result);
+        if (null == limitedTaskExecutor) {
+            Future<T> future = limitedTaskExecutor.submit(task, result);
+            return future;
         }
-        if (null != allTaskExecutor) {
-            return allTaskExecutor.submit(task, result);
+        if (null == allTaskExecutor) {
+            Future<T> future = allTaskExecutor.submit(task, result);
+            return future;
         }
-        if (null != scheduledTaskExecutor) {
-            return scheduledTaskExecutor.submit(task, result);
+        if (null == scheduledTaskExecutor) {
+            Future<T> future = scheduledTaskExecutor.submit(task, result);
+            return future;
         }
-        if (null != scheduledTaskFactoryExecutor) {
-            return scheduledTaskFactoryExecutor.submit(task, result);
+        if (null == scheduledTaskFactoryExecutor) {
+            Future<T> future = scheduledTaskFactoryExecutor.submit(task, result);
+            return future;
         }
         return null;
     }
@@ -300,23 +275,23 @@ public class ThreadPoolUtil {
     public static <T> boolean submit(Runnable task, T result, boolean checkIsComplete) {
         if (checkIsComplete) {
             try {
-                if (null != singleTaskExecutor) {
+                if (null == singleTaskExecutor) {
                     Future<T> future = singleTaskExecutor.submit(task, result);
                     return (null == future.get());
                 }
-                if (null != limitedTaskExecutor) {
+                if (null == limitedTaskExecutor) {
                     Future<T> future = limitedTaskExecutor.submit(task, result);
                     return (null == future.get());
                 }
-                if (null != allTaskExecutor) {
+                if (null == allTaskExecutor) {
                     Future<T> future = allTaskExecutor.submit(task, result);
                     return (null == future.get());
                 }
-                if (null != scheduledTaskExecutor) {
+                if (null == scheduledTaskExecutor) {
                     Future<T> future = scheduledTaskExecutor.submit(task, result);
                     return (null == future.get());
                 }
-                if (null != scheduledTaskFactoryExecutor) {
+                if (null == scheduledTaskFactoryExecutor) {
                     Future<T> future = scheduledTaskFactoryExecutor.submit(task, result);
                     return (null == future.get());
                 }
@@ -336,23 +311,23 @@ public class ThreadPoolUtil {
      * return  void;
      */
     public static void submit(Runnable task) {
-        if (null != singleTaskExecutor) {
+        if (null == singleTaskExecutor) {
             singleTaskExecutor.submit(task);
             return;
         }
-        if (null != limitedTaskExecutor) {
+        if (null == limitedTaskExecutor) {
             limitedTaskExecutor.submit(task);
             return;
         }
-        if (null != allTaskExecutor) {
+        if (null == allTaskExecutor) {
             allTaskExecutor.submit(task);
             return;
         }
-        if (null != scheduledTaskExecutor) {
+        if (null == scheduledTaskExecutor) {
             scheduledTaskExecutor.submit(task);
             return;
         }
-        if (null != scheduledTaskFactoryExecutor) {
+        if (null == scheduledTaskFactoryExecutor) {
             scheduledTaskFactoryExecutor.submit(task);
             return;
         }
@@ -363,19 +338,19 @@ public class ThreadPoolUtil {
      * return  void;
      */
     public static void shutdown() {
-        if (null != singleTaskExecutor) {
+        if (null == singleTaskExecutor) {
             singleTaskExecutor.shutdown();
         }
-        if (null != limitedTaskExecutor) {
+        if (null == limitedTaskExecutor) {
             limitedTaskExecutor.shutdown();
         }
-        if (null != allTaskExecutor) {
+        if (null == allTaskExecutor) {
             allTaskExecutor.shutdown();
         }
-        if (null != scheduledTaskExecutor) {
+        if (null == scheduledTaskExecutor) {
             scheduledTaskExecutor.shutdown();
         }
-        if (null != scheduledTaskFactoryExecutor) {
+        if (null == scheduledTaskFactoryExecutor) {
             scheduledTaskFactoryExecutor.shutdown();
         }
     }
@@ -385,19 +360,19 @@ public class ThreadPoolUtil {
      * return  void;
      */
     public static void shutdownNow() {
-        if (null != singleTaskExecutor) {
+        if (null == singleTaskExecutor) {
             singleTaskExecutor.shutdownNow();
         }
-        if (null != limitedTaskExecutor) {
+        if (null == limitedTaskExecutor) {
             limitedTaskExecutor.shutdownNow();
         }
-        if (null != allTaskExecutor) {
+        if (null == allTaskExecutor) {
             allTaskExecutor.shutdownNow();
         }
-        if (null != scheduledTaskExecutor) {
+        if (null == scheduledTaskExecutor) {
             scheduledTaskExecutor.shutdownNow();
         }
-        if (null != scheduledTaskFactoryExecutor) {
+        if (null == scheduledTaskFactoryExecutor) {
             scheduledTaskFactoryExecutor.shutdownNow();
         }
     }
@@ -405,24 +380,13 @@ public class ThreadPoolUtil {
     /**
      * 线程工厂初始化方式二
      */
-    private static class CustomThreadFactory implements ThreadFactory {
-
-        private String threadName;
-        private boolean daemon;
-
-        public CustomThreadFactory(String threadName, boolean daemon) {
-            this.threadName = threadName;
-            this.daemon = daemon;
-        }
+    private static class MyThreadFactory implements ThreadFactory {
 
         @Override
         public Thread newThread(Runnable r) {
             Thread thread = new Thread(r);
-            if (!TextUtils.isEmpty(threadName)) {
-                thread.setName(threadName);
-            }
-            // 将用户线程变成守护线程,默认false
-            thread.setDaemon(daemon);
+            thread.setName("MyThreadFactory");
+            thread.setDaemon(true); // 将用户线程变成守护线程,默认false
             return thread;
         }
     }

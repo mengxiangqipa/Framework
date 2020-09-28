@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 
 import static android.os.Build.VERSION_CODES.M;
 
-
 class RunTimePermissionChecker implements PermissionChecker {
 
     private String permission;
@@ -25,5 +24,4 @@ class RunTimePermissionChecker implements PermissionChecker {
         int checkResult = ContextCompat.checkSelfPermission(context, permission);
         return checkResult == PackageManager.PERMISSION_GRANTED;
     }
-
 }

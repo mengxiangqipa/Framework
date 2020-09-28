@@ -15,6 +15,7 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.library.permission.bean.Permission;
 import com.library.permission.bean.Special;
 import com.library.permission.debug.PermissionDebug;
@@ -25,7 +26,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import static android.os.Build.VERSION_CODES.M;
-
 
 public class PermissionTools {
 
@@ -47,11 +47,13 @@ public class PermissionTools {
             return false;
         }
         if (activity.isFinishing()) {
-            PermissionDebug.d(TAG, " activity is finishing :" + activity.getClass().getSimpleName());
+            PermissionDebug.d(TAG,
+                    " activity is finishing :" + activity.getClass().getSimpleName());
             return false;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed()) {
-            PermissionDebug.d(TAG, " activity is destroyed :" + activity.getClass().getSimpleName());
+            PermissionDebug.d(TAG,
+                    " activity is destroyed :" + activity.getClass().getSimpleName());
             return false;
         }
         return true;
@@ -130,7 +132,8 @@ public class PermissionTools {
     private static void goLGManager(Context context) {
         try {
             Intent intent = new Intent(context.getPackageName());
-            ComponentName comp = new ComponentName("com.android.settings", "com.android.settings.Settings$AccessLockSummaryActivity");
+            ComponentName comp = new ComponentName("com.android.settings", "com.android.settings" +
+                    ".Settings$AccessLockSummaryActivity");
             intent.setComponent(comp);
             context.startActivity(intent);
         } catch (Exception e) {
@@ -141,7 +144,8 @@ public class PermissionTools {
     private static void goSonyManager(Context context) {
         try {
             Intent intent = new Intent(context.getPackageName());
-            ComponentName comp = new ComponentName("com.sonymobile.cta", "com.sonymobile.cta.SomcCTAMainActivity");
+            ComponentName comp = new ComponentName("com.sonymobile.cta", "com.sonymobile.cta" +
+                    ".SomcCTAMainActivity");
             intent.setComponent(comp);
             context.startActivity(intent);
         } catch (Exception e) {
@@ -153,7 +157,8 @@ public class PermissionTools {
         try {
             Intent intent = new Intent(context.getPackageName());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");
+            ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei" +
+                    ".permissionmanager.ui.MainActivity");
             intent.setComponent(comp);
             context.startActivity(intent);
         } catch (Exception e) {
@@ -190,11 +195,13 @@ public class PermissionTools {
             Intent intent = new Intent();
             if ("V6".equals(rom) || "V7".equals(rom)) {
                 intent.setAction("miui.intent.action.APP_PERM_EDITOR");
-                intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions" +
+                        ".AppPermissionsEditorActivity");
                 intent.putExtra("extra_pkgname", context.getPackageName());
             } else if ("V8".equals(rom) || "V9".equals(rom)) {
                 intent.setAction("miui.intent.action.APP_PERM_EDITOR");
-                intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions" +
+                        ".PermissionsEditorActivity");
                 intent.putExtra("extra_pkgname", context.getPackageName());
             } else {
                 goOtherIntentSetting(context);
@@ -240,7 +247,8 @@ public class PermissionTools {
         try {
             context.startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(context, context.getString(R.string.permission_jump_failed), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.permission_jump_failed),
+                    Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -251,7 +259,8 @@ public class PermissionTools {
 
     /**
      * doStartApplicationWithPackageName("com.yulong.android.security:remote")
-     * 和Intent open = getPackageManager().getLaunchIntentForPackage("com.yulong.android.security:remote");
+     * 和Intent open = getPackageManager().getLaunchIntentForPackage("com.yulong.android
+     * .security:remote");
      */
     private static void goCoolpadManager(Context context) {
         doStartApplicationWithPackageName(context, "com.yulong.android.security:remote");
@@ -279,7 +288,8 @@ public class PermissionTools {
                 .queryIntentActivities(resolveIntent, 0);
         Log.e("PermissionPageManager", "resolveinfoList" + resolveinfoList.size());
         for (int i = 0; i < resolveinfoList.size(); i++) {
-            Log.e("PermissionPageManager", resolveinfoList.get(i).activityInfo.packageName + resolveinfoList.get(i).activityInfo.name);
+            Log.e("PermissionPageManager",
+                    resolveinfoList.get(i).activityInfo.packageName + resolveinfoList.get(i).activityInfo.name);
         }
         if (resolveinfoList.iterator().hasNext()) {
             ResolveInfo resolveinfo = resolveinfoList.iterator().next();

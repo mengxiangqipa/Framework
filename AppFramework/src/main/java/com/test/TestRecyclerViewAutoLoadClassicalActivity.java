@@ -66,17 +66,23 @@ public class TestRecyclerViewAutoLoadClassicalActivity extends AppCompatActivity
     UniversalAdapter<String> adapter1;
     Class[] clss = new Class[]{BallBeatIndicator.class, BallClipRotateIndicator.class,
             BallClipRotateMultipleIndicator.class,
-            BallClipRotatePulseIndicator.class, BallGridBeatIndicator.class, BallGridPulseIndicator.class,
+            BallClipRotatePulseIndicator.class, BallGridBeatIndicator.class,
+            BallGridPulseIndicator.class,
             BallPulseIndicator.class,
-            BallPulseRiseIndicator.class, BallPulseSyncIndicator.class, BallRotateIndicator.class, BallScaleIndicator
+            BallPulseRiseIndicator.class, BallPulseSyncIndicator.class, BallRotateIndicator.class
+            , BallScaleIndicator
             .class, BallScaleMultipleIndicator.class,
-            BallScaleRippleIndicator.class, BallScaleRippleMultipleIndicator.class, BallSpinFadeLoaderIndicator
+            BallScaleRippleIndicator.class, BallScaleRippleMultipleIndicator.class,
+            BallSpinFadeLoaderIndicator
             .class, BallTrianglePathIndicator.class,
-            BallZigZagDeflectIndicator.class, BallZigZagIndicator.class, CubeTransitionIndicator.class,
+            BallZigZagDeflectIndicator.class, BallZigZagIndicator.class,
+            CubeTransitionIndicator.class,
             LineScaleIndicator.class, LineScalePartyIndicator.class,
-            LineScalePulseOutIndicator.class, LineScalePulseOutRapidIndicator.class, LineSpinFadeLoaderIndicator
+            LineScalePulseOutIndicator.class, LineScalePulseOutRapidIndicator.class,
+            LineSpinFadeLoaderIndicator
             .class, PacmanIndicator.class,
-            SemiCircleSpinIndicator.class, SquareSpinIndicator.class, TriangleSkewSpinIndicator.class,};
+            SemiCircleSpinIndicator.class, SquareSpinIndicator.class,
+            TriangleSkewSpinIndicator.class,};
     List<String> dataList;
     private PullableRecyclerView recyclerView;
     private int len = 0;
@@ -130,7 +136,8 @@ public class TestRecyclerViewAutoLoadClassicalActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setCanPullUp(true);
         //第一种，简单的颜色，高度,水平分割线
-        HorizontalDividerItemDecoration horizontalDividerItemDecoration = new HorizontalDividerItemDecoration
+        HorizontalDividerItemDecoration horizontalDividerItemDecoration =
+                new HorizontalDividerItemDecoration
                 (TestRecyclerViewAutoLoadClassicalActivity.this);
         horizontalDividerItemDecoration.setColor(this, R.color.share_texttoast_color);
         horizontalDividerItemDecoration.setDividerHeightPx(1);
@@ -154,7 +161,8 @@ public class TestRecyclerViewAutoLoadClassicalActivity extends AppCompatActivity
             first = false;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             Dialog dialog = builder.create();
-            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader", "FixedContent"}, 0, new
+            builder.setSingleChoiceItems(new String[]{"FixedNothing", "FixedHeader",
+                    "FixedContent"}, 0, new
                     DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -228,7 +236,8 @@ public class TestRecyclerViewAutoLoadClassicalActivity extends AppCompatActivity
 
         recyclerView.setCanPullDown(true);
         recyclerView.setCanPullUp(false);
-        //	recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        //	recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,
+        //	StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         //	recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasMoreData(true);
@@ -262,7 +271,8 @@ public class TestRecyclerViewAutoLoadClassicalActivity extends AppCompatActivity
                     return "";
                 }
             }
-        }).setTextSize(40f).setBackgroudColor(TestRecyclerViewAutoLoadClassicalActivity.this, R.color
+        }).setTextSize(40f).setBackgroudColor(TestRecyclerViewAutoLoadClassicalActivity.this,
+                R.color
                 .color_ic_laucher).setTextLeftMargin(40)
                 .setSectionHeight(100).setTextColor(TestRecyclerViewAutoLoadClassicalActivity.this, R.color.white));
 
@@ -284,10 +294,12 @@ public class TestRecyclerViewAutoLoadClassicalActivity extends AppCompatActivity
         footer.setNoNetWorkHint("网络不给力啊，点击再试一次吧");
         footer.setState(LoadingFooter.State.Loading);
         footer.setProgressStyle(BallClipRotateIndicator.class);
-        adapter1 = new UniversalAdapter<String>(TestRecyclerViewAutoLoadClassicalActivity.this, R.layout
+        adapter1 = new UniversalAdapter<String>(TestRecyclerViewAutoLoadClassicalActivity.this,
+                R.layout
                 .test_list_item_layout, items) {
             @Override
-            protected void getItemView(UniversalViewHolder viewHolder, String item, final int position) {
+            protected void getItemView(UniversalViewHolder viewHolder, String item,
+                                       final int position) {
                 if (position < clss.length) {
                     viewHolder.setText(R.id.tv, position + "   " + clss[position].getSimpleName());
                 } else {

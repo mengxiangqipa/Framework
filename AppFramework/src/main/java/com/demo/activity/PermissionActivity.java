@@ -34,7 +34,8 @@ public class PermissionActivity extends BaseActivity {
 
 //    public void makeCall() {
 //        Permission.getProxyApplication()
-//                .checkAndRequestPermission(Manifest.permission.CALL_PHONE, new CheckRequestPermissionListener() {
+//                .checkAndRequestPermission(Manifest.permission.CALL_PHONE, new
+//                CheckRequestPermissionListener() {
 //                    @Override
 //                    public void onPermissionGranted(Permission permission) {
 //                        Utils.makeCall(AfterActivity.this, "10086");
@@ -48,15 +49,18 @@ public class PermissionActivity extends BaseActivity {
 //                            new AlertDialog.Builder(AfterActivity.this)
 //                                    .setTitle("提示")
 //                                    .setMessage("如果你拒绝了权限，你将无法拨打电话，请点击授予权限")
-//                                    .setPositiveButton("授予", new DialogInterface.OnClickListener() {
+//                                    .setPositiveButton("授予", new DialogInterface
+//                                    .OnClickListener() {
 //                                        @Override
-//                                        public void onClick(DialogInterface dialogInterface, int i) {
+//                                        public void onClick(DialogInterface dialogInterface,
+//                                        int i) {
 //                                            //用户确定以后，重新执行请求原始流程
 //                                            makeCall();
 //                                        }
 //                                    }).create().show();
 //                        } else {
-//                            Toast.makeText(AfterActivity.this, "本次拨打电话授权失败,请手动去设置页打开权限，或者重试授权权限", Toast
+//                            Toast.makeText(AfterActivity.this, "本次拨打电话授权失败,
+//                            请手动去设置页打开权限，或者重试授权权限", Toast
 //                            .LENGTH_SHORT).show();
 //                        }
 //                    }
@@ -73,10 +77,12 @@ public class PermissionActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_CODE_CONTACT:
-                    Utils.onGetChooseContactData(PermissionActivity.this, data, new Utils.ReadContactListener() {
+                    Utils.onGetChooseContactData(PermissionActivity.this, data,
+                            new Utils.ReadContactListener() {
                         @Override
                         public void onSuccess(Utils.ContactInfo contactInfo) {
-                            Toast.makeText(PermissionActivity.this, contactInfo.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PermissionActivity.this, contactInfo.toString(),
+                                    Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

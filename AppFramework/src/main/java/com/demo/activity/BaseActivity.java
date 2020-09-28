@@ -2,9 +2,8 @@ package com.demo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.demo.configs.ConstantsME;
@@ -87,7 +86,8 @@ public class BaseActivity extends AppCompatActivity {
 //        ResetConstantUtil.getProxyApplication().clearUserLoginInfo();
 //        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, "");
 //        startActivity(new Intent(BaseActivity.this,
-//                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+//                LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+//                .FLAG_ACTIVITY_NEW_TASK));
 //        finish();
     }
 

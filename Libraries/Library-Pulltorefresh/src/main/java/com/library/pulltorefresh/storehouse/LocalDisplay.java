@@ -41,7 +41,8 @@ public class LocalDisplay {
         return dp2px(designedDp);
     }
 
-    public static void setPadding(final View view, float left, float top, float right, float bottom) {
+    public static void setPadding(final View view, float left, float top, float right,
+                                  float bottom) {
         view.setPadding(designedDP2px(left), dp2px(top), designedDP2px(right), dp2px(bottom));
     }
 

@@ -17,15 +17,16 @@ package custom.org.greenrobot.eventbus;
 
 import android.os.Looper;
 
-import custom.org.greenrobot.eventbus.meta.SubscriberInfoIndex;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import custom.org.greenrobot.eventbus.meta.SubscriberInfoIndex;
+
 /**
- * Creates EventBus instances with custom parameters and also allows to install a custom default EventBus instance.
+ * Creates EventBus instances with custom parameters and also allows to install a custom default
+ * EventBus instance.
  * Create a new builder using {@link EventBus#builder()}.
  */
 public class EventBusBuilder {
@@ -48,25 +49,33 @@ public class EventBusBuilder {
     EventBusBuilder() {
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder logSubscriberExceptions(boolean logSubscriberExceptions) {
         this.logSubscriberExceptions = logSubscriberExceptions;
         return this;
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder logNoSubscriberMessages(boolean logNoSubscriberMessages) {
         this.logNoSubscriberMessages = logNoSubscriberMessages;
         return this;
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder sendSubscriberExceptionEvent(boolean sendSubscriberExceptionEvent) {
         this.sendSubscriberExceptionEvent = sendSubscriberExceptionEvent;
         return this;
     }
 
-    /** Default: true */
+    /**
+     * Default: true
+     */
     public EventBusBuilder sendNoSubscriberEvent(boolean sendNoSubscriberEvent) {
         this.sendNoSubscriberEvent = sendNoSubscriberEvent;
         return this;
@@ -75,7 +84,8 @@ public class EventBusBuilder {
     /**
      * Fails if an subscriber throws an exception (default: false).
      * <p/>
-     * Tip: Use this with BuildConfig.DEBUG to let the app crash in DEBUG mode (only). This way, you won't miss
+     * Tip: Use this with BuildConfig.DEBUG to let the app crash in DEBUG mode (only). This way,
+     * you won't miss
      * exceptions during development.
      */
     public EventBusBuilder throwSubscriberException(boolean throwSubscriberException) {
@@ -84,12 +94,16 @@ public class EventBusBuilder {
     }
 
     /**
-     * By default, EventBus considers the event class hierarchy (subscribers to super classes will be notified).
-     * Switching this feature off will improve posting of events. For simple event classes extending Object directly,
-     * we measured a speed up of 20% for event posting. For more complex event hierarchies, the speed up should be
+     * By default, EventBus considers the event class hierarchy (subscribers to super classes
+     * will be notified).
+     * Switching this feature off will improve posting of events. For simple event classes
+     * extending Object directly,
+     * we measured a speed up of 20% for event posting. For more complex event hierarchies, the
+     * speed up should be
      * >20%.
      * <p/>
-     * However, keep in mind that event posting usually consumes just a small proportion of CPU time inside an app,
+     * However, keep in mind that event posting usually consumes just a small proportion of CPU
+     * time inside an app,
      * unless it is posting at high rates, e.g. hundreds/thousands of events per second.
      */
     public EventBusBuilder eventInheritance(boolean eventInheritance) {
@@ -97,10 +111,11 @@ public class EventBusBuilder {
         return this;
     }
 
-
     /**
-     * Provide a custom thread pool to EventBus used for async and background event delivery. This is an advanced
-     * setting to that can break things: ensure the given ExecutorService won't get stuck to avoid undefined behavior.
+     * Provide a custom thread pool to EventBus used for async and background event delivery.
+     * This is an advanced
+     * setting to that can break things: ensure the given ExecutorService won't get stuck to
+     * avoid undefined behavior.
      */
     public EventBusBuilder executorService(ExecutorService executorService) {
         this.executorService = executorService;
@@ -108,8 +123,10 @@ public class EventBusBuilder {
     }
 
     /**
-     * Method name verification is done for methods starting with onEvent to avoid typos; using this method you can
-     * exclude subscriber classes from this check. Also disables checks for method modifiers (public, not static nor
+     * Method name verification is done for methods starting with onEvent to avoid typos; using
+     * this method you can
+     * exclude subscriber classes from this check. Also disables checks for method modifiers
+     * (public, not static nor
      * abstract).
      */
     public EventBusBuilder skipMethodVerificationFor(Class<?> clazz) {
@@ -120,19 +137,25 @@ public class EventBusBuilder {
         return this;
     }
 
-    /** Forces the use of reflection even if there's a generated index (default: false). */
+    /**
+     * Forces the use of reflection even if there's a generated index (default: false).
+     */
     public EventBusBuilder ignoreGeneratedIndex(boolean ignoreGeneratedIndex) {
         this.ignoreGeneratedIndex = ignoreGeneratedIndex;
         return this;
     }
 
-    /** Enables strict method verification (default: false). */
+    /**
+     * Enables strict method verification (default: false).
+     */
     public EventBusBuilder strictMethodVerification(boolean strictMethodVerification) {
         this.strictMethodVerification = strictMethodVerification;
         return this;
     }
 
-    /** Adds an index generated by EventBus' annotation preprocessor. */
+    /**
+     * Adds an index generated by EventBus' annotation preprocessor.
+     */
     public EventBusBuilder addIndex(SubscriberInfoIndex index) {
         if (subscriberInfoIndexes == null) {
             subscriberInfoIndexes = new ArrayList<>();
@@ -163,7 +186,6 @@ public class EventBusBuilder {
         }
     }
 
-
     MainThreadSupport getMainThreadSupport() {
         if (mainThreadSupport != null) {
             return mainThreadSupport;
@@ -186,7 +208,8 @@ public class EventBusBuilder {
     }
 
     /**
-     * Installs the default EventBus returned by {@link EventBus#getDefault()} using this builders' values. Must be
+     * Installs the default EventBus returned by {@link EventBus#getDefault()} using this
+     * builders' values. Must be
      * done only once before the first usage of the default EventBus.
      *
      * @throws EventBusException if there's already a default EventBus instance in place
@@ -195,16 +218,18 @@ public class EventBusBuilder {
         synchronized (EventBus.class) {
             if (EventBus.defaultInstance != null) {
                 throw new EventBusException("Default instance already exists." +
-                        " It may be only set once before it's used the first time to ensure consistent behavior.");
+                        " It may be only set once before it's used the first time to ensure " +
+                        "consistent behavior.");
             }
             EventBus.defaultInstance = build();
             return EventBus.defaultInstance;
         }
     }
 
-    /** Builds an EventBus based on the current configuration. */
+    /**
+     * Builds an EventBus based on the current configuration.
+     */
     public EventBus build() {
         return new EventBus(this);
     }
-
 }

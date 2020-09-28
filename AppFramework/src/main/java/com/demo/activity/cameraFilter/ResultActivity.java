@@ -46,7 +46,8 @@ public class ResultActivity extends Activity {
         Bundle b = getIntent().getExtras();
         getBundle(b);
         /*try{
-            mCameraSdkParameterInfo=(CameraSdkParameterInfo)b.getSerializable(CameraSdkParameterInfo.EXTRA_PARAMETER);
+            mCameraSdkParameterInfo=(CameraSdkParameterInfo)b.getSerializable
+            (CameraSdkParameterInfo.EXTRA_PARAMETER);
 		}
 		catch(Exception e){}*/
         initEvent();
@@ -57,7 +58,8 @@ public class ResultActivity extends Activity {
         if (bundle != null) {
             pic_list = new ArrayList<ImageInfo>();
 
-            mCameraSdkParameterInfo = (CameraSdkParameterInfo) bundle.getSerializable(CameraSdkParameterInfo
+            mCameraSdkParameterInfo =
+                    (CameraSdkParameterInfo) bundle.getSerializable(CameraSdkParameterInfo
                     .EXTRA_PARAMETER);
             ArrayList<String> list = mCameraSdkParameterInfo.getImage_list();
             if (list != null) {
@@ -92,7 +94,8 @@ public class ResultActivity extends Activity {
                     }
                     openCameraSDKPhotoPick(ResultActivity.this, list);
                 } else {
-                    openCameraSDKImagePreview(ResultActivity.this, pic_list.get(position).getSource_image(), position);
+                    openCameraSDKImagePreview(ResultActivity.this,
+                            pic_list.get(position).getSource_image(), position);
                 }
             }
         });

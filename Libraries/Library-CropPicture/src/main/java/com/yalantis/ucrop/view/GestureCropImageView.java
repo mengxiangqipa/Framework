@@ -61,8 +61,10 @@ public class GestureCropImageView extends CropImageView {
     }
 
     /**
-     * If it's ACTION_DOWN event - user touches the screen and all current animation must be canceled.
-     * If it's ACTION_UP event - user removed all fingers from the screen and current image position must be corrected.
+     * If it's ACTION_DOWN event - user touches the screen and all current animation must be
+     * canceled.
+     * If it's ACTION_UP event - user removed all fingers from the screen and current image
+     * position must be corrected.
      * If there are more than 2 fingers - update focal point coordinates.
      * Pass the event to the gesture detectors if those are enabled.
      */
@@ -105,7 +107,8 @@ public class GestureCropImageView extends CropImageView {
      * to the max scale value with {@link #mDoubleTapScaleSteps} double taps.
      */
     protected float getDoubleTapTargetScale() {
-        return getCurrentScale() * (float) Math.pow(getMaxScale() / getMinScale(), 1.0f / mDoubleTapScaleSteps);
+        return getCurrentScale() * (float) Math.pow(getMaxScale() / getMinScale(),
+                1.0f / mDoubleTapScaleSteps);
     }
 
     private void setupGestureListeners() {
@@ -127,7 +130,8 @@ public class GestureCropImageView extends CropImageView {
 
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            zoomImageToPosition(getDoubleTapTargetScale(), e.getX(), e.getY(), DOUBLE_TAP_ZOOM_DURATION);
+            zoomImageToPosition(getDoubleTapTargetScale(), e.getX(), e.getY(),
+                    DOUBLE_TAP_ZOOM_DURATION);
             return super.onDoubleTap(e);
         }
 

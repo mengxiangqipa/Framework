@@ -78,7 +78,8 @@ public class PersistentCookieStore {
         int len = hexString.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt
+            data[i / 2] =
+                    (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt
                     (i + 1), 16));
         }
         return data;
@@ -135,7 +136,8 @@ public class PersistentCookieStore {
             if (cookiePrefs.contains(name)) {
                 prefsWriter.remove(name);
             }
-            prefsWriter.putString(url.host(), TextUtils.join(",", cookies.get(url.host()).keySet()));
+            prefsWriter.putString(url.host(), TextUtils.join(",",
+                    cookies.get(url.host()).keySet()));
             prefsWriter.apply();
 
             return true;
@@ -223,7 +225,8 @@ public class PersistentCookieStore {
         int len = hexString.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt
+            data[i / 2] =
+                    (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character.digit(hexString.charAt
                     (i + 1), 16));
         }
         return data;

@@ -9,10 +9,9 @@ import com.library.mpandroidchart.buffer.CandleShadowBuffer;
 import com.library.mpandroidchart.data.CandleData;
 import com.library.mpandroidchart.data.CandleDataSet;
 import com.library.mpandroidchart.data.CandleEntry;
-import com.library.mpandroidchart.data.Entry;
+import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.interfaces.CandleDataProvider;
 import com.library.mpandroidchart.utils.ColorTemplate;
-import com.library.mpandroidchart.highlight.Highlight;
 import com.library.mpandroidchart.utils.Transformer;
 import com.library.mpandroidchart.utils.Utils;
 import com.library.mpandroidchart.utils.ViewPortHandler;
@@ -258,7 +257,8 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
 
                     CandleEntry entry = entries.get(j / 2 + minx);
 
-                    drawValue(c, dataSet.getValueFormatter(), entry.getHigh(), entry, i, x, y - yOffset);
+                    drawValue(c, dataSet.getValueFormatter(), entry.getHigh(), entry, i, x,
+                            y - yOffset);
                 }
             }
         }

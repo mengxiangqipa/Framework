@@ -43,10 +43,12 @@ public class CubeTransitionIndicator extends Indicator {
         for (int i = 0; i < 2; i++) {
             final int index = i;
             translateX[index] = startX;
-            ValueAnimator translationXAnim = ValueAnimator.ofFloat(startX, getWidth() - startX, getWidth() - startX,
+            ValueAnimator translationXAnim = ValueAnimator.ofFloat(startX, getWidth() - startX,
+                    getWidth() - startX,
                     startX, startX);
             if (i == 1) {
-                translationXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX, startX, getWidth() - startX,
+                translationXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX, startX,
+                        getWidth() - startX,
                         getWidth() - startX);
             }
             translationXAnim.setInterpolator(new LinearInterpolator());
@@ -60,10 +62,12 @@ public class CubeTransitionIndicator extends Indicator {
                 }
             });
             translateY[index] = startY;
-            ValueAnimator translationYAnim = ValueAnimator.ofFloat(startY, startY, getHeight() - startY, getHeight()
+            ValueAnimator translationYAnim = ValueAnimator.ofFloat(startY, startY,
+                    getHeight() - startY, getHeight()
                     - startY, startY);
             if (i == 1) {
-                translationYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY, startY, startY,
+                translationYAnim = ValueAnimator.ofFloat(getHeight() - startY,
+                        getHeight() - startY, startY, startY,
                         getHeight() - startY);
             }
             translationYAnim.setDuration(1600);

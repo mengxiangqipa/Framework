@@ -93,19 +93,23 @@ public class UpdateDialog extends Dialog {
                                 getContext().getResources().getString(R.string.app_name)
                                         + version + ".apk",
                                 getContext().getResources().getString(R.string.app_name) + "新版本"
-                                        + version, getContext().getResources().getString(R.string.app_name));
+                                        + version,
+                                getContext().getResources().getString(R.string.app_name));
                         if (null != progressHandler) {
                             //监听下载进度条
-                            activity.getContentResolver().registerContentObserver(Uri.parse("content://downloads/"),
+                            activity.getContentResolver().registerContentObserver(Uri.parse(
+                                    "content://downloads/"),
                                     true, new DownLoadObserver(progressHandler, activity,
                                             PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
                                                     .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
                         }
                         dismiss();
                     } else {
-                        int permissionCheck1 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission
+                        int permissionCheck1 = ContextCompat.checkSelfPermission(getContext(),
+                                Manifest.permission
                                 .READ_EXTERNAL_STORAGE);
-                        int permissionCheck2 = ContextCompat.checkSelfPermission(getContext(), Manifest.permission
+                        int permissionCheck2 = ContextCompat.checkSelfPermission(getContext(),
+                                Manifest.permission
                                 .WRITE_EXTERNAL_STORAGE);
                         if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 !=
                                 PackageManager.PERMISSION_GRANTED) {
@@ -133,7 +137,8 @@ public class UpdateDialog extends Dialog {
                             if (null != progressHandler) {
                                 //监听下载进度条
                                 activity.getContentResolver().registerContentObserver(Uri.parse
-                                        ("content://downloads/"), true, new DownLoadObserver(progressHandler, activity,
+                                        ("content://downloads/"), true,
+                                        new DownLoadObserver(progressHandler, activity,
                                         PreferencesHelper.getInstance().getLongData(PreferencesHelper.getInstance()
                                                 .getStringData(DownLoadManagerUtils.DownLoad_FileName))));
                             }

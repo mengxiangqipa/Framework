@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import androidx.annotation.NonNull;
+import android.support.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
-
 
 public class Utils {
 
@@ -33,11 +33,12 @@ public class Utils {
      * 选择联系人
      */
     public static void chooseContact(Activity activity, int requestCode) {
-        activity.startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI), requestCode);
+        activity.startActivityForResult(new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI), requestCode);
     }
 
-
-    public static void onGetChooseContactData(Context context, Intent data, @NonNull ReadContactListener listener) {
+    public static void onGetChooseContactData(Context context, Intent data,
+                                              @NonNull ReadContactListener listener) {
         Uri contactUri = data.getData();
         if (null == contactUri) {
             listener.onFailed();
@@ -57,7 +58,8 @@ public class Utils {
             listener.onFailed();
             return;
         }
-        String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+        String contactName =
+                cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
         ContactInfo contactInfo = new ContactInfo(contactName);
         final String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
         closeCursor(cursor);
@@ -71,7 +73,8 @@ public class Utils {
         }
 
         while (phoneCursor.moveToNext()) {
-            String phone = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            String phone =
+                    phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
             contactInfo.addPhone(phone);
         }
         closeCursor(phoneCursor);

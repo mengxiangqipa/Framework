@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/head_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/lib_ptr_black">
+    android:id="@+id/head_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lib_ptr_black">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
-                android:background="@drawable/allview_pull_icon_big"/>
+                android:background="@drawable/allview_pull_icon_big" />
 
             <ImageView
                 android:id="@+id/refreshing_icon"
@@ -32,7 +32,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="60dp"
                 android:background="@drawable/allview_refreshing"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                         android:gravity="center"
                         android:text="我在自定义里面"
                         android:textColor="#ffffffff"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_state"
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/pull_to_refresh"
                         android:textColor="#ffffffff"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

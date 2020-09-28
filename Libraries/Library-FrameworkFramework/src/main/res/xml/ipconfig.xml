@@ -2,43 +2,34 @@
 <root>
     <city name="重庆市">
         <shop name="重光测试店">
-            <ip name="http://192.168.254.160"/>
+            <ip name="http://xxx" />
         </shop>
         <shop name="重光店">
-            <ip name="http://cqryg.chunk.cn"/>
+            <ip name="http://xxx" />
         </shop>
         <shop name="QA外网">
-            <ip name="http://test.branch.k.haochang.tv"/>
+            <ip name="http://xxx" />
         </shop>
         <shop name="QA内网">
-            <ip name="http://branch.k.haochang.tv"/>
-        </shop>
-        <shop name="杨忠">
-            <ip name="http://192.168.3.206"/>
-        </shop>
-        <shop name="冯在兴">
-            <ip name="http://192.168.3.20"/>
-        </shop>
-        <shop name="陈亚荣">
-            <ip name="http://192.168.2.138"/>
+            <ip name="http://xxx" />
         </shop>
         <shop name="预上线">
-            <ip name="http://192.168.0.171"/>
+            <ip name="http://xxx" />
         </shop>
     </city>
     <city name="珠海市">
         <shop name="纯K(珠海店)">
-            <ip name="http://192.168.254.252"/>
+            <ip name="http://xxx" />
         </shop>
     </city>
     <city name="深圳市">
         <shop name="车公庙店">
-            <ip name="http://192.168.254.252"/>
+            <ip name="http://xxx" />
         </shop>
     </city>
     <city name="上海市">
         <shop name="上海培训">
-            <ip name="http://sh.branch.haochang.tv"/>
+            <ip name="http://xxx" />
         </shop>
     </city>
 </root>

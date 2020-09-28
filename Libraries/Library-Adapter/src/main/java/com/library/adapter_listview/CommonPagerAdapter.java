@@ -18,7 +18,8 @@ public class CommonPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragmentList;
     private Context context;
 
-    public CommonPagerAdapter(Context context, FragmentManager fm, List<Fragment> fragmentList, String[] titles) {
+    public CommonPagerAdapter(Context context, FragmentManager fm, List<Fragment> fragmentList,
+                              String[] titles) {
         super(fm);
         this.context = context;
         this.fragmentList = fragmentList;
@@ -27,7 +28,8 @@ public class CommonPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return null != fragmentList && fragmentList.size() > position ? fragmentList.get(position) : null;
+        return null != fragmentList && fragmentList.size() > position ?
+                fragmentList.get(position) : null;
     }
 
     @Override

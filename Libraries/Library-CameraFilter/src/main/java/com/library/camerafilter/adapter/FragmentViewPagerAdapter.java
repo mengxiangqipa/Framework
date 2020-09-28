@@ -22,7 +22,8 @@ public class FragmentViewPagerAdapter extends PagerAdapter implements ViewPager.
 
     private OnExtraPageChangeListener onExtraPageChangeListener; // ViewPager切换页面时的额外功能添加接口
 
-    public FragmentViewPagerAdapter(FragmentManager fragmentManager, ViewPager viewPager, List<Fragment> fragments) {
+    public FragmentViewPagerAdapter(FragmentManager fragmentManager, ViewPager viewPager,
+                                    List<Fragment> fragments) {
         this.fragments = fragments;
         this.fragmentManager = fragmentManager;
         this.viewPager = viewPager;

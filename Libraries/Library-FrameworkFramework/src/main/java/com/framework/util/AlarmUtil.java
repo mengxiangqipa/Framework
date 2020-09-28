@@ -33,7 +33,8 @@ public class AlarmUtil {
      * @param requestCode      alarm 的tag
      * @param wakeUpTimeMillis 开始触发时间毫秒
      */
-    public void setAlarmTaskActivity(Context context, Intent intent, int requestCode, long wakeUpTimeMillis) {
+    public void setAlarmTaskActivity(Context context, Intent intent, int requestCode,
+                                     long wakeUpTimeMillis) {
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         // Schedule the alarm!
@@ -48,7 +49,8 @@ public class AlarmUtil {
      * @param requestCode      alarm 的tag
      * @param wakeUpTimeMillis 开始触发时间毫秒
      */
-    public void setAlarmTaskRepeatActivity(Context context, Intent intent, int requestCode, long wakeUpTimeMillis,
+    public void setAlarmTaskRepeatActivity(Context context, Intent intent, int requestCode,
+                                           long wakeUpTimeMillis,
                                            long intervalMillis) {
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -64,7 +66,8 @@ public class AlarmUtil {
      * @param requestCode      alarm 的tag
      * @param wakeUpTimeMillis 开始触发时间毫秒
      */
-    public void setAlarmTaskService(Context context, Intent intent, int requestCode, long wakeUpTimeMillis) {
+    public void setAlarmTaskService(Context context, Intent intent, int requestCode,
+                                    long wakeUpTimeMillis) {
         PendingIntent pendingIntent = PendingIntent.getService(
                 context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         // Schedule the alarm!
@@ -79,7 +82,8 @@ public class AlarmUtil {
      * @param requestCode      alarm 的tag
      * @param wakeUpTimeMillis 开始触发时间毫秒
      */
-    public void setAlarmTaskRepeatService(Context context, Intent intent, int requestCode, long wakeUpTimeMillis,
+    public void setAlarmTaskRepeatService(Context context, Intent intent, int requestCode,
+                                          long wakeUpTimeMillis,
                                           long intervalMillis) {
         PendingIntent pendingIntent = PendingIntent.getService(
                 context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);

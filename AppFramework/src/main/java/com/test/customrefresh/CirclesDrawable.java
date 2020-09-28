@@ -107,7 +107,8 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
 
         mAbovePaint.setAlpha(200 + (int) (55 * (levelForCircle / MAX_LEVEL_PER_CIRCLE)));
 
-        mAxisValue = (int) (mControlPointMinimum + (mControlPointMaximum - mControlPointMinimum) * (levelForCircle /
+        mAxisValue =
+                (int) (mControlPointMinimum + (mControlPointMaximum - mControlPointMinimum) * (levelForCircle /
                 MAX_LEVEL_PER_CIRCLE));
     }
 
@@ -249,7 +250,8 @@ class CirclesDrawable extends RefreshDrawable implements Runnable {
     }
 
     private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources()
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources()
                 .getDisplayMetrics());
     }
 

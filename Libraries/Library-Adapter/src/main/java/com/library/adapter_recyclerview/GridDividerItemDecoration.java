@@ -64,7 +64,8 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             if (adapter.isHeader(position) || adapter.isFooter(position)) {//过滤header，footer
                 continue;
             }
-            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            final RecyclerView.LayoutParams params =
+                    (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = child.getLeft() - params.leftMargin;
             final int right = child.getRight() + params.rightMargin + mDivider.getIntrinsicWidth();
             final int top = child.getBottom() + params.bottomMargin;
@@ -83,7 +84,8 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
             if (adapter.isHeader(position) || adapter.isFooter(position)) {//过滤header，footer
                 continue;
             }
-            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            final RecyclerView.LayoutParams params =
+                    (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getTop() - params.topMargin;
             final int bottom = child.getBottom() + params.bottomMargin;
             final int left = child.getRight() + params.rightMargin;
@@ -93,7 +95,8 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    private boolean isLastColum(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
+    private boolean isLastColum(RecyclerView parent, @IntRange(from = 0) int itemPosition,
+                                int spanCount, int
             childCount) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
@@ -117,13 +120,15 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
         return false;
     }
 
-    private boolean isLastRaw(RecyclerView parent, @IntRange(from = 0) int itemPosition, int spanCount, int
+    private boolean isLastRaw(RecyclerView parent, @IntRange(from = 0) int itemPosition,
+                              int spanCount, int
             childCount) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
 //			childCount = childCount - childCount % spanCount;
             // 如果是最后一行，则不需要绘制底部
-            return (itemPosition >= (childCount - (childCount % spanCount == 0 ? spanCount : childCount % spanCount)));
+            return (itemPosition >= (childCount - (childCount % spanCount == 0 ? spanCount :
+                    childCount % spanCount)));
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
             // StaggeredGridLayoutManager 且纵向滚动
@@ -154,11 +159,13 @@ public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
                 int childCount = adapter.getDataItemCount();
                 if (adapter.isHeader(itemPosition) || adapter.isFooter(itemPosition)) {
                     outRect.set(0, 0, 0, 0);
-                } else if (isLastRaw(parent, itemPosition - adapter.getHeaderCount(), spanCount, childCount))//
+                } else if (isLastRaw(parent, itemPosition - adapter.getHeaderCount(), spanCount,
+                        childCount))//
                 // 如果是最后一行，则不需要绘制底部
                 {
                     outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
-                } else if (spanCount == 1 || isLastColum(parent, itemPosition - adapter.getHeaderCount(), spanCount,
+                } else if (spanCount == 1 || isLastColum(parent,
+                        itemPosition - adapter.getHeaderCount(), spanCount,
                         childCount))// 如果是最后一列，则不需要绘制右边
                 {
                     outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());

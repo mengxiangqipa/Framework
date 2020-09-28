@@ -23,6 +23,7 @@ public class RSAmethodInAssets {
         }
         return singleton;
     }
+
     /**
      * RSA数据加密
      *
@@ -35,7 +36,7 @@ public class RSAmethodInAssets {
             PublicKey publicKey = RSAutil.getInstance().loadPublicKey(inPublic);
             // 加密
             byte[] encryptByte = RSAutil.getInstance().encryptData(phone.getBytes(),
-                    publicKey);
+                    publicKey,true);
             return new String(Base64Coder.encode(encryptByte));
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,13 +51,13 @@ public class RSAmethodInAssets {
      * @return
      */
     public String rsaDecrypt(Context context, String user) {
-        String phone ;
+        String phone;
         try {
             InputStream inPrivate = context.getResources().getAssets()
                     .open("pkcs8_rsa_private_key.pem");
             PrivateKey privateKey = RSAutil.getInstance().loadPrivateKey(inPrivate);
             byte[] decryptByte1 = RSAutil.getInstance().decryptData(
-                    Base64Coder.decode(user), privateKey);
+                    Base64Coder.decode(user), privateKey,true);
             phone = new String(decryptByte1);
         } catch (Exception e) {
             e.printStackTrace();

@@ -112,7 +112,9 @@ public class MaterialPullToRefreshLayout extends BaseAbstractPullToRefreshLayout
                 header.changeStateInit();
 
                 //
-                View inflate = LayoutInflater.from(getContext()).inflate(R.layout.allview_empty_view, null);
+                View inflate =
+                        LayoutInflater.from(getContext()).inflate(R.layout.allview_empty_view,
+                                null);
                 inflate.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
                 inflate.setMinimumHeight(LocalDisplay.getScreenHeightPixels(getContext()));
                 setOnClickEmptyViewListener(this);//先设置监听器，再addview
@@ -159,7 +161,8 @@ public class MaterialPullToRefreshLayout extends BaseAbstractPullToRefreshLayout
         footer.setMinimumWidth(LocalDisplay.getScreenWidthPixels(getContext()));
         footer.setMinimumHeight((int) indicator.getRefreshDistance());
         RelativeLayout relativeLayout = new RelativeLayout(getContext());
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+        RelativeLayout.LayoutParams params =
+                new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         relativeLayout.setLayoutParams(params);
