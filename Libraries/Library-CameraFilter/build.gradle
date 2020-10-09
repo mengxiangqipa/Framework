@@ -34,7 +34,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //appcompat-v7
-    implementation rootProject.ext.androidSupport.appcompat_v7
+    implementation rootProject.ext.androidSupport.appcompat
     api files('libs/cameraFilterSdk.jar')
     api files('libs/picasso-2.4.0.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

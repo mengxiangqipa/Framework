@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     //appcompat-v7
-    api rootProject.ext.androidSupport.appcompat_v7
+    api rootProject.ext.androidSupport.appcompat
     api project(':Libraries:Library-AndroidVideoCache')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

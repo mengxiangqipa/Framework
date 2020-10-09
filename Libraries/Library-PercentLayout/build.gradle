@@ -30,7 +30,7 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation rootProject.ext.androidSupport.support_v4
+    implementation rootProject.ext.androidSupport.legacy_support_v4
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

@@ -36,7 +36,7 @@ dependencies {
     })
     api rootProject.ext.androidSupport.recyclerView
     //appcompat-v7
-    api rootProject.ext.androidSupport.appcompat_v7
+    api rootProject.ext.androidSupport.appcompat
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
