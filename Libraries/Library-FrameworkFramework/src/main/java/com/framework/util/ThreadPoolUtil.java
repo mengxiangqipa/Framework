@@ -17,7 +17,7 @@ public class ThreadPoolUtil {
      * 线程最大不要超过这个
      * 总共多少任务（根据CPU个数决定创建活动线程的个数,这样取的好处就是可以让手机承受得住）
      */
-    private static final int maxThreadsNum = Runtime.getRuntime().availableProcessors() * 3 + 2;
+    public static final int MAX_THREADS_NUM = Runtime.getRuntime().availableProcessors() * 3 + 2;
     private static ThreadPoolUtil instance;
     /**
      * 每次只执行一个任务的线程池
