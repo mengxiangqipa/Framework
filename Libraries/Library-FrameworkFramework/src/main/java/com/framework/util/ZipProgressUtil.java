@@ -93,8 +93,8 @@ public class ZipProgressUtil {
                 while ((zipEntry = inZip.getNextEntry()) != null) {
                     szName = zipEntry.getName();
                     if (zipEntry.isDirectory()) {
-                        zipName = szName;
                         szName = szName.substring(0, szName.length() - 1);
+                        zipName = szName;
                         File folder = new File(outPathString + File.separator + szName);
                         if (!folder.exists()) {
                             boolean mkdirs = folder.mkdirs();
