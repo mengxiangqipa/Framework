@@ -64,10 +64,10 @@ public class ZipProgressUtil {
     public final static class UnZipThread extends Thread {
         String zipFileString;
         String outPathString;
-        ZipListener listener;
+        ZipProgressUtil.ZipListener listener;
 
         public UnZipThread(String zipFileString, String outPathString,
-                           ZipListener listener) {
+                           ZipProgressUtil.ZipListener listener) {
             this.zipFileString = zipFileString;
             this.outPathString = outPathString;
             this.listener = listener;
@@ -93,39 +93,43 @@ public class ZipProgressUtil {
                 while ((zipEntry = inZip.getNextEntry()) != null) {
                     szName = zipEntry.getName();
                     if (zipEntry.isDirectory()) {
-                        szName = szName.substring(0, szName.length() - 1);
                         zipName = szName;
+                        szName = szName.substring(0, szName.length() - 1);
                         File folder = new File(outPathString + File.separator + szName);
-                        boolean mkdirs = folder.mkdirs();
-                        if (!mkdirs) {
-                            listener.zipFail(new Exception("创建文件夹失败"));
-                            return;
+                        if (!folder.exists()) {
+                            boolean mkdirs = folder.mkdirs();
+                            if (!mkdirs) {
+                                listener.zipFail(new Exception("创建文件夹失败"));
+                                return;
+                            }
                         }
                     } else {
                         File file = new File(outPathString + File.separator + szName);
                         final boolean success;
                         try {
-                            success = file.createNewFile();
-                            if (!success) {
-                                continue;
+                            if (!file.exists()) {
+                                success = file.createNewFile();
+                                if (!success) {
+                                    continue;
+                                }
+                                FileOutputStream out = new FileOutputStream(file);
+                                int len;
+                                byte[] buffer = new byte[1024];
+                                while ((len = inZip.read(buffer)) != -1) {
+                                    sumLength += len;
+                                    int progress = 0;
+                                    if (zipLength > 0) {
+                                        progress = (int) ((sumLength * 100) / zipLength);
+                                    }
+                                    updateProgress(progress, listener);
+                                    out.write(buffer, 0, len);
+                                    out.flush();
+                                }
+                                out.close();
                             }
                         } catch (Exception e) {
                             continue;
                         }
-                        FileOutputStream out = new FileOutputStream(file);
-                        int len;
-                        byte[] buffer = new byte[1024];
-                        while ((len = inZip.read(buffer)) != -1) {
-                            sumLength += len;
-                            int progress = 0;
-                            if (zipLength > 0) {
-                                progress = (int) ((sumLength * 100) / zipLength);
-                            }
-                            updateProgress(progress, listener);
-                            out.write(buffer, 0, len);
-                            out.flush();
-                        }
-                        out.close();
                     }
                 }
                 listener.zipSuccess(zipName);
@@ -137,7 +141,7 @@ public class ZipProgressUtil {
 
         private int lastProgress = 0;
 
-        private void updateProgress(int progress, ZipListener listener) {
+        private void updateProgress(int progress, ZipProgressUtil.ZipListener listener) {
             /** 因为会频繁的刷新,这里我只是进度>1%的时候才去显示 */
             if (progress > lastProgress) {
                 lastProgress = progress;
