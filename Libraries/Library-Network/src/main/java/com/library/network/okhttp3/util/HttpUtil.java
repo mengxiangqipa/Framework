@@ -10,6 +10,7 @@ import com.library.network.okhttp3.callback.UploadFilesCallback;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -86,20 +87,23 @@ public class HttpUtil {
         getJsonHttpRequest(context, url, headers, data, true, callback);
     }
 
-    public void postUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
-                                         final JSONObject jsonObject, final boolean callBackOnUiThread,
-                                         final String[] filePaths, final String[] addFormDataPartNames,
-                                         final long filesMaxLenth, final UploadFilesCallback uploadFilesCallback) {
-        httpAPI.doUploadFilesRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, jsonObject, callBackOnUiThread, filePaths,
-                addFormDataPartNames, filesMaxLenth, uploadFilesCallback);
+    public void postUploadFilesRequest(final Context context, final String url, final String method,
+                                       final HashMap<String, String> headers,
+                                       final HashMap<String, Object> fileMap,
+                                       final boolean callBackOnUiThread,
+                                       final long filesMaxLenth,
+                                       final UploadFilesCallback uploadFilesCallback) {
+        httpAPI.doUploadFilesRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, fileMap, callBackOnUiThread,
+                filesMaxLenth, uploadFilesCallback);
     }
 
-    public void postUploadFilesRequest(final Context context, final String url, final Map<String, String> headers,
-                                         final JSONObject jsonObject, final String[] filePaths,
-                                         final String[] addFormDataPartNames, final long filesMaxLenth,
-                                         final UploadFilesCallback uploadFilesCallback) {
-        postUploadFilesRequest(context, url, headers, jsonObject, true, filePaths,
-                addFormDataPartNames, filesMaxLenth, uploadFilesCallback);
+    public void postUploadFilesRequest(final Context context, final String url, final String method,
+                                       final HashMap<String, String> headers,
+                                       final HashMap<String, Object> fileMap,
+                                       final long filesMaxLenth,
+                                       final UploadFilesCallback uploadFilesCallback) {
+        httpAPI.doUploadFilesRequest(context, url,BaseHttpAPI.HttpMethodEnum.HTTP_METHOD_POST.getMethod(), headers, fileMap, true,
+                filesMaxLenth, uploadFilesCallback);
     }
 
     public void postDownloadFileRequest(final Context context, final String url, final Map<String, String> headers,
