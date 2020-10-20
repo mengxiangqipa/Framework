@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -120,19 +121,19 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
      * 上传文件
      *
      * @param context             Context
-     * @param filePaths           String[]
      * @param url                 String
      * @param method              String POST/GET
-     * @param jsonObject          JSONObject
+     * @param headers             header
+     * @param fileMap             文件
+     * @param callBackOnUiThread  是否在主线程
+     * @param filesMaxLenth       最大文件限制
      * @param uploadFilesCallback UploadFilesCallback
      */
     @Override
     public void doUploadFilesRequest(final Context context, final String url, final String method,
-                                     final Map<String, String> headers,
-                                     final JSONObject jsonObject,
+                                     final HashMap<String, String> headers,
+                                     final HashMap<String, Object> fileMap,
                                      final boolean callBackOnUiThread,
-                                     final String[] filePaths,
-                                     final String[] addFormDataPartNames,
                                      final long filesMaxLenth,
                                      final UploadFilesCallback uploadFilesCallback) {
         if (!NetworkUtil.getInstance().isNetworkAvailable(context)) {
@@ -149,56 +150,46 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
             }
             return;
         }
-        if (filePaths == null) {
+        if (fileMap == null) {
             if (null != uploadFilesCallback) {
-                uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_DIR, new Exception(
-                        "文件路径异常"));
-            }
-            return;
-        }
-        if (addFormDataPartNames == null || (addFormDataPartNames.length != filePaths.length)) {
-            //保证了 filePaths 与 addFormDataPartNames 不为空，且长度相等
-            if (null != uploadFilesCallback) {
-                uploadFilesCallback.onFail(ResultCode.ERROR_PARAMS, new Exception("参数异常"));
+                uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_DO_NOT_EXIST, new Exception(
+                        "文件不存在"));
             }
             return;
         }
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder();
         bodyBuilder.setType(MultipartBody.FORM);
-        if (null != jsonObject && null != jsonObject.names()) {
-            JSONArray jsonArray = jsonObject.names();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                String key = jsonArray.optString(i);
-                bodyBuilder.addFormDataPart(key, jsonObject.optString(key));
-            }
-        }
-        long upload_filesize_limit = filesMaxLenth;
         long totalFileBytes = 0;
-        if (upload_filesize_limit > 0) {
-            for (int i = 0; i < filePaths.length; i++) {
-                File file = new File(filePaths[i]);
-                if (file.isFile() && file.length() >= 20 * 1024) {// 这里过滤<20kb的
-                    totalFileBytes += file.length();
-                }
-                if (totalFileBytes > upload_filesize_limit) {
-                    if (null != uploadFilesCallback) {
-                        uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_LIMIT,
-                                new Exception("文件大小超过"
-                                        + upload_filesize_limit / 1024 / 1024 + "MB"));
+        //追加参数
+        if (null != fileMap) {
+            for (String key : fileMap.keySet()) {
+                Object object = fileMap.get(key);
+                if (object instanceof File) {
+                    File file = (File) object;
+                    bodyBuilder.addFormDataPart(key, file.getName(),
+                            RequestBody.create(MediaType.parse("application/octet-stream"), file));
+                    if (filesMaxLenth > 0) {
+                        if (file.isFile() && file.length() > 1) {
+                            totalFileBytes += file.length();
+                        }
                     }
-                    return;
+                } else {
+                    if (null != object) {
+                        bodyBuilder.addFormDataPart(key, object.toString());
+                    }
                 }
             }
         }
-        for (int i = 0; i < filePaths.length; i++) {
-            File file = new File(filePaths[i]);
-            bodyBuilder.addFormDataPart(
-                    TextUtils.isEmpty(addFormDataPartNames[i]) ? "file" + (i + 1) :
-                            addFormDataPartNames[i],
-                    file.getName(),
-                    RequestBody.create(
-                            MediaType.parse("application/octet-stream"), file));
+
+        if (filesMaxLenth > 0 && totalFileBytes > filesMaxLenth) {
+            if (null != uploadFilesCallback) {
+                uploadFilesCallback.onFail(ResultCode.ERROR_UPLOAD_FILE_LIMIT,
+                        new Exception("文件大小超过"
+                                + filesMaxLenth / 1024 / 1024 + "MB"));
+            }
+            return;
         }
+
         ProgressRequestBody progressRequestBody = new ProgressRequestBody(
                 bodyBuilder.build(), uploadFilesCallback);
         try {
@@ -207,8 +198,7 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
                     .url(url)
                     .isReturnBody(false)
                     .callBackOnUiThread(callBackOnUiThread)
-                    .postRequestBody(progressRequestBody,
-                            null == jsonObject ? null : jsonObject.toString())
+                    .postRequestBody(progressRequestBody, null)
                     .build(uploadFilesCallback);
             Ok3Util.getInstance().addToRequestQueueAsynchoronous(uploadFileRequest);
         } catch (Exception e) {
@@ -217,19 +207,17 @@ public final class BaseHttpApiImpl implements BaseHttpAPI {
     }
 
     /**
-     * @see #doUploadFilesRequest(Context, String, String, Map, JSONObject, boolean, String[], String[], long,
+     * @see #doUploadFilesRequest(Context, String, String, HashMap, HashMap, boolean, long, UploadFilesCallback)
      * UploadFilesCallback)
      */
     @Override
     public void doUploadFilesRequest(final Context context, final String url, final String method,
-                                     final Map<String, String> headers,
-                                     final JSONObject jsonObject, final String[] filePaths,
-                                     final String[] addFormDataPartNames,
+                                     final HashMap<String, String> headers,
+                                     final HashMap<String, Object> fileMap,
                                      final long filesMaxLenth,
                                      final UploadFilesCallback uploadFilesCallback) {
-        doUploadFilesRequest(context, url, method, headers, jsonObject, true, filePaths,
-                addFormDataPartNames,
-                filesMaxLenth, uploadFilesCallback);
+        doUploadFilesRequest(context, url, method, headers, fileMap, true, filesMaxLenth,
+                uploadFilesCallback);
     }
 
     /**
