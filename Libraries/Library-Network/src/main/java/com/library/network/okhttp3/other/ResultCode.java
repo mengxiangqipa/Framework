@@ -7,8 +7,8 @@ public interface ResultCode {
     int ERROR_NETWORK_NONE = 1000;
     //参数异常
     int ERROR_PARAMS = 1001;
-    //上传文件夹异常
-    int ERROR_UPLOAD_FILE_DIR = 1002;
+    //上传文件不存在
+    int ERROR_UPLOAD_FILE_DO_NOT_EXIST = 1002;
     //上传文件大小限制
     int ERROR_UPLOAD_FILE_LIMIT = 1003;
     //下载文件存储路径

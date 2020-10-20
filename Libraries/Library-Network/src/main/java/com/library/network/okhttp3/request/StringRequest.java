@@ -27,7 +27,7 @@ import okhttp3.ResponseBody;
  */
 @SuppressWarnings("unused")
 public class StringRequest extends AbstractCallback {
-    private static StringRequest.Builder builder;
+    private static Builder builder;
     private ICallback callback;
     private Request request;
     private String baseUrl;
@@ -44,8 +44,8 @@ public class StringRequest extends AbstractCallback {
         this.request = builder.request;
     }
 
-    public StringRequest.Builder newBuilder() {
-        return new StringRequest.Builder(this);
+    public Builder newBuilder() {
+        return new Builder(this);
     }
 
     @Override
@@ -194,10 +194,14 @@ public class StringRequest extends AbstractCallback {
         }
 
         public Builder put_json(String json) {
-            if (!TextUtils.isEmpty(json)) {
-                RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-                requstBuilder.put(body);
-            }
+            this.params = json;
+            RequestBody body = RequestBody.create(
+                    TextUtils.isEmpty(json) ? null :
+                            MediaType.parse("application/json; charset=utf-8"),
+                    TextUtils.isEmpty(json) ? "" : json);
+            requstBuilder.post(body);
+//            //post空可以用下面这个
+//            requstBuilder.post(custom.okhttp3.internal.Util.EMPTY_REQUEST);
             return this;
         }
 
