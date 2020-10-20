@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
-      <module name="Framework.app-choose-media" target="1.8" />
-      <module name="Framework.AppFramework" target="1.8" />
-      <module name="Framework.Libraries.Library-Adapter" target="1.8" />
-      <module name="Framework.Libraries.Library-Android-Base" target="1.8" />
-      <module name="Framework.Libraries.Library-AndroidVideoCache" target="1.8" />
-      <module name="Framework.Libraries.Library-CameraFilter" target="1.8" />
-      <module name="Framework.Libraries.Library-Choose-Media" target="1.8" />
-      <module name="Framework.Libraries.Library-ClipPicView" target="1.8" />
-      <module name="Framework.Libraries.Library-CropPicture" target="1.8" />
-      <module name="Framework.Libraries.Library-Emoji" target="1.8" />
-      <module name="Framework.Libraries.Library-EventBus" target="1.8" />
-      <module name="Framework.Libraries.Library-FrameworkFramework" target="1.8" />
-      <module name="Framework.Libraries.Library-Loadingview" target="1.8" />
-      <module name="Framework.Libraries.Library-MPAndroidChart" target="1.8" />
-      <module name="Framework.Libraries.Library-Network" target="1.8" />
-      <module name="Framework.Libraries.Library-PercentLayout" target="1.8" />
-      <module name="Framework.Libraries.Library-Permission" target="1.8" />
-      <module name="Framework.Libraries.Library-Pulltorefresh" target="1.8" />
-      <module name="Framework.Libraries.Library-Scan" target="1.8" />
-      <module name="Framework.Libraries.Library-SlideFinish" target="1.8" />
-      <module name="Framework.Libraries.Library-Ucrop" target="1.8" />
-      <module name="Framework.Libraries.Library-Videoview" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8" />
   </component>
 </project>
