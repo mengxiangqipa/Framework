@@ -11,12 +11,12 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.5.4'
         //GreenDao数据库插件，不使用GreenDao数据库，将其删除
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
         //Butterknife注解插件，不使用Butterknife注解插件就删除   library时必须有
         //AS3.0之后Butterknife 版本为8.4.0 高版本异常
-        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0'
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.15'//微信7zip压缩，资源混淆。。
 //        classpath "com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}"//gradle.properties
         classpath 'com.tencent.tinker:tinker-patch-gradle-plugin:1.9.13.2'

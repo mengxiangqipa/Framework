@@ -163,8 +163,10 @@ class SCardView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Fra
         }
         IMPL.initStatic()
 
-        IMPL.initialize(mCardViewDelegate, context, backgroundColor, radius,
-                elevation, maxElevation, direction, cardCornerVisibility, shadowStartColor, shadowEndColor)
+        if (backgroundColor != null) {
+            (IMPL as SCardViewBaseImpl).initialize(mCardViewDelegate, context, backgroundColor, radius,
+                    elevation, maxElevation, direction, cardCornerVisibility, shadowStartColor, shadowEndColor)
+        }
     }
 
 
@@ -316,7 +318,11 @@ class SCardView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : Fra
                 if (gravity == -1) {
                     gravity = DEFAULT_CHILD_GRAVITY
                 }
-                val layoutDirection = layoutDirection //Please ignore this warning , this code work well under the Android 17
+                val layoutDirection = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    layoutDirection
+                } else {
+                    TODO("VERSION.SDK_INT < JELLY_BEAN_MR1")
+                } //Please ignore this warning , this code work well under the Android 17
                 val absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection)
                 val horizontalGravity = absoluteGravity and Gravity.HORIZONTAL_GRAVITY_MASK
                 val verticalGravity = gravity and Gravity.VERTICAL_GRAVITY_MASK
