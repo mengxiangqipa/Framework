@@ -57,6 +57,7 @@ import com.framework.util.PackageManagerUtil;
 import com.framework.util.PreferencesHelper;
 import com.framework.util.RequestPermissionsUtil;
 import com.framework.util.ScreenUtil;
+import com.framework.util.StatusBarUtil;
 import com.framework.util.ToastUtil;
 import com.framework.util.Y;
 import com.framework.util.multyprocessprovider.provider.PreferencesUtil;
@@ -83,6 +84,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -162,6 +164,11 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
+
+        Random random = new Random();
+        int color = 0xff000000 | random.nextInt(0xffffff);
+        StatusBarUtil.setColor(this,color);
+
         String ddd = Base64Coder.encodeString("我是encodeString");
         Log.e("HomePageActivity enc:", ddd);
         Log.e("HomePageActivity dec:", Base64Coder.decodeString(ddd));
