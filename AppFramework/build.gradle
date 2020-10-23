@@ -259,6 +259,7 @@ dependencies {
     implementation project(':Libraries:Library-Pulltorefresh')
     implementation project(':Libraries:Library-Scan')
     implementation project(':Libraries:Library-SlideFinish')
+    implementation project(':Libraries:Library-SwipeFinish')
     implementation project(':Libraries:Library-Ucrop')
     implementation project(':Libraries:Library-Videoview')
     implementation project(':Libraries:Library-Permission')

@@ -27,6 +27,7 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
         return share;
     }
 
+    @Override
     public void onCreate() {
         super.onCreate();
         initFrameworkApplication();//使用Tinker时改变Application
@@ -51,6 +52,8 @@ public class ShareApplication extends ShareApplicationTemp {//使用Tinker时改
 
         //设置MTA渠道
         initMTAchannel();
+
+
     }
 
     /**
