@@ -207,7 +207,7 @@ ext {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     implementation 'com.android.support:appcompat-v7:28.0.0'
 
     //ok3网络请求
@@ -253,6 +253,7 @@ dependencies {
     implementation project(':Libraries:Library-Pulltorefresh')
     implementation project(':Libraries:Library-Scan')
     implementation project(':Libraries:Library-SlideFinish')
+    implementation project(path: ':Libraries:Library-SwipeFinish')
     implementation project(':Libraries:Library-Ucrop')
     implementation project(':Libraries:Library-Videoview')
     implementation project(':Libraries:Library-Permission')

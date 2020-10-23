@@ -80,8 +80,8 @@ public class StatusBarUtil {
      * @param activity 需要设置的activity
      * @param color    状态栏颜色值
      */
-    public static void setColorForSwipeBack(Activity activity, int color) {
-        setColorForSwipeBack(activity, color, DEFAULT_STATUS_BAR_ALPHA);
+    public static void setColorForSwipeFinish(Activity activity, int color) {
+        setColorForSwipeFinish(activity, color, DEFAULT_STATUS_BAR_ALPHA);
     }
 
     /**
@@ -91,7 +91,7 @@ public class StatusBarUtil {
      * @param color          状态栏颜色值
      * @param statusBarAlpha 状态栏透明度
      */
-    public static void setColorForSwipeBack(Activity activity, @ColorInt int color,
+    public static void setColorForSwipeFinish(Activity activity, @ColorInt int color,
                                             @IntRange(from = 0, to = 255) int statusBarAlpha) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
