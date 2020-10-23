@@ -45,7 +45,9 @@ dependencies {
     //appcompat-v7
     api rootProject.ext.androidSupport.appcompat
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
 }
 
 //生成jar包--自定义(会排出引用jar的class)
