@@ -31,10 +31,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //appcompat-v7
-    api rootProject.ext.androidSupport.appcompat_v7
+    compileOnly rootProject.ext.androidSupport.appcompat_v7
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    compileOnly 'com.android.support:appcompat-v7:28.0.0'
 }
 
 //以下上传jitPack 生成注释需要 ---------------------------------------------
