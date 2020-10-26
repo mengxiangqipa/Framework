@@ -112,7 +112,6 @@ public class ClassicalPullToRefreshLayout extends BaseAbstractPullToRefreshLayou
     }
 
     private void initView(Context context) {
-        Log.i("yy", "initView");
         // 初始化下拉布局
         refreshView =
                 LayoutInflater.from(getContext()).inflate(R.layout.allview_refresh_head_soft_classical, null,
