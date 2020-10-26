@@ -107,7 +107,6 @@ public class OverScrollView extends ScrollView {
     }
 
     private void initView(Context context) {
-        Log.e("yy", "initView");
 //        if (context instanceof Activity) {
 //            updateHandler = new WeakHandler((Activity) context);
 //        } else {
