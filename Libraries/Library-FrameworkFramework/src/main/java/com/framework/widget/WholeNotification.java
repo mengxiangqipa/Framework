@@ -46,6 +46,8 @@ public class WholeNotification implements View.OnTouchListener {
                 case HIDE_WINDOW:
                     dismiss();
                     break;
+                default:
+                    break;
             }
             return false;
         }
@@ -62,7 +64,8 @@ public class WholeNotification implements View.OnTouchListener {
         mWindowManager = (WindowManager)
                 mContext.getSystemService(Context.WINDOW_SERVICE);
         mWindowParams = new WindowManager.LayoutParams();
-        mWindowParams.type = WindowManager.LayoutParams.TYPE_TOAST;// 系统提示window
+        // 系统提示window
+        mWindowParams.type = WindowManager.LayoutParams.TYPE_TOAST;
         mWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
         mWindowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         mWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -83,8 +86,9 @@ public class WholeNotification implements View.OnTouchListener {
      */
     private void setView(Builder builder) {
         mContentView = builder.getView();
-        if (builder.isMonitorTouch())
+        if (builder.isMonitorTouch()) {
             mContentView.setOnTouchListener(this);
+        }
     }
 
     @Override
@@ -115,6 +119,8 @@ public class WholeNotification implements View.OnTouchListener {
                 } else {
                     startRestoreAnimator();
                 }
+                break;
+            default:
                 break;
         }
         return true;
@@ -256,8 +262,9 @@ public class WholeNotification implements View.OnTouchListener {
         }
 
         public WholeNotification build() {
-            if (null == context)
+            if (null == context) {
                 throw new IllegalArgumentException("the context is required.");
+            }
 
             return new WholeNotification(this);
         }

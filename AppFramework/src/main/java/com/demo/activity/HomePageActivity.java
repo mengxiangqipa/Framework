@@ -11,12 +11,15 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -47,6 +50,7 @@ import com.demo.demo.R;
 import com.demo.demo.databinding.ActivityHomepageBinding;
 import com.demo.entity.DataBindingItem;
 import com.demo.entity.UpdateInfo;
+import com.demo.enums.StateEnum;
 import com.demo.service.CheckUpdateService;
 import com.framework.application.ProxyApplication;
 import com.framework.security.AesUtil;
@@ -75,6 +79,7 @@ import com.framework2.utils.PicToastUtil;
 import com.library.adapter_recyclerview.HorizontalDividerItemDecoration2;
 import com.library.adapter_recyclerview.UniversalAdapter;
 import com.library.androidvideocache.Utils;
+import com.library.slidefinish.model.SlidrListener;
 import com.test.MainActivity;
 import com.test.MyHandlers;
 import com.testactivity.ScanActivity;
@@ -135,7 +140,11 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
     private WholeNotification wholeNotification;
     private long exitTime;
 
-    //eventBus通知新消息
+    /**
+     * eventBus通知新消息
+     *
+     * @param info UpdateInfo
+     */
     @Subscribe(threadMode = ThreadMode.MAIN, tag = EventBusTag.updateDialog)
     public void eventBusUpdate(UpdateInfo info) {
         if (info != null) {
@@ -152,18 +161,34 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public void _onCreate() {
+    public void initContentView(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_homepage_setcontentview);
         ButterKnife.bind(this);
 //       ActivityHomepageBinding viewDataBinding = DataBindingUtil.inflate
 //       (LayoutInflater.from(this), R.layout.activity_homepage, null, true);
-//        ActivityHomepageBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_homepage);
+//        ActivityHomepageBinding viewDataBinding = DataBindingUtil.setContentView(this, R.layout
+//        .activity_homepage);
 //        DataBindingItem item = new DataBindingItem();
 //        item.title.set("我来自dataBinding:\n" + getResources().getText(R.string.content));
 //        viewDataBinding.setDataBindingItem(item);
 //        viewDataBinding.setMyHandler(new MyHandlers(this));
+
+    }
+
+    @Override
+    public void initLocalData(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void initUi(@Nullable Bundle savedInstanceState) {
+        viewPager();
+        initRecyclerView();
+    }
+
+    @Override
+    public void initLocalDataAfterUi(@Nullable Bundle savedInstanceState) {
         String ddd = Base64Coder.encodeString("我是encodeString");
         Log.e("HomePageActivity enc:", ddd);
         Log.e("HomePageActivity dec:", Base64Coder.decodeString(ddd));
@@ -173,7 +198,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         ToastUtil.getInstance().showToast("我是跨进程数据操作：" + PreferencesUtil.getInstance().getString(
                 "test"));
         String cookiesWithRsa = RSAutil.getInstance().encryptDataByGenenalPublicKey("123456");
-        String cookiesWithRsaAbs = RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRsa);
+        String cookiesWithRsaAbs =
+                RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRsa);
         Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRsaAbs);
         try {
             SecurityManagerUtil.getInstance().put(ProxyApplication.getProxyApplication(), "sec",
@@ -181,8 +207,9 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
             Log.e("HomePageActivity我是加密:",
                     SecurityManagerUtil.getInstance().get(ProxyApplication.getProxyApplication(),
                             "sec"));
-            Log.e("HomePageActivity", "encrypt-AA:" + RSAutil.getInstance().encryptDataByGenenalPublicKey(
-                    "18725618900"));
+            Log.e("HomePageActivity",
+                    "encrypt-AA:" + RSAutil.getInstance().encryptDataByGenenalPublicKey(
+                            "18725618900"));
             Log.e("HomePageActivity",
                     "decrypt-AA:" + RSAutil.getInstance().decryptDataByGenenalPrivateKey(RSAutil.getInstance().encryptDataByGenenalPublicKey("18725618900")));
         } catch (Exception e) {
@@ -193,8 +220,30 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         serviceIntent = new Intent(this, CheckUpdateService.class);
         startService(serviceIntent);
 
-        //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this,
-        //		progressHandler, false);//检查版本更新
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)).load(
+                "http://img.my.csdn" +
+                        ".net/uploads/201508/05/1438760757_3588.jpg")
+                .into(ivGlide);
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
+                (DiskCacheStrategy.ALL)).load(R.drawable.gif).into(ivGif);
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
+                (DiskCacheStrategy.ALL)).load(R.drawable.abcd).into(ivGif2);
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
+                (DiskCacheStrategy.ALL)).load(R.mipmap.fun).into(ivGif3);
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
+                (DiskCacheStrategy.ALL)).load(R.mipmap.dog).into(ivGif4);
+
+        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)
+                .placeholder(R.mipmap.icon_qq)
+                .error(R.mipmap.icon_qq)
+                .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .load(R.mipmap.beauty)
+                .into(ivGif5);
+    }
+
+    @Override
+    public void requestNetData() {
+        super.requestNetData();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("is_printed", "1");
@@ -215,6 +264,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
                         .build(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
+                                setNetStateEnum(StateEnum.FAIL);
                                 try {
                                     Thread.sleep(1000);
                                 } catch (InterruptedException e1) {
@@ -224,7 +274,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-
+                                setNetStateEnum(StateEnum.SUCCESS);
                             }
                         });
 //        for (int i = 0; i < 500; i++)
@@ -233,32 +283,34 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //                .cookieJar(new AllCookieJar(this))
                 .connectTimeout(15000, TimeUnit.MILLISECONDS).retryOnConnectionFailure(false))
                 .addToRequestQueueAsynchoronous(false, jsonRequest);
-        viewPager();
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)).load(
-                "http://img.my.csdn" +
-                        ".net/uploads/201508/05/1438760757_3588.jpg")
-                .into(ivGlide);
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
-                (DiskCacheStrategy.ALL)).load(R.drawable.gif).into(ivGif);
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
-                (DiskCacheStrategy.ALL)).load(R.drawable.abcd).into(ivGif2);
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
-                (DiskCacheStrategy.ALL)).load(R.mipmap.fun).into(ivGif3);
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH).diskCacheStrategy
-                (DiskCacheStrategy.ALL)).load(R.mipmap.dog).into(ivGif4);
 
-        Glide.with(this).setDefaultRequestOptions(RequestOptions.priorityOf(Priority.HIGH)
-                .placeholder(R.mipmap.icon_qq)
-                .error(R.mipmap.icon_qq)
-                .diskCacheStrategy(DiskCacheStrategy.ALL))
-                .load(R.mipmap.beauty)
-                .into(ivGif5);
-        initRecyclerView();
+        //		UpdateUtil.getInstanse().requestUpdateVersion(HomePageActivity.this,
+        //		progressHandler, false);//检查版本更新
     }
 
     @Override
-    public void onSlideClose() {
-        finishActivity();
+    public void initListener() {
+        setSlidrListener(new SlidrListener() {
+            @Override
+            public void onSlideStateChanged(int state) {
+
+            }
+
+            @Override
+            public void onSlideChange(float percent) {
+
+            }
+
+            @Override
+            public void onSlideOpened() {
+
+            }
+
+            @Override
+            public void onSlideClosed() {
+                finishActivity();
+            }
+        });
     }
 
     @Override
@@ -300,7 +352,8 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));//（与scrollview嵌套）
+        //（与scrollview嵌套）
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new UniversalAdapter<String>(this, R.layout.test_list_item_layout
                 , items) {
             @Override
@@ -315,9 +368,12 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
 //                                EventBus.getDefault().post("我的", "test2");
 //                                startActivity(MainActivity.class);
 
-                                String cookiesWithRsa = RSAutil.getInstance().encryptDataByGenenalPublicKey("123456");
+                                String cookiesWithRsa =
+                                        RSAutil.getInstance().encryptDataByGenenalPublicKey(
+                                                "123456");
                                 Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRsa);
-                                String cookiesWithRsaAbs = RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRsa);
+                                String cookiesWithRsaAbs =
+                                        RSAutil.getInstance().decryptDataByGenenalPrivateKey(cookiesWithRsa);
                                 Log.e("HomePageActivity", "rsa-AA:" + cookiesWithRsaAbs);
                                 break;
                             case "Tinker测试":
@@ -632,8 +688,7 @@ public class HomePageActivity extends BaseAbsSlideFinishActivity implements Acti
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - this.exitTime > 2000L) {
                 this.exitTime = System.currentTimeMillis();
-                View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification,
-                        null);
+                View view = LayoutInflater.from(this).inflate(R.layout.layout_whole_notification, null);
                 View v_state_bar = view.findViewById(R.id.v_state_bar);
                 ViewGroup.LayoutParams layoutParameter = v_state_bar.getLayoutParams();
                 layoutParameter.height = ScreenUtil.getInstance().getStatusBarHeightPx(this);

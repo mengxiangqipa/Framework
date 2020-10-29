@@ -3,8 +3,6 @@ package com.demo.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import com.demo.configs.ConstantsME;
@@ -23,6 +21,7 @@ import com.library.slidefinish.model.SlidrPosition;
 
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import custom.org.greenrobot.eventbus.EventBus;
 
 /**
@@ -32,19 +31,15 @@ import custom.org.greenrobot.eventbus.EventBus;
  * className BaseActivity
  * created at  2017/3/15  13:44
  */
-public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
-
-    public abstract void _onCreate();
-
-    public abstract void onSlideClose();
+public abstract class BaseAbsSlideFinishActivity extends BaseActivity {
 
     public abstract int[] initPrimeryColor();
 
-    @SuppressWarnings("unchecked")
+    private SlidrListener slidrListener;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _onCreate();
         ForbidAndroidPhideAPIdialog.getInstance().closeAndroidPdialog();
         ScreenUtil.getInstance().setSystemUiColorDark(this, true);
         int primary = getResources().getColor(R.color.black);
@@ -65,22 +60,30 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
                 .listener(new SlidrListener() {
                     @Override
                     public void onSlideStateChanged(int state) {
-
+                        if (null != slidrListener) {
+                            slidrListener.onSlideStateChanged(state);
+                        }
                     }
 
                     @Override
                     public void onSlideChange(float percent) {
-
+                        if (null != slidrListener) {
+                            slidrListener.onSlideChange(percent);
+                        }
                     }
 
                     @Override
                     public void onSlideOpened() {
-
+                        if (null != slidrListener) {
+                            slidrListener.onSlideOpened();
+                        }
                     }
 
                     @Override
                     public void onSlideClosed() {
-                        onSlideClose();
+                        if (null != slidrListener) {
+                            slidrListener.onSlideClosed();
+                        }
                     }
                 })
                 .build();
@@ -92,16 +95,18 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
         }
     }
 
+    public SlidrListener getSlidrListener() {
+        return slidrListener;
+    }
+
+    public void setSlidrListener(SlidrListener slidrListener) {
+        this.slidrListener = slidrListener;
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        ActivityTaskUtil.getInstance().removeActivity(this);
-        List<Activity> list = ActivityTaskUtil.getInstance().getActivityList();
-        for (int i = 0; i < list.size(); i++) {
-            Activity ac = list.get(i);
-            Y.y("i==" + i + "--:" + ac.getLocalClassName());
-        }
         try {
             ViewServer.get(this).removeWindow(this);
         } catch (Exception e) {
@@ -111,7 +116,6 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
 //            Utils.isCloseSoftInputMethod(this, null, true);
@@ -122,6 +126,7 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
     public void startActivity(@Nullable Class<?> cls) {
         startActivity(cls, new Bundle());
     }
@@ -129,16 +134,18 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
     /**
      * 返回主页，这个会clearHistoryTasks，并新建HomepageActivity
      */
+    @Override
     public void goBackHomepage(boolean shouldRefresh) {
         Intent intent =
                 new Intent(BaseAbsSlideFinishActivity.this, HomePageActivity.class).setFlags(Intent
-                .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        .FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(ConstantsME.CITY, shouldRefresh);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_right_in,
                 R.anim.slide_left_out);
     }
 
+    @Override
     public void goBackHomepage() {
         goBackHomepage(false);
     }
@@ -146,6 +153,7 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
     /**
      * 返回重新登录
      */
+    @Override
     public void reLogin() {
 //        ResetConstantUtil.getProxyApplication().clearUserLoginInfo();
 //        PreferencesHelper.getProxyApplication().putInfo(ConstantsME.token, "");
@@ -155,37 +163,45 @@ public abstract class BaseAbsSlideFinishActivity extends AppCompatActivity {
 //        finish();
     }
 
+    @Override
     public void startActivity(@Nullable Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(BaseAbsSlideFinishActivity.this, cls);
-        if (null != bundle)
+        if (null != bundle) {
             intent.putExtras(bundle);
+        }
         startActivity(intent);
         overridePendingTransition(R.anim.slide_right_in,
                 R.anim.slide_left_out);
     }
 
+    @Override
     public void startActivity(@Nullable Class<?> cls, Entity entity) {
         Intent intent = new Intent(BaseAbsSlideFinishActivity.this, cls);
-        if (null != entity)
+        if (null != entity) {
             intent.putExtra(ConstantsME.entity, entity);
+        }
         startActivity(intent);
         overridePendingTransition(R.anim.slide_right_in,
                 R.anim.slide_left_out);
     }
 
+    @Override
     public void startActivityForResult(@Nullable Class<?> cls, Bundle bundle, int requestCode) {
         Intent intent = new Intent(BaseAbsSlideFinishActivity.this, cls);
-        if (null != bundle)
+        if (null != bundle) {
             intent.putExtras(bundle);
+        }
         startActivityForResult(intent, requestCode);
         overridePendingTransition(R.anim.slide_right_in,
                 R.anim.slide_left_out);
     }
 
+    @Override
     public void beforeFinishActivity() {
 
     }
 
+    @Override
     public void finishActivity() {
 //        Utils.isCloseSoftInputMethod(this, null, true);
         finish();
