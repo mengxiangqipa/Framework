@@ -204,6 +204,7 @@ public class SplashActivity extends BaseActivity {
         enterActivity();
     }
 
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             int pid = Process.myPid();

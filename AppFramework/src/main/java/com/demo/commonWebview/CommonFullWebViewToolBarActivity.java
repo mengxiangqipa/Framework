@@ -89,7 +89,7 @@ public class CommonFullWebViewToolBarActivity extends BaseActivity {
 
     //eventBus通知新消息
     @Subscribe(threadMode = ThreadMode.MAIN, tag = EventBusTag.newMessage)
-    public void receivedNewMessage(String info) {
+    public void receivedNewMessageaa(String info) {
     }
 
     private void initView() {

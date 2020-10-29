@@ -3,9 +3,6 @@ package com.demo.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,9 +15,9 @@ import android.widget.TextView;
 import com.demo.callbacks.CallBack_enter;
 import com.demo.configs.ConstantsME;
 import com.demo.demo.R;
-import com.demo.fragment.Fragment_guide_1;
-import com.demo.fragment.Fragment_guide_2;
-import com.demo.fragment.Fragment_guide_3;
+import com.demo.fragment.GuideFragment1;
+import com.demo.fragment.GuideFragment2;
+import com.demo.fragment.GuideFragment3;
 import com.framework.security.RSAmethodInRaw;
 import com.framework.util.ActivityTaskUtil;
 import com.framework.util.PreferencesHelper;
@@ -29,6 +26,9 @@ import com.library.adapter_recyclerview.GuideFragmentPagerAdapter;
 
 import java.util.ArrayList;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -70,7 +70,7 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         if (PreferencesHelper.getInstance().getBooleanData(ConstantsME.NOTFIRSTIN)) {
             if (!TextUtils.isEmpty(RSAmethodInRaw.getInstance().rsaDecrypt(this,
                     PreferencesHelper.getInstance().getStringData
-                    (ConstantsME.PHONE)))
+                            (ConstantsME.PHONE)))
                     && !TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.token))
                     && PreferencesHelper.getInstance().getBooleanData(ConstantsME.LOGINED)
                     && !TextUtils.isEmpty(PreferencesHelper.getInstance().getStringData(ConstantsME.currentShopId))) {
@@ -109,12 +109,9 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
 
     private void initViewPager() {
         ArrayList<Fragment> listFragments = new ArrayList<>();
-        Fragment_guide_1 fragment_guide_1 = new Fragment_guide_1();
-        Fragment_guide_2 fragment_guide_2 = new Fragment_guide_2();
-        Fragment_guide_3 fragment_guide_3 = new Fragment_guide_3();
-        listFragments.add(fragment_guide_1);
-        listFragments.add(fragment_guide_2);
-        listFragments.add(fragment_guide_3);
+        listFragments.add(GuideFragment1.newInstance(null));
+        listFragments.add(GuideFragment2.newInstance(null));
+        listFragments.add(GuideFragment3.newInstance(null));
         GuideFragmentPagerAdapter adapter =
                 new GuideFragmentPagerAdapter(getSupportFragmentManager(), listFragments);
         //viewPager.setPageTransformer(true, new MyPageTransformer());
@@ -177,6 +174,7 @@ public class LaunchActivity extends BaseActivity implements OnClickListener, Cal
         }
     }
 
+    @Override
     @OnClick(R.id.tvGo)
     public void onClick(View view) {
         Intent intent;
