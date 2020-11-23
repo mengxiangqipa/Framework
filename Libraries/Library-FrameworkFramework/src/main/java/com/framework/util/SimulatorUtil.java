@@ -5,13 +5,14 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 /**
  * 验证当前设备是否为模拟器
@@ -19,7 +20,6 @@ import java.nio.charset.StandardCharsets;
  * @author YobertJomi
  */
 public class SimulatorUtil {
-o
     public static boolean isSimulator = false;
 
     /**
